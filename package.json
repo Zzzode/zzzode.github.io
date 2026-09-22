@@ -1,0 +1,26 @@
+{
+  "name": "zzzode-github-io",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Zzzode's personal website — Astro + Tailwind v4, Apple-style design.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.3",
+    "tailwindcss": "^4.3.3",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@tailwindcss/typography": "^0.5.20",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import EntryList from '../../components/EntryList.astro';
+import EmptyState from '../../components/EmptyState.astro';
+import type { Entry } from '../../lib/entries';
+
+const papers = (await getCollection('publications')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const entries: Entry[] = papers.map((paper) => {
+  const href =
+    paper.data.paperurl ??
+    (paper.data.doi ? `https://doi.org/${paper.data.doi}` : paper.data.pdf);
+  return {
+    title: paper.data.title,
+    meta: `${paper.data.venue} · ${paper.data.date.getFullYear()}`,
+    excerpt: paper.data.excerpt,
+    href,
+    external: href !== paper.data.pdf,
+  };
+});
+---
+
+<BaseLayout title="论文" description="Zzzode 的论文与出版物。">
+  <PageHeader eyebrow="PUBLICATIONS" title="论文" lead="研究论文与出版物，按时间倒序排列。" />
+  {
+    entries.length === 0 ? (
+      <EmptyState text="还没有内容，新的论文会出现在这里。" />
+    ) : (
+      <EntryList entries={entries} />
+    )
+  }
+</BaseLayout>

@@ -1,0 +1,165 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*
+  Apple-style design tokens — docs/design/apple-style-guide.md is the
+  authority. Components may only reference these tokens; no ad-hoc hex
+  values outside @theme. The custom properties also land on :root, so
+  hand-written HTML inside posts can use var(--color-ink) etc.
+*/
+@theme {
+  /* grayscale skeleton */
+  --color-ink: #1d1d1f;
+  --color-ink-2: #424245;
+  --color-muted: #6e6e73;
+  --color-muted-2: #86868b;
+  --color-paper: #f5f5f7;
+  --color-line: #dedee3;
+  --color-line-soft: #ececf0;
+
+  /* the single accent; --color-compare is for dual-subject
+     comparisons ONLY (see design guide §5) */
+  --color-blue: #0066cc;
+  --color-blue-hover: #0050a3;
+  --color-blue-on-dark: #2997ff;
+  --color-compare: #e8710a;
+
+  /* system font stacks only — no webfonts */
+  --font-sans:
+    "SF Pro SC", "SF Pro Text", "SF Pro Display", "PingFang SC",
+    -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI",
+    Roboto, Arial, sans-serif;
+  --font-mono:
+    "SF Mono", Menlo, Consolas, "Liberation Mono", "Lucida Console",
+    monospace;
+
+  /* radius ladder */
+  --radius-sm: 5px;
+  --radius: 12px;
+  --radius-card: 18px;
+  --radius-hero: 28px;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink-2;
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-ink;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  /* shared page width */
+  .container-page {
+    @apply mx-auto w-full max-w-[1080px] px-5 sm:px-8;
+  }
+
+  /* gray uppercase kicker / eyebrow (never blue, no emoji) */
+  .eyebrow {
+    @apply text-muted-2 text-xs font-medium uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-blue px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-hover;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-blue hover:text-blue;
+  }
+}
+
+/* Markdown long-form (rendered with the typography plugin) */
+.prose {
+  --tw-prose-body: var(--color-ink-2);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-lead: var(--color-muted);
+  --tw-prose-links: var(--color-blue);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-muted);
+  --tw-prose-bullets: var(--color-line);
+  --tw-prose-hr: var(--color-line-soft);
+  --tw-prose-quotes: var(--color-muted);
+  --tw-prose-quote-borders: var(--color-line);
+  --tw-prose-captions: var(--color-muted);
+  --tw-prose-code: var(--color-ink-2);
+  --tw-prose-pre-code: var(--color-ink-2);
+  --tw-prose-pre-bg: transparent;
+  --tw-prose-th-borders: var(--color-line);
+  --tw-prose-td-borders: var(--color-line-soft);
+
+  font-size: 15.5px;
+  line-height: 1.75;
+}
+
+.prose :where(h1, h2, h3, h4) {
+  letter-spacing: -0.02em;
+}
+
+.prose :where(h2):not(:first-child) {
+  margin-top: 2.2em;
+}
+
+.prose :where(a) {
+  text-decoration: none;
+}
+
+.prose :where(a):hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose :where(blockquote) {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.prose :where(pre) {
+  background: var(--color-paper);
+  border-radius: var(--radius);
+  padding: 1.15em 1.4em;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* Shiki injects its own color spans; force the neutral scale */
+.prose :where(pre) :where(code) {
+  color: var(--color-ink-2);
+  font-weight: 400;
+}
+
+.prose :where(pre) :where(span) {
+  color: inherit;
+}
+
+.prose :where(:not(pre) > code) {
+  background: var(--color-paper);
+  padding: 0.12em 0.42em;
+  border-radius: var(--radius-sm);
+  font-size: 0.85em;
+  font-weight: 450;
+  color: var(--color-ink-2);
+}
+
+.prose :where(img) {
+  border-radius: var(--radius);
+}
+
+.prose :where(th) {
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}

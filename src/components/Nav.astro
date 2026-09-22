@@ -1,0 +1,83 @@
+---
+const items = [
+  { href: '/publications/', label: '论文' },
+  { href: '/talks/', label: '演讲' },
+  { href: '/teaching/', label: '教学' },
+  { href: '/posts/', label: '文章' },
+  { href: '/cv/', label: 'CV' },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="sticky top-0 z-20 border-b border-line-soft bg-white/85 backdrop-blur-md">
+  <div class="container-page flex h-14 items-center justify-between">
+    <a
+      href="/"
+      class="text-[17px] font-semibold tracking-[-0.01em] text-ink hover:text-blue"
+    >
+      Zzzode
+    </a>
+
+    <!-- desktop nav -->
+    <nav class="hidden items-center gap-7 md:flex">
+      {
+        items.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'text-[14.5px] transition-colors',
+              isActive(item.href)
+                ? 'font-medium text-blue'
+                : 'text-ink hover:text-blue',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- mobile nav: details/summary needs no JavaScript -->
+    <details class="group relative md:hidden">
+      <summary
+        class="flex h-9 w-9 list-none items-center justify-center rounded-full text-ink [&::-webkit-details-marker]:hidden"
+        aria-label="打开菜单"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        >
+          <line x1="3" y1="6" x2="17" y2="6"></line>
+          <line x1="3" y1="14" x2="17" y2="14"></line>
+        </svg>
+      </summary>
+      <nav
+        class="absolute right-0 top-11 w-44 rounded-xl border border-line bg-white p-1.5"
+      >
+        {
+          items.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'block rounded-md px-3.5 py-2 text-sm',
+                isActive(item.href)
+                  ? 'font-medium text-blue'
+                  : 'text-ink-2 hover:bg-paper hover:text-blue',
+              ]}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </details>
+  </div>
+</header>
