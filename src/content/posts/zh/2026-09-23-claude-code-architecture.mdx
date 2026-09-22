@@ -1,0 +1,453 @@
+---
+title: "Claude Code：一个工程化 AI 智能体的架构解剖"
+date: 2026-09-23
+excerpt: "Claude Code 不是「终端里的聊天框」，而是一个把模型、工具、上下文和权限缝在一起的 agentic harness。本文按官方文档拆解它的智能体循环、上下文工程、子智能体与治理体系。"
+tags: ["AI Agent", "Claude Code", "智能体架构", "上下文工程", "工程实践"]
+kind: "distilled"
+sources:
+  - title: "Claude Code 官方文档 · How Claude Code works"
+    url: "https://code.claude.com/docs/en/how-claude-code-works"
+  - title: "Claude Code 官方文档 · Subagents"
+    url: "https://code.claude.com/docs/en/sub-agents"
+  - title: "Claude Code 官方文档 · Context window"
+    url: "https://code.claude.com/docs/en/context-window"
+  - title: "Claude Code 官方文档 · Hooks reference"
+    url: "https://code.claude.com/docs/en/hooks"
+  - title: "Claude Code 官方文档 · Store instructions and memories"
+    url: "https://code.claude.com/docs/en/memory"
+  - title: "Claude Code 官方文档 · Skills"
+    url: "https://code.claude.com/docs/en/skills"
+  - title: "Claude Code 官方文档 · Settings precedence"
+    url: "https://code.claude.com/docs/en/settings"
+  - title: "anthropics/claude-code · GitHub"
+    url: "https://github.com/anthropics/claude-code"
+  - title: "Claude 3.7 Sonnet and Claude Code 发布公告（2025-02）"
+    url: "https://www.anthropic.com/news/claude-3-7-sonnet"
+  - title: "Effective context engineering for AI agents · Anthropic Engineering"
+    url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  BlockTitle,
+  Steps,
+  Timeline,
+  ScrollStory,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="OFFICIAL DOCS · code.claude.com · 2026-09-23 核对"
+  title="Claude Code：一个工程化 AI 智能体的架构解剖"
+  lead="它不是「终端里的聊天框」，而是一个把模型推理、工具执行、上下文管理与权限治理缝在一起的智能体外壳（agentic harness）。要理解这一代编程智能体，先拆开这个外壳。"
+  pills={[
+    { label: "Agentic harness" },
+    { label: "智能体循环" },
+    { label: "上下文工程" },
+    { label: "子智能体 · Hooks · Skills" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="终端里的智能体循环：任务、工具、观察、验证">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <circle cx="38" cy="56" r="5" fill="#d8d8de" />
+    <circle cx="58" cy="56" r="5" fill="#d8d8de" />
+    <circle cx="78" cy="56" r="5" fill="#0066cc" />
+    <text x="100" y="61" font-size="11" fill="#86868b" font-family="ui-monospace, Menlo, monospace">~/project — agentic loop</text>
+
+    <rect x="36" y="86" width="388" height="44" rx="10" fill="#ffffff" stroke="#dedee3" />
+    <text x="54" y="113" font-size="12.5" fill="#1d1d1f" font-family="PingFang SC, sans-serif">修复失败的测试</text>
+
+    <g transform="translate(36,150)">
+      <rect x="0" y="0" width="84" height="56" rx="12" fill="#0066cc" />
+      <text x="42" y="33" font-size="12" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">收集</text>
+      <path d="M96 28 L124 28 M116 20 L124 28 L116 36" stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="136" y="0" width="84" height="56" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="178" y="33" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">行动</text>
+      <path d="M232 28 L260 28 M252 20 L260 28 L252 36" stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="272" y="0" width="84" height="56" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="314" y="33" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">观察</text>
+    </g>
+    <path d="M230 232 a64 26 0 1 1 0.1 0" fill="none" stroke="#0066cc" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M222 230 L230 232 L230 223" fill="none" stroke="#0066cc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="230" y="278" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">验证后回到收集，人可随时打断转向</text>
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+先界定本文的口径：事实来自 Anthropic 的 [Claude Code 官方文档](https://code.claude.com/docs/en/overview)与 [GitHub 仓库](https://github.com/anthropics/claude-code)（2026-09-23 核对，文档随版本快速迭代，具体字段以最新版为准）；技术源流与竞品判断引自公开发布信息；文中的设计解读是我基于文档的归纳，不代表官方说法。本文不教快捷键，只回答一个问题：**一个被数百万人日常使用的编程智能体，内部由哪些工程机制支撑。**
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE BACKDROP"
+    title="前因：从代码补全，到终端里的智能体"
+    lead="Claude Code 不是凭空出现的，它踩在两代编程助手的经验上。"
+  />
+  <Prose>
+
+**第一代：行内补全。** 2021 年 GitHub Copilot 把语言模型带进编辑器，形态是「光标旁边的灰色幽灵文本」——模型只看当前文件与少量上下文，产出一行或一个函数，人始终是驾驶员。它解决了「写得快」，但没有行动能力。
+
+**第二代：编辑器里的聊天。** ChatGPT 与 Cursor 们把对话框嵌进 IDE：模型能看多文件、能给修改建议，但默认仍然是「顾问」——建议由人审查、粘贴、执行。工具调用是零星的，上下文窗口被当作一次性草稿纸。
+
+**第三代：终端原生的智能体。** 2025 年 2 月，Anthropic 在[发布 Claude 3.7 Sonnet 的同时推出 Claude Code](https://www.anthropic.com/news/claude-3-7-sonnet)：一个住在终端里的 agentic coding tool。它不只是给建议，而是自己读代码库、跑命令、改文件、开分支，把「建议—执行—验证」整条链路闭环。官方对自己的定义很克制：模型负责推理，工具负责行动，而 Claude Code 是「围绕模型提供工具、管理上下文的那一层」，这层东西有个专门的名字——**agentic harness（智能体外壳）**。
+
+理解这个定位，才能看懂它的所有设计：模型可能每几个月换代一次，而 harness 解决的是持久问题——给模型什么上下文、让它碰什么、怎么验证它没有闯祸。
+
+  </Prose>
+
+  <div class="mt-8">
+    <Timeline
+      nodes={[
+        { year: "2021", title: "行内补全", body: "Copilot 开创幽灵文本模式，人是唯一驾驶员" },
+        { year: "2023", title: "IDE 聊天", body: "多文件对话与建议，但执行仍靠人" },
+        { year: "2025-02", title: "Claude Code", body: "随 3.7 Sonnet 发布，终端原生智能体" },
+        { year: "2025+", title: "外壳生态", body: "Skills、子智能体、Hooks、MCP、云端与 CI 全场景" },
+      ]}
+    />
+  </div>
+</Section>
+
+<Section alt id="what">
+  <SectionHead
+    kicker="02 · THE BIG PICTURE"
+    title="它到底是什么：一个带手和眼睛的推理循环"
+    lead="官方文档把核心机制概括为三阶段智能体循环，外加三种执行环境与一致的多端接口。"
+  />
+  <StatGrid cols={4}>
+    <Stat value="3" count={3} unit="阶段" label="收集上下文 → 采取行动 → 验证结果，边界会互相渗透" />
+    <Stat value="5" count={5} unit="类工具" label="文件、搜索、执行、网络、代码智能，每类是一种「代理权」" />
+    <Stat value="3" count={3} unit="种环境" label="本地、Anthropic 云 VM、远程控制（浏览器控制本机）" />
+    <Stat value="6+" count={6} unit="个入口" label="终端、桌面、IDE、网页、Slack、CI 管线，同一套循环" />
+  </StatGrid>
+
+  <Prose>
+
+当你给它一个任务，官方描述的循环是这样的：**收集上下文（gather context）→ 采取行动（take action）→ 验证结果（verify results）**。三个阶段不是流水线，而是互相渗透——问一个问题可能只停在收集；修 bug 会在三阶段间反复多轮；重构则把大量时间花在验证。模型根据上一步工具返回的信息决定下一步，把几十次动作串成链，并在中途自行纠偏。
+
+关键在于：**人也在这个循环里**。你可以随时打断、转向、补充上下文。它自主运行，但不剥夺你的方向盘——这是「agent」与「自动脚本」的分界线。
+
+  </Prose>
+</Section>
+
+<Section id="loop">
+  <SectionHead
+    kicker="03 · THE LOOP"
+    title="一步都不少：智能体循环逐帧拆解"
+    lead="随页面滚动，左侧舞台会逐步展示循环的每个阶段（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 接任务",
+        title: "自然语言就是程序入口",
+        body: "你在终端输入「修复失败的测试」。没有结构化表单，模型自己把模糊意图拆成待验证的假设。当前 git 分支、未提交改动、最近提交历史一开始就在它的视野里——所以它能跨文件协调修改，这是只看当前文件的行内助手做不到的。",
+      },
+      {
+        tag: "02 · 收集",
+        title: "先跑测试，再读代码",
+        body: "模型不会上来就改。它先运行测试看哪里红、读报错输出、用正则和文件搜索定位相关源文件，再读这些文件理解代码。内置的 Explore 子智能体专门承担这类高噪声搜索，连 CLAUDE.md 都跳过，保持轻量。",
+      },
+      {
+        tag: "03 · 行动",
+        title: "五类工具，五种代理权",
+        body: "工具是它「有手」的原因：文件操作（读/写/改名）、搜索、执行（shell/服务器/git）、网络（搜索/抓文档）、代码智能（类型错误/跳转引用）。没有工具它只能输出文本；每次工具调用都是一次对真实世界的作用。",
+      },
+      {
+        tag: "04 · 观察",
+        title: "工具返回值喂回循环",
+        body: "每次工具执行的结果——报错堆栈、测试输出、命令退出码——都回到上下文，成为下一步决策的输入。智能体的本质就是这个闭环：行动产生信息，信息改变下一次推理。长输出、日志、大文件正是从这里开始挤占上下文。",
+      },
+      {
+        tag: "05 · 验证",
+        title: "再跑一次测试，然后循环",
+        body: "改完后重新运行测试验证，绿了才停；不绿就带着新证据回到收集阶段。写代码前它还会给受影响的文件打快照，随时可回退。整个会话以 JSONL 存在 ~/.claude/projects/，支持回退、恢复与分叉。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · INTAKE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">自然语言就是入口</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="40" y="150" width="380" height="62" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="60" y="188" font-size="14" fill="#1d1d1f" font-family="PingFang SC, sans-serif">修复失败的测试</text>
+      <text x="40" y="252" font-size="12.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">入会话即可见：</text>
+      <g font-family="PingFang SC, sans-serif">
+        <rect x="40" y="270" width="112" height="34" rx="17" fill="#fff" stroke="#dedee3" />
+        <text x="96" y="292" font-size="11.5" fill="#424245" text-anchor="middle">git 分支</text>
+        <rect x="164" y="270" width="112" height="34" rx="17" fill="#fff" stroke="#dedee3" />
+        <text x="220" y="292" font-size="11.5" fill="#424245" text-anchor="middle">未提交改动</text>
+        <rect x="288" y="270" width="112" height="34" rx="17" fill="#fff" stroke="#dedee3" />
+        <text x="344" y="292" font-size="11.5" fill="#424245" text-anchor="middle">提交历史</text>
+      </g>
+      <text x="40" y="352" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">人可以随时打断、转向、补上下文</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · GATHER</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先验证，再读代码</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      {[
+        { t: "运行测试套件，拿到红色输出", on: true },
+        { t: "读报错堆栈，定位第一个失败点", on: true },
+        { t: "正则 / 文件搜索找到相关源码", on: false },
+        { t: "读源码，理解调用链", on: false },
+      ].map((row, i) => (
+        <g>
+          <circle cx="58" cy={176 + i * 52} r="9" fill={row.on ? "#0066cc" : "#d8d8de"} />
+          <path d={`M54 ${176 + i * 52} L57 ${179 + i * 52} L62 ${173 + i * 52}`} stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <text x="80" y={181 + i * 52} font-size="13.5" fill={row.on ? "#1d1d1f" : "#86868b"} font-family="PingFang SC, sans-serif">{row.t}</text>
+        </g>
+      ))}
+      <rect x="40" y="392" width="380" height="0" />
+      <text x="40" y="404" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">Explore / Plan 子智能体跳过 CLAUDE.md，专门干脏活</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · ACT</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">五类工具，五种代理权</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {[
+        { t: "文件操作", s: "读 / 写 / 改名 / 重组" },
+        { t: "搜索", s: "glob 与正则内容检索" },
+        { t: "执行", s: "shell、服务器、测试、git" },
+        { t: "网络", s: "搜索、抓文档、查报错" },
+        { t: "代码智能", s: "类型错误、跳转、引用" },
+      ].map((row, i) => (
+        <g>
+          <rect x={40 + (i % 2) * 194} y={146 + Math.floor(i / 2) * 78} width={i === 4 ? 380 : 182} height="62" rx="12" fill="#fff" stroke="#dedee3" />
+          <circle cx={62 + (i % 2) * 194} cy={177 + Math.floor(i / 2) * 78} r="7" fill="#0066cc" />
+          <text x={78 + (i % 2) * 194} y={173 + Math.floor(i / 2) * 78} font-size="13" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{row.t}</text>
+          <text x={78 + (i % 2) * 194} y={193 + Math.floor(i / 2) * 78} font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">{row.s}</text>
+        </g>
+      ))}
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · OBSERVE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">结果喂回循环</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="40" y="146" width="170" height="72" rx="12" fill="#0066cc" />
+      <text x="125" y="178" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">工具调用</text>
+      <text x="125" y="199" font-size="10.5" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">run / edit / search</text>
+      <path d="M224 182 L252 182 M244 174 L252 182 L244 190" stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="256" y="146" width="164" height="72" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="338" y="174" font-size="12.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">真实世界返回</text>
+      <text x="338" y="195" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">退出码 / 堆栈 / 输出</text>
+      <path d="M338 232 L338 270 M330 262 L338 270 L346 262" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="120" y="276" width="220" height="58" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="301" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">下一次推理的上下文</text>
+      <text x="230" y="320" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">行动产生信息，信息改变决策</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · VERIFY</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">验证，绿了才停</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="130" y="150" width="200" height="96" rx="16" fill="#fff" stroke="#dedee3" />
+      <circle cx="176" cy="198" r="20" fill="#0066cc" />
+      <path d="M166 198 L173 205 L187 189" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="266" y="194" font-size="14" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">测试转绿</text>
+      <text x="266" y="216" font-size="11" fill="#86868b" font-family="PingFang SC, sans-serif">否则带证据回到收集</text>
+      <path d="M230 290 C 120 300, 120 340, 230 346" fill="none" stroke="#86868b" stroke-width="1.8" stroke-dasharray="3 5" />
+      <path d="M124 316 L116 338 L138 332" fill="none" stroke="#86868b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="230" y="378" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">文件快照可回退 · JSONL 会话可 resume / fork</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section alt id="context">
+  <SectionHead
+    kicker="04 · CONTEXT ENGINEERING"
+    title="上下文工程：这个外壳最硬的功夫"
+    lead="智能体的能力上限，往往不取决于模型，而取决于它每一步看到什么。Claude Code 把上下文当作需要管理的稀缺资源。"
+  />
+
+  <Prose>
+
+一次会话的上下文窗口里装着：系统指令、你的消息、它读过的文件、命令输出、CLAUDE.md、自动记忆、已加载的 Skills，还有终端里**你根本看不到的内容**（工具描述、MCP 工具名等）。随着任务推进，窗口必然被填满，于是有了自动压缩（compaction）：把对话历史总结成结构化摘要。问题随之而来——早期指令可能在压缩中丢失。
+
+官方文档把「压缩后什么活下来」列得很清楚：系统提示与输出风格仍然生效；项目根 CLAUDE.md 与无路径作用域的规则从磁盘**重新注入**；自动记忆重新注入；git 状态重新读取；计划模式写出的 plan 从磁盘重载；带路径的规则和嵌套 CLAUDE.md 在模型再次读到对应文件时重载；而**读过的文件不会复活**。这张表直接指导了使用方式：持久的规则写进 CLAUDE.md，临时的大文件让子智能体去读。
+
+  </Prose>
+
+  <div class="mt-8">
+    <CompareTable
+      headers={[
+        { label: "两套跨会话记忆" },
+        { label: "CLAUDE.md", dot: "a" },
+        { label: "Auto Memory", dot: "b" },
+        { label: "什么时候用", wrap: true },
+      ]}
+      rows={[
+        ["谁来写", "你写", "Claude 根据你的纠正自己写", "规则靠人，偏好靠它自己记"],
+        ["装什么", "命令、约定、项目结构、「永远做 X」", "你的偏好、纠正、代码里推不出的项目背景", "事实与规范 vs 个人习惯"],
+        ["作用域", "项目 / 用户 / 组织三级", "每个仓库，跨 worktree 共享", "可以随仓库提交给团队"],
+        ["加载方式", "每次会话开头", "每次会话前 200 行或 25KB", "两者都只是上下文，不是强制配置"],
+      ]}
+    />
+  </div>
+
+  <Prose>
+
+注意最后一句：**CLAUDE.md 和记忆都是「上下文」，不是「强制配置」**。模型理论上可以违反它们；要做到无论模型怎么想都必须拦截某动作，正确的工具是 PreToolUse Hook（下一节）。这种「软引导与硬约束分层」是整个系统最值得学的治理思想——用最便宜的机制（文本）处理 99% 的情况，只在安全边界上动用强制手段。
+
+  </Prose>
+</Section>
+
+<Section id="subagents">
+  <SectionHead
+    kicker="05 · SUBAGENTS"
+    title="子智能体：用独立的上下文窗口外包噪声"
+    lead="主对话不是什么都该自己干。子智能体是 Claude Code 上下文工程里最精巧的一环。"
+  />
+
+  <Prose>
+
+官方对子智能体的定义是：**拥有独立上下文窗口、独立系统提示、独立工具权限的专职助手**。当一个支线任务会产生大量你之后不会再引用的搜索结果、日志、文件内容时——比如「调研这个陌生目录怎么实现的」——主智能体就把它派给子智能体。子智能体在自己的窗口里折腾，**只把摘要和一小段元数据返回主对话**，噪声被物理隔离。
+
+  </Prose>
+
+  <CardGrid cols={3}>
+    <InfoCard label="ROUTING" title="靠描述自动委派">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        模型读每个子智能体的 description 决定何时派活，所以描述要清晰；但描述也占主上下文，自定义子智能体描述合计超过 15,000 token 会在启动时告警——细节挪进系统提示，只在该子智能体运行时加载。
+      </p>
+    </InfoCard>
+    <InfoCard label="BUILT-IN" title="Explore 与 Plan 的特权">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        两个内置调研型子智能体会跳过 CLAUDE.md 与 git 状态快照，保持研究轻量省钱；其余子智能体默认加载两者，除非定义里设置 omitClaudeMd。
+      </p>
+    </InfoCard>
+    <InfoCard label="COST" title="按任务选模型">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        每个子智能体可以单独指定模型——把机械的搜索、格式化类任务路由给更快更便宜的模型，把架构判断留给旗舰模型，是官方推荐的成本控制手段。
+      </p>
+    </InfoCard>
+  </CardGrid>
+
+  <Prose>
+
+会话本身也被当作数据管理：每条消息、工具调用与结果以明文 JSONL 写到 `~/.claude/projects/`，因此支持回退（rewind）、恢复（`--continue` / `--resume`）与分叉（`--fork-session`，复制历史到新会话、原会话不动）。配合 git worktree，可以在不同目录里开多个并行会话而互不污染——这把「多智能体协作」从概念落成了目录学问题。
+
+  </Prose>
+</Section>
+
+<Section alt id="governance">
+  <SectionHead
+    kicker="06 · GOVERNANCE"
+    title="治理体系：权限、钩子与扩展点的分工"
+    lead="一个能自己执行 shell 的智能体，靠什么不闯祸？靠的是分层，而不是一个总开关。"
+  />
+
+  <Prose>
+
+先看**设置的优先级**。Claude Code 从多个位置读 settings.json（用户级、项目级、企业级、受管策略），大部分键是**合并**而非覆盖——比如项目里允许的命令不会抹掉你个人的配置；而组织/受管设置压过个人设置，命令行参数只对当前会话生效，权限规则另有一套合并语义。这意味着团队可以把「禁止碰生产目录」之类的硬规矩放在企业层，开发者本地再叠加个人偏好，双方不用互相改文件。
+
+  </Prose>
+
+  <div class="mt-8">
+    <BlockTitle title="四个扩展点解决四类问题" />
+    <Steps
+      steps={[
+        { title: "Skills：可复用的工作流", body: "SKILL.md 用 frontmatter（name/description）声明、正文给指令；Reference 类内容内联进上下文，Task 类（部署、提交流程）可放在独立子智能体里运行（context: fork）。加载后持续占用 token，所以正文要短。" },
+        { title: "Hooks：生命周期上的硬约束", body: "用户定义的 shell/HTTP/MCP/LLM/子智能体钩子，在 SessionStart、UserPromptSubmit、PreToolUse、PostToolUse、Stop 等固定时机触发；PreToolUse 可以直接否决一次工具调用——这才是强制力。" },
+        { title: "MCP：接外部世界", body: "把外部服务的工具和资源接进智能体，工具名在启动时就进上下文，所以接得越多启动越重。" },
+        { title: "Subagents：隔离上下文的外包", body: "高噪声支线任务、需要限定工具集或更便宜模型的工作，派给独立窗口。" },
+      ]}
+    />
+  </div>
+
+  <Prose>
+
+Hooks 的触发时机覆盖三种节奏：每会话（SessionStart/End）、每轮对话（UserPromptSubmit/Stop）、以及循环内每次工具调用（PreToolUse/PostToolUse）。同一份钩子配置在终端、IDE、桌面、云端会话里行为一致。此外它还兼容 AGENTS.md：如果仓库已经为别的编程智能体写了 AGENTS.md，Claude Code 可以直接读，或与 CLAUDE.md 同时读——规则不被厂商锁定。
+
+  </Prose>
+</Section>
+
+<Section id="practice">
+  <SectionHead
+    kicker="07 · IN PRACTICE"
+    title="工程实践：headless、并行与落地边界"
+    lead="同一个智能体循环也跑在 CI 里，这改变了团队引入它的方式。"
+  />
+  <CardGrid cols={2}>
+    <InfoCard label="HEADLESS CI" title="GitHub Actions 里无人值守">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Claude Code 提供 headless 模式（<code>-p</code>），可在 GitHub Actions 中以非交互方式跑审查、修 issue；Setup 钩子支持 CI 里的一次性准备。权限在这种场景下必须前置配好，因为没有人能点「允许」。
+      </p>
+    </InfoCard>
+    <InfoCard label="PARALLEL" title="worktree = 多智能体的并发单元">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        一个会话绑定一个目录；用 git worktree 开多个目录就能并行跑多个 Claude，各自在独立分支上工作，再通过 PR 汇合。/resume 选择器默认只列当前 worktree 的会话。
+      </p>
+    </InfoCard>
+    <InfoCard label="SAFETY" title="快照与权限询问">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        改代码前自动快照受影响文件，可整文件回退；危险命令、越权文件访问默认询问。企业环境用受管设置下发允许/拒绝清单，而不是靠每个人自觉。
+      </p>
+    </InfoCard>
+    <InfoCard label="DATA" title="数据口径要看清">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        官方说明会采集使用数据（接受/拒绝）、关联对话与 /bug 反馈；敏感信息有留存期与访问限制，商业条款另有约定。公司代码接云端环境前，先读 data usage 政策。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section alt id="limits">
+  <SectionHead
+    kicker="08 · READ IT RIGHT"
+    title="三个不该有的误解"
+    lead="工具很强大，但文档自己把边界说得很清楚。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="NOT AUTONOMOUS" title="它不是「放手不管」">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        人始终在循环内，可随时打断；权限、钩子、快照都是为了让自主权可被随时收回。无人值守的 CI 场景反而要求更严格的前置配置。
+      </p>
+    </InfoCard>
+    <InfoCard label="MEMORY ≠ ENFORCEMENT" title="写进 CLAUDE.md 不等于必做">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        记忆只是每次注入的上下文，模型仍可能偏离；真正不可违反的红线必须用 PreToolUse Hook 在工具层拦截。
+      </p>
+    </InfoCard>
+    <InfoCard label="CONTEXT COST" title="扩展不是越多越好">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        MCP 工具名、Skill 描述、子智能体描述都在启动时进主上下文。文档给出 15,000 token 的描述告警线——扩展点本身也需要治理。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "Claude Code 的本体是 harness，不是模型",
+      conclusion: "模型负责推理、工具负责行动，而外壳负责上下文、权限与验证；三阶段智能体循环（收集—行动—验证）加上随时可打断的人，构成了这一代编程智能体的基本形态。",
+      detail: "评估任何「AI 编程工具」时，都可以沿这三条线对比：上下文怎么管、工具权限怎么收、结果怎么验证。",
+    },
+    {
+      title: "最值得照搬的是「软引导 + 硬约束」分层",
+      conclusion: "CLAUDE.md 与记忆用文本低成本引导，Hooks 在工具层强制，子智能体隔离噪声，设置按组织层级合并——文本管 99%，强制只守安全边界。",
+      detail: "这套分层不依赖 Claude，任何在团队内部落地智能体的工程团队都可以复刻。",
+    },
+  ]}
+  note="事实口径：机制描述依据 2026-09-23 抓取的官方文档（code.claude.com）与 GitHub README，产品迭代很快，字段与默认行为以最新文档为准；发布信息引自 Anthropic 官方公告；设计解读为作者归纳。"
+/>
