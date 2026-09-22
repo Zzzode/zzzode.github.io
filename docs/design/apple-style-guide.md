@@ -147,8 +147,8 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 
 ### 3.8 Icons, logo, and images
 
-- Brand mark: a dark `#1d1d1f` rounded square with an off-white `#f5f5f7` "Z". It exists as `public/favicon.svg` (source) plus pre-rendered PNGs: `favicon-32.png`, `apple-touch-icon.png` (180, full-bleed square — iOS applies its own mask), `icon-192.png` / `icon-512.png` (manifest).
-- Social share image: `public/og.png` (1200×630, white card: the brand tile + gray `RESEARCH · ENGINEERING · NOTES` eyebrow + ink `Zzzode` wordmark; language-neutral). It is wired through `og:image` / `twitter:summary_large_image` in `BaseLayout.astro`; regenerate with a 2x-supersampled HTML→headless-Chrome render to keep text crisp if the brand changes.
+- Brand mark ("A · Solid bevel"): a custom geometric Z drawn as a single bold stroke (`M14 13 H51 L13 51 H50`, stroke width 12.5/64, butt caps, bevel joins) in ink `#1d1d1f` — a lettermark, not a letter in a box. It inverts to `#f5f5f7` on dark surfaces. Assets: `public/favicon.svg` (source, with a `prefers-color-scheme: dark` inversion) plus pre-rendered PNGs: `favicon-32.png` (transparent, tab), `apple-touch-icon.png` (180, white opaque background — iOS requires opacity), `icon-192.png` / `icon-512.png` (white background, Z kept inside the maskable safe zone, manifest purpose `any maskable`).
+- Social share image: `public/og.png` (1200×630, white card: the geometric Z lettermark + gray `RESEARCH · ENGINEERING · NOTES` eyebrow + ink `Zzzode` wordmark; language-neutral). Wired through `og:image` / `twitter:summary_large_image` in `BaseLayout.astro`; regenerate with a 2x-supersampled HTML→headless-Chrome render to keep the glyph crisp if the brand changes.
 - Nav/footer UI glyphs are minimal inline SVG (GitHub, RSS, hamburger) in `currentColor`.
 - No emoji-as-icons; when no avatar photo exists, use the brand monogram rather than a big placeholder image.
 - Images go in `public/images/` or next to the entry; compress (long edge ≤2000px), no external image hosts, no large Base64 inlining.
