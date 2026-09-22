@@ -1,31 +1,26 @@
 ---
+import { type Lang, t } from '../i18n/ui';
+
 interface Props {
-  eyebrow?: string;
-  title?: string;
-  lead?: string;
+  lang: Lang;
 }
 
-const {
-  eyebrow = 'RESEARCH · ENGINEERING',
-  title = 'Zzzode',
-  lead = '在这里记录研究、工程与思考。这里有我的论文、演讲、教学和文章。',
-} = Astro.props;
+const { lang } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
 ---
 
-<section
-  class="rounded-[28px] bg-paper px-7 py-12 sm:px-12 sm:py-16"
->
-  <p class="eyebrow">{eyebrow}</p>
+<section class="rounded-[28px] bg-paper px-7 py-12 sm:px-12 sm:py-16">
+  <p class="eyebrow">{t(lang, 'home.eyebrow')}</p>
   <h1
     class="mt-4 text-[clamp(40px,6vw,64px)] font-semibold leading-[1.08] tracking-[-0.03em] text-ink"
   >
-    {title}
+    Zzzode
   </h1>
   <p class="mt-5 max-w-[620px] text-[16.5px] leading-relaxed text-muted sm:text-[17px]">
-    {lead}
+    {t(lang, 'home.lead')}
   </p>
   <div class="mt-8 flex flex-wrap items-center gap-3">
-    <a href="/publications/" class="btn-primary">查看论文</a>
-    <a href="/cv/" class="btn-secondary">阅读 CV</a>
+    <a href={`${prefix}/publications/`} class="btn-primary">{t(lang, 'home.viewPublications')}</a>
+    <a href={`${prefix}/cv/`} class="btn-secondary">{t(lang, 'home.viewCv')}</a>
   </div>
 </section>

@@ -1,29 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import EntryList from '../../components/EntryList.astro';
-import EmptyState from '../../components/EmptyState.astro';
-import type { Entry } from '../../lib/entries';
-
-const teaching = (await getCollection('teaching')).sort((a, b) =>
-  b.data.date.localeCompare(a.data.date)
-);
-
-const entries: Entry[] = teaching.map((item) => ({
-  title: item.data.title,
-  meta: [item.data.role, item.data.venue, item.data.date].filter(Boolean).join(' · '),
-  excerpt: item.data.excerpt,
-}));
+import SectionPage from '../../components/pages/SectionPage.astro';
 ---
 
-<BaseLayout title="教学" description="Zzzode 的教学经历。">
-  <PageHeader eyebrow="TEACHING" title="教学" lead="课程、助教与教学相关经历。" />
-  {
-    entries.length === 0 ? (
-      <EmptyState text="还没有内容，新的教学经历会出现在这里。" />
-    ) : (
-      <EntryList entries={entries} />
-    )
-  }
-</BaseLayout>
+<SectionPage lang="zh" name="teaching" />

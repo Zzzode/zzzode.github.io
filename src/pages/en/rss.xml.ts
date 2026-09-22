@@ -1,6 +1,6 @@
 import type { APIContext } from 'astro';
-import { buildFeed } from '../lib/rss';
+import { buildFeed } from '../../lib/rss';
 
 export async function GET(context: APIContext) {
-  return buildFeed(context, 'zh');
+  return buildFeed(context, 'en');
 }

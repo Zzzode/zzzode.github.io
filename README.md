@@ -1,52 +1,66 @@
 # zzzode.github.io
 
-Zzzode 的个人网站：论文、演讲、教学与文章。
+Zzzode's personal website: publications, talks, teaching, and writing.
 
-- **框架**：[Astro 7](https://astro.build)（静态输出，默认零 JavaScript）
-- **样式**：[Tailwind CSS v4](https://tailwindcss.com)，苹果风格设计 token（见 [docs/design/apple-style-guide.md](docs/design/apple-style-guide.md)）
-- **内容**：Astro Content Collections + zod，构建期校验 frontmatter
-- **部署**：推送到 `main`，GitHub Actions 自动发布到 GitHub Pages
+- **Framework**: [Astro 7](https://astro.build) — static output, zero JavaScript by default
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com) with Apple-style design tokens (see [docs/design/apple-style-guide.md](docs/design/apple-style-guide.md))
+- **Content**: Astro Content Collections + zod, front matter validated at build time
+- **Languages**: bilingual Chinese (default, site root) and English (`/en`), with a navigation language toggle
+- **Deployment**: push to `main`, GitHub Actions builds and publishes to GitHub Pages
 
-## 本地开发
+## Local development
 
-要求 Node.js ≥ 22.12。
+Requires Node.js ≥ 22.12.
 
 ```bash
 npm install
 npm run dev        # http://localhost:4321
 ```
 
-## 构建与检查
+## Build and check
 
 ```bash
-npm run check      # TypeScript strict + 内容集合校验
-npm run build      # 产物到 dist/
-npm run preview    # 预览构建产物
+npm run check      # TypeScript strict + content collection validation
+npm run build      # outputs to dist/
+npm run preview    # preview the production build
 ```
 
-## 目录结构
+## Project structure
 
 ```
 src/
-  components/       # Nav、Footer、HomeHero、SectionCard、EntryList、EmptyState …
-  layouts/          # BaseLayout
-  pages/            # 文件路由（首页、四个板块、文章页、CV、404、RSS）
-  content/          # Markdown 内容：publications / talks / teaching / posts
-  styles/           # global.css：@theme 设计 token 与 .prose 排版
-  lib/              # 类型与格式化工具
-public/             # favicon、files/（PDF）、images/
-astro.config.mjs    # 站点、集成、近单色 Shiki 主题
+  components/        # Nav, Footer, HomeHero, SectionCard, EntryList, EmptyState, …
+    pages/           # shared page components used by both locale routes
+  layouts/           # BaseLayout
+  pages/             # zh routes (site root) and mirrored en/ routes
+  content/           # Markdown: publications / talks / teaching / posts, each with zh/ + en/
+  i18n/ui.ts         # all UI strings (zh/en) — the only place interface copy lives
+  styles/            # global.css: @theme design tokens and .prose
+  lib/               # content helpers, formatting, RSS
+public/              # favicon, files/ (PDFs), images/
+astro.config.mjs     # site URL, i18n routing, integrations, Shiki theme
 ```
 
-新增条目：在对应集合目录放一个 Markdown 文件，字段以 [`src/content.config.ts`](src/content.config.ts) 为准。
+### Adding a bilingual entry
 
-## 部署
+Create a same-named Markdown file pair, e.g.:
 
-推送到 `main` 即发布（`.github/workflows/deploy.yml`）。首次使用前，在 GitHub 仓库 **Settings → Pages → Source** 选择 **GitHub Actions**。
+```
+src/content/posts/zh/2026-09-22-threads.md
+src/content/posts/en/2026-09-22-threads.md
+```
 
-## 文档
+Fields are defined in [`src/content.config.ts`](src/content.config.ts). An entry without a counterpart is hidden from the other-locale list and shows a disabled language toggle. Paper titles, venues, and citations stay in their original language.
 
-- [协作说明 AGENTS.md](AGENTS.md)
-- [苹果风格设计规范](docs/design/apple-style-guide.md)
-- [站点维护 Prompt](docs/prompts/site-curator.md)
-- [操作说明](docs/operations.md)
+## Deployment
+
+Pushing to `main` deploys via `.github/workflows/deploy.yml`. Before the first deploy, set **Settings → Pages → Source** to **GitHub Actions**.
+
+## Documentation
+
+- [Collaboration guide (AGENTS.md)](AGENTS.md)
+- [Apple-style Design Guide](docs/design/apple-style-guide.md)
+- [Site Curator Prompt](docs/prompts/site-curator.md)
+- [Operations](docs/operations.md)
+
+Engineering docs and source comments are written in English; visitor-facing content is bilingual Chinese/English.

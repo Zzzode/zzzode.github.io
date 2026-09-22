@@ -1,21 +1,32 @@
 ---
-const items = [
-  { href: '/publications/', label: '论文' },
-  { href: '/talks/', label: '演讲' },
-  { href: '/teaching/', label: '教学' },
-  { href: '/posts/', label: '文章' },
-  { href: '/cv/', label: 'CV' },
-];
+import { type Lang, languages, t } from '../i18n/ui';
 
+interface Props {
+  lang: Lang;
+  /** null means the other-language version of this page does not exist. */
+  alternatePath: string | null;
+}
+
+const { lang, alternatePath } = Astro.props;
+
+const items = [
+  { href: '/publications/', key: 'nav.publications' },
+  { href: '/talks/', key: 'nav.talks' },
+  { href: '/teaching/', key: 'nav.teaching' },
+  { href: '/posts/', key: 'nav.posts' },
+  { href: '/cv/', key: 'nav.cv' },
+] as const;
+
+const prefix = lang === 'en' ? '/en' : '';
 const path = Astro.url.pathname;
-const isActive = (href: string) =>
-  href === '/' ? path === '/' : path.startsWith(href);
+const hrefFor = (href: string) => `${prefix}${href}`;
+const isActive = (href: string) => path === hrefFor(href) || path.startsWith(hrefFor(href));
 ---
 
 <header class="sticky top-0 z-20 border-b border-line-soft bg-white/85 backdrop-blur-md">
   <div class="container-page flex h-14 items-center justify-between">
     <a
-      href="/"
+      href={`${prefix}/`}
       class="text-[17px] font-semibold tracking-[-0.01em] text-ink hover:text-blue"
     >
       Zzzode
@@ -26,58 +37,98 @@ const isActive = (href: string) =>
       {
         items.map((item) => (
           <a
-            href={item.href}
+            href={hrefFor(item.href)}
+            hreflang={lang}
             class:list={[
               'text-[14.5px] transition-colors',
-              isActive(item.href)
-                ? 'font-medium text-blue'
-                : 'text-ink hover:text-blue',
+              isActive(item.href) ? 'font-medium text-blue' : 'text-ink hover:text-blue',
             ]}
           >
-            {item.label}
+            {t(lang, item.key)}
           </a>
         ))
+      }
+      {
+        alternatePath === null ? (
+          <span
+            data-locale-toggle
+            class="cursor-default rounded-full border border-line-soft px-3 py-1 text-[13px] text-muted-2"
+            aria-disabled="true"
+            title={lang === 'zh' ? '本文暂无英文版' : 'No Chinese version yet'}
+          >
+            {languages[lang === 'zh' ? 'en' : 'zh']}
+          </span>
+        ) : (
+          <a
+            data-locale-toggle
+            href={alternatePath}
+            hreflang={lang === 'zh' ? 'en' : 'zh-CN'}
+            class="rounded-full border border-line px-3 py-1 text-[13px] text-ink-2 transition-colors hover:border-blue hover:text-blue"
+          >
+            {languages[lang === 'zh' ? 'en' : 'zh']}
+          </a>
+        )
       }
     </nav>
 
     <!-- mobile nav: details/summary needs no JavaScript -->
-    <details class="group relative md:hidden">
-      <summary
-        class="flex h-9 w-9 list-none items-center justify-center rounded-full text-ink [&::-webkit-details-marker]:hidden"
-        aria-label="打开菜单"
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
+    <div class="flex items-center gap-2 md:hidden">
+      {
+        alternatePath === null ? (
+          <span
+            data-locale-toggle
+            class="rounded-full border border-line-soft px-3 py-1 text-[13px] text-muted-2"
+            aria-disabled="true"
+          >
+            {languages[lang === 'zh' ? 'en' : 'zh']}
+          </span>
+        ) : (
+          <a
+            data-locale-toggle
+            href={alternatePath}
+            hreflang={lang === 'zh' ? 'en' : 'zh-CN'}
+            class="rounded-full border border-line px-3 py-1 text-[13px] text-ink-2"
+          >
+            {languages[lang === 'zh' ? 'en' : 'zh']}
+          </a>
+        )
+      }
+      <details class="group relative">
+        <summary
+          class="flex h-9 w-9 list-none items-center justify-center rounded-full text-ink [&::-webkit-details-marker]:hidden"
+          aria-label={t(lang, 'nav.menu')}
         >
-          <line x1="3" y1="6" x2="17" y2="6"></line>
-          <line x1="3" y1="14" x2="17" y2="14"></line>
-        </svg>
-      </summary>
-      <nav
-        class="absolute right-0 top-11 w-44 rounded-xl border border-line bg-white p-1.5"
-      >
-        {
-          items.map((item) => (
-            <a
-              href={item.href}
-              class:list={[
-                'block rounded-md px-3.5 py-2 text-sm',
-                isActive(item.href)
-                  ? 'font-medium text-blue'
-                  : 'text-ink-2 hover:bg-paper hover:text-blue',
-              ]}
-            >
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
-    </details>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          >
+            <line x1="3" y1="6" x2="17" y2="6"></line>
+            <line x1="3" y1="14" x2="17" y2="14"></line>
+          </svg>
+        </summary>
+        <nav class="absolute right-0 top-11 w-44 rounded-xl border border-line bg-white p-1.5">
+          {
+            items.map((item) => (
+              <a
+                href={hrefFor(item.href)}
+                class:list={[
+                  'block rounded-md px-3.5 py-2 text-sm',
+                  isActive(item.href)
+                    ? 'font-medium text-blue'
+                    : 'text-ink-2 hover:bg-paper hover:text-blue',
+                ]}
+              >
+                {t(lang, item.key)}
+              </a>
+            ))
+          }
+        </nav>
+      </details>
+    </div>
   </div>
 </header>

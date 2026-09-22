@@ -1,59 +1,59 @@
-# 苹果风格设计规范（Apple-style Design Guide）
+# Apple-style Design Guide
 
-本规范是 zzzode.github.io 全站与所有文章内嵌 HTML 的**视觉与组件权威说明**。目标是让页面呈现统一、克制、有呼吸感的苹果（apple.com）气质，而不是"模板默认灰蓝"或"企业软件大屏"。
+This guide is the **visual and component authority** for the whole zzzode.github.io site and for all HTML embedded inside posts. The goal is a unified, restrained, breathable apple.com feel — not "default template gray-blue" and not an "enterprise dashboard".
 
-## 事实源关系
+## Sources of truth
 
-| 载体 | 实现事实源 | 本规范的角色 |
+| Surface | Implementation source of truth | Role of this guide |
 |---|---|---|
-| 设计 token（颜色、字体、圆角） | `src/styles/global.css` 的 `@theme` 块；Tailwind 据此生成 `text-ink`、`bg-paper`、`rounded-card` 等工具类，同时把同名 CSS 自定义属性输出到 `:root` | 定义 token 语义与取值；新增 token 只能加在 `@theme`，禁止在组件里写死色值 |
-| 全站框架组件（导航、页脚、Hero、板块卡、条目列表、空状态、正文排版） | `src/components/*.astro`、`src/layouts/BaseLayout.astro`、`src/pages/**` | 定义原则与组件外观；框架改动在组件层完成并跑 check / build |
-| 文章 / 页面内嵌 HTML（技术博文里的总览、双栏对比、流程时间线、卡片组） | Markdown 正文里手写的 HTML | **直接作为制作与验收依据**，逐组件给出结构与 CSS 约束；取色只用 `var(--color-*)` |
-| Markdown 长文排版 | `src/styles/global.css` 里的 `.prose`（@tailwindcss/typography）与 Astro 内置 Shiki（`astro.config.mjs` 中的近单色自定义主题） | 标题 / 正文 / 表格 / 代码的排版以此为准，不在单篇文章里重排 |
+| Design tokens (color, type, radius) | The `@theme` block in `src/styles/global.css`; Tailwind generates utilities like `text-ink`, `bg-paper`, `rounded-card` and emits matching CSS custom properties on `:root` | Defines token meaning and values; new tokens only go in `@theme`; never hard-code colors in components |
+| Site framework components (nav, footer, hero, section cards, entry lists, empty states, long-form prose) | `src/components/*.astro`, `src/components/pages/*.astro`, `src/layouts/BaseLayout.astro`, `src/pages/**` | Defines principles and component look; framework changes happen at the component layer and must pass check/build |
+| Hand-written HTML inside posts/pages (overviews, dual-subject comparisons, flow timelines, card groups) | HTML written directly in Markdown bodies | **Serves as the build/acceptance spec**, with per-component structure and CSS constraints; colors must come from `var(--color-*)` only |
+| Markdown long-form typography | `.prose` in `src/styles/global.css` (@tailwindcss/typography) and Astro's built-in Shiki (near-monochrome custom theme in `astro.config.mjs`) | Headings/body/tables/code follow this; do not re-typeset inside individual posts |
 
-当视觉与 token 表冲突时：颜色、字体、圆角、间距一律以本规范 token 表为准。禁止自创第二套配色或组件。
-
----
-
-## 1. 设计原则
-
-1. **黑白灰为骨架，彩色是标点。** 整页以墨色、多级灰、浅灰底构成；强调色只用于链接、关键数字和"主体归属"小圆点，不用于铺底、整列文字或卡片描边。
-2. **内容即层级。** 层级靠字号、字重、留白和圆角分区拉开，不靠深色大色块、重边框、阴影堆叠或彩色顶边。
-3. **呼吸感。** 大留白、宽松行高（正文 1.6–1.75）、大圆角；区块之间留白大于元素之间留白。
-4. **对称即公平。** 双主体对比（如 V8 vs JVM）必须逐点左右对称，主体归属只用一枚 7–8px 圆点标识，两侧信息密度、结构、行数尽量对齐。
-5. **图形只服务理解。** 禁止装饰性渐变、阴影堆叠、emoji 充当图标、装饰动图和无信息图标；分隔线、表格线、步骤连线都用中性灰且尽量淡。
-6. **浅色优先。** 全站默认浅色（白底 + `paper` 浅灰区块）；除首页刻意设计的一块品牌门面外，不在正文里压深色大色块。
+When visuals conflict with the token table, colors, type, radii, and spacing always defer to the tokens. No second palette, no alternative component set.
 
 ---
 
-## 2. 设计 Token
+## 1. Principles
 
-### 2.1 颜色
+1. **Grayscale is the skeleton; color is punctuation.** The page is built from ink, layered grays, and light-gray surfaces. Accent color is reserved for links, key numbers, and small "affiliation" dots — never for fills, columns of text, or card outlines.
+2. **Content creates hierarchy.** Hierarchy comes from type size, weight, whitespace, and rounded sections — not dark color blocks, heavy borders, stacked shadows, or colored top edges.
+3. **Breathing room.** Generous whitespace, relaxed line-height (1.6–1.75 for body), large radii; gaps between sections are larger than gaps between elements.
+4. **Symmetry is fairness.** A dual-subject comparison (e.g. V8 vs JVM) must be point-by-point symmetric; affiliation is marked only by a 7–8px dot, with matched density, structure, and line counts on both sides.
+5. **Graphics serve comprehension only.** No decorative gradients, shadow stacks, emoji-as-icons, animated GIFs, or meaningless icons. Dividers, table rules, and step connectors use neutral gray and stay as faint as possible.
+6. **Light by default.** The site is light-first (white alternating with `paper` gray). Apart from the one intentionally designed brand moment on the home hero, no dark color blocks in content.
 
-token 在 `src/styles/global.css` 的 `@theme` 中声明；组件用 Tailwind 类（`text-ink-2`、`bg-paper`、`border-line-soft`、`bg-blue`），文章内嵌 HTML 用 CSS 变量（`var(--color-ink)`）。
+---
 
-| Token（CSS 变量） | 值 | Tailwind 类示例 | 用途 | 禁止 |
+## 2. Tokens
+
+### 2.1 Color
+
+Tokens are declared in `@theme` in `src/styles/global.css`. Components use Tailwind utilities (`text-ink-2`, `bg-paper`, `border-line-soft`, `bg-blue`); embedded HTML uses CSS variables (`var(--color-ink)`).
+
+| Token (CSS variable) | Value | Tailwind example | Use | Never |
 |---|---|---|---|---|
-| `--color-ink` | `#1d1d1f` | `text-ink` | 一级标题、导航文字、正文强调 | — |
-| `--color-ink-2` | `#424245` | `text-ink-2` | 正文、卡片正文、表格正文 | 不用纯黑 `#000` 排大段文字 |
-| `--color-muted` | `#6e6e73` | `text-muted` | 次要说明、lead、条目 meta、描述 | 不用于小号正文（对比不足） |
-| `--color-muted-2` | `#86868b` | `text-muted-2` | eyebrow/kicker、页脚、最弱标注 | 不用于关键信息 |
-| `--color-paper` | `#f5f5f7` | `bg-paper` | 浅灰分区底、卡片底、代码底、空状态 | 不再叠加别的灰 |
-| `--color-line` | `#dedee3` | `border-line` | 卡片描边、表头分隔线 | — |
-| `--color-line-soft` | `#ececf0` | `border-line-soft` | 列表行线、导航 / 页脚底线 | — |
-| `--color-blue` | `#0066cc` | `bg-blue` / `text-blue` | 主色：链接、主按钮、对比主体 A | 不铺大面积底、不染整列文字 |
-| `--color-blue-hover` | `#0050a3` | （hover 态内置） | 蓝色交互的 hover | 浅底之外不用 |
-| `--color-blue-on-dark` | `#2997ff` | — | 仅深色底上的高亮 | 浅底上不用 |
-| `--color-compare` | `#e8710a` | — | **仅**双主体对比中"另一方"圆点 | 不用于普通页面、不铺底 |
+| `--color-ink` | `#1d1d1f` | `text-ink` | H1s, nav text, strong body | — |
+| `--color-ink-2` | `#424245` | `text-ink-2` | Body, card/table text | No pure `#000` for long text |
+| `--color-muted` | `#6e6e73` | `text-muted` | Secondary copy, leads, entry meta, descriptions | Not for small text (insufficient contrast) |
+| `--color-muted-2` | `#86868b` | `text-muted-2` | Eyebrows/kickers, footer, weakest labels | Not for key info |
+| `--color-paper` | `#f5f5f7` | `bg-paper` | Gray sections, cards, code, empty states | Don't layer another gray on top |
+| `--color-line` | `#dedee3` | `border-line` | Card outlines, table-header rules | — |
+| `--color-line-soft` | `#ececf0` | `border-line-soft` | List row rules, nav/footer hairline | — |
+| `--color-blue` | `#0066cc` | `bg-blue` / `text-blue` | Primary accent: links, primary button, subject-A dot | No large fills, no whole text columns |
+| `--color-blue-hover` | `#0050a3` | (built-in hover) | Hover state of blue interactions | Not on light surfaces outside hover |
+| `--color-blue-on-dark` | `#2997ff` | — | Highlights on dark surfaces only | Not on light surfaces |
+| `--color-compare` | `#e8710a` | — | The "other side" dot **only** in dual-subject comparisons | Never on ordinary pages, never as fill |
 
-用色红线：
+Color red lines:
 
-- 一个普通页面**只有蓝色一个强调色**。
-- 只有在"双主体逐点对比"场景才允许引入 `compare` 橙色，且蓝、橙**只能**出现在 7–8px 圆点、小 pill 标签内的圆点、表头 6px 小点上。
-- 禁止：整列彩色正文、彩色卡片顶边/描边、彩色 `code`、彩色 badge / tag、高饱和大面积底色、红绿黄状态色堆叠、社交图标按品牌上彩色。
-- 确需表达"好/坏/警告"时，优先用文字与中性色，不用成块的绿/红底色。
+- An ordinary page has **exactly one accent color: blue**.
+- `compare` orange exists only for point-by-point dual-subject comparisons, and blue/orange may appear only in 7–8px dots, dots inside small pills, 6px dots in table headers, links, and primary buttons.
+- Forbidden: colored body text columns, colored card top edges/outlines, colored `code`, colored badges/tags, high-saturation fills, rainbow multi-color, stacked red/yellow/green status colors, brand-colored social icons.
+- When you must express good/bad/warning, prefer text and neutral color — not blocks of green/red.
 
-### 2.2 字体
+### 2.2 Typography
 
 ```css
 --font-sans: "SF Pro SC","SF Pro Text","SF Pro Display","PingFang SC",
@@ -61,110 +61,111 @@ token 在 `src/styles/global.css` 的 `@theme` 中声明；组件用 Tailwind �
 --font-mono: "SF Mono",Menlo,Consolas,"Liberation Mono","Lucida Console",monospace;
 ```
 
-- 标题用 sans 字族、字重 600、负字距（大标题 `letter-spacing:-0.02em ~ -0.03em`）。
-- 正文 400；`html` 已开 `-webkit-font-smoothing:antialiased`。
-- 代码用 mono，字号比正文小 1–2px。
-- **只用系统字体栈，不引入 webfont 文件**（无外部字体请求、无 FOUT）。
+- Headings: sans stack, weight 600, negative tracking (`-0.02em ~ -0.03em` on large titles).
+- Body: weight 400; `html` sets `-webkit-font-smoothing:antialiased`.
+- Code: mono stack, 1–2px smaller than body.
+- **System font stacks only — no webfont files** (no external font requests, no FOUT).
 
-字号阶梯（页面基准 15.5–16px）：
+Type scale (base 15.5–16px):
 
-| 角色 | 尺寸 / 行高 |
+| Role | Size / line-height |
 |---|---|
-| 首页 Hero H1 | `clamp(40px,6vw,64px)` / 1.08 |
-| 内页 H1 | `clamp(30px,4vw,40px)` / 1.1 |
-| 文章 H1 | `clamp(28px,4vw,38px)` / 1.12 |
-| 区块 H2 | 22–28px / 1.15 |
-| 卡片 H3 / 条目标题 | 16.5–19px / 1.25–1.35 |
-| 正文 | 15.5px / 1.6–1.75 |
-| 辅助 / meta / 标签 | 12–13px，`muted`；eyebrow/kicker 12px 大写 + `letter-spacing:.14em` |
+| Home hero H1 | `clamp(40px,6vw,64px)` / 1.08 |
+| Section H1 | `clamp(30px,4vw,40px)` / 1.1 |
+| Post H1 | `clamp(28px,4vw,38px)` / 1.12 |
+| Section H2 | 22–28px / 1.15 |
+| Card H3 / entry title | 16.5–19px / 1.25–1.35 |
+| Body | 15.5px / 1.6–1.75 |
+| Meta / labels | 12–13px `muted`; eyebrows/kickers 12px uppercase with `letter-spacing:.14em` |
 
-### 2.3 圆角、间距、限宽
+### 2.3 Radii, spacing, width
 
-- 圆角 token：`--radius-sm 5px`（行内码）、`--radius 12px`、`--radius-card 18px`（板块卡）、`--radius-hero 28px`（Hero、空状态大区块）；按钮 / pill 用 `rounded-full`（999px）；头像 `rounded-full`。
-- 间距用 4 的倍数；卡片内边距 20–28px；Hero 内边距移动 28px / 桌面 48–64px；区块纵向留白 40–56px，**区块外留白 > 卡片间 gap（16px）**。
-- 限宽：常规内容容器 `max-width:1080px`，两侧 `px-5`（移动）/ `px-8`（桌面）；文章阅读列 `max-width:760px`。
-- 文章内嵌 HTML 根容器流式全宽；内部需要限宽用 `max-width` + `margin:auto`，禁止写死像素页宽。
+- Radii: `--radius-sm 5px` (inline code), `--radius 12px`, `--radius-card 18px` (section cards), `--radius-hero 28px` (hero, empty states); buttons/pills use `rounded-full` (999px); avatars `rounded-full`.
+- Spacing in multiples of 4; card padding 20–28px; hero padding 28px mobile / 48–64px desktop; section vertical rhythm 40–56px — **outer section whitespace > inter-card gap (16px)**.
+- Width: standard container `max-width:1080px` with side padding `px-5` mobile / `px-8` desktop; reading column for posts `max-width:760px`.
+- Embedded HTML roots are fluid/full-width; inner width constraints use `max-width` + `margin:auto`, never fixed pixel page widths.
 
-### 2.4 背景、边框、阴影
+### 2.4 Backgrounds, borders, shadows
 
-- 默认**无阴影**（Tailwind 默认阴影一律不用，含 hover 投影）。分区靠"白底 / `paper` 浅灰底"交替 + 圆角。
-- 卡片二选一：白底下 1px `line`/`line-soft` 描边（首页板块卡），或直接 `paper` 浅灰底无边框；同一列表风格统一。
-- 导航与页脚：白底 + 底部 / 顶部 1px `line-soft`；不使用渐变。
-
----
-
-## 3. 全站框架组件
-
-事实源为 `src/components/` 与 `src/layouts/BaseLayout.astro`；样式用 token 工具类集中写在组件上，不向 Markdown 正文泄漏实现细节。
-
-### 3.1 顶部导航 `Nav.astro`
-
-- 白底（`bg-white/85 backdrop-blur` 吸顶）+ 底部 1px `line-soft`，高 56px；不压深色条、不加投影。
-- 站名 17px/600 墨色；导航项 14.5px 墨色，hover 与当前页转蓝（当前页不使用底色块）。
-- 移动端（<768px）用原生 `<details>` 做零 JS 下拉：白底、1px hairline、12px 圆角，触控目标 ≥44px。
-
-### 3.2 Hero（首页 `HomeHero.astro`）
-
-- 浅灰 `paper` 大圆角 28px 横幅，内边距 28–64px；不是深色大屏封面。
-- 结构：灰色大写 eyebrow（**不用蓝**）→ 墨色 H1（负字距）→ 灰色 lead（16.5–17px、max-width 620px）→ 按钮行。
-- 主按钮蓝底白字胶囊；次按钮白底 1px hairline 墨字。
-
-### 3.3 板块卡 `SectionCard.astro`
-
-- 首页四张入口卡：白底 1px `line-soft`、圆角 18、无阴影；网格 `grid-cols-1 sm:grid-cols-2`、gap 16px。
-- 卡内：eyebrow 英文小标签 + 中文标题（19px/600）；底部一行 13px `muted-2`（计数 / "暂无内容"）+ 中性 `›`。
-- hover 仅标题转蓝、描边略加深；不位移、不投影。
-
-### 3.4 条目列表 `EntryList.astro`（publications / talks / teaching / posts 主体）
-
-- hairline 列表：条目上下 padding 20px，行间 1px `line-soft`，末行无线。
-- 标题 16.5px/600 墨色，有链接时 hover 转蓝，无下划线；meta 行 12.5px `muted`（venue · 年份 / 日期 / 标签）。
-- 摘要 13.5px `muted`、max-width 680px；标签为白底 1px hairline 小胶囊。
-- 外部链接（论文 DOI / 正式链接）新标签打开；PDF 放 `public/files/`。
-
-### 3.5 空状态 `EmptyState.astro`、页头 `PageHeader.astro`
-
-- 空集合显示 `paper` 大圆角 22 区块、居中 14.5px `muted` 中文提示，不用灰色大锁 / 叉号等情绪化图形。
-- 列表页页头：灰色大写 eyebrow → 中文 H1（clamp 30–40）→ 一句灰色 lead。
-
-### 3.6 正文排版（`.prose`）、代码、页脚
-
-- 长文用 `.prose max-w-none`（typography 插件，颜色在 `global.css` 覆盖为 token）：标题墨色负字距、正文 ink-2、链接蓝无下划线（hover 才出现）、引用与分隔线中性、图片 12px 圆角。
-- 行内 `code`：mono、`paper` 底、ink-2 字、5px 圆角；代码块 `paper` 底、12px 圆角、13px。
-- 语法高亮是 `astro.config.mjs` 里的**近单色 Shiki 主题**：默认 ink-2，关键字 ink 加粗，注释 muted-2 斜体；禁止彩色语法主题。
-- 页脚：白底 + 顶部 1px `line-soft`，12.5px `muted-2`；GitHub / RSS 中性图标，hover 蓝；© 年份与署名。
-
-### 3.7 图标与图片
-
-- 导航 / 页脚用极简内联 SVG（GitHub、RSS、汉堡线），统一 `currentColor` 中性色。
-- 不用 emoji 充当图标；头像未设置时不放大图，用首字母 monogram（见 `public/favicon.svg` 的做法）。
-- 图片放 `src/content` 同目录或 `public/images/`，先压缩（长边建议 ≤2000px），不依赖外部图床、不内联 Base64 大图。
+- **No shadows by default** (no Tailwind shadows anywhere, including hover). Separation comes from alternating white/`paper` surfaces plus radii.
+- Cards are one of: 1px `line`/`line-soft` outline on white (home section cards), or borderless `paper` fill; stay consistent within a list.
+- Nav/footer: white with a 1px `line-soft` hairline; no gradients.
 
 ---
 
-## 4. 文章内嵌 HTML 组件规范
+## 3. Framework components
 
-适用于 Markdown 正文里手写的 HTML（研究总览、双主体对比、流程示意等）。
+Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLayout.astro`. Styles use token utilities at the component layer; never leak implementation classes into Markdown.
 
-- 取色与字号**只允许使用 `:root` 上的 CSS 自定义属性**：`var(--color-ink)`、`var(--color-paper)`、`var(--radius-card)` 等；不写死十六进制色值。
-- 根容器流式全宽、`box-sizing:border-box`，不写固定像素页宽。
-- 图片放仓库内（`public/images/`），不引用外部图床。
+### 3.1 Nav (`Nav.astro`)
 
-技术综述 / 对比类长文推荐块序：① 顶部 Banner（4.1）；② 一组覆盖全篇要点的内容块——总览、双栏对比（4.3）、流程时间线（4.4）、对比表（4.5）、代码（4.6）按内容取舍，结构化要点要完整，不能只放一张总览；③ 总结块（4.7）。Markdown 原生正文穿插其间做白话讲解。
+- White (`bg-white/85 backdrop-blur`, sticky) with a 1px `line-soft` bottom border, 56px tall; no dark bar, no shadow.
+- Site name 17px/600 ink; items 14.5px ink; hover/active turns blue (no active background block).
+- Bilingual: every item and the brand link carry the locale prefix (`/en` for English); the language toggle is a hairline pill linking to the same route in the other locale, rendered as a disabled `muted-2` pill when no counterpart exists.
+- Mobile (<768px): zero-JS native `<details>` dropdown — white, 1px hairline, 12px radius, ≥44px touch targets; the toggle pill sits beside the hamburger.
 
-### 4.1 Hero 与顶部封面 Banner
+### 3.2 Hero (`HomeHero.astro`)
 
-- `background:var(--color-paper);border-radius:var(--radius-hero)`（28px），内边距 48–64px。
-- 结构：灰色大写宽字距 eyebrow（**不用蓝**，写来源 / 主题归类）→ 墨色 `h1`（负字距）→ 灰色 lead（15–17px、行高 1.6、max-width 560–660px）→ 可选白色 hairline pill 行。
-- 宽屏可左右分栏（`grid-template-columns:1.15fr .85fr`，约 860px 降单列）：左侧文案，右侧**纯内联极简 SVG** 表达核心结构，仅节点 / 强调点允许蓝、橙圆点；禁止位图、外部图片、彩色插画、emoji、装饰渐变。
-- 不用整块深色 Hero、彩色半透明 pill、彩色边框 pill。
+- Large `paper` rounded-28 banner, padding 28–64px; not a dark cover image.
+- Structure: gray uppercase eyebrow (**never blue**) → ink H1 (negative tracking) → gray lead (16.5–17px, max-width 620px) → button row.
+- Primary button: blue pill with white text; secondary: white pill with 1px hairline and ink text. Copy is localized via `home.*` keys.
 
-### 4.2 章节与白 / 灰交替
+### 3.3 Section cards (`SectionCard.astro`)
 
-- 默认章节白底；`section.alt` 用 `paper` 浅灰大圆角区块（28px、四周 12–16px 外边距），内部卡片反白。
-- 章节头居中：灰色大写 kicker（如 `01 · INSTANCE MODEL`）→ `h2` → 一句灰色副述。
+- Four home entry cards: white, 1px `line-soft`, radius 18, no shadow; grid `grid-cols-1 sm:grid-cols-2`, gap 16px.
+- Inside: English eyebrow label + localized title (19px/600); bottom row 13px `muted-2` (localized count with singular/plural — "1 item" / "3 items" — or "Nothing yet"/"暂无内容") + neutral `›`.
+- Hover: title turns blue, outline deepens slightly; no movement, no shadow.
 
-### 4.3 双栏对比卡片（核心组件）
+### 3.4 Entry list (`EntryList.astro`) — publications/talks/teaching/posts
+
+- Hairline rows: 20px vertical padding, 1px `line-soft` between rows, no rule after the last row.
+- Titles 16.5px/600 ink; linked titles turn blue on hover, no underline; meta 12.5px `muted` (venue · year / localized date / tags).
+- Excerpts 13.5px `muted`, max-width 680px; tags are white 1px hairline pills.
+- External links (DOI/official) open in a new tab; PDFs live in `public/files/`.
+
+### 3.5 Empty state (`EmptyState.astro`) / page header (`PageHeader.astro`)
+
+- Empty collections render a `paper` rounded-22 block with centered 14.5px `muted` localized text — no dramatic icons.
+- Section headers: gray uppercase eyebrow → localized H1 (clamp 30–40) → one gray lead.
+
+### 3.6 Prose, code, footer
+
+- Long-form uses `.prose max-w-none` (typography plugin, colors mapped to tokens): ink headings with negative tracking, ink-2 body, blue links without underline (underline on hover), neutral quotes/rules, 12px-radius images.
+- Inline `code`: mono, `paper` background, ink-2 text, 5px radius; code blocks: `paper`, radius 12, 13px.
+- Syntax highlighting is the **near-monochrome Shiki theme** in `astro.config.mjs`: default ink-2, keywords in bold ink, comments in italic muted-2; no colorful syntax themes.
+- Footer: white + 1px top `line-soft`, 12.5px `muted-2`; neutral GitHub/RSS icons turning blue on hover; localized copyright line.
+
+### 3.7 Icons and images
+
+- Nav/footer use minimal inline SVG (GitHub, RSS, hamburger) in `currentColor`.
+- No emoji-as-icons; when no avatar image exists, don't ship a big placeholder image — use a monogram (as in `public/favicon.svg`).
+- Images go in `public/images/` or next to the entry; compress (long edge ≤2000px), no external image hosts, no large Base64 inlining.
+
+---
+
+## 4. HTML embedded inside posts
+
+Applies to hand-written HTML in Markdown bodies (research overviews, dual comparisons, flow diagrams).
+
+- Colors and sizes come **only** from the `:root` custom properties: `var(--color-ink)`, `var(--color-paper)`, `var(--radius-card)`, etc.; no hex literals.
+- The root container is fluid/full-width with `box-sizing:border-box`; no fixed pixel page width.
+- Images are repository assets (`public/images/`), never external hosts.
+
+Recommended block order for technical surveys/comparisons: ① cover banner (4.1); ② a set of blocks covering the key points — overview, dual comparison (4.3), pipeline timeline (4.4), comparison table (4.5), code (4.6), chosen by content; the structured points must be complete, not one overview diagram; ③ summary (4.7). Native Markdown prose is interleaved for plain-language explanation.
+
+### 4.1 Hero / cover banner
+
+- `background:var(--color-paper);border-radius:var(--radius-hero)` (28px), padding 48–64px.
+- Structure: gray uppercase wide-tracked eyebrow (**never blue**; source/topic) → ink `h1` (negative tracking) → gray lead (15–17px, line-height 1.6, max-width 560–660px) → optional white hairline pill row.
+- On wide screens it may split into two columns (`grid-template-columns:1.15fr .85fr`, collapsing at ~860px): copy on the left, a **pure inline minimal SVG** of the core structure on the right; only nodes/emphasis points may be blue/orange dots. No bitmaps, external images, colorful illustration, emoji, or decorative gradients.
+- No dark hero blocks, translucent colored pills, or colored-border pills.
+
+### 4.2 Sections and white/gray alternation
+
+- Default sections are white; `section.alt` is a `paper` rounded-28 block (12–16px outer margin) with cards inside knocked out to white.
+- Centered section heads: gray uppercase kicker (e.g. `01 · INSTANCE MODEL`) → `h2` → one gray supporting line.
+
+### 4.3 Dual comparison cards (core component)
 
 ```css
 .dual{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -172,104 +173,107 @@ token 在 `src/styles/global.css` 的 `@theme` 中声明；组件用 Tailwind �
 .alt .card{background:#fff}
 ```
 
-- 每侧一张卡：顶部归属标签 `.ctag`（白底 / 灰底 pill，内含 7px 圆点 + 11px 灰色大写小字），下面是 `h3` + 灰色 `.csub` 副标题。
-- 归属色**只**在圆点上；标签文字、标题、正文全部用中性墨色 / 灰色。
-- 卡内按统一小块组织：`.blk-t`（11px 灰色宽字距小标题）+ 正文或步骤；窄屏（≤640px）降单列。
+- One card per side: a top affiliation tag `.ctag` (white/gray pill with a 7px dot + 11px gray uppercase microcopy), then `h3` + gray `.csub`.
+- Affiliation color appears **only** on the dot; tag text, titles, and body are all neutral ink/gray.
+- Organize cards with uniform blocks: `.blk-t` (11px gray wide-tracked mini-heading) + body or steps; collapses to one column at ≤640px.
 
-### 4.4 管线 / 流程步骤（竖向时间线）
+### 4.4 Pipeline / process steps (vertical timeline)
 
-- 单列 `.steps`，每步为"编号圆点 + 标题 + 说明"；圆点统一中性灰（`background:var(--color-muted-2)`、白字、19px），步骤间用 1.5px `line-soft` 竖线连接，**禁止每步换彩色**。
-- 标题 13px 深色、说明 12.5px 灰色；一套流程 3–5 步，标题用动宾短语。
+- Single-column `.steps`; each step is "numbered dot + title + description". Dots are uniformly neutral gray (`background:var(--color-muted-2)`, white numerals, 19px) joined by a 1.5px `line-soft` vertical connector; **no per-step colors**.
+- Titles 13px dark, descriptions 12.5px gray; 3–5 steps per pipeline; titles are verb-first phrases.
 
-### 4.5 用户视角对比表
+### 4.5 User-facing comparison table
 
-- `paper`（`alt` 内白底）大圆角 22px 容器，内含标题 + 一句说明 + 一张 `table`。
-- 表头 11–12px 灰色大写；主体列头用"6px 圆点 + 名称"标识（A 蓝 / B 橙），**不整列染底色**；表头下 1.5px `line`，行间 1px `line-soft`。
-- 容器 `overflow-x:auto`，窄屏横向滑动而不溢出。
+- A `paper` (white inside `alt`) rounded-22 container holding a title, one explainer line, and a `table`.
+- Headers: 11–12px gray uppercase; subject columns headed by "6px dot + name" (A blue / B orange), **never full-column fills**; 1.5px `line` under the header, 1px `line-soft` between rows.
+- Container gets `overflow-x:auto` so narrow screens scroll instead of overflowing.
 
-### 4.6 代码
+### 4.6 Code
 
-- 行内 `code`：mono 12–13px、`paper` 底、`ink-2` 字、5px 圆角；禁止蓝 / 橙彩色 code 底或彩字；代码块同理，中性浅底深字，全篇统一。
+- Inline `code`: mono 12–13px, `paper` background, ink-2 text, 5px radius; no blue/orange code backgrounds or colored code text; the same neutral treatment applies to code blocks, site-wide.
 
-### 4.7 总结与页脚
+### 4.7 Summary and footer
 
-- 结尾"总结"用 1–2 张浅灰大圆角卡（22px），每张一个主体：8px 圆点 + 名称 + 一句加粗结论 + 灰色补充。
-- 文内页脚用 11.5–13px `muted-2` 灰字居中，放来源与参考链接，不加重线。
+- Close with 1–2 gray rounded-22 summary cards, one per subject: 8px dot + name + one bold conclusion + gray supplement.
+- In-article footers: centered 11.5–13px `muted-2` text for sources and references, no heavy rule.
 
-### 4.8 图标与 emoji
+### 4.8 Icons and emoji
 
-- 不用 emoji 充当小标题或状态图标；小节标题直接写中文。
-- 必须用图形时，用极简线性 SVG 或字符（序号、≠、→），中性色，不引入彩色图标块。
+- No emoji-as-heading or status icons; write section titles in prose.
+- When a glyph is needed, use minimal line SVG or characters (numerals, ≠, →) in neutral color.
 
 ---
 
-## 5. 双主体对比内容规范（V8 vs JVM 这类技术博文）
+## 5. Dual-subject comparison content (V8 vs JVM style posts)
 
-视觉对称之外，内容也必须逐点对称、有细节，不允许一侧详实一侧口号：
+Beyond visual symmetry, content must be symmetric point-by-point with real detail — no rich side opposite a slogan side:
 
-1. **逐点成对。** 每个技术维度一个章节，左右各一张卡；不能出现"只讲 A、B 一句话带过"的维度。
-2. **每点三层细节。** 每张卡都要落到：
-   - **架构设计**：关键组件、数据结构、隔离 / 共享边界，给出真实 API / 类型名（如 `Isolate`、`JNIEnv*`、`HandleScope`、`GlobalRef`）。
-   - **管线设计**：3–5 步编号流程，覆盖创建、进入、执行、回收 / 销毁的真实顺序，而不是抽象形容词。
-   - **用户视角区别**：卡外用对比表给出"多实例 / 故障域 / 并发 / 典型用法 / 销毁后行为"等可操作差异。
-3. **主体配色全篇固定。** 两个主体各分配一个圆点色并全篇一致（默认 A = 蓝、B = 橙）；颜色只标识归属，不表示优劣。
-4. **结论对称。** 结尾总结卡同样左右成对，各自一句话概括模型哲学。
+1. **Paired points.** Each technical dimension is one section with a left and a right card; never a dimension that covers only A and dismisses B in one line.
+2. **Three layers per point.** Every card must include:
+   - **Architecture**: key components, data structures, isolation/sharing boundaries, with real API/type names (e.g. `Isolate`, `JNIEnv*`, `HandleScope`, `GlobalRef`).
+   - **Pipeline**: 3–5 numbered steps covering the real order of creation, entry, execution, and teardown — not adjectives.
+   - **User-facing difference**: outside the card, a table of actionable differences (multi-instance / failure domain / concurrency / typical use / behavior after teardown).
+3. **Fixed affiliation colors.** One dot color per subject, consistent throughout (default A = blue, B = orange); colors identify sides, never rank them.
+4. **Symmetric conclusions.** Closing cards are likewise paired, each summarizing the model's philosophy in one sentence.
 
 ---
 
 ## 6. Do / Don't
 
-| ✅ 要 | 🚫 不要 |
+| ✅ Do | 🚫 Don't |
 |---|---|
-| token 只在 `global.css @theme` 定义 | 在组件或文章里写死色值 |
-| 白底 + 浅灰大圆角区块交替 | 深色大色块铺满正文 |
-| 无边框浅灰卡片 / 1px hairline 卡片 | 彩色卡片顶边、彩色描边、投影 |
-| 强调色只做链接、主按钮和 7–8px 圆点 | 整列彩字、彩色 badge、彩色 code、品牌彩图标 |
-| 学术条目 hairline 列表、中性 meta | 彩色 type badge、一排彩色按钮 |
-| 中性灰步骤编号与连接线 | 每步一个彩色圆点、彩虹时间线 |
-| 灰色大写 eyebrow + 墨色大标题 | 蓝色 eyebrow、emoji 小标题 |
-| 双栏逐点对称、三层细节 | 一侧详实一侧口号、只堆形容词 |
-| 流式 max-width + 降列断点 | 写死像素页宽、横向溢出 |
-| 大留白、行高 1.6–1.75、圆角 18–28 | 信息塞满、直角密集边框、渐变背景 |
-| 改样式走 token / 组件层并 check + build | 内联样式、手改 `dist/`、引入 CDN 样式 |
+| Define tokens only in `global.css @theme` | Hard-code colors in components or posts |
+| Alternate white and `paper` rounded sections | Fill content with dark color blocks |
+| Borderless gray cards / 1px hairline cards | Colored card top edges/outlines, shadows |
+| Accent only in links, primary buttons, 7–8px dots | Colored text columns, badges, code, brand-colored icons |
+| Hairline scholarly lists with neutral meta | Colored type badges, a row of colored buttons |
+| Neutral step numbers and connectors | A different colored dot per step, rainbow timelines |
+| Gray uppercase eyebrow + ink H1 | Blue eyebrows, emoji headings |
+| Point-by-point symmetric dual cards with 3 layers | Rich side vs slogan side, adjective stacking |
+| Fluid max-width + responsive column collapse | Fixed pixel page widths, horizontal overflow |
+| Generous whitespace, line-height 1.6–1.75, radii 18–28 | Dense copy, square corners, gradient backgrounds |
+| Change style at the token/component layer with check+build | Inline styles, editing `dist/`, CDN stylesheets |
 
 ---
 
-## 7. 技术约束（Astro / GitHub Pages）
+## 7. Technical constraints (Astro / GitHub Pages)
 
-- **默认零 JS**：不挂 `client:*` 指令的组件不产生任何 JS；整站当前没有任何 JS bundle。新交互优先用原生能力（如导航下拉用 `<details>`），确需岛屿时先说明理由。
-- **不引框架与 CDN**：不引入 React/Vue/Svelte 等 UI 框架（Astro 支持但本站不需要），不引 Bootstrap/Tailwind CDN/jQuery/webfont/统计脚本；第三方资源必须 vendoring 进仓库或走 npm。
-- **样式只用 Tailwind v4**（`@tailwindcss/vite`，配置即 `global.css`）+ typography 插件；不装第二套 CSS 方案。
-- **语法高亮**用 Astro 内置 Shiki + 本仓库的近单色自定义主题（`astro.config.mjs`），不引 Prism/highlight.js。
-- **内容受 schema 约束**：frontmatter 字段以 `src/content.config.ts` 为准，类型 / 格式错误在 `npm run build` 与 `astro check` 阶段失败。
-- **部署**：`withastro/action@v6` 构建并部署；仓库 Settings → Pages → Source 必须设为 **GitHub Actions**。用户主页仓（zzzode.github.io）不设 `base`；自定义域名放 `public/CNAME`。
-- 图片先压缩；不内联 Base64 大图；`dist/`、`.astro/`、`node_modules/` 不入 git。
-- 响应式断点沿用 Tailwind：`sm 640 / md 768 / lg 1024 / xl 1280`；多列用 Grid + `minmax(0,1fr)` / Tailwind 网格并提供窄屏降列。
+- **Zero JS by default**: components without a `client:*` directive emit no JavaScript; the site currently ships no JS bundle at all. Prefer native capabilities (the mobile nav uses `<details>`); justify any island explicitly.
+- **No frameworks or CDNs**: no React/Vue/Svelte UI frameworks (Astro supports them, this site doesn't need them), no Bootstrap/Tailwind-CDN/jQuery/webfonts/analytics scripts; third-party assets must be vendored or installed via npm.
+- **Tailwind v4 only** (`@tailwindcss/vite`; configuration lives in `global.css`) plus the typography plugin; no second CSS system.
+- **Syntax highlighting** via built-in Shiki with the repository's near-monochrome theme (`astro.config.mjs`); no Prism/highlight.js.
+- **i18n**: zh is the default locale at the root, en under `/en` (`astro.config.mjs`); UI strings only in `src/i18n/ui.ts`; entries are same-name file pairs under `src/content/<collection>/{zh,en}/`.
+- **Schema-bound content**: front matter follows `src/content.config.ts`; type/format errors fail `npm run build` and `astro check`.
+- **Deployment**: `withastro/action@v6` builds and deploys; Settings → Pages → Source must be **GitHub Actions**. This is a user root site (zzzode.github.io) — no `base`; a custom domain goes in `public/CNAME`.
+- Compress images; no inlined Base64 images; `dist/`, `.astro/`, `node_modules/` are not committed.
+- Tailwind breakpoints: `sm 640 / md 768 / lg 1024 / xl 1280`; multi-column layouts collapse at narrow widths.
 
 ---
 
-## 8. 发布前视觉自检清单
+## 8. Pre-publish visual checklist
 
-push 前本地构建后，按桌面 1280px、平板 768px、手机 390px 三档逐项核对（可用 Chrome DevTools 设备模拟或 headless 截图）：
+After a local build, check at desktop 1280px, tablet 768px, and phone 390px (DevTools device mode or headless screenshots), in **both locales**:
 
-- [ ] `npm run check` 与 `npm run build` 无错误、无新增警告。
-- [ ] 整站以黑白灰为主，强调色仅出现在链接、主按钮和 7–8px 圆点上，无大面积彩色块、无彩色 tag / 品牌彩图标。
-- [ ] 字号、负字距、行高、圆角符合 token 表；没有直角卡片、没有任何投影。
-- [ ] 导航白底 hairline、吸顶不挡内容；移动端汉堡下拉可用（零 JS）。
-- [ ] 首页 Hero 为浅灰大圆角，eyebrow 灰色大写、无 emoji；板块卡两列 / 单列切换正确。
-- [ ] 条目列表行线、meta、标签中性；空集合显示中文空状态。
-- [ ] 文章页标题、日期、标签与 `.prose` 排版正常；代码块近单色；双主体块左右对称、三层细节齐备。
-- [ ] 窄屏下多列正确降列，无文字截断、横向溢出；触控目标 ≥44px。
-- [ ] 图片已压缩、有 alt；无外链图床、无 localhost / 占位链接。
-- [ ] 构建产物中无自有 JS bundle（除非该页明确用了岛屿）、无外链字体 / CDN。
-- [ ] diff 中无 token、凭据、个人敏感信息，无 `dist/` 等产物噪声。
+- [ ] `npm run check` and `npm run build` pass with no errors/new warnings.
+- [ ] The site is grayscale-first; accent appears only in links, primary buttons, and 7–8px dots; no large color blocks, colored tags, or brand-colored icons.
+- [ ] Font sizes, negative tracking, line-height, and radii match the token table; no square cards, no shadows anywhere.
+- [ ] Nav: white hairline, sticky without obscuring content; mobile hamburger and dropdown work with zero JS.
+- [ ] Language toggle links to the same route in the other locale, or is a disabled pill when the entry has no counterpart; nav links all carry the correct `/en` prefix on English pages.
+- [ ] Home hero is light with a 28px radius; eyebrow gray uppercase, no emoji; section cards switch between two columns and one column.
+- [ ] Entry-list hairlines/meta/tags are neutral; empty collections show the localized empty state.
+- [ ] Per-locale lists only contain entries that exist in that locale; dates are localized; post titles/venues keep their original language.
+- [ ] Post headings, dates, tags, and `.prose` render correctly; code blocks are near-monochrome; dual-subject blocks are symmetric with all three layers.
+- [ ] Multi-column layouts collapse correctly at narrow widths; no clipped text or horizontal overflow; touch targets ≥44px.
+- [ ] Images are compressed with alt text; no external image hosts, localhost links, or placeholder URLs.
+- [ ] The build emits no first-party JS bundle (apart from a justified island) and no external fonts/CDNs.
+- [ ] The diff contains no tokens, credentials, or personal data, and no `dist/` artifact noise.
 
-## 9. 文件地图
+## 9. File map
 
-- Token 与全局排版：`src/styles/global.css`（`@theme` + base + `.prose`）。
-- 代码高亮主题与站点配置：`astro.config.mjs`。
-- 内容 schema：`src/content.config.ts`；条目：`src/content/{posts,publications,talks,teaching}/`。
-- 框架组件：`src/components/{Nav,Footer,HomeHero,SectionCard,PageHeader,EntryList,EmptyState}.astro`。
-- 页面：`src/pages/index.astro`、`src/pages/{publications,talks,teaching,posts}/index.astro`、`src/pages/posts/[slug].astro`、`src/pages/cv.astro`、`src/pages/404.astro`、RSS 在 `src/pages/rss.xml.ts`。
-- 静态资源：`public/favicon.svg`、`public/files/`（PDF）、`public/images/`。
-- 部署：`.github/workflows/deploy.yml`。
+- Tokens and global typography: `src/styles/global.css` (`@theme` + base + `.prose`).
+- Highlight theme and site config: `astro.config.mjs`; UI strings: `src/i18n/ui.ts`.
+- Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/`.
+- Framework components: `src/components/{Nav,Footer,HomeHero,SectionCard,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/`.
+- Routes: `src/pages/index.astro` and `src/pages/{publications,talks,teaching,posts}/index.astro`, posts detail `src/pages/posts/[...slug].astro`, `src/pages/cv.astro`, `src/pages/404.astro`, `src/pages/rss.xml.ts`, plus mirrored files under `src/pages/en/`.
+- Static assets: `public/favicon.svg`, `public/files/` (PDFs), `public/images/`.
+- Deployment: `.github/workflows/deploy.yml`.

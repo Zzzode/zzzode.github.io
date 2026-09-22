@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../PageHeader.astro';
+import EntryList from '../EntryList.astro';
+import EmptyState from '../EmptyState.astro';
+import { type Lang, t } from '../../i18n/ui';
+import { getEntries, type SectionName } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+  name: SectionName;
+}
+
+const { lang, name } = Astro.props;
+const entries = await getEntries(name, lang);
+---
+
+<BaseLayout lang={lang} title={t(lang, `section.${name}`)}>
+  <PageHeader
+    eyebrow={t(lang, `section.${name}.eyebrow`)}
+    title={t(lang, `section.${name}`)}
+    lead={t(lang, `section.${name}.lead`)}
+  />
+  {
+    entries.length === 0 ? (
+      <EmptyState text={t(lang, `section.${name}.empty`)} />
+    ) : (
+      <EntryList entries={entries} />
+    )
+  }
+</BaseLayout>

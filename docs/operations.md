@@ -1,57 +1,65 @@
-# 操作说明
+# Operations
 
-## 环境要求
+## Requirements
 
-- **Node.js ≥ 22.12**（Astro 7 要求；本机 v22.x 满足，CI 用 Node 24）。
-- **npm ≥ 9.6.5**，用 npm 管理依赖（提交 `package-lock.json`；`withastro/action` 靠锁文件识别包管理器）。
-- 不需要 Ruby / Python；内容生成已被 Astro Content Collections + zod 取代。
+- **Node.js ≥ 22.12** (required by Astro 7; CI uses Node 24).
+- **npm ≥ 9.6.5**. Commit `package-lock.json` — `withastro/action` detects the package manager from the lockfile.
+- No Ruby/Python needed; content generation is handled by Astro Content Collections + zod.
 
-## 首次准备
+## First-time setup
 
     npm install
 
-如果在字节内网使用默认镜像（`bnpm.byted.org`）时出现 `@astrojs/markdown-satteri` 版本找不到的错误，是镜像未同步该包所致；仓库根目录的 `.npmrc` 已把 registry 指向 `https://registry.npmjs.org/`，直接在仓库内执行 `npm install` 即可（GitHub Actions 同样走公网 npm，无需额外配置）。
+On the ByteDance internal network, the default mirror (`bnpm.byted.org`) may lag new packages (e.g. `@astrojs/markdown-satteri` not found). The repository-level `.npmrc` pins the registry to `https://registry.npmjs.org/`, so running `npm install` inside the repo just works (GitHub Actions uses the public registry too).
 
-## 本地开发
+## Local development
 
-    npm run dev        # http://localhost:4321，HMR 热更新
+    npm run dev        # http://localhost:4321 with HMR
 
-生产等价构建（push 前最终自检必须用这个）：
+Production-equivalent build (required before pushing):
 
-    npm run check      # astro check：TS strict + content collection 校验
-    npm run build      # 产物输出到 dist/
-    npm run preview    # 本地预览 dist/（默认 http://localhost:4321）
+    npm run check      # astro check: TS strict + content collection validation
+    npm run build      # outputs to dist/
+    npm run preview    # serves dist/ locally (default http://localhost:4321)
 
-改 `astro.config.mjs`、`src/content.config.ts` 后 dev 会自动重启同步；新增 / 删除集合目录不需要重启。
+Changes to `astro.config.mjs` or `src/content.config.ts` are re-synced automatically by the dev server.
 
-## 添加内容
+## Adding content (bilingual pairs)
 
-- 论文：`src/content/publications/<slug>.md`，`title/date/venue` 必填，附 PDF 放 `public/files/` 并填 `pdf: /files/xxx.pdf`。
-- 演讲：`src/content/talks/<slug>.md`；教学：`src/content/teaching/<slug>.md`；文章：`src/content/posts/YYYY-MM-DD-slug.md`。
-- frontmatter 字段以 `src/content.config.ts` 为准；构建期校验，字段错误会让 `build` 失败——在源文件修正，不要放宽 schema。
-- 文章正文支持 GFM 与代码高亮；内嵌 HTML 取色只用 `var(--color-*)`，规范见 `docs/design/apple-style-guide.md`。
+- Publications: `src/content/publications/{zh,en}/<slug>.md` (required `title/date/venue`; PDFs go in `public/files/` and are referenced as `pdf: /files/xxx.pdf`).
+- Talks: `src/content/talks/{zh,en}/<slug>.md`; teaching: `src/content/teaching/{zh,en}/<slug>.md`; posts: `src/content/posts/{zh,en}/<slug>.md`.
+- The zh and en files of an entry must share the same filename (same `<slug>`). Entries without a counterpart are hidden in the other-locale list and show a disabled language toggle.
+- Front matter fields are defined in `src/content.config.ts` and validated at build time. Fix bad data in the source file — do not loosen the schema.
+- Post bodies support GFM and syntax highlighting. Embedded HTML must only use `var(--color-*)` tokens; see `docs/design/apple-style-guide.md`.
 
-## 发布
+### Adding a new UI string
 
-没有独立部署脚本：commit 推送到 `main` 后，`.github/workflows/deploy.yml`（`actions/checkout@v7` → `withastro/action@v6` → `actions/deploy-pages@v5`）自动构建上线。
+1. Add the same key to both `zh` and `en` tables in `src/i18n/ui.ts`.
+2. Reference it with `t(lang, 'key')`; never hard-code interface copy in a component/page.
+3. Routes that exist in both locales need a thin file under `src/pages/…` (zh root) and `src/pages/en/…` (en), each rendering the shared page component with `lang="zh"|"en"`.
 
-1. `npm run check` 与 `npm run build` 通过。
-2. 完成设计规范第 8 节的三档宽度视觉自检。
-3. 用户确认后 `git push`。
-4. 在 GitHub 仓库 **Settings → Pages → Source 确认是 "GitHub Actions"**（首次部署前必须设置；之前若用分支部署，这里不切换会继续构建旧内容或失败）。
-5. 在 Actions 页确认工作流绿色，线上抽查。
+## Deployment
 
-## 常见故障
+There is no deploy script: pushing a commit to `main` triggers `.github/workflows/deploy.yml` (`actions/checkout@v7` → `withastro/action@v6` → `actions/deploy-pages@v5`).
 
-- **`npm install` 报 `No matching version found for @astrojs/markdown-satteri`**：内网镜像未同步；仓库 `.npmrc` 已指定公网 registry，确认未用 `--registry` 覆盖。
-- **build 报 content / schema 错误**：按报错文件行号修 front matter（日期用 ISO、枚举值合法、URL 合法）；不要改 schema 迁就错误数据。
-- **样式没更新 / 新 token 不生效**：`@theme` 里变量名必须是 `--color-*` / `--radius-*` 这类 Tailwind v4 能识别的命名空间；改后重启 dev。
-- **页面 404 或资源路径错**：本仓是 `<user>.github.io` 根站，**不要设置 `base`**；内部链接以 `/` 开头写绝对路径。日后若改为项目仓或加自定义域名，再按 Astro 文档调整。
-- **Actions 构建失败但本地通过**：先看 Actions 日志；常见为推送了未 `npm install` 后的 lockfile 漂移、或用了白名单外的环境变量。本地以 `npm run build`（而不是全局 astro）为准。
-- **页面字体或样式在本地与线上不一致**：确认没有引入 webfont / CDN；本站只使用系统字体栈。
-- **图片过大**：先压缩（长边 ≤2000px），不内联 Base64、不入大体积数据文件。
+1. `npm run check` and `npm run build` pass.
+2. Complete the design guide's §8 visual checklist at three widths, in both locales.
+3. Push after the user confirms.
+4. Make sure GitHub repo **Settings → Pages → Source** is **GitHub Actions** (required before the first deploy).
+5. Confirm the workflow is green on the Actions tab, then spot-check the live site.
 
-## 不要提交
+## Troubleshooting
 
-- `dist/`、`.astro/`、`node_modules/`（已在 `.gitignore`）。
-- token、凭据、个人敏感信息；公开仓库中一切内容视同对外发布。
+- **`No matching version found for @astrojs/markdown-satteri` during install**: internal mirror lag; the repo `.npmrc` already pins the public npm registry — don't override it with `--registry`.
+- **Build fails on content/schema**: fix the flagged front matter per file/line (ISO dates, valid enum values, valid URLs); don't weaken the schema.
+- **Styles/new tokens don't apply**: in Tailwind v4 token names need the `--color-*` / `--radius-*` namespaces inside `@theme`; restart the dev server after changes.
+- **"No files found matching `**/*.md`" / "collection does not exist or is empty" warnings**: expected while a collection has no entries in one/both locales; they disappear once Markdown pairs are added.
+- **404s or wrong asset paths**: this is a root `<user>.github.io` site — do **not** set `base`; internal links are root-absolute (`/en/...` for English).
+- **Actions fails while local build passes**: check the Actions log — usually lockfile drift or local-only env vars. Always trust `npm run build` (not a globally installed `astro`).
+- **Fonts/styles differ between local and live**: no webfonts/CDNs are used anywhere; the site relies solely on system font stacks.
+- **Oversized images**: compress first (long edge ≤2000px); no inlined Base64 or large data files.
+
+## Never commit
+
+- `dist/`, `.astro/`, `node_modules/` (already in `.gitignore`).
+- Tokens, credentials, personal data — everything in this public repository is published to the web.

@@ -1,24 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HomeHero from '../components/HomeHero.astro';
-import SectionCard from '../components/SectionCard.astro';
-import { getCollection } from 'astro:content';
-
-const [posts, publications, talks, teaching] = await Promise.all([
-  getCollection('posts', ({ data }) => !data.draft),
-  getCollection('publications'),
-  getCollection('talks'),
-  getCollection('teaching'),
-]);
+import HomePage from '../components/pages/HomePage.astro';
 ---
 
-<BaseLayout>
-  <HomeHero />
-
-  <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-    <SectionCard href="/publications/" label="PUBLICATIONS" title="论文" count={publications.length} />
-    <SectionCard href="/talks/" label="TALKS" title="演讲" count={talks.length} />
-    <SectionCard href="/teaching/" label="TEACHING" title="教学" count={teaching.length} />
-    <SectionCard href="/posts/" label="WRITING" title="文章" count={posts.length} />
-  </div>
-</BaseLayout>
+<HomePage lang="zh" />

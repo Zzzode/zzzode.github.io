@@ -1,16 +1,26 @@
-# zzzode.github.io 协作说明
+# zzzode.github.io — Collaboration Guide
 
-本仓库是 Zzzode 的个人网站，采用 **Astro 7 + Tailwind CSS v4 + TypeScript** 静态构建；推送到 `main` 后由 GitHub Actions（`withastro/action@v6`）构建并发布到 GitHub Pages，产物为纯静态 HTML/CSS，**默认零 JavaScript**（Astro 岛屿架构，不挂 `client:*` 指令就不打包 JS）。
+This repository holds Zzzode's personal website. It is built with **Astro 7 + Tailwind CSS v4 + TypeScript** as a fully static site. Pushing to `main` builds and deploys it to GitHub Pages via GitHub Actions (`withastro/action@v6`). Output is plain static HTML/CSS with **zero JavaScript by default** (Astro islands: no `client:*` directive means no JS bundle).
 
-- 动手改任何内容或样式前，先阅读 [Site Curator Prompt](docs/prompts/site-curator.md)。
-- 视觉以 [苹果风格设计规范](docs/design/apple-style-guide.md) 为唯一权威；苹果 token 只在 `src/styles/global.css` 的 `@theme` 块中定义（同时以 CSS 自定义属性落在 `:root`），组件与文章内嵌 HTML 只准引用 token，不在组件里写死色值，不自创配色或组件。
-- 内容与呈现分离：学术条目各自进 `src/content/{publications,talks,teaching,posts}/` 的 Markdown 文件，front matter 受 `src/content.config.ts` 的 zod schema 构建期校验；通用组件在 `src/components/`，页面路由在 `src/pages/`，静态资源在 `public/`。
-- 本地验证：`npm run check`（TypeScript strict + 集合校验）与 `npm run build` 必须通过；预览用 `npm run dev`（HMR）或 `npm run preview`（构建产物）。
-- 不引入交互框架（React/Vue/…）、不引入运行时 CDN 脚本或 webfont；确需交互的组件才用岛屿（`client:load` 等），并在 PR / commit message 里说明为什么不能纯静态。
-- 仓库公开：`public/files/`、页面文字与仓库内容视同公开发布；不提交 token、凭据、个人敏感信息。
-- 最小变更：样式问题在 token 与组件层集中修，不在文章里堆内联样式；可复用结构抽组件，不复制粘贴重复标记。
-- `dist/`、`.astro/`、`node_modules/` 已被 gitignore，绝不提交构建产物。
-- push 到 `main` 即对外发布（Actions 约 1 分钟）；完成本地 check / build / 视觉自检后，**先给用户确认再 push**。
-- GitHub 仓库 Settings → Pages → Source 必须是 **GitHub Actions**（不是从分支部署）；自定义域名在 `public/CNAME` 维护。
+## Language policy
 
-环境搭建、命令与故障处理见 [操作说明](docs/operations.md)。
+- **Source code, prompt docs, and all other engineering docs are written in English by default.** That includes code identifiers and comments, this file, `docs/`, and `README.md`. Write new documentation in English; translate existing prose when you touch it.
+- **Visitor-facing content is bilingual (Chinese / English)** and users switch languages with the toggle in the navigation:
+  - Chinese is the default locale served from the site root (`/`, `/publications/`, …); English lives under the `/en` prefix (`/en/`, `/en/publications/`, …). Configuration lives in `astro.config.mjs` (`i18n`) and UI strings in `src/i18n/ui.ts`.
+  - Content entries (posts, publications, talks, teaching) exist as translation pairs: same filename under `src/content/<collection>/zh/` and `…/en/`. A post should normally ship with both versions. An entry missing its counterpart is hidden from the other locale's list, and the language toggle on its page is rendered disabled.
+  - Academic metadata (paper titles, venues, citations) is always kept in its original language.
+
+## Ground rules
+
+- Read the [Site Curator Prompt](docs/prompts/site-curator.md) before changing content or presentation.
+- The [Apple-style Design Guide](docs/design/apple-style-guide.md) is the single visual authority. Design tokens are declared only in the `@theme` block of `src/styles/global.css` (they also land on `:root` as CSS custom properties). Components and in-article HTML may only reference tokens — never hard-code colors or invent new palettes/components.
+- Content/presentation separation: scholarly entries are Markdown files in `src/content/{publications,talks,teaching,posts}/{zh,en}/` with front matter validated at build time by the zod schemas in `src/content.config.ts`; shared UI lives in `src/components/`, routes in `src/pages/`, static assets in `public/`.
+- Local verification: both `npm run check` (TypeScript strict + collection validation) and `npm run build` must pass. Use `npm run dev` (HMR) or `npm run preview` (served build output) to review.
+- Do not add UI frameworks (React/Vue/…), runtime CDN scripts, or webfonts. If an interaction genuinely needs an island (`client:load`, etc.), explain in the commit message why a static solution was insufficient.
+- This is a public repository: treat `public/files/`, page copy, and the repository contents as publicly visible. Never commit tokens, credentials, or personal data.
+- Keep changes minimal: fix styling centrally in tokens/components; do not pile inline styles into posts; extract repeated markup into components.
+- `dist/`, `.astro/`, and `node_modules/` are gitignored — never commit build output.
+- Pushing to `main` publishes the site (Actions takes ~1 min). Run check/build/visual self-check locally and **get explicit user confirmation before pushing**.
+- GitHub repo Settings → Pages → Source must be **GitHub Actions** (not branch deployment). A custom domain is maintained via `public/CNAME`.
+
+See [Operations](docs/operations.md) for environment setup, commands, and troubleshooting.

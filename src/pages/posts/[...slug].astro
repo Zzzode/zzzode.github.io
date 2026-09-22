@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import PostPage from '../../components/pages/PostPage.astro';
+import { localeOfId, slugOfId, findCounterpart } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', (entry) => {
+    return localeOfId(entry.id) === 'zh' && !entry.data.draft;
+  });
+  return Promise.all(
+    posts.map(async (post) => ({
+      params: { slug: slugOfId(post.id) },
+      props: { post, counterpart: await findCounterpart('posts', post) },
+    }))
+  );
+}
+
+const { post, counterpart } = Astro.props;
+---
+
+<PostPage lang="zh" post={post} counterpart={counterpart} />

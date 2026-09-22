@@ -3,10 +3,11 @@ interface Props {
   href: string;
   title: string;
   label: string;
-  count: number;
+  /** pre-composed line, e.g. "3 项内容" / "1 item" / "Nothing yet" */
+  meta: string;
 }
 
-const { href, title, label, count } = Astro.props;
+const { href, title, label, meta } = Astro.props;
 ---
 
 <a
@@ -22,7 +23,7 @@ const { href, title, label, count } = Astro.props;
     </h2>
   </div>
   <div class="mt-6 flex items-center justify-between text-[13px] text-muted-2">
-    <span>{count > 0 ? `${count} 项内容` : '暂无内容'}</span>
+    <span>{meta}</span>
     <span class="text-lg leading-none text-muted-2" aria-hidden="true">›</span>
   </div>
 </a>

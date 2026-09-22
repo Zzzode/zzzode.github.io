@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeHero from '../HomeHero.astro';
+import SectionCard from '../SectionCard.astro';
+import { getCollection } from 'astro:content';
+import { type Lang, t } from '../../i18n/ui';
+import { localeOfId, type SectionName } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
+
+const sections: { key: SectionName; href: string }[] = [
+  { key: 'publications', href: `${prefix}/publications/` },
+  { key: 'talks', href: `${prefix}/talks/` },
+  { key: 'teaching', href: `${prefix}/teaching/` },
+  { key: 'posts', href: `${prefix}/posts/` },
+];
+
+const counts = await Promise.all(
+  sections.map(async ({ key }) => {
+    const all = await getCollection(key);
+    return all.filter((entry) => {
+      const inLocale = localeOfId(entry.id) === lang;
+      return inLocale && (key !== 'posts' || !(entry.data as { draft?: boolean }).draft);
+    }).length;
+  })
+);
+---
+
+<BaseLayout lang={lang}>
+  <HomeHero lang={lang} />
+  <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+    {
+      sections.map((section, i) => (
+        <SectionCard
+          href={section.href}
+          label={t(lang, `section.${section.key}.eyebrow`)}
+          title={t(lang, `section.${section.key}`)}
+          meta={
+            counts[i] === 0
+              ? t(lang, 'card.none')
+              : `${counts[i]} ${t(lang, counts[i] === 1 ? 'card.item' : 'card.items')}`
+          }
+        />
+      ))
+    }
+  </div>
+</BaseLayout>

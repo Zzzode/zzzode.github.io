@@ -40,6 +40,14 @@ const monoCodeTheme = /** @type {const} */ ({
 export default defineConfig({
   // User/organization root site (<user>.github.io) — do NOT set `base`.
   site: 'https://zzzode.github.io',
+  // Chinese is the default locale at the site root; English lives under /en.
+  i18n: {
+    defaultLocale: 'zh',
+    locales: ['zh', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

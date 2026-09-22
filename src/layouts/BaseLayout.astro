@@ -2,33 +2,53 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { type Lang, defaultLang, switchLocalePath, t } from '../i18n/ui';
 
 interface Props {
+  lang?: Lang;
   title?: string;
   description?: string;
+  /**
+   * URL of this page in the other language.
+   * - string: link the toggle there (translated page exists)
+   * - null:   no translation exists, render the toggle as a non-link
+   * - undefined: the counterpart route always exists (home/section pages)
+   */
+  alternatePath?: string | null;
 }
 
-const {
-  title,
-  description = 'Zzzode 的个人网站：论文、演讲、教学与文章。',
-} = Astro.props;
+const { lang = defaultLang, title, alternatePath } = Astro.props;
+const description = Astro.props.description ?? t(lang, 'site.description');
 
 const siteName = 'Zzzode';
 const pageTitle = title ? `${title} · ${siteName}` : siteName;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const pathname = Astro.url.pathname;
+const canonical = new URL(pathname, Astro.site);
+const altPath = alternatePath === undefined ? switchLocalePath(pathname, lang) : alternatePath;
+const zhPath = lang === 'zh' ? pathname : altPath;
+const enPath = lang === 'en' ? pathname : altPath;
+const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={siteName} href={rssHref} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {enPath && (
+      <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+    )}
+    {zhPath && (
+      <link rel="alternate" hreflang="zh-CN" href={new URL(zhPath, Astro.site)} />
+    )}
+    {zhPath && <link rel="alternate" hreflang="x-default" href={new URL(zhPath, Astro.site)} />}
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -36,10 +56,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="theme-color" content="#ffffff" />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Nav />
+    <Nav lang={lang} alternatePath={altPath} />
     <main class="container-page flex-1 py-10 sm:py-14">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
