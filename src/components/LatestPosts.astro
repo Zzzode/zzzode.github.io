@@ -1,0 +1,72 @@
+---
+import { type Lang, t } from '../i18n/ui';
+import type { Entry } from '../lib/entries';
+
+interface Props {
+  lang: Lang;
+  /** Newest posts first; the first becomes the feature tile. */
+  posts: Entry[];
+}
+
+const { lang, posts } = Astro.props;
+const [feature, ...rest] = posts;
+const shown = rest.slice(0, 3);
+---
+
+{
+  feature === undefined ? (
+    <div class="rounded-[18px] bg-white px-8 py-20 text-center">
+      <p class="text-[14.5px] text-muted">{t(lang, 'home.latest.empty')}</p>
+    </div>
+  ) : (
+    <>
+      <a
+        href={feature.href}
+        class="group block rounded-[18px] bg-white px-7 py-10 transition-colors hover:bg-white sm:px-12 sm:py-14"
+      >
+        <p class="text-[12.5px] text-muted-2">{feature.meta}</p>
+        <h2
+          class="mt-3 max-w-[720px] text-[clamp(24px,3.2vw,34px)] font-semibold leading-[1.12] tracking-[-0.025em] text-ink transition-colors group-hover:text-blue"
+        >
+          {feature.title}
+        </h2>
+        {
+          feature.excerpt && (
+            <p class="mt-4 max-w-[640px] text-[14.5px] leading-relaxed text-muted sm:text-[15.5px]">
+              {feature.excerpt}
+            </p>
+          )
+        }
+        <p class="mt-7 inline-flex items-center gap-1 text-[15px] text-blue">
+          {t(lang, 'home.read')}
+          <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
+        </p>
+      </a>
+
+      {
+        shown.length > 0 && (
+          <div class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {shown.map((post) => (
+              <a
+                href={post.href}
+                class="group flex flex-col rounded-[18px] bg-white px-6 py-7"
+              >
+                <p class="text-[12px] text-muted-2">{post.meta}</p>
+                <h3
+                  class="mt-2.5 text-[17px] font-semibold leading-snug tracking-[-0.015em] text-ink transition-colors group-hover:text-blue"
+                >
+                  {post.title}
+                </h3>
+                {post.excerpt && (
+                  <p class="mt-2 line-clamp-3 text-[13px] leading-relaxed text-muted">
+                    {post.excerpt}
+                  </p>
+                )}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </>
+  )
+}

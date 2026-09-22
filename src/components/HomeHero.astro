@@ -9,18 +9,36 @@ const { lang } = Astro.props;
 const prefix = lang === 'en' ? '/en' : '';
 ---
 
-<section class="rounded-[28px] bg-paper px-7 py-12 sm:px-12 sm:py-16">
-  <p class="eyebrow">{t(lang, 'home.eyebrow')}</p>
-  <h1
-    class="mt-4 text-[clamp(40px,6vw,64px)] font-semibold leading-[1.08] tracking-[-0.03em] text-ink"
+<section class="bg-white">
+  <div
+    class="container-page flex flex-col items-center py-24 text-center sm:py-32"
   >
-    Zzzode
-  </h1>
-  <p class="mt-5 max-w-[620px] text-[16.5px] leading-relaxed text-muted sm:text-[17px]">
-    {t(lang, 'home.lead')}
-  </p>
-  <div class="mt-8 flex flex-wrap items-center gap-3">
-    <a href={`${prefix}/publications/`} class="btn-primary">{t(lang, 'home.viewPublications')}</a>
-    <a href={`${prefix}/cv/`} class="btn-secondary">{t(lang, 'home.viewCv')}</a>
+    <p class="eyebrow">{t(lang, 'home.eyebrow')}</p>
+    <h1
+      class="mt-5 max-w-[860px] text-[clamp(40px,7vw,76px)] font-semibold leading-[1.05] tracking-[-0.035em] text-ink"
+    >
+      {t(lang, 'home.title')}
+    </h1>
+    <p
+      class="mt-6 max-w-[560px] text-[17px] leading-relaxed text-muted sm:text-[19px]"
+    >
+      {t(lang, 'home.lead')}
+    </p>
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[17px]">
+      <a
+        href={`${prefix}/posts/`}
+        class="inline-flex items-center gap-1 text-blue hover:underline underline-offset-4"
+      >
+        {t(lang, 'home.viewWriting')}
+        <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
+      </a>
+      <a
+        href={`${prefix}/cv/`}
+        class="inline-flex items-center gap-1 text-blue hover:underline underline-offset-4"
+      >
+        {t(lang, 'home.viewCv')}
+        <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
+      </a>
+    </div>
   </div>
 </section>

@@ -22,7 +22,7 @@ When visuals conflict with the token table, colors, type, radii, and spacing alw
 3. **Breathing room.** Generous whitespace, relaxed line-height (1.6–1.75 for body), large radii; gaps between sections are larger than gaps between elements.
 4. **Symmetry is fairness.** A dual-subject comparison (e.g. V8 vs JVM) must be point-by-point symmetric; affiliation is marked only by a 7–8px dot, with matched density, structure, and line counts on both sides.
 5. **Graphics serve comprehension only.** No decorative gradients, shadow stacks, emoji-as-icons, animated GIFs, or meaningless icons. Dividers, table rules, and step connectors use neutral gray and stay as faint as possible.
-6. **Light by default.** The site is light-first (white alternating with `paper` gray). Apart from the one intentionally designed brand moment on the home hero, no dark color blocks in content.
+6. **Light by default.** The site is light-first (white hero and white tiles alternating with `paper` sections). No dark color blocks in content.
 
 ---
 
@@ -70,10 +70,11 @@ Type scale (base 15.5–16px):
 
 | Role | Size / line-height |
 |---|---|
-| Home hero H1 | `clamp(40px,6vw,64px)` / 1.08 |
+| Home hero H1 | `clamp(40px,7vw,76px)` / 1.05 |
 | Section H1 | `clamp(30px,4vw,40px)` / 1.1 |
 | Post H1 | `clamp(28px,4vw,38px)` / 1.12 |
 | Section H2 | 22–28px / 1.15 |
+| Feature-tile title | clamp(24–34px) / 1.12 |
 | Card H3 / entry title | 16.5–19px / 1.25–1.35 |
 | Body | 15.5px / 1.6–1.75 |
 | Meta / labels | 12–13px `muted`; eyebrows/kickers 12px uppercase with `letter-spacing:.14em` |
@@ -88,7 +89,7 @@ Type scale (base 15.5–16px):
 ### 2.4 Backgrounds, borders, shadows
 
 - **No shadows by default** (no Tailwind shadows anywhere, including hover). Separation comes from alternating white/`paper` surfaces plus radii.
-- Cards are one of: 1px `line`/`line-soft` outline on white (home section cards), or borderless `paper` fill; stay consistent within a list.
+- Cards/surfaces are one of: 1px `line`/`line-soft` outline on white, or borderless white tiles on `paper` sections; stay consistent within a section.
 - Nav/footer: white with a 1px `line-soft` hairline; no gradients.
 
 ---
@@ -104,38 +105,47 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 - Bilingual: every item and the brand link carry the locale prefix (`/en` for English); the language toggle is a hairline pill linking to the same route in the other locale, rendered as a disabled `muted-2` pill when no counterpart exists.
 - Mobile (<768px): zero-JS native `<details>` dropdown — white, 1px hairline, 12px radius, ≥44px touch targets; the toggle pill sits beside the hamburger.
 
-### 3.2 Hero (`HomeHero.astro`)
+### 3.2 Home hero (`HomeHero.astro`)
 
-- Large `paper` rounded-28 banner, padding 28–64px; not a dark cover image.
-- Structure: gray uppercase eyebrow (**never blue**) → ink H1 (negative tracking) → gray lead (16.5–17px, max-width 620px) → button row.
-- Primary button: blue pill with white text; secondary: white pill with 1px hairline and ink text. Copy is localized via `home.*` keys.
+- Full-bleed **white**, centered content, generous vertical padding (96–128px); this is the one deliberately airy brand moment — not a gray boxed banner and not a dark cover.
+- Structure: gray uppercase eyebrow → very large tight H1 (`clamp(40px,7vw,76px)`, weight 600, tracking `-0.035em`, line-height ~1.05) → one gray subhead (17–19px `muted`, max-width 560px) → a row of **blue text links with `›` chevrons** (the Apple "Learn more ›" idiom), not pill buttons.
+- The home is blog-first: the primary CTA goes to `/posts/`; the secondary one to `/cv/`.
 
-### 3.3 Section cards (`SectionCard.astro`)
+### 3.3 Latest writing (`LatestPosts.astro`) — the home centerpiece
 
-- Four home entry cards: white, 1px `line-soft`, radius 18, no shadow; grid `grid-cols-1 sm:grid-cols-2`, gap 16px.
-- Inside: English eyebrow label + localized title (19px/600); bottom row 13px `muted-2` (localized count with singular/plural — "1 item" / "3 items" — or "Nothing yet"/"暂无内容") + neutral `›`.
-- Hover: title turns blue, outline deepens slightly; no movement, no shadow.
+- The site is a blog: the first section below the hero is a full-bleed `paper` section titled "最新文章 / Latest writing" with a blue "全部文章 › / All writing ›" text link on the right.
+- Posts render as a white tile mosaic on the `paper` background (12px gaps, 18px radius, no borders, no shadows):
+  - **feature tile**: the newest post, full width, padding 40–56px — date meta (`muted-2` 12.5px) → title (clamp 24–34px/600) → excerpt (14.5–15.5px `muted`, max-width 640px) → blue "阅读文章 › / Read post ›"; hover only turns the title blue.
+  - **three-up grid**: up to three next posts in `sm:grid-cols-3`, compact tiles (24px padding): date → 17px semibold title → clamped 3-line excerpt.
+  - no posts yet: one centered white tile with a localized muted empty message.
+- Tiles are white surfaces on `paper`; do not add outlines/shadows/hover transforms.
 
-### 3.4 Entry list (`EntryList.astro`) — publications/talks/teaching/posts
+### 3.4 Secondary section tiles (`SectionCard.astro`)
+
+- Talks / teaching / publications are deliberately subordinate: a single row of three compact white tiles under a gray `MORE / 更多内容` eyebrow, using the same white-on-`paper` tile language (18px radius, no border).
+- Writing must never appear here — it already owns the hero CTA and the latest mosaic.
+- Tile content: English eyebrow + localized title (17px/600) + one 12.5px `muted-2` line (localized singular/plural count or "Nothing yet"/"暂无内容"). Hover only turns the title blue.
+
+### 3.5 Entry list (`EntryList.astro`) — publications/talks/teaching/posts
 
 - Hairline rows: 20px vertical padding, 1px `line-soft` between rows, no rule after the last row.
 - Titles 16.5px/600 ink; linked titles turn blue on hover, no underline; meta 12.5px `muted` (venue · year / localized date / tags).
 - Excerpts 13.5px `muted`, max-width 680px; tags are white 1px hairline pills.
 - External links (DOI/official) open in a new tab; PDFs live in `public/files/`.
 
-### 3.5 Empty state (`EmptyState.astro`) / page header (`PageHeader.astro`)
+### 3.6 Empty state (`EmptyState.astro`) / page header (`PageHeader.astro`)
 
 - Empty collections render a `paper` rounded-22 block with centered 14.5px `muted` localized text — no dramatic icons.
 - Section headers: gray uppercase eyebrow → localized H1 (clamp 30–40) → one gray lead.
 
-### 3.6 Prose, code, footer
+### 3.7 Prose, code, footer
 
 - Long-form uses `.prose max-w-none` (typography plugin, colors mapped to tokens): ink headings with negative tracking, ink-2 body, blue links without underline (underline on hover), neutral quotes/rules, 12px-radius images.
 - Inline `code`: mono, `paper` background, ink-2 text, 5px radius; code blocks: `paper`, radius 12, 13px.
 - Syntax highlighting is the **near-monochrome Shiki theme** in `astro.config.mjs`: default ink-2, keywords in bold ink, comments in italic muted-2; no colorful syntax themes.
 - Footer: white + 1px top `line-soft`, 12.5px `muted-2`; neutral GitHub/RSS icons turning blue on hover; localized copyright line.
 
-### 3.7 Icons and images
+### 3.8 Icons and images
 
 - Nav/footer use minimal inline SVG (GitHub, RSS, hamburger) in `currentColor`.
 - No emoji-as-icons; when no avatar image exists, don't ship a big placeholder image — use a monogram (as in `public/favicon.svg`).
@@ -259,7 +269,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - [ ] Font sizes, negative tracking, line-height, and radii match the token table; no square cards, no shadows anywhere.
 - [ ] Nav: white hairline, sticky without obscuring content; mobile hamburger and dropdown work with zero JS.
 - [ ] Language toggle links to the same route in the other locale, or is a disabled pill when the entry has no counterpart; nav links all carry the correct `/en` prefix on English pages.
-- [ ] Home hero is light with a 28px radius; eyebrow gray uppercase, no emoji; section cards switch between two columns and one column.
+- [ ] Home hero is white, centered, and airy with a large tight H1 and blue text-`›` links (no pill buttons); the writing-first mosaic renders a full-width feature tile + three-up white tiles on `paper`, collapsing to one column on mobile.
 - [ ] Entry-list hairlines/meta/tags are neutral; empty collections show the localized empty state.
 - [ ] Per-locale lists only contain entries that exist in that locale; dates are localized; post titles/venues keep their original language.
 - [ ] Post headings, dates, tags, and `.prose` render correctly; code blocks are near-monochrome; dual-subject blocks are symmetric with all three layers.
@@ -273,7 +283,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - Tokens and global typography: `src/styles/global.css` (`@theme` + base + `.prose`).
 - Highlight theme and site config: `astro.config.mjs`; UI strings: `src/i18n/ui.ts`.
 - Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/`.
-- Framework components: `src/components/{Nav,Footer,HomeHero,SectionCard,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/`.
+- Framework components: `src/components/{Nav,Footer,HomeHero,LatestPosts,SectionCard,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/`.
 - Routes: `src/pages/index.astro` and `src/pages/{publications,talks,teaching,posts}/index.astro`, posts detail `src/pages/posts/[...slug].astro`, `src/pages/cv.astro`, `src/pages/404.astro`, `src/pages/rss.xml.ts`, plus mirrored files under `src/pages/en/`.
 - Static assets: `public/favicon.svg`, `public/files/` (PDFs), `public/images/`.
 - Deployment: `.github/workflows/deploy.yml`.

@@ -15,9 +15,11 @@ interface Props {
    * - undefined: the counterpart route always exists (home/section pages)
    */
   alternatePath?: string | null;
+  /** Bare pages (home) manage their own full-bleed sections and padding. */
+  bare?: boolean;
 }
 
-const { lang = defaultLang, title, alternatePath } = Astro.props;
+const { lang = defaultLang, title, alternatePath, bare = false } = Astro.props;
 const description = Astro.props.description ?? t(lang, 'site.description');
 
 const siteName = 'Zzzode';
@@ -57,7 +59,7 @@ const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
   </head>
   <body class="flex min-h-screen flex-col">
     <Nav lang={lang} alternatePath={altPath} />
-    <main class="container-page flex-1 py-10 sm:py-14">
+    <main class:list={['flex-1', bare ? '' : 'container-page py-10 sm:py-14']}>
       <slot />
     </main>
     <Footer lang={lang} />

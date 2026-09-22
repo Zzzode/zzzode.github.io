@@ -12,18 +12,15 @@ const { href, title, label, meta } = Astro.props;
 
 <a
   href={href}
-  class="group flex flex-col justify-between rounded-card border border-line-soft bg-white p-6 transition-colors hover:border-line"
+  class="group flex flex-col justify-between rounded-[18px] bg-white px-6 py-7"
 >
   <div>
     <p class="eyebrow">{label}</p>
     <h2
-      class="mt-2.5 text-[19px] font-semibold tracking-[-0.015em] text-ink transition-colors group-hover:text-blue"
+      class="mt-2 text-[17px] font-semibold tracking-[-0.015em] text-ink transition-colors group-hover:text-blue"
     >
       {title}
     </h2>
   </div>
-  <div class="mt-6 flex items-center justify-between text-[13px] text-muted-2">
-    <span>{meta}</span>
-    <span class="text-lg leading-none text-muted-2" aria-hidden="true">›</span>
-  </div>
+  <p class="mt-5 text-[12.5px] text-muted-2">{meta}</p>
 </a>

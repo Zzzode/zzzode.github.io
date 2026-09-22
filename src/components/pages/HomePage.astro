@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeHero from '../HomeHero.astro';
+import LatestPosts from '../LatestPosts.astro';
 import SectionCard from '../SectionCard.astro';
 import { getCollection } from 'astro:content';
 import { type Lang, t } from '../../i18n/ui';
-import { localeOfId, type SectionName } from '../../lib/content';
+import { localeOfId, getEntries, type SectionName } from '../../lib/content';
 
 interface Props {
   lang: Lang;
@@ -13,40 +14,64 @@ interface Props {
 const { lang } = Astro.props;
 const prefix = lang === 'en' ? '/en' : '';
 
-const sections: { key: SectionName; href: string }[] = [
-  { key: 'publications', href: `${prefix}/publications/` },
+// Writing is the centerpiece; the other sections are secondary tiles.
+const more: { key: SectionName; href: string }[] = [
   { key: 'talks', href: `${prefix}/talks/` },
   { key: 'teaching', href: `${prefix}/teaching/` },
-  { key: 'posts', href: `${prefix}/posts/` },
+  { key: 'publications', href: `${prefix}/publications/` },
 ];
 
+const latestPosts = (await getEntries('posts', lang)).slice(0, 4);
+
 const counts = await Promise.all(
-  sections.map(async ({ key }) => {
+  more.map(async ({ key }) => {
     const all = await getCollection(key);
-    return all.filter((entry) => {
-      const inLocale = localeOfId(entry.id) === lang;
-      return inLocale && (key !== 'posts' || !(entry.data as { draft?: boolean }).draft);
-    }).length;
+    return all.filter((entry) => localeOfId(entry.id) === lang).length;
   })
 );
 ---
 
-<BaseLayout lang={lang}>
+<BaseLayout lang={lang} bare>
   <HomeHero lang={lang} />
-  <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-    {
-      sections.map((section, i) => (
-        <SectionCard
-          href={section.href}
-          label={t(lang, `section.${section.key}.eyebrow`)}
-          title={t(lang, `section.${section.key}`)}
-          meta={
-            counts[i] === 0
-              ? t(lang, 'card.none')
-              : `${counts[i]} ${t(lang, counts[i] === 1 ? 'card.item' : 'card.items')}`
-          }
-        />
-      ))
-    }
-  </div>
+
+  <section class="bg-paper">
+    <div class="container-page py-16 sm:py-20">
+      <div class="mb-5 flex items-baseline justify-between gap-4">
+        <h2
+          class="text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-ink"
+        >
+          {t(lang, 'home.latest')}
+        </h2>
+        <a
+          href={`${prefix}/posts/`}
+          class="inline-flex shrink-0 items-center gap-1 text-[14.5px] text-blue hover:underline underline-offset-4"
+        >
+          {t(lang, 'home.allWriting')}
+          <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
+        </a>
+      </div>
+
+      <LatestPosts lang={lang} posts={latestPosts} />
+
+      <h2 class="mt-14 text-[12px] font-medium uppercase tracking-[0.14em] text-muted-2">
+        {t(lang, 'home.more')}
+      </h2>
+      <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {
+          more.map((section, i) => (
+            <SectionCard
+              href={section.href}
+              label={t(lang, `section.${section.key}.eyebrow`)}
+              title={t(lang, `section.${section.key}`)}
+              meta={
+                counts[i] === 0
+                  ? t(lang, 'card.none')
+                  : `${counts[i]} ${t(lang, counts[i] === 1 ? 'card.item' : 'card.items')}`
+              }
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </BaseLayout>
