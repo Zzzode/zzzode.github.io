@@ -101,7 +101,7 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 ### 3.1 Nav (`Nav.astro`)
 
 - The global navigation is the site's **single sanctioned dark chrome surface**, matching apple.com's `.globalnav` exactly: 44px tall, background `rgba(0,0,0,0.8)` with `backdrop-filter: blur(20px) saturate(1.8)` (pure black at 80% — not the near-black `--color-ink`, which composites too gray over light content); sticky, with at most a hairline `rgba(245,245,247,0.08)` bottom edge; no shadow.
-- Brand wordmark 15px/600 in `#f5f5f7`; items are 12px `rgba(245,245,247,0.8)` (Apple's off-white, visibly brighter than 70% pure white), hover/active → `#f5f5f7`. Apple does not use blue inside the global nav — blue stays for in-page content links.
+- The left brand slot contains only the Z lettermark (21px, off-white, linked home with `aria-label="Zzzode"`) — no repeated wordmark in the bar, mirroring apple.com. Items are 12px `rgba(245,245,247,0.8)` (Apple's off-white, visibly brighter than 70% pure white), hover/active → `#f5f5f7`. Apple does not use blue inside the global nav — blue stays for in-page content links.
 - The language toggle is a translucent hairline pill (`border rgba(245,245,247,0.22)`, text 85% off-white) brightening toward full white on hover; the disabled state uses 12% border + 35% text.
 - Mobile (<768px): zero-JS native `<details>`; opening it shows a full-width panel with the same `rgba(0,0,0,0.8)` blur treatment, 17px items in `rgba(245,245,247,0.8)` separated by `rgba(245,245,247,0.08)` hairlines; white hamburger glyph. ≥44px touch targets.
 
