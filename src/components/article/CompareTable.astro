@@ -1,0 +1,67 @@
+---
+/**
+ * User-facing comparison table. Wraps a slot-provided <table>; the table
+ * itself keeps standard markup so authors write plain Markdown/MDX tables.
+ * Subject columns mark ownership with a small colored dot in the header.
+ *
+ * Usage: pass `headers` with optional `dot: 'a' | 'b'`, and `rows` arrays.
+ */
+interface Header {
+  label: string;
+  dot?: 'a' | 'b';
+}
+
+interface Props {
+  headers: Header[];
+  rows: string[][];
+  caption?: string;
+}
+
+const { headers, rows, caption } = Astro.props;
+---
+
+<div class="not-prose overflow-x-auto">
+  {caption && <p class="mb-3 text-[12px] text-muted">{caption}</p>}
+  <table class="w-full min-w-[480px] border-collapse text-[13px]">
+    <thead>
+      <tr>
+        {
+          headers.map((h) => (
+            <th class="border-b border-line px-3 py-2.5 text-left text-[11.5px] font-semibold uppercase tracking-[0.06em] text-muted-2">
+              <span class="inline-flex items-center gap-2">
+                {h.dot && (
+                  <span
+                    class:list={[
+                      'inline-block h-[6px] w-[6px] rounded-full',
+                      h.dot === 'a' ? 'bg-blue' : 'bg-compare',
+                    ]}
+                  />
+                )}
+                {h.label}
+              </span>
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row, ri) => (
+          <tr>
+            {row.map((cell, ci) => (
+              <td
+                class:list={[
+                  'border-b border-line-soft px-3 py-2.5 align-top leading-[1.65]',
+                  ri === rows.length - 1 && 'border-b-0',
+                  ci === 0 ? 'font-medium text-ink' : 'text-muted',
+                ]}
+              >
+                {cell}
+              </td>
+            ))}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

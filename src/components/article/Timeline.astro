@@ -1,0 +1,38 @@
+---
+/**
+ * Horizontal rail timeline: a hairline rail behind ringed nodes,
+ * collapsing to a vertical list at narrow widths (design guide §4.4).
+ */
+interface Node {
+  year: string;
+  title: string;
+  body?: string;
+}
+
+interface Props {
+  nodes: Node[];
+}
+const { nodes } = Astro.props;
+---
+
+<ol
+  class="not-prose grid grid-cols-1 gap-6 md:relative md:grid-cols-4 md:gap-2.5"
+>
+  {
+    nodes.map((node) => (
+      <li class="relative md:rounded-[14px] md:border md:border-line-soft md:bg-white md:px-3.5 md:pb-3 md:pt-9">
+        <span
+          class="absolute left-0 top-[2px] h-3 w-3 rounded-full border-[3px] border-blue bg-white md:left-3.5 md:top-[9px]"
+        />
+        {
+          /* the rail line is drawn in CSS on md and up */
+        }
+        <p class="pl-6 text-[11px] font-semibold text-blue md:pl-0">{node.year}</p>
+        <h4 class="mt-1 pl-6 text-[13px] font-semibold text-ink md:pl-0">{node.title}</h4>
+        {node.body && (
+          <p class="mt-1 pl-6 text-[12px] leading-[1.6] text-muted md:pl-0">{node.body}</p>
+        )}
+      </li>
+    ))
+  }
+</ol>

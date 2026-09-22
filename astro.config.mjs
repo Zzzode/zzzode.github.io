@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 
 // Near-monochrome Shiki theme — syntax colors stay inside the Apple
@@ -48,7 +49,7 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  integrations: [sitemap()],
+  integrations: [sitemap(), mdx()],
   vite: {
     plugins: [tailwindcss()],
   },

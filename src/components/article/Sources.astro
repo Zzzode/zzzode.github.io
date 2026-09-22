@@ -1,0 +1,62 @@
+---
+/**
+ * Source attribution footer for distilled articles. Renders the provenance
+ * list from post frontmatter plus the distillation date. Every factual
+ * claim should trace to a listed source.
+ */
+interface Source {
+  title: string;
+  url: string;
+}
+
+interface Props {
+  sources: Source[];
+  /** ISO date string shown as the distillation date */
+  date: string;
+  /** caliber / uncertainty note */
+  note?: string;
+}
+
+const { sources, date, note } = Astro.props;
+
+const formatted = new Date(date).toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<footer class="reveal not-prose mt-10 border-t border-line-soft pt-8">
+  <h2 class="text-[12px] font-semibold uppercase tracking-[0.14em] text-muted-2">
+    Sources · 来源
+  </h2>
+  {
+    sources.length > 0 ? (
+      <ul class="mt-4 space-y-2">
+        {sources.map((source, i) => (
+          <li class="flex gap-2.5 text-[13px] leading-[1.6]">
+            <span class="text-muted-2">{i + 1}.</span>
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-ink-2 underline decoration-line underline-offset-4 transition-colors hover:text-blue hover:decoration-blue"
+            >
+              {source.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="mt-3 text-[13px] text-muted-2">本文无外部引用来源。</p>
+    )
+  }
+  {
+    note && (
+      <p class="mt-5 max-w-[680px] text-[12px] leading-[1.7] text-muted-2">
+        口径说明：{note}
+      </p>
+    )
+  }
+  <p class="mt-5 text-[11.5px] text-muted-2">炼化时间：{formatted}</p>
+</footer>

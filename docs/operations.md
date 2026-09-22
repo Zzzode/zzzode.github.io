@@ -32,6 +32,16 @@ Changes to `astro.config.mjs` or `src/content.config.ts` are re-synced automatic
 - Front matter fields are defined in `src/content.config.ts` and validated at build time. Fix bad data in the source file — do not loosen the schema.
 - Post bodies support GFM and syntax highlighting. Embedded HTML must only use `var(--color-*)` tokens; see `docs/design/apple-style-guide.md`.
 
+### Distilled (炼化) articles
+
+When the user gives a URL/links/pasted material and asks to 炼化 / distill it into an article, invoke the **`distill` skill** (`.claude/skills/distill/SKILL.md`) rather than improvising. Outputs are:
+
+- `src/content/posts/<lang>/<YYYY-MM-DD-slug>.mdx` with `kind: 'distilled'` and `sources: [{ title, url }]`;
+- MDX composed from `@/components/article` (component props: `.claude/skills/distill/references/component-catalog.md`, skeleton: `references/article-template.mdx`);
+- titles describe content (no 炼化/MR-number prefixes); provenance goes in the banner kicker and `sources`.
+
+MDX support comes from `@astrojs/mdx` (registered in `astro.config.mjs`). Inside MDX use `{/* … */}` for comments (HTML `<!-- -->` is invalid inside JSX), and prefer phrasing over intra-word `**bold**` next to CJK punctuation (it can fail to parse).
+
 ### Adding a new UI string
 
 1. Add the same key to both `zh` and `en` tables in `src/i18n/ui.ts`.

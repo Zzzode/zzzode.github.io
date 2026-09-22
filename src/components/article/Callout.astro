@@ -1,0 +1,31 @@
+---
+/**
+ * Neutral callout: white hairline card, radius 18, no colored left bar.
+ * `insight` adds a small blue eyebrow; everything else stays neutral.
+ */
+interface Props {
+  eyebrow?: string;
+  tone?: 'neutral' | 'insight';
+}
+const { eyebrow, tone = 'neutral' } = Astro.props;
+---
+
+<aside
+  class="not-prose mt-2 rounded-[18px] border border-line bg-white px-6 py-5"
+>
+  {
+    eyebrow && (
+      <p
+        class:list={[
+          'mb-2 text-[11px] font-semibold uppercase tracking-[0.12em]',
+          tone === 'insight' ? 'text-blue' : 'text-muted-2',
+        ]}
+      >
+        {eyebrow}
+      </p>
+    )
+  }
+  <div class="text-[13.5px] leading-[1.75] text-muted">
+    <slot />
+  </div>
+</aside>

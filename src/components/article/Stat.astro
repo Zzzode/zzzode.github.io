@@ -1,0 +1,19 @@
+---
+/**
+ * One key-number cell for <StatGrid>. `unit` renders smaller after the number.
+ */
+interface Props {
+  value: string;
+  unit?: string;
+  label?: string;
+}
+const { value, unit, label } = Astro.props;
+---
+
+<div class="bg-white px-5 py-6">
+  <dt class="text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink">
+    {value}
+    {unit && <small class="ml-1 text-[13px] font-semibold text-muted">{unit}</small>}
+  </dt>
+  {label && <dd class="mt-1.5 text-[12px] leading-[1.5] text-muted">{label}</dd>}
+</div>

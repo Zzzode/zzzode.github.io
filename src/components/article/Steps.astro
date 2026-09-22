@@ -1,0 +1,37 @@
+---
+/**
+ * Vertical numbered pipeline: neutral-gray circular counters joined by a
+ * faint vertical line. Color is never per-step (design guide §4.4).
+ * Titles are verb-first short phrases; 3–5 steps per pipeline.
+ */
+interface Step {
+  title: string;
+  body?: string;
+}
+
+interface Props {
+  steps: Step[];
+}
+const { steps } = Astro.props;
+---
+
+<ol class="not-prose">
+  {
+    steps.map((step, i) => (
+      <li
+        class:list={[
+          'relative border-l-[1.5px] border-line-soft pb-5 pl-9 last:border-l-transparent last:pb-0',
+          i === 0 && 'ml-[9px]',
+        ]}
+      >
+        <span
+          class="absolute left-[-10px] top-0 flex h-[19px] w-[19px] items-center justify-center rounded-full bg-muted-2 text-[10.5px] font-semibold text-white"
+        >
+          {i + 1}
+        </span>
+        <h4 class="text-[13px] font-semibold text-ink">{step.title}</h4>
+        {step.body && <p class="mt-1 text-[12.5px] leading-[1.65] text-muted">{step.body}</p>}
+      </li>
+    ))
+  }
+</ol>

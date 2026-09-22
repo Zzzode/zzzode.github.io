@@ -1,0 +1,16 @@
+---
+/**
+ * Mini heading for a sub-block inside comparison cards / info cards:
+ * gray uppercase wide-tracked label (architecture / pipeline / …).
+ */
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<h4
+  class="mt-5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-2"
+>
+  {title}
+</h4>

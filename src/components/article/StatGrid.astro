@@ -1,0 +1,22 @@
+---
+/**
+ * KPI / key-number strip. Renders a hairline grid (1px gap on a line-colored
+ * background) so dividers are drawn automatically.
+ */
+interface Props {
+  /** number of columns, 2–4 */
+  cols?: 2 | 3 | 4;
+}
+const { cols = 3 } = Astro.props;
+---
+
+<dl
+  class:list={[
+    'not-prose grid gap-px overflow-hidden rounded-[18px] border border-line bg-line',
+    cols === 2 && 'grid-cols-2',
+    cols === 3 && 'grid-cols-2 md:grid-cols-3',
+    cols === 4 && 'grid-cols-2 md:grid-cols-4',
+  ]}
+>
+  <slot />
+</dl>

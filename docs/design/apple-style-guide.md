@@ -153,6 +153,17 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 - No emoji-as-icons; when no avatar photo exists, use the brand monogram rather than a big placeholder image.
 - Images go in `public/images/` or next to the entry; compress (long edge ≤2000px), no external image hosts, no large Base64 inlining.
 
+### 3.9 Distilled-article components (`src/components/article/`)
+
+Distilled research articles (`kind: 'distilled'` MDX posts) compose full-bleed blocks from this library; see `.claude/skills/distill/references/component-catalog.md` for props/slots and `article-template.mdx` for a skeleton.
+
+- `CoverBanner` — required first block; gray provenance kicker, H1, lead, hairline pills, optional inline-SVG `visual` slot; stacks ≤860px.
+- `Section` (`alt` → paper rounded-28 slab, English kebab `id` for the TOC) with `SectionHead`; `Prose` constrains ordinary Markdown to the 760px column while blocks stay full-width.
+- `CardGrid` / `InfoCard` — 1/2/3-column overview tiles; `DualCompare` / `BlockTitle` — point-by-point blue/orange dual cards with the three-layer rule (§5); `Steps` (neutral numbered), `Timeline` (rail), `Pipeline` (stage cards + arrows).
+- `CompareTable` — dot-headed hairline table, horizontally scrollable on mobile; `Callout` — white hairline card, blue eyebrow only for `tone="insight"`; `StatGrid` / `Stat` — 1px-gap key-number grid.
+- `Summary` — closing takeaway cards + caliber note; `Sources` renders automatically from the post's `sources` front matter with a distillation date.
+- All component roots carry `reveal` for scroll-in motion; diagrams are hand-written inline SVG in token hex only.
+
 ---
 
 ## 4. HTML embedded inside posts
@@ -259,6 +270,8 @@ Beyond visual symmetry, content must be symmetric point-by-point with real detai
 - **Deployment**: `withastro/action@v6` builds and deploys; Settings → Pages → Source must be **GitHub Actions**. This is a user root site (zzzode.github.io) — no `base`; a custom domain goes in `public/CNAME`.
 - Compress images; no inlined Base64 images; `dist/`, `.astro/`, `node_modules/` are not committed.
 - Tailwind breakpoints: `sm 640 / md 768 / lg 1024 / xl 1280`; multi-column layouts collapse at narrow widths.
+- **MDX**: distilled articles are `.mdx` files (`@astrojs/mdx`) composing components from `@/components/article`; framework pages remain plain `.astro`.
+- **Motion (posts only)**: the sole first-party script is `src/scripts/article.ts` (~1 KB gzip, inlined via Astro `<script>`), loaded only on post pages. It provides a blue 2px reading-progress bar, IntersectionObserver-based `.reveal` fade/translate-in (with staggered `data-reveal-delay`), and a sticky scroll-spy TOC rendered in the left gutter at ≥1600px. Under `prefers-reduced-motion: reduce`, no element is hidden or animated — content renders immediately at full opacity — while the progress bar and TOC still work (they convey information). Framework pages never ship JS.
 
 ---
 
@@ -276,6 +289,9 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - [ ] Per-locale lists only contain entries that exist in that locale; dates are localized; post titles/venues keep their original language.
 - [ ] Post headings, dates, tags, and `.prose` render correctly; code blocks are near-monochrome; dual-subject blocks are symmetric with all three layers.
 - [ ] Multi-column layouts collapse correctly at narrow widths; no clipped text or horizontal overflow; touch targets ≥44px.
+- [ ] Distilled-article TOC at 1680px clears the article column and highlights the current section; narrow layouts stack the banner/cards/comparison/timeline.
+- [ ] With `prefers-reduced-motion: reduce` emulated, every article block is visible immediately with no animation; the progress bar and TOC still function.
+- [ ] Framework pages contain zero `<script>`; article pages contain only the single inline article script (~1 KB gzip).
 - [ ] Images are compressed with alt text; no external image hosts, localhost links, or placeholder URLs.
 - [ ] The build emits no first-party JS bundle (apart from a justified island) and no external fonts/CDNs.
 - [ ] The diff contains no tokens, credentials, or personal data, and no `dist/` artifact noise.
@@ -284,7 +300,8 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 
 - Tokens and global typography: `src/styles/global.css` (`@theme` + base + `.prose`).
 - Highlight theme and site config: `astro.config.mjs`; UI strings: `src/i18n/ui.ts`.
-- Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/`.
+- Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/` (posts accept `.md` and `.mdx`).
+- Distilled-article components: `src/components/article/` (catalog in `.claude/skills/distill/references/component-catalog.md`); post enhancement script: `src/scripts/article.ts`; distillation workflow skill: `.claude/skills/distill/SKILL.md`.
 - Framework components: `src/components/{Nav,Footer,HomeHero,LatestPosts,SectionCard,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/`.
 - Routes: `src/pages/index.astro` and `src/pages/{publications,talks,teaching,posts}/index.astro`, posts detail `src/pages/posts/[...slug].astro`, `src/pages/cv.astro`, `src/pages/404.astro`, `src/pages/rss.xml.ts`, plus mirrored files under `src/pages/en/`.
 - Static assets: `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, `public/icon-{192,512}.png`, `public/og.png` (social card), `public/site.webmanifest`, `public/files/` (PDFs), `public/images/`.

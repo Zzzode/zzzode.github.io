@@ -163,3 +163,118 @@
   font-weight: 600;
   letter-spacing: 0.06em;
 }
+
+/* ============================================================
+   Distilled articles: layout, reveal motion, progress, TOC
+   ============================================================ */
+
+.article-prose {
+  max-width: 760px;
+}
+
+/* native prose living directly inside a distilled MDX article */
+[data-article].distilled {
+  --article-wide: 1080px;
+}
+
+[data-article].distilled :where(section[id], h2[id], h3[id]) {
+  scroll-margin-top: 76px;
+}
+
+/* reading progress bar — injected by src/scripts/article.ts */
+[data-progress] {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-blue);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+/* table of contents rail */
+[data-toc] {
+  display: none;
+}
+
+/* TOC sits in the left gutter; it fits only once the viewport is wide
+   enough that its right edge clears the 1080px article column. */
+@media (min-width: 1600px) {
+  [data-toc] {
+    display: block;
+    position: fixed;
+    top: 96px;
+    left: max(24px, calc(50vw - 764px));
+    width: 200px;
+  }
+
+  .toc-title {
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--color-muted-2);
+  }
+
+  .toc-nav ul {
+    list-style: none;
+    border-left: 1px solid var(--color-line-soft);
+  }
+
+  .toc-nav a {
+    display: block;
+    padding: 5px 0 5px 14px;
+    margin-left: -1px;
+    border-left: 1.5px solid transparent;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .toc-nav a:hover {
+    color: var(--color-blue);
+  }
+
+  .toc-nav a.is-active {
+    color: var(--color-ink);
+    border-left-color: var(--color-blue);
+    font-weight: 500;
+  }
+
+  .toc-nav .toc-l3 a {
+    padding-left: 26px;
+  }
+}
+
+/* reveal-on-scroll: hidden state exists only when JS + motion enabled */
+.motion-ok .reveal-pending {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.motion-ok .reveal-pending.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .motion-ok .reveal-pending,
+  .motion-ok .reveal-pending.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

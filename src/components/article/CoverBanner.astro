@@ -1,0 +1,65 @@
+---
+/**
+ * Cover banner for distilled articles — the first block of every
+ * `kind: 'distilled'` post. Mirrors the Apple-style banner language from
+ * docs/design/apple-style-guide.md §4.1. Kicker is always a gray source
+ * line, never blue. The right column is an optional inline-SVG slot.
+ */
+interface Pill {
+  label: string;
+  /** affiliation dot: 'a' = subject blue, 'b' = comparison orange */
+  dot?: 'a' | 'b';
+}
+
+interface Props {
+  /** source type + provenance, e.g. "WEB ARTICLE · docs.astro.build · 2026-09-22" */
+  kicker: string;
+  title: string;
+  lead?: string;
+  pills?: Pill[];
+}
+
+const { kicker, title, lead, pills = [] } = Astro.props;
+---
+
+<section
+  class="reveal grid grid-cols-1 items-center gap-8 py-4 md:grid-cols-[1.08fr_0.92fr] md:gap-10"
+>
+  <div>
+    <p class="eyebrow">{kicker}</p>
+    <h1
+      class="mt-4 text-[clamp(28px,4.2vw,44px)] font-semibold leading-[1.12] tracking-[-0.028em] text-ink"
+    >
+      {title}
+    </h1>
+    {lead && <p class="mt-4 max-w-[36em] text-[15px] leading-[1.75] text-muted">{lead}</p>}
+    {
+      pills.length > 0 && (
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {pills.map((pill) => (
+            <li
+              class="inline-flex items-center gap-2 rounded-full border border-line-soft bg-paper px-3.5 py-1.5 text-[12px] text-ink-2"
+            >
+              {pill.dot && (
+                <span
+                  class:list={[
+                    'inline-block h-[7px] w-[7px] rounded-full',
+                    pill.dot === 'a' ? 'bg-blue' : 'bg-compare',
+                  ]}
+                />
+              )}
+              {pill.label}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+  {
+    Astro.slots.has('visual') && (
+      <div class="not-prose flex items-center justify-center">
+        <slot name="visual" />
+      </div>
+    )
+  }
+</section>

@@ -1,0 +1,32 @@
+---
+/**
+ * A single information card. Background is chosen to contrast with its
+ * parent: white by default (use on a paper Section), paper on a white page.
+ */
+interface Props {
+  title?: string;
+  label?: string;
+  surface?: 'white' | 'paper';
+}
+
+const { title, label, surface = 'white' } = Astro.props;
+---
+
+<article
+  class:list={[
+    'rounded-card p-6',
+    surface === 'white' ? 'bg-white' : 'bg-paper',
+  ]}
+>
+  {label && <p class="eyebrow">{label}</p>}
+  {
+    title && (
+      <h3
+        class="mt-2 text-[17px] font-semibold leading-snug tracking-[-0.015em] text-ink"
+      >
+        {title}
+      </h3>
+    )
+  }
+  <slot />
+</article>

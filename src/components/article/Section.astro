@@ -1,0 +1,35 @@
+---
+/**
+ * Full-bleed alternating section for a distilled article.
+ * `alt` renders the paper-gray rounded-28 slab; the default is a plain block.
+ * Inner content is constrained to the article column. Pass `id` for TOC anchoring.
+ */
+interface Props {
+  alt?: boolean;
+  id?: string;
+  /** center the section heading */
+  center?: boolean;
+  class?: string;
+}
+
+const { alt = false, id, center = false, class: className = '' } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={[
+    'reveal',
+    alt && 'my-6 rounded-[28px] bg-paper px-6 py-12 sm:px-10 sm:py-14',
+    !alt && 'py-4',
+    className,
+  ]}
+>
+  <div
+    class:list={[
+      'article-block',
+      center && 'text-center',
+    ]}
+  >
+    <slot />
+  </div>
+</section>

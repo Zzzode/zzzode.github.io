@@ -1,0 +1,15 @@
+---
+/**
+ * Long-form prose wrapper for MDX distilled articles. Constrains native
+ * Markdown content to the reading column while full-width article
+ * components (Section, StatGrid, …) sit outside it.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['prose article-prose', className]}>
+  <slot />
+</div>

@@ -1,0 +1,26 @@
+---
+/**
+ * Responsive grid of borderless cards. Cards sit on the surface they're
+ * placed on (paper slab → white cards; white page → paper cards), chosen
+ * via the `variant` prop so a CardGrid inside an alt Section stays legible.
+ */
+interface Props {
+  cols?: 2 | 3;
+  /** card background relative to the immediate parent surface */
+  surface?: 'white' | 'paper';
+  class?: string;
+}
+
+const { cols = 3, surface = 'white', class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'grid grid-cols-1 gap-3 sm:grid-cols-2',
+    cols === 3 && 'lg:grid-cols-3',
+    className,
+  ]}
+  data-surface={surface}
+>
+  <slot />
+</div>

@@ -1,0 +1,51 @@
+---
+/**
+ * Closing block for a distilled article: one or two takeaway cards plus
+ * (optionally) a caliber/disclaimer note. Sources are rendered separately
+ * by <Sources> from post frontmatter.
+ */
+interface Takeaway {
+  title: string;
+  conclusion: string;
+  detail?: string;
+  dot?: 'a' | 'b' | 'neutral';
+}
+
+interface Props {
+  takeaways: Takeaway[];
+  note?: string;
+}
+
+const { takeaways, note } = Astro.props;
+---
+
+<section class="reveal not-prose mt-4">
+  <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+    {
+      takeaways.map((t) => (
+        <article class="rounded-[22px] bg-paper p-7">
+          <h3 class="flex items-center gap-2.5 text-[15px] font-semibold text-ink">
+            <span
+              class:list={[
+                'inline-block h-2 w-2 rounded-full',
+                (t.dot ?? 'neutral') === 'a'
+                  ? 'bg-blue'
+                  : t.dot === 'b'
+                    ? 'bg-compare'
+                    : 'bg-muted-2',
+              ]}
+            />
+            {t.title}
+          </h3>
+          <p class="mt-3 text-[14px] font-semibold leading-[1.6] text-ink">{t.conclusion}</p>
+          {t.detail && <p class="mt-2 text-[13px] leading-[1.65] text-muted">{t.detail}</p>}
+        </article>
+      ))
+    }
+  </div>
+  {
+    note && (
+      <p class="mt-5 text-center text-[12px] leading-[1.7] text-muted-2">{note}</p>
+    )
+  }
+</section>

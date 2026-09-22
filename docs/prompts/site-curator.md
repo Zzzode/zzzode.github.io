@@ -65,7 +65,9 @@ Front matter is defined by the zod schemas in `src/content.config.ts` (a wrong f
 - **publications**: required `title`, `date`, `venue`; optional `authors`, `excerpt`, `paperurl` (valid URL), `pdf` (`/files/...`), `doi`, `citation`. Sorted newest first; meta line shows venue · year; link priority paperurl → DOI → local PDF.
 - **talks**: required `title`, `date`, `venue`; optional `location`, `type` (`keynote/talk/tutorial/poster`, default `talk`), `url`, `excerpt`.
 - **teaching**: required `title`, `date` (free-form term string such as `2026 春季学期`), `venue`; optional `role`, `excerpt`.
-- **posts**: required `title`, `date`; optional `updated`, `excerpt`, `tags` (default `[]`), `draft` (default `false`). Each post gets `/posts/<slug>/` (and `/en/posts/<slug>/`) and enters the matching RSS feed.
+- **posts**: required `title`, `date`; optional `updated`, `excerpt`, `tags` (default `[]`), `draft` (default `false`); each post gets `/posts/<slug>/` (and `/en/posts/<slug>/`) and enters the matching RSS feed.
+  - `kind` is `'note'` (ordinary Markdown post) by default, or `'distilled'` for a full-bleed research article. Distilled posts are **`.mdx`** files composed from `src/components/article` (cover banner, cards, comparisons, steps, tables, stats, summary), carry a `sources: { title, url }[]` list, and are produced by the **`distill` skill** (`.claude/skills/distill/SKILL.md`) — invoke it when the user supplies a URL/links/material and asks to 炼化/distill/turn it into an article. The skill fetches and cross-checks public sources, marks unverified claims, never fabricates, and verifies motion/responsive behavior before reporting.
+  - Distilled posts are single-language on demand (the skill asks which language); no counterpart means the existing hidden-list/disabled-toggle behavior applies. Post pages are the only pages that ship JavaScript (`src/scripts/article.ts`, ~1 KB gzip), all gated on `prefers-reduced-motion`.
 - Use ISO dates (`2026-09-22`); zod coerces them at build time.
 - Filenames: keep the zh/en pair identical, e.g. `src/content/posts/zh/2026-09-22-threads.md` and `src/content/posts/en/2026-09-22-threads.md`. The locale folder, not the filename, determines the language.
 - Do not hand-maintain "all papers" tables anywhere; lists are generated from collections.
@@ -85,8 +87,8 @@ Front matter is defined by the zod schemas in `src/content.config.ts` (a wrong f
 
 ## Layout and technical constraints
 
-- Tailwind v4 utilities and tokens only; no inline styles in Markdown; reusable embedded HTML becomes a component in `src/components/` (or an in-article `<style>` that only consumes `var(--*)`).
-- Zero JS by default: prefer HTML/CSS/`<details>` for interaction; islands require justification and tight size budgets.
+- Tailwind v4 utilities and tokens only; no inline styles in Markdown; ordinary posts use Markdown + `.prose`. Distilled MDX articles use the `@/components/article` library; hand-written diagrams there are inline SVG with token hex only; reusable embedded HTML becomes a component in `src/components/article`.
+- Zero JS by default on framework pages: prefer HTML/CSS/`<details>` for interaction. The single allowed exception is the post-page enhancement script (`src/scripts/article.ts`: reading progress, reveal, TOC), which must expose no content when JS is absent and must neutralize all motion under `prefers-reduced-motion: reduce`. UI-framework islands require justification and tight size budgets.
 - No UI frameworks, runtime CDNs, or webfonts; compress images before committing; multi-column layouts must collapse on narrow viewports.
 - Markdown rendering (GFM + Shiki) is provided by Astro; use standard Markdown tables/quotes/code.
 

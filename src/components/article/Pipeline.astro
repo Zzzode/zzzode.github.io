@@ -1,0 +1,40 @@
+---
+/**
+ * Horizontal pipeline of stage cards joined by arrows, stacking vertically
+ * on narrow screens (design guide §4.4).
+ */
+interface Stage {
+  title: string;
+  body?: string;
+}
+
+interface Props {
+  stages: Stage[];
+}
+const { stages } = Astro.props;
+---
+
+<ol
+  class="not-prose flex flex-col gap-2 md:flex-row md:items-stretch"
+>
+  {
+    stages.map((stage, i) => (
+      <>
+        <li class="flex-1 rounded-[16px] bg-white p-5">
+          <h4 class="text-[13.5px] font-semibold text-ink">{stage.title}</h4>
+          {stage.body && (
+            <p class="mt-1.5 text-[12.5px] leading-[1.6] text-muted">{stage.body}</p>
+          )}
+        </li>
+        {i < stages.length - 1 && (
+          <li
+            aria-hidden="true"
+            class="flex items-center justify-center text-muted-2 md:px-0.5"
+          >
+            <span class="text-[18px] leading-none md:rotate-0">→</span>
+          </li>
+        )}
+      </>
+    ))
+  }
+</ol>

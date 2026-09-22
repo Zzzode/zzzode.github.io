@@ -1,0 +1,57 @@
+---
+/**
+ * Point-by-point dual-subject comparison (design guide §5).
+ * Renders two borderless cards side by side: subject A carries the blue
+ * affiliation dot, subject B the comparison-orange dot. Color marks
+ * affiliation only — never quality.
+ */
+interface Props {
+  aTitle: string;
+  bTitle: string;
+  /** small uppercase labels shown above the titles */
+  aLabel?: string;
+  bLabel?: string;
+}
+
+const { aTitle, bTitle, aLabel, bLabel } = Astro.props;
+---
+
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+  <article
+    class="rounded-[22px] bg-white p-7"
+  >
+    <span
+      class="inline-flex items-center gap-2 rounded-full bg-paper px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-2"
+    >
+      <span class="h-[7px] w-[7px] rounded-full bg-blue"></span>
+      {aLabel ?? 'A'}
+    </span>
+    <h3
+      class="mt-4 text-[19px] font-semibold tracking-[-0.015em] text-ink"
+    >
+      {aTitle}
+    </h3>
+    <div class="mt-4 text-[13.5px] leading-[1.7] text-ink-2">
+      <slot name="a" />
+    </div>
+  </article>
+
+  <article
+    class="rounded-[22px] bg-white p-7"
+  >
+    <span
+      class="inline-flex items-center gap-2 rounded-full bg-paper px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-2"
+    >
+      <span class="h-[7px] w-[7px] rounded-full bg-compare"></span>
+      {bLabel ?? 'B'}
+    </span>
+    <h3
+      class="mt-4 text-[19px] font-semibold tracking-[-0.015em] text-ink"
+    >
+      {bTitle}
+    </h3>
+    <div class="mt-4 text-[13.5px] leading-[1.7] text-ink-2">
+      <slot name="b" />
+    </div>
+  </article>
+</div>

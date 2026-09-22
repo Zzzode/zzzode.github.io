@@ -1,6 +1,7 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Sources from '../article/Sources.astro';
 import { type Lang, t } from '../../i18n/ui';
 import { formatDate, isoDate } from '../../lib/format';
 import { slugOfId } from '../../lib/content';
@@ -16,48 +17,80 @@ const { Content } = await render(post);
 const alternatePath = counterpart
   ? `${lang === 'zh' ? '/en' : ''}/posts/${slugOfId(post.id)}/`
   : null;
+
+const distilled = post.data.kind === 'distilled';
+const iso = isoDate(post.data.date);
 ---
 
 <BaseLayout
   lang={lang}
-  title={post.data.title}
+  title={distilled ? post.data.title : undefined}
   description={post.data.excerpt}
   alternatePath={alternatePath}
 >
-  <article class="mx-auto max-w-[760px]">
-    <header class="mb-8">
-      <p class="eyebrow">{t(lang, 'post.eyebrow')}</p>
-      <h1
-        class="mt-3 text-[clamp(28px,4vw,38px)] font-semibold leading-[1.12] tracking-[-0.025em] text-ink"
-      >
-        {post.data.title}
-      </h1>
-      <p class="mt-3 text-[13px] text-muted">
-        <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date, lang)}</time>
-        {
-          post.data.tags.length > 0 && (
-            <span class="ml-3">
-              {post.data.tags.map((tag) => (
-                <span class="mr-2 rounded-full border border-line px-2.5 py-0.5 text-[11.5px] text-ink-2">
-                  {tag}
-                </span>
-              ))}
-            </span>
-          )
-        }
-      </p>
-    </header>
+  <!-- TOC rail populated by the article script at wide widths -->
+  <div data-toc aria-hidden="false"></div>
 
-    <div class="prose max-w-none">
+  <article
+    data-article
+    class:list={[
+      distilled
+        ? 'distilled mx-auto w-full max-w-[1080px] px-1 sm:px-2'
+        : 'note mx-auto max-w-[760px]',
+    ]}
+  >
+    {
+      !distilled && (
+        <header class="reveal mb-8">
+          <p class="eyebrow">WRITING</p>
+          <h1
+            class="mt-3 text-[clamp(28px,4vw,38px)] font-semibold leading-[1.12] tracking-[-0.025em] text-ink"
+          >
+            {post.data.title}
+          </h1>
+          <p class="mt-3 text-[13px] text-muted">
+            <time datetime={iso}>{formatDate(post.data.date, lang)}</time>
+            {
+              post.data.tags.length > 0 && (
+                <span class="ml-3">
+                  {post.data.tags.map((tag) => (
+                    <span class="mr-2 rounded-full border border-line px-2.5 py-0.5 text-[11.5px] text-ink-2">
+                      {tag}
+                    </span>
+                  ))}
+                </span>
+              )
+            }
+          </p>
+        </header>
+      )
+    }
+
+    <div class:list={[distilled ? '' : 'prose max-w-none']}>
       <Content />
     </div>
 
     {
+      distilled && (post.data.sources?.length ?? 0) > 0 && (
+        <Sources sources={post.data.sources ?? []} date={iso} />
+      )
+    }
+
+    {
       !counterpart && (
-        <p class="mt-12 border-t border-line-soft pt-6 text-[12.5px] text-muted-2">
+        <p
+          class:list={[
+            'border-t border-line-soft pt-6 text-[12.5px] text-muted-2',
+            distilled ? 'mt-10' : 'mt-12',
+          ]}
+        >
           {t(lang, 'post.untranslated')}
         </p>
       )
     }
   </article>
+
+  <script>
+    import '../../scripts/article';
+  </script>
 </BaseLayout>

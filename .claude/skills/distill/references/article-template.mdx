@@ -1,0 +1,118 @@
+---
+title: "按实际内容命名的标题"
+date: 2026-09-22
+excerpt: "一句话摘要：列表页、RSS、og 分享都会用到。"
+tags: ["标签"]
+kind: "distilled"
+sources:
+  - title: "Primary source title"
+    url: "https://example.com/primary"
+  - title: "Secondary source title"
+    url: "https://example.com/secondary"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  Steps,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+{/* MDX comments look like this — HTML comments are a syntax error inside JSX. */}
+
+<CoverBanner
+  kicker="WEB ARTICLE · example.com · 2026-09-22"
+  title="按实际内容命名的标题"
+  lead="一句话价值陈述：读者读完能搞懂什么、解决什么问题。"
+  pills={[
+    { label: "核心概念一" },
+    { label: "对比 A", dot: "a" },
+    { label: "对比 B", dot: "b" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="一句话描述图意">
+    {/* token hex only: #1d1d1f #424245 #6e6e73 #86868b #f5f5f7 #dedee3 #ececf0 #0066cc #e8710a */}
+    <rect x="40" y="40" width="380" height="240" rx="20" fill="#f5f5f7" />
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+先用一段白话把结论讲清楚：这是什么、为什么重要、读者接下来会得到什么。术语第一次出现时给白话解释（例如「水合——给静态 DOM 接上事件与状态」）。
+
+</Prose>
+
+<Section alt id="overview">
+  <SectionHead kicker="01 · OVERVIEW" title="总览标题" lead="一句灰色副述。" />
+  <CardGrid>
+    <InfoCard label="POINT 1" title="要点一">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
+    </InfoCard>
+    <InfoCard label="POINT 2" title="要点二">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
+    </InfoCard>
+    <InfoCard label="POINT 3" title="要点三">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Prose>
+
+结构化区块之间穿插白话讲解，把上一块和下一块串起来。
+
+</Prose>
+
+<Section id="mechanism">
+  <SectionHead kicker="02 · MECHANISM" title="机制 / 管线" />
+  <Steps
+    steps={[
+      { title: "动词开头的步骤一", body: "发生了什么。" },
+      { title: "步骤二", body: "……" },
+      { title: "步骤三", body: "……" },
+    ]}
+  />
+</Section>
+
+<Section alt id="differences">
+  <SectionHead kicker="03 · DETAILS" title="可操作的差异" />
+  <CompareTable
+    headers={[
+      { label: "维度" },
+      { label: "方案 A", dot: "a" },
+      { label: "方案 B", dot: "b" },
+    ]}
+    rows={[
+      ["维度一", "……", "……"],
+      ["维度二", "……", "……"],
+    ]}
+  />
+  <Callout tone="insight" eyebrow="WHY IT MATTERS">
+    一句关键提醒；tone="insight" 时只有小 kicker 是蓝色。
+  </Callout>
+</Section>
+
+<Section id="numbers">
+  <SectionHead kicker="04 · BY THE NUMBERS" title="可核实的数字" />
+  <StatGrid cols={3}>
+    <Stat value="90%" unit="单位" label="数字口径必须紧跟来源。" />
+    <Stat value="3" unit="个" label="……" />
+    <Stat value="40%" unit="%" label="……" />
+  </StatGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    { title: "结论一", conclusion: "一句话加粗结论。", detail: "补充说明。" },
+    { title: "结论二", conclusion: "……", dot: "a" },
+  ]}
+  note="口径说明：哪些是官方文档事实、哪些是二手解读；炼化所依据的版本与日期。"
+/>

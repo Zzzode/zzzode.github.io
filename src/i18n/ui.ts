@@ -80,6 +80,7 @@ const dict = {
     'talk.poster': '海报',
 
     'post.rssDescription': 'Zzzode 的技术文章与笔记。',
+    'post.untranslated': '本文暂无英文版。',
 
     'cv.eyebrow': 'CURRICULUM VITAE',
     'cv.intro': '联系方式与详细履历待补充。',
@@ -147,6 +148,7 @@ const dict = {
     'talk.poster': 'Poster',
 
     'post.rssDescription': 'Technical articles and notes by Zzzode.',
+    'post.untranslated': 'No English version of this post yet.',
 
     'cv.eyebrow': 'CURRICULUM VITAE',
     'cv.intro': 'Contact details and full CV to be added.',
