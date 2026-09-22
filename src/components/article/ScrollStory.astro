@@ -1,0 +1,46 @@
+---
+/**
+ * ScrollStory — the large-scale scroll-driven moment (design guide §7).
+ * Two-column scrollytelling: a big visual stage pins on the left while
+ * compact step panels march past on the right. src/scripts/article.ts
+ * toggles state on authored nodes:
+ *   .ss-frame[data-ss-node="i"]  -> .is-active / .is-done
+ * The visual slot contains one <svg class="ss-frame"> per step (same order);
+ * only the active frame is shown on desktop, with an eased crossfade/scale,
+ * so the pinned stage visibly transforms as the reader scrolls.
+ * Below 900px (or without JS) the script relocates every frame inside its
+ * own step panel and all frames render statically in document order.
+ */
+interface StoryStep {
+  tag: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  steps: StoryStep[];
+}
+
+const { steps } = Astro.props;
+---
+
+<div class="scrollstory" data-scrollstory data-count={steps.length}>
+  <div class="ss-grid">
+    <div class="ss-visual-col">
+      <div class="ss-visual" data-ss-visual>
+        <slot name="visual" />
+      </div>
+    </div>
+    <ol class="ss-steps">
+      {
+        steps.map((step, i) => (
+          <li class="ss-step" data-story-step={i}>
+            <p class="ss-tag">{step.tag}</p>
+            <h3 class="ss-title">{step.title}</h3>
+            <p class="ss-body">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</div>

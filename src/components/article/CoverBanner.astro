@@ -23,19 +23,20 @@ const { kicker, title, lead, pills = [] } = Astro.props;
 ---
 
 <section
-  class="reveal grid grid-cols-1 items-center gap-8 py-4 md:grid-cols-[1.08fr_0.92fr] md:gap-10"
+  data-hero
+  class="grid grid-cols-1 items-center gap-8 py-4 md:grid-cols-[1.08fr_0.92fr] md:gap-10"
 >
-  <div>
+  <div data-hero-main>
     <p class="eyebrow">{kicker}</p>
     <h1
-      class="mt-4 text-[clamp(28px,4.2vw,44px)] font-semibold leading-[1.12] tracking-[-0.028em] text-ink"
+      class="mt-4 text-[clamp(30px,4.6vw,52px)] font-semibold leading-[1.08] tracking-[-0.032em] text-ink"
     >
       {title}
     </h1>
-    {lead && <p class="mt-4 max-w-[36em] text-[15px] leading-[1.75] text-muted">{lead}</p>}
+    {lead && <p class="mt-5 max-w-[36em] text-[16px] leading-[1.75] text-muted">{lead}</p>}
     {
       pills.length > 0 && (
-        <ul class="mt-6 flex flex-wrap gap-2">
+        <ul data-hero-pills class="mt-6 flex flex-wrap gap-2">
           {pills.map((pill) => (
             <li
               class="inline-flex items-center gap-2 rounded-full border border-line-soft bg-paper px-3.5 py-1.5 text-[12px] text-ink-2"
@@ -57,7 +58,7 @@ const { kicker, title, lead, pills = [] } = Astro.props;
   </div>
   {
     Astro.slots.has('visual') && (
-      <div class="not-prose flex items-center justify-center">
+      <div class="not-prose flex items-center justify-center" data-hero-visual>
         <slot name="visual" />
       </div>
     )

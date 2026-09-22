@@ -153,6 +153,26 @@
   color: var(--color-ink-2);
 }
 
+/* The typography plugin decorates inline code with backtick pseudo-elements;
+   the chip styling already signals code, so drop the redundant backticks. */
+.prose :where(:not(pre) > code)::before,
+.prose :where(:not(pre) > code)::after {
+  content: none;
+}
+
+/* Article components opt out of typography via not-prose, so inline code in
+   their slots (Callout, Steps, …) mirrors the prose chip explicitly. */
+[data-article] .not-prose :where(code):not(:where(pre *)) {
+  background: var(--color-paper);
+  padding: 0.12em 0.42em;
+  border-radius: var(--radius-sm);
+  font-size: 0.85em;
+  font-weight: 450;
+  color: var(--color-ink-2);
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
 .prose :where(img) {
   border-radius: var(--radius);
 }
@@ -168,8 +188,13 @@
    Distilled articles: layout, reveal motion, progress, TOC
    ============================================================ */
 
+/* native prose inside a distilled MDX article: near-full-width reading
+   column with small symmetric gutters; tight vertical rhythm so prose
+   reads as the explanation of the block it sits next to, not an orphan */
 .article-prose {
-  max-width: 760px;
+  max-width: 960px;
+  margin-inline: auto;
+  margin-block: clamp(22px, 3vw, 30px);
 }
 
 /* native prose living directly inside a distilled MDX article */
@@ -251,19 +276,215 @@
   }
 }
 
-/* reveal-on-scroll: hidden state exists only when JS + motion enabled */
+/* reveal-on-scroll: hidden state exists only when JS + motion enabled.
+   Apple-cadence easing, long duration, slight scale on the whole block. */
 .motion-ok .reveal-pending {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(26px) scale(0.985);
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.95s var(--ease-apple, cubic-bezier(0.22, 0.61, 0.36, 1)),
+    transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
 }
 
 .motion-ok .reveal-pending.is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* ------------------------------------------------------------
+   Hero entrance — staggered rise, plays once on page load.
+   Hidden states exist only under .motion-ok; no-JS shows the
+   final layout immediately.
+   ------------------------------------------------------------ */
+.motion-ok [data-hero] [data-hero-main] > *,
+.motion-ok [data-hero] [data-hero-visual] {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.motion-ok [data-hero] [data-hero-visual] {
+  transform: translateY(30px) scale(0.965);
+}
+
+.motion-ok .hero-play [data-hero-main] > *,
+.motion-ok .hero-play [data-hero-visual] {
+  animation: hero-rise 1.05s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.motion-ok .hero-play [data-hero-main] > :nth-child(1) {
+  animation-delay: 0.05s;
+}
+.motion-ok .hero-play [data-hero-main] > :nth-child(2) {
+  animation-delay: 0.13s;
+}
+.motion-ok .hero-play [data-hero-main] > :nth-child(3) {
+  animation-delay: 0.22s;
+}
+.motion-ok .hero-play [data-hero-main] > :nth-child(4) {
+  animation-delay: 0.3s;
+}
+.motion-ok .hero-play [data-hero-visual] {
+  animation-delay: 0.14s;
+}
+
+@keyframes hero-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* slow marching dashes on the hero track line */
+@keyframes dash-march {
+  to {
+    stroke-dashoffset: -18.8;
+  }
+}
+
+.motion-ok .hero-play [data-hero-dash] {
+  animation: dash-march 1.6s linear infinite;
+}
+
+.motion-ok [data-hero-dash] {
+  stroke-dasharray: 2 7.4;
+}
+
+/* subtle scroll parallax on the hero visual (independent `translate`,
+   so it composes with the entrance animation's `transform`) */
+[data-hero-visual] {
+  translate: 0 var(--hero-py, 0px);
+  will-change: translate;
+}
+
+/* stat count-up: keep digit widths stable while counting */
+.stat-num [data-count] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------
+   ScrollStory — large pinned visual stage + marching step panels.
+   Base (no-JS / narrow): frames and panels both static, everything
+   visible in document order. The pinned crossfade choreography only
+   exists on ≥900px once the script marks the story [data-ready].
+   ------------------------------------------------------------ */
+.ss-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.ss-visual {
+  width: 100%;
+}
+
+.ss-frame {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 18px;
+}
+
+.ss-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ss-step {
+  padding: 22px 0;
+}
+
+.ss-tag {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted-2);
+}
+
+.ss-title {
+  margin: 0 0 10px;
+  font-size: clamp(19px, 2vw, 25px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.ss-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--color-muted);
+}
+
+@media (min-width: 900px) {
+  .ss-grid {
+    grid-template-columns: 1.02fr 0.98fr;
+    gap: clamp(36px, 5vw, 76px);
+    align-items: start;
+  }
+
+  /* big pinned stage */
+  [data-ready] .ss-visual-col {
+    position: sticky;
+    top: max(108px, 17vh);
+    height: 58vh;
+    display: flex;
+    align-items: center;
+  }
+
+  [data-ready] .ss-visual {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  [data-ready] .ss-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    pointer-events: none;
+  }
+
+  [data-ready] .ss-frame.is-active {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* panels march past; the inactive ones recede so whitespace reads as
+     focus staging rather than emptiness */
+  [data-ready] .ss-step {
+    min-height: 56vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6px 0;
+    opacity: 0.28;
+    transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  [data-ready] .ss-step.is-active {
+    opacity: 1;
+  }
+
+  [data-ready] .ss-step:first-child {
+    min-height: 28vh;
+    justify-content: flex-start;
+  }
+
+  [data-ready] .ss-step:last-child {
+    min-height: 42vh;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -275,6 +496,26 @@
   .motion-ok .reveal-pending.is-visible {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .motion-ok [data-hero] [data-hero-main] > *,
+  .motion-ok [data-hero] [data-hero-visual] {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  [data-hero-visual] {
+    translate: none !important;
+  }
+
+  .motion-ok [data-hero-dash] {
+    animation: none;
+  }
+
+  [data-ready] .ss-frame,
+  [data-ready] .ss-step {
     transition: none;
   }
 }

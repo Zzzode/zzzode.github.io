@@ -157,12 +157,13 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 
 Distilled research articles (`kind: 'distilled'` MDX posts) compose full-bleed blocks from this library; see `.claude/skills/distill/references/component-catalog.md` for props/slots and `article-template.mdx` for a skeleton.
 
-- `CoverBanner` — required first block; gray provenance kicker, H1, lead, hairline pills, optional inline-SVG `visual` slot; stacks ≤860px.
+- `CoverBanner` — required first block; gray provenance kicker, H1, lead, hairline pills, optional inline-SVG `visual` slot; staggers in on load (§7); stacks ≤860px.
 - `Section` (`alt` → paper rounded-28 slab, English kebab `id` for the TOC) with `SectionHead`; `Prose` constrains ordinary Markdown to the 760px column while blocks stay full-width.
-- `CardGrid` / `InfoCard` — 1/2/3-column overview tiles; `DualCompare` / `BlockTitle` — point-by-point blue/orange dual cards with the three-layer rule (§5); `Steps` (neutral numbered), `Timeline` (rail), `Pipeline` (stage cards + arrows).
-- `CompareTable` — dot-headed hairline table, horizontally scrollable on mobile; `Callout` — white hairline card, blue eyebrow only for `tone="insight"`; `StatGrid` / `Stat` — 1px-gap key-number grid.
+- `CardGrid` / `InfoCard` — 1/2/3-column overview tiles; `DualCompare` / `BlockTitle` — point-by-point blue/orange dual cards with the three-layer rule (§5); `Steps` (neutral numbered, dot/title center-aligned on a unified connector rail), `Timeline` (rail; horizontally scroll-snapping strip on desktop, joined vertical list on mobile), `Pipeline` (stage cards + arrows).
+- `ScrollStory` — the large-scale scroll-driven moment for process content (§7): authored inline SVG pinned on the left transforming as step panels scroll; `[data-ss-node]` contract per the component catalog.
+- `CompareTable` — dot-headed hairline table, single-line cells with a `wrap` opt-in for prose columns, horizontally scrollable on mobile (min-width 640); `Callout` — white hairline card, blue eyebrow only for `tone="insight"`; `StatGrid` / `Stat` — 1px-gap key-number grid, optional numeric `count` count-up (server output is always the final value).
 - `Summary` — closing takeaway cards + caliber note; `Sources` renders automatically from the post's `sources` front matter with a distillation date.
-- All component roots carry `reveal` for scroll-in motion; diagrams are hand-written inline SVG in token hex only.
+- Section roots carry `reveal` for scroll-in motion; diagrams are hand-written inline SVG in token hex only.
 
 ---
 
@@ -271,7 +272,7 @@ Beyond visual symmetry, content must be symmetric point-by-point with real detai
 - Compress images; no inlined Base64 images; `dist/`, `.astro/`, `node_modules/` are not committed.
 - Tailwind breakpoints: `sm 640 / md 768 / lg 1024 / xl 1280`; multi-column layouts collapse at narrow widths.
 - **MDX**: distilled articles are `.mdx` files (`@astrojs/mdx`) composing components from `@/components/article`; framework pages remain plain `.astro`.
-- **Motion (posts only)**: the sole first-party script is `src/scripts/article.ts` (~1 KB gzip, inlined via Astro `<script>`), loaded only on post pages. It provides a blue 2px reading-progress bar, IntersectionObserver-based `.reveal` fade/translate-in (with staggered `data-reveal-delay`), and a sticky scroll-spy TOC rendered in the left gutter at ≥1600px. Under `prefers-reduced-motion: reduce`, no element is hidden or animated — content renders immediately at full opacity — while the progress bar and TOC still work (they convey information). Framework pages never ship JS.
+- **Motion (posts only)**: the sole first-party script is `src/scripts/article.ts` (~1.6 KB gzip, inlined via Astro `<script>`), loaded only on post pages. Motion exists exclusively under `.motion-ok` (added by the script) and follows Apple cadence — long, eased, restrained: ① a one-time **choreographed hero entrance** (kicker/title/lead/pills/visual stagger-rise with `cubic-bezier(0.22, 0.61, 0.36, 1)`; authored lines may opt into slow marching dashes via `data-hero-dash`) plus a very subtle scroll parallax on the hero visual; ② section **reveal** fade/translate/scale-in at 0.95s; ③ **count-up** headline stats (`data-count`, final value always server-rendered); ④ **`ScrollStory`**: a large inline-SVG illustration stage pinned on the left (≥900px) that crossfades/scales between one authored schematic per step as the right-hand text panels march through the viewport center; inactive panels recede to 28% opacity. Below 900px (and without JS) every illustration renders statically inside its own panel; reduced-motion switches instantly. ⑤ a blue 2px reading-progress bar and a sticky scroll-spy TOC at ≥1600px. No bounce, spin, gradient wipes, or auto-playing carousels. Under `prefers-reduced-motion: reduce` every entrance/reveal/parallax/count/dash is neutral — content renders immediately at its final state, ScrollStory shows all labels while keeping current-state colors, and the progress bar/TOC still work (they convey information). Framework pages never ship JS.
 
 ---
 

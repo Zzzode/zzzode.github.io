@@ -2,7 +2,8 @@
  * Progressive-enhancement layer for article pages only.
  * Zero dependencies. Everything here is decorative — if JS does not run,
  * all content is already visible. Users preferring reduced motion get the
- * reading-progress bar and TOC scroll-spy (information) but no motion.
+ * reading-progress bar, TOC scroll-spy and ScrollStory state cues
+ * (information) but no entrance animation, parallax, or count-up.
  */
 
 type TocItem = {
@@ -31,6 +32,12 @@ function init() {
   window.addEventListener('resize', updateProgress);
   updateProgress();
 
+  /* ---------- hero entrance ---------- */
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero && !reduceMotion) {
+    requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('hero-play')));
+  }
+
   /* ---------- reveal on scroll (motion only) ---------- */
   if (!reduceMotion) {
     document.documentElement.classList.add('motion-ok');
@@ -52,6 +59,125 @@ function init() {
       el.classList.add('reveal-pending');
       io.observe(el);
     });
+  }
+
+  /* ---------- headline stat count-up (motion only) ---------- */
+  const counters = Array.from(
+    article.querySelectorAll<HTMLElement>('[data-count]')
+  );
+  if (!reduceMotion && counters.length > 0) {
+    const fmt = (el: HTMLElement, v: number) => {
+      const d = Number(el.dataset.decimals ?? 0);
+      const n = v.toLocaleString('en-US', {
+        minimumFractionDigits: d,
+        maximumFractionDigits: d,
+      });
+      return `${el.dataset.prefix ?? ''}${n}${el.dataset.suffix ?? ''}`;
+    };
+
+    const runCounter = (el: HTMLElement) => {
+      const target = Number(el.dataset.count ?? 0);
+      const start = performance.now();
+      const dur = 1300;
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = fmt(el, target * eased);
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = fmt(el, target);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const cio = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            runCounter(entry.target as HTMLElement);
+            cio.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.6 }
+    );
+    counters.forEach((el) => cio.observe(el));
+  }
+
+  /* ---------- ScrollStory: pinned visual stage ---------- */
+  article.querySelectorAll<HTMLElement>('[data-scrollstory]').forEach((story) => {
+    const visual = story.querySelector<HTMLElement>('[data-ss-visual]');
+    const visualCol = story.querySelector<HTMLElement>('.ss-visual-col');
+    const panels = Array.from(
+      story.querySelectorAll<HTMLElement>('[data-story-step]')
+    );
+    const frames = visual
+      ? Array.from(visual.querySelectorAll<HTMLElement>('[data-ss-node]'))
+      : [];
+    if (frames.length === 0 || panels.length === 0) return;
+
+    story.dataset.ready = 'true';
+
+    // On narrow screens relocate each frame into its own panel so visuals
+    // and text interleave in document order; on wide screens the frames
+    // return to the pinned stage where only the active one is visible.
+    const mq = window.matchMedia('(max-width: 899px)');
+    const relocate = (mobile: boolean) => {
+      frames.forEach((frame, i) => {
+        if (mobile) panels[i]?.prepend(frame);
+        else visual?.append(frame);
+      });
+      if (visualCol) visualCol.hidden = mobile;
+    };
+    relocate(mq.matches);
+    mq.addEventListener?.('change', (e: MediaQueryListEvent) => relocate(e.matches));
+
+    const setActive = (index: number) => {
+      story.dataset.active = String(index);
+      frames.forEach((frame, i) => {
+        frame.classList.toggle('is-active', i === index);
+        frame.classList.toggle('is-done', i < index);
+      });
+      panels.forEach((panel, i) =>
+        panel.classList.toggle('is-active', i === index)
+      );
+    };
+    setActive(0);
+
+    const sio = new IntersectionObserver(
+      (entries) => {
+        let best: { i: number; ratio: number } | null = null;
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const i = Number((entry.target as HTMLElement).dataset.storyStep);
+            if (!best || entry.intersectionRatio > best.ratio) best = { i, ratio: entry.intersectionRatio };
+          }
+        }
+        if (best) setActive(best.i);
+      },
+      { threshold: [0, 0.1, 0.25], rootMargin: '-45% 0px -45% 0px' }
+    );
+    panels.forEach((panel) => sio.observe(panel));
+  });
+
+  /* ---------- hero parallax (motion only, rAF-throttled) ---------- */
+  const heroVisual = article.querySelector<HTMLElement>('[data-hero-visual]');
+  if (heroVisual && !reduceMotion) {
+    let ticking = false;
+    const apply = () => {
+      ticking = false;
+      const y = Math.min(window.scrollY, 480);
+      heroVisual.style.setProperty('--hero-py', `${Math.round(y * 0.07)}px`);
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(apply);
+        }
+      },
+      { passive: true }
+    );
   }
 
   /* ---------- table of contents with scroll-spy ---------- */

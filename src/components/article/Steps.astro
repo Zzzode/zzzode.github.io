@@ -18,18 +18,19 @@ const { steps } = Astro.props;
 <ol class="not-prose">
   {
     steps.map((step, i) => (
-      <li
-        class:list={[
-          'relative border-l-[1.5px] border-line-soft pb-5 pl-9 last:border-l-transparent last:pb-0',
-          i === 0 && 'ml-[9px]',
-        ]}
-      >
+      <li class="relative pb-6 pl-9 last:pb-0">
+        {i < steps.length - 1 && (
+          <span
+            class="absolute top-[22px] bottom-[-24px] left-[9px] w-px bg-line-soft"
+            aria-hidden="true"
+          />
+        )}
         <span
-          class="absolute left-[-10px] top-0 flex h-[19px] w-[19px] items-center justify-center rounded-full bg-muted-2 text-[10.5px] font-semibold text-white"
+          class="absolute left-0 top-0 flex h-[19px] w-[19px] items-center justify-center rounded-full bg-muted-2 text-[10.5px] font-semibold leading-none text-white"
         >
           {i + 1}
         </span>
-        <h4 class="text-[13px] font-semibold text-ink">{step.title}</h4>
+        <h4 class="text-[13px] font-semibold leading-[19px] text-ink">{step.title}</h4>
         {step.body && <p class="mt-1 text-[12.5px] leading-[1.65] text-muted">{step.body}</p>}
       </li>
     ))

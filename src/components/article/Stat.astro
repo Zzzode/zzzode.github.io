@@ -1,18 +1,46 @@
 ---
 /**
  * One key-number cell for <StatGrid>. `unit` renders smaller after the number.
+ * Optional count-up (article script, motion only): pass numeric `count` plus
+ * `countPrefix` / `countSuffix` / `countDecimals`; server output always shows
+ * the final value verbatim, so no-JS and reduced-motion render the truth.
  */
 interface Props {
   value: string;
   unit?: string;
   label?: string;
+  count?: number;
+  countPrefix?: string;
+  countSuffix?: string;
+  countDecimals?: number;
 }
-const { value, unit, label } = Astro.props;
+
+const {
+  value,
+  unit,
+  label,
+  count,
+  countPrefix = '',
+  countSuffix = '',
+  countDecimals = 0,
+} = Astro.props;
 ---
 
 <div class="bg-white px-5 py-6">
-  <dt class="text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink">
-    {value}
+  <dt class="stat-num text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink">
+    {
+      typeof count === 'number' ? (
+        <span
+          data-count={count}
+          data-prefix={countPrefix}
+          data-suffix={countSuffix}
+          data-decimals={countDecimals}
+          >{countPrefix}{value}{countSuffix}</span
+        >
+      ) : (
+        value
+      )
+    }
     {unit && <small class="ml-1 text-[13px] font-semibold text-muted">{unit}</small>}
   </dt>
   {label && <dd class="mt-1.5 text-[12px] leading-[1.5] text-muted">{label}</dd>}

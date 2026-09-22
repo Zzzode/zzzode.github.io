@@ -7,8 +7,8 @@ kind: "distilled"
 sources:
   - title: "Primary source title"
     url: "https://example.com/primary"
-  - title: "Secondary source title"
-    url: "https://example.com/secondary"
+  - title: "Context reference (prior work / lineage / official docs)"
+    url: "https://example.com/context"
 ---
 
 import {
@@ -19,6 +19,8 @@ import {
   CardGrid,
   InfoCard,
   Steps,
+  Timeline,
+  ScrollStory,
   CompareTable,
   Callout,
   StatGrid,
@@ -38,6 +40,7 @@ import {
     { label: "对比 B", dot: "b" },
   ]}
 >
+  {/* lines that should march on load take data-hero-dash */}
   <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="一句话描述图意">
     {/* token hex only: #1d1d1f #424245 #6e6e73 #86868b #f5f5f7 #dedee3 #ececf0 #0066cc #e8710a */}
     <rect x="40" y="40" width="380" height="240" rx="20" fill="#f5f5f7" />
@@ -46,23 +49,74 @@ import {
 
 <Prose>
 
-先用一段白话把结论讲清楚：这是什么、为什么重要、读者接下来会得到什么。术语第一次出现时给白话解释（例如「水合——给静态 DOM 接上事件与状态」）。
+先用一段白话把结论讲清楚：这是什么、为什么重要、读者接下来会得到什么。术语第一次出现时给白话解释。
 
 </Prose>
 
+{/* 01 前因 — mandatory for depth: why now, prior work, lineage.
+   Timeline is the natural fit; every contextual claim links to its source. */}
+<Section id="backdrop">
+  <SectionHead kicker="01 · THE BACKDROP" title="前因：它从哪来" lead="这件事不是突然发生的。" />
+  <Prose>
+
+第一段源流（可链接一手论文 / 文档），第二段演进，说明本次材料在这条线上的位置。
+
+  </Prose>
+  <Timeline
+    nodes={[
+      { year: "YYYY-MM", title: "前序节点", body: "一句话交代。" },
+      { year: "YYYY-MM", title: "本次", body: "……" },
+    ]}
+  />
+</Section>
+
 <Section alt id="overview">
-  <SectionHead kicker="01 · OVERVIEW" title="总览标题" lead="一句灰色副述。" />
-  <CardGrid>
-    <InfoCard label="POINT 1" title="要点一">
-      <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
-    </InfoCard>
-    <InfoCard label="POINT 2" title="要点二">
-      <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
-    </InfoCard>
-    <InfoCard label="POINT 3" title="要点三">
-      <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
-    </InfoCard>
-  </CardGrid>
+  <SectionHead kicker="02 · OVERVIEW" title="总览标题" lead="一句灰色副述。" />
+  <StatGrid cols={3}>
+    <Stat value="90%" count={90} countSuffix="%" label="数字口径必须紧跟来源。" />
+    <Stat value="3" count={3} unit="个" label="……" />
+    <Stat value="40%" count={40} countSuffix="%" label="……" />
+  </StatGrid>
+  <div class="mt-6">
+    <CardGrid>
+      <InfoCard label="POINT 1" title="要点一">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
+      </InfoCard>
+      <InfoCard label="POINT 2" title="要点二">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
+      </InfoCard>
+      <InfoCard label="POINT 3" title="要点三">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted">展开说明。</p>
+      </InfoCard>
+    </CardGrid>
+  </div>
+</Section>
+
+{/* 03 机制 — the ScrollStory moment for any process. Each panel teaches:
+   what happens, why, and which metric/anomaly it explains. */}
+<Section id="mechanism">
+  <SectionHead kicker="03 · THE LOOP" title="机制：逐步拆解" lead="随页面滚动，流程图会逐步点亮当前阶段。" />
+  <ScrollStory
+    steps={[
+      { tag: "01 · 第一步", title: "动词开头的阶段名", body: "白话讲解：发生了什么、为什么这样设计。" },
+      { tag: "02 · 第二步", title: "……", body: "……" },
+      { tag: "03 · 第三步", title: "……", body: "……" },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      {/* one standalone frame per step: paper card + eyebrow + title +
+          NN/NN counter + a token-only schematic showing the mechanism */}
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP NAME</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">示意图标题</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 03</text>
+    </svg>
+  </ScrollStory>
+  <Prose>
+
+故事讲完后，用白话把背后的原理再讲透一层（数学直觉 / 设计取舍），并呼应后面的指标。
+
+  </Prose>
 </Section>
 
 <Prose>
@@ -71,48 +125,41 @@ import {
 
 </Prose>
 
-<Section id="mechanism">
-  <SectionHead kicker="02 · MECHANISM" title="机制 / 管线" />
-  <Steps
-    steps={[
-      { title: "动词开头的步骤一", body: "发生了什么。" },
-      { title: "步骤二", body: "……" },
-      { title: "步骤三", body: "……" },
-    ]}
-  />
-</Section>
-
-<Section alt id="differences">
-  <SectionHead kicker="03 · DETAILS" title="可操作的差异" />
+<Section alt id="details">
+  <SectionHead kicker="04 · DETAILS" title="可核对的细节" />
   <CompareTable
     headers={[
       { label: "维度" },
       { label: "方案 A", dot: "a" },
       { label: "方案 B", dot: "b" },
+      { label: "长描述列", wrap: true },
     ]}
     rows={[
-      ["维度一", "……", "……"],
-      ["维度二", "……", "……"],
+      ["维度一", "……", "……", "需要换行的长文本。"],
+      ["维度二", "……", "……", "……"],
     ]}
   />
-  <Callout tone="insight" eyebrow="WHY IT MATTERS">
-    一句关键提醒；tone="insight" 时只有小 kicker 是蓝色。
-  </Callout>
+  <div class="mt-5">
+    <Callout tone="insight" eyebrow="WHY IT MATTERS">
+      一句关键提醒；tone="insight" 时只有小 kicker 是蓝色。
+    </Callout>
+  </div>
 </Section>
 
-<Section id="numbers">
-  <SectionHead kicker="04 · BY THE NUMBERS" title="可核实的数字" />
-  <StatGrid cols={3}>
-    <Stat value="90%" unit="单位" label="数字口径必须紧跟来源。" />
-    <Stat value="3" unit="个" label="……" />
-    <Stat value="40%" unit="%" label="……" />
-  </StatGrid>
+{/* 后果与边界 — what shipped / changed, plus honest limits. */}
+<Section id="aftermath">
+  <SectionHead kicker="05 · AFTERMATH" title="后果：改变了什么" lead="以及它的边界。" />
+  <Prose>
+
+开放了什么 / 发布了什么 / 读者该如何引用这些数字；单一来源与未证实项在此显式标注。
+
+  </Prose>
 </Section>
 
 <Summary
   takeaways={[
-    { title: "结论一", conclusion: "一句话加粗结论。", detail: "补充说明。" },
+    { title: "结论一", conclusion: "一句话结论。", detail: "补充说明。" },
     { title: "结论二", conclusion: "……", dot: "a" },
   ]}
-  note="口径说明：哪些是官方文档事实、哪些是二手解读；炼化所依据的版本与日期。"
+  note="口径说明：哪些是官方文档事实、哪些是看板观测、哪些是二手解读；炼化所依据的版本与日期。"
 />

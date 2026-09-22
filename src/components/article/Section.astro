@@ -19,8 +19,8 @@ const { alt = false, id, center = false, class: className = '' } = Astro.props;
   id={id}
   class:list={[
     'reveal',
-    alt && 'my-6 rounded-[28px] bg-paper px-6 py-12 sm:px-10 sm:py-14',
-    !alt && 'py-4',
+    alt && 'rounded-[28px] bg-paper px-6 py-12 sm:px-10 sm:py-14',
+    !alt && 'py-6',
     className,
   ]}
 >

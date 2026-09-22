@@ -1,7 +1,8 @@
 ---
 /**
- * Horizontal rail timeline: a hairline rail behind ringed nodes,
- * collapsing to a vertical list at narrow widths (design guide §4.4).
+ * Horizontal rail timeline: hairline rail behind ringed nodes.
+ * Any number of nodes: on md+ the rail becomes a horizontally scroll-snapping
+ * strip of fixed-width cards; below md it collapses to a vertical list.
  */
 interface Node {
   year: string;
@@ -12,23 +13,37 @@ interface Node {
 interface Props {
   nodes: Node[];
 }
+
 const { nodes } = Astro.props;
 ---
 
-<ol
-  class="not-prose grid grid-cols-1 gap-6 md:relative md:grid-cols-4 md:gap-2.5"
->
+<ol class="not-prose timeline grid grid-cols-1 gap-5 md:flex md:gap-3 md:overflow-x-auto md:pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
   {
-    nodes.map((node) => (
-      <li class="relative md:rounded-[14px] md:border md:border-line-soft md:bg-white md:px-3.5 md:pb-3 md:pt-9">
+    nodes.map((node, i) => (
+      <li
+        class:list={[
+          'relative md:relative md:min-w-[168px] md:snap-start md:rounded-[14px] md:border md:border-line-soft md:bg-white md:px-3.5 md:pb-3.5 md:pt-9',
+          i < nodes.length - 1 && 'md:flex-1',
+        ]}
+      >
         <span
           class="absolute left-0 top-[2px] h-3 w-3 rounded-full border-[3px] border-blue bg-white md:left-3.5 md:top-[9px]"
         />
         {
-          /* the rail line is drawn in CSS on md and up */
+          /* on mobile a vertical hairline joins consecutive nodes */
+        }
+        {
+          i < nodes.length - 1 && (
+            <span
+              class="absolute left-[5.5px] top-[16px] h-[calc(100%+12px)] w-px bg-line-soft md:hidden"
+              aria-hidden="true"
+            />
+          )
         }
         <p class="pl-6 text-[11px] font-semibold text-blue md:pl-0">{node.year}</p>
-        <h4 class="mt-1 pl-6 text-[13px] font-semibold text-ink md:pl-0">{node.title}</h4>
+        <h4 class="mt-1 pl-6 text-[13px] font-semibold leading-[1.4] text-ink md:pl-0">
+          {node.title}
+        </h4>
         {node.body && (
           <p class="mt-1 pl-6 text-[12px] leading-[1.6] text-muted md:pl-0">{node.body}</p>
         )}

@@ -83,15 +83,37 @@ Props: `aTitle`, `bTitle`, `aLabel?`, `bLabel?` (default A/B). Slots `a` / `b` c
 
 ## Timeline — horizontal rail
 
-`nodes: { year, title, body? }[]`. Collapses vertically on mobile.
+`nodes: { year, title, body? }[]` (any count). On desktop it becomes a horizontally scroll-snapping strip of fixed-width cards (scrollbar hidden); on mobile a joined vertical list. Ideal for lineage / release-history context (the 前因 section).
 
 ## Pipeline — stage cards with arrows
 
 `stages: { title, body? }[]`. Stacks vertically with arrows on narrow screens.
 
+## ScrollStory — the large-scale scroll-driven moment
+
+Use when the piece teaches a **process or lifecycle** (one is expected in a deep distillation; skip only when the content genuinely has no sequence). Layout: a **large visual stage** pins on the left (≥900px) while compact text panels march past on the right; the stage crossfades/scales between one authored illustration per step (completed steps leave, the active step shows), and inactive panels recede to 28% opacity so whitespace reads as focus staging. Below 900px the script relocates every illustration into its own panel (interleaved, static, all visible); without JS all illustrations render statically. Reduced-motion switches instantly with no transform/opacity transition.
+
+Props: `steps: { tag, title, body }[]` (4–6). The `visual` slot contains **one `<svg class="ss-frame" data-ss-node="i">` per step, in the same order**. Frame contract:
+
+- each frame is a standalone `viewBox="0 0 460 460"` SVG — a full illustration, not a dot (the stage is large; this is the piece's main visual moment);
+- draw a rounded paper card (`<rect x=10 y=30 width=440 height=400 rx=24 fill="#f5f5f7">`), an uppercase eyebrow + step title + `NN / NN` counter, and a token-only schematic that *shows the mechanism* (histogram, grid, checklist, dot matrix, axis — geometric, labeled);
+- blue only for the meaningful active element; everything else neutral. The script only toggles `.is-active`/`.is-done` — authored colors stay static inside each frame;
+- never use TS type annotations inside MDX `{…}` expressions (oxc parser); for mixed arrays map over objects (`{label, ok}[]`), not tuples.
+
+```mdx
+<ScrollStory steps={[{ tag: "01 · 出题", title: "…", body: "…" }]}>
+  <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+    <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+    {/* eyebrow, title, counter, schematic */}
+  </svg>
+</ScrollStory>
+```
+
+Beat heights (56vh middle, 28vh first, 42vh last; stage 58vh) keep the rhythm tight — tune downward if panels look marooned in whitespace; the center 10% IntersectionObserver band drives the switch.
+
 ## CompareTable
 
-Props: `headers: { label, dot?: 'a'|'b' }[]`, `rows: string[][]`, `caption?`. Hairline rows; horizontally scrolls on mobile. Put user-facing differences here for dual comparisons.
+Props: `headers: { label, dot?: 'a'|'b', wrap?: boolean }[]`, `rows: string[][]`, `caption?`. Hairline rows; columns stay on one line by default and the table horizontally scrolls on mobile (min-width 640px) — set `wrap: true` on long prose columns so they wrap instead of stretching the scroll width.
 
 ```mdx
 <CompareTable
@@ -106,11 +128,11 @@ Props: `eyebrow?`, `tone?: 'neutral'|'insight'` (insight shows a blue uppercase 
 
 ## StatGrid / Stat — key numbers
 
-`StatGrid cols?: 2|3|4`. `Stat value` (string), `unit?` (small suffix), `label?`. Use only verified numbers; always state caliber nearby.
+`StatGrid cols?: 2|3|4`. `Stat value` (string, the server-rendered final value — always truthful), `unit?`, `label?`. Optional count-up: numeric `count` plus `countPrefix?` / `countSuffix?` / `countDecimals?`; the article script animates it once when scrolled into view (motion allowed only; reduced-motion and no-JS render the final value). Use only verified numbers; always state caliber nearby.
 
 ```mdx
 <StatGrid cols={3}>
-  <Stat value="90%" unit="更少 JS" label="口径…" />
+  <Stat value="3.47" count={3.47} countDecimals={2} countPrefix="$" countSuffix="M" label="口径…" />
 </StatGrid>
 ```
 
@@ -128,9 +150,11 @@ Props: `eyebrow?`, `tone?: 'neutral'|'insight'` (insight shows a blue uppercase 
 ## What the page already provides
 
 - Dark global nav, footer.
-- Reading-progress bar, scroll-reveal for `.reveal` (all Section/CoverBanner/Summary roots already carry it; the article script also reveals `.article-prose` and images), and the wide-screen TOC from section `id`s.
+- Choreographed hero entrance (staggered rise of kicker/title/lead/pills/visual; add `data-hero-dash` to an authored SVG line for slow marching dashes), long eased `.reveal` scroll reveals for Section/Summary roots (`.article-prose` and images too), headline stat count-ups, subtle hero parallax.
+- `ScrollStory` pinned-visual state machine (see above) and the wide-screen TOC from section `id`s.
 - `<Sources>` from front matter, untranslated notice when no counterpart exists.
 - Near-monochrome Shiki for fenced code.
+- Every motion behavior exists only under `.motion-ok` and is fully neutral under `prefers-reduced-motion: reduce`.
 
 ## Diagram rules (inline SVG)
 
