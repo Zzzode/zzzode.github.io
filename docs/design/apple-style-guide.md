@@ -100,10 +100,10 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 
 ### 3.1 Nav (`Nav.astro`)
 
-- The global navigation is the site's **single sanctioned dark chrome surface** (mirroring apple.com): 44px tall, `rgba(29,29,31,0.82)` background with `backdrop-blur`, sticky; no border, no shadow.
-- Brand wordmark 16px/600 pure white; items 13px white at 70% opacity, hover/active → pure white (Apple does not use blue inside the global nav — blue stays for in-page content links).
-- The language toggle is a translucent hairline pill (`border-white/25`, `text-white/80`) turning brighter on hover; the disabled state uses white/10 + white/35 text.
-- Mobile (<768px): zero-JS native `<details>`; opening it shows an **opaque full-width `#1d1d1f` panel** directly under the bar with 15px white/80 items separated by `border-white/10` hairlines; the hamburger glyph is white. ≥44px touch targets.
+- The global navigation is the site's **single sanctioned dark chrome surface**, matching apple.com's `.globalnav` exactly: 44px tall, background `rgba(0,0,0,0.8)` with `backdrop-filter: blur(20px) saturate(1.8)` (pure black at 80% — not the near-black `--color-ink`, which composites too gray over light content); sticky, with at most a hairline `rgba(245,245,247,0.08)` bottom edge; no shadow.
+- Brand wordmark 15px/600 in `#f5f5f7`; items are 12px `rgba(245,245,247,0.8)` (Apple's off-white, visibly brighter than 70% pure white), hover/active → `#f5f5f7`. Apple does not use blue inside the global nav — blue stays for in-page content links.
+- The language toggle is a translucent hairline pill (`border rgba(245,245,247,0.22)`, text 85% off-white) brightening toward full white on hover; the disabled state uses 12% border + 35% text.
+- Mobile (<768px): zero-JS native `<details>`; opening it shows a full-width panel with the same `rgba(0,0,0,0.8)` blur treatment, 17px items in `rgba(245,245,247,0.8)` separated by `rgba(245,245,247,0.08)` hairlines; white hamburger glyph. ≥44px touch targets.
 
 ### 3.2 Home hero (`HomeHero.astro`)
 
@@ -267,7 +267,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - [ ] `npm run check` and `npm run build` pass with no errors/new warnings.
 - [ ] The site is grayscale-first; accent appears only in links, primary buttons, and 7–8px dots; no large color blocks, colored tags, or brand-colored icons.
 - [ ] Font sizes, negative tracking, line-height, and radii match the token table; no square cards, no shadows anywhere.
-- [ ] The global nav is the translucent dark bar (44px, white 70%→100% text, no blue in the bar); mobile opens an opaque dark full-width menu; sticky bar never obscures content.
+- [ ] The global nav matches apple.com: 44px, `rgba(0,0,0,0.8)` + `blur(20px) saturate(1.8)`, off-white `rgba(245,245,247,0.8)` links → `#f5f5f7` on hover/active, no blue in the bar; mobile opens a blurred dark full-width menu; sticky bar never obscures content.
 - [ ] Language toggle links to the same route in the other locale, or is a disabled pill when the entry has no counterpart; nav links all carry the correct `/en` prefix on English pages.
 - [ ] Home hero is white, centered, and airy with a large tight H1 and blue text-`›` links (no pill buttons); the writing-first mosaic renders a full-width feature tile + three-up white tiles on `paper`, collapsing to one column on mobile.
 - [ ] Entry-list hairlines/meta/tags are neutral; empty collections show the localized empty state.

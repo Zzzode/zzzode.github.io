@@ -23,35 +23,35 @@ const hrefFor = (href: string) => `${prefix}${href}`;
 const isActive = (href: string) => path === hrefFor(href) || path.startsWith(hrefFor(href));
 
 const toggleClass =
-  'rounded-full border border-white/25 px-3 py-1 text-[13px] text-white/80 transition-colors hover:border-white/50 hover:text-white';
+  'rounded-full border border-[rgba(245,245,247,0.22)] px-3 py-1 text-[12px] text-[rgba(245,245,247,0.85)] transition-colors hover:border-[rgba(245,245,247,0.55)] hover:text-[#f5f5f7]';
 const toggleDisabledClass =
-  'cursor-default rounded-full border border-white/10 px-3 py-1 text-[13px] text-white/35';
+  'cursor-default rounded-full border border-[rgba(245,245,247,0.12)] px-3 py-1 text-[12px] text-[rgba(245,245,247,0.35)]';
 const toggleTitle = lang === 'zh' ? '本文暂无英文版' : 'No Chinese version yet';
 ---
 
 <header
-  class="sticky top-0 z-20 h-11 bg-[rgba(29,29,31,0.82)] backdrop-blur-xl"
+  class="sticky top-0 z-20 h-11 border-b border-[rgba(245,245,247,0.08)] bg-[rgba(0,0,0,0.8)] backdrop-blur-[20px] backdrop-saturate-[1.8]"
 >
   <div class="container-page flex h-11 items-center justify-between">
     <a
       href={`${prefix}/`}
-      class="text-[16px] font-semibold tracking-[-0.01em] text-white"
+      class="text-[15px] font-semibold tracking-[-0.01em] text-[#f5f5f7]"
     >
       Zzzode
     </a>
 
     <!-- desktop nav -->
-    <nav class="hidden items-center gap-7 md:flex">
+    <nav class="hidden items-center gap-8 md:flex">
       {
         items.map((item) => (
           <a
             href={hrefFor(item.href)}
             hreflang={lang}
             class:list={[
-              'text-[13px] transition-colors',
+              'text-[12px] transition-colors',
               isActive(item.href)
-                ? 'text-white'
-                : 'text-white/70 hover:text-white',
+                ? 'text-[#f5f5f7]'
+                : 'text-[rgba(245,245,247,0.8)] hover:text-[#f5f5f7]',
             ]}
           >
             {t(lang, item.key)}
@@ -86,7 +86,7 @@ const toggleTitle = lang === 'zh' ? '本文暂无英文版' : 'No Chinese versio
           <a
             href={alternatePath}
             hreflang={lang === 'zh' ? 'en' : 'zh-CN'}
-            class="rounded-full border border-white/25 px-3 py-1 text-[13px] text-white/80"
+            class="rounded-full border border-[rgba(245,245,247,0.22)] px-3 py-1 text-[12px] text-[rgba(245,245,247,0.85)]"
           >
             {languages[lang === 'zh' ? 'en' : 'zh']}
           </a>
@@ -94,16 +94,16 @@ const toggleTitle = lang === 'zh' ? '本文暂无英文版' : 'No Chinese versio
       }
       <details class="group relative">
         <summary
-          class="flex h-11 w-9 list-none items-center justify-center text-white [&::-webkit-details-marker]:hidden"
+          class="flex h-11 w-9 list-none items-center justify-center text-[#f5f5f7] [&::-webkit-details-marker]:hidden"
           aria-label={t(lang, 'nav.menu')}
         >
           <svg
-            width="18"
-            height="18"
+            width="17"
+            height="17"
             viewBox="0 0 20 20"
             fill="none"
             stroke="currentColor"
-            stroke-width="1.5"
+            stroke-width="1.4"
             stroke-linecap="round"
           >
             <line x1="3" y1="6" x2="17" y2="6"></line>
@@ -111,16 +111,17 @@ const toggleTitle = lang === 'zh' ? '本文暂无英文版' : 'No Chinese versio
           </svg>
         </summary>
         <nav
-          class="fixed inset-x-0 top-11 z-30 border-t border-white/10 bg-ink px-5 py-2"
+          class="fixed inset-x-0 top-11 z-30 border-t border-[rgba(245,245,247,0.1)] bg-[rgba(0,0,0,0.8)] px-5 pb-3 backdrop-blur-[20px] backdrop-saturate-[1.8]"
         >
           {
-            items.map((item, i) => (
+            items.map((item) => (
               <a
                 href={hrefFor(item.href)}
                 class:list={[
-                  'block border-white/10 py-3 text-[15px] transition-colors',
-                  i < items.length - 1 ? 'border-b' : '',
-                  isActive(item.href) ? 'text-white' : 'text-white/80 hover:text-white',
+                  'block border-b border-[rgba(245,245,247,0.08)] py-3.5 text-[17px] transition-colors last:border-b-0',
+                  isActive(item.href)
+                    ? 'text-[#f5f5f7]'
+                    : 'text-[rgba(245,245,247,0.8)] hover:text-[#f5f5f7]',
                 ]}
               >
                 {t(lang, item.key)}
