@@ -1,0 +1,381 @@
+---
+title: "E2B：给智能体一台「一次性 Linux 机器」的云基础设施"
+date: 2026-09-23
+excerpt: "AI 生成的代码不能跑在你的 API 进程里。E2B 用 Firecracker microVM 给每个智能体会话一台硬件隔离的 Linux 沙箱，并把「暂停—快照—分叉」做成了原语。本文拆解它的生命周期与底层设计。"
+tags: ["AI Agent", "E2B", "沙箱", "Firecracker", "云基础设施"]
+kind: "distilled"
+sources:
+  - title: "E2B 官方文档 · Sandbox lifecycle"
+    url: "https://docs.e2b.dev/sandbox"
+  - title: "E2B 官方文档 · Sandbox persistence（暂停与恢复）"
+    url: "https://docs.e2b.dev/sandbox/persistence"
+  - title: "E2B 官方文档 · Sandbox snapshots"
+    url: "https://docs.e2b.dev/sandbox/snapshots"
+  - title: "E2B 官方文档 · Sandbox forking"
+    url: "https://docs.e2b.dev/sandbox/fork"
+  - title: "E2B 官方文档 · Filesystem"
+    url: "https://e2b.dev/docs/filesystem"
+  - title: "E2B 官方文档 · Code interpreting"
+    url: "https://e2b.dev/docs/code-interpreting"
+  - title: "e2b-dev/E2B · GitHub（SDK 与 README）"
+    url: "https://github.com/e2b-dev/E2B"
+  - title: "e2b-dev/infra（E2B Runtime）· GitHub"
+    url: "https://github.com/e2b-dev/infra"
+  - title: "Firecracker microVM 官方网站"
+    url: "https://firecracker-microvm.github.io/"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  BlockTitle,
+  ScrollStory,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="OPEN INFRA · e2b.dev · 2026-09-23 核对"
+  title="E2B：给智能体一台「一次性 Linux 机器」的云基础设施"
+  lead="模型生成一段代码，这段代码应该在哪里执行？不是你的 API 进程，不是用户浏览器，而是一台一次性、硬件隔离、能暂停能分叉的 Linux 机器。E2B 卖的就是这台机器。"
+  pills={[
+    { label: "Firecracker microVM" },
+    { label: "快照恢复" },
+    { label: "暂停 / 分叉原语" },
+    { label: "Apache-2.0 运行时" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="智能体代码进入隔离沙箱执行">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="58" font-size="12" font-weight="600" letter-spacing="1.5" fill="#86868b" font-family="PingFang SC, sans-serif">AGENT CODE → ISOLATED VM</text>
+
+    <rect x="32" y="96" width="130" height="120" rx="16" fill="#fff" stroke="#dedee3" />
+    <text x="97" y="140" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">Agent</text>
+    <text x="97" y="166" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">run("pip …")</text>
+    <text x="97" y="186" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">write(path)</text>
+
+    <path d="M172 156 L206 156 M196 148 L206 156 L196 164" stroke="#0066cc" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+    <rect x="216" y="80" width="212" height="152" rx="16" fill="#1d1d1f" />
+    <rect x="232" y="96" width="180" height="120" rx="10" fill="#2c2c2e" />
+    <circle cx="248" cy="114" r="4" fill="#ff5f57" />
+    <circle cx="262" cy="114" r="4" fill="#febc2e" />
+    <circle cx="276" cy="114" r="4" fill="#28c840" />
+    <text x="322" y="150" font-size="12" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">独立 Linux</text>
+    <text x="322" y="172" font-size="12" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">microVM · 一次性</text>
+    <rect x="252" y="186" width="140" height="18" rx="9" fill="#0066cc" />
+    <text x="322" y="199" font-size="9.5" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">pause · snapshot · fork</text>
+
+    <text x="36" y="256" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">一个会话一台机器：自己的内核视图、磁盘、cgroup 与网络命名空间</text>
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+先给口径：本文事实来自 E2B 官方文档（docs.e2b.dev，2026-09-23 核对）、[e2b-dev/E2B](https://github.com/e2b-dev/E2B) 的 SDK 说明，以及 Apache-2.0 许可的 [E2B Runtime 基础设施仓库](https://github.com/e2b-dev/infra)；产品额度随版本变化，具体数字以官方计费页为准。这篇文章和本博客的 MiMo 训练看板解析可以对照阅读——那边一个大跑要同时操作数万个沙箱，这篇讲的就是沙箱本身怎么造。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE BACKDROP"
+    title="前因：代码解释器很好用，但智能体需要的是一台机器"
+    lead="「在隔离环境里跑 AI 生成的代码」不是新需求，但智能体把需求规格整个抬高了。"
+  />
+  <Prose>
+
+**第一代：代码解释器。** ChatGPT 的 Code Interpreter 让「模型写 Python、后端在容器里跑、返回图表」成为标配。它的执行单元是一个被管起来的解释器内核（kernel）：语言基本固定、生命周期短、交互面是 notebook 式的单元格。它证明了隔离执行是杀手级功能，但也把能力圈在数据分析里。
+
+**第二代：计算机操作智能体。** 当智能体要自己 `pip install`、起服务器、点浏览器、跑构建、写多文件项目时，解释器内核不够用了——它需要的是一台**完整的 Linux 机器**：任意二进制、常驻进程、多端口、文件系统状态、可能还要跑几十分钟。而这台机器执行的是**不可信代码**（模型生成、甚至被网页内容注入），所以还必须强隔离、快创建、用完即弃。
+
+这三个要求放在一起是矛盾的：容器够快但隔离共享宿主内核，传统虚拟机够安全但启动要几十秒，两者都不为「每个会话一台、按需暂停、随时分叉」设计。E2B 的答案是 AWS 开源的 [Firecracker microVM](https://firecracker-microvm.github.io/)——就是支撑 AWS Lambda 与 Fargate 的那套轻量虚拟机技术——加上一套以快照为中心的调度层。
+
+  </Prose>
+</Section>
+
+<Section alt id="what">
+  <SectionHead
+    kicker="02 · THE BIG PICTURE"
+    title="全景：开源运行时 + 托管云 + 两种 SDK"
+    lead="E2B 既是一项云服务，也是一套你可以自己跑的开源基础设施。"
+  />
+  <StatGrid cols={4}>
+    <Stat value="1:1" unit="台 / 会话" label="每个沙箱是一台独立 Firecracker microVM，带自己的 envd API" />
+    <Stat value="24h" unit="最长连续运行" label="Pro 档单次最长 24 小时（Base 1 小时），暂停可无限期保存" />
+    <Stat value="10–20GiB" unit="磁盘" label="Hobby 10GiB / Pro 20GiB 独立文件系统" />
+    <Stat value="100" unit="次分叉 / 请求" label="一次快照可以同时分叉出最多约 100 台新沙箱" />
+  </StatGrid>
+  <Prose>
+
+用法只有四行：`Sandbox.create()` 起一台机器，`sandbox.commands.run(...)` 执行命令，`files.write/read` 操作文件，结束自动或手动释放。JavaScript/TypeScript 与 Python 两套 SDK 背后是同一个运行时。开源的 Runtime 仓库包含控制面 API、每台宿主机上的 orchestrator、每个 VM 内部的 envd、边缘路由与模板构建器——公有云、企业专属部署和单机评估包（Embed）跑的是同一套 Go 代码。
+
+  </Prose>
+</Section>
+
+<Section id="lifecycle">
+  <SectionHead
+    kicker="03 · THE LIFECYCLE"
+    title="一台沙箱的一生：创建、运行、暂停、快照、分叉"
+    lead="随页面滚动，左侧舞台展示沙箱的状态流转（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 创建",
+        title: "「创建」其实是恢复一台预启动的机器",
+        body: "Sandbox.create() 不是从零引导内核。模板（template）是预先启动好的 VM——内存、磁盘、机器状态都存在对象存储里；创建动作是把这台机器恢复出来，并叠加你基于 Docker 镜像和构建步骤烤好的自定义层。这是它快的根本原因。",
+      },
+      {
+        tag: "02 · 运行",
+        title: "VM 里有个叫 envd 的专属 API",
+        body: "每个沙箱内部跑着 envd：通过 Connect RPC 与 REST 暴露进程、PTY 终端、文件系统、目录监听与端口转发。SDK 说的「执行代码」「开终端」，本质都是在和 envd 对话；它还能在不中断工作负载的情况下热升级。任何监听端口都能通过 https://<port>-<sandbox>.<domain> 从边缘访问。",
+      },
+      {
+        tag: "03 · 暂停",
+        title: "空闲即睡，内存磁盘只传增量",
+        body: "超时后沙箱可自动暂停：把内存和磁盘相对模板做差分（diff），增量传到对象存储。暂停态无限期保留、不计执行资源、不会被自动删除；新流量进来时边缘路由透明地唤醒它——优先调度到还缓存着这份增量的节点，所以恢复常常很快。",
+      },
+      {
+        tag: "04 · 快照",
+        title: "一个检查点，孵出任意多台新机器",
+        body: "createSnapshot 对运行中的沙箱做持久化时间点捕获（文件系统 + 内存）。原沙箱只短暂停顿就继续运行、ID 不变；快照本身是一对多的——可以反复拿来生成新沙箱。代价是捕获瞬间 WebSocket、PTY、命令流等连接会全部断开，客户端必须自己重连。",
+      },
+      {
+        tag: "05 · 分叉",
+        title: "一次调用，复制出 N 个平行宇宙",
+        body: "fork() 把「快照 + 从快照启动 N 台」合并成一次调用：原机器原地快照（磁盘改动越多停得越久），最多一次约 100 个分叉各自带独立 ID 和超时，从完全相同的状态出发后各自演化。无论分多少个，只做一次快照。暂停态沙箱与模板的产物形态相同，所以恢复与创建走同一条快速路径。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · CREATE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">创建 = 恢复快照</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="40" y="150" width="180" height="150" rx="14" fill="#fff" stroke="#dedee3" />
+      <text x="130" y="182" font-size="12" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">对象存储中的模板</text>
+      <rect x="64" y="200" width="132" height="14" rx="7" fill="#ececf0" />
+      <rect x="64" y="222" width="132" height="14" rx="7" fill="#ececf0" />
+      <rect x="64" y="244" width="92" height="14" rx="7" fill="#d8d8de" />
+      <text x="130" y="284" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">mem + disk + state</text>
+      <path d="M236 225 L262 225 M254 217 L262 225 L254 233" stroke="#0066cc" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="266" y="170" width="154" height="110" rx="14" fill="#1d1d1f" />
+      <text x="343" y="214" font-size="12.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">运行中的 VM</text>
+      <text x="343" y="240" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">不引导内核，直接恢复</text>
+      <text x="40" y="356" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">模板由 Docker 镜像 + 构建步骤分层烤出，层按哈希缓存</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · RUN</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">VM 里的 envd API</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="120" y="140" width="220" height="120" rx="14" fill="#1d1d1f" />
+      <text x="230" y="176" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">envd</text>
+      {["进程 / PTY","文件系统","端口转发","目录监听"].map((s,i)=>(
+        <g>
+          <rect x={i%2?236:148} y={196+Math.floor(i/2)*32} width="76" height="24" rx="12" fill="#2c2c2e" />
+          <text x={i%2?274:186} y={212+Math.floor(i/2)*32} font-size="10" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
+        </g>
+      ))}
+      <path d="M120 200 L60 200 M60 200 L60 310 M120 310 L60 310" fill="none" stroke="#86868b" stroke-width="1.6" />
+      <text x="60" y="330" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Connect RPC / REST</text>
+      <path d="M340 200 L400 200 M400 200 L400 310 M340 310 L400 310" fill="none" stroke="#0066cc" stroke-width="1.6" />
+      <text x="400" y="330" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">任意端口出网</text>
+      <text x="230" y="380" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">支持热升级，工作负载不断</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · PAUSE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">只传增量的休眠</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <rect x="40" y="160" width="150" height="100" rx="14" fill="#1d1d1f" />
+      <text x="115" y="202" font-size="12" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">运行 VM</text>
+      <text x="115" y="226" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">内存 + 磁盘</text>
+      <path d="M202 210 L256 210 M244 202 L256 210 L244 218" stroke="#0066cc" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="229" y="198" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">diff</text>
+      <rect x="262" y="170" width="158" height="80" rx="14" fill="#fff" stroke="#dedee3" />
+      <text x="341" y="204" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">对象存储</text>
+      <text x="341" y="226" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">仅增量页</text>
+      <path d="M341 262 L341 296 M333 288 L341 296 L349 288" stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="341" y="318" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">流量到来，优先在缓存节点唤醒</text>
+      <text x="40" y="356" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">暂停态无限期保留，只有显式 kill 才删除</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · SNAPSHOT</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一对多的检查点</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <circle cx="110" cy="230" r="30" fill="#1d1d1f" />
+      <text x="110" y="235" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">原 VM</text>
+      <path d="M150 214 C 240 160, 260 160, 310 180" fill="none" stroke="#0066cc" stroke-width="1.8" />
+      <path d="M150 230 L310 230" stroke="#0066cc" stroke-width="1.8" />
+      <path d="M150 246 C 240 300, 260 300, 310 280" fill="none" stroke="#0066cc" stroke-width="1.8" />
+      {[180,230,280].map((y)=>(
+        <g>
+          <rect x="312" y={y-22} width="108" height="44" rx="10" fill="#fff" stroke="#0066cc" />
+          <text x="366" y={y+4} font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">新沙箱</text>
+        </g>
+      ))}
+      <text x="230" y="150" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">同一快照反复启动</text>
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">捕获瞬间连接全部断开，需要客户端重连</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · FORK</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一次调用，N 个平行宇宙</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <circle cx="86" cy="230" r="26" fill="#0066cc" />
+      <text x="86" y="235" font-size="10" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">fork()</text>
+      {[150,230,310].map((y)=>(
+        <path d={`M118 230 C 200 ${y}, 220 ${y}, 268 ${y}`} fill="none" stroke="#0066cc" stroke-width="1.8" />
+      ))}
+      {[150,230,310].map((y)=>(
+        <g>
+          <rect x="272" y={y-26} width="120" height="52" rx="12" fill="#1d1d1f" />
+          <text x="332" y={y-4} font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">独立沙箱</text>
+          <text x="332" y={y+14} font-size="9.5" fill="#a1a1a6" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">id · timeout</text>
+        </g>
+      ))}
+      <text x="230" y="386" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">只快照一次；写得越多，原地停顿越久</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section alt id="speed">
+  <SectionHead
+    kicker="04 · WHY FAST"
+    title="为什么快：把「启动」重新定义成「恢复」"
+    lead="E2B Runtime 仓库把设计哲学说得很直白，核心是三个技巧。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="SNAPSHOT FIRST" title="沙箱是恢复出来的，不是启动出来的">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        模板是预启动 VM 的内存、磁盘与机器状态快照，存在对象存储里。「创建沙箱」= 恢复快照，跳过内核引导与用户空间初始化。暂停态沙箱与模板是同一种产物形态，所以恢复和创建走同一条代码路径。
+      </p>
+    </InfoCard>
+    <InfoCard label="LAZY RESTORE" title="懒恢复内存页">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        恢复时不需要把整个内存镜像读进来：页面在被实际访问时才加载（lazy memory restore），模板构建最后还有一道 optimize 过程，只记录一次启动真正碰到的页面，冷启动要搬的数据更少。
+      </p>
+    </InfoCard>
+    <InfoCard label="COW DISK" title="写时复制的块设备">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        多台沙箱共享同一份只读模板磁盘，各自的写入落在 copy-on-write 块设备上；这让同模板批量创建时几乎没有重复存储成本，也是暂停时磁盘只传 diff 的前提。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section id="isolation">
+  <SectionHead
+    kicker="05 · ISOLATION"
+    title="隔离边界：为什么必须是 microVM 而不是容器"
+    lead="跑的是模型生成、可能被注入的不可信代码，隔离等级就是产品底线。"
+  />
+  <CompareTable
+    headers={[
+      { label: "隔离手段" },
+      { label: "边界" },
+      { label: "启动量级" },
+      { label: "适用场景", wrap: true },
+    ]}
+    rows={[
+      ["普通容器", "共享宿主内核，靠 namespace/cgroup 隔离", "亚秒", "可信的自有工作负载"],
+      ["gVisor 类", "用户态内核拦截系统调用，应用级沙箱", "亚秒", "多租户容器，兼容性有取舍"],
+      ["Firecracker microVM", "独立客户机内核，KVM 硬件虚拟化", "快照恢复后亚秒级可用", "不可信代码、多租户智能体（E2B 的选择）"],
+    ]}
+  />
+  <Prose>
+
+E2B 的隔离不是只靠 VM 这一层：每个沙箱有自己的 cgroup 与网络命名空间，每沙箱一条 nftables 出网防火墙，并在 SNI/Host 层做域名允许与拒绝清单。架构上还坚持**控制面与数据面分离**——API 只决定沙箱调度到哪台机器、记录它存在；每台宿主机上的 orchestrator 才掌握 Firecracker 进程、块设备与 cgroup；沙箱流量从边缘直达节点，从不经过控制面 API。这样即使控制面出问题，正在跑的沙箱流量也不受影响。
+
+  </Prose>
+</Section>
+
+<Section alt id="shapes">
+  <SectionHead
+    kicker="06 · USAGE SHAPES"
+    title="都拿它做什么：从代码解释到完整云上电脑"
+    lead="文档的 Use cases 列表本身就是一张智能体能力地图。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="CODE INTERPRETING" title="数据分析与图表">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        上传 CSV，模型生成 pandas/matplotlib 代码在沙箱里跑，生成图表再下载——Code Interpreter 形态的完整复刻，但语言与依赖不受限。
+      </p>
+    </InfoCard>
+    <InfoCard label="COMPUTER USE" title="浏览器与桌面自动化">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        沙箱里跑带界面的浏览器，智能体像人一样点开网页；云浏览器（cloud browser）与 GitHub Actions 里的 CI/CD 智能体也是同类用法。
+      </p>
+    </InfoCard>
+    <InfoCard label="STATE & ACCESS" title="卷、密钥与身份">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Volumes 让数据寿命超过单个沙箱；密钥只存元数据、值从不经过 API/日志/trace；workload identity 发放短期令牌，控制面自己都不铸造长期凭证。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+生态位也值得注意：官方文档列出的集成方包括 Claude Code、Codex、Devin Outposts、Cursor、Grok Build、Vercel Eve、Flue、CrewAI、LangChain、OpenAI Agents SDK 等——**沙箱正在变成智能体生态的公共执行层**，就像数据库是 Web 应用的公共状态层一样。
+
+  </Prose>
+</Section>
+
+<Section id="limits">
+  <SectionHead
+    kicker="07 · READ IT RIGHT"
+    title="使用前要算清的几笔账"
+    lead="强大的原语也有明确的边界，文档把坑都写在了明处。"
+  />
+  <CardGrid cols={2}>
+    <InfoCard label="CONNECTION DROP" title="快照与分叉会掐断连接">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        createSnapshot 与 fork 期间的暂停会丢掉所有 WebSocket、PTY 与命令流；分叉的暂停时长随磁盘写量线性增加。生产代码必须实现重连，不能假设会话连续。
+      </p>
+    </InfoCard>
+    <InfoCard label="TIME WINDOW" title="长跑靠暂停续期，不是硬扛">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        单次连续运行有上限（Pro 24 小时），超过就要用 pause/resume 续期；空闲自动暂停省的是执行费，但状态保留与存储另计口径。
+      </p>
+    </InfoCard>
+    <InfoCard label="SELF-HOST" title="Embed 是评估包，不是生产形态">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        单机 Embed 要求 Linux + KVM，官方明说它用于评估；生产自建有专属部署（数据留在你自己云账户）与 GCP Terraform/K8s 方案，运维门槛不低。
+      </p>
+    </InfoCard>
+    <InfoCard label="VERSION" title="快照有版本前提">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        快照要求 envd v0.5.0+，旧自定义模板要重建。这类版本约束在升级链路上要显式检查，不能假设老模板永远可用。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "智能体时代的执行单元是一台可编排的虚拟机",
+      conclusion: "从解释器内核到完整 Linux microVM，执行单元的能力边界被整体抬高；E2B 用 Firecracker 把「每会话一台机器」做成了 SDK 四行代码的原语。",
+      detail: "这也是 MiMo 看板里数万个并发沙箱、预热池、废卷补采等机制得以成立的基础设施前提。",
+    },
+    {
+      title: "快照是整个系统的中心抽象",
+      conclusion: "创建是恢复、暂停是内存磁盘 diff、分叉是一对多的检查点启动、懒页恢复与 COW 块设备都围绕快照展开——状态管理而非虚拟化本身，才是这套系统的工程核心。",
+      detail: "设计任何需要「按需执行 + 可恢复 + 可分支」的系统时，这套以快照为中心的架构都值得直接参照。",
+    },
+  ]}
+  note="事实口径：机制依据 2026-09-23 抓取的 E2B 官方文档与 e2b-dev/E2B、e2b-dev/infra（Apache-2.0）公开仓库；额度数字（磁盘、24 小时、100 分叉）随套餐与版本变化，以官方计费页为准；Firecracker 描述引自其官方网站。"
+/>
