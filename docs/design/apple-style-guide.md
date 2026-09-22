@@ -145,10 +145,12 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 - Syntax highlighting is the **near-monochrome Shiki theme** in `astro.config.mjs`: default ink-2, keywords in bold ink, comments in italic muted-2; no colorful syntax themes.
 - Footer: white + 1px top `line-soft`, 12.5px `muted-2`; neutral GitHub/RSS icons turning blue on hover; localized copyright line.
 
-### 3.8 Icons and images
+### 3.8 Icons, logo, and images
 
-- Nav/footer use minimal inline SVG (GitHub, RSS, hamburger) in `currentColor`.
-- No emoji-as-icons; when no avatar image exists, don't ship a big placeholder image — use a monogram (as in `public/favicon.svg`).
+- Brand mark: a dark `#1d1d1f` rounded square with an off-white `#f5f5f7` "Z". It exists as `public/favicon.svg` (source) plus pre-rendered PNGs: `favicon-32.png`, `apple-touch-icon.png` (180, full-bleed square — iOS applies its own mask), `icon-192.png` / `icon-512.png` (manifest).
+- Social share image: `public/og.png` (1200×630, white card: the brand tile + gray `RESEARCH · ENGINEERING · NOTES` eyebrow + ink `Zzzode` wordmark; language-neutral). It is wired through `og:image` / `twitter:summary_large_image` in `BaseLayout.astro`; regenerate with a 2x-supersampled HTML→headless-Chrome render to keep text crisp if the brand changes.
+- Nav/footer UI glyphs are minimal inline SVG (GitHub, RSS, hamburger) in `currentColor`.
+- No emoji-as-icons; when no avatar photo exists, use the brand monogram rather than a big placeholder image.
 - Images go in `public/images/` or next to the entry; compress (long edge ≤2000px), no external image hosts, no large Base64 inlining.
 
 ---
@@ -285,5 +287,5 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/`.
 - Framework components: `src/components/{Nav,Footer,HomeHero,LatestPosts,SectionCard,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/`.
 - Routes: `src/pages/index.astro` and `src/pages/{publications,talks,teaching,posts}/index.astro`, posts detail `src/pages/posts/[...slug].astro`, `src/pages/cv.astro`, `src/pages/404.astro`, `src/pages/rss.xml.ts`, plus mirrored files under `src/pages/en/`.
-- Static assets: `public/favicon.svg`, `public/files/` (PDFs), `public/images/`.
+- Static assets: `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, `public/icon-{192,512}.png`, `public/og.png` (social card), `public/site.webmanifest`, `public/files/` (PDFs), `public/images/`.
 - Deployment: `.github/workflows/deploy.yml`.
