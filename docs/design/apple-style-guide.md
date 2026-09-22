@@ -22,7 +22,7 @@ When visuals conflict with the token table, colors, type, radii, and spacing alw
 3. **Breathing room.** Generous whitespace, relaxed line-height (1.6–1.75 for body), large radii; gaps between sections are larger than gaps between elements.
 4. **Symmetry is fairness.** A dual-subject comparison (e.g. V8 vs JVM) must be point-by-point symmetric; affiliation is marked only by a 7–8px dot, with matched density, structure, and line counts on both sides.
 5. **Graphics serve comprehension only.** No decorative gradients, shadow stacks, emoji-as-icons, animated GIFs, or meaningless icons. Dividers, table rules, and step connectors use neutral gray and stay as faint as possible.
-6. **Light by default.** The site is light-first (white hero and white tiles alternating with `paper` sections). No dark color blocks in content.
+6. **Light by default with a dark global nav.** Content surfaces are light (white hero and white tiles alternating with `paper` sections); the only dark element is the thin translucent global navigation bar, per apple.com. No other dark color blocks in content.
 
 ---
 
@@ -90,7 +90,7 @@ Type scale (base 15.5–16px):
 
 - **No shadows by default** (no Tailwind shadows anywhere, including hover). Separation comes from alternating white/`paper` surfaces plus radii.
 - Cards/surfaces are one of: 1px `line`/`line-soft` outline on white, or borderless white tiles on `paper` sections; stay consistent within a section.
-- Nav/footer: white with a 1px `line-soft` hairline; no gradients.
+- Nav is the one dark surface (translucent `#1d1d1f` + blur, white text); footer stays light: white with a 1px `line-soft` hairline; no gradients.
 
 ---
 
@@ -100,10 +100,10 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 
 ### 3.1 Nav (`Nav.astro`)
 
-- White (`bg-white/85 backdrop-blur`, sticky) with a 1px `line-soft` bottom border, 56px tall; no dark bar, no shadow.
-- Site name 17px/600 ink; items 14.5px ink; hover/active turns blue (no active background block).
-- Bilingual: every item and the brand link carry the locale prefix (`/en` for English); the language toggle is a hairline pill linking to the same route in the other locale, rendered as a disabled `muted-2` pill when no counterpart exists.
-- Mobile (<768px): zero-JS native `<details>` dropdown — white, 1px hairline, 12px radius, ≥44px touch targets; the toggle pill sits beside the hamburger.
+- The global navigation is the site's **single sanctioned dark chrome surface** (mirroring apple.com): 44px tall, `rgba(29,29,31,0.82)` background with `backdrop-blur`, sticky; no border, no shadow.
+- Brand wordmark 16px/600 pure white; items 13px white at 70% opacity, hover/active → pure white (Apple does not use blue inside the global nav — blue stays for in-page content links).
+- The language toggle is a translucent hairline pill (`border-white/25`, `text-white/80`) turning brighter on hover; the disabled state uses white/10 + white/35 text.
+- Mobile (<768px): zero-JS native `<details>`; opening it shows an **opaque full-width `#1d1d1f` panel** directly under the bar with 15px white/80 items separated by `border-white/10` hairlines; the hamburger glyph is white. ≥44px touch targets.
 
 ### 3.2 Home hero (`HomeHero.astro`)
 
@@ -267,7 +267,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - [ ] `npm run check` and `npm run build` pass with no errors/new warnings.
 - [ ] The site is grayscale-first; accent appears only in links, primary buttons, and 7–8px dots; no large color blocks, colored tags, or brand-colored icons.
 - [ ] Font sizes, negative tracking, line-height, and radii match the token table; no square cards, no shadows anywhere.
-- [ ] Nav: white hairline, sticky without obscuring content; mobile hamburger and dropdown work with zero JS.
+- [ ] The global nav is the translucent dark bar (44px, white 70%→100% text, no blue in the bar); mobile opens an opaque dark full-width menu; sticky bar never obscures content.
 - [ ] Language toggle links to the same route in the other locale, or is a disabled pill when the entry has no counterpart; nav links all carry the correct `/en` prefix on English pages.
 - [ ] Home hero is white, centered, and airy with a large tight H1 and blue text-`›` links (no pill buttons); the writing-first mosaic renders a full-width feature tile + three-up white tiles on `paper`, collapsing to one column on mobile.
 - [ ] Entry-list hairlines/meta/tags are neutral; empty collections show the localized empty state.

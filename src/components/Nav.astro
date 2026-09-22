@@ -21,13 +21,21 @@ const prefix = lang === 'en' ? '/en' : '';
 const path = Astro.url.pathname;
 const hrefFor = (href: string) => `${prefix}${href}`;
 const isActive = (href: string) => path === hrefFor(href) || path.startsWith(hrefFor(href));
+
+const toggleClass =
+  'rounded-full border border-white/25 px-3 py-1 text-[13px] text-white/80 transition-colors hover:border-white/50 hover:text-white';
+const toggleDisabledClass =
+  'cursor-default rounded-full border border-white/10 px-3 py-1 text-[13px] text-white/35';
+const toggleTitle = lang === 'zh' ? '本文暂无英文版' : 'No Chinese version yet';
 ---
 
-<header class="sticky top-0 z-20 border-b border-line-soft bg-white/85 backdrop-blur-md">
-  <div class="container-page flex h-14 items-center justify-between">
+<header
+  class="sticky top-0 z-20 h-11 bg-[rgba(29,29,31,0.82)] backdrop-blur-xl"
+>
+  <div class="container-page flex h-11 items-center justify-between">
     <a
       href={`${prefix}/`}
-      class="text-[17px] font-semibold tracking-[-0.01em] text-ink hover:text-blue"
+      class="text-[16px] font-semibold tracking-[-0.01em] text-white"
     >
       Zzzode
     </a>
@@ -40,8 +48,10 @@ const isActive = (href: string) => path === hrefFor(href) || path.startsWith(hre
             href={hrefFor(item.href)}
             hreflang={lang}
             class:list={[
-              'text-[14.5px] transition-colors',
-              isActive(item.href) ? 'font-medium text-blue' : 'text-ink hover:text-blue',
+              'text-[13px] transition-colors',
+              isActive(item.href)
+                ? 'text-white'
+                : 'text-white/70 hover:text-white',
             ]}
           >
             {t(lang, item.key)}
@@ -50,20 +60,14 @@ const isActive = (href: string) => path === hrefFor(href) || path.startsWith(hre
       }
       {
         alternatePath === null ? (
-          <span
-            data-locale-toggle
-            class="cursor-default rounded-full border border-line-soft px-3 py-1 text-[13px] text-muted-2"
-            aria-disabled="true"
-            title={lang === 'zh' ? '本文暂无英文版' : 'No Chinese version yet'}
-          >
+          <span class={toggleDisabledClass} aria-disabled="true" title={toggleTitle}>
             {languages[lang === 'zh' ? 'en' : 'zh']}
           </span>
         ) : (
           <a
-            data-locale-toggle
             href={alternatePath}
             hreflang={lang === 'zh' ? 'en' : 'zh-CN'}
-            class="rounded-full border border-line px-3 py-1 text-[13px] text-ink-2 transition-colors hover:border-blue hover:text-blue"
+            class={toggleClass}
           >
             {languages[lang === 'zh' ? 'en' : 'zh']}
           </a>
@@ -72,22 +76,17 @@ const isActive = (href: string) => path === hrefFor(href) || path.startsWith(hre
     </nav>
 
     <!-- mobile nav: details/summary needs no JavaScript -->
-    <div class="flex items-center gap-2 md:hidden">
+    <div class="flex items-center gap-3 md:hidden">
       {
         alternatePath === null ? (
-          <span
-            data-locale-toggle
-            class="rounded-full border border-line-soft px-3 py-1 text-[13px] text-muted-2"
-            aria-disabled="true"
-          >
+          <span class={toggleDisabledClass} aria-disabled="true">
             {languages[lang === 'zh' ? 'en' : 'zh']}
           </span>
         ) : (
           <a
-            data-locale-toggle
             href={alternatePath}
             hreflang={lang === 'zh' ? 'en' : 'zh-CN'}
-            class="rounded-full border border-line px-3 py-1 text-[13px] text-ink-2"
+            class="rounded-full border border-white/25 px-3 py-1 text-[13px] text-white/80"
           >
             {languages[lang === 'zh' ? 'en' : 'zh']}
           </a>
@@ -95,32 +94,33 @@ const isActive = (href: string) => path === hrefFor(href) || path.startsWith(hre
       }
       <details class="group relative">
         <summary
-          class="flex h-9 w-9 list-none items-center justify-center rounded-full text-ink [&::-webkit-details-marker]:hidden"
+          class="flex h-11 w-9 list-none items-center justify-center text-white [&::-webkit-details-marker]:hidden"
           aria-label={t(lang, 'nav.menu')}
         >
           <svg
-            width="20"
-            height="20"
+            width="18"
+            height="18"
             viewBox="0 0 20 20"
             fill="none"
             stroke="currentColor"
-            stroke-width="1.6"
+            stroke-width="1.5"
             stroke-linecap="round"
           >
             <line x1="3" y1="6" x2="17" y2="6"></line>
             <line x1="3" y1="14" x2="17" y2="14"></line>
           </svg>
         </summary>
-        <nav class="absolute right-0 top-11 w-44 rounded-xl border border-line bg-white p-1.5">
+        <nav
+          class="fixed inset-x-0 top-11 z-30 border-t border-white/10 bg-ink px-5 py-2"
+        >
           {
-            items.map((item) => (
+            items.map((item, i) => (
               <a
                 href={hrefFor(item.href)}
                 class:list={[
-                  'block rounded-md px-3.5 py-2 text-sm',
-                  isActive(item.href)
-                    ? 'font-medium text-blue'
-                    : 'text-ink-2 hover:bg-paper hover:text-blue',
+                  'block border-white/10 py-3 text-[15px] transition-colors',
+                  i < items.length - 1 ? 'border-b' : '',
+                  isActive(item.href) ? 'text-white' : 'text-white/80 hover:text-white',
                 ]}
               >
                 {t(lang, item.key)}
