@@ -10,12 +10,10 @@ const prefix = lang === 'en' ? '/en' : '';
 ---
 
 <section class="bg-white">
-  <div
-    class="container-page flex flex-col items-center py-24 text-center sm:py-32"
-  >
+  <div class="container-page flex flex-col items-center pb-12 pt-14 text-center sm:pb-14 sm:pt-16">
     <p class="eyebrow">{t(lang, 'home.eyebrow')}</p>
     <h1
-      class="mt-5 max-w-[860px] text-[clamp(40px,7vw,76px)] font-semibold leading-[1.05] tracking-[-0.035em] text-ink"
+      class="mt-5 max-w-[860px] text-[clamp(40px,7vw,72px)] font-semibold leading-[1.05] tracking-[-0.035em] text-ink"
     >
       {t(lang, 'home.title')}
     </h1>
@@ -24,20 +22,19 @@ const prefix = lang === 'en' ? '/en' : '';
     >
       {t(lang, 'home.lead')}
     </p>
-    <div class="mt-9 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[17px]">
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
       <a
         href={`${prefix}/posts/`}
-        class="inline-flex items-center gap-1 text-blue hover:underline underline-offset-4"
+        class="inline-flex items-center gap-1.5 rounded-full bg-blue px-5 py-2.5 text-[14.5px] font-medium text-white transition-opacity hover:opacity-90"
       >
         {t(lang, 'home.viewWriting')}
         <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
       </a>
       <a
         href={`${prefix}/cv/`}
-        class="inline-flex items-center gap-1 text-blue hover:underline underline-offset-4"
+        class="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-[14.5px] font-medium text-ink transition-colors hover:border-muted-2"
       >
         {t(lang, 'home.viewCv')}
-        <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
       </a>
     </div>
   </div>
