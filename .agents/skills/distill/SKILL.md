@@ -41,6 +41,7 @@ Internal/private sources (Feishu docs, internal MRs, anything requiring credenti
 
 - Fetch every URL with `WebFetch` (prompt it for the specific facts you need). Use `WebSearch` to find corroborating/primary sources **and the surrounding context the depth doctrine requires** (prior work, lineage papers, related docs).
 - Read local files with `Read`; OCR images only when the user specifically wants them covered.
+- **Multi-block / multi-section source materials must be inventoried first.** When a fetched doc (e.g. a Feishu wiki export with `html5-block`/embedded blocks, a long page with many sections, or several attachments) contains N blocks, list all N with their topics, read every one, and tick each off before planning the outline. Never write after sampling only a subset — silently dropping blocks (itineraries, maps, tables, full plans) is a real failure that requires a rebuild. State explicitly in the delivery report how many blocks existed and how many were used.
 - Maintain a working source list: each entry is `{ title, url }` — the exact strings that will become the `sources` front matter. For pasted/local material without a URL, don't fabricate one; omit `sources` entries and say so in the delivery report.
 
 ### 3. Verify
