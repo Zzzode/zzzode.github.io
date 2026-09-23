@@ -1,0 +1,289 @@
+---
+title: "Gson 与 YYModel：两个生态、同一种「反射式序列化」的兴衰"
+date: 2026-09-23
+excerpt: "把 JSON 变成内存里的对象，Java 世界的标准答案是 Gson，Objective-C 世界是 YYModel。它们一个靠 JVM 反射与类型擦除后的 TypeToken 补救，一个靠 Objective-C runtime 的属性元数据与消息派发，在各自平台上都把性能推到了接近手写代码的极限——也都在新一代代码生成方案面前显出老态。"
+tags: ["Gson", "YYModel", "序列化", "JSON", "Java", "Objective-C", "反射"]
+kind: "distilled"
+sources:
+  - title: "google/gson · GitHub（README，当前 2.14.0，维护模式）"
+    url: "https://github.com/google/gson"
+  - title: "Gson User Guide（泛型、null 处理、InstanceCreator 等官方手册）"
+    url: "https://github.com/google/gson/blob/master/UserGuide.md"
+  - title: "ibireme/YYModel · GitHub（README：性能、自动类型转换、映射协议）"
+    url: "https://github.com/ibireme/YYModel"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="OPEN SOURCE LIBRARIES · GitHub · 2026-09-23 核对"
+  title="Gson 与 YYModel：两个生态、同一种反射式序列化"
+  lead="它们都不要求你继承基类、不要求生成代码：定义好普通类，运行时自己去读类型元数据，把 JSON 字段一个个对应进去。差别藏在 JVM 与 Objective-C 两个运行时给「反射」这件事提供的不同原语里。"
+  pills={[
+    { label: "JVM 反射 vs ObjC runtime" },
+    { label: "TypeToken 擦除补救" },
+    { label: "自动类型转换表" },
+    { label: "代码生成的反扑" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="JSON 经两条运行时元数据路径映射到对象">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">ONE JSON, TWO RUNTIMES</text>
+
+    <rect x="30" y="84" width="120" height="150" rx="14" fill="#fff" stroke="#dedee3" />
+    <text x="90" y="118" font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">JSON</text>
+    <text x="90" y="148" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"{ \"uid\": 1 }"}</text>
+    <text x="90" y="168" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"{ \"name\": \"…\" }"}</text>
+
+    <rect x="180" y="84" width="100" height="68" rx="12" fill="#0066cc" />
+    <text x="230" y="112" font-size="10.5" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">Gson</text>
+    <text x="230" y="132" font-size="9" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">JVM 反射</text>
+
+    <rect x="180" y="166" width="100" height="68" rx="12" fill="#1d1d1f" />
+    <text x="230" y="194" font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">YYModel</text>
+    <text x="230" y="214" font-size="9" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">ObjC runtime</text>
+
+    <path d="M150 124 L178 118 M170 112 L178 118 L171 125 M150 180 L178 200 M171 193 L178 200 L169 205" stroke="#86868b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+    <rect x="310" y="84" width="120" height="150" rx="14" fill="#fff" stroke="#dedee3" />
+    <text x="370" y="130" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Object</text>
+    <text x="370" y="160" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">字段已填充</text>
+    <text x="370" y="184" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">类型已校验</text>
+    <path d="M282 118 L308 124 M301 117 L308 124 L300 130 M282 200 L308 180 M300 185 L308 180 L302 175" stroke="#86868b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文依据两个库的官方 GitHub README 与 Gson 官方 User Guide（2026-09-23 核对；Gson 当前版本 2.14.0，官方声明处于**维护模式**）。YYModel 是 ibireme 的 YYKit 组件之一，库本身仅 5 个文件。这不是上手指南，而是一次跨生态的机制对比：同一个问题（JSON ↔ 对象）在两种运行时哲学下分别被怎样解决，又为什么双双被代码生成方案取代。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE PROBLEM"
+    title="前因：手写映射代码的痛，与「零侵入」的诱惑"
+    lead="服务端返回 JSON，App 里要用的是对象。中间那段逐字段拷贝，是两个生态共同的无聊税。"
+  />
+  <Prose>
+
+最朴素的 JSON 映射是手写的：解析成字典/树，然后 `user.name = json["name"]` 逐行搬运。嵌套结构、数组里的对象、缺字段、类型不符（服务端把数字返回成字符串是家常便饭）都要自己处理。模型一改，映射代码跟着改，漏一处就是运行时 bug。
+
+两个库给出的承诺几乎一字不差：**定义普通类，剩下的交给库**。Gson 的设计目标明确写着——能序列化「你没有源码的、预先存在的对象」，不需要注解，不要求继承基类；YYModel 则把「非侵入（Non-intrusive）：无需继承任何基类」列为特性。要做到零侵入，唯一的办法是运行时自省（introspection）：库自己去问运行时「这个类有哪些字段、各是什么类型」，再自动生成映射。两条技术路线由此分岔，因为 **JVM 和 Objective-C runtime 愿意在运行时交出的类型信息，质量完全不同。**
+
+  </Prose>
+</Section>
+
+<Section alt id="mechanisms">
+  <SectionHead
+    kicker="02 · FIVE MECHANISMS SIDE BY SIDE"
+    title="五个机制，并排看两种运行时哲学"
+    lead="随页面滚动，左侧舞台逐机制对比 Gson（蓝）与 YYModel（黑）的做法（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 元数据从哪来",
+        title: "JVM 反射拿字段，ObjC runtime 拿属性与类型编码",
+        body: "Gson 通过 Java 反射枚举类的 Field 对象（连 private 也能 setAccessible），字段的声明类型在运行时仍可查；YYModel 则调 Objective-C runtime 的属性/ivar 接口读取 @property 列表，每个属性带着 C 字符串形式的类型编码（type encoding），比如对象、整数、结构体各有编码。两者都把类元信息解析后缓存，避免每次映射重复自省。",
+      },
+      {
+        tag: "02 · 泛型怎么救",
+        title: "类型擦除 vs 泛型集合的「元素类」声明",
+        body: "JVM 的泛型在运行时被擦除：List<User> 擦完只剩 List，Gson 无法从字段值知道元素类型，于是要求你用 TypeToken（new TypeToken<List<User>>(){}）——借助匿名子类保留下来的参数化类型签名把泛型信息传进去。ObjC 的 NSArray 本来就不带泛型（轻量泛型只在编译期），YYModel 让你实现 modelContainerPropertyGenericClass 协议方法，显式返回「shadows 数组里装 Shadow 类」。一个靠类型系统小技巧，一个靠协议约定。",
+      },
+      {
+        tag: "03 · 类型不符怎么办",
+        title: "两边都选择「宽容地自动转换」",
+        body: "真实 JSON 很脏：数字常以字符串返回。YYModel 内置一张自动转换表：NSString↔NSNumber、字符串可转 C 数值（NaN/Inf 丢弃）、字符串按多种日期格式解析成 NSDate、NSNull 转 nil/0、连 \"yes\"/\"no\" 都能转布尔，失败则忽略该值。Gson 同样默认宽容：用流式 JsonReader 逐 token 读取并做 coercion，缺字段的对象保持 null、数值字段为 0、布尔为 false；转换失败的策略（抛错或忽略）可配置。",
+      },
+      {
+        tag: "04 · 字段名对不上",
+        title: "@SerializedName 对不上 modelCustomPropertyMapper",
+        body: "Gson 用 @SerializedName 注解声明 JSON 键名（或备选名），也可注册全局 FieldNamingPolicy 做驼峰/下划线转换。YYModel 无需注解，通过类方法返回映射字典：支持键路径（\"ext.desc\" 直接映射嵌套字段），一个属性还能给一组候选键（@[@\"id\", @\"ID\", @\"book_id\"]），按序取第一个命中的。ObjC 派把映射规则做成了运行时可返回的数据结构，灵活度更高。",
+      },
+      {
+        tag: "05 · 实例化与性能",
+        title: "一个和构造器搏斗，一个借消息派发贴近手写",
+        body: "Gson 反序列化需要先造对象：优先无参构造器，没有时可借 sun.misc.Unsafe 绕过构造器分配实例（也支持自定义 InstanceCreator），再反射逐字段赋值。YYModel 直接向类发 alloc/init 消息，用缓存的 setter 信息通过 objc_msgSend 赋值——README 给出的口径是 iPhone 6 上处理 GithubUser 一万次，性能接近手写代码。反射调用在两个平台都有额外开销，但 ObjC 的消息派发本来就是运行时的一等公民，优化空间天然更大。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 01 · METADATA</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">运行时自省，各取所需</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="46" y="150" width="368" height="92" rx="12" fill="#fff" stroke="#0066cc" />
+      <text x="66" y="182" font-size="12" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">Gson · Class.getDeclaredFields()</text>
+      <text x="66" y="210" font-size="11" fill="#424245" font-family="ui-monospace, Menlo, monospace">Field[] → getName/getType, setAccessible</text>
+      <rect x="46" y="258" width="368" height="92" rx="12" fill="#1d1d1f" />
+      <text x="66" y="290" font-size="12" font-weight="600" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">YYModel · class_copyPropertyList()</text>
+      <text x="66" y="318" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">property_getAttributes → "@16@0:8" 式类型编码</text>
+      <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">解析一次，缓存复用</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 02 · GENERICS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">元素类型丢失了怎么办</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="46" y="150" width="368" height="92" rx="12" fill="#fff" stroke="#0066cc" />
+      <text x="66" y="182" font-size="11" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">new TypeToken&lt;List&lt;User&gt;&gt;(){}</text>
+      <text x="66" y="210" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">匿名子类保留参数化类型签名（对抗擦除）</text>
+      <rect x="46" y="258" width="368" height="92" rx="12" fill="#1d1d1f" />
+      <text x="66" y="290" font-size="11" font-weight="600" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">modelContainerPropertyGenericClass</text>
+      <text x="66" y="318" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">{"{ \"shadows\": [Shadow class] }"} · 协议显式声明</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 03 · COERCION</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">脏 JSON 的宽容转换</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {[["NSString","NSNumber / C 数值"],["日期字符串","NSDate（5 种格式）"],["NSNull","nil / 0"],["\"yes\"/\"no\"","@(YES)/@(NO)"]].map((r,i)=>(
+        <g>
+          <rect x="46" y={150+i*52} width="150" height="40" rx="8" fill="#fff" stroke="#dedee3" />
+          <text x="121" y={175+i*52} font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+          <path d={`M204 ${170+i*52} L238 ${170+i*52} M230 ${162+i*52} L238 ${170+i*52} L230 ${178+i*52}`} stroke="#86868b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="246" y={150+i*52} width="168" height="40" rx="8" fill="#1d1d1f" />
+          <text x="330" y={175+i*52} font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">{r[1]}</text>
+        </g>
+      ))}
+      <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">Gson 同样默认宽容：缺失字段给 null/0/false</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 04 · KEY MAPPING</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">字段名对不上的两种声明法</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="46" y="150" width="368" height="86" rx="12" fill="#fff" stroke="#0066cc" />
+      <text x="66" y="182" font-size="11" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">{"@SerializedName(value, alternate={...})"}</text>
+      <text x="66" y="210" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">+ FieldNamingPolicy 全局命名策略</text>
+      <rect x="46" y="252" width="368" height="104" rx="12" fill="#1d1d1f" />
+      <text x="66" y="284" font-size="11" font-weight="600" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">modelCustomPropertyMapper</text>
+      <text x="66" y="312" font-size="10.5" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">"desc": "ext.desc"（键路径直达嵌套）</text>
+      <text x="66" y="336" font-size="10.5" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">"bookID": ["id","ID","book_id"]（候选回退）</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 05 · INSTANTIATION</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">造对象与赋值的性能差</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="46" y="150" width="368" height="100" rx="12" fill="#fff" stroke="#0066cc" />
+      <text x="66" y="182" font-size="11.5" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">Gson</text>
+      <text x="66" y="208" font-size="10.5" fill="#424245" font-family="ui-monospace, Menlo, monospace">无参构造器 → 否则 Unsafe 分配 / InstanceCreator</text>
+      <text x="66" y="230" font-size="10.5" fill="#424245" font-family="ui-monospace, Menlo, monospace">反射 Field.set 逐字段写入</text>
+      <rect x="46" y="266" width="368" height="100" rx="12" fill="#1d1d1f" />
+      <text x="66" y="298" font-size="11.5" font-weight="600" fill="#f5f5f7" font-family="PingFang SC, sans-serif">YYModel</text>
+      <text x="66" y="324" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">alloc/init 消息造对象</text>
+      <text x="66" y="346" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">缓存 setter，objc_msgSend 写入 · 接近手写</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="compare">
+  <SectionHead
+    kicker="03 · THE SCORECARD"
+    title="一张表看完设计取舍"
+    lead="库的形状是被运行时和平台生态一起捏出来的。"
+  />
+  <CompareTable
+    headers={[
+      { label: "维度" },
+      { label: "Gson", dot: "a" },
+      { label: "YYModel", dot: "b" },
+    ]}
+    rows={[
+      ["平台 / 语言", "JVM，主要面向 Java", "iOS / OSX，Objective-C（YYKit 组件，整库 5 文件）"],
+      ["自省手段", "java.lang.reflect 反射 Field，可触达 private", "ObjC runtime 属性列表 + C 类型编码"],
+      ["泛型/集合元素", "类型擦除，靠 TypeToken 匿名子类补回", "NSArray 无运行时泛型，靠协议方法声明元素类"],
+      ["键名映射", "@SerializedName + 全局命名策略", "映射字典，支持键路径与候选键数组"],
+      ["容错", "缺字段给默认值；宽松读取，可配置", "内置自动类型转换表；转换失败忽略该值"],
+      ["实例化", "无参构造器优先，可走 Unsafe / InstanceCreator", "alloc/init 消息，msgSend 写入缓存的 setter"],
+      ["性能口径", "反射有固定开销，适配器可缓存复用", "官方基准：iPhone 6 一万次映射接近手写代码"],
+      ["当前状态", "维护模式；官方不建议 Android 上新用", "成熟稳定，Swift 时代主要服务存量 ObjC 代码"],
+    ]}
+  />
+</Section>
+
+<Section alt id="aftermath">
+  <SectionHead
+    kicker="04 · WHY BOTH AGED"
+    title="余波：反射派为什么输给了代码生成派"
+    lead="两个库的衰落不是因为设计不好，而是「在运行时读类型」这件事本身，在现代工具链里成了负担。"
+  />
+  <Prose>
+
+Gson 官方 README 现在直白地写着两件事：**项目处于维护模式**；**不推荐在 Android 上使用**——理由正是它的立身之本：开放式反射与 Android 发布构建必经的缩减/优化/混淆流程（R8/ProGuard）天然冲突，字段可能被混淆或裁掉，线上崩溃由此而来；官方的推荐替代是 Kotlin 序列化（kotlinx.serialization），它在编译期生成适配器，还绕开了反射开销。对 Kotlin 的非空类型、默认参数构造器，Gson 也明确说不支持、可能产生「令人困惑的错误行为」。
+
+YYModel 的处境是同一故事的 Swift 版本：Swift 引入 `Codable` 协议 + 编译器自动合成编解码代码，类型在编译期检查、与优化器和混淆器和平共处，Objective-C runtime 的消息魔法在纯 Swift 类型上根本无从施展。YYModel 至今仍是存量 ObjC 工程的高性价款，但新世界没有它的位置。
+
+  </Prose>
+  <CardGrid cols={3}>
+    <InfoCard label="TREE-SHAKING" title="反射让静态分析看不见依赖">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        R8/ProGuard 无法知道反射会在运行时访问哪些字段，只能整类保留或被误裁；代码生成的适配器是普通方法，编译器看得见、优化得动。
+      </p>
+    </InfoCard>
+    <InfoCard label="TYPE SAFETY" title="运行时才发现的错，编译期就能发现">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        字段改名、类型变更，反射映射要到运行时才崩；Codable/代码生成方案在编译期报错。空安全语言里，反射绕过构造器更直接破坏类型不变量。
+      </p>
+    </InfoCard>
+    <InfoCard label="PERFORMANCE" title="省掉运行时自省的固定税">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        YYModel 把反射优化到接近手写已是极限；编译期生成的直接赋值代码没有任何自省开销，也不需要缓存类元信息。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section id="lesson">
+  <SectionHead
+    kicker="05 · WHAT TO TAKE AWAY"
+    title="跨生态对比留下的两条通用经验"
+    lead="序列化库只是载体，背后是两个反复出现的工程判断。"
+  />
+  <CardGrid cols={2}>
+    <InfoCard label="RUNTIME SHAPES THE API" title="同一个需求，API 形状被运行时原语决定">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        TypeToken 这个看似古怪的匿名子类写法，本质是 JVM 类型擦除逼出来的；modelContainerPropertyGenericClass 的协议字典，则是 ObjC 动态运行时的自然延伸。评估跨语言移植的框架时，先问目标运行时保留了什么元信息。
+      </p>
+    </InfoCard>
+    <InfoCard label="GENERATION WINS LONG TERM" title="「聪明的运行时」最终输给「笨的编译期」">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        从 Gson/YYModel 到 kotlinx.serialization、Swift Codable，方向高度一致：把工作从运行时挪到编译期，用生成代码换可静态分析、可优化、可在编译期报错。这也是评估任何「魔法框架」时值得先问的一句：它的魔法发生在什么时候？
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "Gson 与 YYModel 是同一设计在两个运行时上的最优解",
+      conclusion: "两者都靠运行时自省实现零侵入映射：Gson 用 Java 反射 + TypeToken 对抗泛型擦除，YYModel 用 ObjC runtime 的属性元数据、类型编码与 msgSend 把性能推到接近手写；键路径映射、宽容类型转换、黑白名单等能力则是对脏 JSON 现实的共同回应。",
+      detail: "它们 API 的所有「怪形状」几乎都能回溯到各自运行时保留多少类型信息——这是跨语言对比框架时最锋利的分析角度。",
+    },
+    {
+      title: "反射派的让位是工具链演进的必然，不是设计失败",
+      conclusion: "Gson 已进入维护模式且官方劝退 Android 反射用法（推荐 kotlinx.serialization），YYModel 则被 Swift Codable 的编译期合成取代；R8 裁剪、空安全、编译期类型检查与性能，共同把天平压向代码生成。",
+      detail: "「魔法发生在编译期还是运行时」是一个会在框架选型里反复出现的判别式：运行时魔法换开发便利，编译期生成换可分析性与长期可维护性。",
+    },
+  ]}
+  note="事实口径：依据 2026-09-23 抓取的 google/gson README（2.14.0，维护模式、Android 与 Kotlin 限制说明）、Gson User Guide（TypeToken、null 默认值、InstanceCreator）与 ibireme/YYModel README（5 文件、自动转换表、映射协议、iPhone 6 基准口径）；运行时机制层面的描述为作者对两个开源实现的归纳。"
+/>
