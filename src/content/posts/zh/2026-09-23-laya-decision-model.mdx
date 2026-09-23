@@ -1,0 +1,329 @@
+---
+title: "Laya：开源版 System 1 决策模型，与「置信度」的幻觉陷阱"
+date: 2026-09-23
+excerpt: "Jev 证明了「只做判断的模型」有市场，Laya 把同一思想做成了 Apache 2.0 的开源权重：ModernBERT 编码器加一个决策头，用 [MASK] 选项标记在一次前向计算里给所有答案打分，T4 上单问约 33 毫秒。更难得的是它的模型卡极其诚实——基础模型零样本接近瞎猜、开箱过度自信、高基数选项会崩。本文拆解它的机制、训练与自我披露的边界。"
+tags: ["Laya", "System 1", "决策模型", "ModernBERT", "RLCD", "开源模型", "校准"]
+kind: "distilled"
+sources:
+  - title: "convaiinnovations/laya · Hugging Face 模型卡（三检查点、架构、基准与诚实限制）"
+    url: "https://huggingface.co/convaiinnovations/laya"
+  - title: "NandhaKishorM/laya · GitHub（SDK、Router、BENCHMARKS）"
+    url: "https://github.com/NandhaKishorM/laya"
+  - title: "laya · PyPI"
+    url: "https://pypi.org/project/laya/"
+  - title: "convaiinnovations/laya-multilingual · Hugging Face（100+ 语言检查点）"
+    url: "https://huggingface.co/convaiinnovations/laya-multilingual"
+  - title: "convaiinnovations/laya-typed-decisions · Hugging Face（类型决策微调检查点）"
+    url: "https://huggingface.co/convaiinnovations/laya-typed-decisions"
+  - title: "Hugging Face · Finally, a Replacement for BERT（ModernBERT 官方介绍，2024-12）"
+    url: "https://huggingface.com/blog/modernbert"
+  - title: "作者 dev.to 长文：一年前做出非自回归决策模型，后来一家前沿实验室也这么命名了"
+    url: "https://dev.to/nandakishor_m_6cc0adfde9f/i-built-non-autoregressive-decision-models-a-year-ago-then-a-frontier-lab-called-it-a-18me"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="OPEN WEIGHTS · Apache 2.0 · Hugging Face · 2026-09-23 核对"
+  title="Laya：开源版 System 1 决策模型"
+  lead="闭源 API 能做的判断，一个 421M 参数的双向编码器加一个小决策头也能做：把每个候选答案放在自己的 [MASK] 位置，一次前向计算同时打分。答案空间在请求时才给出，换新业务 schema 不用重新训练。"
+  pills={[
+    { label: "非自回归 · 一次前向" },
+    { label: "[MASK] 选项标记" },
+    { label: "严格 proper scoring rule" },
+    { label: "Apache 2.0 可自托管" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="状态与选项进入双向编码器，各 MASK 位输出分数">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">ONE FORWARD PASS · NO GENERATION</text>
+
+    <rect x="28" y="84" width="140" height="170" rx="12" fill="#fff" stroke="#dedee3" />
+    <text x="98" y="112" font-size="10.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">state + 选项</text>
+    <text x="98" y="140" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">ticket: "…"</text>
+    <text x="98" y="166" font-size="9.5" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">[MASK] billing</text>
+    <text x="98" y="188" font-size="9.5" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">[MASK] technical</text>
+    <text x="98" y="210" font-size="9.5" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">[MASK] sales</text>
+    <text x="98" y="232" font-size="9.5" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">[MASK] other</text>
+
+    <rect x="190" y="130" width="86" height="80" rx="14" fill="#1d1d1f" />
+    <text x="233" y="166" font-size="11" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">双向</text>
+    <text x="233" y="186" font-size="11" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">编码器</text>
+    <path d="M172 158 L188 164 M180 158 L188 164 M180 170 L188 176 M172 182 L188 176" stroke="#86868b" stroke-width="1.4" fill="none" stroke-linecap="round" />
+
+    <rect x="300" y="106" width="132" height="148" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+    <text x="366" y="134" font-size="10.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">各标记位分数</text>
+    {[[158,"billing 0.72"],[188,"technical 0.08"],[218,"sales 0.15"],[248,"other 0.05"]].map((r)=>(
+      <text x="318" y={r[0]} font-size="9.5" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">{r[1]}</text>
+    ))}
+    <path d="M280 170 L298 170 M290 162 L298 170 M290 178" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文依据 Laya 的 Hugging Face 模型卡、GitHub 仓库与 PyPI 页面（2026-09-23 核对），骨干背景依据 ModernBERT 官方发布博客。这是姊妹篇——上一篇 [《Jev：只做判断的 System 1 模型》](/posts/2026-09-23-jev-system1/)拆解了闭源 API 形态，本文拆开源形态。一个重要提醒：模型卡中所有对 Jev 的对比数字，Jev 一侧均为**第三方已公布数据、作者无 API 访问、样本与提示词不同**，不是同条件复测；本文引用时全部保留这一限定。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · WHY ENCODERS FIT"
+    title="前因：「判断」本质是分类，而分类不需要逐词生成"
+    lead="理解 Laya 的关键，是先看清决策模型和聊天模型用的根本不是一类网络。"
+  />
+  <Prose>
+
+聊天大模型是**解码器-only（decoder-only）**架构：从左到右一个 token 一个 token 地生成，输出 200 个词就要做 200 次序列计算，这是它慢和贵的根源。而 BERT 一脉的**编码器-only（encoder-only）**模型天生为理解任务设计：输入整段文本，双向注意力一次读完全部上下文，直接在特定位置输出类别分布——垃圾邮件分类、情感分析、自然语言推断都是 BERT 时代的标准任务。
+
+2024 年 12 月，Answer.AI 与 LightOn 等发布 [ModernBERT](https://huggingface.com/blog/modernbert)，把这条老路线现代化：base 149M、large 395M 参数，原生 8192 上下文，RoPE 位置编码、交替局部/全局注意力等新架构，处理速度远快于老 BERT，官方定位是「BERT 的直接插槽替代」。Laya 做的事，就是在这个现代化编码器上接一个**决策头（decision head）**，把「带类型的问题」变成一种请求时才定义答案空间的分类任务。作者在 dev.to 长文中提到，他早在 Jev 发布约一年前就在做非自回归决策模型——同一思想在开源与闭源两侧独立汇流。
+
+  </Prose>
+</Section>
+
+<Section alt id="mechanism">
+  <SectionHead
+    kicker="02 · THE MECHANISM"
+    title="机制：每个选项一个 [MASK]，一次前向全部答完"
+    lead="随页面滚动，左侧舞台展示一次 Laya 调用从拼装输入到输出校准概率的全过程（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 拼装",
+        title: "状态文本 + 每个选项带一个标记位",
+        body: "请求时，SDK 把 state（工单、邮件、JSON 序列化文本）和一道问题的所有选项拼成一段输入：每个候选前面放一个特殊标记 token（选项标记，文档称 option marker，示意可理解为各自的 [MASK] 位置）。一次调用可以含 choice / score / noul 多道问题，它们共享同一份状态。",
+      },
+      {
+        tag: "02 · 共读",
+        title: "双向编码器一次读完整段上下文",
+        body: "英文检查点骨干是 ModernBERT-large（395M，双向注意力，全量微调）；多语言检查点用 mmBERT-base（22 层、25 万词表，322M）。与解码器逐词吐字不同，整段输入在一次前向计算里被并行处理，每个标记位都能看到完整状态与其他所有选项——这是「一次前向答完所有题」的物理基础。",
+      },
+      {
+        tag: "03 · 打分",
+        title: "决策头在各标记位独立评分，题内 softmax",
+        body: "新增的决策头从头训练：2 个 transformer 层 + 一个选项标记评分器 + 一个 act/escalate（执行/上报）头。每个选项在自己的标记位得到一个分数，再在该题的选项范围内做 softmax，归一化成概率——choice 选出候选、noul 给出真的概率、score 沿有序锚点回归。softmax 在题内进行，保证概率和为 1。",
+      },
+      {
+        tag: "04 · 免重训",
+        title: "答案空间请求时才定义，换 schema 不重训",
+        body: "关键设计后果：模型权重里从不固化「billing/technical/sales」这些标签——它们是运行时拼进输入的文本。今天路由四个团队，明天改成七个风险等级，不用重新训练，换请求参数即可。这把传统分类器「换标签集就要重新标注微调」的最大短板补上了。",
+      },
+      {
+        tag: "05 · 输出",
+        title: "类型化答案 + 概率，直供代码闸门",
+        body: "输出形态与 Jev 对齐：choice 给选中项、score 给连续分值（如 1.84/2.0）、noul 给概率（如 0.892），外加 act/escalate 头辅助决定自动执行还是上报。不生成任何文字，因此没有格式解析失败、也不存在编造选项之外内容的可能。全部问题在一次前向里批量回答，T4 上单问约 33 毫秒。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · ASSEMBLE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">状态与选项拼成一段</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="46" y="150" width="368" height="52" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="66" y="182" font-size="11" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">state: 工单 / 邮件 / JSON 文本</text>
+      {["[M] billing","[M] technical","[M] sales","[M] other"].map((s,i)=>(
+        <rect x="46" y={216+i*40} width="368" height="32" rx="8" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.2" />
+      ))}
+      {["[M] billing","[M] technical","[M] sales","[M] other"].map((s,i)=>(
+        <text x="66" y={237+i*40} font-size="10.5" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">{s} · 选项 {i+1}</text>
+      ))}
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · ENCODE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">双向注意力一次读完</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      {[0,1,2,3,4,5,6].map(i=>(
+        <rect x="52" y={150+i*32} width="356" height="24" rx="6" fill={i%2?"#fff":"#e9e9ed"} stroke="#dedee3" />
+      ))}
+      <path d="M90 230 L90 162 M370 230 L370 162 M90 196 L370 196 M90 230 L370 162 M370 230 L90 162" stroke="#0066cc" stroke-width="1" fill="none" opacity="0.55" />
+      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">ModernBERT-large 395M · 每个位置可见全部上下文</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · SCORE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">标记位评分，题内归一化</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {[["billing",0.72,259],["technical",0.08,29],["sales",0.15,54],["other",0.05,18]].map((r,i)=>(
+        <g>
+          <text x="56" y={178+i*48} font-size="11" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+          <rect x="140" y={164+i*48} width="220" height="22" rx="5" fill="#e9e9ed" />
+          <rect x="140" y={164+i*48} width={220*r[1]} height="22" rx="5" fill={i===0?"#0066cc":"#86868b"} />
+          <text x="376" y={180+i*48} font-size="10.5" fill="#424245" font-family="ui-monospace, Menlo, monospace">{r[1].toFixed(2)}</text>
+        </g>
+      ))}
+      <text x="230" y="386" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">决策头：2 个 transformer 层 + 标记评分器 + act/escalate</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · RUNTIME LABELS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">标签在请求里，不在权重里</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="50" y="156" width="360" height="80" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="190" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">今天：billing / technical / sales</text>
+      <text x="230" y="216" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">明天：P0 / P1 / P2 / P3（不重训）</text>
+      <path d="M230 248 L230 280 M222 272 L230 280 M238 272" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="90" y="286" width="280" height="46" rx="10" fill="#1d1d1f" />
+      <text x="230" y="314" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">同一份权重，答案空间随请求变化</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · TYPED OUT</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">类型化答案直供闸门</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      {[["choice","billing @ 0.94"],["score","1.84 / 2.0"],["noul","0.892"]].map((r,i)=>(
+        <g>
+          <rect x="70" y={160+i*64} width="320" height="48" rx="10" fill={i===2?"#1d1d1f":"#eaf2fb"} stroke={i===2?"#1d1d1f":"#0066cc"} />
+          <text x="92" y={190+i*64} font-size="11.5" fill={i===2?"#7fd3ff":"#0066cc"} font-family="ui-monospace, Menlo, monospace">{r[0]}: {r[1]}</text>
+        </g>
+      ))}
+      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">+ act / escalate · 一次前向批量回答</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="rlcd">
+  <SectionHead
+    kicker="03 · THE TRAINING"
+    title="训练：用 proper scoring rule 逼模型不敢撒谎"
+    lead="Laya 的 RLCD 给出了「校准」在数学上怎么落地：当且仅当报告真实概率时，期望奖励最大。"
+  />
+  <Prose>
+
+模型卡对训练方法的披露相当具体，值得逐条讲。策略网络输出一个概率分布，探索时在 logits 上加零均值高斯噪声；奖励函数是**严格适当评分规则（strictly proper scoring rule）**的组合——log score 加 spherical score，有序的 score 问题再加 ranked probability score（排位概率分，专门惩罚把概率放错序位）。这类规则的数学性质是：**只有如实报告自己的真实信念分布，期望奖励才能最大化**——系统性地过度自信或不自信都会被扣分。优化用 REINFORCE 加组均值基线，模型卡明确标注「GRPO-style」，多轮对话则在对话前缀切片上做 TD(λ=1.0)。这与本博客 MiMo 一文里 GRPO 的训练骨架同源，区别全在奖励函数的形状：可验证答案 vs 校准概率。
+
+这里也能看出开源与闭源叙事的一个有趣对照：TypeSafe 把 RLCD 作为自己提出的训练路线名称（并强调 RLHF 共同发明人在创始团队）；Laya 的模型卡直接采用同一术语描述自己的训练，把它具体化成一组可复现的评分规则与超参配方。
+
+  </Prose>
+</Section>
+
+<Section alt id="family">
+  <SectionHead
+    kicker="04 · THE FAMILY"
+    title="三个检查点与一个语言路由"
+    lead="开源版本的一个特有问题：没有单一巨型模型，而是按语言/任务分三个权重，由 Router 在请求时挑选。"
+  />
+  <CompareTable
+    headers={[
+      { label: "检查点" },
+      { label: "骨干 / 参数" },
+      { label: "上下文" },
+      { label: "最擅长", wrap: true },
+    ]}
+    rows={[
+      ["laya（英文根模型）", "ModernBERT-large · 421M", "512", "英文文本、护栏、邮件分诊"],
+      ["laya-multilingual", "mmBERT-base · 322M", "1024（编码器可至 8192）", "100+ 语言，约 2.2 倍更快"],
+      ["laya-typed-decisions", "ModernBERT-large · 421M", "1024", "四类类型决策工作流（微调，0.766）"],
+    ]}
+  />
+  <Prose>
+
+Router 的存在来自一个真实的、模型卡主动披露的惨痛发现：**英文检查点在非拉丁文字上不是「不知道」，而是「自信地错」**——高棉语（Khmer）测试集上准确率 0.000，置信度却高达 0.952。这种状态下，Jev/Laya 架构里最核心的「低置信就上报」闸门完全失效：模型没有给你升级的机会。Router 的对策是在**前向计算之前**用纯 Python 做亚毫秒级的文字脚本检测（高棉文 100% 非拉丁字母 → 英文模型读不了），直接路由到多语言检查点，而不是指望模型自己谦虚。
+
+部署上还有一个开源模型特有的坑，模型卡也写得很明白：懒加载默认只驻留一个检查点，混合语言流量每次切换都要重新装载权重——CPU 中位 7.4 秒、T4 上 10.3 秒。生产环境必须 `Router(preload=True)`：预载后语言切换只剩亚毫秒检测，GPU 单问 32.8 毫秒，CPU 193–464 毫秒。
+
+  </Prose>
+</Section>
+
+<Section id="bench">
+  <SectionHead
+    kicker="05 · THE HEAD-TO-HEAD"
+    title="对 Jev：赢在哪、输在哪，以及数字的正确读法"
+    lead="模型卡自己贴出了对比表，也自己标注了这不是同条件复测——这种诚实本身就是开源决策模型最好的产品文档。"
+  />
+  <CompareTable
+    headers={[
+      { label: "指标（T4，模型卡口径）" },
+      { label: "Jev 1.13.0（第三方已公布）" },
+      { label: "Laya（路由后）" },
+    ]}
+    rows={[
+      ["typed-decisions（2000 决策）", "0.727", "0.766（微调检查点，超 0.735 教师自一致上限）"],
+      ["AG News 四分类", "0.910", "0.950"],
+      ["DAIR Emotion 六分类", "0.480（16% 样本给真标签零概率）", "0.595"],
+      ["Banking77 高基数（72/77 标签）", "0.870", "0.425（默认 token 预算下崩）"],
+      ["ECE 校准误差（越低越好）", "0.246", "0.081（域内温度拟合后）"],
+      ["软分布匹配 soft accuracy", "0.580（Jev 胜）", "0.471"],
+      ["p50 单问延迟", "236–276 ms（第三方测量）", "32.8 ms（约 7.8 倍）"],
+      ["权重 / 成本", "闭源 API · $0.042/百万输入", "Apache 2.0 · 自托管 $0"],
+    ]}
+  />
+  <Prose>
+
+正确读法有三层。第一，**高基数选项是 Laya 的明确软肋**：所有选项共享固定的选项 token 预算（英文 head_max_len 192），77 个选项时每个标签只摊到约 3–4 个 token，文本变得无法区分；Jev 开箱支持 255 个选项。对策是调大预算或做两级粗到细分类。第二，**0.766 不是零样本成绩**：基础检查点在 typed-decisions 上零样本只有 0.362，略高于随机 0.318、低于多数类基线 0.461；那个亮眼数字属于在该基准训练集上微调过的检查点。模型卡的原话是「Laya 是一个供你专门化的快速底座，不是零样本决策引擎」。第三，**开箱过度自信**：每个（问题类型 × 选项数）组合各拟合一个温度参数后，平均 ECE 才从 0.466 降到 0.081——用它的概率做自动化闸门之前，必须在自己的数据上做这一步。
+
+  </Prose>
+</Section>
+
+<Section alt id="economics">
+  <SectionHead
+    kicker="06 · OPEN-WEIGHT ECONOMICS"
+    title="自托管经济学：毫秒级判断的另一条账单曲线"
+    lead="不按 token 计费时，成本单位变成了一块 GPU 能回答多少问。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="THROUGHPUT" title="单卡 T4：103–332 问/秒（批量）">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        模型卡口径：单问 39.5ms（英文）/32.8ms（多语言）；10 问批量 158.6ms/72.3ms（折合约 15.9/7.2ms 每问）；50 问批量 771ms/337ms。判断请求越多，自托管的边际成本越趋近于电费。
+      </p>
+    </InfoCard>
+    <InfoCard label="DATA SOVEREIGNTY" title="数据不出域，权重可审计">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Apache 2.0 允许商用与自托管，工单、邮件、JSON 全部留在自己的基础设施内；对金融、医疗等不能把数据发给闭源云的场景，这是闭源 API 形态无法回答的结构性优势。
+      </p>
+    </InfoCard>
+    <InfoCard label="DIY TAX" title="省下的 API 费变成了运维与校准活">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        你要自己管 GPU、预热、LRU 卸载、版本钉死，还要自己做温度校准与领域微调。闭源 API 卖的是「这些都不用管」；开源权重卖的是「这些你都能管」。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section id="limits">
+  <SectionHead
+    kicker="07 · THE REAL LESSON"
+    title="真正的教训：置信度不是安全保证"
+    lead="Laya 模型卡最有价值的部分，不是基准成绩，而是它把失败模式写在了使用说明第一页。"
+  />
+  <Prose>
+
+把 Jev 与 Laya 两篇连起来看，System 1 决策模型这类系统的工程常识已经浮现：**校准是群体统计性质，而自动化闸门面对的是每一个具体样本。** 高棉语 0.000 准确率配 0.952 置信度、英文模型在域外语言上「自信地错」、DAIR Emotion 上 16% 的真标签被赋予零概率——这些都说明同一件事：在分布偏移（语言不符、标签太多、领域陌生）面前，置信度门限会静默失效。JEV-as-a-Judge 论文从另一侧给出同一个答案的补丁：高置信自动采纳、低置信升级给强模型的级联，前提是置信度本身在你的任务分布上被校准过。
+
+因此引入任何决策模型的正确姿势都一样：先用自己的数据复测校准曲线，为域外输入（语言、长度、标签基数）准备**模型之外的确定性探测器**（Router 的脚本检测就是范例），再把「执行/上报」闸门建立在多层信号而非单一置信度上。判断模型让 Agent 更快更便宜，但「何时可以信任它」这个判断，仍然是人的工程责任。
+
+  </Prose>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "System 1 模型可以被一枚现代化编码器完整复现",
+      conclusion: "Laya 用 ModernBERT/mmBERT 骨干 + 两层决策头 + [MASK] 选项标记，把「请求时定义答案空间的分类」做成一次前向 33ms 的调用：选项在题内 softmax 出校准概率，换 schema 不重训，RLCD 用严格 proper scoring rule 让诚实概率成为唯一最优策略。",
+      detail: "理解「判断即分类、分类无需生成」，就理解了非自回归路线在延迟、成本与可自托管性上的全部优势来源。",
+    },
+    {
+      title: "开源的代价是诚实，收益也是诚实",
+      conclusion: "模型卡主动披露：零样本接近基线、开箱 ECE 0.466 需自行温度拟合、77 选项时每标签 3–4 token 而崩溃、域外语言 0.000 准确率却 0.952 置信。这些限制决定了它的正确定位——可私有微调的快速底座，而非开箱即用的零样本裁判。",
+      detail: "Jev 与 Laya 的共同教训：置信度只在校准过的分布内有意义；域外探测必须放在模型之外，级联升级才能真正成立。",
+    },
+  ]}
+  note="事实口径：架构、三检查点参数、RLCD 配方、T4 延迟与全部基准均依据 2026-09-23 抓取的 Hugging Face 模型卡 convaiinnovations/laya 与 GitHub NandhaKishorM/laya（Jev 一侧数字模型卡自述为第三方公布、非同条件复测）；ModernBERT 参数与发布时间依据 Hugging Face 2024-12-19 官方博客；部署与校准建议为作者结合两篇资料的归纳。"
+/>
