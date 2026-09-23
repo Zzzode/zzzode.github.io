@@ -1,0 +1,302 @@
+---
+title: "H200 对华销售核实：政策文本、英伟达财报原话与「不到 1%」的真相"
+date: 2026-09-23
+excerpt: "「美国批准英伟达向中国卖 H200」是 2026 年最容易被读偏的科技新闻之一。把一手材料按时间线摆开：2025 年 12 月特朗普宣布放行并抽成 25%；2026 年 1 月 BIS 终稿把许可政策从「推定拒绝」改为「逐案审批」并附五项条件；5 月许可证已发但收入为零；8 月 26 日英伟达财报电话会确认已交付——但只占数据中心收入不到 1%、摊薄毛利率、且被排除在未来展望之外。"
+tags: ["H200", "英伟达", "出口管制", "BIS", "国产替代", "消息核实"]
+kind: "distilled"
+sources:
+  - title: "美国 BIS 终稿 · Revision to License Review Policy for Advanced Computing Commodities（Federal Register 2026-00789，2026-01-15）"
+    url: "https://www.federalregister.gov/documents/2026/01/15/2026-00789/revision-to-license-review-policy-for-advanced-computing-commodities"
+  - title: "NVIDIA Q2 FY2027 财报电话会逐字稿（2026-08-26，投资者关系托管）"
+    url: "https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf"
+  - title: "南方都市报/南方+：英伟达确认 H200 已交付中国客户，但营收占比微不足道（2026-08-27）"
+    url: "https://www.nfnews.com/content/0oxwJBRw6L.html"
+  - title: "TechShots：US Approves Nvidia H200 AI Chip Exports to China with 25% Fee"
+    url: "https://www.techshotsapp.com/technology/us-approves-nvidia-h200-ai-chip-exports-to-china-with-25-fee"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  Timeline,
+  CompareTable,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="NEWS VERIFICATION · BIS / NVIDIA · 2026-09-23 核对"
+  title="H200 对华销售核实"
+  lead="一条政策、一份财报、一个抽成比例——把传闻、规则文本与公司原话分层核对后，结论比标题冷静得多：货确实发了，但钱很少、毛利被摊薄、展望里也没有中国。"
+  pills={[
+    { label: "推定拒绝 → 逐案审批" },
+    { label: "五项许可条件" },
+    { label: "&lt;1% 数据中心收入" },
+    { label: "国产替代双轨采购" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="H200 放行时间线与条件漏斗">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">FROM DENIAL TO CASE-BY-CASE</text>
+
+    {[["2025.12 总统宣布 · 25% 分成",84,"#1d1d1f"],["2026.01 BIS 终稿 · 五项条件",132,"#1d1d1f"],["2026.05 许可证已发 · 收入为零",180,"#6e6e73"],["2026.08 确认交付 · 占 DC 收入 &lt;1%",228,"#0066cc"]].map((r,i)=>(
+      <g>
+        <circle cx="56" cy={r[1]-30} r="7" fill={r[2]} />
+        {i<3 && <line x1="56" y1={r[1]-21} x2="56" y2={r[1]+20} stroke="#b8b8bf" stroke-width="1.5" />}
+        <rect x="80" y={r[1]-47} width="350" height="34" rx="9" fill={i===3?"#eaf2fb":"#fff"} stroke={r[2]==="#0066cc"?"#0066cc":"#dedee3"} />
+        <text x="96" y={r[1]-25} font-size="10.5" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{r[0]}</text>
+      </g>
+    ))}
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+核实方法：本文只采用三层可核对材料——**规则原文**（美国商务部 BIS 刊登在 Federal Register 的终稿，2026 年 1 月 15 日）、**公司原话**（英伟达 2027 财年第二季度财报电话会逐字稿，2026 年 8 月 26 日）、**媒体转述**（南方都市报对财报与中国市场反应的报道，2026 年 8 月 27 日）。25% 抽成来自特朗普 2025 年 12 月 8 日的社交平台表态（媒体广泛转述），本文标注为政策宣示而非 BIS 规则条文；规则原文中没有「25%」字样。
+
+</Prose>
+
+<Section id="timeline">
+  <SectionHead
+    kicker="01 · TIMELINE"
+    title="时间线：从禁售到「不到 1%」的八个月"
+    lead="先把事件按一手证据排好，结论自然浮现。"
+  />
+  <div class="mt-8">
+    <Timeline
+      nodes={[
+        { year: "2023.11", title: "H200 发布，随后对华禁售", body: "H200（Hopper 架构）2023 年 11 月发布，此后因美国出口管制无法对华销售。" },
+        { year: "2025.12.08", title: "特朗普：允许出口，抽成 25%", body: "南方都市报援引：特朗普在社交平台称，满足国家安全要求前提下允许英伟达对华出口 H200，美国政府抽取 25% 销售收入。属政策宣示，具体执行以 BIS 规则为准。" },
+        { year: "2026.01.15", title: "BIS 终稿：推定拒绝改为逐案审批", body: "Federal Register 终稿（15 CFR 742/744/748）：TPP &lt;21,000 且总 DRAM 带宽 &lt;6,500 GB/s 的产品（点名 H200、AMD MI325X）对华/澳门出口由 presumption of denial 改为 case-by-case，附五项条件；再出口仍推定拒绝。" },
+        { year: "2026.05.20", title: "许可证已批，但零收入", body: "南都报道 CFO Kress 在当季业绩会表态：美政府已批准向中国客户出货的许可证，但尚未产生任何收入，也不确定产品是否会被允许进入中国。" },
+        { year: "2026.08.26", title: "确认交付：占数据中心收入不到 1%", body: "Q2 FY2027（截至 2026-07-26）财报会原话：当季向中国客户发出的 H200 不到数据中心总收入的 1%，当前出货摊薄公司毛利率，且未来展望不含中国数据中心计算收入。" },
+      ]}
+    />
+  </div>
+</Section>
+
+<Section alt id="conditions">
+  <SectionHead
+    kicker="02 · THE FINE PRINT"
+    title="放行不是开关，是一道五道闸门的许可"
+    lead="随页面滚动，左侧舞台逐条拆解 BIS 终稿的许可条件与技术门槛（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 技术门槛",
+        title: "卡在 TPP 21000 与带宽 6500 GB/s 以下",
+        body: "规则适用对象被精确量化：处理性能 TPP 低于 21,000（定义见 EAR 3A090 技术注释）、总 DRAM 带宽低于 6,500 GB/s（定义见 748 部分补充文件），点名例子是 NVIDIA H200 与 AMD MI325X。门槛的含义是：被放行的是「美国本土已在售的次旗舰」，更强的产品不在此列——政策文本明确这是为了让目的地国家的先进算力不超过美国自身能力或供应容量。",
+      },
+      {
+        tag: "02 · 美国优先供给",
+        title: "本土供应充足，不得分流晶圆产能",
+        body: "申请方须证明：申请时该产品在美国本土已有商业供应；对华出口不会延误任何美国客户的既有或新订单（考虑正常交付周期）；原本用于为美国终端用户生产同代或更先进产品的全球晶圆产能，不会被转去生产对华出口的产品。还要申报该产品在美国本土已出货的数量。",
+      },
+      {
+        tag: "03 · 数量天花板",
+        title: "对华出货不得超过在美出货的一半",
+        body: "终稿写明：同一产品对中国与澳门的合计出货量，不得超过该产品供应美国终端客户总量的 50%。这从规则层面给中国市场定了级——它在法律文本里就是一个「不超过本土一半」的次要市场，与英伟达后来「不到 1%」的实际占比互为印证。",
+      },
+      {
+        tag: "04 · KYC 与远程访问",
+        title: "最终收货人要能防住未授权远程接入",
+        body: "交易不得被终端用户/用途管制与非军事用途管制禁止；最终收货人（ultimate consignee）必须实施严格的 KYC 程序，筛查并阻止未授权方（如 744 清单实体）的远程访问。申请方还须列出位于（或总部位于）中国、俄罗斯、伊朗、朝鲜等国的远程终端用户，供 BIS 与跨部门审查。这一条明显针对「货卖给 A、算力被 B 远程调用」的规避路径。",
+      },
+      {
+        tag: "05 · 第三方面板检测",
+        title: "每批货出口前在美国本土独立验规格",
+        body: "每一批先进计算商品在从美国出口前，都要由合格的第三方实验室抽检，确认实际技术能力与功能和许可证申请一致；实验室必须独立于制造商或供应商，可按批次抽样而非逐颗检测。再出口（包括从第三国出口）与在 D:5 国家设有总部的实体，仍维持推定拒绝——放行只适用于从美国本土直供的合规链路。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 01 · SPECS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">放行的精确技术边界</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="50" y="156" width="360" height="66" rx="12" fill="#1d1d1f" />
+      <text x="230" y="186" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">TPP &lt; 21,000</text>
+      <text x="230" y="208" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">处理性能（EAR 3A090 定义）</text>
+      <rect x="50" y="238" width="360" height="66" rx="12" fill="#0066cc" />
+      <text x="230" y="268" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">DRAM 带宽 &lt; 6,500 GB/s</text>
+      <text x="230" y="290" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">点名 H200 / AMD MI325X</text>
+      <text x="230" y="350" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">次旗舰可谈，更强产品免谈</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 02 · US SUPPLY FIRST</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">不得挤占美国订单</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="70" y="160" width="320" height="56" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="194" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">本土已商业在售 · 申报在美出货量</text>
+      <rect x="70" y="232" width="320" height="56" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="266" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">不延误美国客户订单（含正常交期）</text>
+      <rect x="70" y="304" width="320" height="56" rx="10" fill="#1d1d1f" />
+      <text x="230" y="338" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">全球晶圆产能不得为此分流</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 03 · 50% CAP</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">对华出货的法定天花板</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <rect x="80" y="170" width="300" height="40" rx="8" fill="#0066cc" />
+      <text x="230" y="196" font-size="12" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">中国 + 澳门 ≤ 50%</text>
+      <rect x="80" y="170" width="150" height="40" rx="8" fill="#1d1d1f" opacity="0" />
+      <rect x="80" y="226" width="300" height="40" rx="8" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="252" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">美国终端客户 = 100% 基准</text>
+      <text x="230" y="316" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">同产品合计对华/澳门出货不得超过在美总量一半</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 04 · KYC</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">防的是「货给 A、算力给 B 用」</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="56" y="160" width="348" height="60" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="186" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">最终收货人严格 KYC</text>
+      <text x="230" y="206" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">筛查并阻止清单实体的未授权远程访问</text>
+      <rect x="56" y="236" width="348" height="60" rx="10" fill="#1d1d1f" />
+      <text x="230" y="262" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">申报受限国远程用户清单</text>
+      <text x="230" y="282" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">含远程用户及其母公司总部所在地</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 05 · TESTED</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">出口前在美第三方验规格</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="56" y="162" width="348" height="58" rx="10" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="188" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">合格第三方实验室逐批抽检</text>
+      <text x="230" y="208" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">独立于制造商 · 可抽样不必逐颗</text>
+      <rect x="56" y="236" width="348" height="58" rx="10" fill="#1d1d1f" />
+      <text x="230" y="262" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">再出口 / D:5 总部实体</text>
+      <text x="230" y="282" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">仍维持推定拒绝（presumption of denial）</text>
+      <text x="230" y="346" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">放行 = 只走美国本土直供的合规链路</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="nvidia">
+  <SectionHead
+    kicker="03 · NVIDIA'S BOOKS"
+    title="英伟达一侧：占比不到 1%、摊薄毛利、展望清零"
+    lead="公司自己的三句话，比任何媒体解读都更能定义这笔生意的大小。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="REVENUE" title="&lt;1%：当季数据中心收入中的占比">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        财报电话会原话（2026-08-26，Q2 FY2027）：当季依据美国政府许可证发往中国客户的 Hopper 200 产品，不到数据中心总收入的 1%。南都援引 CFO Kress 的表述口径一致。这是实际出货的第一个季度。
+      </p>
+    </InfoCard>
+    <InfoCard label="MARGIN" title="摊薄毛利率">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        逐字稿明确：当前 Hopper（对华）出货对公司毛利率是 dilutive（摊薄）的。结合 25% 销售收入抽成的政策宣示，这笔生意在财务上不是利润来源，更像缴纳政策成本后的存量变现。
+      </p>
+    </InfoCard>
+    <InfoCard label="OUTLOOK" title="未来展望不含中国数据中心收入">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        「鉴于持续的地缘政治不确定性，我们的前瞻展望中不包含来自中国的数据中心计算产品收入。」换言之，公司自己不把对华 H200 计入可预期增长，许可证随时可能生变（5 月「有证零收入」已有先例）。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+把这三句话连起来读，才能抵抗标题的误导：**「批准销售」是监管事实，「这是一笔大生意」不是商业事实。** 数量天花板（规则里的 50% 上限）、抽成（25% 宣示）、逐案审批的不确定性，共同把 H200 对华业务压缩成了一个财务上无足轻重、战略上留有余地的尾巴。
+
+  </Prose>
+</Section>
+
+<Section alt id="china">
+  <SectionHead
+    kicker="04 · THE CHINA SIDE"
+    title="中国一侧：H200 照买，替代照推"
+    lead="放行发生在一个国产替代已经自我加速的时间点，这是它影响有限的另一半原因。"
+  />
+  <Prose>
+
+南方都市报在确认交付的同篇报道里，列出了平行发生的事实，构成理解影响的关键背景：**智谱**在 2026 年 8 月 26 日 GLM-5.3-Flash 上线时称，首次在大规模流量中以国产芯片集群（自研高带宽互联）提供服务，硬件效率与 token 成本已与主流英伟达 GPU 相当；7 月 21 日其曾披露已落地一座全部采用国产 AI 芯片的 1GW 级算力数据中心。**腾讯**汤道生 6 月 5 日表示下半年将引入更多国产算力，同时作为国产芯片的算力展示标杆。集邦（TrendForce）分析师的判断是：国内云厂商既会采购 H200，也会同步测试国产 AI 芯片以分散风险——**双轨采购，而非二选一。**
+
+宏观口径上，报道援引高盛：阿里、腾讯、字节、百度 2026 年 AI 资本支出合计约 1020 亿美元；并按产量口径估算 2026 年 6 月国内芯片自给率约 70%（2010 年 1 月为 38%）。这两个数字都应按其来源使用：前者是投行预测、后者是「按产量」的宽口径自给率（含成熟制程），不等于先进 AI 芯片的自给比例，不应被读成「H200 已经无足轻重到可以不买」。
+
+  </Prose>
+  <CompareTable
+    headers={[
+      { label: "读法" },
+      { label: "支持证据" },
+      { label: "必要的保留", wrap: true },
+    ]}
+    rows={[
+      ["H200 是短期补位，不是长期依赖", "双轨采购、国产集群上大模型流量、1GW 国产算力中心", "国产芯片的大规模经济性仍在自证早期，头部训练集群对英伟达生态依赖未消失"],
+      ["美国用放行换分成与谈判筹码", "25% 抽成宣示 + 规则中「美国能力优先」的条件设计", "抽成是总统社交平台宣示，未见 BIS 规则条文；实际执行口径待官方文件"],
+      ["英伟达在中国从「禁售损失」变为「可有可无」", "&lt;1% 占比、毛利摊薄、展望清零均为公司原话", "一个季度的数据；后续许可证节奏与 Blackwell 世代在华政策仍是变量"],
+    ]}
+  />
+</Section>
+
+<Section id="reading">
+  <SectionHead
+    kicker="05 · WHAT IT MEANS"
+    title="政策为什么在这时转向：文本支持的与只能推测的"
+    lead="区分规则写了什么，与评论员认为它意味着什么。"
+  />
+  <Prose>
+
+规则文本直接支持的解读有三条：**第一，优先序是美国供应安全**——本土在售、供应充足、不分流晶圆产能排在条件之首；**第二，放行有明确的能力天花板**——TPP 与带宽门槛、50% 出货上限、第三方验规格，都是在保证「目的地能力不超过美国」；**第三，执行自由裁量权在行政部门**——逐案审批而非普遍许可，意味着政策可以随个案与政治节奏收紧或放松，这解释了 1 月定规、5 月零收入、8 月才发货的摇摆节奏。
+
+外媒评论中常见的「美国优先级从安全转向贸易」（如 The Times 的评论框架）属于推测层，逻辑是：25% 抽成把出口管制变成了收入工具，放行次旗舰也能挤压本土竞品（AMD）以外的议价空间。这个框架可以作为观察假设，但规则文本本身的官方理由仍是国家安全——BIS 反复声明该行动服务于「美国 AI 领导力的国家安全收益」。本文不替任何一方把宣示当意图。
+
+  </Prose>
+</Section>
+
+<Section alt id="watch">
+  <SectionHead
+    kicker="06 · WHAT TO WATCH"
+    title="后续观察清单：四个比标题更重要的变量"
+  />
+  <CardGrid cols={2}>
+    <InfoCard label="REVERSIBILITY" title="政策可逆：下一季度会不会又变">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        逐案审批 + 公司展望清零，意味着任何季度都可能重现「有证无收入」。跟踪指标：英伟达后续两季中国 DC 收入是否持续低于 1%，还是开始爬坡。
+      </p>
+    </InfoCard>
+    <InfoCard label="NEXT GENERATION" title="Blackwell 世代与中国特供卡的待遇">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        本规则只覆盖 TPP/带宽门槛以下的次旗舰。更强产品与下一代架构是否会获得类似通道、还是继续催生降规特供版本，才是产业格局的下一个决定点。
+      </p>
+    </InfoCard>
+    <InfoCard label="SUBSTITUTION TRACTION" title="国产芯片在训练侧（不止推理侧）的份额">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        智谱披露的是推理流量与成本对标；前沿大模型训练集群对互联、算子生态与稳定性的要求更高。「推理可用」到「训练可替代」之间的距离，比新闻标题长。
+      </p>
+    </InfoCard>
+    <InfoCard label="THIRD-PARTY TESTING" title="检测与 KYC 的实际执行严格度">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        五项条件中真正决定放量节奏的是执行：第三方实验室产能、远程访问审计的颗粒度、再出口与 D:5 总部条款的解释，都会在实操中显现弹性或刚性。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "「H200 获准对华销售」已被一手材料证实，但被附加了五道实质性闸门",
+      conclusion: "BIS 2026 年 1 月 15 日终稿把 H200/MI325X 级产品（TPP&lt;21000、带宽&lt;6500 GB/s）的对华政策从推定拒绝改为逐案审批，条件包括美国本土供应充足且不分流产能、对华出货不超过在美总量 50%、最终收货人 KYC 并防未授权远程访问、每批经美国本土独立实验室验规格，再出口与 D:5 总部实体仍推定拒绝。",
+      detail: "25% 抽成来自特朗普 2025 年 12 月 8 日社交平台宣示（媒体转述），不在 BIS 规则文本中，引用时必须标注这一层级差异。",
+    },
+    {
+      title: "商业实质是「不到 1%」：监管放行不等于生意重启，真正的变量是国产替代",
+      conclusion: "英伟达 2026 年 8 月 26 日财报会原话确认：当季 H200 对华出货占数据中心收入不到 1%、摊薄毛利率、前瞻展望完全不含中国 DC 收入。同一时间中国头部模型公司已把国产集群推上大规模推理流量，云厂商采取「买 H200 + 测国产」的双轨采购——H200 成为管制与替代赛跑中一个被双方都接受、但谁都不依赖的缓冲品。",
+      detail: "核实此类新闻的标准动作：区分政策文本、公司财报原话与媒体标题；占比、毛利率与展望三件事必须一起读，任何一个单独拿出来都会误导。",
+    },
+  ]}
+  note="事实口径：许可条件与技术门槛逐字依据 Federal Register 2026-00789 终稿（BIS，2026-01-15，公开预览 PDF 与正式页面均已核对）；英伟达占比、毛利率与展望表述出自其 2026-08-26 Q2 FY2027 财报电话会逐字稿（投资者关系托管 PDF）；时间线中 2025-12-08 总统表态抽成 25% 与 5 月业绩会内容依据南方都市报 2026-08-27 报道，抽成属政策宣示未见规则条文；智谱/腾讯/高盛数据均为该报道转引的公司口径与投行预测，70% 自给率为按产量口径，本文均已标注限定。"
+/>
