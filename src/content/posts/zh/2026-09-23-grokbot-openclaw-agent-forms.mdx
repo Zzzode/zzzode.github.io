@@ -1,0 +1,312 @@
+---
+title: "Grok Bot 与 OpenClaw：Agent 的两种产品形态——云端团队同事 vs 本地单人管家"
+date: 2026-09-23
+excerpt: "2026 年 8 月，xAI 发布 Grok Bot：每个用户一台 7×24 云端电脑，bot 像人一样登录软件点鼠标，一队 specialist bot 在项目频道里互相派活。与此同时，开源的 OpenClaw 走了相反的路：一个跑在你自己机器上的网关，把二十多个聊天入口与可替换模型接成私人助手。分歧不在模型智商，而在抽象层、信任边界与产品归属。"
+tags: ["Grok Bot", "OpenClaw", "Agent", "computer use", "Gateway", "产品形态", "xAI"]
+kind: "distilled"
+sources:
+  - title: "openclaw/openclaw · GitHub（MIT 官方 README）"
+    url: "https://github.com/openclaw/openclaw"
+  - title: "OpenClaw 官方文档 · Why OpenClaw（信任边界与七条属性）"
+    url: "https://docs.openclaw.ai/start/why-openclaw"
+  - title: "OpenClaw 官网"
+    url: "https://openclaw.ai/"
+  - title: "Unite.AI · xAI Launches Grok Bot（2026-08-11 发布报道）"
+    url: "https://www.unite.ai/xai-launches-grok-bot-always-on-ai-teammates-with-their-own-cloud-computers/"
+  - title: "Modern Creator · Grok Bot 降至 $20/月与十一 bot 团队实践（2026-08-27，创作者媒体转述）"
+    url: "https://moderncreator.app/2026-08-27-paul-j-lipsky-grok-bot-dropped-from-200-to-20-a-month-so-he-built-a-team-of-named-ai-bots"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="AGENT PRODUCT FORMS · August–September 2026 · 2026-09-23 核对"
+  title="Grok Bot 与 OpenClaw：Agent 的两种产品形态"
+  lead="它们都不只是聊天框：都能长期在线、被 @、动手干活。但一个驻扎在 xAI 云端的项目频道里，是一队有工牌的数字同事；一个跑在你自己的电脑上，是权限与你本人绑定的私人管家。"
+  pills={[
+    { label: "云端团队 ↔ 本地个人" },
+    { label: "computer use vs 本地高权限" },
+    { label: "零装配 vs 自己配置" },
+    { label: "信任边界之争" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="云端频道一队 bot 与本地单网关两种形态">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">ONE CHANNEL · TWO TOPOLOGIES</text>
+
+    <rect x="28" y="80" width="190" height="180" rx="16" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+    <text x="123" y="108" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">OpenClaw</text>
+    <rect x="58" y="124" width="130" height="42" rx="9" fill="#1d1d1f" />
+    <text x="123" y="150" font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">本地 Gateway（你的机器）</text>
+    <text x="123" y="194" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">1 人 ↔ 1 AI</text>
+    <text x="123" y="216" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">20+ 聊天入口 · 模型可换</text>
+    <text x="123" y="238" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">凭据 / 记忆留在本机</text>
+
+    <rect x="242" y="80" width="190" height="180" rx="16" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
+    <text x="337" y="108" font-size="12" font-weight="600" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">Grok Bot</text>
+    <rect x="266" y="120" width="142" height="26" rx="13" fill="#1d1d1f" />
+    <text x="337" y="137" font-size="9.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">Chief of Staff</text>
+    {[262,298,334].map((x,i)=>(
+      <rect x={x} y="156" width="32" height="26" rx="13" fill="#fff" stroke="#e8710a" stroke-width="1.3" />
+    ))}
+    {[278,314,350].map((x,i)=>(
+      <text x={x} y="173" font-size="8.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">{["R","O","S"][i]}</text>
+    ))}
+    <text x="337" y="208" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">频道 ↔ 一队 bot</text>
+    <text x="337" y="228" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">xAI 云电脑 24/7</text>
+    <text x="337" y="248" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">computer use · 合上照跑</text>
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：OpenClaw 一侧依据其 MIT 开源仓库与官方文档（2026-09-23 核对，源码审计快照日期 2026-08-27）；Grok Bot 一侧依据 Unite.AI 对 xAI 2026-08-11 发布的报道，价格变化参考 8 月 27 日创作者媒体转述（非官方公告，引用处保留口径）。两者都在快速迭代，具体功能与定价以官方实时信息为准。本文不评测模型智商，只拆产品形态。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE COMMON BET"
+    title="前因：Agent 产品的共同点是「常驻」与「动手」"
+    lead="在分岔之前，先看清这两个产品共享的判断。"
+  />
+  <Prose>
+
+2025–2026 年的 Agent 产品有一个共同的位移：AI 不再是网页里一个用完即走的对话框，而是**长期在线、有身份、能被 @、能替你操作真实系统的行动者**。本博客 [Claude Code 架构解剖](/posts/2026-09-23-claude-code-architecture/)里讲过，能力 = 模型 + harness（外壳：工具、执行循环、记忆、技能）；Grok Bot 与 OpenClaw 的争论本质上是两种 harness 形态之争，模型反而是可替换部件。
+
+两者共享四个前提：都能真正动手（调工具、操作软件、跑完多步任务）；都以「常驻同事/管家」为交互隐喻；都接入日常 IM 而不是另开一个 App；都承认能力沉淀靠外壳（skill、routine、记忆）而不是单靠更大的模型。分岔从下一个问题开始：**这个行动者住在谁的机器上，替谁承担风险？**
+
+  </Prose>
+</Section>
+
+<Section alt id="openclaw">
+  <SectionHead
+    kicker="02 · OPENCLAW"
+    title="形态一：本地网关——你自己机器上的总接线员"
+    lead="随页面滚动，左侧舞台展示 OpenClaw 的 Gateway 拓扑与信任设计（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 一个网关",
+        title: "Gateway 是本地的会话/工具/通道控制面",
+        body: "OpenClaw（MIT 许可，OpenClaw 基金会——一个独立 501(c)(3)——托管）的核心是一个跑在自己电脑上的 Gateway 进程：它是会话、工具、事件与聊天通道连接的本地控制面，Control UI、CLI、TUI 都只是连到它的客户端。官方定位：同一套部署既可以是笔记本上的个人助手，也可以通过改配置变成共享的团队部署，没有企业版之分。",
+      },
+      {
+        tag: "02 · 通讯录形态",
+        title: "在你已有的聊天入口里出现",
+        body: "Gateway 把助手接到 Discord、iMessage、Slack、Teams、Telegram、WhatsApp 等 20 多个通道，外加 macOS/iOS/Android/Windows/Linux 原生应用。交互隐喻不是「打开一个 AI 网站」，而是「通讯录里多了一个能派活的联系人」。协作主轴是 1 人 ↔ 1 AI，团队部署是配置延伸而非默认形态。",
+      },
+      {
+        tag: "03 · 一切可换",
+        title: "模型与 harness 是可插拔的",
+        body: "Claude、Codex、本地模型都以插件形式接入，换模型不动其他配置；工具、skill、插件构成能力扩展体系。状态、记忆、凭据全部留在自己的硬件上；官方强调默认除每日版本检查外不回传任何数据，匿名统计为 opt-in。经济模型也因此不同：软件免费开源，你自己付模型 API token 与机器钱。",
+      },
+      {
+        tag: "04 · 信任边界",
+        title: "可信网关与不可信执行分离，策略写进代码",
+        body: "官方架构文档把关键区别定在信任边界：策略不能靠「在系统提示词里请求模型遵守」，而必须在代码层面结构性拒绝，审批路径 fail-closed（未明确放行即拒绝）。执行可被移到沙箱、节点或一次性云机里，使用独立生命周期的受限凭据，摸不到 Gateway 的长期授权。文档同时诚实声明：沙箱默认关闭，暴露在公网前需按安全手册配置。",
+      },
+      {
+        tag: "05 · 代价",
+        title: "自由的另一面是自己养",
+        body: "你要自己部署、配网络、装 skill、管升级与备份；机器关机或断网，助手就停。多 agent 分工不是开箱默认，团队级异步协作与持久团队身份是它的弱项。它换来的是模型无关、数据不出域、近乎零软件成本、以及本地高权限（文件、Shell、浏览器、连接器）带来的能力上限。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">OPENCLAW 01 · GATEWAY</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一个本地控制面</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="80" y="160" width="300" height="110" rx="14" fill="#1d1d1f" />
+      <text x="230" y="204" font-size="14" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">Gateway</text>
+      <text x="230" y="232" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">sessions · tools · events · channels</text>
+      {[["Control UI",130],["CLI",230],["TUI",330]].map((n,i)=>(
+        <g>
+          <rect x={n[1]-46} y="292" width="92" height="32" rx="8" fill="#fff" stroke="#dedee3" />
+          <text x={n[1]} y="313" font-size="10" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+        </g>
+      ))}
+      <text x="230" y="370" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">个人助手 or 团队部署 · 差别只在配置</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">OPENCLAW 02 · CHANNELS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">住进你的通讯录</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      {["WhatsApp","Telegram","Slack","Discord","iMessage","Teams","Signal","更多 …"].map((s,i)=>(
+        <g>
+          <rect x={46+(i%4)*100} y={160+Math.floor(i/4)*64} width="90" height="46" rx="23" fill={i===7?"#1d1d1f":"#fff"} stroke={i===7?"#1d1d1f":"#0066cc"} stroke-width="1.3" />
+          <text x={91+(i%4)*100} y={188+Math.floor(i/4)*64} font-size="9.5" fill={i===7?"#f5f5f7":"#0066cc"} text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
+        </g>
+      ))}
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">20+ 通道 · 1 人 ↔ 1 AI 为主轴</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">OPENCLAW 03 · PLUGGABLE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">模型是插件，数据是你的</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {[["Claude","#fff"],["Codex","#fff"],["local models","#fff"],["tools / skills / plugins","#1d1d1f"]].map((n,i)=>(
+        <g>
+          <rect x="70" y={150+i*52} width="320" height="40" rx="9" fill={n[1]} stroke="#dedee3" />
+          <text x="230" y={176+i*52} font-size="11.5" fill={n[1]==="#1d1d1f"?"#f5f5f7":"#1d1d1f"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{n[0]}</text>
+        </g>
+      ))}
+      <text x="230" y="382" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">状态 / 记忆 / 凭据留在本机 · 软件免费，自付 token</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">OPENCLAW 04 · TRUST</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">可信网关，不可信执行</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="70" y="152" width="320" height="72" rx="12" fill="#0066cc" />
+      <text x="230" y="184" font-size="12.5" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">Trusted Gateway</text>
+      <text x="230" y="208" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">长期凭据 · 策略在代码中 · fail-closed</text>
+      <path d="M230 232 L230 262 M222 254 L230 262 M238 254" stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="70" y="268" width="320" height="72" rx="12" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
+      <text x="230" y="300" font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">Untrusted Execution</text>
+      <text x="230" y="324" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">沙箱 / 节点 / 一次性云机 · 受限短期凭据</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">OPENCLAW 05 · THE BILL</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">自由的代价是自己养</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="50" y="156" width="360" height="76" rx="12" fill="#eaf2fb" stroke="#0066cc" />
+      <text x="230" y="188" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">模型无关 · 数据不出域 · 本地高权限</text>
+      <text x="230" y="212" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">能力上限高 · 近零软件成本</text>
+      <rect x="50" y="248" width="360" height="92" rx="12" fill="#1d1d1f" />
+      <text x="230" y="282" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">自行部署 / 运维 / 配 skill</text>
+      <text x="230" y="308" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">关机即停 · 多 agent 分工非开箱默认</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="grokbot">
+  <SectionHead
+    kicker="03 · GROK BOT"
+    title="形态二：云端 AI 同事——一台 24/7 电脑上的一队 bot"
+    lead="xAI 的设计选择是把「机器、登录、编排」全部收进云端，用户只负责像对同事一样发消息。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="OWN CLOUD PC" title="每个用户一台云端电脑，bot 共享">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Unite.AI 报道（2026-08-11 发布、beta）：每个用户获得自己的云端计算机，多个 bot 共享同一台、按用户隔离；bot 不靠 API/MCP，而是像人一样登录既有软件、看屏幕点鼠标（computer use），合上笔记本任务照跑，需要审批时才回来找你。
+      </p>
+    </InfoCard>
+    <InfoCard label="CHIEF OF STAFF" title="幕僚长 + specialist bot 互相派活">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        多个 bot 可并行运行、互发消息、共享线程、在群聊中移交工作与所有权；按「一个幕僚长（Chief of Staff）带一队专员」组织，而不是让用户管理一堆自动化。创作者实践中已出现 11 个命名专职 bot 的配置（创作者媒体口径）。
+      </p>
+    </InfoCard>
+    <InfoCard label="ZERO SETUP" title="演示一遍，routine 自动沉淀">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        像给同事发消息那样使用；把工作流当面演示一遍，bot 把步骤存成 routine 后自行执行。无需懂 skill、不打斜杠命令、注册即用——能力获取从「配置式」变成「示范式」。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+发布策略同样是产品形态的一部分：Grok Bot **不单独售卖**，而是寄生在已有的订阅栈里——发布时包含在 SuperGrok Heavy、Cursor Ultra（报道口径 200 美元/月，含独立云电脑与定时 routine）与 Cursor Premium Teams（120 美元/座/月，含团队技能市场、用量分析与 SAML/OIDC 单点登录）三档；下载、注册引导与销售触点走 Cursor 基础设施，企业客户排队等候。8 月 27 日有创作者媒体报道价格下探至 20 美元/月档（非官方公告，应作促销/档位变化的信号看待）。xAI 自述该产品源自内部原型：销售外联 bot 隔夜研究账户、起草邮件；demo 就绪 bot 通宵修种子数据；还有处理 Gmail 发票、更新 CRM、复现 UI bug 的专职 bot。引用的内部判断是「90% 完成与 100% 完成有天壤之别——多数 AI 把你带到差不多，Grok Bot 把工作放进真实工具里的最终位置」。
+
+  </Prose>
+</Section>
+
+<Section alt id="compare">
+  <SectionHead
+    kicker="04 · SCORECARD"
+    title="一张表看清分野"
+    lead="蓝点归 OpenClaw，橙点归 Grok Bot，颜色只标归属、不表优劣。"
+  />
+  <CompareTable
+    headers={[
+      { label: "维度" },
+      { label: "OpenClaw", dot: "a" },
+      { label: "Grok Bot", dot: "b" },
+    ]}
+    rows={[
+      ["运行位置", "自己的电脑 / 自建服务器，本地优先", "xAI 云端虚拟机，24/7 常驻，关机照跑"],
+      ["协作单元", "1 人 ↔ 1 AI（团队靠配置延伸）", "频道 ↔ 幕僚长 + 多 specialist，多人可 @"],
+      ["干活方式", "本地高权限：Shell / 文件 / 浏览器 / 连接器", "computer use：像人一样登录软件、点鼠标"],
+      ["能力获取", "配置式：装 skill、接 MCP/API", "沉淀式：演示一遍录成 routine，零装配"],
+      ["多 agent", "可手搭，非默认", "开箱默认：bot 间派活、共享线程、bot 建 bot"],
+      ["模型选择", "模型无关，Claude/Codex/本地模型随意换", "绑定 Grok，不可选"],
+      ["数据与凭据", "留在本机；策略在代码中强制执行", "上云，bot 在共享云机内持有登录态"],
+      ["治理形态", "MIT + 独立 501(c)(3) 基金会托管，无企业版", "xAI 商业产品，捆绑 Cursor/xAI 订阅分发"],
+      ["价格结构", "软件免费，自付 token 与机器", "发布报道口径 $120/座–$200/月档；另有 $20/月报道"],
+    ]}
+  />
+</Section>
+
+<Section id="trust">
+  <SectionHead
+    kicker="05 · THE REAL DIVIDE"
+    title="真正的分野：谁是可信计算基（TCB）"
+    lead="两种形态最深的差异不是功能表，而是「安全由谁兜底」的答案相反。"
+  />
+  <Prose>
+
+OpenClaw 官方文档把话说得很重：**架构决定 agent「能」做什么，远早于策略决定它「可以」做什么。** 它的答案是信任最小化：Gateway 持有长期授权但不直接执行，执行移到沙箱/节点/一次性云机，用生命周期独立的受限凭据；拒绝必须是结构性的（代码里写死的绑定规则与 fail-closed 审批），而不是在系统提示词里恳求模型「请不要这么做」。配套还有默认拒绝的入站访问、凭据归属隔离、schema 版本化状态与防破坏升级。代价是默认沙箱关闭、一切需要你自己配对——自由与责任在同一个地方。
+
+Grok Bot 的答案是信任转移：你把登录态交给 xAI 云端的虚拟机，换零装配、长程在线与多 bot 协作；安全与治理由供应商的多租户隔离、审批回环与企业身份集成（SAML/OIDC）兜底。这对「自己没有运维能力、但相信供应商」的团队是巨大解放；对数据不能出域、需要审计每一步凭据使用的组织，则是结构性障碍。这不是「谁更先进」的问题，而是**可信计算基的位置**：前者把 TCB 放在你自己的机器与配置上，后者放在 xAI 的云上。
+
+  </Prose>
+</Section>
+
+<Section alt id="who">
+  <SectionHead
+    kicker="06 · WHO IT'S FOR"
+    title="各自的生态位：不是竞品，是两种买家"
+    lead="选型问题可以简化成三问。"
+  />
+  <CardGrid cols={2}>
+    <InfoCard label="PICK OPENCLAW IF…" title="你要控制、定制与数据主权">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        数据合规要求凭据不出本机；你想自由换模型、深度定制工具链；你有能力运维一台常开的机器（或团队愿意把它当内部平台运营）；你的协作主轴是「我和我的 AI」，团队场景可以接受额外配置。它的天花板高，但地板也高。
+      </p>
+    </InfoCard>
+    <InfoCard label="PICK GROK BOT IF…" title="你要立刻拥有一队数字员工">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        工作发生在没有干净 API 的网页软件里（computer use 是刚需）；任务需要跨天在线、合上电脑照跑；团队要的是共享频道里持久存在、多人可 @ 的 AI 同事；你愿意把数据与登录态托管给供应商，并按岗位月费付费。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+值得注意的是两者正在互相张望：OpenClaw 在补云会话（WebVNC/CUA）与团队部署，Grok Bot 生态在补技能市场与企业管控。Agent 产品的终局很可能不是二选一，而是**同一套「常驻 + 动手」范式在信任谱系两端的两个点**——就像企业软件史上自有数据中心与 SaaS 的关系：SaaS 赢下了大多数通用场景，但主权级工作负载从未离开自托管。
+
+  </Prose>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "Agent 的竞争已经从模型智商转向产品形态",
+      conclusion: "Grok Bot 与 OpenClaw 都承认能力来自 harness：一个把机器、登录、多 bot 编排全部收进云端做成零装配的数字员工（订阅分发、computer use、routine 示范沉淀）；一个把 Gateway 放在用户自己机器上，做成模型无关、数据不出域的私人管家。抽象层差异——频道里的团队 vs 通讯录里的助手——决定了其余全部差异。",
+      detail: "评估任何 Agent 产品，先问三个问题：它住在哪台机器上？几个人与它协作？能力靠配置还是示范获得？",
+    },
+    {
+      title: "本地派与云端派的安全答案方向相反，且都自洽",
+      conclusion: "OpenClaw 用「可信网关 / 不可信执行 / 代码级策略 / fail-closed」把可信计算基放在用户机器上，代价是自己运维、沙箱默认关闭；Grok Bot 用云端隔离与审批回环换零装配与长程在线，代价是数据上云、模型绑定。信任边界放哪里，能力自由与运营责任就一起落在哪里。",
+      detail: "这与自托管/SaaS 的历史格局同构：不是替代关系，而是不同合规姿态、运维能力与协作规模的买家各自的最优解。",
+    },
+  ]}
+  note="事实口径：OpenClaw 架构与治理依据 2026-09-23 抓取的官方 GitHub README 与 docs.openclaw.ai（含其自述的基金会、七条属性与沙箱默认关闭声明）；Grok Bot 发布事实、订阅档位与价格主要依据 Unite.AI 2026-08-11 报道（$120/座、$200/月为该报道口径），$20/月档与 11-bot 实践为 2026-08-27 创作者媒体转述、非官方公告；形态对比与趋势判断为作者归纳。"
+/>
