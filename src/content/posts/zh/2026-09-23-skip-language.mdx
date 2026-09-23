@@ -1,0 +1,260 @@
+---
+title: "Skip：一门把「副作用」写进类型系统的语言"
+date: 2026-09-23
+excerpt: "缓存失效是计算机科学两大难事之一。Meta 出品的研究语言 Skip 给出一个激进答案：让类型系统精确追踪副作用——证明一个函数无副作用后，记忆化、并行执行与 GC 扫描三件原本需要程序员小心维护的事，全部由语言和运行时安全接管。本文拆解它的核心设计与后续商业化。"
+tags: ["Skip", "编程语言", "副作用系统", "记忆化", "并行", "LLVM", "Meta"]
+kind: "distilled"
+sources:
+  - title: "Skip 官方语言站"
+    url: "https://skiplang.com/"
+  - title: "skiplang/skip · GitHub（MIT，Facebook 版权）"
+    url: "https://github.com/skiplang/skip"
+  - title: "SkipLabs：Skip 团队的商业化项目（增量计算引擎）"
+    url: "https://skiplabs.io/"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Callout,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="RESEARCH LANGUAGE · skiplang.com · 2026-09-23 核对"
+  title="Skip：一门把「副作用」写进类型系统的语言"
+  lead="如果编译器能证明一个函数不碰任何可变状态、不读不确定的数据，那它就能被安全地缓存、安全地并行、其内存也能被快速回收。Skip 把这个「如果」做成了语言的地基。"
+  pills={[
+    { label: "副作用追踪" },
+    { label: "反应式缓存失效" },
+    { label: "安全并行" },
+    { label: "LLVM AOT 编译" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="一个无副作用函数的三个派生能力">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">ONE PROOF, THREE SUPERPOWERS</text>
+
+    <rect x="150" y="84" width="160" height="58" rx="12" fill="#1d1d1f" />
+    <text x="230" y="110" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">函数无副作用</text>
+    <text x="230" y="129" font-size="9.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">类型系统证明</text>
+
+    {[["安全记忆化",60],["安全并行",196],["可预测 GC",332]].map((r,i)=>(
+      <g>
+        <path d={`M230 150 C ${120+i*137} 176, ${r[1]+34} 188, ${r[1]+44} 204`} fill="none" stroke="#0066cc" stroke-width="1.6" />
+        <rect x={r[1]} y="206" width="92" height="48" rx="10" fill="#fff" stroke="#0066cc" />
+        <text x={r[1]+46} y="235" font-size="11" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">{r[0]}</text>
+      </g>
+    ))}
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文依据 Skip 官方语言站（skiplang.com）与开源仓库（[github.com/skiplang/skip](https://github.com/skiplang/skip)，MIT 许可、Facebook 版权，2026-09-23 核对），团队后续商业化见 [SkipLabs](https://skiplabs.io/)。Skip 是一门研究型语言，用户规模不能与工业语言相比；本文关注的是它的**设计思想**——这些思想已经以「增量计算引擎」的形态走向工业界。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE ROOTS"
+    title="前因：缓存失效为什么难，难在「谁变了」没人知道"
+    lead="Phil Karlton 的老笑话背后是一个真正的类型系统问题。"
+  />
+  <Prose>
+
+给纯函数加缓存（memoize）很简单：输入相同，输出必然相同。但真实程序里的函数会读全局变量、会改对象、会发请求、会取当前时间。于是手写缓存必然面对三个问题：**这个函数我能不能缓存？底层数据变了我怎么知道？多个缓存副本并行跑会不会撞到共享可变状态？** 传统语言把答案留给程序员的纪律——注释里写「这个方法不要在多线程里调」、代码评审里盯缓存失效逻辑，错了就是偶发 bug，极难排查。
+
+UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(State)），但数据成千上万处可变，框架只能靠人工声明依赖、或用脏检查暴力比对。React 生态长期与这个问题搏斗。Skip 诞生于 Facebook（后 Meta），作者团队也来自 Hack 语言组，他们的切入点是：**如果语言的类型系统能在编译期证明副作用的有无，缓存失效与并行安全就能从「人的纪律」变成「编译器的保证」。** 这与同期整个编程语言界向代数效应、能力类型（capability types）、Rust 所有权借别名安全的探索是同一条思想线。
+
+  </Prose>
+</Section>
+
+<Section alt id="core">
+  <SectionHead
+    kicker="02 · THE CORE IDEA"
+    title="核心设计：副作用是被类型系统追踪的一等事实"
+    lead="随页面滚动，左侧舞台展示「一次证明」如何派生三种能力（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 追踪",
+        title: "值的可变性与数据源的确定性都被分类",
+        body: "Skip 精确追踪两类副作用：一是值的可变性（mutability）——函数能否碰到可变状态；二是数据源的性质——区分非确定性数据源（如当前时间、随机数）与能提供反应式失效通知的数据源（数据变了会主动告诉你）。这些信息进入类型系统，而不是停留在约定层面。",
+      },
+      {
+        tag: "02 · 证明",
+        title: "在函数边界证明「没有副作用」",
+        body: "当类型系统能在某个函数边界证明副作用不存在时，这个函数就获得了「可被信任」的资格。注意 Skip 不强制所有函数纯——它是务实的混合设计，但把纯的部分严格标出来，让边界清晰可证。",
+      },
+      {
+        tag: "03 · 记忆化",
+        title: "反应式失效：缓存不再靠人盯",
+        body: "开发者可以选择性（opt-in）记忆化一个已证明无副作用的计算；运行时保证：当它依赖的底层数据变化时，缓存值自动失效。这就是「caching with reactive invalidation」——把最难的缓存失效问题变成了类型系统推导问题，UI/增量计算场景直接受益。",
+      },
+      {
+        tag: "04 · 并行",
+        title: "async 不能碰可变状态，所以天然安全",
+        body: "Skip 提供两种并发：async/await 与直接并行 API。共同保证是：异步计算在类型层面就不能引用可变状态——因此独立的 async 续体可以真正并行，而不存在传统多线程的数据竞争。编译器把「线程安全」从运行时纪律提前到了类型检查。",
+      },
+      {
+        tag: "05 · GC",
+        title: "GC 只需扫描一次计算的可达根",
+        body: "得益于副作用追踪与值的可变性模型，Skip 的垃圾回收器结合了传统 GC 与线性（bump）分配：GC 只需要扫描从一次计算的根可达的内存。官方称这让 GC 开销可预测——对 AOT 编译、追求实时性的场景是关键卖点。整个语言最终经 LLVM 静态编译为高度优化的原生可执行文件。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · TRACK</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">副作用的两个维度</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="46" y="160" width="180" height="130" rx="14" fill="#fff" stroke="#dedee3" />
+      <text x="136" y="200" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">值可变性</text>
+      <text x="136" y="230" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">函数能否碰到</text>
+      <text x="136" y="250" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">可变状态</text>
+      <rect x="234" y="160" width="180" height="130" rx="14" fill="#1d1d1f" />
+      <text x="324" y="200" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">数据源确定性</text>
+      <text x="324" y="230" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">非确定（时间/随机）</text>
+      <text x="324" y="250" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">vs 可通知失效</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · PROVE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">在函数边界发证</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="70" y="160" width="320" height="120" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.8" />
+      <text x="230" y="206" font-size="13" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"fun f(x): T { … }"}</text>
+      <text x="230" y="244" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">类型系统在此证明：无副作用</text>
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">不强制全纯，但纯的边界严格可证</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · MEMOIZE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">反应式缓存失效</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <rect x="70" y="156" width="130" height="52" rx="10" fill="#1d1d1f" />
+      <text x="135" y="187" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">底层数据</text>
+      <rect x="260" y="156" width="130" height="52" rx="10" fill="#0066cc" />
+      <text x="325" y="187" font-size="11" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">记忆化结果</text>
+      <path d="M200 170 L260 162" stroke="#0066cc" stroke-width="1.6" fill="none" stroke-dasharray="3 4" />
+      <path d="M200 194 L260 202 M252 200 L260 202 L254 194" stroke="#e8710a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="230" y="246" font-size="11" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">数据变 → 自动失效</text>
+      <text x="230" y="320" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">缓存正确性由类型证明兜底，不靠人盯</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · PARALLEL</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">类型层面禁止数据竞争</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      {[0,1,2].map(i=>(
+        <g>
+          <rect x={60+i*120} y="180" width="104" height="90" rx="12" fill={i===1?"#0066cc":"#fff"} stroke={i===1?"#0066cc":"#dedee3"} />
+          <text x={112+i*120} y="220" font-size="10.5" fill={i===1?"#fff":"#1d1d1f"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">async {i+1}</text>
+          <text x={112+i*120} y="244" font-size="9" fill={i===1?"#dbe9f7":"#86868b"} text-anchor="middle" font-family="PingFang SC, sans-serif">无共享可变状态</text>
+        </g>
+      ))}
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">独立续体可真并行 · 无锁无竞态</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · GC + LLVM</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">可预测 GC，原生输出</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="60" y="156" width="340" height="80" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="190" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">GC 只扫描计算根可达内存</text>
+      <text x="230" y="216" font-size="11" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">传统 GC + bump 线性分配</text>
+      <path d="M230 248 L230 282 M222 274 L230 282 L238 274" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="120" y="288" width="220" height="44" rx="10" fill="#1d1d1f" />
+      <text x="230" y="315" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">LLVM AOT → 原生可执行文件</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="language">
+  <SectionHead
+    kicker="03 · THE LANGUAGE SHAPE"
+    title="语言形态：函数式与面向对象的意见明确的混合"
+    lead="Skip 没有在范式上骑墙，而是挑了一套互相自洽的组合。"
+  />
+  <CardGrid cols={2}>
+    <InfoCard label="FUNCTIONAL CORE" title="表达式导向 + ADT + 模式匹配">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        一切是表达式，支持抽象数据类型（ADT）、模式匹配、易用的 lambda 与高阶函数；可选地加强纯度约束。这些是让副作用推导可行的语言表层。
+      </p>
+    </InfoCard>
+    <InfoCard label="OBJECT SHELL" title="面向对象封装抽象与接口">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        类与 trait/接口提供模块化与封装，组织大规模程序；函数式的「心」装在 OO 的「骨架」里——与 Scala、Swift、Rust 的取舍同族。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section alt id="afterlife">
+  <SectionHead
+    kicker="04 · AFTER THE LAB"
+    title="后续：从研究语言到「增量计算引擎」创业"
+    lead="研究语言的真正影响力，往往不在它自己有多少用户，而在它验证的思想被谁带走。"
+  />
+  <Prose>
+
+Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必成为一门大众语言。更值得注意的是团队的下一步：[SkipLabs](https://skiplabs.io/) 把同一核心——**反应式增量计算**——产品化为面向 TypeScript、Python、Java 的引擎，口号是「把声明式逻辑变成流」：你定义一次视图，外部资源变化时引擎自动保持结果最新，应用逻辑跑在普通的 Node.js/Bun 运行时上，语言中立。
+
+这条演化路径很有代表性：**研究语言是思想的试验场，商业化时把思想从「你必须换语言」解耦成「你现有语言也能用的运行时/编译器组件」。** 与本博客编译器综述里提到的趋势一致——ML 与编译技术真正落地时，多以库、插件、引擎的形态嵌入既有生态，而不是要求世界迁移。
+
+  </Prose>
+</Section>
+
+<Section id="limits">
+  <SectionHead
+    kicker="05 · READ IT RIGHT"
+    title="设计代价：纯边界不是免费午餐"
+    lead="把副作用交给类型系统，收益巨大，约束也真实。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="ESCAPE HATCH" title="与不纯世界交互需要显式桥接">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        任何真实系统都要读时间、发网络、碰数据库；在强追踪模型里调用这些都要经过受控的数据源抽象，样板与心智成本高于随手写全局变量的语言。
+      </p>
+    </InfoCard>
+    <InfoCard label="ECOSYSTEM" title="新语言的网络效应鸿沟">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        AOT + LLVM + 自研 GC 再优雅，也要面对库、工具链、人才的冷启动；这正是研究语言通常止步于实验室、团队最终选择把引擎多语言化的原因。
+      </p>
+    </InfoCard>
+    <InfoCard label="RESEARCH SCOPE" title="性能与成熟度按研究项目预期看">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        官方宣传的 GC 可预测性等优势是设计目标与研究基准口径，不应直接等同于工业级语言多年打磨后的表现；生产采用需自行压测。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "把「副作用」升级为类型系统的一等事实",
+      conclusion: "Skip 的核心不是某个语法，而是让可变性与数据源确定性可被编译期证明；一次无副作用证明同时解锁了安全记忆化、无竞态并行与可预测 GC。",
+      detail: "缓存失效、线程安全、GC 停顿这三件传统上靠工程纪律的事，在这里同源——它们本质都是「谁依赖了会变的东西」。",
+    },
+    {
+      title: "研究语言改变行业靠思想产品化，而非语言本身流行",
+      conclusion: "Skip 团队把反应式增量计算抽成语言中立的引擎（TypeScript/Python/Java）再创业，示范了语言研究走出实验室的现实路径：换语言太重，嵌入既有运行时才推得动。",
+      detail: "评估一门研究语言的长期价值，看它的核心机制能否被解耦成组件，比统计它的 GitHub 星数更有意义。",
+    },
+  ]}
+  note="事实口径：语言机制依据 2026-09-23 抓取的 skiplang.com 官方描述与 github.com/skiplang/skip（MIT，Facebook 版权）README；商业化信息来自 skiplabs.io；语言成熟度判断为研究项目口径，设计解读为作者归纳。"
+/>
