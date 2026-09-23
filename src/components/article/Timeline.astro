@@ -1,8 +1,9 @@
 ---
 /**
- * Horizontal rail timeline: hairline rail behind ringed nodes.
- * Any number of nodes: on md+ the rail becomes a horizontally scroll-snapping
- * strip of fixed-width cards; below md it collapses to a vertical list.
+ * Horizontal rail timeline: hairline ringed nodes. Any number of nodes.
+ * On md+ the rail becomes a horizontally scroll-snapping strip of fixed-
+ * width cards. Pass `vertical` for a long chronological itinerary: cards
+ * stack full-width with a continuous left rail (no horizontal scroll).
  */
 interface Node {
   year: string;
@@ -12,42 +13,71 @@ interface Node {
 
 interface Props {
   nodes: Node[];
+  /** stacked vertical itinerary instead of the horizontal snap strip */
+  vertical?: boolean;
 }
 
-const { nodes } = Astro.props;
+const { nodes, vertical = false } = Astro.props;
 ---
 
-<ol class="not-prose timeline grid grid-cols-1 gap-5 md:flex md:gap-3 md:overflow-x-auto md:pb-2.5 md:snap-x md:snap-proximity [scrollbar-width:thin] [scrollbar-color:var(--color-line)_transparent] [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-line [&::-webkit-scrollbar-thumb]:transition-colors hover:[&::-webkit-scrollbar-thumb]:bg-muted-2">
-  {
-    nodes.map((node, i) => (
-      <li
-        class:list={[
-          'relative md:relative md:min-w-[168px] md:snap-start md:rounded-[14px] md:border md:border-line-soft md:bg-white md:px-3.5 md:pb-3.5 md:pt-9',
-          i < nodes.length - 1 && 'md:flex-1',
-        ]}
-      >
-        <span
-          class="absolute left-0 top-[2px] h-3 w-3 rounded-full border-[3px] border-blue bg-white md:left-3.5 md:top-[9px]"
-        />
-        {
-          /* on mobile a vertical hairline joins consecutive nodes */
-        }
-        {
-          i < nodes.length - 1 && (
+{
+  vertical ? (
+    <ol class="not-prose space-y-3">
+      {
+        nodes.map((node) => (
+          <li class="relative rounded-[14px] border border-line-soft bg-white px-5 py-4 pl-[68px]">
             <span
-              class="absolute left-[5.5px] top-[16px] h-[calc(100%+12px)] w-px bg-line-soft md:hidden"
+              class="absolute left-5 top-[22px] h-[9px] w-[9px] rounded-full border-[3px] border-blue bg-white"
+            />
+            <p class="absolute left-[68px] top-4 w-[52px] text-[11px] font-semibold text-blue">
+              {node.year}
+            </p>
+            <h4 class="mt-7 text-[14px] font-semibold leading-snug text-ink">
+              {node.title}
+            </h4>
+            {node.body && (
+              <p class="mt-1.5 text-[12.8px] leading-[1.7] text-muted">{node.body}</p>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  ) : (
+    <ol class="not-prose timeline grid grid-cols-1 gap-5 md:flex md:gap-3 md:overflow-x-auto md:pb-2.5 md:snap-x md:snap-proximity [scrollbar-width:thin] [scrollbar-color:var(--color-line)_transparent] [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-line [&::-webkit-scrollbar-thumb]:transition-colors hover:[&::-webkit-scrollbar-thumb]:bg-muted-2">
+      {
+        nodes.map((node, i) => (
+          <li
+            class:list={[
+              'relative md:relative md:min-w-[168px] md:snap-start md:rounded-[14px] md:border md:border-line-soft md:bg-white md:px-3.5 md:pb-3.5 md:pt-9',
+              i < nodes.length - 1 && 'md:flex-1',
+            ]}
+          >
+            <span
+              class="absolute left-0 top-[2px] h-3 w-3 rounded-full border-[3px] border-blue bg-white"
               aria-hidden="true"
             />
-          )
-        }
-        <p class="pl-6 text-[11px] font-semibold text-blue md:pl-0">{node.year}</p>
-        <h4 class="mt-1 pl-6 text-[13px] font-semibold leading-[1.4] text-ink md:pl-0">
-          {node.title}
-        </h4>
-        {node.body && (
-          <p class="mt-1 pl-6 text-[12px] leading-[1.6] text-muted md:pl-0">{node.body}</p>
-        )}
-      </li>
-    ))
-  }
-</ol>
+            {i < nodes.length - 1 && (
+              <span
+                class="absolute top-[7px] left-[12px] hidden h-px w-[calc(100%-12px)] bg-line-soft md:block"
+                aria-hidden="true"
+              />
+            )}
+            {
+              i === nodes.length - 1 && (
+                <span
+                  class="absolute top-[7px] left-[12px] hidden h-px w-[calc(100%-12px)] bg-line-soft md:block"
+                  aria-hidden="true"
+                />
+              )
+            }
+            <p class="text-[11px] font-semibold text-blue">{node.year}</p>
+            <h4 class="mt-1 text-[13px] font-semibold leading-[1.4] text-ink">
+              {node.title}
+            </h4>
+            {node.body && <p class="mt-1 text-[12px] leading-1.6 text-muted">{node.body}</p>}
+          </li>
+        ))
+      }
+    </ol>
+  )
+}

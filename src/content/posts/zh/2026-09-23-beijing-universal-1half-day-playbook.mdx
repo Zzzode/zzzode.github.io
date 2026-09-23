@@ -50,6 +50,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
+  BlockTitle,
   ScrollStory,
   Timeline,
   CompareTable,
@@ -204,9 +205,83 @@ import {
   </Prose>
 </Section>
 
+<Section id="map">
+  <SectionHead
+    kicker="04 · THE MAP"
+    title="七个景区围着泻湖排成一个环"
+    lead="园子不大，走不丢。这张环图是我们按官方地图自绘的：黑虚线是 8 号下午，蓝线是 9 号白天，橙虚线是 9 号夜场，蓝点是三顿已定的园内正餐。"
+  />
+  <div class="rounded-[28px] bg-paper px-3 py-8 sm:px-8">
+    <svg viewBox="0 0 720 470" role="img" aria-label="北京环球影城七区环线与三日步行路线" class="w-full">
+      <text x="30" y="38" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEVEN LANDS · ONE LOOP</text>
+      <line x1="250" y1="34" x2="288" y2="34" stroke="#1d1d1f" stroke-width="2.5" stroke-dasharray="6 4" />
+      <text x="295" y="38" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">10/8 半日</text>
+      <line x1="380" y1="34" x2="418" y2="34" stroke="#0066cc" stroke-width="3.5" />
+      <text x="425" y="38" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">10/9 白天</text>
+      <line x1="505" y1="34" x2="543" y2="34" stroke="#e8710a" stroke-width="2.5" stroke-dasharray="6 4" />
+      <text x="550" y="38" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">夜场</text>
+      <circle cx="595" cy="34" r="5" fill="#0066cc" />
+      <text x="607" y="38" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">正餐</text>
+
+      <polyline points="360,415 566,360 612,245 510,130 360,90 150,130 84,245 150,360 360,415" fill="none" stroke="#dedee3" stroke-width="2.5" />
+      <polyline points="360,415 566,360 510,130 360,90 510,130 612,245" fill="none" stroke="#1d1d1f" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round" opacity="0.85" />
+      <polyline points="360,415 566,360 612,245 510,130 360,90 150,130 84,245" fill="none" stroke="#0066cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" />
+      <polyline points="612,245 566,360 360,415" fill="none" stroke="#0066cc" stroke-width="2.5" stroke-dasharray="2 6" stroke-linecap="round" opacity="0.7" />
+      <polyline points="360,415 566,360 612,245 510,130 360,90 150,130 84,245 150,360 360,415" fill="none" stroke="#e8710a" stroke-width="1.8" stroke-dasharray="7 5" stroke-linecap="round" opacity="0.55" />
+      <path d="M566 356 L604 258 M596 262 L604 258 L602 268" stroke="#0066cc" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" />
+
+      <ellipse cx="360" cy="252" rx="98" ry="56" fill="#fff" stroke="#ececf0" stroke-width="1.5" />
+      <text x="360" y="258" font-size="12" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">泻湖</text>
+
+      <rect x="300" y="68" width="120" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="360" y="95" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">功夫熊猫</text>
+
+      <rect x="450" y="108" width="120" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="510" y="135" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">未来水世界</text>
+
+      <rect x="552" y="223" width="120" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="612" y="244" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">哈利波特</text>
+      <text x="612" y="260" font-size="9" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">城堡在最东端</text>
+
+      <rect x="506" y="338" width="120" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="566" y="365" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">小黄人乐园</text>
+
+      <rect x="300" y="393" width="120" height="44" rx="10" fill="#1d1d1f" />
+      <text x="360" y="420" font-size="11.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">好莱坞 · 主入口</text>
+
+      <rect x="94" y="338" width="120" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="154" y="365" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">西环步道</text>
+
+      <rect x="24" y="223" width="120" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="84" y="244" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">侏罗纪世界</text>
+      <text x="84" y="260" font-size="9" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">哈蒙德餐厅</text>
+
+      <rect x="90" y="108" width="120" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="150" y="135" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">变形金刚基地</text>
+
+      <circle cx="414" cy="76" r="9" fill="#0066cc" />
+      <text x="414" y="80" font-size="9.5" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">3</text>
+      <circle cx="664" cy="230" r="9" fill="#0066cc" />
+      <text x="664" y="234" font-size="9.5" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">1</text>
+      <circle cx="30" cy="230" r="9" fill="#0066cc" />
+      <text x="30" y="234" font-size="9.5" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">2</text>
+
+      <text x="470" y="305" font-size="10" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">早享捷径：直穿小黄人</text>
+      <text x="360" y="456" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">主入口外是城市大道，过天桥步行 5 分钟到诺金；餐针：① 三把扫帚 ② 哈蒙德 ③ 平先生面馆</text>
+    </svg>
+  </div>
+  <Prose>
+
+主入口在最南边的好莱坞。进门右手顺时针走，东南是小黄人乐园，最东端是哈利波特城堡；沿北环向西依次是未来水世界、功夫熊猫，西北端是变形金刚基地，西环向南是侏罗纪世界，走回好莱坞。
+
+记一条捷径就行：进门右转直穿小黄人乐园到哈利波特城堡，比沿泻湖主路绕近不少，9 号早享就走这条。两天的路线正好互补：8 号下午走右半环（小黄人、功夫熊猫、水世界演出、哈利夜景），不碰最费体力的北环；9 号早享直插哈利，趁人少沿北环向西清掉变形金刚和侏罗纪，下午再折回东半环补漏。夜场五间鬼屋散布全园，位置不固定，橙线只表示要绕着整个环走，实际顺序按官方 App 排队时间临场调。
+
+  </Prose>
+</Section>
+
 <Section alt id="battle">
   <SectionHead
-    kicker="04 · THE 13-HOUR DAY"
+    kicker="05 · THE 13-HOUR DAY"
     title="10 月 9 日：从开门前玩到夜里十点"
     lead="跟着时间线走一遍这 13 个小时。宽屏下左边的图会停在屏幕中间，随滚动切换。"
   />
@@ -331,7 +406,7 @@ import {
 
 <Section id="rides">
   <SectionHead
-    kicker="05 · RIDE GUIDE"
+    kicker="06 · RIDE GUIDE"
     title="项目图鉴：身高门槛是硬规则，排队时长是软参考"
     lead="身高全部摘自各项目官方骑乘安全页；排队是节后工作日经验区间，当天只信官方 App。"
   />
@@ -368,7 +443,7 @@ import {
 
 <Section alt id="halloween">
   <SectionHead
-    kicker="06 · HALLOWEEN CALENDAR"
+    kicker="07 · HALLOWEEN CALENDAR"
     title="万圣夜场：日历比胆子更重要"
     lead="五周年的「惊彩环球」把全年最复杂的营业时间塞进了九月和十月。"
   />
@@ -416,6 +491,18 @@ import {
       </InfoCard>
     </CardGrid>
   </div>
+  <div class="mt-8">
+    <Timeline
+      nodes={[
+        { year: "17:00", title: "① 盗墓笔记", body: "开场第一间就排它。两大国产 IP 头牌之一，普通队很快破 90 分钟，惊彩优速通先走。" },
+        { year: "17:40", title: "② 第五人格 · 逃离白沙街", body: "另一头牌，场景还原度高、追逐感强；惊彩优速通连刷前两间。" },
+        { year: "18:30", title: "③ 静默之地", body: "静音黑暗题材，靠听觉和触觉吓人，风格故意和前两间错开。" },
+        { year: "19:10", title: "④ 环球怪物：地下秘穴", body: "经典怪物电影主题，机关与机械特效密集。" },
+        { year: "19:50", title: "⑤ 画皮幽宅", body: "中式古风鬼屋，收尾氛围最足。实际顺序按 App 等候和 ③④ 互换。" },
+        { year: "20:30–22:00", title: "惊叫区与夜间演出", body: "四大惊叫区、NPC 互动、《地下世界崛起》，间隙回泻湖看城堡灯光秀，21:30 往门口走。" },
+      ]}
+    />
+  </div>
   <Prose>
 
 执行层面记住几件事。鬼屋不用单独买票，官方新闻的原话是五大空间「无需线上预约、无需单独购票，现场排队入场」，我们拿着全天票过了下午 5 点直接玩。麻烦在排队：普通队一间屋常常 60–120 分钟，五间一晚上根本走不完，只能靠万圣节限定的**惊彩优速通**（3 项或 5 项套装，普通优速通不含鬼屋）。这个票种在有鬼的日子开园几分钟就卖光，确定行程后尽早在官方 App 实名抢掉，最晚别拖到访前一两天。带小孩的话注意官方提示：不推荐 13 岁以下进鬼屋，16 岁以下必须有大人陪。还有外套别嫌麻烦，10 月上旬北京夜里也就 10–15℃，排队一两小时的时候体感更冷。
@@ -425,39 +512,106 @@ import {
 
 <Section id="threedays">
   <SectionHead
-    kicker="07 · THE THREE DAYS"
-    title="另外两天怎么过"
-    lead="9 号的逐小时安排在上一章，这里补上 8 号、10 号，以及为什么这样排序。"
+    kicker="08 · MINUTE-BY-MINUTE"
+    title="三天逐时执行单"
+    lead="9 号白天那七个阶段上一章讲过，这里给的是能照着掐表走的版本：每个时间点在哪、吃什么、几点必须挪步。"
   />
-  <CardGrid cols={3}>
-    <InfoCard label="DAY 1 · 10/8 周四" title="半日票：别跟热门项目较劲">
-      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
-        半天本来就刷不完大项目。8 号下午只捡三样东西：不用赶早的小黄人和功夫熊猫、傍晚那场未来水世界、天黑以后才好看的哈利波特区。8 点多回酒店睡觉。
-      </p>
-    </InfoCard>
-    <InfoCard label="DAY 2 · 10/9 周五" title="全天：所有花钱的权益都用在这天">
-      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
-        提前入园只能在持当日门票那天用，8 号的票下午 2 点才生效，早上进不去。所以最金贵的提前一小时只能留给 9 号。一张票从开园前玩到晚上 10 点，具体走法看第四章。
-      </p>
-    </InfoCard>
-    <InfoCard label="DAY 3 · 10/10 周六" title="休整：酒店半天，前门天坛半天">
-      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
-        连玩两天之后（第二天更是 13 个小时），诺金的早餐、泳池和 SPA 本来就含在房费里。11 点退房寄存行李，进城吃烤鸭、逛天坛，然后从容去北京南站。
-      </p>
-    </InfoCard>
-  </CardGrid>
+
+  <BlockTitle>10 月 8 日（周四）· 半日票 · 轻松热身</BlockTitle>
+  <Timeline vertical
+    vertical
+    nodes={[
+      { year: "08:10", title: "G38 湖州站发车", body: "直达北京南，12:22 到站，4 小时 12 分，二等座 634 元/人。全天唯一一班赶得上当天 14 点半日票的 4 小时直达车（另一班 G40 要 13:23 才发）。车上吃早餐、补觉。" },
+      { year: "12:22", title: "打车直奔诺金", body: "约 37 公里、45–55 分钟、约 100 元，13:25 到店。带行李不折腾地铁。入住登记先办，行李交礼宾直接送房。" },
+      { year: "13:40", title: "霓虹街市午饭", body: "城市大道不用门票。霓虹小吃吧：泰式炒饭 1 份 59 元、同档南洋饭面 1 份约 65 元、柠檬茶 2 杯约 40 元，两人约 160 元，半小时吃完。" },
+      { year: "14:15", title: "贵宾口刷证入园", body: "半日票 14:00 生效，晚到一刻钟不亏。住客走贵宾体验入口比正门快，身份证原件加人脸核验；入园先在官方 App 绑票。" },
+      { year: "14:20", title: "小黄人乐园 · 约 1.2 小时", body: "进门右转，先收神偷奶爸小黄人闹翻天（家庭向 4D 骑乘，下午排队相对短），再刷萌转过山车、超萌漩漩涡，色彩鲜艳适合先出片。" },
+      { year: "15:30", title: "功夫熊猫区 · 约 1.2 小时", body: "全室内恒温：神龙大侠之旅（河道漂流，排队通常很短）、炫转武侠、阿宝功夫训练营、灯影传奇。平先生面馆这顿留给明天傍晚，今天不在园内加餐。" },
+      { year: "17:00", title: "未来水世界末场 · 45 分钟", body: "全园口碑最高的真人特技秀，爆破、跳水、摩托艇漂移都在眼前。提前 20–30 分钟入座，怕湿身坐中后排，具体场次当天以 App 为准。" },
+      { year: "17:45", title: "三把扫帚晚餐 · 约 2 小时", body: "哈利波特区，17:30 前入座避开 19 点饭点的 90 分钟长队。点单：烤鸡排骨拼盘 128 元、炸鱼薯条 68 元、黄油啤酒（冰沙）2 杯 100 元，两人约 300 元，庭院位正对城堡。先逛奥利凡德魔杖店、青蛙合唱团与三强争霸赛街头演出。" },
+      { year: "19:15", title: "城堡灯光秀后回酒店", body: "城堡前广场看夜间灯光庆典（入夜后多场），霍格莫德村拍夜景。禁忌之旅排队低于 30 分钟可顺手刷，否则坚决留给明早。当晚夜场例外停开、约 20:00 闭园，步行 5 分钟回诺金。" },
+    ]}
+  />
+
+  <div class="mt-10">
+    <BlockTitle>10 月 9 日（周五）· 早享加夜场 · 13 小时不回酒店</BlockTitle>
+    <Timeline vertical
+      nodes={[
+        { year: "06:40", title: "熙悦自助早餐", body: "成人 228 元/位，两人 456 元（06:30–10:00，订含双早套餐则免）。吃饱再冲，满血日中途不回店。" },
+        { year: "07:20", title: "贵宾口排队", body: "到环球影城大酒店东侧的贵宾体验入口，早享游客同样多，实际放园常略早于公布时间。" },
+        { year: "08:00", title: "直插哈利波特 · 禁忌之旅", body: "穿小黄人乐园走捷径，首刷全园排队王禁忌之旅，早享几乎零排队，城堡里的排队动线本身就是景点；紧接鹰马飞行，5–10 分钟拿下。两项一律走普通队，把各一次的优速通额度省到下午。" },
+        { year: "09:00", title: "变形金刚基地 · 三大件", body: "城堡沿北环向西约 10 分钟，经未来水世界、功夫熊猫北侧直插西北端，别绕泻湖南岸。火种源争夺战、霸天虎过山车、大黄蜂回旋机全部优速通；霸天虎要过金属探测，手机钥匙帽子存免费柜。顺便在传奇现场和威震天合影。" },
+        { year: "10:30", title: "侏罗纪世界 · 两大件", body: "侏罗纪世界大冒险（会溅水，带雨衣）和飞越侏罗纪都用优速通直接进，12:00 前拿下；顺路和奇遇迅猛龙合影。大冒险的优速通只有一次，想再刷只能走普通队。" },
+        { year: "12:00", title: "哈蒙德餐厅午餐 · 1 小时", body: "11:00 前已在 App 取号，玩完走几步就到。湖景位：哈蒙德汉堡 139 元、川味炸鸡小汉堡 98 元、恐龙蛋甜品 88 元、特调 2 杯约 90 元，两人约 415 元。坐下吃一小时就是中场休息。" },
+        { year: "13:00", title: "辉煌剧院《不可驯服》", body: "提前 20–30 分钟入场，二楼前排中央视角最佳，机械无牙仔从头顶飞过，优速通可优先入座。若 8 日错过了未来水世界，午后可以补一场。" },
+        { year: "14:00", title: "补完东半环", body: "神龙大侠之旅与灯影传奇快速连刷，回头补小黄人闹翻天、萌转过山车和欢乐好声音巡演，最后到好莱坞看《灯光，摄像，开拍！》。买的周边当场让商店免费送回诺金前台。" },
+        { year: "15:00", title: "优速通回刷禁忌之旅", body: "早享省下的两次额度原封不动留到现在：此时普通队常排 60–90 分钟，这是全项套装全天最值钱的用法。霸天虎、火种源还想二刷就走免费单人通道，代价是两人可能分到不同车次。" },
+        { year: "16:30", title: "平先生面馆早晚餐", body: "全室内出餐快，赶在 17 点鬼屋开场前吃完：牛肉刀削面 78 元、鸡腿油泼面 78 元、煎饺小菜约 30 元、豆浆 2 杯约 18 元，两人约 205 元。" },
+        { year: "17:00", title: "夜场开场 · 五间鬼屋", body: "凭惊彩 5 项优速通先刷盗墓笔记、第五人格-逃离白沙街两间头牌，再依次清静默之地、环球怪物：地下秘穴、画皮幽宅；按 App 实时等候微调顺序，鬼屋之间穿插四大惊叫区和 NPC 互动。" },
+        { year: "约20:00", title: "11 号围场加餐", body: "侏罗纪区路边：烤火鸡腿 1 只 75 元（两人分）加小黄人雪糕 40 元，共约 115 元，边走边吃，不再安排正餐。间隙回泻湖边看城堡灯光秀。" },
+        { year: "21:30", title: "往门口走 · 22:00 闭园", body: "看完夜间限定演出后开始撤离，上天桥步行 5 分钟回诺金。夜间约 10–15℃，外套随身。" },
+      ]}
+    />
+  </div>
+
+  <div class="mt-10">
+    <BlockTitle>10 月 10 日（周六，调休上班）· 休整返程</BlockTitle>
+    <Timeline vertical
+      nodes={[
+        { year: "08:00", title: "再吃一顿熙悦自助", body: "两人 456 元，吃完泳池、SPA 收尾，慢慢收拾。" },
+        { year: "09:30", title: "退房 · 打车奔北京南", body: "带全部行李，约 1 小时、100 元；10:40 到候车层北侧行李寄存处，凭 G871 车票和身份证存两件，约 60 元。" },
+        { year: "11:15", title: "全聚德前门起源店", body: "地铁 4 号线在宣武门换 2 号线到前门，约 25 分钟。午市 11:00 开门，开门场几乎不排队（提前在公众号或大众点评取号）。烤鸭一只 279 元、饼酱葱丝加凉菜约 150 元，大厅收 10% 服务费，两人约 470 元，鸭架打包带上高铁。" },
+        { year: "12:30", title: "前门大街散步", body: "大栅栏步行街、正阳门箭楼拍照，免门票，约半小时。" },
+        { year: "13:25", title: "天坛中轴", body: "打车到天坛南门，南门进、东门出，一路向北走圜丘、回音壁、皇穹宇、丹陛桥、祈年殿。旺季联票 34 元/人，提前在「畅游公园」小程序实名预约，核心景点 8:00–17:30。" },
+        { year: "14:40", title: "保底纪律", body: "天坛东门打车，15:00 前必须回到南站取件安检。若堵车，先砍大栅栏逛街、天坛只留祈年殿，14:45 必须坐上车。故宫天安门需要提前数天预约且安检久，这个中转窗口不现实，不要临时加。" },
+        { year: "16:13", title: "G871 返程", body: "北京南发车，21:41 到湖州，5 小时 28 分，二等座 568 元/人。下午直达车都在 5.5 小时以上，4 小时档的 G39 是早班车赶不上，这班最从容。" },
+      ]}
+    />
+  </div>
+
   <Prose>
 
-8 号这天我们是这么走的。早上 8:10 从湖州站坐 G38 直达车，12:22 到北京南站（4 小时 12 分，二等座 634 元/人，以 12306 购票页为准），出站打车大约 45–55 分钟，13:25 到诺金办登记、扔行李。13:40 在城市大道的霓虹街市先吃午饭（这片区域不用门票，两人约 160 元），14:15 刷证入园。下午先逛小黄人乐园和全年恒温的功夫熊猫区，傍晚看未来水世界当天最后一场（怕水就坐中后排）。天黑以后整段留给哈利波特：奥利凡德魔杖店、街头演出，17:30 前进三把酒馆坐下，点了烤鸡排骨拼盘 128 元、炸鱼薯条 68 元、两杯黄油啤酒 100 元（调研时菜单参考价，两人约 300 元），院子里的位置正好看城堡。吃完在城堡前广场等夜间灯光庆典。禁忌之旅那会儿要是排队不到 30 分钟就顺手坐掉，超过就不犹豫，留给第二天早上。当晚夜场停开，8 点左右闭园，走五分钟回酒店。
+时间表里的客流判断是我们按工作日和夜场规律做的预判（9 号周五夜场的人会比白天多），不是官方承诺。项目开放、演出场次和鬼屋截止排队时间都可能因天气或运营调整，出发前一晚一定要在官方 App 复核并截图，当天路线是活的，哪个项目等候短就先刷哪个。
 
-9 号傍晚的饭要提前吃。我们安排在 16:30 去功夫熊猫区的平先生面馆，躲开下午 5 点鬼屋开门前那波人流，两碗面加小食两人约 205 元。夜里 8 点左右再在侏罗纪区买一只烤火鸡腿、一根小黄人雪糕当加餐（约 115 元）。另外说个很多人离园才知道的权益：园内商店买的周边可以免费送到诺金前台，不用一路拎着逛。
+  </Prose>
+</Section>
+
+<Section alt id="meals">
+  <SectionHead
+    kicker="09 · EIGHT MEALS"
+    title="三天八顿，全部点什么都定好了"
+    lead="我们没给吃饭留选择困难：每家店、每道菜、两个人多少钱都定死了。单品价是调研时菜单口径，会随季节浮动，以门店当日菜单为准。"
+  />
+  <CompareTable
+    headers={[
+      { label: "时间" },
+      { label: "餐厅" },
+      { label: "我们的点单", wrap: true },
+      { label: "两人" },
+    ]}
+    rows={[
+      ["10/8 约12:40", "城市大道 · 霓虹小吃吧", "泰式炒饭 59 元 + 同档南洋饭面 1 份约 65 元 + 柠檬茶 2 杯约 40 元；出餐快，吃完去办入住", "约 160 元"],
+      ["10/8 17:45", "哈利波特区 · 三把扫帚", "烤鸡排骨拼盘 128 元 + 炸鱼薯条 68 元 + 冰沙黄油啤酒 2 杯 100 元；17:30 前入座，庭院位看城堡", "约 300 元"],
+      ["10/9 06:40", "诺金 · 熙悦自助", "成人自助 228 元/位 ×2（06:30–10:00），订含双早套餐则免", "456 元"],
+      ["10/9 12:00", "侏罗纪区 · 哈蒙德餐厅", "哈蒙德汉堡 139 元 + 川味炸鸡小汉堡 98 元 + 恐龙蛋甜品 88 元 + 特调 2 杯约 90 元；11:00 前 App 取号", "约 415 元"],
+      ["10/9 16:30", "功夫熊猫区 · 平先生面馆", "牛肉刀削面 78 元 + 鸡腿油泼面 78 元 + 煎饺小菜约 30 元 + 豆浆 2 杯约 18 元", "约 205 元"],
+      ["10/9 约20:00", "侏罗纪区 · 11 号围场小食车", "烤火鸡腿 1 只 75 元（两人分）+ 小黄人雪糕 40 元，鬼屋之间边走边吃", "115 元"],
+      ["10/10 08:00", "诺金 · 熙悦自助", "第二顿，吃完泳池 SPA 收尾", "456 元"],
+      ["10/10 11:15", "前门 · 全聚德起源店", "烤鸭一只 279 元 + 饼酱葱丝凉菜约 150 元，大厅 10% 服务费；午市开门就进，鸭架打包上高铁", "约 470 元"],
+    ]}
+  />
+  <Prose>
+
+八顿合计约 2580 元：园内三顿正餐加夜场小食约 1035 元，城市大道霓虹加前门全聚德约 630 元，诺金两顿早餐 912 元；订房时选含双早套餐，这 912 元直接省掉。
+
+错峰吃饭比吃什么更影响体验。哈蒙德要在 11:00 前 App 取号，叫号后座位只保留 10 分钟，旺季现场能排 100 分钟；三把扫帚 17:30 前入座比 19 点饭点少排约一小时；平先生固定 16:30，就是为了赶在夜场开场前吃完。园内餐厅都支持 App 线上点餐取号，直饮水点遍布全园，带个非玻璃空杯子就行。黄油啤酒无酒精，冰沙版最出片，普通杯约 50 元、纪念杯约 80 元。想换口味的话，哈蒙德还有黑松露奶油牛肉意面约 138 元，平先生的四川担担面约 60 元口碑最稳。
 
   </Prose>
 </Section>
 
 <Section alt id="money">
   <SectionHead
-    kicker="08 · BUDGET & BOOKING"
+    kicker="10 · BUDGET & BOOKING"
     title="大概花多少钱，按什么顺序订"
     lead="这些价格几乎天天浮动。日期一旦定下来，能早锁就早锁；最后到底多少，以你下单那一页为准。"
   />
@@ -487,7 +641,7 @@ import {
 
 <Section id="transport">
   <SectionHead
-    kicker="09 · GETTING THERE"
+    kicker="11 · GETTING THERE"
     title="交通与返程前的半天"
     lead="度假区在通州，地铁直达；返程当天的半天属于前门和天坛。"
   />
@@ -504,7 +658,7 @@ import {
 
 <Section alt id="pitfalls">
   <SectionHead
-    kicker="10 · PITFALLS & CHECKLIST"
+    kicker="12 · PITFALLS & CHECKLIST"
     title="六个最容易踩的坑，和一张随身清单"
     lead="这六件事每件都只值几分钟，但漏掉一件就值一两小时排队。"
   />
