@@ -26,7 +26,7 @@ Internal/private sources (Feishu docs, internal MRs, anything requiring credenti
    - **at least one large-scale scroll-driven moment** when the content has a process or narrative (`ScrollStory`: a large pinned illustration stage that crossfades between one authored schematic per step while the matching text panel holds center stage — not a small dot rail),
    - count-up headline numbers where they carry weight; very subtle hero parallax,
    - no bounce, no spin, no gradient wipes. All motion exists only under `.motion-ok` and must be completely neutral (content visible, transforms off) under `prefers-reduced-motion: reduce`.
-6. **Plain language.** The audience is a curious engineer, not an expert in the specific topic.
+6. **Plain language that sounds like a person wrote it.** The audience is a curious engineer, not an expert in the specific topic. No made-up jargon collocations, no rule-of-three tics, no scaffold phrases — a reader must never finish a sentence wondering what the words literally mean (a real review rejection: a title ending in「怎么咬合」). Step 6 of the workflow (humanize gate) is mandatory.
 7. **Never push automatically.** Build locally, screenshot (including scrolled/mid-story states), report — wait for explicit user approval before `git push`.
 
 ## Workflow
@@ -91,7 +91,24 @@ Body conventions:
 - Diagrams: inline SVG only, viewBox-based, colors from tokens (`#0066cc` blue, `#e8710a` orange restricted to affiliation dots, neutrals `#1d1d1f/#424245/#6e6e73/#86868b/#f5f5f7/#dedee3/#ececf0`).
 - `<Sources>` renders automatically from front matter at the end; `<Summary>` holds your conclusions.
 
-### 6. Verify locally
+### 6. Humanize the prose — mandatory gate (before local verify)
+
+Every distilled draft goes through the **humanize-text** skill rules before it is allowed to build. This is a required step, not optional polish. A factually correct article that reads like machine output fails review.
+
+**Meaning lock (red lines):** every number, date, proper noun, URL, caliber label and quotation produced in steps 2–3 stays exactly as-is. This pass rewrites rhythm, structure and wording only — never facts. Tables, SVG labels, code and other genuinely structured data stay precise and uniform; only rhetorical prose gets humanized.
+
+Repo-specific bans for Chinese distilled articles (from actual review feedback):
+
+- **生造/机械搭配与黑话**：「咬合、抓手、赋能、闭环、心智、颗粒度、对齐、维度、生态、底层逻辑」一律删，除非原始材料本身在用。检验法：把标题或小标题读给一个不在该圈子里的朋友听，听不懂就换成人话（反例：「诺金早享、全项优速通与万圣夜场怎么咬合」）。
+- **三项排比（rule of three）**：不允许连续段落堆叠三段式并列；「A、B、C」式标题和正文排比同屏最多一个。
+- **「不是 X，而是 Y / 不是……是……」句式全文最多出现一次**；「本质是 / 天然是 / 核心是 / 换句话说 / 值得注意的是」这类套话清零。
+- **破折号「——」每屏最多一个**，优先用句号断开；不要每个段落都用破折号挂一个工整的补充。
+- **「加粗词：……」式段首小标语连用不超过两处**；不要给每段都配一个小标题，也不要把所有想法都拍平成列表。
+- **段落形状要变**：不要每段都是「判断句 + 三点支撑 + 收尾句」。允许一句话单独成段，允许长短句交替，允许真实的限定（「这点我没查到一手来源」「这步要看当天运气」）。
+- **一个叙述者贯穿全文**：游记/体验类可以大大方方用「我/我们」和口语；投研/硬核技术类只靠节奏、取舍判断和诚实的知识边界显人味，不许替事实虚构观点（factual 体裁的 voice 红线照 humanize-text skill Rule 6）。
+- 写完后**通读或小声朗读全文**，任何要读第二遍才懂的句子都重写；然后过一遍 humanize-text skill 的 self-check（事实零改动、无残留模板、句式长短不齐而不是机械交替）。
+
+### 7. Verify locally
 
 ```bash
 npm run check        # zero TS/content errors
@@ -109,13 +126,14 @@ Headless-Chrome screenshots at:
 
 Run the full list in `references/visual-checklist.md`. Check: the home page mosaic links the new post; the other-locale `/posts/` list does NOT contain it (single-language run) and the language toggle renders disabled on the article. Regression-check shared components against the other distilled article(s).
 
-### 7. Report and wait
+### 8. Report and wait
 
 Give the user:
 
 - The new file path and its route.
 - The source ledger: primary vs secondary vs context references, and anything unverified.
 - How the piece meets the depth doctrine: backdrop section, mechanism walkthroughs, aftermath, inline cross-references.
+- A one-line note that the mandatory humanize pass was applied (and any wording the user should spot-check).
 - Screenshot summary (desktop/mobile/mid-story/reduced-motion).
 - Bundle note: article pages ship one inline enhancement script; framework pages stay zero-JS.
 
