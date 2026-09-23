@@ -24,7 +24,11 @@ interface Props {
 const { steps } = Astro.props;
 ---
 
-<div class="scrollstory" data-scrollstory data-count={steps.length}>
+<!-- NB: do not put data-count here — the article script's stat count-up
+     selects [data-count]; on a tall viewport its 0.6 visibility threshold
+     is reachable for the story and it would overwrite textContent (the whole
+     story) with steps.length. -->
+<div class="scrollstory" data-scrollstory>
   <div class="ss-grid">
     <div class="ss-visual-col">
       <div class="ss-visual" data-ss-visual>

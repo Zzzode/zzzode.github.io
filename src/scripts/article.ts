@@ -62,8 +62,10 @@ function init() {
   }
 
   /* ---------- headline stat count-up (motion only) ---------- */
+  // Scoped to Stat cells: any other [data-count] (e.g. a structural
+  // attribute) must never have its textContent replaced by the count-up.
   const counters = Array.from(
-    article.querySelectorAll<HTMLElement>('[data-count]')
+    article.querySelectorAll<HTMLElement>('.stat-num [data-count]')
   );
   if (!reduceMotion && counters.length > 0) {
     const fmt = (el: HTMLElement, v: number) => {
