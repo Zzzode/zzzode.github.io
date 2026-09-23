@@ -1,0 +1,294 @@
+---
+title: "当编译器遇见 AI：从类型推断到 JS 引擎，机器学习如何进入编译技术栈"
+date: 2026-09-23
+excerpt: "编译器的每个环节——前端的类型推断、中端的优化决策、后端的指令调度——本质都是「在巨大搜索空间里做启发式选择」，这正是机器学习的主场。本文沿编译流水线梳理 2020–2026 年公开研究：GNN 类型推断、MLGO、CompilerGym、代码大模型与 RLVR，并落到 JS/Web 的特殊战场。"
+tags: ["编译器", "机器学习", "LLM", "JavaScript 引擎", "类型推断", "技术综述"]
+kind: "distilled"
+sources:
+  - title: "LambdaNet: Probabilistic Type Inference using Graph Neural Networks（arXiv 2005.02161，TypeScript）"
+    url: "https://arxiv.org/abs/2005.02161"
+  - title: "TypeWriter: Neural Type Prediction with Search-based Validation（arXiv 1912.03768）"
+    url: "https://arxiv.org/abs/1912.03768"
+  - title: "Typilus: Neural Type Hints（arXiv 2004.10657）"
+    url: "https://arxiv.org/abs/2004.10657"
+  - title: "Type4Py: Deep Similarity Learning-Based Type Inference for Python（arXiv 2101.04470）"
+    url: "https://arxiv.org/abs/2101.04470"
+  - title: "MLGO: a Machine Learning Guided Compiler Optimizations Framework（arXiv 2101.04808）"
+    url: "https://arxiv.org/abs/2101.04808"
+  - title: "CompilerGym: Robust, Performant Compiler Optimization Environments for AI Research（arXiv 2109.08267）"
+    url: "https://arxiv.org/abs/2109.08267"
+  - title: "CodeBERT: A Pre-Trained Model for Programming and Natural Languages（arXiv 2002.08155）"
+    url: "https://arxiv.org/abs/2002.08155"
+  - title: "CodeT5: Identifier-aware Unified Pre-trained Encoder-Decoder Models（arXiv 2109.00859）"
+    url: "https://arxiv.org/abs/2109.00859"
+  - title: "CodeRL: Mastering Code Generation through Pretrained Models and Deep RL（arXiv 2207.01780）"
+    url: "https://arxiv.org/abs/2207.01780"
+  - title: "Competition-Level Code Generation with AlphaCode（arXiv 2203.07814）"
+    url: "https://arxiv.org/abs/2203.07814"
+  - title: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL（arXiv 2501.12948）"
+    url: "https://arxiv.org/abs/2501.12948"
+  - title: "From Coverage to Causes: Data-Centric Fuzzing for JavaScript Engines（arXiv 2512.18102）"
+    url: "https://arxiv.org/abs/2512.18102"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  Timeline,
+  ScrollStory,
+  CompareTable,
+  Callout,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="RESEARCH SURVEY · arXiv · 2023–2026 为主"
+  title="当编译器遇见 AI：从类型推断到 JS 引擎"
+  lead="编译器本质上是一条「在指数级搜索空间里做启发式决策」的流水线。过去这些启发式由工程师手写，现在 GNN、预训练代码模型与强化学习正在逐个环节接管——而 JavaScript/Web 是其中最年轻、也最特殊的战场。"
+  pills={[
+    { label: "类型推断 × GNN" },
+    { label: "编译优化 × RL" },
+    { label: "代码大模型 × RLVR" },
+    { label: "JS 引擎与端侧推理" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="编译流水线各环节嵌入 ML 模型">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">COMPILER PIPELINE × ML</text>
+
+    {[["源码","类型推断"],["IR","优化决策"],["机器码","调度生成"]].map((s,i)=>(
+      <g>
+        <rect x={36+i*146} y={96} width="128" height="84" rx="14" fill="#fff" stroke="#dedee3" />
+        <text x={100+i*146} y="132" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{s[0]}</text>
+        <text x={100+i*146} y="158" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">{s[1]}</text>
+        {i<2 && <path d={`M${170+i*146} 138 L${182+i*146} 138 M${174+i*146} 130 L${182+i*146} 138 L${174+i*146} 146`} stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />}
+      </g>
+    ))}
+    <rect x="100" y="220" width="260" height="40" rx="20" fill="#1d1d1f" />
+    <text x="230" y="245" font-size="12" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">ML 模型：GNN · 序列模型 · LLM · RL</text>
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文是一篇基于公开论文的技术综述，引用的 12 篇论文 arXiv 编号均已逐一核对（2026-09-23）。综述只覆盖「AI/ML 与编译器、类型系统、JS 运行时交叉」的公开学术脉络，不涉及任何内部研究材料；文中对趋势的归纳是作者的解读。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · WHY COMPILERS"
+    title="前因：为什么编译器天然是机器学习的猎物"
+    lead="一个优化开关序列就是一个组合爆炸问题——启发式是人给的近似解，而学习方法最擅长的就是从数据里逼近这种解。"
+  />
+  <Prose>
+
+经典编译器的每个阶段都在做选择：这个变量该推断成什么类型？这段 IR 该不该内联、向量化？寄存器怎么分配？这些问题大多是 NP 难或不可判定的，编译器工程师用几十年时间手写了大量启发式规则（heuristics）来「在大多数时候足够好」。
+
+这给机器学习留下了三个明确入口：**有大量历史决策可学**（LLVM/GCC 的优化记录、海量带类型标注的代码）、**有清晰的奖励信号**（程序跑得快不快、类型推得对不对）、**搜索空间结构高度组合化**（开关序列、类型候选、调度方案）。2020 年前后，随着图神经网络（天然适合表达程序图）与预训练模型（天然适合代码文本）成熟，这三条入口被同时打开。
+
+研究的推进也明显分三代：**专用小模型**（GNN/序列网络解决单环节，2020–2021）→ **代码预训练模型**（CodeBERT/CodeT5 统一表征，2020–2023）→ **代码大模型 + 强化学习**（AlphaCode/CodeRL 到 DeepSeek-R1，2022 至今）。下面沿着编译器流水线逐段讲。
+
+  </Prose>
+
+  <div class="mt-8">
+    <Timeline
+      nodes={[
+        { year: "2019-20", title: "专用小模型", body: "GNN/相似学习做类型推断：LambdaNet、TypeWriter、Typilus" },
+        { year: "2021", title: "ML 进入优化器", body: "MLGO 把 RL 嵌进 LLVM；CompilerGym 提供训练环境" },
+        { year: "2020-23", title: "代码预训练", body: "CodeBERT、CodeT5/CodeT5+ 统一代码理解与生成" },
+        { year: "2022-26", title: "代码大模型 + RLVR", body: "AlphaCode、CodeRL、SWE-RL 到 R1：奖励可验证的代码推理" },
+      ]}
+    />
+  </div>
+</Section>
+
+<Section alt id="pipeline">
+  <SectionHead
+    kicker="02 · THE PIPELINE"
+    title="沿编译流水线看：AI 分别接管了什么"
+    lead="随页面滚动，左侧舞台展示每个编译环节的学习化做法（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 前端 / 类型",
+        title: "类型推断：GNN 在程序图上猜类型",
+        body: "动态语言补类型注解是最早成熟的方向。LambdaNet 直接面向 TypeScript：把代码建成图（变量、属性、用法为节点），用图神经网络做概率类型推断；TypeWriter 用神经预测 + 搜索验证；Typilus 用 GNN 给 Python 打类型提示；Type4Py 用深度相似学习把变量和类型映射到同一向量空间。共同点：类型不是孤立猜的，而是靠代码里的结构关系互相约束。",
+      },
+      {
+        tag: "02 · 中端 / 优化",
+        title: "MLGO：把 RL 策略嵌进 LLVM",
+        body: "Google 的 MLGO 把 LLVM 里的内联（inlining）与寄存器分配决策从手写阈值换成强化学习策略：把函数特征编码后输入策略网络，直接输出优化决策，并已在生产工具链中落地。它证明了「学习到的策略可以替代资深工程师调了多年的启发式」，且推理开销可接受。",
+      },
+      {
+        tag: "03 · 训练环境",
+        title: "CompilerGym：编译器界的 Gym",
+        body: "把优化 pass 序列建模成强化学习环境：状态是程序/IR，动作是一个个编译开关，奖励是运行时性能或代码体积。受 OpenAI Gym 启发，它把「训练一个编译器优化 agent」的工程门槛（编译、插桩、测量）打包成标准接口，让研究可以横向比较。后续如 CompilerDream 等工作开始学「编译器世界模型」。",
+      },
+      {
+        tag: "04 · 代码表征",
+        title: "CodeBERT / CodeT5：先学会读代码",
+        body: "这一代不解决单个编译环节，而是提供统一的代码理解能力。CodeBERT 在双模态（代码+自然语言）上预训练；CodeT5 引入标识符感知与编码-解码结构；CodeT5+ 走向开放代码大模型。它们成为下游缺陷预测、代码检索、程序修复乃至生成任务的公共底座。",
+      },
+      {
+        tag: "05 · 生成与推理",
+        title: "从 AlphaCode 到 RLVR：让生成结果可被验证",
+        body: "AlphaCode 证明大模型加大规模采样+过滤能达到竞赛水平；CodeRL 把编译器/测试当作奖励信号训练代码生成；到 SWE-RL 用真实仓库演化、DeepSeek-R1 用可验证奖励（数学答案、测试通过）激发推理，主线已经清晰：代码是最适合 RLVR 的领域，因为对错可以被编译器和测试客观判定——这也呼应了本博客 MiMo 文章里 RLVR 在智能体训练中的全面兴起。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 01 · TYPING</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">程序图上的类型推断</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      {[[120,180],[200,160],[300,190],[170,260],[280,270]].map((p,i)=>(
+        <g>
+          <circle cx={p[0]} cy={p[1]} r="13" fill={i===1?"#0066cc":"#fff"} stroke={i===1?"#0066cc":"#b8b8bf"} stroke-width="1.5" />
+          <text x={p[0]} y={p[1]+4} font-size="9.5" fill={i===1?"#fff":"#6e6e73"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{["x","f","y","a","b"][i]}</text>
+        </g>
+      ))}
+      <path d="M133 184 L187 164 M213 164 L287 186 M132 192 L158 250 M183 266 L267 270 M213 172 L273 258" stroke="#b8b8bf" stroke-width="1.4" fill="none" />
+      <rect x="150" y="320" width="160" height="34" rx="17" fill="#eaf2fb" />
+      <text x="230" y="342" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">GNN → P(类型 | 程序图)</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 02 · OPTIMIZER</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">RL 策略替代手写启发式</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="60" y="150" width="340" height="70" rx="12" fill="#1d1d1f" />
+      <text x="230" y="182" font-size="12" fill="#7fd3ff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">IR + 函数特征</text>
+      <text x="230" y="204" font-size="11" fill="#a1a1a6" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">→ policy network → inline / regalloc</text>
+      <path d="M230 230 L230 262 M222 254 L230 262 L238 254" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="90" y="270" width="280" height="56" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+      <text x="230" y="304" font-size="12.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">奖励：真实运行时性能</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 03 · ENVIRONMENT</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">编译器版强化学习环境</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {[["状态","IR / 程序"],["动作","编译 pass"],["奖励","性能 / 体积"]].map((r,i)=>(
+        <g>
+          <rect x="80" y={158+i*62} width="300" height="46" rx="10" fill="#fff" stroke="#dedee3" />
+          <text x="116" y={187+i*62} font-size="12.5" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">{r[0]}</text>
+          <text x="260" y={187+i*62} font-size="12" fill="#424245" font-family="ui-monospace, Menlo, monospace">{r[1]}</text>
+        </g>
+      ))}
+      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">CompilerGym：把编译/插桩/测量包成标准 Gym 接口</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 04 · REPRESENTATION</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先学会「读」代码</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      {[["CodeBERT","代码 × 自然语言"],["CodeT5","标识符感知"],["CodeT5+","开放代码 LLM"]].map((r,i)=>(
+        <g>
+          <rect x={40+i*140} y="170" width="124" height="110" rx="12" fill={i===2?"#1d1d1f":"#fff"} stroke={i===2?"#1d1d1f":"#dedee3"} />
+          <text x={102+i*140} y="214" font-size="12.5" font-weight="600" fill={i===2?"#f5f5f7":"#1d1d1f"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+          <text x={102+i*140} y="244" font-size="10" fill={i===2?"#a1a1a6":"#86868b"} text-anchor="middle" font-family="PingFang SC, sans-serif">{r[1]}</text>
+        </g>
+      ))}
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">统一表征 → 缺陷检测 / 检索 / 修复 / 生成的公共底座</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 05 · RLVR</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">可验证奖励的代码推理</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="70" y="160" width="130" height="80" rx="12" fill="#0066cc" />
+      <text x="135" y="196" font-size="11.5" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">生成代码</text>
+      <text x="135" y="216" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">采样 N 份</text>
+      <path d="M212 200 L248 200 M240 192 L248 200 L240 208" stroke="#1d1d1f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="260" y="160" width="130" height="80" rx="12" fill="#1d1d1f" />
+      <text x="325" y="196" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">编译器/测试</text>
+      <text x="325" y="216" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">客观判分</text>
+      <path d="M325 248 L325 280 M317 272 L325 280 L333 272" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="230" y="312" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">奖励回传 → 强化策略</text>
+      <text x="230" y="346" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">AlphaCode · CodeRL · SWE-RL · DeepSeek-R1</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="js">
+  <SectionHead
+    kicker="03 · THE JS FRONTIER"
+    title="JavaScript / Web：最年轻也最别扭的战场"
+    lead="JS 引擎把编译器技术藏在运行时里（JIT），这让「AI 优化编译器」的经典套路在这里既更难、也出现了新形状。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="JIT, NOT AOT" title="优化发生在运行时，且会去优化">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        V8 的 Ignition + TurboFan 在运行时按反馈做推测优化，类型一变就去优化（deopt）。静态的编译期 pass 选择在这里让位给「基于 profile 的动态决策」，MLGO 式静态策略不能直接照搬。
+      </p>
+    </InfoCard>
+    <InfoCard label="FUZZING" title="AI 帮忙找引擎漏洞">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        2026 年的研究（arXiv 2512.18102）从「覆盖率」走向「成因」的数据中心模糊测试，针对 JS 引擎生成更易触发深层缺陷的用例——AI 不优化编译，而是攻击编译/执行系统本身。
+      </p>
+    </InfoCard>
+    <InfoCard label="TYPES EXIST" title="TypeScript 是难得的类型信号">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        超大规模带类型标注的 TS 代码库，使 LambdaNet 这类概率类型推断有了真实的工业级试验场；类型本身也成为代码模型理解 JS 生态的重要监督信号。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+另一个方向更微妙：**不是「AI 优化编译器」，而是「编译器/运行时服务 AI」**。端侧大模型推理的爆发（本博客另文讨论 MiMo 这类模型的训练与小模型蒸馏）反过来要求 ML 编译器（XLA、TVM、IREE 及 WebGPU/WASM 后端）为神经网络生成高效代码，让模型能在浏览器与手机上跑起来。AI 与编译器在这里是双向关系：AI 改进编译器，编译器也在为 AI 铺路——CMU 2025 的端侧推理报告把 ML 编译器与 Web 技术并列为让 LLM 上设备的两大支柱。
+
+  </Prose>
+</Section>
+
+<Section alt id="limits">
+  <SectionHead
+    kicker="04 · WHAT HASN'T LANDED"
+    title="冷静面：研究很热闹，接管还很远"
+    lead="论文里的 SOTA 与生产编译器里跑的东西之间，隔着几道老问题。"
+  />
+  <CompareTable
+    headers={[
+      { label: "环节" },
+      { label: "研究进展" },
+      { label: "生产落地的坎", wrap: true },
+    ]}
+    rows={[
+      ["类型推断", "GNN/相似学习在基准上准确率可观", "预测错误如何处理、与既有类型系统交互、开发者信任"],
+      ["优化 pass 选择", "MLGO 已进入 LLVM 特定场景", "可复现性、跨硬件泛化、回滚与可解释性、回归风险"],
+      ["代码生成", "竞赛与补丁任务接近人类水平", "正确性保证、仓库级上下文、审查成本与责任归属"],
+      ["JIT/JS 引擎", "以模糊测试、辅助分析为主", "运行时开销、去优化交互、安全性，尚无学习型 JIT 主流落地"],
+    ]}
+  />
+  <Prose>
+
+编译器是软件世界里可靠性要求最苛刻的基础设施之一——优化错一次就是错误编译，下游所有程序遭殃。学习模型的概率性、数据分布偏移与不可解释性，与编译器「必须可证明正确」的文化天然冲突。因此目前真正落地的形态几乎都是**建议而非替代**：推荐类型注解由人确认、在受限 pass 上替换单一启发式、在测试与模糊测试环节放大工程师——把 AI 放在「可验证、可回滚」的位置，与 RLVR「可验证奖励」的思想一脉相承。
+
+  </Prose>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "AI 进编译器走的是「按环节替换启发式」路线",
+      conclusion: "前端类型推断（LambdaNet/TypeWriter/Typilus/Type4Py）、中端优化（MLGO/CompilerGym）、代码表征与生成（CodeBERT→CodeT5→RLVR），每一环都对应一个「巨大搜索空间 + 清晰奖励」的经典编译器难题。",
+      detail: "理解这条脉络，就不会把「AI 写代码」误读成单一突破——它是十几个独立研究方向的合流。",
+    },
+    {
+      title: "真正落地的形态是可验证的辅助，不是自主接管",
+      conclusion: "编译器文化要求可证明正确，概率模型只能先在类型建议、单一 pass、测试与模糊测试这些「对错可验证、失败可回滚」的位置立足；JS 的 JIT 动态性还额外挡住了静态优化策略的直接迁移。",
+      detail: "AI 与编译器是双向关系：AI 改进编译器，ML 编译器（含 WASM/WebGPU 后端）也在让 AI 模型跑上端侧。",
+    },
+  ]}
+  note="事实口径：本文 12 篇引用论文的 arXiv 编号均于 2026-09-23 逐一核对；趋势划分（三代）与落地判断为作者综述性归纳，不代表论文作者立场；JS 引擎与端侧部分部分依据 2026 年公开研究与机构报告。"
+/>
