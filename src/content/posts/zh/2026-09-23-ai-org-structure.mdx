@@ -1,0 +1,372 @@
+---
+title: "AI 时代，组织结构本身就是技术能力"
+date: 2026-09-23
+excerpt: "资金、算力、人才密度最高的科技巨头，为什么没有包揽 AI 最重要的创新？一篇工程师随笔给出的答案是：当模型结构、并行策略、数据配比、通信实现互相决定时，按专业切分的部门无法对「解决之前拆不开的问题」负责——局部指标全部合格，端到端训练依然很慢。本文把这个论点放回 Conway 定律、Allen 曲线与 Team Topologies 的坐标系里检验。"
+tags: ["组织结构", "研发管理", "Conway 定律", "AI Infra", "RL 训推一致", "观点"]
+kind: "distilled"
+sources:
+  - title: "渣B渣B（zartbot）《谈谈 AI 时代的组织结构》（微信公众号，2026-09-21，原文声明仅代表个人观点）"
+    url: "https://mp.weixin.qq.com/s/h5aqT-wbPZMdDQtwsl5g-Q"
+  - title: "梁文锋访谈（新浪财经转载，2024-07-22）"
+    url: "https://finance.sina.com.cn/roll/2024-07-22/doc-inceypaf4744158.shtml"
+  - title: "Anthropic · The engineering challenges of scaling interpretability（2024-06-13）"
+    url: "https://www.anthropic.com/research/engineering-challenges-interpretability"
+  - title: "Melvin Conway · How Do Committees Invent?（1968 原始论文，Conway 定律出处）"
+    url: "https://www.melconway.com/Home/pdf/committees.pdf"
+  - title: "Team Topologies · Key concepts（四种团队与三种交互模式）"
+    url: "https://teamtopologies.com/key-concepts"
+  - title: "Allen curve（Wikipedia，Thomas Allen 1970 年代实证）"
+    url: "https://en.wikipedia.org/wiki/Allen_curve"
+  - title: "Score Centering Stabilizes Off-policy Reinforcement Learning（arXiv 2609.20807）"
+    url: "https://arxiv.org/abs/2609.20807"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="ESSAY · 研发组织 · 2026-09-23 核对"
+  title="AI 时代，组织结构本身就是技术能力"
+  lead="三道专业竖井——算法、数据、Infra——各自报表都合格，端到端训练却依旧很慢。当最有价值的问题持续出现在部门交界处，知识、激励与决策能不能跨过边界，就不再是管理话题，而是技术问题。"
+  pills={[
+    { label: "拆不开的前沿问题" },
+    { label: "知识边界比部门边界顽固" },
+    { label: "激励筛选技术路线" },
+    { label: "Conway 定律的 AI 版" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="三道专业竖井与横跨其上的真实问题">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SILOS VS PROBLEMS</text>
+
+    {["算法研究","数据","Infra"].map((s,i)=>(
+      <g>
+        <rect x={44+i*132} y="84" width="116" height="180" rx="12" fill="#fff" stroke="#dedee3" />
+        <text x={102+i*132} y="112" font-size="12" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
+        <line x1={60+i*132} y1="132" x2={144+i*132} y2="132" stroke="#ececf0" stroke-width="1.5" />
+        <line x1={60+i*132} y1="166" x2={144+i*132} y2="166" stroke="#ececf0" stroke-width="1.5" />
+        <line x1={60+i*132} y1="200" x2={144+i*132} y2="200" stroke="#ececf0" stroke-width="1.5" />
+        <line x1={60+i*132} y1="234" x2={144+i*132} y2="234" stroke="#ececf0" stroke-width="1.5" />
+      </g>
+    ))}
+    <rect x="30" y="146" width="400" height="56" rx="14" fill="#1d1d1f" opacity="0.92" />
+    <text x="230" y="171" font-size="11.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">真实问题横跨三道竖井</text>
+    <text x="230" y="191" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">结构 ↔ 通信 ↔ 并行 ↔ 数据分布</text>
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文是对工程师「渣B渣B」2026-09-21 发表在微信公众号 zartbot 的随笔《谈谈 AI 时代的组织结构》的炼化与检验，原文声明仅代表个人观点、与任职机构无关。文中三种声音请分开看：**随笔论点**（作者一线经验判断）、**外部框架**（Conway 定律、Allen 曲线、Team Topologies 等公开文献，用来定位而非背书）、**本文作者的延伸解读**（会明确标注）。随笔中的技术案例（RL 训推不一致、RDMA 演进）本文只做结构化转述，不替作者补未展开的技术细节。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE QUESTION"
+    title="前因：资源优势为什么没有稳定地变成创新优势"
+    lead="微软、Meta、Google 资金、算力、人才密度皆备，重要创新却从 OpenAI、Anthropic 与一批基模公司里长出来。"
+  />
+  <Prose>
+
+随笔从一个反常识的现象起笔：传统科技巨头拥有雄厚资金、庞大算力与大量优秀人才，却没有「顺理成章地包揽」这一波 AI 最重要的创新。资源规模与创新能力之间，远不是线性对应。它引用梁文锋在 2024 年一次访谈中的判断——「我们创新缺的肯定不是资本，而是缺乏信心以及不知道怎么组织高密度的人才实现有效的创新」——把问题从技术路线与资源投入，推到了**组织能力**这一层。
+
+为什么偏偏是 AI 研发放大了组织变量？随笔给出的理由值得认真对待：过去几十年大企业的成熟组织方式——按专业划分部门、按职责确定边界、通过接口协调、各自用局部指标考核——在「技术路径稳定、问题可提前拆解」的时代极其高效；但前沿 AI 研发里，**大量关键问题在解决之前根本无法被准确拆分**。模型结构改变通信模式，通信能力影响并行策略，并行策略影响显存与训练效率，数据长度分布改变计算负载、数据配比又影响收敛。一个看似属于算法的问题，最终可能要靠调整通信实现解决。
+
+这不是管理感悟，而是一个系统结构问题：当技术问题需要整体求解，组织却要求各部门只对局部指标负责时，裂缝就出现了。
+
+  </Prose>
+</Section>
+
+<Section alt id="chain">
+  <SectionHead
+    kicker="02 · THE CAUSAL CHAIN"
+    title="核心论证：组织低效如何一步步进入技术路线"
+    lead="随页面滚动，左侧舞台展示随笔的五环论证链（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 拆不开",
+        title: "问题在解决之前无法被准确拆分",
+        body: "模型结构、通信、并行、数据互相决定。「算法提需求、Infra 交产能」的接口式协作预设了问题边界已经清楚，但前沿研究的常态是：一群人得先坐下来共同弄清楚「问题究竟是什么」，之后才有可分工的部分。把定义问题的阶段误装成交付问题的流程，是第一道结构性损耗。",
+      },
+      {
+        tag: "02 · 局部最优",
+        title: "每份报表都合格，端到端依然很慢",
+        body: "随笔给的典型场景：训练效率不理想，计算团队报表显示 GPU 利用率不低，网络团队查链路平均带宽与丢包正常，存储团队测试吞吐达标——每个部门都能证明自己交付合格，但一轮实验的墙钟时间就是长。问题藏在报表交界处：少数节点的尾部延迟拖住同步训练、数据管线的小文件访问与预处理等待不在任何一张报表上。",
+      },
+      {
+        tag: "03 · 过不了墙",
+        title: "工单传递结论，传不过假设与上下文",
+        body: "知识边界比部门边界更顽固。算法研究员说「需要更大的 batch」，Infra 工程师收到的是扩容需求，却不知道背后在验证什么训练假设；工程师说「通信开销太高」，研究者收到一个限制，却不知道换种数据布局或专家放置就能让方案可行。双方都认真，但传过去的只有结论，支撑结论的假设没有过去——工单擅长传递已定义清楚的问题，不擅长共同发现问题。",
+      },
+      {
+        tag: "04 · 被筛选",
+        title: "跨边界想法等不到第一次实验",
+        body: "需要同时协调数据管线、训练框架与网络实现才能验证的想法，和只需改本部门一小段代码的想法，在相同绩效周期里后者自然更有吸引力：容易拿资源、容易交付、容易归属成果。久而久之，高价值但跨边界的方向被预算归属、接口限制与协作成本提前筛掉——这时组织结构已经进入了技术路线本身。",
+      },
+      {
+        tag: "05 · taste",
+        title: "领导者的判断力最终要变成资源安排",
+        body: "面对训练不稳定，是继续调参、再加一道校正、还是停下来检查梯度估计建立在什么假设之上？组织无法同时尝试所有方向，核心领导者的 taste——经实践校准的判断力——决定注意力与资源最初放在哪里。而 taste 的落点不是表态，是资源安排：新增机制意味着后续调参与维护负担，投入很多的项目也可能要缩减；并要允许反例推翻自己的偏好。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 01 · INDIVISIBLE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">问题拆不开</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      {[["模型结构",70],["通信模式",160],["并行策略",250],["显存/效率",340]].map((n,i)=>(
+        <g>
+          <rect x={n[1]-36} y="170" width="72" height="40" rx="9" fill="#fff" stroke="#0066cc" stroke-width="1.4" />
+          <text x={n[1]} y="195" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+          {i<3 && <path d={`M${n[1]+38} 190 L${n[1]+54} 190 M${n[1]+46} 182 L${n[1]+54} 190 L${n[1]+46} 198`} stroke="#86868b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />}
+        </g>
+      ))}
+      <rect x="60" y="252" width="340" height="76" rx="12" fill="#1d1d1f" />
+      <text x="230" y="284" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">互相决定，无法按部门预先切开</text>
+      <text x="230" y="308" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">先共同定义问题，才有分工</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 02 · LOCAL OPTIMA</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">报表都合格，实验依然慢</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      {[["GPU 利用率 ✓",160],["带宽/丢包 ✓",212],["存储吞吐 ✓",264]].map((n)=>(
+        <g>
+          <rect x="70" y={n[1]-20} width="320" height="40" rx="9" fill="#fff" stroke="#34c759" stroke-width="1.5" />
+          <text x="230" y={n[1]+5} font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{n[0]}</text>
+        </g>
+      ))}
+      <path d="M230 292 L230 320 M222 312 L230 320 M238 312" stroke="#e8710a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="230" y="352" font-size="11.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">墙钟时间 ✗ 问题在交界处：尾延迟 / 小文件 / 搬运</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 03 · KNOWLEDGE WALL</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">过去的是结论，不是假设</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <rect x="50" y="158" width="150" height="120" rx="12" fill="#eaf2fb" />
+      <text x="125" y="200" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">算法</text>
+      <text x="125" y="230" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">「需要更大 batch」</text>
+      <text x="125" y="254" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">训练假设留在墙这边</text>
+      <rect x="260" y="158" width="150" height="120" rx="12" fill="#f5f5f7" stroke="#dedee3" />
+      <text x="335" y="200" font-size="12" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">Infra</text>
+      <text x="335" y="230" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">收到「扩容需求」</text>
+      <text x="335" y="254" font-size="9.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">不知道为什么</text>
+      <line x1="218" y1="150" x2="218" y2="290" stroke="#1d1d1f" stroke-width="2" stroke-dasharray="4 4" />
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">知识边界比部门边界更顽固</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 04 · SELECTION</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">激励筛掉跨边界方向</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="50" y="156" width="360" height="60" rx="10" fill="#fff" stroke="#34c759" stroke-width="1.6" />
+      <text x="230" y="182" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">本部门小段代码</text>
+      <text x="230" y="204" font-size="10" fill="#34c759" text-anchor="middle" font-family="PingFang SC, sans-serif">易拿资源 · 易交付 · 易归属</text>
+      <rect x="50" y="240" width="360" height="60" rx="10" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
+      <text x="230" y="266" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">跨三团队的高价值想法</text>
+      <text x="230" y="288" font-size="10" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">等不到第一次实验</text>
+      <text x="230" y="346" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">组织结构 → 进入技术路线本身</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 05 · TASTE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">判断力变成资源安排</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      {["继续调参？","再加一道校正？","回去查梯度假设？"].map((s,i)=>(
+        <g>
+          <rect x="70" y={150+i*56} width="320" height="42" rx="9" fill={i===2?"#0066cc":"#fff"} stroke={i===2?"#0066cc":"#dedee3"} />
+          <text x="230" y={177+i*56} font-size="11.5" fill={i===2?"#fff":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
+        </g>
+      ))}
+      <text x="230" y="362" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">taste = 经实践校准的判断力 → 预算与方向；允许被反例改变</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="frameworks">
+  <SectionHead
+    kicker="03 · EXTERNAL FRAMEWORKS"
+    title="外部坐标系：这个论点其实有五十年的学术家谱"
+    lead="随笔的直觉并不孤例——组织形状决定技术产物，是组织理论里被反复验证的经典命题。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="CONWAY'S LAW · 1968" title="系统设计镜像组织沟通结构">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Mel Conway 原始论文《How Do Committees Invent?》提出：设计系统的组织，其产出的设计必然复制该组织的沟通结构。后来 Brooks 在《人月神话》里引用并命名。随笔的「组织结构进入技术路线」就是 Conway 定律在 AI 训练系统上的改写。
+      </p>
+    </InfoCard>
+    <InfoCard label="ALLEN CURVE · 1970s" title="沟通频率随距离指数衰减">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        MIT 的 Thomas Allen 对工程师沟通的实证研究发现：两个人的沟通频率随物理/组织距离指数下降。它为「知识过不了部门墙」提供了量化注脚——跨部门不只是流程距离，更是沟通概率的持续衰减。
+      </p>
+    </InfoCard>
+    <InfoCard label="TEAM TOPOLOGIES · 2019" title="把团队间协作模式当成一等设计对象">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Skelton 与 Pais 的方法论把团队分成流对齐、平台、赋能、复杂子系统四类，并显式设计团队间的协作模式（协作、服务、促进）。它对应随笔的处方：专业部门继续养标准与基础设施，但关键问题要用目标对齐的小队加明确决策权来打。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+还有一个常被引用的反向操作——**逆向 Conway 策略（Inverse Conway Maneuver）**：既然组织结构会塑造系统结构，那就先演化组织结构与沟通方式，逼出想要的系统架构。亚马逊 2002 年前后的「API 强制令」（团队间只能通过服务接口通信）与两个披萨团队，是工业界最著名的实践。用这面镜子照随笔的论点，会发现它的主张相当具体：不是撤销专业分工，而是**在专业竖井之上设计能整体求解的临时/稳定小队，并把团队交互方式当成和网络拓扑一样需要显式工程化的东西。**
+
+  </Prose>
+</Section>
+
+<Section alt id="rlcase">
+  <SectionHead
+    kicker="04 · THE RL CASE"
+    title="案例：RL 训推不一致——三个团队修补丁，没人查共同假设"
+    lead="随笔最具体的技术案例，恰好能被一篇新论文接住。"
+  />
+  <Prose>
+
+大模型的 RL 训练通常有两套引擎：推理引擎负责生成回答，训练引擎根据回答与奖励计算更新。即使权重相同，计算精度、算子实现、批处理方式的差异也会让两边算出不同概率分布；异步执行还可能让推理端使用落后版本。随笔描述了部门视角下的「合理」分工：推理团队追求吞吐与延迟、用量化和更高效执行；训练系统团队追求数值一致与稳定；算法团队调重要性采样、裁剪与样本筛选来缓解失配；MoE 场景再记录回放专家路由。补丁各自有技术依据，但**对共同机制的理解没有同步加深**——每个团队都在解决自己收到的问题，「两套引擎不一致时训练更新里到底多出了什么」这个追问长期无人负责。
+
+论文 [《Score Centering Stabilizes Off-policy Reinforcement Learning》](https://arxiv.org/abs/2609.20807)（2026-09-17）恰好给出了随笔期待的那种「重新检查共同假设」：它指出 TIM（training-inference mismatch）下的不稳定主要来自 **drift——两个引擎间随每步训练累积的持续偏差**，并推导出一个加性的「score centering」校正项来抵消漂移，无需彻底消除失配（彻底一致会显著牺牲 rollout 效率）。随笔的评价是这类答案简单到高中生都能推，难的不是等式，而是**让懂等式的人与真实系统问题相遇的组织机会**。（论文为技术事实来源；「工业界绕了弯路」的叙述是随笔作者的个人判断。）
+
+  </Prose>
+  <CompareTable
+    headers={[
+      { label: "团队" },
+      { label: "收到的问题" },
+      { label: "局部修法" },
+      { label: "共同假设盲区", wrap: true },
+    ]}
+    rows={[
+      ["推理引擎", "怎样生成更快", "量化、更高效执行、提吞吐", "失配在训练更新中引入了什么"],
+      ["训练系统", "怎样让两边更一致", "数值一致性、路由记录回放", "彻底一致是否真有必要"],
+      ["算法", "怎样让更新更稳定", "重要性采样、裁剪、样本筛选", "偏差是否可被显式建模并抵消（drift）"],
+    ]}
+  />
+  <Prose>
+
+随笔给的第二个案例是 RDMA over Ethernet：为硬件简单选择的 Lossless RoCE 方案在 HPC 年代合理，AI 时代拥塞模型完全改变，于是多路径用 DDP、可靠性加 SACK、拥塞控制改成 window-based，一路做加法，最终与当年被认为笨重的 iWARP 越来越像。这是作者个人技术史观，本文原样转述、不展开其未给出的细节；但它服务于同一个组织论点：**局部最优的补丁可以无限增加，对共同前提的重审却需要跨边界的人同时在场。**
+
+  </Prose>
+</Section>
+
+<Section id="incentives">
+  <SectionHead
+    kicker="05 · INCENTIVES"
+    title="激励如何替技术委员会做决策"
+    lead="聪明人同样响应激励——这是随笔最不留情面的一段。"
+  />
+  <Prose>
+
+当晋升要证明独立贡献、预算要证明部门价值、管理者影响力与团队规模挂钩，理性选择就是建立自己的项目、维护自己的边界、强调成果所有权。帮另一个团队解决关键问题对公司极有价值，对个人却未必形成清晰的晋升材料；把经验沉淀成公共工具能让很多人少走弯路，功劳却散落在别人成果里；相比之下，重建一套带本团队标签的平台反而更易被识别和奖励。重复建设、信息保留、成果争夺于是成为评价体系下的理性选择。
+
+随笔由此给出一个可操作的人才密度条件：**分享知识、暴露问题、帮助别人成功，必须对个人也是值得的。** 找到根因后删掉几层无效逻辑、证明一项昂贵实验不必再做、把经验变成可复用工具——这些「负贡献」（让系统变简单而不是变大）都必须进入评价依据。它还引用翁家翌的观点：「现在 AI 竞赛拼的不是算法创新，而是工程能力和迭代速度……谁修的 bug 多，谁的模型就训得更好」——细节藏在知识边界里，管理层看到的却只是部门边界。
+
+外部参照上，[Anthropic 介绍其可解释性团队](https://www.anthropic.com/research/engineering-challenges-interpretability)（2024-06）描述过成员在研究与工程之间来回切换、紧密协作的工作方式，被随笔当作「跨边界工作方式」的具体样本——这是公开可查的一手描述，但单个公司案例不构成普遍证明。
+
+  </Prose>
+</Section>
+
+<Section alt id="ai-amplifies">
+  <SectionHead
+    kicker="06 · WHY AI MAKES IT WORSE"
+    title="为什么 AI 会放大协调瓶颈"
+    lead="执行越快，等待与协调所占的比例越大。"
+  />
+  <Prose>
+
+随笔结语里有一个本文作者认为最值得拉长的判断：**AI 工具让写代码、处理数据、分析实验越来越快，如果获取上下文与跨团队决策的速度没变，等待与协调会占更大的比例，更多产出堵在同一个决策瓶颈前。** 执行成本过去掩盖了协调成本；当执行成本趋近于零，协调就成了显式瓶颈。
+
+这个判断还能再推一步（作者延伸，非原文内容）：本博客 [TradingAgents 一文](/posts/2026-09-23-tradingagents/)展示过多智能体系统会直接复制人类公司的组织结构——分析师、辩论员、交易员、风控、PM；[Claude Code 架构解剖](/posts/2026-09-23-claude-code-architecture/)里的 subagents、hooks 与技能体系，本质也是在代码里设计「部门边界与协作模式」。这意味着 Conway 定律即将获得一个新版本：**你给 agent 团队设计的拓扑，镜像的是你自己组织里知识流动的形状。** 人类组织的知识边界问题，会以幻觉协调、上下文丢失、重复 agent 建设的形式在软件里重演——组织设计能力正在变成 agent 系统的架构设计能力。
+
+  </Prose>
+</Section>
+
+<Section id="prescription">
+  <SectionHead
+    kicker="07 · WHAT TO DO"
+    title="五个自检问题与一个组织设计起点"
+    lead="随笔最终把宏大判断落成了五件可以当场检查的具体事情。"
+  />
+  <CardGrid cols={2}>
+    <InfoCard label="Q1 · 入口" title="研究员发现异常后，能直接找到谁？">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        跨部门问题有没有明确入口，还是必须先证明「这是我的问题」才有人介入？AI 研发经常需要先联合诊断，才能知道问题该归谁。
+      </p>
+    </InfoCard>
+    <InfoCard label="Q2 · 首验速度" title="跨领域想法多久能得到第一次验证？">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        实验额度与技术修改权限是否真的交到了围绕目标配置的小队手里，还是每一步都要回多个部门争取支持。
+      </p>
+    </InfoCard>
+    <InfoCard label="Q3 · 失败沉淀" title="一次失败能否帮所有相关团队少走弯路？">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        失败实验能否低成本地成为共同知识，而不是被沉默处理；共同的评测口径与可复现结果是否存在。
+      </p>
+    </InfoCard>
+    <InfoCard label="Q4 · 协作认可" title="帮别人突破能否同样获得认可？">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        删繁、证明实验不必做、沉淀公共工具是否进得了评价依据；奖励项目数量与团队扩张会导向相反行为。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+**Q5：核心领导者的判断能否被新证据改变？** 资源和方向是否随反例调整，核心人物是否愿意公开修正判断。这一问决定前四问的答案是不是装饰。组织设计的具体起点随笔也给了：围绕研究目标（如「改善长上下文训练效率」「降低满足既定质量的推理成本」）配置稳定合作的算法、数据、Infra 成员，从目标与假设开始共同工作，给足实验额度与跨边界修改权限，并事先明确项目时间投入、资源额度与评价依据——只有责任没有资源调动能力的负责人，只会变成会议协调员。专业部门不撤销，继续承担人才培养、技术标准与长期基础设施；要改的是关键问题上的合作方式与决策权限。
+
+还有一个节奏前提：成熟产品要稳定性、可预测成本与交付承诺，前沿研究必须承担不确定性，两者需要不同的预算节奏与评价方式；若探索项目总用成熟业务的季度回报标准自证，基础创新空间会被持续压缩。
+
+  </Prose>
+</Section>
+
+<Section alt id="counter">
+  <SectionHead
+    kicker="08 · COUNTERWEIGHTS"
+    title="反方重量：边界并不全是坏事"
+    lead="把这篇随笔用好，需要同时看见它没展开的另一半。"
+  />
+  <CompareTable
+    headers={[
+      { label: "随笔主张" },
+      { label: "合理的反方" },
+      { label: "折中读法", wrap: true },
+    ]}
+    rows={[
+      ["专业竖井制造裂缝", "专业深度本身就是壁垒：网络、存储、训练稳定需要长期积累，让所有人负责所有事会稀释专业能力", "不撤部门，在关键问题上改合作方式与决策权（随笔自己的处方）"],
+      ["跨边界想法应快速首验", "实验额度下沉会带来重复投入与评测口径混乱", "小队放权 + 共享评估标准、可复现结果与资源调整机制必须同时到位"],
+      ["组织决定创新", "Conway 定律是隐喻不是物理定律；样本是个人经验与少量案例，非定量研究", "把它当诊断启发而非因果证明；用五个自检问题做本地实测"],
+      ["小公司更灵活", "随笔承认小公司同样有信息垄断、决策集中与关键人物过载", "规模不决定问题是否存在，决定的是证据流动与资源调动的具体机制"],
+    ]}
+  />
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "当问题无法预先拆分，组织结构就成为技术系统的一部分",
+      conclusion: "前沿 AI 研发里结构、通信、并行与数据互相决定，按专业考核的部门会在交界处系统性地漏掉问题：局部指标全绿而端到端低效；工单传递结论但传不过假设；激励结构进一步筛掉跨边界想法。Conway 定律（1968）与 Allen 曲线（1970s）早已说明组织形状如何塑造系统产物与信息流，随笔的贡献是把这条经典命题落到了 RL 训推一致、RDMA 演进等当代 AI Infra 案例上。",
+      detail: "Score Centering 论文（2609.20807）以一个简单的加性校正项处理 TIM drift，恰是「补丁各有人修、共同假设无人查」的对照案例。",
+    },
+    {
+      title: "可操作的不是结构调整，而是证据流动、首验速度与负贡献认可",
+      conclusion: "诊断终点不是再划一次组织图，而是五个可当场检查的问题：异常有没有入口、跨域想法多久首验、失败能否沉淀为共同知识、帮别人成功是否被认可、核心判断能否被反例改变；组织设计上围绕研究目标配置有实验额度和跨边界修改权的稳定小队，同时保留专业部门养标准与长期能力。",
+      detail: "AI 把执行成本压到接近零后，协调成本成为显式瓶颈；而多智能体系统会复制人类组织的知识流动形状——组织设计能力正在变成 agent 架构设计能力。",
+    },
+  ]}
+  note="事实口径：随笔论点与两个技术案例来自 zartbot 微信公众号原文（2026-09-21，自述个人观点）；梁文锋引语见新浪财经 2024-07-22 转载访谈；Conway 定律依据其 1968 年原始论文，Allen 曲线与 Team Topologies 依据公开文献页面，Anthropic 跨领域工作方式依据其 2024-06-13 官方文章，TIM/drift 机制依据 arXiv 2609.20807 摘要；古典框架与随笔的对应、agent 组织镜像等延伸为本文作者解读。"
+/>
