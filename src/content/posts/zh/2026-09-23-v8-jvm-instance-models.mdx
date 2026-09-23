@@ -81,7 +81,7 @@ import {
   <SectionHead
     kicker="01 · THE QUESTION"
     title="前因：当虚拟机成为你进程里的一个库"
-    lead="嵌入运行时与链接普通函数库有本质不同：你领进进程的，是一整套自带堆、GC 与线程纪律的自治系统。"
+    lead="嵌入一个运行时和链接一个普通函数库根本不是一回事：你领进进程的，是一整套自带堆、GC 与线程纪律的自治系统。"
   />
   <Prose>
 
@@ -241,7 +241,7 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
   <CardGrid cols={2}>
     <InfoCard label="V8'S PURCHASE" title="多实例买到故障与内存的硬隔离">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
-        Isolate 之间堆不相交：一个实例的 GC 停顿、内存膨胀或 JS 崩溃天然不直接波及另一个；浏览器一个标签页一个隔离环境、Worker 并行做 CPU 密集计算，都是这份隔离的产品化。代价是对象不能直接共享，通信要走序列化、转移所有权或 SharedArrayBuffer——这正是浏览器/Node 世界 postMessage 与 transfer 语义存在的原因。
+        Isolate 之间堆不相交：一个实例的 GC 停顿、内存膨胀或 JS 崩溃，并不会直接波及另一个；浏览器一个标签页一个隔离环境、Worker 并行做 CPU 密集计算，都是这份隔离的产品化。代价是对象不能直接共享，通信要走序列化、转移所有权或 SharedArrayBuffer——这正是浏览器/Node 世界 postMessage 与 transfer 语义存在的原因。
       </p>
     </InfoCard>
     <InfoCard label="JVM'S PURCHASE" title="单实例买到共享对象的零拷贝协作">
@@ -261,7 +261,7 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
   <CardGrid cols={2}>
     <InfoCard label="ORTHOGONAL FIRST" title="先回答两个轴，再设计 API">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
-        设计任何嵌入式运行时（或沙箱实例系统），先独立决定「允许几个实例」与「实例内允许几条线程」。删除「唯一 owner」判断不等于获得多线程并行；单实例也不天然意味着排队——排队只来自单 owner 或粗粒度共享锁。
+        设计任何嵌入式运行时（或沙箱实例系统），先独立决定「允许几个实例」与「实例内允许几条线程」。删除「唯一 owner」判断不等于获得多线程并行；单实例也不等于会排队——排队只来自单 owner 或粗粒度共享锁。
       </p>
     </InfoCard>
     <InfoCard label="REGISTER ROOTS" title="跨边界持有对象必须显式登记">

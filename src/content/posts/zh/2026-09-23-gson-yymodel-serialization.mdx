@@ -261,7 +261,7 @@ YYModel 的处境是同一故事的 Swift 版本：Swift 引入 `Codable` 协议
   <CardGrid cols={2}>
     <InfoCard label="RUNTIME SHAPES THE API" title="同一个需求，API 形状被运行时原语决定">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
-        TypeToken 这个看似古怪的匿名子类写法，本质是 JVM 类型擦除逼出来的；modelContainerPropertyGenericClass 的协议字典，则是 ObjC 动态运行时的自然延伸。评估跨语言移植的框架时，先问目标运行时保留了什么元信息。
+        TypeToken 这个看似古怪的匿名子类写法，其实是 JVM 类型擦除逼出来的；modelContainerPropertyGenericClass 的协议字典，则是 ObjC 动态运行时的自然延伸。评估跨语言移植的框架时，先问目标运行时保留了什么元信息。
       </p>
     </InfoCard>
     <InfoCard label="GENERATION WINS LONG TERM" title="「聪明的运行时」最终输给「笨的编译期」">

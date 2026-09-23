@@ -87,7 +87,7 @@ import {
 
 **第二代：真正的智能体。** Claude Code、Codex 这一代产品打破了模具：你给的是**目标**而不是预定义步骤，信任智能体在你提供的上下文与工具范围内自主完成任务。但这套「外壳」能力——会话、上下文、工具、技能、文件系统、安全沙箱——长期被锁在各家产品内部，开发者想构建自己的同类智能体，只能从零缝。
 
-**第三代：可编程的 harness。** Flue 的定位就是把这层外壳变成可 import 的 TypeScript 库。它的口号很直接：「Not another SDK. Build autonomous agents with Flue's programmable TypeScript harness.」值得注意的是它的出身：由 [Astro](https://astro.build) 团队（以 Web 框架著称）开源，工程口味明显偏前端——文件约定优先、Vite 插件构建、函数式组合，而不是企业 Java 式的重型配置。
+**第三代：可编程的 harness。** Flue 的定位就是把这层外壳变成可 import 的 TypeScript 库。它的口号很直接：「Not another SDK. Build autonomous agents with Flue's programmable TypeScript harness.」它的出身值得一提：由 [Astro](https://astro.build) 团队（以 Web 框架著称）开源，工程口味明显偏前端——文件约定优先、Vite 插件构建、函数式组合，而不是企业 Java 式的重型配置。
 
   </Prose>
 </Section>
@@ -95,7 +95,7 @@ import {
 <Section alt id="model">
   <SectionHead
     kicker="02 · THE MENTAL MODEL"
-    title="核心心智模型：智能体就是一个函数"
+    title="理解它的核心：智能体就是一个函数"
     lead="这是 Flue 最有辨识度的设计——不是写配置文件，而是写一个带 'use agent' 指令的函数。"
   />
   <Prose>
@@ -193,7 +193,7 @@ diagnose, verify, and attempt a fix.`;
       <text x="80" y="236" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">真实文件系统 · 真实 shell 进程</text>
       <text x="80" y="262" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">no isolation, by design</text>
       <text x="80" y="286" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">前提：宿主本来就可信（CI / 编码助手）</text>
-      <text x="40" y="350" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">能力最大、风险最高的一档——信任前置，而非运行时兜底</text>
+      <text x="40" y="350" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">能力最大、风险最高的一档：信任前置，而不是等出了事再救</text>
     </svg>
 
     <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
@@ -247,7 +247,7 @@ diagnose, verify, and attempt a fix.`;
   />
   <Prose>
 
-官方对 durability 的定义值得逐字理解：**一旦输入被接纳（admitted），运行时就欠这个会话一个持久化的终态（durable terminal outcome）——无论进程崩溃、重启还是重新部署。** 任何到达智能体的输入（HTTP prompt、dispatch 调用、通道消息、定时触发）都先作为一条 submission 被持久化记录，**然后**才开始任何模型工作。接纳记录就是崩溃恢复的锚点：中断后重放已接纳但未完成的工作，已完成的持久工具与委派任务不重复执行。
+官方对 durability 的定义值得逐字理解：**一旦输入被接纳（admitted），运行时就欠这个会话一个持久化的终态（durable terminal outcome）——无论进程崩溃、重启还是重新部署。** 任何到达智能体的输入（HTTP prompt、dispatch 调用、通道消息、定时触发）都先作为一条 submission 被持久化记录，**然后**才开始任何模型工作。接纳记录就是崩溃恢复的起点：中断后重放已接纳但未完成的工作，已完成的持久工具与委派任务不重复执行。
 
 这与消息队列里「至少一次投递 + 幂等消费」是同一套工程思想，只是用在了智能体循环上。官方也诚实地列出了「什么不持久」——并非所有中间状态都被保存。
 

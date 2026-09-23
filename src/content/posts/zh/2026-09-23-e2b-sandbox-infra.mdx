@@ -1,7 +1,7 @@
 ---
-title: "E2B：给智能体一台「一次性 Linux 机器」的云基础设施"
+title: "E2B：给每个智能体发一台用完就扔的 Linux 机器"
 date: 2026-09-23
-excerpt: "AI 生成的代码不能跑在你的 API 进程里。E2B 用 Firecracker microVM 给每个智能体会话一台硬件隔离的 Linux 沙箱，并把「暂停—快照—分叉」做成了原语。本文拆解它的生命周期与底层设计。"
+excerpt: "AI 生成的代码不能跑在你的 API 进程里。E2B 用 Firecracker microVM 给每个智能体会话配一台硬件隔离的 Linux 沙箱，还把暂停、快照、分叉做成了可以直接调用的功能。这篇讲清楚这台机器是怎么造出来的。"
 tags: ["AI Agent", "E2B", "沙箱", "Firecracker", "云基础设施"]
 kind: "distilled"
 sources:
@@ -43,8 +43,8 @@ import {
 
 <CoverBanner
   kicker="OPEN INFRA · e2b.dev · 2026-09-23 核对"
-  title="E2B：给智能体一台「一次性 Linux 机器」的云基础设施"
-  lead="模型生成一段代码，这段代码应该在哪里执行？不是你的 API 进程，不是用户浏览器，而是一台一次性、硬件隔离、能暂停能分叉的 Linux 机器。E2B 卖的就是这台机器。"
+  title="E2B：给每个智能体发一台用完就扔的 Linux 机器"
+  lead="模型生成的一段代码，该在哪里执行？不能放进你的 API 进程，也不能放进用户的浏览器。它需要一台单独的 Linux 机器：硬件隔离、用完销毁，还能随时暂停和复制。E2B 卖的就是这台机器。"
   pills={[
     { label: "Firecracker microVM" },
     { label: "快照恢复" },
@@ -79,15 +79,15 @@ import {
 
 <Prose>
 
-先给口径：本文事实来自 E2B 官方文档（docs.e2b.dev，2026-09-23 核对）、[e2b-dev/E2B](https://github.com/e2b-dev/E2B) 的 SDK 说明，以及 Apache-2.0 许可的 [E2B Runtime 基础设施仓库](https://github.com/e2b-dev/infra)；产品额度随版本变化，具体数字以官方计费页为准。这篇文章和本博客的 MiMo 训练看板解析可以对照阅读——那边一个大跑要同时操作数万个沙箱，这篇讲的就是沙箱本身怎么造。
+先交代信息来源。本文事实来自 E2B 官方文档（docs.e2b.dev，2026-09-23 核对）、[e2b-dev/E2B](https://github.com/e2b-dev/E2B) 的 SDK 说明，以及 Apache-2.0 许可的 [E2B Runtime 基础设施仓库](https://github.com/e2b-dev/infra)。产品额度随版本变化，具体数字以官方计费页为准。这篇可以和本博客的 MiMo 训练看板那篇对着读：那边一次大跑要同时调动数万个沙箱，这篇讲的是单个沙箱怎么造。
 
 </Prose>
 
 <Section id="backdrop">
   <SectionHead
     kicker="01 · THE BACKDROP"
-    title="前因：代码解释器很好用，但智能体需要的是一台机器"
-    lead="「在隔离环境里跑 AI 生成的代码」不是新需求，但智能体把需求规格整个抬高了。"
+    title="前因：代码解释器不够用了，智能体要的是一整台机器"
+    lead="「在隔离环境里跑 AI 写的代码」这件事早就存在，智能体把要求拉高了不止一档。"
   />
   <Prose>
 
@@ -136,7 +136,7 @@ import {
       {
         tag: "02 · 运行",
         title: "VM 里有个叫 envd 的专属 API",
-        body: "每个沙箱内部跑着 envd：通过 Connect RPC 与 REST 暴露进程、PTY 终端、文件系统、目录监听与端口转发。SDK 说的「执行代码」「开终端」，本质都是在和 envd 对话；它还能在不中断工作负载的情况下热升级。任何监听端口都能通过 https://<port>-<sandbox>.<domain> 从边缘访问。",
+        body: "每个沙箱内部跑着 envd：通过 Connect RPC 与 REST 暴露进程、PTY 终端、文件系统、目录监听与端口转发。SDK 说的「执行代码」「开终端」，说到底都是在和 envd 对话；它还能在不中断工作负载的情况下热升级。任何监听端口都能通过 https://<port>-<sandbox>.<domain> 从边缘访问。",
       },
       {
         tag: "03 · 暂停",
@@ -329,7 +329,7 @@ E2B 的隔离不是只靠 VM 这一层：每个沙箱有自己的 cgroup 与网�
   </CardGrid>
   <Prose>
 
-生态位也值得注意：官方文档列出的集成方包括 Claude Code、Codex、Devin Outposts、Cursor、Grok Build、Vercel Eve、Flue、CrewAI、LangChain、OpenAI Agents SDK 等——**沙箱正在变成智能体生态的公共执行层**，就像数据库是 Web 应用的公共状态层一样。
+它所处的位置也很能说明问题：官方文档列出的集成方包括 Claude Code、Codex、Devin Outposts、Cursor、Grok Build、Vercel Eve、Flue、CrewAI、LangChain、OpenAI Agents SDK 等——**沙箱正在变成智能体生态的公共执行层**，就像数据库是 Web 应用的公共状态层一样。
 
   </Prose>
 </Section>

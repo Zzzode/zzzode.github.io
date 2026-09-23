@@ -102,7 +102,7 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
       },
       {
         tag: "04 · 并行",
-        title: "async 不能碰可变状态，所以天然安全",
+        title: "async 不能碰可变状态，天生就安全",
         body: "Skip 提供两种并发：async/await 与直接并行 API。共同保证是：异步计算在类型层面就不能引用可变状态——因此独立的 async 续体可以真正并行，而不存在传统多线程的数据竞争。编译器把「线程安全」从运行时纪律提前到了类型检查。",
       },
       {
@@ -150,7 +150,7 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
       <path d="M200 170 L260 162" stroke="#0066cc" stroke-width="1.6" fill="none" stroke-dasharray="3 4" />
       <path d="M200 194 L260 202 M252 200 L260 202 L254 194" stroke="#e8710a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
       <text x="230" y="246" font-size="11" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">数据变 → 自动失效</text>
-      <text x="230" y="320" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">缓存正确性由类型证明兜底，不靠人盯</text>
+      <text x="230" y="320" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">缓存正确性靠类型证明，不靠人盯</text>
     </svg>
 
     <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
@@ -211,7 +211,7 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
   />
   <Prose>
 
-Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必成为一门大众语言。更值得注意的是团队的下一步：[SkipLabs](https://skiplabs.io/) 把同一核心——**反应式增量计算**——产品化为面向 TypeScript、Python、Java 的引擎，口号是「把声明式逻辑变成流」：你定义一次视图，外部资源变化时引擎自动保持结果最新，应用逻辑跑在普通的 Node.js/Bun 运行时上，语言中立。
+Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必成为一门大众语言。更值得一看的是团队的下一步：[SkipLabs](https://skiplabs.io/) 把同一核心——**反应式增量计算**——产品化为面向 TypeScript、Python、Java 的引擎，口号是「把声明式逻辑变成流」：你定义一次视图，外部资源变化时引擎自动保持结果最新，应用逻辑跑在普通的 Node.js/Bun 运行时上，语言中立。
 
 这条演化路径很有代表性：**研究语言是思想的试验场，商业化时把思想从「你必须换语言」解耦成「你现有语言也能用的运行时/编译器组件」。** 与本博客编译器综述里提到的趋势一致——ML 与编译技术真正落地时，多以库、插件、引擎的形态嵌入既有生态，而不是要求世界迁移。
 
@@ -227,7 +227,7 @@ Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必�
   <CardGrid cols={3}>
     <InfoCard label="ESCAPE HATCH" title="与不纯世界交互需要显式桥接">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
-        任何真实系统都要读时间、发网络、碰数据库；在强追踪模型里调用这些都要经过受控的数据源抽象，样板与心智成本高于随手写全局变量的语言。
+        任何真实系统都要读时间、发网络、碰数据库；在强追踪模型里调用这些都要经过受控的数据源抽象，样板代码和理解成本都高于随手写全局变量的语言。
       </p>
     </InfoCard>
     <InfoCard label="ECOSYSTEM" title="新语言的网络效应鸿沟">
@@ -248,7 +248,7 @@ Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必�
     {
       title: "把「副作用」升级为类型系统的一等事实",
       conclusion: "Skip 的核心不是某个语法，而是让可变性与数据源确定性可被编译期证明；一次无副作用证明同时解锁了安全记忆化、无竞态并行与可预测 GC。",
-      detail: "缓存失效、线程安全、GC 停顿这三件传统上靠工程纪律的事，在这里同源——它们本质都是「谁依赖了会变的东西」。",
+      detail: "缓存失效、线程安全、GC 停顿这三件传统上靠工程纪律的事，在这里同源——它们说到底都是同一件事：「谁依赖了会变的东西」。",
     },
     {
       title: "研究语言改变行业靠思想产品化，而非语言本身流行",

@@ -1,7 +1,7 @@
 ---
 title: "Kotlin K2/FIR：一门空安全语言怎么吞下整个 Java 世界"
 date: 2026-09-23
-excerpt: "Kotlin 最成功的设计决策不是空安全本身，而是在不放弃空安全的前提下与 30 年的 Java 生态无缝互操作。核心机制叫平台类型（platform types）——一种你写不出来、编译器却处处在用的「柔性类型」。本文借 K2/FIR 新前端拆解这套类型互通工程。"
+excerpt: "Kotlin 最成功的设计决策不是空安全本身，而是不放弃空安全，还能和 30 年的 Java 生态直接打通。核心机制叫平台类型（platform types）——一种你写不出来、编译器却处处在用的「柔性类型」。本文借 K2/FIR 新前端拆解这套类型互通工程。"
 tags: ["Kotlin", "K2", "FIR", "Java", "类型系统", "空安全", "编译器"]
 kind: "distilled"
 sources:
@@ -108,7 +108,7 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
       },
       {
         tag: "03 · 断言插入",
-        title: "编译器在边界插桩兜底",
+        title: "编译器在边界插断言，让 NPE 当场炸",
         body: "当你把平台值放进非空变量、或传给要求非空参数的 Kotlin 函数时，编译器会自动生成断言（assertion）：一旦为 null 立刻失败。它不假装安全，而是尽力阻止 null 向程序深处传播——NPE 在边界处爆，而不是在十层调用之后莫名其妙地爆。",
       },
       {
@@ -154,7 +154,7 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
     <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
       <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
       <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 03 · ASSERTION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">在边界处插桩兜底</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">边界处插断言 · NPE 立即失败</text>
       <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
       <line x1="70" y1="190" x2="390" y2="190" stroke="#dedee3" stroke-width="2" />
       <rect x="80" y="230" width="120" height="48" rx="10" fill="#1d1d1f" />
