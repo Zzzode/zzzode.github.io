@@ -99,6 +99,7 @@ Props: `steps: { tag, title, body }[]` (4–6). The `visual` slot contains **one
 - draw a rounded paper card (`<rect x=10 y=30 width=440 height=400 rx=24 fill="#f5f5f7">`), an uppercase eyebrow + step title + `NN / NN` counter, and a token-only schematic that *shows the mechanism* (histogram, grid, checklist, dot matrix, axis — geometric, labeled);
 - blue only for the meaningful active element; everything else neutral. The script only toggles `.is-active`/`.is-done` — authored colors stay static inside each frame;
 - never use TS type annotations inside MDX `{…}` expressions (oxc parser); for mixed arrays map over objects (`{label, ok}[]`), not tuples.
+- inside SVG `<text>…</text>`, any literal `{` `}` or `…` is parsed as a JSX expression and breaks the build; wrap such text as `{"{ code: 1 }"}` (and use `&lt;`/`&gt;` for angle brackets).
 
 ```mdx
 <ScrollStory steps={[{ tag: "01 · 出题", title: "…", body: "…" }]}>
