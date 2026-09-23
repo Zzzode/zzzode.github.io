@@ -1,0 +1,341 @@
+---
+title: "AI 眼镜产业链 2026 中场：无屏爆发、字节传闻与一条重排的价值链"
+date: 2026-09-23
+excerpt: "2026 年上半年，全球 AI 眼镜出货同比增长 263%，Meta 一家拿走无屏品类约 94%；与此同时，豆包眼镜从「即将出货」到官方辟谣只隔了几小时。这篇用投研口径把可核实的数据与传闻分层：市场规模与份额（IDC、Counterpoint）、产业链五层结构（芯片/ODM/光学声学/品牌入口/渠道）、中国厂商的真实位置，以及隐私与「无摄像头化」正在如何改写 BOM。"
+tags: ["AI 眼镜", "产业链", "豆包", "Meta Ray-Ban", "Rokid", "投研", "硬件"]
+kind: "distilled"
+sources:
+  - title: "IDC · Smart Glasses Surge: The XR Market Is Rewriting Its Own Rules（2026Q1 Tracker）"
+    url: "https://www.idc.com/resource-center/blog/smart-glasses-surge-the-xr-market-is-rewriting-its-own-rules/"
+  - title: "9to5Mac 转引 Counterpoint：AI glasses shipments surged 263% in H1 2026（2026-09-21）"
+    url: "https://9to5mac.com/2026/09/21/report-ai-glasses-shipments-surged-263-in-h1-2026-as-apple-prepares-to-enter-the-market/"
+  - title: "AIBase 转引 Counterpoint：H1 2026 无屏/带屏增速、Rokid 份额与无摄像头趋势"
+    url: "https://news.aibase.com/news/31259"
+  - title: "36 氪（观潮科技 Pro）：否认的 AI 眼镜背后，是字节对 AI 终端更大的野心（2026-01-06）"
+    url: "https://www.36kr.com/p/3626671560913412"
+  - title: "太平洋科技/快科技：字节首款豆包 AI 眼镜即将出货，搭载高通 AR1 芯片（2026-01-06）"
+    url: "https://g.pconline.com.cn/x/2059/20593652.html"
+  - title: "Qualcomm · Snapdragon AR1 Gen 1 Platform 官方产品页"
+    url: "https://www.qualcomm.com/xr-vr-ar/products/ar-series/snapdragon-ar1-gen-1-platform"
+  - title: "Meta Newsroom · Introducing the New Ray-Ban | Meta Smart Glasses（2023-09）"
+    url: "https://about.fb.com/news/2023/09/new-ray-ban-meta-smart-glasses/"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  Timeline,
+  CompareTable,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="INDUSTRY CHAIN · IDC / Counterpoint · 2026-09-23 核对"
+  title="AI 眼镜产业链 2026 中场"
+  lead="这不是一次智能穿戴的常规升级，而是「无屏 AI 眼镜」这个新品类的放量元年：麦克风加摄像头加一颗低功耗 AR 芯片，把镜架变成 AI 助手的耳朵和眼睛。品牌、芯片、代工、光学声学与渠道，价值正在重新排座次。"
+  pills={[
+    { label: "H1 2026 出货 +263%" },
+    { label: "无屏为主 · Meta 约 94%" },
+    { label: "豆包：传闻与辟谣" },
+    { label: "无摄像头化萌芽" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="AI 眼镜产业链五层结构">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="54" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">VALUE CHAIN · FIVE LAYERS</text>
+    {[["品牌 / 模型入口","Meta · 字节豆包 · 阿里夸克 · 百度 · 小米 · Rokid",190,"#0066cc"],["主芯片","Qualcomm AR1 等低功耗 AR SoC（自研传闻存疑）",150,"#1d1d1f"],["ODM / 制造","龙旗 · 立讯 · 歌尔 等",110,"#1d1d1f"],["关键零组件","光学（波导/Micro-OLED）· 摄像头 · 声学 · 电池",70,"#1d1d1f"],["渠道","EssilorLuxottica 眼镜零售网 ↔ 中国电商/手机渠道",30,"#1d1d1f"]].map((r,i)=>(
+      <g>
+        <rect x="30" y={66+r[2]-4} width="400" height="34" rx="9" fill={i===0?"#eaf2fb":"#fff"} stroke={r[3]} stroke-width={i===0?1.4:1} />
+        <text x="46" y={88+r[2]-4} font-size="10.5" font-weight="600" fill={r[3]} font-family="PingFang SC, sans-serif">{r[0]} · {r[1]}</text>
+      </g>
+    ))}
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径先行：本文只采用能回到公开来源的数字，并严格区分三种口径——**机构 tracker 数据**（IDC 与 Counterpoint，统计范围不同、数字不可互相替代）、**公司高管口径**（EssilorLuxottica CEO 的累计销量）、**媒体/供应链传闻**（豆包眼镜参数，且字节已官方否认）。所有份额数字均为对应机构、对应季度/半年的截面值，不是年度预测；文中会标注每个数字的归属。本文不构成投资建议。
+
+</Prose>
+
+<Section id="market">
+  <SectionHead
+    kicker="01 · THE NUMBERS"
+    title="市场实况：两组 tracker，同一个「放量元年」结论"
+    lead="先把数字和它们的口径一起摆出来。"
+  />
+  <StatGrid cols={4}>
+    <Stat value="+263%" label="Counterpoint 口径：2026 上半年全球 AI 眼镜出货同比；其中无屏 +258%、带 AR 显示 +449%（小基数）" />
+    <Stat value="225 万" label="IDC 口径：2026Q1 无屏智能眼镜单季出货约 2.25M，同比 +167%；2024 全年同类仅约 2.7M" />
+    <Stat value="≈94%" label="Counterpoint 口径：H1 2026 Meta 占无屏品类份额（小米、阿里各约 1%，其余 4%）" />
+    <Stat value="700 万+" label="EssilorLuxottica CEO 口径：2025 年双方累计已售 700 万+ 副，2026 年底冲击千万级年销节奏" />
+  </StatGrid>
+  <Prose>
+
+为什么是 2026 年？三条曲线在这时相交：**产品上**，Ray-Ban Meta 证明了无屏形态（摄像头 + 开放式声学 + 手机助理）可以做到公众愿意戴出门的外观；**能力上**，多模态 AI 助手让「拍一下就问、听到就翻译」成为真实高频用途；**渠道上**，EssilorLuxottica 把 Meta 镜架放进了全球最大的眼镜零售网络——它出现在配镜店而不是数码城里，这是纯硬件公司复制不了的货架。
+
+IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：其可穿戴设备 tracker 显示，无屏品类 Q1 同比 +167%，而被归入 AR/VR 口径的带显示眼镜同期 +86%——**注意：同样描述「带屏眼镜增速」，IDC Q1 口径（+86%）与 Counterpoint 半年口径（+449%）差异很大，源于统计品类、基数与时间窗不同，引用任何一个都应连同机构名一起引用。**
+
+  </Prose>
+</Section>
+
+<Section alt id="chain">
+  <SectionHead
+    kicker="02 · THE CHAIN"
+    title="产业链五层：钱、风险与壁垒各落在哪里"
+    lead="随页面滚动，左侧舞台自上而下游走这条价值链（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 入口层",
+        title: "品牌与模型：这不是卖硬件，是抢 AI 分发触点",
+        body: "最上层是 Meta 与中国互联网大厂（字节豆包、阿里夸克、百度小度、小米、理想、Rokid 等）。无屏眼镜本身技术门槛低于手机，真正的争夺对象是「第一触点」：镜架上的麦克风与摄像头把语音和图像请求直接导向谁家的大模型。36 氪转述的分析称字节的路径是「轻硬件 + 强服务」——不靠硬件利润，而靠设备把豆包的服务触点铺到日常场景。这一层的壁垒是模型体验、账号体系与内容服务，而非制造。",
+      },
+      {
+        tag: "02 · 芯片层",
+        title: "低功耗 AR SoC：高通 AR1 是当前事实标准",
+        body: "眼镜对功耗、发热与重量的约束远严于手机，需要专门的 AR 处理器。高通 Snapdragon AR1 Gen 1 是当前无屏 AI 眼镜最主流的平台，2023 年 9 月与 Meta 联合发布、首发于 Ray-Ban Meta。媒体传闻豆包眼镜「搭载高通 AR1」（快科技口径），另有供应链消息称其用「自研空间算法芯片」（36 氪口径）——两种说法互相矛盾且均未被官方证实，本文只记录分歧本身。国产 SoC 替代是这一层最大的投资变量，但目前公开可核实的量产设计仍以 AR1 为主。",
+      },
+      {
+        tag: "03 · 制造层",
+        title: "ODM：大厂不自建产线，龙旗们承接快速试错",
+        body: "供应链传闻（36 氪引述产业链人士，字节已否认整体传闻）给出的分工样板：龙旗科技联合研发与量产，惠州工厂研发落地、南昌工厂量产，龙旗负责底层 UI、字节主导上层 App。这反映了中国 AI 眼镜的普遍打法——互联网公司不自建供应链，而把成熟手机 ODM（龙旗、立讯、歌尔等）作为快速小批量试错的产能底座。订单兑现速度与良率，是这一层的核心变量。",
+      },
+      {
+        tag: "04 · 零组件层",
+        title: "光学声学电池：重量 50 克以内的物理战争",
+        body: "无屏机型的 BOM 集中在摄像头模组、开放式扬声器与麦克风阵列、低容量高安全电池、以及支撑全天佩戴的镁合金/钛合金结构件——传闻的豆包指标是不足 50 克、2000 元内（未证实）。带屏机型则额外押注衍射光波导、BirdBath 与 Micro-OLED 等显示光学，量小价高，决定了带屏品类 +449% 的高增速仍建立在很小基数上。Counterpoint 指出，零部件成本上涨与隐私争议是近期两大变量。",
+      },
+      {
+        tag: "05 · 渠道层",
+        title: "眼镜零售网络 vs 中国电商：两种货架逻辑",
+        body: "Meta 的隐形护城河是 EssilorLuxottica：雷朋品牌加上全球配镜零售网络，让智能镜架出现在配镜片的场所，IDC 称这种货架存在「极难复制」。中国厂商走相反路径——电商爆单、手机渠道导流、与手机/汽车生态绑定（小米影像、理想车载协同）。阿里夸克眼镜 2025 年 11 月发布后发货周期一度拉长到 45 天、二手炒至 4000–5000 元（36 氪口径），说明中国市场需求弹性大，但售后、配镜与试戴网络仍是短板。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 01 · ENTRY</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">品牌与模型入口</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      {["Meta + Ray-Ban","字节 · 豆包","阿里 · 夸克","百度 · 小米 · 理想","Rokid（带屏）"].map((s,i)=>(
+        <g>
+          <rect x="60" y={146+i*44} width="340" height="34" rx="9" fill={i===0?"#0066cc":"#fff"} stroke={i===0?"#0066cc":"#dedee3"} />
+          <text x="230" y={168+i*44} font-size="11" fill={i===0?"#fff":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
+        </g>
+      ))}
+      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">壁垒：模型体验 · 账号体系 · 分发触点</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 02 · SILICON</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">低功耗 AR 芯片</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="70" y="170" width="320" height="80" rx="14" fill="#1d1d1f" />
+      <text x="230" y="204" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Snapdragon AR1 Gen 1</text>
+      <text x="230" y="230" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">2023-09 与 Meta 联合发布 · Ray-Ban Meta 首发</text>
+      <rect x="70" y="270" width="320" height="56" rx="12" fill="#fff" stroke="#e8710a" stroke-width="1.5" stroke-dasharray="5 4" />
+      <text x="230" y="294" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">豆包芯片：AR1（快科技）vs 自研（36 氪）</text>
+      <text x="230" y="314" font-size="10" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">供应链传闻互相矛盾，字节已整体否认</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 03 · ODM</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">不自建产线的大厂</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {["龙旗（惠州研发 / 南昌量产，传闻）","立讯 · 歌尔 等成熟代工底座","ODM 负责底层 UI · 品牌方主导上层 App"].map((s,i)=>(
+        <g>
+          <rect x="56" y={160+i*62} width="348" height="48" rx="10" fill={i===2?"#1d1d1f":"#fff"} stroke="#dedee3" />
+          <text x="230" y={190+i*62} font-size="10.5" fill={i===2?"#f5f5f7":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
+        </g>
+      ))}
+      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">价值 = 快速试错的产能 · 良率 · 交付速度</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 04 · COMPONENTS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">50 克以内的物理战争</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      {[["摄像头模组","无屏机型核心输入"],["声学","开放扬声器 + 麦阵"],["电池/结构","小电池 · 镁/钛 · &lt;50g"],["显示光学（带屏）","波导 · Micro-OLED · 小基数"]].map((r,i)=>(
+        <g>
+          <rect x="46" y={150+i*54} width="368" height="44" rx="9" fill="#fff" stroke="#dedee3" />
+          <text x="66" y={172+i*54} font-size="11" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{r[0]}</text>
+          <text x="400" y={172+i*54} font-size="9.5" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">{r[1]}</text>
+        </g>
+      ))}
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 05 · CHANNEL</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">两种货架逻辑</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="50" y="156" width="360" height="82" rx="12" fill="#0066cc" />
+      <text x="230" y="188" font-size="12" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">西方：EssilorLuxottica 配镜零售网</text>
+      <text x="230" y="214" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">眼镜店货架 · 品牌信任 · 难复制</text>
+      <rect x="50" y="254" width="360" height="82" rx="12" fill="#1d1d1f" />
+      <text x="230" y="286" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">中国：电商爆单 + 手机/车机生态</text>
+      <text x="230" y="312" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">夸克发货排 45 天 · 试戴/售后待补</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="shares">
+  <SectionHead
+    kicker="03 · WHO'S WINNING"
+    title="竞争格局：无屏看 Meta，带屏看 Rokid，中国占产能不占份额"
+    lead="两组 tracker 给出的份额表，请连同统计范围一起读。"
+  />
+  <CompareTable
+    headers={[
+      { label: "厂商" },
+      { label: "IDC Q1 2026 整体份额" },
+      { label: "Counterpoint H1 2026 无屏份额" },
+    ]}
+    rows={[
+      ["Meta", "69.2%", "≈94%（自身量同比 +260%）"],
+      ["小米 Xiaomi", "3.1%", "≈1%"],
+      ["阿里（夸克）", "—（计入 Others 长尾）", "≈1%"],
+      ["雷鸟 RayNeo", "3.4%（低价带屏机型）", "—"],
+      ["Viture", "2.5%", "—"],
+      ["XREAL", "2.0%（备战 Android XR）", "—"],
+      ["Others 长尾", "19.8%", "约 4%"],
+    ]}
+  />
+  <Prose>
+
+两张表不可混用：IDC Q1 数字来自其可穿戴与 AR/VR 两个 tracker 的合并口径，Meta 69.2%；Counterpoint 只看无屏 AI 眼镜半年口径，Meta 约 94%——**分母不同，两个数字都对。** 共同结论是：无屏市场目前是「一个巨头 + 长尾」，而挑战者名单上是清一色中国厂商加即将入场的 Google/Samsung（Android XR）与 Apple（已有多家媒体报道其在研无屏眼镜，尚未官宣）。
+
+带屏市场是另一张图：Counterpoint 数据（经 AIBase 转引）显示 H1 2026 AR/AI 显示眼镜 +449%，**Rokid 以 41% 份额居首、Meta 37% 紧随，中国市场占全球带屏眼镜出货的 45%**。换句话说，中国厂商在西方主导的无屏品类中份额尚低（Counterpoint 区域拆口里中国大陆只占无屏出货 3%，北美 50%、西欧 28%），但在小而高增长的带屏品类与全球制造端占据了另一类位置——**占产能、占带屏，不占无屏主流市场。**
+
+  </Prose>
+</Section>
+
+<Section alt id="doubao">
+  <SectionHead
+    kicker="04 · THE DOUBAO CASE"
+    title="豆包眼镜：一场几小时的传闻，与字节的终端矩阵"
+    lead="投研上，被否认的传闻与被确认的事实要放在时间线上分开记。"
+  />
+  <div class="mt-8">
+    <Timeline
+      nodes={[
+        { year: "2024", title: "Ola Friend AI 耳机", body: "字节首款围绕豆包 App 协同的轻硬件，主打 AI 语音交互（已上市的既成事实）。" },
+        { year: "2025.11", title: "阿里夸克眼镜爆单", body: "36 氪口径：发布后发货周期一度 45 天，二手溢价至 4000–5000 元；百度小度 AI 眼镜 Pro 同年底发售。" },
+        { year: "2025.12", title: "豆包手机助手预览", body: "36 氪引述科创板日报：与努比亚合作工程样机 M153 售 3499 元、面向开发者限量并迅速售罄。" },
+        { year: "2026.01.05", title: "「即将出货」传闻", body: "蓝鲸新闻称豆包眼镜进入出货阶段：不足 50 克、2000 元内、无屏 Q1/带屏 Q4、龙旗联合研发；芯片说法在快科技（高通 AR1）与其他供应链消息（自研）间矛盾。" },
+        { year: "2026.01.05 当日", title: "字节官方否认", body: "新京报贝壳财经求证，字节回应「传闻不实，目前没有明确销售计划」。以上参数至今均未获官方确认，只能作为供应链意向信号。" },
+        { year: "2026.09", title: "市场已变", body: "至本核对日，H1 全球 AI 眼镜 +263%、Meta 无屏份额约 94%——字节无论是否出牌，入口争夺的窗口正在收窄。" },
+      ]}
+    />
+  </div>
+  <Prose>
+
+为什么要认真对待一个被否认的传闻？投研上它有三重信号价值：**第一，供应链的能力已经存在**——50 克、2000 元内、ODM 联合研发说明门槛主要在产品化而非技术幻想；**第二，字节的终端矩阵已成体系**——耳机、手机工程机、眼镜三个节点围绕豆包 App，这与 Meta「模型 + 社交图谱 + 眼镜渠道」是同构的入口布局；**第三，否认本身符合大厂节奏**——在模型体验与刚需路径未跑通前不官宣，可以参考小米、理想直接以 1999 元起定价试水的相反打法。但信号不是事实：截至本文核对，豆包眼镜没有官方发布，本文不把任何传闻参数当作可执行结论。
+
+  </Prose>
+</Section>
+
+<Section id="value">
+  <SectionHead
+    kicker="05 · INVESTMENT LOGIC"
+    title="价值捕获：硬件可能不赚钱，钱在入口与生态"
+    lead="这条产业链最反直觉的一点：最拥挤的环节未必最赚钱。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="ENTRY RENTS" title="入口与服务是利润的候选宿主">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        36 氪转述产业时评人的判断：互联网公司做眼镜是建「AI 分发网络」，硬件可贴钱，价值在语音/图像请求导向自家模型与服务后的留存与订阅。Meta 的广告体系有能力补贴硬件，这是纯硬件厂不具备的弹药。
+      </p>
+    </InfoCard>
+    <InfoCard label="CHIP/ODM BETA" title="芯片与代工吃放量弹性，但议价权双向">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        AR SoC 与成熟 ODM 在放量阶段直接受益（订单、良率爬坡）；但客户集中（品牌厂少数）也压议价权。Counterpoint 已提示零部件成本上涨，BOM 通胀可能首先侵蚀组装环节毛利。
+      </p>
+    </InfoCard>
+    <InfoCard label="OPTICS OPTION" title="显示光学是带屏放量的期权">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        波导与 Micro-OLED 当前量小价高，+449% 的带屏增速建立在小基数上；若 Android XR/Apple 带起带屏周期，Rokid 们的份额与光学供应链的价值会重估——这是高不确定性、高赔率的一端。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section alt id="risks">
+  <SectionHead
+    kicker="06 · RISKS"
+    title="四个不能忽略的反向变量"
+    lead="所有增长率都是在以下风险尚未兑现的前提下成立。"
+  />
+  <CompareTable
+    headers={[
+      { label: "风险" },
+      { label: "已观察到的信号（带来源口径）" },
+      { label: "可能的产业链后果", wrap: true },
+    ]}
+    rows={[
+      ["隐私与监管", "Meta 曾因录制指示灯问题受批评；Counterpoint 称隐私担忧是近期两大变量之一，行业出现「无摄像头」转向，Meta 也被报道在考虑以麦克风为中心的机型", "摄像头模组需求结构变化；带指示灯/物理快门等合规组件成为必选项"],
+      ["BOM 成本上涨", "Counterpoint 明确提示零部件成本上升", "品牌端要么涨价压缩 2000 元价格带，要么压缩代工与零组件毛利"],
+      ["使用黏性未证实", "爆单与二手溢价可能是尝鲜需求；杀手级用例仍集中在翻译/拍摄/问答", "换机周期若拉长，芯片与组装的放量弹性低于预期"],
+      ["巨头入场重排", "Google/Samsung 的 Android XR、Apple 在研无屏眼镜均为公开报道中的确定方向；IDC 称 Google 的生态深度「结构上不同于」Meta", "长尾品牌的窗口期可能只有 12–24 个月；ODM 与渠道的依附价值随品牌座次重估"],
+    ]}
+  />
+  <Prose>
+
+一个值得跟踪的反直觉趋势是**无摄像头化**：据 Counterpoint（AIBase 转引），更多设备可能在设计上规避摄像头争议，只保留麦克风与 AI 交互——这会把价值量从摄像头模组推向声学与端侧语音芯片，也会改变「眼镜作为视觉传感器」的整条投资逻辑。无屏与带屏、有摄像头与无摄像头，本质是四个不同的 BOM 组合，不能用一个「AI 眼镜」标签统一定价。
+
+  </Prose>
+</Section>
+
+<Section id="caliber">
+  <SectionHead
+    kicker="07 · DATA CALIBER"
+    title="数据口径说明：这些数字不能互相替换"
+    lead="投研结论的可靠性首先取决于口径纪律。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="IDC vs COUNTERPOINT" title="两个 2026 增速为何差一倍">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        IDC：Q1 单季、无屏 +167%（225 万台），合并可穿戴与 AR/VR tracker；Counterpoint：H1 半年、AI 眼镜整体 +263%（无屏 +258%、带屏 +449%）。时间窗、品类边界与是否含音频眼镜均不同。
+      </p>
+    </InfoCard>
+    <InfoCard label="COMPANY FIGURES" title="700 万是累计销量不是年出货">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        「2025 年售出 700 万+」为 EssilorLuxottica CEO 对双方合作累计成绩的表述，千万级是 2026 年底的年化目标，均非 tracker 口径的单年出货，不可直接与上述份额表相加。
+      </p>
+    </InfoCard>
+    <InfoCard label="RUMORS" title="豆包参数全部是未证实传闻">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        50 克、2000 元内、龙旗量产、芯片选型均出自媒体与供应链消息，字节当日已否认有明确销售计划；本文只把它们当作供应链能力与战略意向的信号，不作为事实或投资依据。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "2026 年是无屏 AI 眼镜的放量元年，而放量由「形态可佩戴 + 助理可用 + 眼镜渠道」三因素共振驱动",
+      conclusion: "IDC 与 Counterpoint 两组口径不同的 tracker 给出同一方向结论：无屏品类 Q1/H1 均三位数增长（+167%/+258%），Meta 凭借 Ray-Ban 产品力、EssilorLuxottica 零售网络与广告补贴能力占据绝对主导（整体约 69%、无屏约 94%）；带屏是小基数高增速（+449%）的另一战场，Rokid 41% 对 Meta 37%，中国占全球带屏出货 45%。",
+      detail: "读份额表必须连同机构与分母：IDC 的 69.2% 与 Counterpoint 的 94% 都是对的，描述的不是同一个市场。",
+    },
+    {
+      title: "产业链利润的候选宿主在入口与生态，风险集中在隐私、成本与巨头入场",
+      conclusion: "五层链条中，品牌/模型层争夺的是 AI 分发触点（豆包耳机→手机样机→眼镜的矩阵即此逻辑，但其眼镜参数全部停留在被否认的传闻阶段）；芯片层高通 AR1 是事实标准、国产替代是变量；ODM 与零组件吃放量弹性但承受 BOM 通胀与客户集中。无摄像头化可能重构 BOM，Google/Android XR 与 Apple 的入场则决定长尾品牌 12–24 个月的窗口期。",
+      detail: "对中国厂商的准确定位是：占带屏份额与全球制造端，但在无屏主流市场（北美 50%、西欧 28%）份额尚低；夸克式爆单证明需求弹性，配镜渠道与售后网络仍是待补的课。",
+    },
+  ]}
+  note="事实口径：市场数据依据 2026-09-23 可公开访问的 IDC 官方博客（2026Q1 tracker：225 万台、+167%、份额表）、9to5Mac 与 AIBase 对 Counterpoint 报告的转引（H1 2026：+263%、无屏/带屏增速、94%/41%/37% 份额、区域拆分、700 万累计与千万目标出自 EssilorLuxottica CEO）；豆包相关参数出自 36 氪与快科技 2026-01-06 报道且字节当日已向新京报否认，全部按传闻处理；AR1 定位依据高通官方产品页。本文为公开信息梳理，不构成投资建议。"
+/>
