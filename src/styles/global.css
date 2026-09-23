@@ -388,8 +388,10 @@
 
 /* On paper-gray slabs the authored #f5f5f7 card would disappear; invert
    it to a white card with a hairline edge (SVG presentation attributes
-   yield to CSS). The first rect of every frame is the card surface. */
-.bg-paper .ss-frame rect:first-child {
+   yield to CSS). The card is the SVG's own first rect — the direct-child
+   combinator is required because nested <g><rect/></g> rows must keep
+   their authored fills. */
+.bg-paper .ss-frame > rect:first-child {
   fill: var(--color-white);
   stroke: var(--color-line-soft);
   stroke-width: 1;
