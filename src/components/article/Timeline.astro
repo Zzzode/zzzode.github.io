@@ -17,7 +17,7 @@ interface Props {
 const { nodes } = Astro.props;
 ---
 
-<ol class="not-prose timeline grid grid-cols-1 gap-5 md:flex md:gap-3 md:overflow-x-auto md:pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+<ol class="not-prose timeline grid grid-cols-1 gap-5 md:flex md:gap-3 md:overflow-x-auto md:pb-2.5 md:snap-x md:snap-proximity [scrollbar-width:thin] [scrollbar-color:var(--color-line)_transparent] [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-line [&::-webkit-scrollbar-thumb]:transition-colors hover:[&::-webkit-scrollbar-thumb]:bg-muted-2">
   {
     nodes.map((node, i) => (
       <li
