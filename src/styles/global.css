@@ -386,6 +386,15 @@
   margin-bottom: 18px;
 }
 
+/* On paper-gray slabs the authored #f5f5f7 card would disappear; invert
+   it to a white card with a hairline edge (SVG presentation attributes
+   yield to CSS). The first rect of every frame is the card surface. */
+.bg-paper .ss-frame rect:first-child {
+  fill: var(--color-white);
+  stroke: var(--color-line-soft);
+  stroke-width: 1;
+}
+
 .ss-steps {
   list-style: none;
   margin: 0;
@@ -393,11 +402,11 @@
 }
 
 .ss-step {
-  padding: 22px 0;
+  padding: 18px 0;
 }
 
 .ss-tag {
-  margin: 0 0 8px;
+  margin: 0 0 7px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -406,7 +415,7 @@
 }
 
 .ss-title {
-  margin: 0 0 10px;
+  margin: 0 0 9px;
   font-size: clamp(19px, 2vw, 25px);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -416,30 +425,31 @@
 .ss-body {
   margin: 0;
   font-size: 14px;
-  line-height: 1.85;
+  line-height: 1.8;
   color: var(--color-muted);
 }
 
 @media (min-width: 900px) {
   .ss-grid {
     grid-template-columns: 1.02fr 0.98fr;
-    gap: clamp(36px, 5vw, 76px);
+    gap: clamp(28px, 3.6vw, 52px);
     align-items: start;
   }
 
-  /* big pinned stage */
+  /* big pinned stage — a self-sized square, so the frame never letterboxes */
   [data-ready] .ss-visual-col {
     position: sticky;
-    top: max(108px, 17vh);
-    height: 58vh;
+    top: max(92px, 12vh);
+    height: auto;
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
 
   [data-ready] .ss-visual {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: min(100%, 66vh);
+    aspect-ratio: 1 / 1;
+    height: auto;
   }
 
   [data-ready] .ss-frame {
@@ -449,10 +459,10 @@
     height: 100%;
     margin: 0;
     opacity: 0;
-    transform: translateY(14px) scale(0.97);
+    transform: translateY(12px) scale(0.975);
     transition:
-      opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
-      transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+      opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
     pointer-events: none;
   }
 
@@ -461,16 +471,16 @@
     transform: none;
   }
 
-  /* panels march past; the inactive ones recede so whitespace reads as
-     focus staging rather than emptiness */
+  /* compact beats: each panel owns the center band without forcing a
+     viewport-and-a-half of scroll; text blocks stay close and readable */
   [data-ready] .ss-step {
-    min-height: 56vh;
+    min-height: 36vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 6px 0;
+    padding: 4px 0;
     opacity: 0.28;
-    transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: opacity 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   [data-ready] .ss-step.is-active {
@@ -478,12 +488,12 @@
   }
 
   [data-ready] .ss-step:first-child {
-    min-height: 28vh;
+    min-height: 10vh;
     justify-content: flex-start;
   }
 
   [data-ready] .ss-step:last-child {
-    min-height: 42vh;
+    min-height: 16vh;
   }
 }
 
