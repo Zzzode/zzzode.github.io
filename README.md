@@ -17,8 +17,6 @@ Built with Astro as a fully static, bilingual site with an Apple-grade visual sy
 
 </div>
 
-<img src="./docs/readme/article.png" alt="A distilled long-form article: cover banner, hand-authored SVG diagram, pills, and the start of the article" />
-
 ## Overview
 
 This repository is the site itself — content, components, design tokens, and the CI that ships it. Pages are pre-rendered to plain HTML and CSS. There is no framework runtime: framework pages ship **zero JavaScript**, and long-form article pages load a single inlined, dependency-free enhancement script (~1.6 KB) for scroll-driven storytelling.
@@ -26,8 +24,6 @@ This repository is the site itself — content, components, design tokens, and t
 - **Chinese by default, English on demand.** Chinese is served from the site root, English under `/en`, with a navigation toggle and scroll-spy TOC.
 - **Content over configuration.** Scholarly entries live in type-checked Markdown/MDX collections; the page layer stays thin.
 - **One design system, one source of truth.** Every color, radius, and font comes from a token block — no ad-hoc palettes in components or posts.
-
-<img src="./docs/readme/home.png" alt="Homepage article mosaic: featured post card, three-up post grid, and section tiles" />
 
 ## Highlights
 
