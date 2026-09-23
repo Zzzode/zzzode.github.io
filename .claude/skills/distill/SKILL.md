@@ -93,7 +93,7 @@ Body conventions:
 
 ### 6. Humanize the prose — mandatory gate (before local verify)
 
-Every distilled draft goes through the **humanize-text** skill rules before it is allowed to build. This is a required step, not optional polish. A factually correct article that reads like machine output fails review.
+Every distilled draft goes through the **`humanize-text` skill** in this same repo (`.claude/skills/humanize-text/SKILL.md`) before it is allowed to build. Invoke/load that skill and apply its full rule set. This is a required step, not optional polish. A factually correct article that reads like machine output fails review.
 
 **Meaning lock (red lines):** every number, date, proper noun, URL, caliber label and quotation produced in steps 2–3 stays exactly as-is. This pass rewrites rhythm, structure and wording only — never facts. Tables, SVG labels, code and other genuinely structured data stay precise and uniform; only rhetorical prose gets humanized.
 
