@@ -7,6 +7,7 @@ export { default as DualCompare } from './DualCompare.astro';
 export { default as BlockTitle } from './BlockTitle.astro';
 export { default as Steps } from './Steps.astro';
 export { default as Timeline } from './Timeline.astro';
+export { default as Schedule } from './Schedule.astro';
 export { default as Pipeline } from './Pipeline.astro';
 export { default as ScrollStory } from './ScrollStory.astro';
 export { default as CompareTable } from './CompareTable.astro';
