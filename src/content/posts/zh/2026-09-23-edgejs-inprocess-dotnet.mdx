@@ -1,0 +1,290 @@
+---
+title: "Edge.js：让 Node.js 与 .NET 住进同一个进程"
+date: 2026-09-23
+excerpt: "Node 想调用 .NET 生态（ADO.NET、Windows 组件、CPU 密集库），最自然的想法不是起两个进程走 IPC，而是把 CLR 嵌进 V8 所在的进程。Edge.js 在 2013 年做到了这件事，并在数据封送、线程模型与对象生命周期上留下一套经典的互操作解法。"
+tags: ["Edge.js", "Node.js", ".NET", "互操作", "V8", "CLR", "开源"]
+kind: "distilled"
+sources:
+  - title: "agracio/edge-js · GitHub（现行维护分支 README）"
+    url: "https://github.com/agracio/edge-js"
+  - title: "tjanczuk/edge · GitHub（Edge.js 原项目）"
+    url: "https://github.com/tjanczuk/edge"
+  - title: "Tomasz Janczuk · Hosting .NET code in Node.js applications（原始设计动机，2013）"
+    url: "http://tomasz.janczuk.org/2013/02/hosting-net-code-in-nodejs-applications.html"
+  - title: "Tomasz Janczuk · CPU-bound workers for Node.js（线程模型背景）"
+    url: "http://tomasz.janczuk.org/2013/02/cpu-bound-workers-for-nodejs.html"
+  - title: "agracio/edge-js-quick-start（官方示例应用）"
+    url: "https://github.com/agracio/edge-js-quick-start"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="OPEN SOURCE · edge-js · 2026-09-23 核对"
+  title="Edge.js：让 Node.js 与 .NET 住进同一个进程"
+  lead="一边是单线程、事件循环驱动的 V8；一边是多线程、垃圾回收的 CLR。Edge.js 把两者塞进同一个操作系统进程，让 JavaScript 能同步地写、异步地调一段 C#，并替你处理封送、线程与对象生死。"
+  pills={[
+    { label: "进程内互操作" },
+    { label: "V8 ⇄ CLR 封送" },
+    { label: "线程模型调和" },
+    { label: "运行时编译 C#/F#/PS" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="同一个进程内的 V8 与 CLR 两个运行时">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="58" font-size="12" font-weight="600" letter-spacing="1.5" fill="#86868b" font-family="PingFang SC, sans-serif">ONE OS PROCESS · TWO RUNTIMES</text>
+
+    <rect x="30" y="86" width="180" height="170" rx="16" fill="#fff" stroke="#dedee3" />
+    <text x="120" y="122" font-size="15" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">Node.js (V8)</text>
+    <text x="120" y="150" font-size="11" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">单线程事件循环</text>
+    <circle cx="120" cy="196" r="22" fill="#0066cc" />
+    <text x="120" y="201" font-size="10.5" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">JS</text>
+
+    <rect x="250" y="86" width="180" height="170" rx="16" fill="#1d1d1f" />
+    <text x="340" y="122" font-size="15" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">.NET (CLR)</text>
+    <text x="340" y="150" font-size="11" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">多线程 · GC</text>
+    <circle cx="340" cy="196" r="22" fill="#6e42c8" />
+    <text x="340" y="201" font-size="10.5" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">C#</text>
+
+    <rect x="200" y="150" width="60" height="92" fill="#f5f5f7" />
+    <path d="M216 172 L244 172 M236 164 L244 172 M236 180" stroke="#0066cc" stroke-width="1.8" fill="none" />
+    <path d="M244 220 L216 220 M224 212 L216 220 M224 228" stroke="#6e42c8" stroke-width="1.8" fill="none" />
+    <text x="230" y="206" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">封送</text>
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文依据 Edge.js 现行维护分支 [agracio/edge-js](https://github.com/agracio/edge-js) 的 README（2026-09-23 核对），原创作者 Tomasz Janczuk 的原始项目与两篇设计博客（2013）作为背景。这是一个**老项目**（核心思想定型于 Node.js 早期），但它处理的「两个托管运行时如何同进程共处」问题，至今仍是任何做语言互操作的人绕不开的经典题。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE BACKDROP"
+    title="前因：Node 很强，但企业世界大半建在 .NET 上"
+    lead="2013 年前后，Node.js 想进入企业，迎面撞上的是 ADO.NET、MS SQL、Windows 原生组件——这些全在 CLR 世界里。"
+  />
+  <Prose>
+
+最容易想到的解法是**双进程**：Node 进程和一个 .NET 进程通过 HTTP、命名管道或消息队列通信。它简单、隔离性好，但代价沉重：序列化开销、两套部署、两个错误模型、跨进程调试噩梦，调用延迟从纳秒级函数调用变成毫秒级网络往返。对「在请求处理中频繁调用一个 .NET 组件」的场景，这个税几乎不可接受。
+
+另一条路是**用 C/C++ 写 Node 原生扩展**把 .NET 桥接进来——性能好，但要求同时精通 V8 原生 API（NAN/N-API 之前更难用）、COM 寄宿与 CLR Hosting，门槛极高。
+
+Edge.js 的第三条路是：**把 CLR 作为运行时组件寄宿（host）进 Node 所在的同一个操作系统进程**。一个进程里同时跑 V8 和 CLR，JavaScript 调用 C# 就像调用一个异步函数。这也是「in-process」一词在标题里的分量——它不是在讲部署，而是在讲一种激进的互操作架构。值得一提的是作者把同一思路也用到了别处（Edge.js 最初就支持 Windows .NET Framework、Mono、后来的 CoreCLR 三种子环境）。
+
+  </Prose>
+</Section>
+
+<Section alt id="mechanisms">
+  <SectionHead
+    kicker="02 · FIVE MECHANISMS"
+    title="进程内共处，必须解决的五个机制问题"
+    lead="把两个运行时塞进一个进程只是开始；真正难的是它们在数据、线程、内存、语言入口四个层面天生不合。Edge.js 的核心价值全在这五处。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 寄宿",
+        title: "CLR 作为组件被加载进进程",
+        body: "Edge.js 通过 CLR Hosting API 在 Node 进程内启动（或复用）一个 CLR 运行时，而不是拉起独立的 dotnet 进程。Windows 上可寄宿 .NET Framework 或 CoreCLR，macOS/Linux 上走 Mono 6.x 或 CoreCLR。一个进程、两套堆、零跨进程序列化——这是其余四个机制存在的前提。",
+      },
+      {
+        tag: "02 · 封送",
+        title: "在 V8 与 CLR 之间搬运数据",
+        body: "JS 传过去的对象被封送（marshal）成 C# 的 dynamic/object：普通对象映射成字典式动态对象，函数被包成可委托；返回值再反向封送成 JS 值。因为 C# 端签名是 async Task<object> Invoke(dynamic input)，两边都不需要共享类型定义——用动态类型换零样板。",
+      },
+      {
+        tag: "03 · 线程",
+        title: "单线程 V8 与多线程 CLR 的和解",
+        body: "这是最难的一处。CLR 方法在 CLR 线程池线程上执行（绝不能阻塞 V8 主线程），但它一旦要回调 Node 函数，必须把调用 marshal 回 V8 的单线程事件循环。Edge.js 把这层线程切换完全藏在异步签名背后：CLR 代码 await 一个 JS 回调时，运行时自动跨线程投递再恢复。",
+      },
+      {
+        tag: "04 · 生命周期",
+        title: "保证两个堆上的对象不死错",
+        body: "V8 的 GC 与 CLR 的 GC 互不知道对方。Edge.js 为跨堆引用维护句柄与生命周期：JS 侧持有的 CLR 对象、CLR 侧持有的 JS 函数，在对方堆上都有保活机制，回调结束后才允许回收。悬挂引用或提前回收是这类互操作最典型的崩溃源。",
+      },
+      {
+        tag: "05 · 入口",
+        title: "运行时直接编译 C# / F# / PowerShell",
+        body: "传给 edge.func 的 C# 源码可以在运行时通过 Roslyn 编译成程序集；同一个入口还支持 F#、PowerShell（Windows）、IronPython，以及预编译 DLL。约定极其简单：类名 Startup、方法 async Task<object> Invoke(dynamic input)。写互操作扩展从「写 C++ 原生模块」降维成「写一个 C# 异步方法」。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 01 · HOSTING</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一个进程，两个运行时</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="50" y="146" width="360" height="210" rx="14" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="176" font-size="11" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">OS process (no IPC)</text>
+      <rect x="74" y="196" width="140" height="130" rx="10" fill="#eaf2fb" />
+      <text x="144" y="226" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">V8 堆</text>
+      <rect x="246" y="196" width="90" height="130" rx="10" fill="#1d1d1f" />
+      <text x="291" y="226" font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">CLR</text>
+      <text x="230" y="386" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">CLR 经 Hosting API 寄宿 · Framework/Mono/CoreCLR</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 02 · MARSHALING</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">动态类型，零样板封送</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="40" y="150" width="160" height="60" rx="10" fill="#0066cc" />
+      <text x="120" y="186" font-size="11" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"{ name: 'JS' }"}</text>
+      <path d="M212 180 L248 180 M240 172 L248 180 L240 188" stroke="#6e42c8" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="260" y="150" width="160" height="60" rx="10" fill="#1d1d1f" />
+      <text x="340" y="186" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">dynamic input</text>
+      <text x="230" y="262" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">对象 ⇄ dynamic · 函数 ⇄ 委托</text>
+      <text x="230" y="290" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">统一签名：Task&lt;object&gt; Invoke(dynamic)</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 03 · THREADS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">两种线程模型的和解</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <line x1="80" y1="170" x2="380" y2="170" stroke="#dedee3" stroke-width="1.5" />
+      <text x="70" y="160" font-size="10.5" fill="#0066cc" text-anchor="end" font-family="ui-monospace, Menlo, monospace">V8 主线程</text>
+      <rect x="90" y="158" width="120" height="24" rx="12" fill="#0066cc" />
+      <text x="150" y="175" font-size="10" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">事件循环</text>
+      {[0,1,2].map(i=>(
+        <g>
+          <line x1="80" y1={240+i*36} x2="380" y2={240+i*36} stroke="#dedee3" stroke-width="1.5" />
+          <text x="70" y={244+i*36} font-size="9.5" fill="#6e42c8" text-anchor="end" font-family="ui-monospace, Menlo, monospace">CLR {i+1}</text>
+          <rect x={200+i*40} y={228+i*36} width="120" height="24" rx="12" fill="#6e42c8" />
+        </g>
+      ))}
+      <path d="M250 190 C 200 214, 200 226, 214 236" fill="none" stroke="#e8710a" stroke-width="1.6" stroke-dasharray="3 4" />
+      <path d="M214 236 L206 234 M212 230 L214 236 L220 231" fill="none" stroke="#e8710a" stroke-width="1.6" />
+      <text x="230" y="380" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">CLR 在线程池执行；回调 JS 时切回 V8 主线程</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 04 · LIFETIME</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">两个 GC 之间的保活协议</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="60" y="160" width="150" height="120" rx="12" fill="#eaf2fb" />
+      <text x="135" y="196" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">V8 GC</text>
+      <rect x="250" y="160" width="150" height="120" rx="12" fill="#1d1d1f" />
+      <text x="325" y="196" font-size="12.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">CLR GC</text>
+      <path d="M150 230 L250 230 M242 222 L250 230 L242 238 M250 250 L150 250 M158 242 L150 250 L158 258" stroke="#6e6e73" stroke-width="1.6" fill="none" />
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">跨堆引用显式加句柄；回调结束才释放</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 05 · ENTRY</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">运行时编译，一个方法即入口</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="44" y="146" width="372" height="150" rx="12" fill="#1d1d1f" />
+      <text x="64" y="178" font-size="11" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">{"class Startup {"}</text>
+      <text x="64" y="200" font-size="11" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">  async Task&lt;object&gt;</text>
+      <text x="64" y="222" font-size="11" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">{"  Invoke(dynamic input) { … }"}</text>
+      <text x="64" y="244" font-size="11" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">}</text>
+      <text x="64" y="276" font-size="10.5" fill="#a1a1a6" font-family="PingFang SC, sans-serif">C# / F# / PowerShell / IronPython 或预编译 DLL</text>
+      <text x="230" y="346" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">Roslyn 运行时编译 · 约定胜过配置</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="why">
+  <SectionHead
+    kicker="03 · WHY IT MATTERED"
+    title="它的实际价值：把 C# 变成 Node 的原生扩展语言"
+    lead="README 列出的用途清单，今天看仍是互操作设计的典型用例谱。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="LEGACY" title="复用现有 .NET 资产">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        在 Node 新服务里直接调用成熟的 .NET 组件；通过 ADO.NET 访问 MS SQL（edge-sql），不必为了一个数据库重写整套数据层。
+      </p>
+    </InfoCard>
+    <InfoCard label="CPU WORK" title="借 CLR 线程池干重活">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Node 主线程不能被 CPU 密集计算堵住；把计算丢给 CLR 多线程执行，结果异步返回，相当于一条通往多核的桥（作者专门写过 CPU-bound workers 文章）。
+      </p>
+    </InfoCard>
+    <InfoCard label="EXTENSIONS" title="用 C# 而非 C++ 写原生扩展">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        需要宿主系统能力时，写一个内存安全、有 GC、异步友好的 C# 方法，比手写 V8 C++ addon 低一个数量级门槛；还能用 F#、PowerShell 直接脚本化。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose>
+
+调用形态也完全 Node 化：既支持经典的回调 `fn(input, (err, result) => …)`，也支持 Promise/async。一段最简代码就是 `edge.func('async (input) => { return ".NET Welcomes " + input.ToString(); }')`——字符串里是 C# 语言集成查询风格的 lambda，由 Edge 编译并暴露成 JS 异步函数。
+
+  </Prose>
+</Section>
+
+<Section alt id="tradeoff">
+  <SectionHead
+    kicker="04 · THE TRADEOFF"
+    title="进程内互操作的代价：它不是免费的桥"
+    lead="省掉 IPC 不等于没有成本，Edge.js 的局限同样是教科书级的。"
+  />
+  <CompareTable
+    headers={[
+      { label: "方案" },
+      { label: "通信成本" },
+      { label: "隔离性" },
+      { label: "运维复杂度" },
+      { label: "适用场景", wrap: true },
+    ]}
+    rows={[
+      ["双进程 + HTTP/管道", "序列化 + 毫秒级往返", "强，崩溃互不拖垮", "两套部署与监控", "不信任、长生命周期、语言团队独立"],
+      ["Edge.js 进程内", "封送 + 线程切换，无跨进程序列化", "弱，CLR 崩溃即 Node 崩溃", "需匹配 CLR/Node 版本与 ABI", "高频调用、可信组件、同进程复用"],
+      ["C++ 原生扩展", "最低，直接内存", "最弱，段错误拖垮进程", "开发门槛最高", "极致性能、已有 C/C++ 资产"],
+    ]}
+  />
+  <Prose>
+
+进程内方案的三个硬代价要明确：**故障同归于尽**（CLR 未处理异常或原生崩溃直接带走 Node 进程）、**部署耦合**（Node、CoreCLR/Framework/Mono 版本与原生 ABI 必须匹配，CoreCLR 还要求 .NET 8）、**封送仍有税**（复杂对象图与大字符串在两堆之间复制，动态类型也放弃了编译期检查）。隔离与性能的权衡从来没有银弹——Edge.js 选的是「信任你的 .NET 代码」前提下的性能与便利端点。
+
+  </Prose>
+</Section>
+
+<Section id="legacy">
+  <SectionHead
+    kicker="05 · THE LEGACY"
+    title="余波：这个老项目给现代互操作留下了什么"
+    lead="Edge.js 最活跃的年代已经过去，但它验证的模式以新形式活了下来。"
+  />
+  <Prose>
+
+今天 Node 调 .NET 有了更官方的途径（.NET 自带的 JavaScript 互操作、gRPC 双进程、ASP.NET Core 直接做服务），而 JS 运行时嵌入 CLR/原生世界的整体思路，在 [WebAssembly](https://webassembly.org/) 时代换了一种更便携的形态回归：Rust/Go/C++ 编译成 Wasm 在 V8 内部沙箱化运行，既有接近进程内的性能，又拿回了故障隔离。Edge.js 在历史坐标里的位置，正是「同进程强互操作」这条路线上，一个把工程细节（封送、线程、GC、动态入口）完整趟过一遍的范本——它当年必须手工解决的问题，正是今天 Wasm runtime、napi-rs、各类 embedding SDK 仍在面对的问题。
+
+  </Prose>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "互操作的本质是调和四个层面的「不合」",
+      conclusion: "把两个运行时放进同一进程只解决了部署；真正的工程量在数据封送、线程模型切换、跨 GC 堆生命周期、以及语言入口约定这四件事上。",
+      detail: "评估任何双运行时/FFI/embedding 方案，都可以沿这四条逐项提问，而不是只看「能不能调通」。",
+    },
+    {
+      title: "进程内是信任前提下的性能选择，不是通用最优",
+      conclusion: "Edge.js 用「CLR 崩溃即 Node 崩溃、版本强耦合、封送仍有成本」换来了零 IPC 的调用延迟和极低的扩展开发门槛。",
+      detail: "这条权衡谱系（双进程隔离 ↔ 进程内性能）在今天的 Wasm 与原生扩展生态里仍在延续，只是边界更细。",
+    },
+  ]}
+  note="事实口径：依据 2026-09-23 抓取的 agracio/edge-js README 与 Tomasz Janczuk 的原始项目及 2013 年设计博客；项目年代较早，具体支持矩阵（Framework/Mono/CoreCLR、.NET 8 要求）以仓库现行 README 为准；架构解读为作者归纳。"
+/>
