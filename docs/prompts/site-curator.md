@@ -34,6 +34,20 @@ The whole site, and all HTML embedded inside posts, follows the **Apple design l
   - **Restraint and breathing room.** Generous whitespace, body line-height 1.6–1.75, relaxed padding; no decorative gradients, stacked shadows, emoji-as-icons; use minimal neutral inline SVG for graphics; system font stack only, no webfonts.
   - **Dual-subject comparisons are point-by-point symmetric.** Each dimension gets a left/right card pair, and both cards carry all three layers — architecture / numbered pipeline steps / user-facing difference table; affiliation is marked only by a small dot, and color never implies ranking.
 - Anything inconsistent with the design guide **must not ship**. Before pushing, run the guide's §8 checklist at 1280/768/390 px widths, in **both** locales.
+- **Preview gate for visual work.** Layout, home-page, component, typography, color and image changes must be served with `npm run preview`, screenshotted at desktop (≥1280px) and 390px mobile, and shown to the user before committing. Wait for explicit approval of the visuals; do not commit first and "fix later."
+
+## Home page curation
+
+The home page (`src/components/pages/HomePage.astro`) is an editorial front page in the apple.com/newsroom register — type and hairline rules do all the work. It is **not** a dashboard of boxed cards, and the dark global nav is the page's only dark surface:
+
+- **Masthead** (`HomeHero.astro`): full-bleed white, centered, compact enough that the lead story begins in the first viewport. Eyebrow → a very large tight H1 set in two tones (first line `ink`, second line `muted`) → one gray subhead → blue/ink **text links with `›` chevrons**. Never pill buttons, never a dark hero.
+- **Lead story**: a light magazine opener — a 1px `line` rule across the top, a narrow left meta rail (uppercase eyebrow + date), and a large ink title that turns blue on hover, gray excerpt, topic words separated by `·`, and a blue "read ›" link. No fill, no rounded slab, no photo.
+- **Lead feature and the editor's-pick rows are reserved for technical content** — the latest AI/engineering writing. Lifestyle or personal-trip pieces stay inside their own article; they never occupy home-page lead or highlight real estate.
+- **Editor's picks**: hairline editorial rows (`border-t/border-b border-line` on a `paper` section) with a mono index number, ink title, muted excerpt, right-aligned date — never white rounded cards floating on gray.
+- **Numbered archive**: an **equal-width two-column grid** (`md:grid-cols-2`, never CSS `columns`/multi-column), each item a top-hairline row; collapses to one column below `md`, and item numbering continues from the picks. The hairline system stays continuous and evenly spaced: there is **no column gap** (the two halves touch, so paired rules read as one unbroken full-width line; the gutter is made with odd/even cell padding `pr-6`/`pl-6`), the last pick row drops its bottom rule, and the index grid carries **no top margin** — so the rule under the final pick sits the exact same `py-7` distance from its text as the rules between the pick rows. Never a full-width rule followed by a gap and two broken half-rules.
+- **Topic threads**: four curated groups (agents & infrastructure / models & training / languages & compilers / industry & field notes) rendered as a quiet text index, separated by vertical `line-soft` rules on wide screens (not bordered cards). Show the entry count with a localized unit (`7 篇` / `7 articles`). Grid/flex children carrying `truncate` text must include `min-w-0`, or the track overflows the mobile viewport. Update the slug lists in the page when posts are added.
+- **Colophon**: one quiet `paper` band ending the page — eyebrow + a single build-time-computed meta line (`N 篇 · 4 条主线 · M 来源 · 零 JavaScript`) plus archive/RSS links. Never a dark stats slab; all numbers come from front matter.
+- Empty collections (talks/teaching/publications) are not surfaced as home tiles. Pure static markup, zero framework-page JavaScript, tokens only, both locales must build.
 
 ## Goals
 

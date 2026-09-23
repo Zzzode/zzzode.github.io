@@ -107,24 +107,25 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 
 ### 3.2 Home hero (`HomeHero.astro`)
 
-- Full-bleed **white**, centered content, generous vertical padding (96–128px); this is the one deliberately airy brand moment — not a gray boxed banner and not a dark cover.
-- Structure: gray uppercase eyebrow → very large tight H1 (`clamp(40px,7vw,76px)`, weight 600, tracking `-0.035em`, line-height ~1.05) → one gray subhead (17–19px `muted`, max-width 560px) → a row of **blue text links with `›` chevrons** (the Apple "Learn more ›" idiom), not pill buttons.
+- Full-bleed **white**, centered content, vertical padding kept compact (~64–80px) so the lead story starts in the first viewport; this is the brand moment but never pushes real content below the fold.
+- Structure: gray uppercase eyebrow → a very large tight H1 (`clamp(40px,7vw,72px)`, weight 600, tracking `-0.035em`, line-height ~1.04) set in **two tones on two lines** — first line `ink`, second line `muted` — → one gray subhead (17–19px `muted`, max-width 560px) → a row of **blue/ink text links with `›` chevrons** (the Apple "Learn more ›" idiom), not pill buttons.
 - The home is blog-first: the primary CTA goes to `/posts/`; the secondary one to `/cv/`.
 
-### 3.3 Latest writing (`LatestPosts.astro`) — the home centerpiece
+### 3.3 Home editorial composition (`pages/HomePage.astro`)
 
-- The site is a blog: the first section below the hero is a full-bleed `paper` section titled "最新文章 / Latest writing" with a blue "全部文章 › / All writing ›" text link on the right.
-- Posts render as a white tile mosaic on the `paper` background (12px gaps, 18px radius, no borders, no shadows):
-  - **feature tile**: the newest post, full width, padding 40–56px — date meta (`muted-2` 12.5px) → title (clamp 24–34px/600) → excerpt (14.5–15.5px `muted`, max-width 640px) → blue "阅读文章 › / Read post ›"; hover only turns the title blue.
-  - **three-up grid**: up to three next posts in `sm:grid-cols-3`, compact tiles (24px padding): date → 17px semibold title → clamped 3-line excerpt.
-  - no posts yet: one centered white tile with a localized muted empty message.
-- Tiles are white surfaces on `paper`; do not add outlines/shadows/hover transforms.
+The home centerpiece is a light, hairline-driven editorial page — type and 1px rules create hierarchy, never boxes or dark fills (the nav is the only dark surface). Sections alternate white / `paper` full-bleed:
 
-### 3.4 Secondary section tiles (`SectionCard.astro`)
+- **Lead story** (white): a full-width `border-t border-line` magazine opener — a narrow meta rail (`本期主打 / FEATURED` eyebrow + date, muted) beside a large ink title (`clamp(29–46px)`, turns blue on hover), a gray excerpt, topic words joined by `·`, and a blue "阅读文章 › / Read post ›". Reserved for the latest technical AI/engineering post.
+- **Editor's picks** (`paper`): a section heading with a blue "全部文章 ›" link, then hairline rows (`border-t/border-b border-line`) — mono `01` index, ink title (lead row larger than the rest), muted excerpt, date right-aligned. No rounded white tiles, no cards, no shadows.
+- **Numbered archive**: a two-column `md:grid-cols-2` list (equal columns, never CSS multi-column) of top-hairline rows with mono index, title, date; single column below `md`.
+- **Topic threads**: four text-only groups divided on wide screens by vertical `border-line-soft` rules; each shows mono index, localized entry count, semibold title, gray descriptor, and two sample entries below a hairline. Children with truncated text need `min-w-0`.
+- **Colophon** (`paper`): a single quiet meta line (article/thread/source counts + "零 JavaScript", all computed at build time) with archive and RSS links — no dark stat band.
+- no posts yet: one centered white tile on `paper` with a localized empty message.
 
-- Talks / teaching / publications are deliberately subordinate: a single row of three compact white tiles under a gray `MORE / 更多内容` eyebrow, using the same white-on-`paper` tile language (18px radius, no border).
-- Writing must never appear here — it already owns the hero CTA and the latest mosaic.
-- Tile content: English eyebrow + localized title (17px/600) + one 12.5px `muted-2` line (localized singular/plural count or "Nothing yet"/"暂无内容"). Hover only turns the title blue.
+### 3.4 Secondary collections (talks / teaching / publications)
+
+- These are deliberately subordinate to writing and are **not surfaced as home-page tiles**; they live on their own index pages, reached from the nav, rendered with the §3.5 entry-list language.
+- A collection with no entries shows its localized empty state; it stays in the nav but never produces a filled card from placeholder data.
 
 ### 3.5 Entry list (`EntryList.astro`) — publications/talks/teaching/posts
 
@@ -285,7 +286,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - [ ] Font sizes, negative tracking, line-height, and radii match the token table; no square cards, no shadows anywhere.
 - [ ] The global nav matches apple.com: 44px, `rgba(0,0,0,0.8)` + `blur(20px) saturate(1.8)`, off-white `rgba(245,245,247,0.8)` links → `#f5f5f7` on hover/active, no blue in the bar; mobile opens a blurred dark full-width menu; sticky bar never obscures content.
 - [ ] Language toggle links to the same route in the other locale, or is a disabled pill when the entry has no counterpart; nav links all carry the correct `/en` prefix on English pages.
-- [ ] Home hero is white, centered, and airy with a large tight H1 and blue text-`›` links (no pill buttons); the writing-first mosaic renders a full-width feature tile + three-up white tiles on `paper`, collapsing to one column on mobile.
+- [ ] Home hero is white and centered with a compact two-tone ink/muted H1 and blue text-`›` links (no pill buttons, no dark hero); the editorial page below uses only type and hairline rules — a light magazine lead story, hairline editor's-pick rows, an equal two-column numbered archive, and a quiet colophon meta line — with no rounded card soup and no dark content slabs.
 - [ ] Entry-list hairlines/meta/tags are neutral; empty collections show the localized empty state.
 - [ ] Per-locale lists only contain entries that exist in that locale; dates are localized; post titles/venues keep their original language.
 - [ ] Post headings, dates, tags, and `.prose` render correctly; code blocks are near-monochrome; dual-subject blocks are symmetric with all three layers.
@@ -303,7 +304,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - Highlight theme and site config: `astro.config.mjs`; UI strings: `src/i18n/ui.ts`.
 - Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/` (posts accept `.md` and `.mdx`).
 - Distilled-article components: `src/components/article/` (catalog in `.agents/skills/distill/references/component-catalog.md`); post enhancement script: `src/scripts/article.ts`; distillation workflow skill: `.agents/skills/distill/SKILL.md`.
-- Framework components: `src/components/{Nav,Footer,HomeHero,LatestPosts,SectionCard,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/`.
+- Framework components: `src/components/{Nav,Footer,HomeHero,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/` (the editorial home is `pages/HomePage.astro`).
 - Routes: `src/pages/index.astro` and `src/pages/{publications,talks,teaching,posts}/index.astro`, posts detail `src/pages/posts/[...slug].astro`, `src/pages/cv.astro`, `src/pages/404.astro`, `src/pages/rss.xml.ts`, plus mirrored files under `src/pages/en/`.
 - Static assets: `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, `public/icon-{192,512}.png`, `public/og.png` (social card), `public/site.webmanifest`, `public/files/` (PDFs), `public/images/`.
 - Deployment: `.github/workflows/deploy.yml`.
