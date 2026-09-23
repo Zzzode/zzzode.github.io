@@ -1,0 +1,426 @@
+---
+title: "Jev：只做判断的 System 1 模型，与 Agent 的三层分工"
+date: 2026-09-23
+excerpt: "TypeSafe AI 的 Jev 不写一个字：你给它当前状态和几个问题，它直接回选项、评分或布尔概率。它背后是一个和 RLHF、RLVR 并列的第三种训练目标 RLCD——为「校准的决策」而训练，而不是为「人爱读的文本」。本文依据官方文档与一篇 arXiv 实证论文，拆解这种 System 1 模型的接口契约、经济学，以及它在真实 Agent（包括刷《我的世界》的开源 harness）里的位置。"
+tags: ["Jev", "System 1", "决策模型", "RLCD", "Agent", "校准", "LLM-as-a-Judge"]
+kind: "distilled"
+sources:
+  - title: "TypeSafe 官方文档 · System One（模型定位与三种原语）"
+    url: "https://docs.typesafe.ai/concepts/system-one"
+  - title: "TypeSafe 官方文档 · State（输入形态与文本-only 限制）"
+    url: "https://docs.typesafe.ai/concepts/state"
+  - title: "TypeSafe 官方文档 · Models（Jev 1.13 定价、上下文、限流）"
+    url: "https://docs.typesafe.ai/models"
+  - title: "TypeSafe 官方文档 · AI primer（RLCD 与校准决策）"
+    url: "https://docs.typesafe.ai/introduction/machine-learning-primer"
+  - title: "Cloudflare AI 文档 · typesafe/jev（32k 状态窗口与调用示例）"
+    url: "https://developers.cloudflare.com/ai/models/typesafe/jev/"
+  - title: "JEV-as-a-Judge: Accept When Confident, Escalate When Unsure（arXiv 2609.26550）"
+    url: "https://arxiv.org/abs/2609.26550"
+  - title: "Vercel 官方博客 · Jev is the fastest-adopted model in AI Gateway history（2026-09-18）"
+    url: "https://vercel.com/blog/ai-gateway-jev-model-launch"
+  - title: "beamnxw/minelog · GitHub（Astra 规划 + Jev 决策的开源 Minecraft harness）"
+    url: "https://github.com/beamnxw/minelog"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="NEW MODEL · TypeSafe AI · 2026-09-23 核对"
+  title="Jev：只做判断的 System 1 模型"
+  lead="普通大模型吐出一段话，程序还得把话解析回结构化数据才能执行。Jev 反过来：程序先把候选答案列好，它只负责在封闭选项里给一个带概率的判断——输出天生就是合法数据，没法编造选项之外的内容。"
+  pills={[
+    { label: "状态 + 问题 → 类型化答案" },
+    { label: "RLCD 第三种训练目标" },
+    { label: "Choice / Score / Noul" },
+    { label: "自信则执行，不自信则上报" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="状态与问题进入 Jev，输出类型化判断">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STATE IN · DECISION OUT</text>
+
+    <rect x="28" y="86" width="130" height="70" rx="12" fill="#fff" stroke="#dedee3" />
+    <text x="93" y="116" font-size="12" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">state</text>
+    <text x="93" y="138" font-size="10" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">string / JSON</text>
+
+    <rect x="28" y="170" width="130" height="70" rx="12" fill="#fff" stroke="#dedee3" />
+    <text x="93" y="200" font-size="12" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">questions</text>
+    <text x="93" y="222" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">独立 · 可并行</text>
+
+    <rect x="186" y="118" width="92" height="92" rx="16" fill="#1d1d1f" />
+    <text x="232" y="158" font-size="14" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">Jev</text>
+    <text x="232" y="180" font-size="9.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">不生成文字</text>
+
+    <path d="M162 121 L184 148 M176 140 L184 148 M162 205 L184 188 M178 196 L184 188 L176 190" stroke="#86868b" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+    <rect x="306" y="96" width="126" height="40" rx="10" fill="#eaf2fb" stroke="#0066cc" />
+    <text x="369" y="121" font-size="11" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">choice: billing</text>
+    <rect x="306" y="146" width="126" height="40" rx="10" fill="#eaf2fb" stroke="#0066cc" />
+    <text x="369" y="171" font-size="11" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">score: 1.4</text>
+    <rect x="306" y="196" width="126" height="40" rx="10" fill="#eaf2fb" stroke="#0066cc" />
+    <text x="369" y="221" font-size="11" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">noul: 0.95</text>
+    <path d="M282 150 L302 116 M294 122 L302 116 M282 164 L302 166 M282 178 L302 216 M292 212 L302 216" stroke="#0066cc" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文依据 TypeSafe 官方文档（2026-09-23 核对，当前版本 Jev 1.13）、Cloudflare 模型卡、一篇 2026 年 9 月的 arXiv 实证论文、Vercel 官方博客与一个开源 harness 仓库。需要先纠正二手传播里的两个常见偏差：**Jev 目前只接受文本输入**（官方明确图像、音频、视频尚不支持，游戏 Demo 也是把世界状态先转成 JSON）；它的输出也不是神秘自由文本，而是三种严格定义的「问题原语」之一。社交媒体上的具体 Demo 速度/成本数字多为演示口径，本文只采用能回到一手来源的数字。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · THE BET"
+    title="前因：Agent 不需要一个会写作文的 API"
+    lead="TypeSafe 的赌注是：大规模自动化里 99% 是机器对机器，聊天界面反而是例外。"
+  />
+  <Prose>
+
+把通用聊天大模型塞进自动化流水线，会遇到一组结构性麻烦：你让它在几个动作里选一个，它回你一段措辞得体的话；你的程序还得再写解析器把话抠回结构化字段，期间可能撞上格式不符、模型编造出选项之外的内容（幻觉）、以及每次输出长度不可控带来的延迟与费用波动。换句话说，**「人读着舒服」和「软件用着可靠」是两个不同的优化目标。**
+
+TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判断说得很直白：他们预期大规模 AI 自动化将接近 99% 的机器对机器交互、1% 的人机交互，因此设计目标应从「读起来好的回答」转向「在软件里行为可预测的输出」。他们给这套性质起名 Machine Native Intelligence——结构化、可观测、可测试、快、一致、便宜。Jev 就是这场赌注的第一个产品，官方称之为第一个 **System One 模型**，名字借自卡尼曼《思考，快与慢》：System 1 是快速、直觉式的判断，System 2 是缓慢、深思熟虑的推理。
+
+  </Prose>
+</Section>
+
+<Section alt id="contract">
+  <SectionHead
+    kicker="02 · THE CONTRACT"
+    title="接口契约：一个状态，一组问题，一组带概率的答案"
+    lead="随页面滚动，左侧舞台展示一次 Jev 调用从构造状态到代码消费答案的全过程（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 状态",
+        title: "state：把「当前局面」作为一个整体喂进去",
+        body: "一次请求评估一个 state。state 可以是纯字符串、JSON 对象或文本数组。官方建议大多数情况用对象：客服留言、订单记录、退款政策各占一个命名字段，关系保持清晰——「想象成在请一组专家判断前，先把材料呈给他们」。重要限制：全部必须是文本，非文本输入要先由你的程序预处理成文本或结构化字段；英文为主训练语言，中文等 CJK 文字可用但官方明示准确率目前更低。",
+      },
+      {
+        tag: "02 · 问题",
+        title: "questions：所有问题看同一份状态，彼此独立",
+        body: "你可以在一次请求里塞多个问题，它们看到完全相同的 state，被独立评估、并行执行。比如同一个退款工单，可同时问「是否提出退款」「证据是否指向重复扣款」「政策是否支持退款」——一次调用拿回多个判断，这是官方所谓 speculative fan-out（推测式扇出）的基础。",
+      },
+      {
+        tag: "03 · 三种原语",
+        title: "Choice / Score / Noul：答案空间由你定义",
+        body: "Choice 是在你给的封闭候选里选一个（账单/技术/销售团队）；Score 沿你给的等级锚点打分（0 平静、1 沮丧、2 暴怒，可以回 1.4 这种连续值）；Noul 是命名的布尔问题（是否要求退款），返回真的概率。三个名字都刻意古怪——防止和普通聊天输出混淆。答案空间是调用方划定的，模型无法越界。",
+      },
+      {
+        tag: "04 · 校准概率",
+        title: "每个答案附带概率与 confidence",
+        body: "System One 模型为校准（calibration）而训练：被赋予 0.8 概率的那批事件，长期看应当约 80% 发生。注意官方反复强调这是「跨一组预测」的统计性质，不保证单次答案正确。confidence 字段就是给程序用的闸门：够自信就自动执行，不自信就升级给人或推理模型——这是整套设计最关键的工程接口。",
+      },
+      {
+        tag: "05 · 消费",
+        title: "代码直接消费：无需解析、无法跑题",
+        body: "返回值是类型化字段（choice / score / noul），代码可以直接分支判断、记录、与确定性检查组合。因为输出空间在请求里封闭，模型既不会输出非法格式，也不会编造候选之外的答案。统一入口是 POST /v1/systemone，model 字段选版本（默认 jev-latest 指向 jev-1.13.0，生产上建议钉死版本号）。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · STATE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一个局面打成一个包</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="50" y="150" width="360" height="180" rx="14" fill="#1d1d1f" />
+      <text x="72" y="186" font-size="11" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">{"{ \"ticket\": { … },"}</text>
+      <text x="72" y="212" font-size="11" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">{" \"order\": { \"charges\": [ … ] },"}</text>
+      <text x="72" y="238" font-size="11" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">{" \"refund_policy\": \"…\" }"}</text>
+      <text x="230" y="290" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">string · object · array｜仅文本</text>
+      <text x="230" y="370" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">非文本（画面/声音）先由程序转成文本</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · QUESTIONS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">同一份状态，多道独立题</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      {["要求退款？","重复扣款？","政策支持？"].map((s,i)=>(
+        <g>
+          <rect x="80" y={160+i*62} width="300" height="46" rx="10" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+          <text x="230" y={189+i*62} font-size="12" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Q{i+1} · {s}</text>
+        </g>
+      ))}
+      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">独立评估 · 并行执行 · 一次扇出</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · PRIMITIVES</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">三种封闭的问题原语</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {[["CHOICE","封闭候选里选一个","billing / technical / sales"],["SCORE","沿锚点连续打分","0 平静 → 2 暴怒，可回 1.4"],["NOUL","命名布尔的概率","退款？ → 0.95"]].map((r,i)=>(
+        <g>
+          <rect x="50" y={150+i*72} width="360" height="60" rx="12" fill={i===2?"#1d1d1f":"#fff"} stroke={i===2?"#1d1d1f":"#dedee3"} />
+          <text x="72" y={178+i*72} font-size="12" font-weight="600" fill={i===2?"#f5f5f7":"#1d1d1f"} font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+          <text x="72" y={198+i*72} font-size="10" fill={i===2?"#a1a1a6":"#86868b"} font-family="PingFang SC, sans-serif">{r[1]} · {r[2]}</text>
+        </g>
+      ))}
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · CALIBRATION</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">概率是给程序用的闸门</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      {[["0.2 → 约 20% 发生",170],["0.8 → 约 80% 发生",240],["1.0 → 100%",310]].map((r,i)=>(
+        <g>
+          <rect x="80" y={r[1]-20} width="300" height="42" rx="9" fill="#fff" stroke="#dedee3" />
+          <text x="230" y={r[1]+6} font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+        </g>
+      ))}
+      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">群体统计性质，非单次保证 · confidence 决定执行或上报</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · CONSUME</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">答案即数据，代码直接用</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="60" y="160" width="340" height="60" rx="12" fill="#eaf2fb" stroke="#0066cc" />
+      <text x="230" y="188" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"{ \"choice\": \"billing\", \"confidence\": … }"}</text>
+      <text x="230" y="208" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">无需解析 · 无法越界</text>
+      <rect x="60" y="250" width="340" height="60" rx="12" fill="#1d1d1f" />
+      <text x="230" y="286" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /v1/systemone</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="rlcd">
+  <SectionHead
+    kicker="03 · THE TRAINING"
+    title="RLCD：与 RLHF、RLVR 并列的第三种训练目标"
+    lead="输出契约不同，训练目标必然不同。这也是本博客 MiMo 一文里 RLVR 脉络的一个分叉。"
+  />
+  <CompareTable
+    headers={[
+      { label: "路线" },
+      { label: "优化目标" },
+      { label: "产物" },
+      { label: "代价/倾向", wrap: true },
+    ]}
+    rows={[
+      ["RLHF", "人类偏好（InstructGPT/ChatGPT 路线）", "人爱读的对话文本", "可能奖励谄媚与听起来自信的幻觉；偏好优化导致模式丢弃"],
+      ["RLVR", "可验证奖励（数学/代码对错）", "强推理但更慢更贵的推理模型", "逐步推理拉长输出，延迟与成本高"],
+      ["RLCD", "为校准决策而训练（TypeSafe 路线）", "决策与校准概率，不生成文本", "只擅长封闭判断；开放生成与多步推理非其目标"],
+    ]}
+  />
+  <Prose>
+
+官方 primer 把三者并列的逻辑值得讲清楚：**你奖励什么，模型就成为什么。** RLHF 奖励「人更喜欢的回答」，于是模型学会迎合；RLVR 奖励「答案可验证正确」，于是模型学会长链推理；RLCD（Reinforcement Learning for Calibrated Decisions）奖励「概率与真实结果频率对齐的决策」，于是模型学会在封闭答案空间上表达不确定性。Jev 不接受客户数据做微调或 LoRA，所有租户共享同一组权重——领域适配不靠定制权重，而靠你在 state 里放材料、在问题的 instructions 与 criteria 里写规则、把大判断拆成原子问题组合。
+
+这与本博客 MiMo 文章讲的 RLVR 训练范式形成互补：RLVR 证明「可验证奖励」能激发推理，RLCD 则把同一思想推到另一个极端——当输出本身就是结构化判断，「对错校准」可以直接用结果事件来度量。
+
+  </Prose>
+</Section>
+
+<Section alt id="harness">
+  <SectionHead
+    kicker="04 · THE THREE-LAYER AGENT"
+    title="实战形态：规划、判断、执行的三层分工"
+    lead="开源项目 MineLog 把这套分工写得最直白：GPT-6 Astra 规划，Jev 决策，代码拥有每一个 tick。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 观察",
+        title: "代码把世界读成 JSON",
+        body: "MineLog（作者 beamnxw，后端基于 Mineflayer）第一步是 Observe：把游戏世界状态——血量、饥饿、背包、敌对生物、光照、附近方块——序列化成 JSON。这正对应官方「非文本输入先预处理」的要求：Jev 看到的不是像素画面，而是结构化的文本状态。",
+      },
+      {
+        tag: "02 · 反射",
+        title: "确定性危险根本不打扰模型",
+        body: "岩浆、溺水、苦力怕贴脸、刚死亡——这些条件反射直接写在代码里（Reflex），不调用任何模型。高频、确定性、零容错的动作交给代码，是这套架构便宜与稳定的第一道来源。",
+      },
+      {
+        tag: "03 · 规划",
+        title: "Astra 异步做军师，绝不阻塞控制循环",
+        body: "GPT-6 Astra 在后台设定阶段目标、路点与约束，慢，但不挡路：计划默认约十几秒刷新一次，阶段变化也会触发刷新；计划未更新时控制循环沿旧计划继续推进。README 的原话是「async plan，never blocks a tick」——规划延迟与行动延迟被解耦。",
+      },
+      {
+        tag: "04 · 判断",
+        title: "Jev 从封闭动作目录里选一个",
+        body: "每个决策点，程序生成一个封闭动作目录，Jev 选一个 bounded action，同时附一个 safety noul（安不安全）与 urgency score（紧急度）。快、类型化、无散文。它不决定「怎么放方块」，只决定「现在这一步做什么」。",
+      },
+      {
+        tag: "05 · 闸门与执行",
+        title: "代码复核后才动手",
+        body: "Gate 层做最后审查：动作非法、置信度太低、safety noul 报警 → 等待或逃跑；通过后通过普通玩家协议执行。整个活动的八阶段战役（木头→铁矿→钻石→下界→要塞→珍珠→末地要塞→屠龙）由这三层共同推进。README 特别保留死亡记录——「恢复也是一种技能」。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 01 · OBSERVE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">世界先变成文本</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      {[["hp","hunger"],["inventory","hostiles"],["light","blocks"]].map((r,i)=>(
+        <g>
+          <rect x={56+i*120} y="170" width="104" height="80" rx="12" fill="#fff" stroke="#dedee3" />
+          <text x={108+i*120} y="205" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+          <text x={108+i*120} y="227" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{r[1]}</text>
+        </g>
+      ))}
+      <path d="M230 262 L230 292 M222 284 L230 292 L238 284" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="110" y="296" width="240" height="44" rx="10" fill="#1d1d1f" />
+      <text x="230" y="323" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">JSON state</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 02 · REFLEX</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">确定性危险，代码先拦</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      {["岩浆","溺水","苦力怕贴脸","刚死亡"].map((s,i)=>(
+        <g>
+          <rect x="60" y={150+i*52} width="340" height="40" rx="9" fill="#fff" stroke="#e8710a" stroke-width="1.5" />
+          <text x="90" y={176+i*52} font-size="12" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{s}</text>
+          <text x="380" y={176+i*52} font-size="10" fill="#e8710a" text-anchor="end" font-family="PingFang SC, sans-serif">→ 代码反射 · 0 次模型调用</text>
+        </g>
+      ))}
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 03 · PLAN</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">军师在后台，前线不等它</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <rect x="50" y="156" width="160" height="120" rx="14" fill="#1d1d1f" />
+      <text x="130" y="200" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">Astra 规划</text>
+      <text x="130" y="226" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">慢 · 后台异步</text>
+      <text x="130" y="248" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">阶段目标 / 路点</text>
+      <rect x="250" y="156" width="160" height="120" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+      <text x="330" y="200" font-size="13" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">控制循环</text>
+      <text x="330" y="226" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">沿旧计划继续跑</text>
+      <text x="330" y="248" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">每 tick 不等规划</text>
+      <path d="M210 216 L246 216 M238 208 L246 216 M238 224" stroke="#86868b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 4" />
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 04 · DECIDE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">封闭目录里选一步</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      {["move","collect","bed-attack","wait"].map((s,i)=>(
+        <g>
+          <rect x={40+(i%2)*200} y={162+Math.floor(i/2)*70} width="180" height="52" rx="10" fill={i===2?"#0066cc":"#fff"} stroke={i===2?"#0066cc":"#dedee3"} />
+          <text x={130+(i%2)*200} y={194+Math.floor(i/2)*70} font-size="11.5" fill={i===2?"#fff":"#1d1d1f"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{s}</text>
+        </g>
+      ))}
+      <text x="230" y="330" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">+ safety noul · + urgency score · 无散文</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 05 · GATE &amp; ACT</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">代码复核，然后动手</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="70" y="160" width="320" height="120" rx="14" fill="#fff" stroke="#dedee3" />
+      <text x="92" y="196" font-size="11.5" fill="#1d1d1f" font-family="PingFang SC, sans-serif">动作非法？</text>
+      <text x="92" y="224" font-size="11.5" fill="#1d1d1f" font-family="PingFang SC, sans-serif">置信度过低？ safety noul 报警？</text>
+      <text x="92" y="256" font-size="11.5" fill="#e8710a" font-family="PingFang SC, sans-serif">→ 等待 / 逃跑；通过 → 玩家协议执行</text>
+      <text x="230" y="340" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">Code owns the tick. Models are guests.</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="judge">
+  <SectionHead
+    kicker="05 · THE EVIDENCE"
+    title="JEV-as-a-Judge：一篇论文给出的能力边界"
+    lead="宣传归宣传，目前最硬的第三方证据是一篇对照 16 个裁判模型的 arXiv 论文。"
+  />
+  <Prose>
+
+论文 [《JEV-as-a-Judge: Accept When Confident, Escalate When Unsure》](https://arxiv.org/abs/2609.26550) 研究的正是 Agent 流水线里的另一个经典脏活——**结果裁判**（LLM-as-a-judge，用模型给另一个模型的输出打分）。实验把 Jev 与 16 个生成式/奖励模型裁判对比，并由盲化的人工做最终裁定。三个结论值得记住：
+
+第一，在普通偏好判断与证据接地的事实性判断上，Jev 与最强的 SOTA 生成式裁判差距在 **3 个百分点以内**，费用仅为对方的 **0.36%**。第二，差距集中在低置信度样本上——当判断需要核对一段推导过程、或抵抗一篇写得花团锦簇的错误答案时，Jev 明显更弱。第三，一个冻结的级联策略（frozen cascade）——高置信直接采纳、低置信升级给强模型——能以低得多的成本保住强裁判 **99% 的准确率**。
+
+这恰好把官方文档里 confidence 字段的设计意图验证成了一条可落地的架构原则：**不是用便宜模型替代贵模型，而是让便宜模型处理它确信的大多数，把贵模型的算力集中花在刀刃上。**
+
+  </Prose>
+</Section>
+
+<Section alt id="economics">
+  <SectionHead
+    kicker="06 · THE ECONOMICS"
+    title="为什么输出能免费：自回归成本结构被抽空了"
+    lead="以及它在发布渠道上的真实采用数据。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="PRICING" title="$0.042 / 百万输入 token，输出免费">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        官方模型页（Jev 1.13）口径：每百万输入 token 0.042 美元（即每十亿 42 美元），仅按输入计费。输出长度趋近于零，自回归逐 token 生成的主要成本项被抽空，这是定价模型的物理基础。
+      </p>
+    </InfoCard>
+    <InfoCard label="CAPACITY" title="64k 请求窗口 · 25 万 token/秒">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        每次请求 64k（state + 全部问题合计），state 加最长单问上限 32k（与 Cloudflare 模型卡一致）；限流 250,000 token/秒、1,200 请求/分钟，超限返 429。官方注明限流在动态调整。
+      </p>
+    </InfoCard>
+    <InfoCard label="ADOPTION" title="Vercel：24 小时近 13% 付费团队接入">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Vercel 官方博客（2026-09-18）口径：上线 AI Gateway 24 小时内近 13% 付费团队使用，为 GPT-5.6 家族同期的 2 倍、Fable 5.1 的 6 倍以上，称其为网关史上采用最快的模型。渠道方自述口径，应作趋势信号而非长期份额。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section id="limits">
+  <SectionHead
+    kicker="07 · READ IT RIGHT"
+    title="边界：什么时候不该用它"
+    lead="System 1 的名字本身就是边界声明——快思考从不负责证明定理。"
+  />
+  <CompareTable
+    headers={[
+      { label: "场景" },
+      { label: "适配判断" },
+      { label: "原因 / 对策", wrap: true },
+    ]}
+    rows={[
+      ["路由、分类、打分、风险闸门", "甜区", "答案空间封闭、可批量扇出、置信度可驱动自动化"],
+      ["结果裁判、上下文压缩取舍", "可用，配级联", "高置信采纳、低置信升级（论文证据支持）"],
+      ["开放生成、复杂多步推理", "不适用", "不写文本、不做推导链；交给 System 2 推理模型"],
+      ["算术计数、日期比较、多跳查表", "官方明示弱项", "交给确定性代码或生成模型，不要硬压给判断模型"],
+      ["图像/音频/视频输入", "暂不支持", "需先转文本；中文等 CJK 准确率低于英文，上线前按自身分布复测"],
+      ["无人监管的全自动决策", "需置信闸门", "校准是群体统计性质；闭源权重、数据出域、供应商绑定需纳入合规评估"],
+    ]}
+  />
+  <Prose>
+
+一句话收束：**Jev 不是一个更便宜的聊天模型，而是一种新的接口形态——把模型从「回答问题的人」变成「函数库里的一个判断函数」。** 评估它的方式也应随之改变：不看单次演示有多惊艳，而看在你自己的任务分布上，置信度阈值划在哪里时，「自动执行的比例」与「误判率」达到什么平衡——这正是判断模型时代的单元测试。
+
+  </Prose>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "System 1 模型的本质是输出契约的改变",
+      conclusion: "Jev 用 state + questions 的封闭接口换来了三件事：输出无需解析即合法数据、模型无法编造选项之外的内容、概率与 confidence 让程序能显式决定「执行还是上报」。它由第三种训练目标 RLCD 训成——为校准的决策而非人类偏好或可验证推理而优化。",
+      detail: "RLHF/RLVR/RLCD 的并列说明：你奖励什么，模型就成为什么；选型时先问任务要的是好读的文本、长链推理，还是可组合的判断。",
+    },
+    {
+      title: "真正的 Agent 架构是三层分工，不是一个模型包办",
+      conclusion: "MineLog 式 harness 给出可复用范式：确定性反射归代码、慢规划异步归 System 2 主模型、高频封闭判断归 Jev，最后再经代码闸门执行；论文则证明「高置信采纳、低置信升级」的冻结级联能用 0.36% 的费用保住强裁判 99% 的准确率。",
+      detail: "关键指标不是 Demo 的单次速度，而是一次判断能可靠驱动多长的确定性执行，以及你的置信度阈值在真实分布上的误判账单。",
+    },
+  ]}
+  note="事实口径：接口、原语、RLCD、定价与限流均依据 2026-09-23 抓取的 docs.typesafe.ai（System One / State / Models / AI primer，Jev 1.13）与 Cloudflare 模型卡；裁判能力数据来自 arXiv 2609.26550 论文自述实验；采用率来自 Vercel 官方博客（渠道方口径）；三层 harness 依据 beamnxw/minelog 开源仓库 README。社交媒体流传的单次 Demo 耗时与成本数字未获一手复核，本文未采用。"
+/>
