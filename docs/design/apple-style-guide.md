@@ -155,7 +155,7 @@ Source of truth: `src/components/`, `src/components/pages/`, `src/layouts/BaseLa
 
 ### 3.9 Distilled-article components (`src/components/article/`)
 
-Distilled research articles (`kind: 'distilled'` MDX posts) compose full-bleed blocks from this library; see `.claude/skills/distill/references/component-catalog.md` for props/slots and `article-template.mdx` for a skeleton.
+Distilled research articles (`kind: 'distilled'` MDX posts) compose full-bleed blocks from this library; see `.agents/skills/distill/references/component-catalog.md` for props/slots and `article-template.mdx` for a skeleton.
 
 - `CoverBanner` — required first block; gray provenance kicker, H1, lead, hairline pills, optional inline-SVG `visual` slot; staggers in on load (§7); stacks ≤860px.
 - `Section` (`alt` → paper rounded-28 slab, English kebab `id` for the TOC) with `SectionHead`; `Prose` constrains ordinary Markdown to the 760px column while blocks stay full-width.
@@ -302,7 +302,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - Tokens and global typography: `src/styles/global.css` (`@theme` + base + `.prose`).
 - Highlight theme and site config: `astro.config.mjs`; UI strings: `src/i18n/ui.ts`.
 - Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/` (posts accept `.md` and `.mdx`).
-- Distilled-article components: `src/components/article/` (catalog in `.claude/skills/distill/references/component-catalog.md`); post enhancement script: `src/scripts/article.ts`; distillation workflow skill: `.claude/skills/distill/SKILL.md`.
+- Distilled-article components: `src/components/article/` (catalog in `.agents/skills/distill/references/component-catalog.md`); post enhancement script: `src/scripts/article.ts`; distillation workflow skill: `.agents/skills/distill/SKILL.md`.
 - Framework components: `src/components/{Nav,Footer,HomeHero,LatestPosts,SectionCard,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/`.
 - Routes: `src/pages/index.astro` and `src/pages/{publications,talks,teaching,posts}/index.astro`, posts detail `src/pages/posts/[...slug].astro`, `src/pages/cv.astro`, `src/pages/404.astro`, `src/pages/rss.xml.ts`, plus mirrored files under `src/pages/en/`.
 - Static assets: `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, `public/icon-{192,512}.png`, `public/og.png` (social card), `public/site.webmanifest`, `public/files/` (PDFs), `public/images/`.
