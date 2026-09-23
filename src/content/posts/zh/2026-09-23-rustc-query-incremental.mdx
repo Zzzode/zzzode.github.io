@@ -1,0 +1,390 @@
+---
+title: "Rust 编译器怎么做增量编译：demand-driven 查询与红绿算法"
+date: 2026-09-23
+excerpt: "改一行代码，为什么不用重编全部？rustc 的答案是把编译器从「一道道顺序执行的工序」改造成「一张按需求值、自动记忆化的查询图」：你问一个函数的类型，编译器才回头去要 HIR、才回头去解析源码；二次编译时再用著名的红绿算法沿依赖图判断哪些查询真的失效。这套技术后来外溢成了 Salsa 框架，喂饱了 rust-analyzer 这类 IDE。"
+tags: ["Rust", "rustc", "增量编译", "查询系统", "Salsa", "编译器架构"]
+kind: "distilled"
+sources:
+  - title: "rustc-dev-guide · Queries: demand-driven compilation"
+    url: "https://rustc-dev-guide.rust-lang.org/query.html"
+  - title: "rustc-dev-guide · Incremental compilation（red-green / try-mark-green）"
+    url: "https://rustc-dev-guide.rust-lang.org/queries/incremental-compilation.html"
+  - title: "rustc-dev-guide · Overview of the compiler（HIR / THIR / MIR 管线）"
+    url: "https://rustc-dev-guide.rust-lang.org/overview.html"
+  - title: "Salsa 官方手册（基于 rustc 增量技术的通用框架）"
+    url: "https://salsa-rs.github.io/salsa/"
+  - title: "rust-analyzer Architecture Guide（base-db 使用 salsa 做增量按需计算）"
+    url: "https://rust-analyzer.github.io/book/contributing/architecture.html"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  CompareTable,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="COMPILER ARCHITECTURE · rustc-dev-guide · 2026-09-23 核对"
+  title="Rust 编译器怎么做增量编译"
+  lead="传统编译器是一排固定工序：解析、类型检查、生成代码，挨个跑一遍。rustc 把它倒了过来——从最终想要的答案出发，层层向后索要输入，每一步的结果自动缓存，并在运行时记下谁依赖了谁。增量编译于是变成一道图上的染色题。"
+  pills={[
+    { label: "Demand-driven 查询" },
+    { label: "记忆化 + Provider" },
+    { label: "红绿算法" },
+    { label: "Salsa 外溢" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="查询图：从编译结果倒推到源码解析">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">ASK FROM THE END</text>
+
+    {[["compile · 代码生成单元",220,88],["modules · 模块列表",150,138],["HIR · 高层中间表示",220,188],["parse · 真正解析源码",150,238]].map((n,i)=>(
+      <g>
+        <rect x={n[1]-110} y={n[2]-17} width="220" height="34" rx="17" fill={i===0?"#1d1d1f":"#fff"} stroke={i===0?"#1d1d1f":"#dedee3"} />
+        <text x={n[1]} y={n[2]+4} font-size="11.5" fill={i===0?"#f5f5f7":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+        {i<3 && <path d={`M${n[1]-8} ${n[2]+22} L${n[1]+(i%2===0?-70:70)-8} ${n[2]+30}`} stroke="#0066cc" stroke-width="0" fill="none" />}
+      </g>
+    ))}
+    <path d="M106 112 C 60 130, 60 136, 46 138 M54 130 L46 138 L56 144 M34 162 C 80 172, 100 174, 106 188 M96 180 L106 188 M106 212 C 60 228, 60 230, 46 238 M56 230 L46 238" stroke="#0066cc" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+口径说明：本文依据 Rust 编译器官方开发者手册 rustc-dev-guide 的 Queries、Incremental compilation 与 Overview 三页（2026-09-23 核对），外溢部分依据 Salsa 官方手册与 rust-analyzer 架构手册。需要注意手册自己的措辞：rustc 「仍在从传统 pass 架构向 demand-driven 系统过渡」，并非全部编译流程都已查询化。文中机制描述以手册为准，设计解读为作者归纳。
+
+</Prose>
+
+<Section id="backdrop">
+  <SectionHead
+    kicker="01 · WHY PASS-BASED AGED BADLY"
+    title="前因：一排工序的编译器，改一行就要全跑一遍"
+    lead="编译器的经典形状是流水线；流水线好理解，但对「我只改了一个函数」这件事毫无感知。"
+  />
+  <Prose>
+
+传统编译器按趟（pass）组织：第一趟词法语法分析产出 AST，第二趟降级成中间表示，第三趟类型检查，第四趟生成代码，每趟吃进上一趟的全部输出。这个模型清晰、好教，但有一个致命的经济性问题：**趟与趟之间是全量交接**。你在某个函数里改了一个表达式的字面量，类型检查器仍然要检查整个 crate，代码生成仍然要重新产出全部模块。
+
+对 C/C++ 这类语言，传统解法是把文件做成缓存单元（未改动的 `.o` 直接链接），粒度粗，且头文件一动全树重编。Rust 团队想要更细的答案：**以「一条信息」为缓存单元**——某个函数的类型、某个 trait 推导的结果、某段 MIR——而且自动判定哪些信息真的受影响。要做到这一点，编译器的控制流必须先换形状。
+
+  </Prose>
+</Section>
+
+<Section alt id="queries">
+  <SectionHead
+    kicker="02 · THE QUERY SYSTEM"
+    title="机制一：编译器变成一张按需求值的查询图"
+    lead="随页面滚动，左侧舞台展示一次查询从发起到落缓存的完整生命周期（宽屏下停驻在屏幕中央）。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 查询",
+        title: "一切信息都是一个函数式查询",
+        body: "rustc 里没有「先把所有函数的类型都算出来」这种步骤，而是一组像函数的查询（query）：给一个条目的 DefId（编译器里条目的唯一编号），type_of 查询返回它的类型；还有求 HIR、求 MIR、求 trait 推导结果等数百个查询。调用方式就是普通方法：tcx.type_of(def_id)。",
+      },
+      {
+        tag: "02 · 记忆化",
+        title: "第一次算，之后从哈希表拿",
+        body: "查询执行是记忆化的：首次调用真正运行计算，结果存进缓存哈希表；之后再调同一个查询，直接克隆缓存值返回（手册因此建议查询返回类型做成廉价可克隆，必要时包 Rc 智能指针）。这同时避免了重复计算和「各趟之间传来传去的巨型上下文」。",
+      },
+      {
+        tag: "03 · Provider",
+        title: "缓存不命中，就查函数指针表",
+        body: "缓存里没有时，编译器调用对应的 provider——一个在具体模块里实现、编译初始化时手动注册进 Providers 结构体的普通函数。Providers 不是 trait，而是宏生成的结构体，每个字段是一个函数指针；本地 crate 与外部 crate 各有一张表（ExternProviders 大多经由 rustc_metadata 从依赖元数据里加载）。",
+      },
+      {
+        tag: "04 · 倒推",
+        title: "从「代码生成单元」一路要到解析",
+        body: "需求驱动的精髓：理想的顶层只有一个 compile 查询。它要一份代码生成单元清单 → 触发查询所有模块 → 要 HIR → 要 AST → 最终才真正解析源码。编译不是从 main 入口向前推，而是从最终产物向后「要」。手册注明这一愿景尚未完全实现，但 MIR 生成等大段编译流程已经如此工作。",
+      },
+      {
+        tag: "05 · 依赖图",
+        title: "运行时顺手记下：我读过谁",
+        body: "查询执行时还有个关键副作用——它在运行时才发现自己依赖了哪些别的查询。编译器对查询执行插桩，自动构建出整个 crate 的依赖 DAG（有向无环图：查询不能依赖自己）。这张图是下一节增量编译能够「可靠」（sound）的根本：不需要人手工声明依赖，图是实际执行路径的忠实记录。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · QUERY</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">信息即查询</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="50" y="170" width="360" height="100" rx="14" fill="#1d1d1f" />
+      <text x="72" y="212" font-size="12.5" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">tcx.type_of(def_id)</text>
+      <text x="72" y="244" font-size="11" fill="#a1a1a6" font-family="PingFang SC, sans-serif">输入：DefId · 输出：类型</text>
+      <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">数百个查询：类型 / HIR / MIR / trait 求解……</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · MEMOIZE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一次计算，反复命中</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="60" y="160" width="150" height="64" rx="12" fill="#0066cc" />
+      <text x="135" y="190" font-size="11.5" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">首次调用</text>
+      <text x="135" y="210" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">真正计算</text>
+      <path d="M216 192 L244 192 M236 184 L244 192 L236 200" stroke="#1d1d1f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="250" y="160" width="150" height="64" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="325" y="190" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">缓存哈希表</text>
+      <text x="325" y="210" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">之后直接克隆返回</text>
+      <text x="230" y="290" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">返回值宜廉价克隆，必要时包 Rc</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · PROVIDER</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">不命中就查函数指针表</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      {["type_of","fn sig","mir_fn","…"].map((s,i)=>(
+        <g>
+          <rect x="70" y={156+i*52} width="320" height="40" rx="8" fill="#fff" stroke="#dedee3" />
+          <text x="92" y={182+i*52} font-size="11.5" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">{s}</text>
+          <text x="370" y={182+i*52} font-size="10" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{"fn(tcx, key) -> result"}</text>
+        </g>
+      ))}
+      <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">Providers：宏生成的函数字段结构体，本地/外部各一张</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · DEMAND</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">从终点向后要输入</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      {[["codegen units",150,160],["modules",310,200],["HIR",150,240],["parse / AST",310,280],["tokens",150,320]].map((n,i)=>(
+        <g>
+          <rect x={n[1]-62} y={n[2]-15} width="124" height="30" rx="15" fill={i===0?"#1d1d1f":"#fff"} stroke={i===0?"#1d1d1f":"#0066cc"} stroke-width={i===0?0:1.4} />
+          <text x={n[1]} y={n[2]+4} font-size="10.5" fill={i===0?"#f5f5f7":"#0066cc"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{n[0]}</text>
+        </g>
+      ))}
+      <path d="M214 172 L246 192 M238 184 L246 192 L236 198 M246 208 L214 228 M224 220 L214 228 M214 248 L246 268 M238 260 L246 268 L236 274 M246 284 L214 304 M224 296 L214 304" stroke="#86868b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · DEP DAG</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">运行时记录读取关系</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      {[["Q",230,170],["R1",140,260],["R2",230,290],["R3",320,260]].map((n,i)=>(
+        <g>
+          <circle cx={n[1]} cy={n[2]} r="26" fill={i===0?"#0066cc":"#fff"} stroke={i===0?"#0066cc":"#b8b8bf"} stroke-width="1.5" />
+          <text x={n[1]} y={n[2]+4} font-size="11" fill={i===0?"#fff":"#424245"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{n[0]}</text>
+        </g>
+      ))}
+      <path d="M212 192 L156 240 M230 196 L230 262 M248 192 L304 240" stroke="#b8b8bf" stroke-width="1.5" fill="none" />
+      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">执行插桩自动建图 · 无环 · 依赖不需手写</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="pipeline">
+  <SectionHead
+    kicker="03 · WHERE QUARRIES LIVE"
+    title="这些查询建在什么数据上：HIR、THIR、MIR"
+    lead="需求驱动只解决「何时算」；算什么由 rustc 的分层中间表示决定。"
+  />
+  <Prose>
+
+按 rustc-dev-guide 的 Overview，源码先被词法语法分析成 token 流与 AST，随后**降级（lowering）**成 HIR——对编译器更友好的高层中间表示，过程伴随大量脱糖（desugaring，把循环、`async fn` 等缩写语法展开成更基本的构造）。类型推断、trait 求解、类型检查都在 HIR 上进行。HIR 再经 THIR（进一步脱糖、负责模式与穷尽性检查）降级为 MIR——借用检查（borrow check）与一批 MIR 优化的舞台；手册解释，某些优化在 MIR 层比降到 LLVM-IR 后更好做。最后单态化（monomorphization，把泛型按具体类型实例化）并交给 LLVM。
+
+理解这条层级链，才理解查询系统的价值边界：**查询缓存的是「某个条目在某一层表示上的一条事实」**，而不是整个 HIR 或整个 MIR。缓存粒度细到条目级，增量才能精确到「这个函数的 MIR 变了，那个结构体的类型没变」。
+
+  </Prose>
+</Section>
+
+<Section alt id="redgreen">
+  <SectionHead
+    kicker="04 · THE RED-GREEN ALGORITHM"
+    title="机制二：二次编译，是一张图上的染色题"
+    lead="手册原话：增量编译方案本质上是查询系统一个「出奇简单的扩展」。随滚动看 try-mark-green 如何逐格判色。"
+  />
+
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 存什么",
+        title: "编译结束：存查询结果与查询 DAG",
+        body: "每次编译结束，rustc 把本次执行过的查询结果与查询 DAG 一起落盘。DAG 记录「谁执行过谁」，边 Q1→Q2 表示算出 Q1 需要 Q2。注意这里染色的单位不是查询定义，而是「某查询 + 某组参数」的一次具体调用——同一查询对不同参数可能一个变红、一个仍绿，调用按参数指纹（fingerprint）区分。",
+      },
+      {
+        tag: "02 · 两条洞见",
+        title: "全绿输入 ⇒ 必绿；输入红了，结果未必红",
+        body: "算法建立在两条洞见上：其一，如果查询 Q 的所有输入都是绿色（结果与上次相同），那么只要编译器是确定性的，Q 不必重新执行就必然为绿；其二，即使某个输入变红，Q 也可能只使用了输入中没变的那部分，重新算出的结果哈希若与上次相同，Q 依然可以标绿——变化在传播途中被「吸收」了。",
+      },
+      {
+        tag: "03 · 递归判色",
+        title: "try-mark-green：沿 reads 清单递归",
+        body: "判断未执行的 Q 时：若上次编译没执行过它，直接重算并标红；否则取出它上次的 reads(Q) 列表——即它执行中调用过的查询——严格按原始顺序逐个递归索要颜色。若全部为绿，Q 直接标绿，连磁盘上的旧结果都不用反序列化；若有任何一个为红，Q 疑似脏了，进入下一步。",
+      },
+      {
+        tag: "04 · 重算比对",
+        title: "红输入触发重算，再用哈希还它清白",
+        body: "疑似脏掉的 Q 被重新执行，新结果与上次结果的哈希比对：哈希没变，Q 仍标绿，它的下游因此不必重跑——这就是洞见二的落地；哈希变了，Q 才真正为红，红色继续向下游传播。颜色与结果被刻意分离：判色常常根本不需要拿到值。",
+      },
+      {
+        tag: "05 · 顺序",
+        title: "为什么必须按原顺序访问依赖",
+        body: "手册给了一个具体教训：查询内部常有分支（if subquery1() 则读 subquery2，否则读 subquery3）。若 subquery1 这次结果翻转，旧路径上的 subquery2 本不该被执行；若 try-mark-green 乱序先访问了它，可能触发本不存在的计算甚至编译器内部错误（ICE）。所以 DAG 不仅记读了谁，还记读取顺序，这是增量「可靠」而非「碰巧能用」的细节。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · PERSIST</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">编译结束落盘两样东西</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="50" y="160" width="360" height="70" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="192" font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">查询结果</text>
+      <text x="230" y="216" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">「某查询 + 某参数指纹」对应的值 / 哈希</text>
+      <rect x="50" y="248" width="360" height="70" rx="12" fill="#1d1d1f" />
+      <text x="230" y="280" font-size="12.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">查询 DAG（含读取顺序）</text>
+      <text x="230" y="304" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">边 Q1 → Q2：算 Q1 需要 Q2</text>
+      <text x="230" y="370" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">染色单位 = 查询的一次具体调用</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · TWO INSIGHTS</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">红绿的两条洞见</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="50" y="158" width="360" height="92" rx="12" fill="#fff" stroke="#34c759" stroke-width="1.6" />
+      <text x="72" y="190" font-size="12" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">输入全绿 → 必绿，无需执行</text>
+      <text x="72" y="218" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">前提：编译器确定性</text>
+      <rect x="50" y="266" width="360" height="92" rx="12" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
+      <text x="72" y="298" font-size="12" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">输入红了 → 结果哈希可能仍相同</text>
+      <text x="72" y="326" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">变化可在传播途中被吸收</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · TRY-MARK-GREEN</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">沿 reads 清单递归判色</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <rect x="170" y="150" width="120" height="44" rx="10" fill="#0066cc" />
+      <text x="230" y="178" font-size="12" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Q ?</text>
+      {["R1","R2","R3"].map((s,i)=>(
+        <g>
+          <rect x={56+i*120} y="252" width="104" height="60" rx="10" fill="#fff" stroke="#34c759" stroke-width="1.6" />
+          <text x={108+i*120} y="288" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{s} green</text>
+          <path d={`M${176+i*14} 194 L${108+i*120} 246`} stroke="#b8b8bf" stroke-width="1.3" fill="none" />
+        </g>
+      ))}
+      <text x="230" y="360" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">按原始顺序递归 · 全绿则不碰磁盘旧值</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · RECOMPARE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">重算之后，哈希还它清白</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="60" y="160" width="140" height="70" rx="12" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
+      <text x="130" y="190" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">输入有红</text>
+      <text x="130" y="212" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">重算 Q</text>
+      <path d="M208 195 L252 195 M244 187 L252 195 L244 203" stroke="#1d1d1f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="260" y="160" width="140" height="70" rx="12" fill="#1d1d1f" />
+      <text x="330" y="190" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">hash(new)</text>
+      <text x="330" y="212" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">vs hash(old)</text>
+      <rect x="100" y="280" width="260" height="56" rx="28" fill="#fff" stroke="#34c759" stroke-width="1.6" />
+      <text x="230" y="314" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">相同 → 仍标绿，下游全部得救</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · ORDERING</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">依赖必须按原顺序走访</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="50" y="150" width="360" height="80" rx="12" fill="#1d1d1f" />
+      <text x="70" y="182" font-size="11" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">{"if subq1() { subq2() } else { subq3() }"}</text>
+      <text x="70" y="210" font-size="10.5" fill="#a1a1a6" font-family="PingFang SC, sans-serif">分支翻转后，旧路径上的查询本不该存在</text>
+      <rect x="50" y="250" width="360" height="80" rx="12" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
+      <text x="230" y="282" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">乱序访问 → 幽灵计算 / ICE</text>
+      <text x="230" y="306" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">DAG 记录顺序，是 soundness 的一部分</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="refinements">
+  <SectionHead
+    kicker="05 · ENGINEERING TRIM"
+    title="工程上的三处修剪：朴素算法撑不起真实编译器"
+    lead="手册在讲完基础算法后，立刻补了三条让它在 rustc 体量下可行的优化。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard label="HASHES, NOT VALUES" title="默认只存哈希，结果选择性落盘">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        把所有查询结果都序列化反序列化浪费严重——很多结果重算极廉价。实际方案是默认只存各子查询结果的哈希，仅对值得缓存的结果另存。判色与取值因此被拆成两条路径。
+      </p>
+    </InfoCard>
+    <InfoCard label="COLOR ≠ RESULT" title="判色常常不需要值">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        输入全绿时无需反序列化旧结果就能判绿；需要值时才走「先判色、绿则读盘、红则执行」的流程。手册提到某些情况下甚至可以跳过结果的序列化本身。
+      </p>
+    </InfoCard>
+    <InfoCard label="STEAL" title="需要原地改 MIR 时的逃逸舱">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        查询结果通常不可变、可克隆共享；个别场景（廉价地原地修改 MIR）需要例外，rustc 提供 ty::steal::Steal 类型显式标记这种「取走」语义，把对缓存纯度的破坏限制在明处。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section alt id="salsa">
+  <SectionHead
+    kicker="06 · AFTER RUSTC"
+    title="余波：红绿算法变成了通用框架 Salsa"
+    lead="一门编译器内部的机制，最有说服力的成功是被抽出来、在编译器之外养活了一批工具。"
+  />
+  <Prose>
+
+rustc 的查询模型被提炼成独立框架 [Salsa](https://salsa-rs.github.io/salsa/)：官方定义为「编写增量、按需程序的 Rust 框架——程序希望随输入变化持续产出最新输出」，并明确说明它基于 rustc 的增量重编译技术。rustc-dev-guide 脚注里，nikomatsakis 写道早就想把红绿算法改名为「Salsa 算法」，只是没有流行开来。
+
+最著名的采用者是 rust-analyzer：其[架构手册](https://rust-analyzer.github.io/book/contributing/architecture.html)写明 base-db 层「使用 salsa crate 做增量、按需计算」，把它理解成「一个键值存储，但能用指定函数派生出计算值」。这不是巧合——**IDE 的需求是这套模型的完美战场**：用户敲一个字符，IDE 要在几十毫秒内给出新的补全、类型提示与错误标注，却只有一棵语法树的局部发生了变化；输入变更、输出持续保鲜，正是 Salsa 的设计前提。
+
+把视线拉远，这与本博客 Skip 一文里的「反应式失效缓存」是同一个思想家族：**让系统自动维护「谁依赖谁」，变化发生时只重算真正失效的派生值。** Skip 用类型系统在语言层证明，rustc 用运行时插桩在编译器层建图，Salsa 把它做成了任何 Rust 程序都能用的库。也呼应编译器综述一文的判断：先进编译技术真正扩散时，多以框架/库的形态嵌入既有生态。
+
+  </Prose>
+</Section>
+
+<Section id="limits">
+  <SectionHead
+    kicker="07 · READ IT RIGHT"
+    title="边界与代价"
+    lead="增量不是免费的加速键，它有自己的账簿成本与适用范围。"
+  />
+  <CompareTable
+    headers={[
+      { label: "维度" },
+      { label: "收益" },
+      { label: "代价 / 边界", wrap: true },
+    ]}
+    rows={[
+      ["重新计算量", "只重算红色查询及其必要传播，条目级粒度", "插桩建图、指纹计算、落盘 I/O 本身有固定开销；全量场景不一定划算"],
+      ["正确性", "依赖由实际执行记录，不依赖手写声明；顺序敏感处理保证可靠", "要求查询确定性；Steal 这类逃逸舱必须被严格管制"],
+      ["架构现状", "MIR 生成等大段流程已完全查询化", "手册自述 rustc 仍在从 pass 架构过渡，单一 compile 查询的愿景未完全实现"],
+      ["跨 crate", "外部 crate 查询经元数据提供，避免重编依赖", "外部信息以元数据为界，粒度与本地查询不同；跨边界增量受 crate 模型约束"],
+    ]}
+  />
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "增量编译的前提是先把编译器重构成需求驱动的查询图",
+      conclusion: "rustc 不预设执行顺序，而是从最终要的答案（代码生成单元）层层索要模块、HIR 直到解析；每个查询记忆化，执行时由插桩自动记录依赖 DAG。以「一条信息」而非「一个文件/一趟工序」为缓存单元，细粒度增量才有载体。",
+      detail: "Providers 函数指针表、廉价克隆返回值、Steal 逃逸舱，都是围绕这一模型长出的工程零件。",
+    },
+    {
+      title: "红绿算法的可靠来自两条洞见加一个顺序约束",
+      conclusion: "输入全绿则结果必绿（确定性前提下免执行）；输入变红结果哈希也可能不变（变化可被吸收）；try-mark-green 沿 reads 列表按原始顺序递归判色，红节点重算比对哈希再决定是否传播——朴素方案之外还必须只存哈希、分离颜色与结果，才扛得住真实编译器。",
+      detail: "这套技术经 Salsa 外溢，成为 rust-analyzer 等低延迟 IDE 工具的地基，与 Skip 的反应式缓存同属一个思想家族。",
+    },
+  ]}
+  note="事实口径：查询系统、Providers、Steal、红绿/try-mark-green、查询 DAG 顺序与只存哈希等机制均依据 2026-09-23 抓取的 rustc-dev-guide（query.html、incremental-compilation.html、overview.html）；Salsa 定位来自其官方手册，rust-analyzer 用法来自其架构手册 base-db 章节；rustc 仍处架构过渡期的限定以手册原文为准，设计解读为作者归纳。"
+/>
