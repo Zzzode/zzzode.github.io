@@ -21,6 +21,7 @@ const posts: Entry[] = [...raw]
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .map((item) => ({
     title: item.data.title,
+    dateValue: item.data.date,
     meta:
       lang === 'zh'
         ? `${item.data.date.getFullYear()}年${item.data.date.getMonth() + 1}月${item.data.date.getDate()}日`
@@ -33,11 +34,11 @@ const posts: Entry[] = [...raw]
 const slugOf = (e: Entry) => (e.href ?? '').split('/').filter(Boolean).pop() ?? '';
 const bySlug = new Map(posts.map((e) => [slugOf(e), e]));
 
-const featureSlug = '2026-09-23-ai-and-compilers-survey';
+const featureSlug = '2026-09-22-opus-lean-agent-sdk';
 const pickSlugs = [
   '2026-09-23-claude-code-architecture',
+  '2026-09-24-nasdaq-record-a-share-linkage',
   '2026-09-22-mimo-v26-open-rl',
-  '2026-09-23-jev-system1',
 ];
 const picked = new Set([featureSlug, ...pickSlugs]);
 const feature = bySlug.get(featureSlug);
@@ -45,11 +46,23 @@ const featureTags = (feature?.tags ?? []).slice(0, 5);
 const pickItems = pickSlugs
   .map((s, i) => ({ post: bySlug.get(s), num: String(i + 1).padStart(2, '0'), lead: i === 0 }))
   .filter((x): x is { post: Entry; num: string; lead: boolean } => Boolean(x.post));
-const indexPosts = posts.filter((e) => !picked.has(slugOf(e))).slice(0, 10);
-const indexItems = indexPosts.map((post, i) => ({
+const latestPosts = posts.filter((e) => !picked.has(slugOf(e))).slice(0, 12);
+const latestItems = latestPosts.map((post, i) => ({
   post,
-  num: String(i + pickItems.length + 1).padStart(2, '0'),
+  num: String(i + 1).padStart(2, '0'),
 }));
+// Strictly chronological feed, grouped by calendar day
+const dayKey = (d: Date) =>
+  lang === 'zh'
+    ? `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
+    : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const latestGroups: { label: string; items: typeof latestItems }[] = [];
+for (const item of latestItems) {
+  const label = dayKey(item.post.dateValue ?? new Date(0));
+  const group = latestGroups.at(-1);
+  if (group && group.label === label) group.items.push(item);
+  else latestGroups.push({ label, items: [item] });
+}
 
 interface Topic {
   key: 'agents' | 'models' | 'languages' | 'industry';
@@ -59,6 +72,7 @@ const topics: Topic[] = [
   {
     key: 'agents',
     slugs: [
+      '2026-09-22-opus-lean-agent-sdk',
       '2026-09-23-claude-code-architecture',
       '2026-09-23-e2b-sandbox-infra',
       '2026-09-23-flue-agent-harness',
@@ -91,6 +105,7 @@ const topics: Topic[] = [
   {
     key: 'industry',
     slugs: [
+      '2026-09-24-nasdaq-record-a-share-linkage',
       '2026-09-23-ai-glasses-industry-chain',
       '2026-09-23-nvidia-h200-china-verification',
       '2026-09-23-ai-org-structure',
@@ -161,21 +176,12 @@ const colophon = [
           </section>
         )}
 
-        {/* Editor's picks — hairline editorial rows */}
+        {/* Highlights — hand-picked rows, editorial judgment not chronology */}
         <section class="bg-paper">
           <div class="container-page py-14 sm:py-16">
-            <div class="flex items-baseline justify-between gap-4">
-              <h2 class="text-[clamp(21px,2.5vw,26px)] font-semibold tracking-[-0.022em] text-ink">
-                {t(lang, 'home.recent')}
-              </h2>
-              <a
-                href={`${prefix}/posts/`}
-                class="inline-flex shrink-0 items-center gap-1 text-[14px] font-medium text-blue transition-colors hover:text-blue-hover"
-              >
-                {t(lang, 'home.archive')}
-                <span aria-hidden="true">›</span>
-              </a>
-            </div>
+            <h2 class="text-[clamp(21px,2.5vw,26px)] font-semibold tracking-[-0.022em] text-ink">
+              {t(lang, 'home.picks')}
+            </h2>
 
             <div class="mt-4 border-t border-line">
               {
@@ -220,29 +226,48 @@ const colophon = [
                 ))
               }
             </div>
+          </div>
+        </section>
 
-            {/* Numbered index — one continuous hairline system across both columns.
-                No top margin: the rule above 04/05 must sit the same py-7 distance
-                below 03 as the rules between the pick rows. */}
-            <ol class="grid md:grid-cols-2">
-              {
-                indexItems.map(({ post, num }) => (
-                  <li
-                    class="border-t border-line md:[&:nth-child(even)]:pl-6 md:[&:nth-child(odd)]:pr-6"
-                  >
-                    <a href={post.href} class="group flex items-baseline gap-4 py-3.5">
-                      <span class="w-6 shrink-0 font-mono text-[11.5px] tabular-nums text-muted-2">
-                        {num}
-                      </span>
-                      <span class="flex-1 text-[14.5px] font-medium leading-snug tracking-[-0.008em] text-ink transition-colors duration-200 group-hover:text-blue">
-                        {post.title}
-                      </span>
-                      <span class="hidden shrink-0 text-[12px] text-muted-2 sm:block">{post.meta}</span>
-                    </a>
-                  </li>
-                ))
-              }
-            </ol>
+        {/* Latest — strictly chronological feed, grouped by calendar day */}
+        <section class="bg-white">
+          <div class="container-page py-14 sm:py-16">
+            <div class="flex items-baseline justify-between gap-4">
+              <h2 class="text-[clamp(21px,2.5vw,26px)] font-semibold tracking-[-0.022em] text-ink">
+                {t(lang, 'home.latest')}
+              </h2>
+              <a
+                href={`${prefix}/posts/`}
+                class="inline-flex shrink-0 items-center gap-1 text-[14px] font-medium text-blue transition-colors hover:text-blue-hover"
+              >
+                {t(lang, 'home.archive')}
+                <span aria-hidden="true">›</span>
+              </a>
+            </div>
+
+            {
+              latestGroups.map((group) => (
+                <div>
+                  <p class="mt-9 pb-1 text-[12px] font-semibold text-muted-2">
+                    {group.label}
+                  </p>
+                  <ol class="grid md:grid-cols-2">
+                    {group.items.map(({ post, num }) => (
+                      <li class="md:[&:nth-child(even)]:pl-6 md:[&:nth-child(odd)]:pr-6">
+                        <a href={post.href} class="group flex items-baseline gap-4 border-t border-line py-3.5">
+                          <span class="w-6 shrink-0 font-mono text-[11.5px] tabular-nums text-muted-2">
+                            {num}
+                          </span>
+                          <span class="min-w-0 flex-1 text-[14.5px] font-medium leading-snug tracking-[-0.008em] text-ink transition-colors duration-200 group-hover:text-blue">
+                            {post.title}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))
+            }
           </div>
         </section>
 

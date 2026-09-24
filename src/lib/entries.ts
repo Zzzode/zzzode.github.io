@@ -5,6 +5,8 @@ export interface Entry {
   title: string;
   /** gray metadata line: venue · year, date, etc. */
   meta: string;
+  /** original date, for chronological feeds that group by day */
+  dateValue?: Date;
   excerpt?: string;
   tags?: string[];
 }
