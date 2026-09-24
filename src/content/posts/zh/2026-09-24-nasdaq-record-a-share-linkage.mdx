@@ -188,41 +188,45 @@ import {
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 470" class="block w-full" role="img" aria-label="全球市场因果传动图">
       <rect x="0" y="0" width="920" height="470" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="32" y="34" font-size="11.5" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">传动方向（上→下）· 放大层双向作用</text>
+      <text x="32" y="34" font-size="11.5" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">传动方向（上 → 下）· 放大层双向作用</text>
 
-      <rect x="330" y="50" width="260" height="40" rx="10" fill="#f5f5f7" stroke="#c7c7cc" />
-      <text x="460" y="75" font-size="12" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">通胀（油价/关税/工资）＋ 财政发债</text>
-      <line x1="460" y1="90" x2="460" y2="106" stroke="#86868b" stroke-width="1.6" />
+      <rect x="300" y="48" width="320" height="40" rx="20" fill="#f7f7f9" stroke="#e8e8ed" />
+      <text x="460" y="73" font-size="12" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">通胀（油价 / 关税 / 工资）＋ 财政发债</text>
+      <path d="M460 90 v12 m-4 -5 l4 5 4 -5" fill="none" stroke="#86868b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
 
-      <rect x="300" y="106" width="320" height="44" rx="10" fill="#1d1d1f" />
-      <text x="460" y="134" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">长端利率 · 10 年期美债（总闸门）</text>
+      <rect x="284" y="104" width="352" height="46" rx="12" fill="#1d1d1f" />
+      <text x="460" y="133" font-size="13.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">长端利率 · 10 年期美债（总闸门）</text>
 
-      {[["①贴现率","压成长股估值 / 房贷",70],["②美元 / 利差","全球资金 · 日元套息",330],["③融资成本","企业债 / 回购 / 基差",590]].map((b)=>(
+      {[["贴现率","压成长股估值 / 房贷",70],["美元 / 利差","全球资金 · 日元套息",330],["融资成本","企业债 / 回购 / 基差",590]].map((b,i)=>(
         <g>
-          <line x1="460" y1="150" x2={b[2]+115} y2="186" stroke="#c7c7cc" stroke-width="1.3" />
-          <rect x={b[2]} y="186" width="230" height="52" rx="10" fill="#fff" stroke="#dedee3" />
-          <text x={b[2]+115} y="208" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[0]}</text>
-          <text x={b[2]+115} y="227" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[1]}</text>
-          <line x1={b[2]+115} y1="238" x2={b[2]+115} y2="282" stroke="#86868b" stroke-width="1.4" />
+          <line x1="460" y1="150" x2={b[2]+115} y2="182" stroke="#c7c7cc" stroke-width="1.2" />
+          <rect x={b[2]} y="182" width="230" height="56" rx="12" fill="#ffffff" stroke="#e5e5ea" />
+          <circle cx={b[2]+26} cy="203" r="9.5" fill="#f5f8fc" stroke="#0066cc" stroke-width="1.3" />
+          <text x={b[2]+26} y="207" font-size="10" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{i+1}</text>
+          <text x={b[2]+44} y="207" font-size="12" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{b[0]}</text>
+          <text x={b[2]+44} y="225" font-size="9.8" fill="#86868b" font-family="PingFang SC, sans-serif">{b[1]}</text>
+          <line x1={b[2]+115} y1="238" x2={b[2]+115} y2="276" stroke="#c7c7cc" stroke-width="1.2" />
         </g>
       ))}
-      <line x1="185" y1="262" x2="185" y2="282" stroke="#86868b" stroke-width="1.4" />
-      <line x1="445" y1="262" x2="445" y2="282" stroke="#86868b" stroke-width="1.4" />
-      <line x1="705" y1="262" x2="705" y2="282" stroke="#86868b" stroke-width="1.4" />
 
-      <rect x="60" y="282" width="800" height="66" rx="12" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.4" />
-      <text x="460" y="308" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">放大层 · 机械仓位（平时压波动，越位后同向追杀）</text>
-      <text x="220" y="332" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">期权做市商 gamma（0DTE 63%）</text>
-      <text x="460" y="332" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">CTA / 波动率控制 / 风险平价（100 分位）</text>
-      <text x="700" y="332" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">国债基差交易（约 8,300 亿，回购杠杆）</text>
-      <line x1="460" y1="348" x2="460" y2="366" stroke="#86868b" stroke-width="1.6" />
+      <rect x="60" y="276" width="800" height="68" rx="14" fill="#ffffff" stroke="#0066cc" stroke-width="1.3" />
+      <rect x="60" y="276" width="4" height="68" rx="2" fill="#0066cc" />
+      <text x="460" y="302" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">放大层 · 机械仓位</text>
+      <text x="460" y="324" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">平时压窄波动，价格越位后被迫同向追杀</text>
+      <circle cx="190" cy="336" r="2.4" fill="#86868b" />
+      <text x="200" y="340" font-size="10" fill="#6e6e73" text-anchor="start" font-family="PingFang SC, sans-serif">期权做市商 gamma（0DTE 63%）</text>
+      <circle cx="416" cy="336" r="2.4" fill="#86868b" />
+      <text x="426" y="340" font-size="10" fill="#6e6e73" text-anchor="start" font-family="PingFang SC, sans-serif">CTA / 波动率控制 / 风险平价（100 分位）</text>
+      <circle cx="660" cy="336" r="2.4" fill="#86868b" />
+      <text x="670" y="340" font-size="10" fill="#6e6e73" text-anchor="start" font-family="PingFang SC, sans-serif">国债基差交易（约 8,300 亿）</text>
+      <path d="M460 348 v14 m-4 -5 l4 5 4 -5" fill="none" stroke="#86868b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
 
-      <rect x="120" y="366" width="680" height="36" rx="9" fill="#fff" stroke="#dedee3" />
-      <text x="460" y="389" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">价格：美股 · 投资级/高收益债 · 黄金 · 比特币 · 汇率</text>
-      <line x1="460" y1="402" x2="460" y2="418" stroke="#0066cc" stroke-width="1.6" />
+      <rect x="120" y="366" width="680" height="38" rx="19" fill="#f7f7f9" stroke="#e8e8ed" />
+      <text x="460" y="390" font-size="11.5" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">价格：美股 · 投资级 / 高收益债 · 黄金 · 比特币 · 汇率</text>
+      <path d="M460 408 v12 m-4 -5 l4 5 4 -5" fill="none" stroke="#0066cc" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
 
-      <rect x="230" y="418" width="460" height="34" rx="9" fill="#1d1d1f" />
-      <text x="460" y="440" font-size="11.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">产业链订单 · 人民币汇率 · 风险偏好 → A 股</text>
+      <rect x="200" y="422" width="520" height="36" rx="18" fill="#1d1d1f" />
+      <text x="460" y="445" font-size="11.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">产业链订单 · 人民币汇率 · 风险偏好 → A 股</text>
     </svg>
   </div>
 </Section>
@@ -248,31 +252,46 @@ import {
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="9 月 17 日美债收益率曲线">
       <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">美国国债收益率曲线 · 2026/9/17 收盘（%）</text>
-      {[4.6,4.8,5.0,5.2].map((v,i)=>(
-        <g>
-          <line x1="80" y1={240-i*42} x2="860" y2={240-i*42} stroke="#ececf0" stroke-width="1" />
-          <text x="64" y={244-i*42} font-size="11" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{v.toFixed(1)}</text>
-        </g>
-      ))}
-      <line x1="80" y1="240" x2="860" y2="240" stroke="#dedee3" stroke-width="1.2" />
+      <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">美国国债收益率曲线 · 2026/9/17 收盘（%）</text>
+
       {(() => {
-        const pts=[["2Y",4.666,140],["5Y",4.783,360],["10Y",4.928,580],["30Y",5.287,800]];
-        const y=v=>240-(v-4.6)*210;
+        const x0 = 88, x1 = 868, y0 = 232, top = 72;
+        const vals = [4.6, 4.8, 5.0, 5.2, 5.4];
+        const y = (v) => y0 - ((v - 4.6) / 0.8) * (y0 - top);
+        return vals.map((v) => (
+          <g>
+            <line x1={x0} y1={y(v)} x2={x1} y2={y(v)} stroke={v === 5.0 ? "#c7c7cc" : "#f2f2f5"} stroke-width={v === 5.0 ? 1.2 : 1} stroke-dasharray={v === 5.0 ? "2 5" : "none"} />
+            <text x={x0 - 14} y={y(v) + 3.5} font-size="10.5" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{v.toFixed(1)}</text>
+          </g>
+        ));
+      })()}
+      <line x1="88" y1="232" x2="868" y2="232" stroke="#c7c7cc" stroke-width="1.2" />
+
+      {(() => {
+        const pts = [
+          { k: "2Y", v: 4.666, x: 150 },
+          { k: "5Y", v: 4.783, x: 376 },
+          { k: "10Y", v: 4.928, x: 602 },
+          { k: "30Y", v: 5.287, x: 828 },
+        ];
+        const y0 = 232, top = 72;
+        const y = (v) => y0 - ((v - 4.6) / 0.8) * (y0 - top);
+        const line = pts.map((p) => `${p.x},${y(p.v)}`).join(" ");
         return (
           <g>
-            <polyline points={pts.map(p=>`${p[2]},${y(p[1])}`).join(' ')} fill="none" stroke="#0066cc" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-            {pts.map(p=>(
+            <polyline points={line} fill="none" stroke="#0066cc" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+            {pts.map((p) => (
               <g>
-                <circle cx={p[2]} cy={y(p[1])} r="5" fill="#0066cc" />
-                <text x={p[2]} y={y(p[1])-14} font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{p[1].toFixed(3)}</text>
-                <text x={p[2]} y="262" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{p[0]}</text>
+                <circle cx={p.x} cy={y(p.v)} r="8.5" fill="#0066cc" opacity="0.1" />
+                <circle cx={p.x} cy={y(p.v)} r="4.2" fill="#ffffff" stroke="#0066cc" stroke-width="2.4" />
+                <text x={p.x} y={y(p.v) - 16} font-size="12" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{p.v.toFixed(3)}</text>
+                <text x={p.x} y="258" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{p.k}</text>
               </g>
             ))}
           </g>
         );
       })()}
-      <text x="80" y="288" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">口径：新华财经 9/17 行情；曲线一路向上、无衰退式倒挂，市场定价“经济强、通胀黏、财政还要借”</text>
+      <text x="36" y="288" font-size="10" fill="#86868b" font-family="PingFang SC, sans-serif">口径：新华财经 9/17 行情；曲线一路向上、无衰退式倒挂，市场定价「经济强、通胀黏、财政还要借」</text>
     </svg>
   </div>
 </Section>
@@ -306,24 +325,31 @@ import {
 </Prose>
 
   <div class="not-prose my-2 chart-scroll">
-    <svg viewBox="0 0 920 240" class="block w-full" role="img" aria-label="日元套息交易的资金流向与平仓回路">
-      <rect x="0" y="0" width="920" height="240" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">套息交易怎么赚钱（蓝）· 平仓时怎么反噬（橙，虚线）</text>
-      <rect x="40" y="70" width="200" height="70" rx="12" fill="#f5f5f7" />
-      <text x="140" y="100" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">在日本借日元</text>
-      <text x="140" y="122" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">政策利率 1.25%</text>
-      <rect x="360" y="70" width="200" height="70" rx="12" fill="#f5f5f7" />
-      <text x="460" y="100" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">换成美元买资产</text>
-      <text x="460" y="122" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">美债 ~4.9% / 美股</text>
-      <rect x="680" y="70" width="200" height="70" rx="12" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.4" />
-      <text x="780" y="100" font-size="13" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">净赚利差 ≈ 263bp</text>
-      <text x="780" y="122" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">汇率稳时几乎无风险</text>
-      <path d="M244 105 h108 m-8 -7 l8 7 -8 7" fill="none" stroke="#0066cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M564 105 h108 m-8 -7 l8 7 -8 7" fill="none" stroke="#0066cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      <rect x="180" y="170" width="560" height="46" rx="10" fill="#fff" stroke="#e8710a" stroke-width="1.4" stroke-dasharray="6 4" />
-      <text x="460" y="190" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">日本加息 / 日元升值 → 利差被削、汇兑亏损 → 集体卖出资产买回日元</text>
-      <text x="460" y="208" font-size="10.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">2024/8：日经五个交易日 −20%，全球风险资产共振</text>
-      <path d="M460 140 L460 166" stroke="#e8710a" stroke-width="1.8" stroke-dasharray="4 3" />
+    <svg viewBox="0 0 920 248" class="block w-full" role="img" aria-label="日元套息交易的资金流向与平仓回路">
+      <rect x="0" y="0" width="920" height="248" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">套息交易怎么赚钱 · 平仓时怎么反噬</text>
+
+      {[
+        { x: 40, t: "在日本借日元", s: "政策利率 1.25%", hi: false },
+        { x: 360, t: "换成美元买资产", s: "美债 ≈ 4.9% / 美股", hi: false },
+        { x: 680, t: "净赚利差 ≈ 263bp", s: "汇率稳时几乎无风险", hi: true },
+      ].map((b) => (
+        <g>
+          <rect x={b.x} y="62" width="200" height="72" rx="14" fill={b.hi ? "#f5f8fc" : "#f7f7f9"} stroke={b.hi ? "#0066cc" : "#e8e8ed"} stroke-width={b.hi ? 1.5 : 1} />
+          <text x={b.x + 100} y={b.hi ? 94 : 92} font-size="13.5" font-weight="600" fill={b.hi ? "#0066cc" : "#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b.t}</text>
+          <text x={b.x + 100} y={b.hi ? 116 : 115} font-size="11" fill={b.hi ? "#424245" : "#6e6e73"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b.s}</text>
+        </g>
+      ))}
+      <path d="M248 98 h100" stroke="#0066cc" stroke-width="1.8" stroke-linecap="round" />
+      <path d="M548 98 h100" stroke="#0066cc" stroke-width="1.8" stroke-linecap="round" />
+      <path d="M340 98 l8 0 m0 0 l-7 -6 m7 6 l-7 6 M660 98 l8 0 m0 0 l-7 -6 m7 6 l-7 6" stroke="#0066cc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+      <path d="M460 138 v18" stroke="#e8710a" stroke-width="1.4" stroke-dasharray="4 3" stroke-linecap="round" />
+      <path d="M460 150 l-4 -7 h8 z" fill="#e8710a" />
+      <rect x="150" y="160" width="620" height="62" rx="14" fill="#fffdfb" stroke="#e8710a" stroke-width="1.3" stroke-dasharray="6 4" />
+      <circle cx="182" cy="183" r="4" fill="#e8710a" />
+      <text x="196" y="187" font-size="12" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">日本加息 / 日元升值 → 利差被削、汇兑亏损 → 集体卖出资产买回日元</text>
+      <text x="196" y="208" font-size="10.5" fill="#e8710a" font-family="PingFang SC, sans-serif">2024/8：日经五个交易日 −20%，全球风险资产共振</text>
     </svg>
   </div>
 </Section>
@@ -347,23 +373,27 @@ import {
 </Prose>
 
   <div class="not-prose my-2 chart-scroll">
-    <svg viewBox="0 0 920 250" class="block w-full" role="img" aria-label="正 gamma 压低波动，负 gamma 放大波动">
-      <rect x="0" y="0" width="920" height="250" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">正 gamma（7,600 上方）· 做市商高抛低吸</text>
-      <line x1="40" y1="92" x2="430" y2="92" stroke="#dedee3" stroke-width="1" stroke-dasharray="4 5" />
-      <polyline points="56,92 96,78 136,100 176,84 216,96 256,80 296,98 336,86 376,94 416,88" fill="none" stroke="#0066cc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M120 100 L120 120 M112 112 L120 120 L128 112" fill="none" stroke="#6e6e73" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M300 78 L300 58 M292 66 L300 58 L308 66" fill="none" stroke="#6e6e73" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="120" y="138" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">跌 → 机械买入</text>
-      <text x="300" y="52" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">涨 → 机械卖出</text>
-      <line x1="460" y1="24" x2="460" y2="226" stroke="#ececf0" stroke-width="1" />
-      <text x="496" y="40" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">负 gamma（7,600 下方）· 追涨杀跌</text>
-      <line x1="500" y1="140" x2="890" y2="140" stroke="#dedee3" stroke-width="1" stroke-dasharray="4 5" />
-      <polyline points="516,118 556,104 596,90 636,70 676,56 716,64 756,82 796,112 836,160 876,210" fill="none" stroke="#1d1d1f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M560 96 L560 76 M552 84 L560 76 L568 84" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M850 178 L850 198 M842 190 L850 198 L858 190" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="560" y="70" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">涨 → 追买</text>
-      <text x="852" y="216" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">跌 → 追杀</text>
+    <svg viewBox="0 0 920 252" class="block w-full" role="img" aria-label="正 gamma 压低波动，负 gamma 放大波动">
+      <rect x="0" y="0" width="920" height="252" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">标普 7,600 上方 · 做市商高抛低吸</text>
+      <text x="496" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">标普 7,600 下方 · 追涨杀跌</text>
+
+      <rect x="36" y="52" width="404" height="168" rx="12" fill="#fafafe" />
+      <line x1="56" y1="124" x2="424" y2="124" stroke="#dfe3ea" stroke-width="1" stroke-dasharray="3 5" />
+      <polyline points="60,124 100,104 140,128 180,108 220,126 260,100 300,128 340,110 384,120 420,112" fill="none" stroke="#0066cc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M130 150 l0 22 m-7 -6 l7 6 7 -6" fill="none" stroke="#6e6e73" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="130" y="188" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">跌 → 机械买入</text>
+      <path d="M262 92 l0 -20 m-7 6 l7 -6 7 6" fill="none" stroke="#6e6e73" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="262" y="64" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">涨 → 机械卖出</text>
+
+      <line x1="460" y1="52" x2="460" y2="220" stroke="#ececf0" stroke-width="1" />
+      <rect x="480" y="52" width="404" height="168" rx="12" fill="#fbfbfc" />
+      <line x1="500" y1="150" x2="868" y2="150" stroke="#dfe3ea" stroke-width="1" stroke-dasharray="3 5" />
+      <polyline points="504,166 548,146 592,124 636,98 680,76 724,86 768,110 812,158 852,206" fill="none" stroke="#1d1d1f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M560 132 l0 -18 m-7 6 l7 -6 7 6" fill="none" stroke="#e8710a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="560" y="104" font-size="11" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">涨 → 追买</text>
+      <path d="M846 180 l0 20 m-7 -6 l7 6 7 -6" fill="none" stroke="#e8710a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="846" y="214" font-size="11" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">跌 → 追杀</text>
     </svg>
   </div>
 </Section>
@@ -385,32 +415,37 @@ import {
 </Prose>
 
   <div class="not-prose my-2 chart-scroll">
-    <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="系统策略 18 比 1 的买卖不对称与去杠杆回路">
-      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">系统策略的剩余弹药 · 上涨可买 vs 下跌被迫卖（美银口径，十亿美元）</text>
-      {(() => {
-        const max = 163;
-        const rows = [["下跌时最多被动卖出", 163, "#1d1d1f", 90], ["上涨时剩余买入能力", 9, "#0066cc", 150]];
-        return rows.map((r) => {
-          const w = Math.max((r[1] / max) * 590, 8);
-          return (
-            <g>
-              <text x="262" y={r[3] + 4} font-size="11.5" fill="#424245" text-anchor="end" font-family="PingFang SC, sans-serif">{r[0]}</text>
-              <rect x="278" y={r[3] - 16} width={w} height="26" rx="6" fill={r[2]} />
-              <text x={286 + w} y={r[3] + 3} font-size="13" font-weight="600" fill={r[2]} font-family="ui-monospace, Menlo, monospace">{r[1] === 163 ? "1,630 亿" : "90 亿"}</text>
-            </g>
-          );
-        });
-      })()}
-      <text x="270" y="208" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">卖出 / 买入 ≈ 18 : 1，且波动率控制基金股票仓位已在历史 100 分位（德银）</text>
-      {[["价格下跌",330,246],["波动率上升",470,246],["模型减仓",610,246],["价格再跌",750,246]].map((b,i,a)=>(
+    <svg viewBox="0 0 920 330" class="block w-full" role="img" aria-label="系统策略 18 比 1 的买卖不对称与去杠杆回路">
+      <rect x="0" y="0" width="920" height="330" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">系统策略的剩余弹药 · 上涨可买 vs 下跌被迫卖（美银口径，十亿美元）</text>
+
+      <line x1="252" y1="86" x2="252" y2="196" stroke="#c7c7cc" stroke-width="1.2" />
+
+      <text x="238" y="113" font-size="12" fill="#424245" text-anchor="end" font-family="PingFang SC, sans-serif">下跌时最多被动卖出</text>
+      <rect x="260" y="96" width="372" height="30" rx="6" fill="#1d1d1f" />
+      <text x="644" y="116" font-size="14" font-weight="600" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">1,630 亿</text>
+
+      <text x="238" y="177" font-size="12" fill="#424245" text-anchor="end" font-family="PingFang SC, sans-serif">上涨时剩余买入能力</text>
+      <rect x="260" y="160" width="22" height="30" rx="6" fill="#0066cc" />
+      <text x="294" y="180" font-size="14" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">90 亿</text>
+
+      <g>
+        <rect x="752" y="92" width="132" height="98" rx="14" fill="#f5f8fc" stroke="#c7dcf5" />
+        <text x="818" y="130" font-size="28" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">18 : 1</text>
+        <text x="818" y="154" font-size="10.5" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">抛压 / 买力</text>
+        <text x="818" y="172" font-size="9.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">仓位已在历史 100 分位</text>
+      </g>
+
+      <text x="36" y="226" font-size="11" fill="#86868b" font-family="PingFang SC, sans-serif">触发后的机械回路</text>
+      {[["价格下跌",330],["波动率上升",470],["模型减仓",610],["价格再跌",750]].map((b,i,a)=>(
         <g>
-          <rect x={b[1]-58} y="228" width="116" height="34" rx="8" fill="#f5f5f7" stroke="#dedee3" />
-          <text x={b[1]} y="249" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[0]}</text>
-          {i<a.length-1 && <path d={`M${b[1]+62} 245 h12 m-6 -5 l6 5 -6 5`} fill="none" stroke="#86868b" stroke-width="1.4" />}
+          <rect x={b[1]-62} y="238" width="124" height="38" rx="10" fill="#f5f5f7" stroke="#dedee3" />
+          <text x={b[1]} y="262" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[0]}</text>
+          {i<a.length-1 && <path d={`M${b[1]+68} 257 h14 m-7 -6 l7 6 -7 6`} fill="none" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />}
         </g>
       ))}
-      <path d="M808 262 C 808 284, 272 286, 272 264" fill="none" stroke="#86868b" stroke-width="1.3" stroke-dasharray="4 4" />
+      <path d="M812 282 C 812 306, 268 308, 268 284" fill="none" stroke="#c7c7cc" stroke-width="1.2" stroke-dasharray="4 4" stroke-linecap="round" />
+      <text x="540" y="312" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">自我强化，直到波动率回落或外部买盘进场（德银 / 美银口径）</text>
     </svg>
   </div>
 </Section>
@@ -438,36 +473,40 @@ import {
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 360" class="block w-full" role="img" aria-label="基差交易的三步建仓与保证金螺旋">
       <rect x="0" y="0" width="920" height="360" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">建仓三步：用回购借钱，买现券、空期货，靠杠杆赚薄价差</text>
-      {[
-        ["① 回购借钱","以国债抵押，隔夜借现金（利率 SOFR）",70],
-        ["② 买现券 + 空期货","对冲利率方向，只赚现券与期货的基差",350],
-        ["③ 高杠杆放大","价差很薄，用回购加到数十倍才划算",630],
-      ].map((b,i)=>(
-        <g>
-          <rect x={b[2]} y="58" width="220" height="74" rx="12" fill={i===2?"#1d1d1f":"#f5f5f7"} />
-          <text x={b[2]+110} y="88" font-size="13" font-weight="600" fill={i===2?"#f5f5f7":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b[1]}</text>
-          <text x={b[2]+110} y="112" font-size="10.5" fill={i===2?"#a1a1a6":"#6e6e73"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b[2]}</text>
-          {i<2 && <path d={`M${b[2]+228} 95 h18 m-8 -7 l8 7 -8 7`} fill="none" stroke="#86868b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />}
-        </g>
-      ))}
+      <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">建仓三步 · 用回购借钱，买现券、空期货，靠杠杆赚薄价差</text>
 
-      <text x="36" y="178" font-size="12" font-weight="600" letter-spacing="1.2" fill="#e8710a" font-family="PingFang SC, sans-serif">去杠杆螺旋：一旦价格下跌，所有人被迫朝同一方向卖</text>
       {[
-        ["国债价格下跌","抵押品贬值",36],
-        ["银行要求补保证金","margin call",252],
-        ["被迫卖现券还债","抛压压低价格",468],
-        ["抵押品更不值钱","再被追保，再卖",684],
-      ].map((b,i)=>(
+        { x: 70, n: "1", t: "回购借钱", s: "以国债抵押，隔夜借现金（SOFR）", dark: false },
+        { x: 350, n: "2", t: "买现券 ＋ 空期货", s: "对冲利率方向，只赚现券与期货的基差", dark: false },
+        { x: 630, n: "3", t: "高杠杆放大", s: "价差很薄，用回购加到数十倍才划算", dark: true },
+      ].map((b) => (
         <g>
-          <rect x={b[2]} y="212" width="172" height="60" rx="10" fill="#fff" stroke="#e8710a" stroke-width="1.4" />
-          <text x={b[2]+86} y="238" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[0]}</text>
-          <text x={b[2]+86} y="258" font-size="9.8" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[1]}</text>
-          {i<3 && <path d={`M${b[2]+180} 242 h16 m-7 -6 l7 6 -7 6`} fill="none" stroke="#e8710a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />}
+          <rect x={b.x} y="58" width="220" height="78" rx="14" fill={b.dark ? "#1d1d1f" : "#f7f7f9"} stroke={b.dark ? "#1d1d1f" : "#e8e8ed"} />
+          <circle cx={b.x + 26} cy={b.dark ? 90 : 84} r="11" fill={b.dark ? "#3a3a3c" : "#ffffff"} stroke={b.dark ? "#a1a1a6" : "#c7c7cc"} stroke-width="1.3" />
+          <text x={b.x + 26} y={b.dark ? 94 : 88} font-size="11" font-weight="600" fill={b.dark ? "#f5f5f7" : "#1d1d1f"} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{b.n}</text>
+          <text x={b.x + 46} y={b.dark ? 90 : 84} font-size="13.5" font-weight="600" fill={b.dark ? "#f5f5f7" : "#1d1d1f"} font-family="PingFang SC, sans-serif">{b.t}</text>
+          <text x={b.x + 22} y={b.dark ? 114 : 112} font-size="10.5" fill={b.dark ? "#a1a1a6" : "#6e6e73"} font-family="PingFang SC, sans-serif">{b.s}</text>
         </g>
       ))}
-      <path d="M770 278 C 770 312, 122 330, 122 278" fill="none" stroke="#e8710a" stroke-width="1.4" stroke-dasharray="5 4" stroke-linecap="round" />
-      <text x="460" y="330" font-size="10.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">循环自我强化 · 2020/3 与 2019/9 都靠央行临时进场才打断</text>
+      <path d="M296 97 h42 m-7 -6 l7 6 -7 6 M576 97 h42 m-7 -6 l7 6 -7 6" fill="none" stroke="#86868b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+
+      <text x="36" y="180" font-size="12" font-weight="600" letter-spacing="0.6" fill="#e8710a" font-family="PingFang SC, sans-serif">去杠杆螺旋 · 一旦价格下跌，所有人被迫朝同一方向卖</text>
+      {[
+        { x: 36, t: "国债价格下跌", s: "抵押品贬值" },
+        { x: 252, t: "银行要求补保证金", s: "margin call" },
+        { x: 468, t: "被迫卖现券还债", s: "抛压压低价格" },
+        { x: 684, t: "抵押品更不值钱", s: "再被追保，再卖" },
+      ].map((b) => (
+        <g>
+          <rect x={b.x} y="198" width="172" height="62" rx="12" fill="#fffdfb" stroke="#e8710a" stroke-width="1.3" />
+          <text x={b.x + 86} y="226" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b.t}</text>
+          <text x={b.x + 86} y="246" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">{b.s}</text>
+        </g>
+      ))}
+      <path d="M216 229 h24 m-7 -6 l7 6 -7 6 M432 229 h24 m-7 -6 l7 6 -7 6 M648 229 h24 m-7 -6 l7 6 -7 6" fill="none" stroke="#e8710a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M770 262 C 770 304, 122 314, 122 266" fill="none" stroke="#e8710a" stroke-width="1.3" stroke-dasharray="5 4" stroke-linecap="round" />
+      <path d="M122 266 l-5 8 m5 -8 l9 2" fill="none" stroke="#e8710a" stroke-width="1.3" stroke-linecap="round" />
+      <text x="460" y="306" font-size="10.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">循环自我强化 · 2020/3 与 2019/9 都靠央行临时进场才打断</text>
     </svg>
   </div>
 </Section>
@@ -493,30 +532,35 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 290" class="block w-full" role="img" aria-label="AI 龙头 CDS 走阔而大盘稳定、信用分层示意">
       <rect x="0" y="0" width="920" height="290" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">左：CDS 利差方向（示意）· 右：各信用层级 2026 年发行冷热</text>
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">左：CDS 利差方向（示意）· 右：各信用层级 2026 年发行冷热</text>
 
-      <text x="190" y="66" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年夏 → 9 月</text>
-      <line x1="60" y1="200" x2="320" y2="200" stroke="#dedee3" stroke-width="1.2" />
+      <text x="190" y="64" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年夏 → 9 月</text>
+      <line x1="60" y1="120" x2="320" y2="120" stroke="#f5f5f7" stroke-width="1" />
+      <line x1="60" y1="178" x2="320" y2="178" stroke="#f5f5f7" stroke-width="1" />
+      <line x1="60" y1="214" x2="320" y2="214" stroke="#e8e8ed" stroke-width="1.1" />
       <polyline points="70,150 130,148 190,138 250,120 310,104" fill="none" stroke="#e8710a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="316" y="100" font-size="10.5" font-weight="600" fill="#e8710a" text-anchor="end" font-family="PingFang SC, sans-serif">云厂商 / 半导体 CDS 上行</text>
-      <polyline points="70,178 130,176 190,177 250,174 310,176" fill="none" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="316" y="180" font-size="10.5" fill="#6e6e73" text-anchor="end" font-family="PingFang SC, sans-serif">标普其余成分股 CDS 基本走平</text>
-      <text x="60" y="252" font-size="10" fill="#86868b" font-family="PingFang SC, sans-serif">口径：BIS 季度评论 2026/9；走势为示意，非逐日数值</text>
+      <polyline points="70,186 130,185 190,186 250,184 310,185" fill="none" stroke="#b0b0b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="310" cy="104" r="8" fill="#e8710a" opacity="0.12" />
+      <circle cx="310" cy="104" r="3.6" fill="#e8710a" />
+      <circle cx="310" cy="185" r="3.2" fill="#b0b0b5" />
+      <text x="304" y="92" font-size="10.5" font-weight="600" fill="#e8710a" text-anchor="end" font-family="PingFang SC, sans-serif">云厂商 / 半导体 CDS 上行</text>
+      <text x="304" y="208" font-size="10.5" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">标普其余成分股 CDS 基本走平</text>
+      <text x="60" y="250" font-size="10" fill="#a1a1a6" font-family="PingFang SC, sans-serif">口径：BIS 季度评论 2026/9；走势为示意，非逐日数值</text>
 
-      <line x1="380" y1="80" x2="380" y2="246" stroke="#ececf0" stroke-width="1" />
-      <text x="655" y="66" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年发行冷热（条越长 = 发行越热）</text>
+      <line x1="380" y1="78" x2="380" y2="240" stroke="#f5f5f7" stroke-width="1" />
+      <text x="655" y="64" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年发行冷热（条越长 = 发行越热）</text>
       {[
-        ["投资级（大科技长债）","发行增长 · 撑住供给",80,440,"#0066cc"],
-        ["高收益债 / 杠杆贷款","发行明显放缓",124,160,"#1d1d1f"],
-        ["私募信贷","低迷 · 赎回与估值压力",168,120,"#1d1d1f"],
-        ["数据中心股权 IPO","SB Energy / Holtec 撤价",212,270,"#e8710a"],
+        ["投资级（大科技长债）","发行增长 · 撑住供给",92,320,"#0066cc"],
+        ["高收益债 / 杠杆贷款","发行明显放缓",138,150,"#b0b0b5"],
+        ["私募信贷","低迷 · 赎回与估值压力",184,118,"#b0b0b5"],
+        ["数据中心股权 IPO","SB Energy / Holtec 撤价",230,205,"#e8a06b"],
       ].map((r)=>{
         const inside = r[3] >= 200;
         return (
           <g>
-            <text x="410" y={r[2]-8} font-size="11.5" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{r[0]}</text>
-            <rect x="410" y={r[2]} width={r[3]} height="18" rx="5" fill={r[4]} opacity={r[4]==="#0066cc"?0.9:0.55} />
-            <text x={inside ? 410+r[3]-10 : 410+r[3]+8} y={r[2]+13.5} font-size="10" fill={inside ? "#fff" : "#6e6e73"} text-anchor={inside ? "end" : "start"} font-family="PingFang SC, sans-serif">{r[1]}</text>
+            <text x="410" y={r[2]-10} font-size="11.5" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{r[0]}</text>
+            <rect x="410" y={r[2]-2} width={r[3]} height="17" rx="8.5" fill={r[4]} />
+            <text x={inside ? 410+r[3]-10 : 410+r[3]+8} y={r[2]+10.5} font-size="10" fill={inside ? "#ffffff" : "#6e6e73"} text-anchor={inside ? "end" : "start"} font-family="PingFang SC, sans-serif">{r[1]}</text>
           </g>
         );
       })}
@@ -680,32 +724,41 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="2026 年黄金深 V 与比特币 9 月 21 日单日表现">
+      <defs>
+        <linearGradient id="goldFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1d1d1f" stop-opacity="0.07" />
+          <stop offset="100%" stop-color="#1d1d1f" stop-opacity="0" />
+        </linearGradient>
+      </defs>
       <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="36" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">黄金 · 2026 年深 V（美元 / 盎司，关键点位，非逐日）</text>
+      <line x1="60" y1="110" x2="440" y2="110" stroke="#f5f5f7" stroke-width="1" />
+      <line x1="60" y1="210" x2="440" y2="210" stroke="#e8e8ed" stroke-width="1.1" />
+      <text x="52" y="114" font-size="9.5" fill="#a1a1a6" text-anchor="end" font-family="ui-monospace, Menlo, monospace">5,000+</text>
+      <text x="52" y="214" font-size="9.5" fill="#a1a1a6" text-anchor="end" font-family="ui-monospace, Menlo, monospace">4,000</text>
 
-      <text x="36" y="36" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">黄金：2026 年深 V（美元/盎司，关键点位，非逐日日线）</text>
-      <line x1="60" y1="210" x2="440" y2="210" stroke="#ececf0" stroke-width="1" stroke-dasharray="4 5" />
-      <line x1="60" y1="110" x2="440" y2="110" stroke="#ececf0" stroke-width="1" stroke-dasharray="4 5" />
-      <text x="50" y="114" font-size="9.5" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">5,000+</text>
-      <text x="50" y="214" font-size="9.5" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">4,000</text>
+      <path d="M80,150 L150,72 L220,120 L270,228 L330,200 L380,128 L430,138 L430,210 L80,210 Z" fill="url(#goldFill)" />
       <polyline points="80,150 150,72 220,120 270,228 330,200 380,128 430,138" fill="none" stroke="#1d1d1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-      <circle cx="150" cy="72" r="4.5" fill="#1d1d1f" />
-      <circle cx="270" cy="228" r="4.5" fill="#e8710a" />
-      <circle cx="430" cy="138" r="4.5" fill="#0066cc" />
+      <circle cx="150" cy="72" r="7" fill="#1d1d1f" opacity="0.1" />
+      <circle cx="150" cy="72" r="3.8" fill="#1d1d1f" />
+      <circle cx="270" cy="228" r="7" fill="#e8710a" opacity="0.14" />
+      <circle cx="270" cy="228" r="3.8" fill="#e8710a" />
+      <circle cx="430" cy="138" r="7" fill="#0066cc" opacity="0.12" />
+      <circle cx="430" cy="138" r="3.8" fill="#0066cc" />
       <text x="150" y="60" font-size="10" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">年初近 5,600</text>
-      <text x="270" y="250" font-size="9.8" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">3 月 ETF 流出 120 亿，跌破 4,000</text>
-      <text x="424" y="124" font-size="9.8" fill="#0066cc" text-anchor="end" font-family="PingFang SC, sans-serif">9/22 收 4,396.20</text>
+      <text x="258" y="252" font-size="10" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">3 月 ETF 流出 120 亿，跌破 4,000</text>
+      <text x="424" y="124" font-size="10" fill="#0066cc" text-anchor="end" font-family="PingFang SC, sans-serif">9/22 收 4,396.20</text>
 
-      <line x1="470" y1="56" x2="470" y2="256" stroke="#ececf0" stroke-width="1" />
-      <text x="494" y="36" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">比特币：风险偏好的放大镜</text>
-      <line x1="510" y1="200" x2="880" y2="200" stroke="#ececf0" stroke-width="1" />
-      <line x1="510" y1="200" x2="510" y2="90" stroke="#c7c7cc" stroke-width="1.4" />
-      <rect x="560" y="104" width="90" height="96" rx="6" fill="#0066cc" />
-      <text x="605" y="92" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">+7.51%</text>
-      <text x="605" y="222" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">9/21 单日</text>
-      <rect x="720" y="150" width="90" height="50" rx="6" fill="#86868b" opacity="0.55" />
-      <text x="765" y="142" font-size="12" font-weight="600" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">−20.8%</text>
-      <text x="765" y="222" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年初至当时</text>
-      <text x="695" y="250" font-size="9.8" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">日内 80,528→87,373 美元，约 6.48 亿空头被逼平</text>
+      <line x1="470" y1="52" x2="470" y2="262" stroke="#f5f5f7" stroke-width="1" />
+      <text x="494" y="36" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">比特币 · 风险偏好放大镜（%）</text>
+      <line x1="540" y1="180" x2="860" y2="180" stroke="#c7c7cc" stroke-width="1.2" />
+      <rect x="586" y="152" width="96" height="28" rx="6" fill="#0066cc" />
+      <text x="634" y="142" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">+7.51%</text>
+      <rect x="738" y="180" width="96" height="70" rx="6" fill="#d8d8de" />
+      <text x="786" y="222" font-size="12.5" font-weight="600" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">−20.8%</text>
+      <text x="634" y="200" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">9/21 单日</text>
+      <text x="786" y="270" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年初至当时</text>
+      <text x="700" y="288" font-size="9.8" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">日内 80,528→87,373 美元，约 6.48 亿空头被逼平</text>
     </svg>
   </div>
 </Section>
@@ -815,24 +868,47 @@ BIS 在新兴市场章节里把中国单独点了名：评估期内新兴市场�
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="2026 年 5 月到 9 月纳指与上证指数走势背离">
       <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
-      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">两条指数，两种节奏（2026 年 5 月 → 9 月，关键点位连线，非逐日）</text>
-      <line x1="70" y1="210" x2="870" y2="210" stroke="#ececf0" stroke-width="1" />
-      {[["5 月",150],["7 月中",420],["9/22",770]].map((t,i)=>(
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">两条指数，两种节奏（2026 年 5 月 → 9 月，关键点位连线，非逐日）</text>
+      <line x1="70" y1="210" x2="870" y2="210" stroke="#e5e5ea" stroke-width="1.2" />
+      {[["5 月",150],["7 月中",420],["9/22",770]].map((tt,i)=>(
         <g>
-          <line x1={t[1]} y1="70" x2={t[1]} y2={i===1?214:232} stroke="#ececf0" stroke-width="1" stroke-dasharray="3 4" />
-          <text x={t[1]} y="252" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{t[0]}</text>
+          <line x1={tt[1]} y1="72" x2={tt[1]} y2={i===1?214:210} stroke="#f0f0f3" stroke-width="1" stroke-dasharray="3 4" />
+          <text x={tt[1]} y="236" font-size="11" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">{tt[0]}</text>
         </g>
       ))}
       <polyline points="150,150 420,196 770,86" fill="none" stroke="#0066cc" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
-      <circle cx="150" cy="150" r="5" fill="#0066cc" /><circle cx="420" cy="196" r="5" fill="#0066cc" /><circle cx="770" cy="86" r="5.5" fill="#0066cc" />
-      <text x="770" y="72" font-size="11.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">纳指 27,244（新高）</text>
-      <polyline points="150,96 420,200 770,176" fill="none" stroke="#86868b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-      <circle cx="150" cy="96" r="5" fill="#1d1d1f" /><circle cx="420" cy="200" r="5" fill="#e8710a" /><circle cx="770" cy="176" r="5" fill="#1d1d1f" />
+      <polyline points="150,96 420,200 770,176" fill="none" stroke="#8e8e93" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+      {[
+        { x: 150, y: 150, c: "#0066cc" },
+        { x: 420, y: 196, c: "#0066cc" },
+        { x: 770, y: 86, c: "#0066cc" },
+        { x: 150, y: 96, c: "#1d1d1f" },
+        { x: 420, y: 200, c: "#e8710a" },
+        { x: 770, y: 176, c: "#1d1d1f" },
+      ].map((d) => (
+        <g>
+          <circle cx={d.x} cy={d.y} r="7" fill={d.c} opacity="0.12" />
+          <circle cx={d.x} cy={d.y} r="3.8" fill="#ffffff" stroke={d.c} stroke-width="2.2" />
+        </g>
+      ))}
+
+      <rect x="660" y="52" width="160" height="20" rx="5" fill="#ffffff" opacity="0.85" />
+      <text x="770" y="66" font-size="11.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">纳指 27,244（新高）</text>
+      <rect x="60" y="70" width="186" height="20" rx="5" fill="#ffffff" opacity="0.85" />
       <text x="150" y="84" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">上证 4,258.86（高点）</text>
-      <text x="420" y="232" font-size="10.5" text-anchor="middle" font-family="PingFang SC, sans-serif"><tspan font-weight="600" fill="#e8710a">3,764.15（−11.6%）</tspan><tspan fill="#6e6e73"> · 两条指数同在此处盘整</tspan></text>
-      <text x="770" y="162" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">9/23 报 3,936.52</text>
-      <rect x="650" y="262" width="14" height="3" fill="#0066cc" /><text x="672" y="267" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">纳斯达克</text>
-      <rect x="740" y="262" width="14" height="3" fill="#86868b" /><text x="762" y="267" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">上证指数</text>
+      <rect x="316" y="208" width="208" height="18" rx="5" fill="#ffffff" opacity="0.88" />
+      <text x="420" y="221" font-size="10.5" text-anchor="middle" font-family="PingFang SC, sans-serif"><tspan font-weight="600" fill="#e8710a">3,764.15（−11.6%）</tspan><tspan fill="#86868b"> · 两指数同处盘整</tspan></text>
+      <text x="770" y="164" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">9/23 报 3,936.52</text>
+
+      <g font-family="PingFang SC, sans-serif">
+        <rect x="606" y="264" width="116" height="24" rx="12" fill="#f7f7f9" stroke="#e8e8ed" />
+        <rect x="620" y="274.5" width="14" height="3" rx="1.5" fill="#0066cc" />
+        <text x="640" y="280" font-size="10.5" fill="#424245">纳斯达克</text>
+        <rect x="730" y="264" width="116" height="24" rx="12" fill="#f7f7f9" stroke="#e8e8ed" />
+        <rect x="744" y="274.5" width="14" height="3" rx="1.5" fill="#8e8e93" />
+        <text x="764" y="280" font-size="10.5" fill="#424245">上证指数</text>
+      </g>
     </svg>
   </div>
 
