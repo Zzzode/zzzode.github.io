@@ -27,12 +27,12 @@ const { nodes, vertical = false } = Astro.props;
         nodes.map((node) => (
           <li class="relative rounded-[14px] border border-line-soft bg-white px-5 py-4 pl-[68px]">
             <span
-              class="absolute left-5 top-[22px] h-[9px] w-[9px] rounded-full border-[3px] border-blue bg-white"
+              class="absolute left-5 top-[23px] h-[9px] w-[9px] rounded-full border-[3px] border-blue bg-white"
             />
-            <p class="absolute left-[68px] top-4 w-[52px] text-[11px] font-semibold text-blue">
+            <p class="whitespace-nowrap text-[11px] font-semibold leading-none text-blue">
               {node.year}
             </p>
-            <h4 class="mt-7 text-[14px] font-semibold leading-snug text-ink">
+            <h4 class="mt-2.5 text-[14px] font-semibold leading-snug text-ink">
               {node.title}
             </h4>
             {node.body && (

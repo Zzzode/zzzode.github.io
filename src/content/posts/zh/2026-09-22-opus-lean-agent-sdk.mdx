@@ -1,0 +1,575 @@
+---
+title: "让模型给代码写证明：Opus 5.5 用 Lean 给 Claude Agent SDK 抓出 24 个缺陷"
+date: 2026-09-22
+excerpt: "Boris Cherny 在 Slack 里留下一句「Use lean to verify the sdk and Claude.ts state machine」。约 18 个小时后，Opus 5.5 建好 6 个 Lean 4 状态机模型、证明 1,529 条定理、0 个 sorry，并把证明吐出的反例变成 16 个 PR：24 个缺陷、其中 19 个直接来自证明。这是一次完整的 AI 形式化验证复盘。"
+tags: ["形式化验证", "Lean", "Opus 5.5", "Claude Code", "Agent SDK", "TLA+", "并发"]
+kind: "distilled"
+sources:
+  - title: "Boris Cherny (@bcherny) on X · I used Opus 5.5 to formally verify the Claude Agent SDK using Lean（含 100 秒 Slack 录屏，2026-09-22）"
+    url: "https://x.com/bcherny/status/2102543349102338309"
+  - title: "Boris Cherny's Blog · 站点介绍：Software engineer at Anthropic, creator of Claude Code, author of O'Reilly's Programming TypeScript"
+    url: "https://borischerny.com/"
+  - title: "GitHub @bcherny · Claude Code @ Anthropic"
+    url: "https://github.com/bcherny"
+  - title: "Anthropic · Claude Code for Financial Services: Learn from Boris Cherny, Head of Claude Code"
+    url: "https://www.anthropic.com/webinars/claude-code-for-financial-services-boris-cherny"
+  - title: "Claude Code Docs · Agent SDK overview（同一套 agent loop、会话与流式能力的 Python/TypeScript 库）"
+    url: "https://docs.claude.com/en/api/agent-sdk/overview"
+  - title: "Claude Platform Docs · Claude Opus 5.5 Overview（长程 agentic coding，1M context）"
+    url: "https://platform.claude.com/docs/en/models/opus-5-5/overview"
+  - title: "Lean 官方 · About: Lean is an open-source programming language and proof assistant"
+    url: "https://lean-lang.org/about/"
+  - title: "Theorem Proving in Lean 4 · §12 Axioms and Computation（propext / Classical.choice / Quot.sound）"
+    url: "https://lean-lang.org/theorem_proving_in_lean4/axioms_and_computation.html"
+  - title: "Theorem Proving in Lean 4 · §6 Interacting with Lean（sorry 只给警告、绕过证明义务）"
+    url: "https://lean-lang.org/theorem_proving_in_lean4/interacting_with_lean.html"
+  - title: "Newcombe et al. · How Amazon Web Services Uses Formal Methods, CACM 2015（DOI: 10.1145/2699417）"
+    url: "https://dl.acm.org/doi/10.1145/2699417"
+  - title: "Leslie Lamport 个人站点 · TLA+ 作者"
+    url: "https://lamport.org/"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  Timeline,
+  Steps,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="一线复盘 · 公开录屏 / 官方文档 / 项目主页 · 2026-09-24 核对"
+  title="让模型给代码写证明：Opus 5.5 用 Lean 给 Claude Agent SDK 抓出 24 个缺陷"
+  lead="2026 年 9 月 21 日晚，Claude Code 负责人 Boris Cherny 在 Slack 里给 agent 留了一句话：用 Lean 验证 SDK 和 claude.ts 的状态机。第二天下午收工前，Opus 5.5 建好 6 个 Lean 4 模型、证明 1,529 条定理、零个 sorry，把证明吐出的反例变成 16 个带测试的 PR。测试只能查你想得到的输入，证明会枚举模型里所有可能的状态交错。这篇复盘讲清楚整件事怎么发生、每个缺陷具体是什么、以及它对写软件意味着什么。"
+  pills={[
+    { label: "6 个 Lean 状态机模型" },
+    { label: "1,529 条定理 · 0 sorry" },
+    { label: "16 个 PR · 24 个缺陷" },
+    { label: "520 条真实 trace 全部回放进模型" },
+    { label: "约 18 小时（9/21 晚 → 9/22 下午）" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 404" class="block w-full" role="img" aria-label="从 TypeScript 源码到 Lean 模型、证明内核与修复 PR 的流程图">
+    <text x="230" y="30" font-size="12" font-weight="600" letter-spacing="1.8" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">CODE → PROOF → FIX</text>
+
+    <rect x="60" y="50" width="340" height="58" rx="14" fill="#f5f5f7" />
+    <text x="230" y="76" font-size="15.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">TypeScript 源码</text>
+    <text x="230" y="97" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">claude.ts · query.ts · withRetry…</text>
+
+    <path d="M230 114 v18 m-6 -7 l6 7 6 -7" fill="none" stroke="#86868b" stroke-width="1.8" />
+
+    <rect x="40" y="138" width="380" height="98" rx="16" fill="#fff" stroke="#0066cc" stroke-width="1.8" />
+    <text x="230" y="166" font-size="14" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">6 个 Lean 4 状态机模型</text>
+    <text x="230" y="194" font-size="12" fill="#424245" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">stream · retry · turn loop</text>
+    <text x="230" y="216" font-size="12" fill="#424245" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">engine · session · SDK control</text>
+
+    <path d="M230 242 v18 m-6 -7 l6 7 6 -7" fill="none" stroke="#86868b" stroke-width="1.8" />
+
+    <rect x="60" y="266" width="340" height="64" rx="32" fill="#1d1d1f" />
+    <text x="230" y="293" font-size="15.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Lean kernel</text>
+    <text x="230" y="315" font-size="11.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">1,529 条定理逐条机检 · 0 sorry</text>
+
+    <path d="M230 336 v18 m-6 -7 l6 7 6 -7" fill="none" stroke="#86868b" stroke-width="1.8" />
+
+    <rect x="50" y="360" width="360" height="40" rx="14" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.6" />
+    <text x="230" y="385" font-size="14" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">反例 → main 复现 → 16 个修复 PR</text>
+  </svg>
+</CoverBanner>
+
+<Section alt id="session" vertical>
+  <SectionHead
+    kicker="01 · 事情的经过"
+    title="一句话任务，18 小时后的 16 个 PR"
+    lead="Boris Cherny 是 Claude Code 的创建者和负责人。他有个叫 boris-tag-spam 的 Slack 频道，专门往里面丢任务给 agent 干。9 月 21 日晚 10:03（太平洋时间），他丢进去一句英文：用 Lean 验证 SDK 和 claude.ts 的状态机。"
+  />
+  <Timeline
+    vertical
+    nodes={[
+      { year: "9/21 22:03", title: "任务下发：Use lean to verify the sdk and Claude.ts state machine", body: "Opus 5.5 两分钟后给出计划：从代码写 6 个 Lean 4 模型，逐个对照真实代码独立复审，发布发现，二次证明，最后审计 build、公理和 sorry。" },
+      { year: "9/22 00:08", title: "五个修复草稿 PR 成形", body: "agent 报告：每个证明吐出的反例都能在真实代码上复现；每个 PR 配的测试修复前红、修复后绿。engine 模型还和几条真实运行对不上，agent 主动标注「证明暂作临时结论」。" },
+      { year: "9/22 01:07", title: "六个模型全部 lake build 通过", body: "当时合计 1,359 条定理、0 sorry，只用 propext、Quot.sound、Classical.choice 三条标准公理；520 条真实 trace 回放进模型全部接受。附件 lean-verify.tar.gz 含源码、构建说明和逐条 file:line 规格。" },
+      { year: "9/22 01:12", title: "第六个修复 PR：engine #72162", body: "三个取消传播缺口在 main 上复现，8 个新测试里 7 个先失败。严重度被定为低：headless 会话的 turn 没有 uuid，SDK 使用者当前打不中。" },
+      { year: "9/22 12:59", title: "「publush all prs」", body: "Boris 让六个修复 PR 离开草稿状态。四分钟后六个全部标记 ready for review，随后打开 merge-when-ready。" },
+      { year: "9/22 13:05", title: "再给一道指令：拿同一份证明去简化代码", body: "证明显示几乎每个 flag 和分支都可达，删无可删，但多处重复逻辑可以合并。六个简化 PR 各自叠在对应修复 PR 之上。" },
+      { year: "9/22 14:55", title: "十个 PR 发布，四个评审跟进补齐", body: "评审又在第一批修复里挑出额外缺口，四个跟进 PR 补上，其中一个解决「超大图片批次可能让下一条 prompt 再次失败」。" },
+      { year: "9/22 16:31", title: "总账：16 PR、24 个缺陷", body: "13 个已合并，其余获批等待落地；非测试代码净增 218 行，测试用例净增 94 个。Boris 当晚 16:39（UTC 23:39）把录屏发到 X。" },
+    ]}
+  />
+  <Prose>
+
+这 16 个 PR 分三组：6 个修复、6 个简化、4 个评审跟进。24 个被修复的缺陷里，19 个直接来自证明，另外 5 个是评审过程中发现的；评审还在第一批修复里抓到 6 个覆盖缺口。以上数字全部来自 Boris 公开的 100 秒 Slack 录屏，PR 位于 Anthropic 内部 GitHub，外部无法直接点开，所以本文对具体 PR 的描述口径就是这段视频本身。
+
+</Prose>
+</Section>
+
+<Section id="what-lean">
+  <SectionHead
+    kicker="02 · 先补基础"
+    title="Lean 证明到底在证明什么"
+    lead="看不懂 Lean 也能看懂这件事的分量，只需要分清三样东西：模型、定理、内核。"
+  />
+  <Prose>
+
+Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种语言里。它的工作方式是：你先把现实中的程序抽象成一个数学模型，状态有哪些、状态之间怎么迁移都写清楚；然后写下你认为必须成立的性质，也就是定理，比如「每个 turn 最终只会产出一个 result」。Lean 内核会逐行检查证明，任何一步跳不过去就拒绝编译。
+
+它和测试的区别是覆盖方式。测试选若干个具体输入跑一遍，能覆盖你想得到、且构造得出来的场景。证明面对的是模型允许的全部状态和全部交错顺序：只要存在一个反例，定理就证不出来，而 Lean 会把这个反例的构造路径直接吐给你。并发缺陷大多藏在两个事件罕见的先后次序里，单靠人写测试很难恰好排到，这正是状态机证明最擅长的地形。
+
+这次的模型只描述状态和迁移，不重新实现算法。六个模型分别对应六段代码：SSE 字节流解析（stream）、重试退避（withRetry）、query.ts 的 turn 循环、引擎 turn 调度（engine）、会话权限阶段（session phase）、SDK 控制协议。模型文件里给每个迁移标注了对应的源码 file:line，并写明各自假设了什么、不证明什么。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="从真实代码到 Lean 模型、定理检查、反例复现与回放进模型的回路">
+      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">这次的工作回路（agent 按 Boris 的计划逐步执行）</text>
+
+      <rect x="36" y="70" width="180" height="92" rx="12" fill="#f5f5f7" />
+      <text x="126" y="100" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">① 写模型</text>
+      <text x="126" y="124" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">状态 + 迁移 + 不变量</text>
+      <text x="126" y="143" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">每条迁移标注 file:line</text>
+
+      <path d="M220 116 h24 m-8 -7 l8 7 -8 7" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+      <rect x="250" y="70" width="180" height="92" rx="12" fill="#f5f5f7" />
+      <text x="340" y="100" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">② 独立对照复审</text>
+      <text x="340" y="124" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">每个模型与真实代码</text>
+      <text x="340" y="143" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">逐行核对假设</text>
+
+      <path d="M434 116 h24 m-8 -7 l8 7 -8 7" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+      <rect x="464" y="70" width="180" height="92" rx="12" fill="#f5f5f7" />
+      <text x="554" y="100" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">③ Lean 内核机检</text>
+      <text x="554" y="124" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">1,529 条定理逐条过</text>
+      <text x="554" y="143" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">lake build · 0 sorry</text>
+
+      <path d="M648 116 h24 m-8 -7 l8 7 -8 7" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+      <rect x="678" y="70" width="206" height="92" rx="12" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.4" />
+      <text x="781" y="100" font-size="13" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">④ 反例回真实代码复现</text>
+      <text x="781" y="124" font-size="10.5" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">测试修复前必须先红</text>
+      <text x="781" y="143" font-size="10.5" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">再写修复，转绿才算数</text>
+
+      <path d="M781 166 v22" stroke="#e8710a" stroke-width="1.4" stroke-dasharray="5 4" />
+      <path d="M781 188 l-6 -8 h12 z" fill="#e8710a" />
+      <text x="781" y="208" font-size="10.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">模型对不上就回去改模型</text>
+
+      <rect x="36" y="216" width="848" height="58" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="60" y="242" font-size="11.5" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">反向校验：520 条真实运行 trace 回放进模型</text>
+      <text x="60" y="262" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">stream 6/6 · withRetry 11/11 · turn loop 33/33 · engine 400/400 · session 68/68 · SDK control 2/2，全部被模型接受</text>
+    </svg>
+  </div>
+
+  <Callout eyebrow="两个必须懂的审计词">
+    <p><strong>sorry：</strong>Lean 里的占位符。写上 sorry，定理不用给证明也能通过编译，内核只给一个警告。一个「证明了」的模型里如果留着 sorry，等于这几条定理是空口说白话。最终审计明确是 0 sorry。</p>
+    <p style="margin-top:10px"><strong>三条标准公理：</strong>Lean 自带 <code>propext</code>、<code>Classical.choice</code>、<code>Quot.sound</code> 三条基础公理。这次最终审计要求只允许使用这三条，没有额外塞假设，意味着结论没有建立在自定义的、可能作弊的前提上。</p>
+  </Callout>
+</Section>
+
+<Section alt id="six-machines">
+  <SectionHead
+    kicker="03 · 六个状态机"
+    title="证明吐出反例的六块代码"
+    lead="下面逐个走一遍六台状态机：每台要证明的性质是什么，证明找到了什么。数字是各模型的定理数和真实 trace 接受数，全部来自录屏里 1:07 的六模型报告。"
+  />
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · claude.ts stream",
+        title: "219 条定理：流在半截干净结束时被当成了成功",
+        body: "要证的性质：流只产出闭合完整的消息块。证明找到：响应中途正常结束时，这半截 body 被按 success 交付，没有 stop reason，也没记费用。触发条件是路径上要有网关或三方代理。8 条反例在真实代码上复现，6 条真实 trace 全部接受。",
+      },
+      {
+        tag: "02 · withRetry",
+        title: "201 条定理：退避预算被一类错误吃光",
+        body: "持久连接模式下，429 和 529（限流、服务过载）的等待会消耗掉留给其他错误的重试预算；遇到带一天 Retry-After 的 503，程序真的老老实实睡满一整天。3 条反例在真实代码上复现，11 条真实 trace 接受。",
+      },
+      {
+        tag: "03 · query.ts turn loop",
+        title: "157 条定理：两个恢复路径互相重置对方的守卫",
+        body: "畸形工具调用的重试逻辑，和 max_tokens 截断后的恢复逻辑，各自会把对方的守卫清零。两种输出交替出现时循环永远停不下来，而且用户传的 --max-turns 1 都拦不住它。8 条反例复现，33 条真实 trace 接受。",
+      },
+      {
+        tag: "04 · engine turns",
+        title: "319 条定理：取消信号有三个送达不到的缺口",
+        body: "turn 的 builder 失败后、consumer 在随后的 flush 中退出流，这个 turn 从未被报告为已取消；consumer 在第一次 next() 之前调用 return() 也一样；abandon 之后迟到的 send() 被悄悄排队。400 条真实 trace 全部接受，是六个模型里校验最狠的一个。",
+      },
+      {
+        tag: "05 · session phase",
+        title: "169 条定理：两个弹窗重叠，会话卡在等待态",
+        body: "一个沙箱网络请求和一个权限弹窗恰好重叠，两个都答复完之后，会话仍停在 requires_action（等待用户操作），有时整个下一 turn 都卡在这个状态。4 条反例复现，68 条真实 trace 接受。",
+      },
+      {
+        tag: "06 · SDK control protocol",
+        title: "294 条定理：取消了又重投的请求，没人能再取消它",
+        body: "权限请求先取消、随后又被重新投递时，留下一个谁都取消不了的 handler；传输层在关闭过程中抛异常，会让所有 awaiter 永远挂住。4 条反例复现。这个 PR 中途还经历了一次批准失效、一次自我更正，最后被自己证明简化成「所有响应走一个写入点、所有取消走一个 helper」。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 01 · STREAM</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">claude.ts 流解析</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 06</text>
+
+      <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：流只产出闭合的消息块</text>
+      <text x="60" y="184" font-size="22" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">219 theorems</text>
+      <text x="60" y="206" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">真实 trace 接受 6/6 · 8 条反例复现</text>
+
+      <g font-family="ui-monospace, Menlo, monospace">
+        <rect x="56" y="252" width="100" height="26" rx="6" fill="#1d1d1f" />
+        <text x="106" y="269" font-size="10" fill="#f5f5f7" text-anchor="middle">chunk 1</text>
+        <rect x="170" y="252" width="100" height="26" rx="6" fill="#1d1d1f" />
+        <text x="220" y="269" font-size="10" fill="#f5f5f7" text-anchor="middle">chunk 2</text>
+        <rect x="284" y="252" width="100" height="26" rx="6" fill="#fff" stroke="#e8710a" stroke-dasharray="4 3" stroke-width="1.4" />
+        <text x="334" y="269" font-size="10" fill="#e8710a" text-anchor="middle">半截结束</text>
+      </g>
+      <path d="M106 284 v16 M220 284 v16 M334 284 v16" stroke="#86868b" stroke-width="1.3" />
+      <rect x="56" y="304" width="328" height="34" rx="8" fill="#fff" stroke="#e8710a" stroke-width="1.3" />
+      <text x="220" y="325" font-size="11" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">半截 body 被当 success 交付 · 无 stop reason · 不计费</text>
+
+      <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="149" y1="380" x2="189" y2="380" stroke="#dedee3" stroke-width="2" />
+      <line x1="215" y1="380" x2="255" y2="380" stroke="#dedee3" stroke-width="2" />
+      <line x1="281" y1="380" x2="321" y2="380" stroke="#dedee3" stroke-width="2" />
+      <line x1="347" y1="380" x2="387" y2="380" stroke="#dedee3" stroke-width="2" />
+      <circle cx="70" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="136" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="202" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="268" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="334" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 02 · RETRY</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">withRetry 退避</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 06</text>
+
+      <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：重试有界，等待受预算约束</text>
+      <text x="60" y="184" font-size="22" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">201 theorems</text>
+      <text x="60" y="206" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">真实 trace 接受 11/11 · 3 条反例复现</text>
+
+      <text x="56" y="262" font-size="11" fill="#1d1d1f" font-family="PingFang SC, sans-serif">重试预算（应被各类错误公平共享）</text>
+      <rect x="56" y="272" width="328" height="20" rx="5" fill="#e5e5ea" />
+      <rect x="56" y="272" width="236" height="20" rx="5" fill="#e8710a" opacity="0.85" />
+      <text x="64" y="286" font-size="10" fill="#fff" font-family="PingFang SC, sans-serif">429 / 529 的等待吃掉 72%</text>
+      <rect x="56" y="306" width="328" height="34" rx="8" fill="#fff" stroke="#e8710a" stroke-width="1.3" />
+      <text x="220" y="327" font-size="11" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">503 + Retry-After: 86400 → 睡满一整天</text>
+
+      <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="149" y1="380" x2="189" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="215" y1="380" x2="255" y2="380" stroke="#dedee3" stroke-width="2" />
+      <line x1="281" y1="380" x2="321" y2="380" stroke="#dedee3" stroke-width="2" />
+      <line x1="347" y1="380" x2="387" y2="380" stroke="#dedee3" stroke-width="2" />
+      <circle cx="70" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="136" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="202" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="268" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="334" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 03 · TURN LOOP</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">query.ts 主循环</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 06</text>
+
+      <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：turn 数有界，max-turns 必须生效</text>
+      <text x="60" y="184" font-size="22" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">157 theorems</text>
+      <text x="60" y="206" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">真实 trace 接受 33/33 · 8 条反例复现</text>
+
+      <rect x="66" y="248" width="132" height="56" rx="10" fill="#fff" stroke="#86868b" />
+      <text x="132" y="272" font-size="10.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">畸形工具调用</text>
+      <text x="132" y="290" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">重试守卫清零</text>
+      <rect x="262" y="248" width="132" height="56" rx="10" fill="#fff" stroke="#86868b" />
+      <text x="328" y="272" font-size="10.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">max_tokens 截断</text>
+      <text x="328" y="290" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">恢复守卫清零</text>
+      <path d="M198 264 h52 m-8 -6 l8 6 -8 6" fill="none" stroke="#e8710a" stroke-width="1.6" />
+      <path d="M262 288 h-52 m8 6 l-8 -6 8 -6" fill="none" stroke="#e8710a" stroke-width="1.6" />
+      <rect x="90" y="318" width="280" height="34" rx="8" fill="#1d1d1f" />
+      <text x="230" y="339" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">交替输出 → 无限循环，--max-turns 1 失效</text>
+
+      <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="149" y1="380" x2="189" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="215" y1="380" x2="255" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="281" y1="380" x2="321" y2="380" stroke="#dedee3" stroke-width="2" />
+      <line x1="347" y1="380" x2="387" y2="380" stroke="#dedee3" stroke-width="2" />
+      <circle cx="70" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="136" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="202" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="268" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="334" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 04 · ENGINE</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">turn 引擎</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 06</text>
+
+      <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：初始化先于结果；取消必达；每 turn 一个结果</text>
+      <text x="60" y="184" font-size="22" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">319 theorems</text>
+      <text x="60" y="206" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">真实 trace 接受 400/400 · 3 条反例复现</text>
+
+      {[["builder 失败后 consumer 退出","turn 未报告 cancelled",238],["首个 next() 前 return()","同样漏报取消",278],["abandon 后迟到的 send()","被静默排队",318]].map((b) => (
+        <g>
+          <rect x="40" y={b[2]} width="380" height="30" rx="8" fill="#fff" stroke="#e8710a" stroke-width="1.2" />
+          <text x="56" y={b[2] + 14} font-size="10" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">{b[0]}</text>
+          <text x="404" y={b[2] + 19} font-size="9.5" fill="#e8710a" text-anchor="end" font-family="PingFang SC, sans-serif">{b[1]}</text>
+        </g>
+      ))}
+      <text x="230" y="364" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">修复 PR #72162：8 个新测试，7 个先失败、全部转绿</text>
+
+      <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="149" y1="380" x2="189" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="215" y1="380" x2="255" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="281" y1="380" x2="321" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="347" y1="380" x2="387" y2="380" stroke="#dedee3" stroke-width="2" />
+      <circle cx="70" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="136" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="202" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="268" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="334" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+      <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 05 · SESSION</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">会话阶段</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 06</text>
+
+      <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：所有待决问题答复后，会话必须离开等待态</text>
+      <text x="60" y="184" font-size="22" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">169 theorems</text>
+      <text x="60" y="206" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">真实 trace 接受 68/68 · 4 条反例复现</text>
+
+      <rect x="56" y="246" width="150" height="62" rx="10" fill="#fff" stroke="#86868b" />
+      <text x="131" y="272" font-size="10.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">沙箱网络请求</text>
+      <text x="131" y="290" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">network ask</text>
+      <rect x="254" y="246" width="150" height="62" rx="10" fill="#fff" stroke="#86868b" />
+      <text x="329" y="272" font-size="10.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">权限弹窗</text>
+      <text x="329" y="290" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">permission prompt</text>
+      <path d="M206 277 h40 m-8 -6 l8 6 -8 6" fill="none" stroke="#e8710a" stroke-width="1.5" />
+      <path d="M254 277 h-40 m8 6 l-8 -6 8 -6" fill="none" stroke="#e8710a" stroke-width="1.5" />
+      <rect x="90" y="320" width="280" height="34" rx="8" fill="#1d1d1f" />
+      <text x="230" y="341" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">两个都答完 → 仍卡在 requires_action</text>
+
+      <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="149" y1="380" x2="189" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="215" y1="380" x2="255" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="281" y1="380" x2="321" y2="380" stroke="#0066cc" stroke-width="2" />
+      <line x1="347" y1="380" x2="387" y2="380" stroke="#0066cc" stroke-width="2" />
+      <circle cx="70" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="136" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="202" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="268" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="334" cy="380" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="5" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 06 · SDK CONTROL</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">SDK 控制协议</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">06 / 06</text>
+
+      <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：每个 handler 可取消；关闭必须唤醒所有等待者</text>
+      <text x="60" y="184" font-size="22" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">294 theorems</text>
+      <text x="60" y="206" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">真实 trace 接受 2/2 · 4 条反例复现</text>
+
+      <rect x="56" y="244" width="150" height="44" rx="8" fill="#fff" stroke="#86868b" />
+      <text x="131" y="271" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">cancel → redeliver</text>
+      <path d="M212 266 h36 m-8 -6 l8 6 -8 6" fill="none" stroke="#e8710a" stroke-width="1.6" />
+      <rect x="254" y="244" width="150" height="44" rx="8" fill="#fff" stroke="#e8710a" stroke-width="1.4" />
+      <text x="329" y="264" font-size="10" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">孤儿 handler</text>
+      <text x="329" y="278" font-size="9.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">没人能再取消</text>
+
+      <rect x="56" y="302" width="348" height="52" rx="10" fill="#1d1d1f" />
+      <text x="230" y="324" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">transport close 抛异常 → 每个 awaiter 永久挂起</text>
+      <text x="230" y="342" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">修复后：一个写入点 · 一个取消 helper（PR #72518）</text>
+
+      <line x1="83" y1="392" x2="123" y2="392" stroke="#0066cc" stroke-width="2" />
+      <line x1="149" y1="392" x2="189" y2="392" stroke="#0066cc" stroke-width="2" />
+      <line x1="215" y1="392" x2="255" y2="392" stroke="#0066cc" stroke-width="2" />
+      <line x1="281" y1="392" x2="321" y2="392" stroke="#0066cc" stroke-width="2" />
+      <line x1="347" y1="392" x2="387" y2="392" stroke="#0066cc" stroke-width="2" />
+      <circle cx="70" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="136" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="202" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="268" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="334" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+      <circle cx="400" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="bugs">
+  <SectionHead
+    kicker="04 · 修复 PR"
+    title="六个证明反例，六个带测试的 PR"
+    lead="修复有一条硬规矩：证明吐出的反例必须先在未修改的 main 上复现，配的测试必须先失败再转绿。这条规矩让「模型的幻觉」没有机会混进代码。"
+  />
+  <Prose>
+
+六个修复 PR 全部针对 agent 运行时最容易出并发事故的位置：流边界、重试预算、循环守卫、取消传播、重叠的权限请求、传输层关闭。这些缺陷有一个共同点：单个请求走一遍完全正常，只有特定事件按特定顺序交错才会触发。人工 code review 要看几万行 TypeScript 里两处守卫的相互影响，概率很低；模型把全部交错摊开，反例是它唯一的答案。
+
+</Prose>
+  <CompareTable
+    caption="六个修复 PR（PR 号与描述均录自公开视频，内部仓库无法外部核验）"
+    headers={[{ label: "PR" }, { label: "状态机" }, { label: "证明找到的反例" }]}
+    rows={[
+      ["#72128", "session phase", "沙箱网络请求与权限弹窗重叠，两个都答复完，会话仍停在 requires_action，有时拖过整个下一 turn"],
+      ["#72130", "turn loop", "畸形工具调用重试与 max_tokens 截断恢复互相重置守卫，交替输出导致无限循环，--max-turns 1 拦不住"],
+      ["#72140", "stream", "响应在半截干净结束时被按 success 交付，无 stop reason、不计费；路径需有网关或三方代理"],
+      ["#72145", "retry", "持久模式下 429/529 等待耗尽其他错误的重试预算；带一天 Retry-After 的 503 直接睡满一天"],
+      ["#72135", "SDK control", "取消后重投的权限请求留下无法取消的 handler；传输层关闭抛异常，所有 awaiter 被挂住"],
+      ["#72162", "engine", "builder 失败后的 flush 中退出、首个 next() 前 return()、abandon 后迟到的 send()，三处取消信号都丢失"],
+    ]}
+  />
+  <Prose>
+
+这批修复同时守住的全局性质，agent 在报告里列了五条：每个 turn 有序地只产出一个结果、初始化先于任何结果、result 一定先于 idle、重试受边界约束且可中止、流只产出闭合块。读起来像合同条款，这正是状态机不变量的样子。
+
+</Prose>
+</Section>
+
+<Section alt id="hardening">
+  <SectionHead
+    kicker="05 · 证明的第二个用途"
+    title="拿同一份证明去简化代码"
+    lead="六个修复落地后，Boris 又给了一句话：用同一份证明把代码简化掉。这一步的结果比找 bug 更能说明形式化模型的价值。"
+  />
+  <Prose>
+
+agent 的第一反应很诚实：证明显示几乎每个 flag 和分支都可达，没有死代码可删。证明真正发给它的许可证，是把多处复制粘贴的同一逻辑合并成一处。人平时不敢做这种合并，因为说不清某段特殊顺序的清理路径删掉一个会不会出事；有了不变量，合并后的代码只要还让定理成立，行为等价就由机器背书。
+
+</Prose>
+  <CardGrid cols={3}>
+    <InfoCard title="#72479 session" label="简化">三种 settle 路径合并为一种。</InfoCard>
+    <InfoCard title="#72503 engine" label="简化">两份 open-turns 跟踪表合并为一份。</InfoCard>
+    <InfoCard title="#72513 retry" label="简化">普通退避折进分块睡眠循环。</InfoCard>
+    <InfoCard title="#72517 stream" label="简化">三份关闭消息代码、两个 abort 出口各自合一；claude.ts 少 105 行。</InfoCard>
+    <InfoCard title="#72516 turn loop" label="简化">每次 continue 时重置重试守卫的散落代码，改成一张统一的表驱动。</InfoCard>
+    <InfoCard title="#72518 SDK control" label="简化">所有响应走一个写入点，所有取消走一个 helper。</InfoCard>
+  </CardGrid>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 270" class="block w-full" role="img" aria-label="三组 PR 的非测试代码增删行数：修复净增 278、简化净减 195、跟进净增 135">
+      <rect x="0" y="0" width="920" height="270" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">非测试代码行数（蓝为新增，黑为删除，按 PR 组）</text>
+      <line x1="460" y1="64" x2="460" y2="232" stroke="#dedee3" stroke-width="1.2" />
+      {[
+        { row: "修复 · 6 PR", added: 523, removed: 245, net: "净 +278", y: 108 },
+        { row: "简化 · 6 PR", added: 546, removed: 741, net: "净 −195", y: 156 },
+        { row: "评审跟进 · 4 PR", added: 312, removed: 177, net: "净 +135", y: 204 },
+      ].map((r) => (
+        <g>
+          <text x="36" y={r.y + 4} font-size="11.5" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{r.row}</text>
+          <rect x={460 - r.removed * 0.38} y={r.y - 15} width={r.removed * 0.38} height="16" rx="4" fill="#1d1d1f" opacity="0.82" />
+          <rect x="460" y={r.y - 15} width={r.added * 0.38} height="16" rx="4" fill="#0066cc" opacity="0.9" />
+          <text x={460 - r.removed * 0.38 - 6} y={r.y - 2} font-size="10" fill="#1d1d1f" text-anchor="end" font-family="ui-monospace, Menlo, monospace">−{r.removed}</text>
+          <text x={460 + r.added * 0.38 + 6} y={r.y - 2} font-size="10" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">+{r.added}</text>
+          <text x="868" y={r.y + 4} font-size="10.5" font-weight="600" fill="#424245" text-anchor="end" font-family="PingFang SC, sans-serif">{r.net}</text>
+        </g>
+      ))}
+      <text x="36" y="252" font-size="10" fill="#86868b" font-family="PingFang SC, sans-serif">口径：视频 4:01 PM 总账卡片；不含测试，测试用例 +94/−9（测试行 +3,928/−247）</text>
+    </svg>
+  </div>
+
+  <StatGrid cols={4}>
+    <Stat value="16" label="个 PR：6 修复 · 6 简化 · 4 跟进" />
+    <Stat value="24" label="个被修复的缺陷，19 个由证明直接找到" />
+    <Stat value="1,529" label="条定理，最终总账（凌晨首轮为 1,359）" />
+    <Stat value="520" label="条真实 trace 回放进模型，全部接受" />
+  </StatGrid>
+</Section>
+
+<Section id="method">
+  <SectionHead
+    kicker="06 · 为什么这件事现在成立"
+    title="等了三十年，建模这一步突然便宜了"
+    lead="用数学证明软件正确性并不新鲜。新鲜的是，过去最贵的那一步，也就是把几万行真实代码手工抽象成模型，现在模型自己就能做。"
+  />
+  <Prose>
+
+形式化方法有成熟的家谱。Leslie Lamport 的 TLA+ 专门描述并发和分布式系统的状态迁移；2015 年 Amazon 在《美国计算机协会通讯》发表论文，记录他们用 TLA+ 检查 S3、DynamoDB 等系统的设计，在写代码之前就找出深层缺陷。Boris 在原帖里也说，他平时把 Lean 和 TLA+ 搭配使用：一个管数据与实现层面的严格证明，一个管数据流、并发和状态管理的设计建模。
+
+这类方法一直没普及到普通业务代码，瓶颈很具体。建模要由既懂证明语言、又懂这个系统全部暗角的人手工完成，成本以人月计，模型还会随代码过时。测试框架之所以赢，是因为它便宜。
+
+LLM 恰好卡在这个瓶颈上。Opus 5.5 的定位就是长程 agentic coding，百万 token 上下文装得下整个代码库，它可以直接读 TypeScript 源码、写出对应的 Lean 模型、再用同一套工具编译和迭代证明。这次从一句话到六个模型首轮通过只用了约三个小时（22:03 到 01:07），之后整夜加白天的时间主要花在复现、修代码、再证明、回应评审上。建模不再是瓶颈，证明助手本身成了流水线里最不知疲倦的那一环。
+
+</Prose>
+
+  <Steps
+    steps={[
+      { title: "从代码生成模型", body: "agent 读真实 TypeScript，写 6 个 Lean 4 模型：状态、迁移、要守的不变量，每条迁移标注源码位置，并声明假设边界。" },
+      { title: "独立复审模型", body: "模型写完后再逐行对照真实代码复审，防止模型把真实行为理想化。凌晨 engine 模型与真实运行对不上，结论被直接标为临时有效。" },
+      { title: "机检全部定理", body: "lake build 跑通，1,529 条定理由 Lean 内核逐条检查；最终审计确认 0 sorry，且只用三条标准公理。" },
+      { title: "反例必须回到 main 复现", body: "证不出来的性质给出反例构造，agent 把它翻译成针对未修改代码的测试，先确认失败才允许写修复。" },
+      { title: "证明反哺设计", body: "修复后再用同一份模型做简化：合并重复路径，让定理持续保护改动；人负责逐 PR 审批，机器负责等价性。" },
+    ]}
+  />
+
+  <Prose>
+
+整条链路上有两道防自欺的关卡。第一道朝内：模型可能错，所以有 520 条真实 trace 的反向回放、有「先红后绿」的测试纪律、agent 还两次主动发更正（一次承认 engine 证明暂作临时结论，一次纠正自己对 #72130 退出保证覆盖范围的表述）。第二道朝外：每个 PR 都要人按批准，Boris 本人盯完全部 16 个；自动合并只在批准之后打开。证明保证的是「代码符合模型」，模型是否刻画了真实世界，靠证据和人共同兜住。
+
+</Prose>
+</Section>
+
+<Section alt id="limits">
+  <SectionHead
+    kicker="07 · 边界"
+    title="它证明了什么，又没证明什么"
+    lead="把这次结果读成「AI 证明了 Claude Code 没有 bug」会过头。录屏里的信息恰好也给出了冷静的边界。"
+  />
+  <Callout eyebrow="适用范围">
+    <p>被证明的只是六个抽象模型覆盖到的状态机性质，每个模型都写明了自己的假设和不证明什么。没有覆盖到的模块、模型抽象掉的真实细节、外部系统的行为，统统不在保证范围内。</p>
+  </Callout>
+  <Prose>
+
+时间本身也说明问题：首轮报告凌晨 0:08 给出时，engine 模型和真实运行存在分歧，agent 没把结论包装成确定，先挂起待修；#72130 的第一个修复后来被承认只覆盖了证明变体假设的一部分，需要跟进 PR；#72135 甚至出现了一次「批准随新提交失效」的流程插曲，agent 随后又更正说旧批准已被系统沿用。这些反复都留在视频里，和 1,529 这个数字一样真实。
+
+再往后看，这件事的意义可能比 24 个缺陷大。Agent SDK 是别人用来在生产环境跑长任务的库，它的状态机要处理取消、重试、权限、流式中断，这些都是传统测试最难做厚、而出错代价最高的部分。当建模成本趋近于一次对话，「给关键状态机配一份可机检的模型」可能从奢侈的学术流程，变成基础设施软件的常规工种。Boris 原帖最后只补了一句：TLA+ 也很好用，他常把两者结合起来找数据流、并发和状态管理的问题。工具的门槛在消失，方法没那么神秘，剩下的是愿不愿意把性质写下来。
+
+</Prose>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "16 个 PR 背后都有证明和测试背书",
+      conclusion: "六个 Lean 模型、1,529 条定理、0 sorry，证明吐出的每个反例都先在 main 上复现、测试先红后绿，19 个缺陷直接来自证明；评审再补 5 个。",
+      detail: "六个修复针对的全是事件交错才触发的问题：重叠权限请求、互相清零的重试守卫、三个取消信号缺口、被吃干净的重试预算、半截成功的流、挂死的 awaiter。",
+    },
+    {
+      title: "形式化方法的瓶颈从建模转移到了判断力",
+      conclusion: "Lean/TLA+ 存在几十年，AWS 2015 年就用 TLA+ 查 S3；贵的从来不是证明，是手工建模。LLM 三小时完成过去以人月计的抽象工作，工程师的活变成写对性质、审好假设、守住测试纪律。",
+      detail: "防自欺有两道关：真实 trace 回放与先红后绿朝内，逐 PR 人工审批朝外。agent 两次主动承认模型局限，本身就是流程可信的一部分。",
+    },
+    {
+      title: "证明还是一张代码结构的设计图",
+      conclusion: "同一份模型在修复完成后又指导了六个简化 PR：删不掉死代码，却能安全地把三份关闭路径、两份跟踪表、散落的守卫重置合一，净删近两百行非测试代码且行为由定理担保。",
+      detail: "对写基础设施的人，这给出一个可照搬的模式：把取消、重试、权限、流边界这类状态机性质写下来，让机器去枚举你构造不出来的交错。",
+    },
+  ]}
+  note="口径说明：事件、PR 号、数字与引文均来自 Boris Cherny 2026-09-22 公开发布的 100 秒 Slack 录屏（X 帖子附视频），时间为太平洋时间；PR 位于 Anthropic 内部 GitHub，无法从外部逐条打开核验。Lean 公理与 sorry 的语义依据 lean-lang.org 官方手册，Agent SDK 能力依据 Claude Code 官方文档，Boris 身份依据其个人站点、GitHub 资料与 Anthropic 官方活动页。形式化方法背景引用 Newcombe et al., CACM 2015 与 Leslie Lamport 的 TLA+。本文为公开资料复盘，不代表 Anthropic 官方发布。"
+/>
