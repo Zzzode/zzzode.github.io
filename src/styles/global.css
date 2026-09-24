@@ -206,6 +206,34 @@
   scroll-margin-top: 76px;
 }
 
+/* Wide hand-authored mechanism diagrams keep their authored viewBox
+   density: below the sm breakpoint the panel pans horizontally instead
+   of shrinking labels to an unreadable size */
+.chart-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+.chart-scroll > svg {
+  min-width: 620px;
+}
+.chart-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.chart-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chart-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 9999px;
+}
+@media (min-width: 640px) {
+  .chart-scroll > svg {
+    min-width: 0;
+  }
+}
+
 /* reading progress bar — injected by src/scripts/article.ts */
 [data-progress] {
   position: fixed;

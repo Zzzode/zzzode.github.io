@@ -1,0 +1,873 @@
+---
+title: "全球市场是一台联动的机器：纳指新高背后的利率、杠杆与连锁反应"
+date: 2026-09-24
+excerpt: "2026 年 9 月 21、22 日纳斯达克连续两天创收盘新高，收 27,244.28 点，而六天前美联储才把利率加到 3.75%–4%。这不是一只科技股指数自己的故事。把长端利率、美元与日元套息、期权 gamma、CTA 与风险平价的机械仓位、8,300 亿美元国债基差交易、CDS、黄金、比特币和一级市场串成一条因果链，才看得见这台机器怎么运转、又会从哪里断裂，以及 A 股挂在哪根传动带上。"
+tags: ["纳斯达克", "A股", "美联储", "美债", "美元", "日元套息", "期权 gamma", "基差交易", "CDS", "黄金", "AI 算力", "投研"]
+kind: "distilled"
+sources:
+  - title: "BIS Quarterly Review, September 2026 · Yields climb, yet risk appetite holds firm（期限溢价、CDS、杠杆 ETF、一级市场、国债基差、中国资产）"
+    url: "https://www.bis.org/publ/qr-202609/yields-climb-yet-risk-appetite-holds-firm"
+  - title: "Federal Reserve FEDS Notes（2026-06-22）· Decomposing Hedge Funds' U.S. Treasury Exposures（总敞口 4 万亿、基差约 8,300 亿、回购 3 万亿、2025/4 互换强平）"
+    url: "https://www.federalreserve.gov/econres/notes/feds-notes/decomposing-hedge-funds-u-s-treasury-exposures-20260622.html"
+  - title: "美国金融研究办公室 OFR（2026-08-19）· Hedge Funds' Cash Treasury Holdings Reach $2 Trillion"
+    url: "https://www.financialresearch.gov/the-ofr-blog/2026/08/19/hedge-funds-cash-treasury-holdings/"
+  - title: "金融时报 / 中国金融新闻网（2026-03-23）· 美国债务市场加压：“回购危机”或将重演——基于科技巨头资本开支视角的流动性压力测试"
+    url: "https://www.financialnews.com.cn/m/2026-03/23/content_445715.html"
+  - title: "Bank of America 系统策略测算（CoinDesk 转述，Hartnett）· CTA/波动率控制/风险平价约 1,630 亿美元潜在抛压、仓位 100 分位"
+    url: "https://www.coindesk.cc/bank-of-america-flags-163b-risk-looming-over-stocks-112435.html"
+  - title: "Citadel Securities 全球市场情报（CoinDesk 转述，Scott Rubner，2026-08-31）· 9 月 18 日约 9.6 万亿美元美股期权到期"
+    url: "https://www.coindesk.cc/citadel-securities-reports-9-6t-in-us-options-expiring-september-18-112208.html"
+  - title: "SpotGamma · September OPEX Options Positioning: Why 7,600 Is the Line（delta 加权口径、正负 gamma、到期对冲量变化）"
+    url: "https://spotgamma.com/september-opex-negative-gamma-7600/"
+  - title: "AInvest · The $7 Trillion Expiry Wasn't the Story. The Index's Silence Is.（0DTE 占比、RSP 背离、SPY 流出、put/call 未平仓）"
+    url: "https://www.ainvest.com/news/7-trillion-expiry-wasn-story-index-silence-2609/"
+  - title: "Pomegra（2026-09-17）· Yen Rises 3.5% as BOJ Rate Hike Crushes Carry Trade（日本 1.25%、利差、套息规模、2024 年 8 月日经 −20%）"
+    url: "https://pomegra.io/briefs/2026-09-17-yen-boj-rate-hike-carry-trade"
+  - title: "TradeVisor（2026-09-20）· USD/JPY Surges Past 157 as BOJ Rate Hike Fails to Dent Carry Trade（汇率反复与利率核查）"
+    url: "https://tradevisor.co.uk/news/2026-09-20-usdjpy-surges-boj-rate-hike-intervention-risk"
+  - title: "Federal Reserve · FOMC Statement, September 16, 2026（加息 25bp 至 3.75%–4%，12–0 通过）"
+    url: "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+  - title: "Saxo Bank（FXStreet 转载）· Fed review: The hike was expected – The message was more hawkish（SEP、Warsh、10 年期约 5%）"
+    url: "https://www.fxstreet.com/analysis/fed-review-the-hike-was-expected-the-message-was-more-hawkish-202609170624"
+  - title: "中新社 / 中国经济网（2026-09-18）· 美国 30 年期房贷利率升至 6.95%，创 19 个月新高（Freddie Mac 口径）"
+    url: "http://intl.ce.cn/sjjj/qy/202609/t20260918_3219992.shtml"
+  - title: "证券时报网（2026-09-01）· 深夜，美长期国债巨震！芯片股大跌，黄金跳水（全球长端利率、百达信用利差观点）"
+    url: "https://www.stcn.com/article/detail/4168217.html"
+  - title: "PrimeRates / Dow Jones · Treasury 2-Year Note Auction: 4.787%, Highest Since May 2024（尾部、海外需求走弱）"
+    url: "https://primerates.com/treasury-2-year-note-auction-4-787-percent-highest-since-may-2024/"
+  - title: "经济日报（人民网转载，2026-08-20）· 货币格局与供需结构夯实金价支撑（金价区间、央行购金、黄金成第一大储备资产）"
+    url: "http://finance.people.com.cn/n1/2026/0820/c1004-40782812.html"
+  - title: "Bitcoin News Center（2026-09-21）· Risk-On Surge Lifts BTC 7.5% to about $87,241（跨资产同向、DXY 100.43）"
+    url: "https://bitcoinnewscenter.com/bitcoin-market-recap-september-21-2026-risk-on-surge-lifts-btc-7-5/"
+  - title: "Economic Times（2026-09-21）· BTC tops $85,000 as $648 million shorts unwind（年内最大单日、逼空）"
+    url: "https://m.economictimes.com/news/international/we-us/bitcoin-price-today-sept-21-why-is-btc-up-today-key-reasons-behind-the-rally-btc-price-surges-above-85000-in-biggest-move-since-january-as-648-million-shorts-unwind-ethereum-and-xrp-rally/amp_articleshow/134392268.cms"
+  - title: "财联社（新浪转载，2026-09-22）· 华尔街对数据中心日益怀疑 软银旗下 SB Energy 及其他公司推迟 IPO"
+    url: "https://finance.sina.com.cn/jjxw/2026-09-22/doc-inissitp2200158.shtml"
+  - title: "新华财经（新浪转载）· 市场风险偏好改善 纳斯达克综合指数 21 日创新高（27,122.09、油价、收益率、板块与个股）"
+    url: "https://finance.sina.com.cn/jjxw/2026-09-22/doc-inisscmi7103641.shtml"
+  - title: "中新经纬（新浪转载）· 美股收盘：纳指再创历史新高，三大指数涨跌不一（9/22 收 27,244.28、盘中 27,288.79、金银与美元指数）"
+    url: "https://finance.sina.com.cn/jjxw/2026-09-23/doc-inisunsi8509331.shtml"
+  - title: "MarketWatch（Morningstar 转载）· The Nasdaq's rapid rise to a record…（年内第 21 次新高、Bespoke、GDPNow、机构观点）"
+    url: "https://www.morningstar.com/news/marketwatch/20260922366/the-nasdaqs-rapid-rise-to-a-record-is-sending-a-message-to-investors-dont-wait-for-a-pullback-to-buy"
+  - title: "TradingKey · Nasdaq Composite Hits Record High（盘中 27,272、SanDisk、Dimon AI 投资路径、云收入 +48%、Muse 下载量）"
+    url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262180736-nasdaq-record-high-ai-capital-expenditure-acceleration-outlook-sandisk-micron-muse-tradingkey"
+  - title: "21 世纪经济报道（新浪转载）· 科技股引领纳指大涨近 1.69%（9 月 17 日反弹、收益率下行、联博风险提示）"
+    url: "https://cj.sina.com.cn/articles/view/1651428902/626ece2602001jyto"
+  - title: "新浪财经（财闻）· 一图看市场：纳指创历史新高 后市紧盯四大因子（费半 +4.29%、ARM +17.16%）"
+    url: "https://finance.sina.com.cn/jjxw/2026-09-22/doc-inissiti8962521.shtml"
+  - title: "NVIDIA 官方博客（中文）· 2027 财年第二季度财务报告（季收 962.2 亿、数据中心 890 亿、Q3 指引 1,080 亿、5,000 亿第三方算力平台）"
+    url: "https://blogs.nvidia.cn/blog/nvidia-announces-financial-results-for-second-quarter-fiscal-2027/"
+  - title: "Microsoft Source · Microsoft Cloud and AI strength fuels fourth quarter results（Azure +43%、全年破千亿、Copilot 3,000 万席）"
+    url: "https://news.microsoft.com/source/2026/07/29/microsoft-cloud-and-ai-strength-fuels-fourth-quarter-results-4"
+  - title: "第一财经（证券时报转载）· 微软下调全年资本支出预期，投资 Anthropic 获益 32 亿美元（FY capex 1,750 亿）"
+    url: "https://www.stcn.com/article/detail/4048904.html"
+  - title: "新华社英文（2026-09-23）· Chinese shares close lower Wednesday（沪指 3,936.52、成交 1.78 万亿）"
+    url: "https://english.news.cn/20260923/b5cfa89b691b438387edda0c28bb7bb5/c.html"
+  - title: "新京报（央视网转载，2026-07-20）· “科技牛”回调 “国家队”出手（5 月高点 4,258.86、7 月 17 日 3,764.15、护盘资金）"
+    url: "https://finance.cctv.com/2026/07/20/ARTIkq3kA093rlzrVwtHEM8a260720.shtml"
+  - title: "国际金融报（证券时报转载，2026-09-02）· A 股缩量普跌，原因找到了（点位、光模块三剑客、海外映射负反馈）"
+    url: "https://www.stcn.com/article/detail/4169870.html"
+  - title: "中国证券报（中国经济网转载，2026-08-25）· 近六成公司半年报净利增长（中报盈利结构、江波龙、AI 算力硬件）"
+    url: "http://bgimg.ce.cn/xwzx/gnsz/gdxw/202608/t20260825_3167940.shtml"
+  - title: "中国证券报（2026-07-28）· 长鑫科技登顶 A 股市值榜首 存储芯片板块大幅反弹（市值 3.3 万亿、成交 1,411 亿）"
+    url: "https://www.cs.com.cn/ssgs/01/2026/07/28/detail_2026072810027461.html"
+  - title: "财观随记（腾讯新闻，2026-09-22）· 美股存储芯片暴涨！A 股半导体稳了？（TrendForce 涨价、半导体资金流、CME 概率、高盛预警）"
+    url: "http://news.qq.com/rain/a/20260922A05PS200"
+  - title: "东方金诚研究（21 财经转载，2026-09-20）· 9 月 LPR 报价保持不变，后期有望下调（CPI 反差、以我为主）"
+    url: "https://m.21jingji.com/article/20260920/herald/8350094848bccfde6e5592f0e5d17b67.html"
+  - title: "中国证券报（证券时报转载，2026-09-03）· 偏强运行双向波动 人民币汇率韧性凸显（在岸年内 +3.82%、CFETS 101.87）"
+    url: "https://www.stcn.com/article/detail/4170010.html"
+  - title: "环球市场播报（ZAKER 转载）· 9 月 23 日美股收盘与本周中美元首会晤前瞻（贸易安排 11 月到期）"
+    url: "https://app.myzaker.com/news/article.php?pk=6ab2e20cb15ec033da0b0d78"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  Timeline,
+  Steps,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="全球市场因果复盘 · 央行 / BIS / OFR / 联储 / 交易所 / 财报 · 2026-09-24 核对"
+  title="全球市场是一台联动的机器：纳指新高背后的利率、杠杆与连锁反应"
+  lead="2026 年 9 月 21、22 日，纳斯达克连续两天刷新收盘历史新高，收在 27,244.28 点；六天前美联储才把利率加到 3.75%–4%。单看科技股，这像一个盈利故事。把长端利率、美元与日元套息、期权 gamma、CTA 与风险平价的机械仓位、8,300 亿美元国债基差交易、CDS、黄金、比特币和一级市场摊开，会看到一台齿轮相互带动的机器。这篇复盘顺着因果链走一遍，再回答 A 股挂在哪根传动带上。"
+  pills={[
+    { label: "纳指 27,244.28 收盘新高" },
+    { label: "10 年期美债约 4.96%（一度破 5%）" },
+    { label: "对冲基金美债敞口 4 万亿美元" },
+    { label: "系统策略潜在抛压 1,630 亿" },
+    { label: "沪指 3,936.52 缩量" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 360" role="img" aria-label="以 10 年期美债为中心、连接六类资产与 A 股的星形结构">
+    <text x="230" y="30" font-size="12" font-weight="600" letter-spacing="1.6" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">ONE GATE · SIX MARKETS</text>
+    {(() => {
+      const cx = 230, cy = 195, R = 118;
+      const sats = [
+        { t: "美股", a: -90, hl: false },
+        { t: "美元", a: -30, hl: false },
+        { t: "信用债", a: 30, hl: false },
+        { t: "黄金", a: 90, hl: false },
+        { t: "比特币", a: 150, hl: false },
+        { t: "A 股", a: 210, hl: true },
+      ];
+      const pos = sats.map((s) => {
+        const rad = (s.a * Math.PI) / 180;
+        return { t: s.t, hl: s.hl, x: cx + R * Math.cos(rad), y: cy + R * Math.sin(rad) };
+      });
+      return (
+        <g>
+          {pos.map((p) => (
+            <line key={p.t} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke={p.hl ? "#0066cc" : "#c7c7cc"} stroke-width={p.hl ? 2.2 : 1.6} />
+          ))}
+          {pos.map((p) => (
+            <g key={p.t}>
+              <circle cx={p.x} cy={p.y} r="40" fill="#ffffff" stroke={p.hl ? "#0066cc" : "#dedee3"} stroke-width={p.hl ? 2.2 : 1.6} />
+              <text x={p.x} y={p.y + (p.t.length > 2 ? -2 : 5)} font-size={p.t.length > 2 ? "14" : "16"} font-weight="600" fill={p.hl ? "#0066cc" : "#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{p.t}</text>
+            </g>
+          ))}
+          <circle cx={cx} cy={cy} r="62" fill="#1d1d1f" />
+          <text x={cx} y={cy - 8} font-size="15" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">10 年期美债</text>
+          <text x={cx} y={cy + 16} font-size="13" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">总闸门 · ≈4.96%</text>
+        </g>
+      );
+    })()}
+  </svg>
+</CoverBanner>
+
+<Section alt id="this-week" vertical>
+  <SectionHead
+    kicker="01 · 这一周"
+    title="六个交易日，三种央行，一次史上最大期权到期"
+    lead="先把日历排满。理解联动，第一步是看清所有冲击挤在多窄的时间窗里。"
+  />
+  <Timeline
+    vertical
+    nodes={[
+      { year: "9/10", title: "欧洲央行加息 25bp 至 2.50%", body: "全球主要央行 9 月排成一队收紧，背景是能源回摆和欧元区主权利差走阔。" },
+      { year: "9/16", title: "美联储加息至 3.75%–4%，美股当日下跌", body: "12 票全票通过，声明删掉把通胀归给供给冲击的措辞。10 年期美债一度到 5%。" },
+      { year: "9/17", title: "反弹，纳指 +1.69%；日元当月升 3.5%", body: "油价回落、10 年期退回 4.928%；市场等日本央行第二天的动作。" },
+      { year: "9/18", title: "约 9.6 万亿美元名义期权到期（三巫日）", body: "Citadel Securities 测算约占全美期权存量 35%；delta 加权后真实对冲量约 2 万亿（SpotGamma 口径）。" },
+      { year: "9/19", title: "日本央行加息到 1.25%，1995 年来最高", body: "与美联储相隔 48 小时同向收紧，历史首次；日元套息利差被压薄 25 个基点。" },
+      { year: "9/21", title: "纳指 +2.26% 收 27,122.09；比特币 +7.5%", body: "年内第 21 次新高。期权压制解除后的第一个交易日，风险资产同向冲：AMD 市值破万亿，BTC 上 8.7 万美元。" },
+      { year: "9/22", title: "纳指再涨 0.45% 收 27,244.28；2 年期国债拍卖遇冷", body: "盘中 27,288.79。2 年期中标 4.787%，2024 年 5 月来最高且有尾部；道指反跌 0.36%。" },
+      { year: "9/23", title: "沪指 −0.39% 报 3,936.52，成交缩到 1.78 万亿", body: "中美元首同日在华盛顿会晤，市场盯着 11 月到期的贸易安排。" },
+    ]}
+  />
+</Section>
+
+<Section id="master-map">
+  <SectionHead
+    kicker="02 · 总框架"
+    title="这台机器的传动图：从油价到 A 股的六层结构"
+    lead="全球市场不是一堆并列的资产，而是有因果方向的系统。把这一周的事件按传动顺序排好，后面每个市场都是其中一个齿轮。"
+  />
+  <Prose>
+
+最上游是通胀与财政。油价、关税、工资决定通胀路径，天量赤字和发债决定国债供给，二者共同推高长端利率。2026 年的特殊之处在于，BIS 9 月季度评论明确讲，长端收益率上行“相当一部分来自期限溢价，反映财政压力而不只是通胀担忧”。也就是说，投资者要更多补偿，才肯持有越借越多的美国国债。
+
+利率是总闸门，它向下分出三条传动带：贴现率直接压成长股的远期估值和居民房贷，美元利差吸走全球资金、供养套息交易，融资成本则决定企业、政府和杠杆策略借钱的价钱。
+
+三条带子汇入一个放大层，这也是普通行情和危机的真正分界。这里坐着三类机械仓位：卖出期权的做市商（gamma）、跟随波动率加减仓的 CTA 和波动率控制/风险平价基金、靠回购融资加杠杆的国债基差交易。平时它们提供流动性、压窄波动；一旦价格越过关键位，它们被迫顺着行情方向交易，把小波动放大成断崖。
+
+放大层的输出才是我们看到的价格：股票、信用债、黄金、比特币。最后这一层通过产业链订单、人民币汇率、风险偏好三条通道传到 A 股。下面六节，沿这条链逐个齿轮拆。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 470" class="block w-full" role="img" aria-label="全球市场因果传动图">
+      <rect x="0" y="0" width="920" height="470" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="32" y="34" font-size="11.5" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">传动方向（上→下）· 放大层双向作用</text>
+
+      <rect x="330" y="50" width="260" height="40" rx="10" fill="#f5f5f7" stroke="#c7c7cc" />
+      <text x="460" y="75" font-size="12" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">通胀（油价/关税/工资）＋ 财政发债</text>
+      <line x1="460" y1="90" x2="460" y2="106" stroke="#86868b" stroke-width="1.6" />
+
+      <rect x="300" y="106" width="320" height="44" rx="10" fill="#1d1d1f" />
+      <text x="460" y="134" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">长端利率 · 10 年期美债（总闸门）</text>
+
+      {[["①贴现率","压成长股估值 / 房贷",70],["②美元 / 利差","全球资金 · 日元套息",330],["③融资成本","企业债 / 回购 / 基差",590]].map((b)=>(
+        <g>
+          <line x1="460" y1="150" x2={b[2]+115} y2="186" stroke="#c7c7cc" stroke-width="1.3" />
+          <rect x={b[2]} y="186" width="230" height="52" rx="10" fill="#fff" stroke="#dedee3" />
+          <text x={b[2]+115} y="208" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[0]}</text>
+          <text x={b[2]+115} y="227" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[1]}</text>
+          <line x1={b[2]+115} y1="238" x2={b[2]+115} y2="282" stroke="#86868b" stroke-width="1.4" />
+        </g>
+      ))}
+      <line x1="185" y1="262" x2="185" y2="282" stroke="#86868b" stroke-width="1.4" />
+      <line x1="445" y1="262" x2="445" y2="282" stroke="#86868b" stroke-width="1.4" />
+      <line x1="705" y1="262" x2="705" y2="282" stroke="#86868b" stroke-width="1.4" />
+
+      <rect x="60" y="282" width="800" height="66" rx="12" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.4" />
+      <text x="460" y="308" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">放大层 · 机械仓位（平时压波动，越位后同向追杀）</text>
+      <text x="220" y="332" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">期权做市商 gamma（0DTE 63%）</text>
+      <text x="460" y="332" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">CTA / 波动率控制 / 风险平价（100 分位）</text>
+      <text x="700" y="332" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">国债基差交易（约 8,300 亿，回购杠杆）</text>
+      <line x1="460" y1="348" x2="460" y2="366" stroke="#86868b" stroke-width="1.6" />
+
+      <rect x="120" y="366" width="680" height="36" rx="9" fill="#fff" stroke="#dedee3" />
+      <text x="460" y="389" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">价格：美股 · 投资级/高收益债 · 黄金 · 比特币 · 汇率</text>
+      <line x1="460" y1="402" x2="460" y2="418" stroke="#0066cc" stroke-width="1.6" />
+
+      <rect x="230" y="418" width="460" height="34" rx="9" fill="#1d1d1f" />
+      <text x="460" y="440" font-size="11.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">产业链订单 · 人民币汇率 · 风险偏好 → A 股</text>
+    </svg>
+  </div>
+</Section>
+
+<Section alt id="rate-anchor">
+  <SectionHead
+    kicker="03 · 第一环"
+    title="长端利率：所有资产的贴现锚"
+    lead="机器的总闸门在 10 年期美债收益率，不在联邦基金利率。它决定远期盈利折算到今天值多少钱，也决定美元和全球融资的方向。"
+  />
+  <Prose>
+
+9 月 1 日是一次预演。当天 10 年期美债收益率一度报 4.796%，创 2025 年 1 月以来新高，30 年期到 5.272%；同一晚，日本 10 年期自 1996 年来首次升破 3%，英国 10 年期到 5.2341%（2008 年来最高）、30 年期 5.8856%（1998 年来峰值），德国 10 年期创 52 周新高。全球无风险利率一起抬。
+
+推动长端的两股力量要分开。一是通胀粘性，二是财政。后者学名叫期限溢价，说穿了就是：钱借得越久、变数越大，债主除了正常利息，还要额外要一笔“担惊受怕费”才肯买长期国债。投资者看到美国国债规模不断膨胀（OFR 口径，2025 年末可流通国债约 28.9 万亿美元），这笔费用自然越要越高。9 月 22 日 2 年期国债中标利率 4.787%、2024 年 5 月以来最高，还出现“尾部”：中标价比二级市场预期的更低、利率更高，买家出价谨慎、需求偏弱。这是财政主导在拍卖场上的直接表现。
+
+利率向实体的传导没有时滞。房地美数据显示，美国 30 年期固定房贷利率 9 月 17 日升到 6.95%，连涨四周，一年前是 6.26%，2 月还曾到 5.98% 的三年低点；中新社援引经济学家判断，短期内房贷利率将维持在 7% 或更高。伊朗战事发生前 10 年期收益率才 3.97%，半年里抬了整整一个百分点，房地产和成长股估值承担的是同一笔贴现成本。
+
+所以 9 月 21、22 日的反弹要准确定性：利率问题并没有解决，只是油价从 100 美元上方回落，把长端从极端位置松开了一口气（10 年期收 4.928%→4.956%）。5% 是这轮的心理与估值双关口，没站稳，成长股就能喘；重新站稳，9 月初的全球科技股同步调整会重演。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="9 月 17 日美债收益率曲线">
+      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">美国国债收益率曲线 · 2026/9/17 收盘（%）</text>
+      {[4.6,4.8,5.0,5.2].map((v,i)=>(
+        <g>
+          <line x1="80" y1={240-i*42} x2="860" y2={240-i*42} stroke="#ececf0" stroke-width="1" />
+          <text x="64" y={244-i*42} font-size="11" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{v.toFixed(1)}</text>
+        </g>
+      ))}
+      <line x1="80" y1="240" x2="860" y2="240" stroke="#dedee3" stroke-width="1.2" />
+      {(() => {
+        const pts=[["2Y",4.666,140],["5Y",4.783,360],["10Y",4.928,580],["30Y",5.287,800]];
+        const y=v=>240-(v-4.6)*210;
+        return (
+          <g>
+            <polyline points={pts.map(p=>`${p[2]},${y(p[1])}`).join(' ')} fill="none" stroke="#0066cc" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            {pts.map(p=>(
+              <g>
+                <circle cx={p[2]} cy={y(p[1])} r="5" fill="#0066cc" />
+                <text x={p[2]} y={y(p[1])-14} font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{p[1].toFixed(3)}</text>
+                <text x={p[2]} y="262" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{p[0]}</text>
+              </g>
+            ))}
+          </g>
+        );
+      })()}
+      <text x="80" y="288" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">口径：新华财经 9/17 行情；曲线一路向上、无衰退式倒挂，市场定价“经济强、通胀黏、财政还要借”</text>
+    </svg>
+  </div>
+</Section>
+
+<Section id="dollar-carry">
+  <SectionHead
+    kicker="04 · 第二环"
+    title="美元是全球的准备金，日元是最脆的那条缝"
+    lead="利率的第二个出口是汇率。美元潮汐决定全球资金往哪走，而借低息货币买高息资产的套息盘，是这轮最容易被撕裂的缝。"
+  />
+  <CompareTable
+    caption="2026 年 9 月三家央行的动作（利差为市场测算）"
+    headers={[{ label: "央行" }, { label: "政策利率" }, { label: "9 月动作" }, { label: "备注" }]}
+    rows={[
+      ["美联储", "3.75%–4.00%", "9/16 +25bp", "2023 年 7 月来首次"],
+      ["日本央行", "1.25%", "9/19 +25bp", "1995 年来最高，年内第二次"],
+      ["欧洲央行", "2.50%", "9/10 +25bp", "能源回摆与区内利差"],
+      ["英格兰银行", "3.75%", "9 月按兵不动", "7 月以来维持"],
+    ]}
+  />
+  <Prose>
+
+先用一句话讲清套息交易（carry trade）：在利率低的地方借钱，换成高息货币，放到利率高的地方去吃利差。过去几年最便宜的借钱来源是日元，最稳的去处之一是美国国债和美股。这门生意的利润=两边利差−汇率波动，2026 年 9 月之前，美日利差长期在 2.6 个百分点以上，借日元买美债几乎是白捡，于是规模滚到了惊人的程度。它最怕两件事：借的钱变贵（日本加息），或者汇率反转（日元升值让换回本币的成本暴涨）。9 月这两件事一起来了。
+
+美联储加息，按教科书美元该涨。9 月 22 日美元指数确实收在 100.603，可整周是剧烈过山车：鹰派讲话拉一把，油价跌砸一下，再弹回来。原因是这轮美元的锚在长端利差：10 年期美债在 5% 附近，借便宜钱买美债吃息仍划算，连美国 9 月工业产出持平这种弱数据都被买盘吸收。
+
+火药桶在日元。日元套息存量市场估算 5,000 亿到 1.1 万亿美元（Pomegra 综述口径）。日本加息把美日利差从约 287 个基点压到约 263 个基点，直接削薄利润。消息发酵时日元 9 月 17 日当月升值 3.5%，美元兑日元到 154；可日本经济修复脆弱，央行不敢承诺持续猛加息，利差又太诱人，9 月 20 日汇率反冲过 157，日本财务省被怀疑出手“利率核查”——央行直接打电话向交易商报价，市场把这看作进场干预前的最后警告。
+
+这条缝为什么要命，2024 年 8 月已经演示过：日本央行一次加息引发套息盘集中平仓，大家同时卖出全球资产、买回日元还债，日经指数五个交易日跌约 20%，全球风险资产跟着抖。所以日元套息盘既是美股科技股平时的边际买家，也是潜在最整齐的被迫卖家。债券市场有同类杠杆：当国债现券比期货便宜，对冲基金用回购借钱买现券、空期货赚价差（下一节细讲），联储记录这类互换利差头寸在 2025 年 4 月关税冲击时曾有约 600 亿美元被快速强平。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 240" class="block w-full" role="img" aria-label="日元套息交易的资金流向与平仓回路">
+      <rect x="0" y="0" width="920" height="240" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">套息交易怎么赚钱（蓝）· 平仓时怎么反噬（橙，虚线）</text>
+      <rect x="40" y="70" width="200" height="70" rx="12" fill="#f5f5f7" />
+      <text x="140" y="100" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">在日本借日元</text>
+      <text x="140" y="122" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">政策利率 1.25%</text>
+      <rect x="360" y="70" width="200" height="70" rx="12" fill="#f5f5f7" />
+      <text x="460" y="100" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">换成美元买资产</text>
+      <text x="460" y="122" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">美债 ~4.9% / 美股</text>
+      <rect x="680" y="70" width="200" height="70" rx="12" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.4" />
+      <text x="780" y="100" font-size="13" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">净赚利差 ≈ 263bp</text>
+      <text x="780" y="122" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">汇率稳时几乎无风险</text>
+      <path d="M244 105 h108 m-8 -7 l8 7 -8 7" fill="none" stroke="#0066cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M564 105 h108 m-8 -7 l8 7 -8 7" fill="none" stroke="#0066cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="180" y="170" width="560" height="46" rx="10" fill="#fff" stroke="#e8710a" stroke-width="1.4" stroke-dasharray="6 4" />
+      <text x="460" y="190" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">日本加息 / 日元升值 → 利差被削、汇兑亏损 → 集体卖出资产买回日元</text>
+      <text x="460" y="208" font-size="10.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">2024/8：日经五个交易日 −20%，全球风险资产共振</text>
+      <path d="M460 140 L460 166" stroke="#e8710a" stroke-width="1.8" stroke-dasharray="4 3" />
+    </svg>
+  </div>
+</Section>
+
+<Section alt id="amplifiers">
+  <SectionHead
+    kicker="05 · 放大层（上）"
+    title="期权 gamma：9.6 万亿美元到期后，盖子被掀开"
+    lead="很多反弹事后看像基本面驱动，拆到分钟级别却是交割与对冲盘机械推出来的。9 月 21 日这根大阳线，就有一半属于后者。"
+  />
+  <Prose>
+
+先补一个最基础的概念。期权是一份“未来可以按约定价格买或卖”的合约，投资者花钱买它，把风险转移给做市商。做市商收了这笔钱，不能干等，要在股票或期货市场做反向操作对冲，让自己无论涨跌都尽量不亏。麻烦在于，随着指数涨跌，他们需要对冲的量（叫 delta）一直在变，这种变化的速度就是 gamma。于是做市商被迫不断调整持仓，调整方向决定了他们是市场的减震器还是放大器。
+
+正 gamma 状态（指数在关键位上方）下，市场涨，手里的对冲量自动变多，他们要卖出压回去；市场跌，对冲量变少，他们要买回来补，客观上高抛低吸、削平波动。负 gamma 状态（跌破关键位）反过来，越跌越要卖、越涨越要追，把波动放大。SpotGamma 给的 9 月翻转线是标普 500 的 7,600 点：线上方全程正 gamma，线下方一直到 7,350 都是负 gamma。
+
+规模看两个口径。Citadel Securities 的 Scott Rubner 8 月 31 日测算，9 月 18 日到期期权名义本金约 9.6 万亿美元，约占全美存量 35%，约 6.2 万亿集中在到期当天。这个数字看着吓人，但其中大量是几乎注定作废的深度虚值合约和当天就平仓的当日期权，按真正需要股票对冲的量（delta 加权）算，SpotGamma 给出的数字约 2 万亿美元。前者告诉你管道有多粗，后者才是当天真要买卖的股票量。三巫日前，0DTE（当日到期期权）已占标普期权成交量约 63%，衡量恐慌的 VIX 在 11.5% 上下。
+
+期权到期意味着这批减震合约集中清零，SpotGamma 估计净负 gamma 从约 80 到 100 亿美元降到约 40 亿。于是周一的剧本顺了：盖子周五被掀开，周末又攒了油价跌、收益率回落两个利好，没了“一涨就被卖”的机械压制，买盘一把冲出去，纳指 +2.26%。同一套机制双向有效：跌破 7,600，它会朝下放大跌幅。BIS 还提示了同源的杠杆：美国单票杠杆 ETF 规模 2026 年已超 1,900 亿美元，挂钩三星、SK 海力士、美光三只存储股的杠杆产品从 2025 年中不到 1 亿美元涨到 2026 年 6 月峰值的 380 亿美元以上。这些产品同样要顺着行情追涨杀跌，6 月底韩国股市在去杠杆中暴跌、再把情绪传导到 A 股硬件链，机械根源就在这。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 250" class="block w-full" role="img" aria-label="正 gamma 压低波动，负 gamma 放大波动">
+      <rect x="0" y="0" width="920" height="250" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">正 gamma（7,600 上方）· 做市商高抛低吸</text>
+      <line x1="40" y1="92" x2="430" y2="92" stroke="#dedee3" stroke-width="1" stroke-dasharray="4 5" />
+      <polyline points="56,92 96,78 136,100 176,84 216,96 256,80 296,98 336,86 376,94 416,88" fill="none" stroke="#0066cc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M120 100 L120 120 M112 112 L120 120 L128 112" fill="none" stroke="#6e6e73" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M300 78 L300 58 M292 66 L300 58 L308 66" fill="none" stroke="#6e6e73" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="120" y="138" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">跌 → 机械买入</text>
+      <text x="300" y="52" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">涨 → 机械卖出</text>
+      <line x1="460" y1="24" x2="460" y2="226" stroke="#ececf0" stroke-width="1" />
+      <text x="496" y="40" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">负 gamma（7,600 下方）· 追涨杀跌</text>
+      <line x1="500" y1="140" x2="890" y2="140" stroke="#dedee3" stroke-width="1" stroke-dasharray="4 5" />
+      <polyline points="516,118 556,104 596,90 636,70 676,56 716,64 756,82 796,112 836,160 876,210" fill="none" stroke="#1d1d1f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M560 96 L560 76 M552 84 L560 76 L568 84" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M850 178 L850 198 M842 190 L850 198 L858 190" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="560" y="70" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">涨 → 追买</text>
+      <text x="852" y="216" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">跌 → 追杀</text>
+    </svg>
+  </div>
+</Section>
+
+<Section id="systematic">
+  <SectionHead
+    kicker="06 · 放大层（中）"
+    title="CTA、波动率控制与风险平价：1,630 亿美元的弹簧"
+    lead="比期权更大的一块机械仓位，是跟着波动率反向加减仓的系统化基金。它们不判断方向，只执行公式，因此方向一致时踩踏最整齐。"
+  />
+  <Prose>
+
+这三类基金名字不同，内核是同一条风控公式：先给组合设定一个波动率目标（比如每年波动不超过 10%），然后按市场实际波动反着调仓位。市场平静、波动小，就借钱加仓去够目标；市场一乱、波动放大，就机械减仓把风险压回目标线。CTA 跟着趋势做，风险平价在股债之间按风险分配资金，但在“波动上升就卖”这一点上动作完全一致。没有基金经理拍脑袋，是合同和模型在下单，所以一旦触发，所有人卖的方向一模一样。
+
+9 月这批资金处在极端位置。美国银行测算（经 CoinDesk 转述）：市场继续上涨时，它们手里只剩约 90 亿美元的加仓空间；一旦转向下跌，最多可能被动抛售约 1,630 亿美元股票，卖出对买入约 18 比 1。德意志银行数据显示，波动率控制基金的股票配置已经顶到历史 100 分位——该买的都买满了。美银 Hartnett 的牛熊指标从 2026 年 5 月起亮卖出信号，8 月初读到 9.7，是 2021 年以来最高。
+
+再叠一个时间因素就更危险：9 月是上市公司回购的季节性静默期，财报前不能自家买股，市场平时最大的内生买盘缺席。于是链条这样转起来：价格下跌，波动率抬头，模型减仓，价格再跌。期权做市商在标普 7,600 上方还能高抛低吸当缓冲，一旦跌破，gamma 的追杀会和这批系统基金的减仓叠加到同一个方向。这就是为什么 VIX 还在 11% 上下、表面很安静，下方的缓冲垫其实已经很薄。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="系统策略 18 比 1 的买卖不对称与去杠杆回路">
+      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">系统策略的剩余弹药 · 上涨可买 vs 下跌被迫卖（美银口径，十亿美元）</text>
+      {(() => {
+        const max = 163;
+        const rows = [["下跌时最多被动卖出", 163, "#1d1d1f", 90], ["上涨时剩余买入能力", 9, "#0066cc", 150]];
+        return rows.map((r) => {
+          const w = Math.max((r[1] / max) * 590, 8);
+          return (
+            <g>
+              <text x="262" y={r[3] + 4} font-size="11.5" fill="#424245" text-anchor="end" font-family="PingFang SC, sans-serif">{r[0]}</text>
+              <rect x="278" y={r[3] - 16} width={w} height="26" rx="6" fill={r[2]} />
+              <text x={286 + w} y={r[3] + 3} font-size="13" font-weight="600" fill={r[2]} font-family="ui-monospace, Menlo, monospace">{r[1] === 163 ? "1,630 亿" : "90 亿"}</text>
+            </g>
+          );
+        });
+      })()}
+      <text x="270" y="208" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">卖出 / 买入 ≈ 18 : 1，且波动率控制基金股票仓位已在历史 100 分位（德银）</text>
+      {[["价格下跌",330,246],["波动率上升",470,246],["模型减仓",610,246],["价格再跌",750,246]].map((b,i,a)=>(
+        <g>
+          <rect x={b[1]-58} y="228" width="116" height="34" rx="8" fill="#f5f5f7" stroke="#dedee3" />
+          <text x={b[1]} y="249" font-size="10.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[0]}</text>
+          {i<a.length-1 && <path d={`M${b[1]+62} 245 h12 m-6 -5 l6 5 -6 5`} fill="none" stroke="#86868b" stroke-width="1.4" />}
+        </g>
+      ))}
+      <path d="M808 262 C 808 284, 272 286, 272 264" fill="none" stroke="#86868b" stroke-width="1.3" stroke-dasharray="4 4" />
+    </svg>
+  </div>
+</Section>
+
+<Section alt id="basis-trade">
+  <SectionHead
+    kicker="07 · 放大层（下）"
+    title="国债基差交易：4 万亿敞口压在 3 万亿回购上"
+    lead="最深、最不透明的杠杆在国债市场。它平时提供流动性，一旦回购融资收紧，就是 2019 年钱荒和 2020 年 3 月美债抛售的同款引信。"
+  />
+  <Prose>
+
+先解释这台机器最底层的零件：回购。回购（repo）就是一笔以国债作抵押的短期贷款：对冲基金把手里的国债押出去，隔夜或几天之内融进一笔现金，到期还本付息、赎回债券。这类贷款的利率基准就是 SOFR。因为有国债抵押，这笔钱平时很便宜，基金于是敢借很多倍。理解了回购，才看得懂下面这笔交易为什么既普遍又脆弱。
+
+规模先摆清楚。美联储 2026 年 6 月的研究估算，截至 2025 年 9 月，大型对冲基金的美国国债总敞口约 4.0 万亿美元（多头 2.4 万亿、空头 1.6 万亿），占全部国债的比重从约 4.5% 升到 8.5%；支撑这些头寸的回购借款约 3.0 万亿美元，且高度集中在最大的 50 家基金手里。OFR 8 月用另一套口径得出对冲基金现券持仓约 2 万亿美元、占市场创纪录的 7%。
+
+最核心的是现券-期货基差交易，操作分三步。第一步，用回购借来的钱买入真国债（现券）。第二步，同时在期货市场卖出等额的国债期货，把利率涨跌风险基本对冲掉。这样一来，利率涨跌基本与它无关，它只赚现券和期货之间那点很小的价差（basis）。第三步，因为价差太薄，靠回购把杠杆加到几十倍，薄利乘以高杠杆才划算。联储估算这笔交易 2025 年 9 月已约 8,300 亿美元，约为 2020 年初上一个峰值的两倍，占对冲基金国债多头的 35%；同类的互换利差套利约 3,050 亿美元。
+
+风险藏在杠杆里。平时这套结构很稳，可一旦国债价格下跌，抵押品跟着贬值，借钱给基金的银行会要求补保证金（margin call）。基金只能卖出国债现券还债，卖压把价格压得更低、抵押品更不值钱，于是被要求补更多保证金，再卖一轮。2020 年 3 月“抢现金”时，正是这类基差盘被强平，把最安全的国债都一起砸了，最后美联储无限量接盘才止住；2019 年 9 月回购利率一夜失控，也是这个短端融资市场出了问题，美联储临时放水收场。
+
+离现在最近的一次小断裂在 2025 年 4 月：关税公告冲击下，约 600 亿美元的互换利差套利头寸被快速强平，几个月才修复。2026 年又多了个新变量。金融时报 3 月的流动性压力测试指出，AI 军备竞赛让科技巨头从回购市场的资金净供给方（过去把闲置现金买货基、拆给回购市场）变成消耗方和发债主体——钱抽去建数据中心，同时大规模发投资级债，和国债争抢同一批买家。财政发债、科技撤资、基差加杠杆三件事叠在一起，SOFR 一旦异常跳升，就可能点燃上面那条螺旋。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 360" class="block w-full" role="img" aria-label="基差交易的三步建仓与保证金螺旋">
+      <rect x="0" y="0" width="920" height="360" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">建仓三步：用回购借钱，买现券、空期货，靠杠杆赚薄价差</text>
+      {[
+        ["① 回购借钱","以国债抵押，隔夜借现金（利率 SOFR）",70],
+        ["② 买现券 + 空期货","对冲利率方向，只赚现券与期货的基差",350],
+        ["③ 高杠杆放大","价差很薄，用回购加到数十倍才划算",630],
+      ].map((b,i)=>(
+        <g>
+          <rect x={b[2]} y="58" width="220" height="74" rx="12" fill={i===2?"#1d1d1f":"#f5f5f7"} />
+          <text x={b[2]+110} y="88" font-size="13" font-weight="600" fill={i===2?"#f5f5f7":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b[1]}</text>
+          <text x={b[2]+110} y="112" font-size="10.5" fill={i===2?"#a1a1a6":"#6e6e73"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b[2]}</text>
+          {i<2 && <path d={`M${b[2]+228} 95 h18 m-8 -7 l8 7 -8 7`} fill="none" stroke="#86868b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />}
+        </g>
+      ))}
+
+      <text x="36" y="178" font-size="12" font-weight="600" letter-spacing="1.2" fill="#e8710a" font-family="PingFang SC, sans-serif">去杠杆螺旋：一旦价格下跌，所有人被迫朝同一方向卖</text>
+      {[
+        ["国债价格下跌","抵押品贬值",36],
+        ["银行要求补保证金","margin call",252],
+        ["被迫卖现券还债","抛压压低价格",468],
+        ["抵押品更不值钱","再被追保，再卖",684],
+      ].map((b,i)=>(
+        <g>
+          <rect x={b[2]} y="212" width="172" height="60" rx="10" fill="#fff" stroke="#e8710a" stroke-width="1.4" />
+          <text x={b[2]+86} y="238" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[0]}</text>
+          <text x={b[2]+86} y="258" font-size="9.8" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{b[1]}</text>
+          {i<3 && <path d={`M${b[2]+180} 242 h16 m-7 -6 l7 6 -7 6`} fill="none" stroke="#e8710a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />}
+        </g>
+      ))}
+      <path d="M770 278 C 770 312, 122 330, 122 278" fill="none" stroke="#e8710a" stroke-width="1.4" stroke-dasharray="5 4" stroke-linecap="round" />
+      <text x="460" y="330" font-size="10.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">循环自我强化 · 2020/3 与 2019/9 都靠央行临时进场才打断</text>
+    </svg>
+  </div>
+</Section>
+
+<Section id="credit-canary">
+  <SectionHead
+    kicker="08 · 第三环"
+    title="CDS 与一级市场：信用已经先投了不信任票"
+    lead="股票在新高，信用市场往往更早说实话。这一次，AI 龙头的保费在变贵，数据中心公司在一级市场发不出想要的价格。"
+  />
+  <Prose>
+
+CDS（信用违约互换）说白了就是一份公司债的违约保险。你手里有某家公司发的债，怕它还不上，就每年付一笔保费给愿意兜底的人；公司真违约了，对方赔你本金。保费（市场叫利差）越贵，说明越多的人愿意花钱买这份保险，也就是越担心这笔债出事。所以 CDS 价格是债主用真金白银投的不信任票，往往比股票更早转向。
+
+这次先转向的恰恰是 AI 龙头。BIS 9 月评论记录：2026 年夏天以来，超大规模云厂商和半导体厂商的 CDS 利差悄悄走阔，而标普 500 其余成分股的 CDS 基本横着走。也就是说，股票还在新高附近时，借钱给 AI 军备竞赛的人已经开始给这笔债多上保险，理由是这些公司债发得太猛、利润率能不能持续存疑。
+
+信用市场内部还在分层。BIS 称总体利差仍在历史低位附近，但大科技拼命发长久期债券撑住了高评级（投资级）的供给；低评级的高收益债、杠杆贷款发行明显放缓，私募信贷继续低迷、还在承受赎回和估值压力。钱继续涌向最优质的名字，对资质差的借钱人悄悄关门。
+
+一级市场把这件事说得更直白。财联社 9 月 22 日报道，软银旗下、要在俄亥俄建超大数据中心的 SB Energy，想以 500 亿美元估值上市，却在价格区间里凑不齐买家，发行推迟；监管文件显示英伟达同意以发行价九折追加投资到合计 30 亿美元。同周，给数据中心供电的核电公司 Holtec 无限期暂停 IPO，电力公司 Aggreko 也推迟上市。二级市场靠在手订单和 43% 的 Azure 增速撑估值，一级市场的基础设施供应商已经卖不出想要的价，这是同一场繁荣的两张面孔。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 290" class="block w-full" role="img" aria-label="AI 龙头 CDS 走阔而大盘稳定、信用分层示意">
+      <rect x="0" y="0" width="920" height="290" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">左：CDS 利差方向（示意）· 右：各信用层级 2026 年发行冷热</text>
+
+      <text x="190" y="66" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年夏 → 9 月</text>
+      <line x1="60" y1="200" x2="320" y2="200" stroke="#dedee3" stroke-width="1.2" />
+      <polyline points="70,150 130,148 190,138 250,120 310,104" fill="none" stroke="#e8710a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="316" y="100" font-size="10.5" font-weight="600" fill="#e8710a" text-anchor="end" font-family="PingFang SC, sans-serif">云厂商 / 半导体 CDS 上行</text>
+      <polyline points="70,178 130,176 190,177 250,174 310,176" fill="none" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="316" y="180" font-size="10.5" fill="#6e6e73" text-anchor="end" font-family="PingFang SC, sans-serif">标普其余成分股 CDS 基本走平</text>
+      <text x="60" y="252" font-size="10" fill="#86868b" font-family="PingFang SC, sans-serif">口径：BIS 季度评论 2026/9；走势为示意，非逐日数值</text>
+
+      <line x1="380" y1="80" x2="380" y2="246" stroke="#ececf0" stroke-width="1" />
+      <text x="655" y="66" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年发行冷热（条越长 = 发行越热）</text>
+      {[
+        ["投资级（大科技长债）","发行增长 · 撑住供给",80,440,"#0066cc"],
+        ["高收益债 / 杠杆贷款","发行明显放缓",124,160,"#1d1d1f"],
+        ["私募信贷","低迷 · 赎回与估值压力",168,120,"#1d1d1f"],
+        ["数据中心股权 IPO","SB Energy / Holtec 撤价",212,270,"#e8710a"],
+      ].map((r)=>{
+        const inside = r[3] >= 200;
+        return (
+          <g>
+            <text x="410" y={r[2]-8} font-size="11.5" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{r[0]}</text>
+            <rect x="410" y={r[2]} width={r[3]} height="18" rx="5" fill={r[4]} opacity={r[4]==="#0066cc"?0.9:0.55} />
+            <text x={inside ? 410+r[3]-10 : 410+r[3]+8} y={r[2]+13.5} font-size="10" fill={inside ? "#fff" : "#6e6e73"} text-anchor={inside ? "end" : "start"} font-family="PingFang SC, sans-serif">{r[1]}</text>
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+</Section>
+
+<Section alt id="ai-loop">
+  <SectionHead
+    kicker="09 · 反向的力量"
+    title="盈利引擎：一美元 AI 资本开支怎么转一圈回来"
+    lead="杠杆和信用之所以没有立刻出事，是因为基本面暂时接得住。这是机器上唯一一股向上的力量，也是多空分歧的核心。"
+  />
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 订单",
+        title: "钱先变成云厂商手里的订单",
+        body: "摩根大通 CEO 戴蒙给出路径：以超大规模云厂商为中心的 AI 投资，2025 年约 3,000 亿美元、2026 年约 7,000 亿、2027 年到 1 万亿。头部云厂二季度云收入同比约增 48%，在手订单与剩余履约义务接近 1.7 万亿美元，相当一部分支出有合同垫底。",
+      },
+      {
+        tag: "02 · 芯片与存储",
+        title: "订单压向英伟达、台积电，也压向存储厂",
+        body: "英伟达截至 7 月 26 日的季度数据中心收入 890 亿美元，同比增 117%。三星、SK 海力士把大量产能转去做 HBM，挤压普通 DRAM/NAND。TrendForce 显示 2026Q2 DRAM 合约价环比涨 58%–63%，近十五年最大单季涨幅；美光称新增供给要到 2028 年才爬坡。",
+      },
+      {
+        tag: "03 · 基建与中国制造",
+        title: "算力还要电、网络、光模块和服务器",
+        body: "数据中心不是只有 GPU：交换机、液冷、供电、光模块一个都不能少。A 股的中际旭创、新易盛、天孚通信、沪电股份、工业富联本就供货全球云厂，美股 AI 资本开支的订单有一部分直接折算成这些公司的出口收入。",
+      },
+      {
+        tag: "04 · 应用",
+        title: "智能体开始真的消耗算力",
+        body: "Meta 9 月 8 日上线的智能体 Muse 可购物、排程，并在独立云虚拟机上常驻运行。Sensor Tower 统计其上线约五天下载 73 万次、登顶美区榜单。常驻云端的智能体吃 CPU、内存和存储，英特尔称目前只能满足前沿客户约一半的 CPU 需求。",
+      },
+      {
+        tag: "05 · 收入",
+        title: "钱从云收入里赚回来，循环被验证了一半",
+        body: "微软 FY26Q4 Azure 增 43%，全年 Azure 收入首破 1,000 亿美元，Copilot 付费席位超 3,000 万；英伟达下季度指引 1,080 亿美元（不含中国大陆及香港数据中心计算收入）。市场赌这一圈真能转起来。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 01 · ORDERS</text>
+      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">云厂商签单</text>
+      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="178" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">≈ 1.7 万亿美元</text>
+      <text x="230" y="206" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">头部云厂在手订单 / 剩余履约义务</text>
+      <text x="230" y="228" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">摩根大通 2026/9 · 二季度云收入同比 +48%</text>
+      <line x1="84" y1="330" x2="146" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="162" y1="330" x2="224" y2="330" stroke="#dedee3" stroke-width="2" />
+      <line x1="240" y1="330" x2="302" y2="330" stroke="#dedee3" stroke-width="2" />
+      <line x1="318" y1="330" x2="380" y2="330" stroke="#dedee3" stroke-width="2" />
+      {[["订单",84,1],["芯片",162,0],["基建",240,0],["应用",318,0],["收入",396,0]].map((n) => (
+        <g>
+          <circle cx={n[1]} cy="330" r="12" fill={n[2] ? "#0066cc" : "#fff"} stroke={n[2] ? "#0066cc" : "#86868b"} stroke-width="1.5" />
+          <text x={n[1]} y="372" font-size="10.5" fill={n[2] ? "#1d1d1f" : "#86868b"} text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+        </g>
+      ))}
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 02 · CHIPS</text>
+      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">芯片与存储</text>
+      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="178" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">+58%–63%</text>
+      <text x="230" y="206" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">2026Q2 DRAM 合约价环比，近十五年最大</text>
+      <text x="230" y="228" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">TrendForce · 英伟达数据中心季收 890 亿，+117%</text>
+      <line x1="84" y1="330" x2="146" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="162" y1="330" x2="224" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="240" y1="330" x2="302" y2="330" stroke="#dedee3" stroke-width="2" />
+      <line x1="318" y1="330" x2="380" y2="330" stroke="#dedee3" stroke-width="2" />
+      {[["订单",84,1],["芯片",162,1],["基建",240,0],["应用",318,0],["收入",396,0]].map((n) => (
+        <g>
+          <circle cx={n[1]} cy="330" r="12" fill={n[2] ? "#0066cc" : "#fff"} stroke={n[2] ? "#0066cc" : "#86868b"} stroke-width="1.5" />
+          <text x={n[1]} y="372" font-size="10.5" fill={n[2] ? "#1d1d1f" : "#86868b"} text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+        </g>
+      ))}
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 03 · INFRA</text>
+      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">基建与中国制造</text>
+      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="172" font-size="16" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">光模块 · PCB · 服务器 · 液冷</text>
+      <text x="230" y="200" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">A 股供应链直接进入全球云厂采购单</text>
+      <text x="230" y="222" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">中际旭创 / 新易盛 / 天孚 / 沪电 / 工业富联</text>
+      <line x1="84" y1="330" x2="146" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="162" y1="330" x2="224" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="240" y1="330" x2="302" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="318" y1="330" x2="380" y2="330" stroke="#dedee3" stroke-width="2" />
+      {[["订单",84,1],["芯片",162,1],["基建",240,1],["应用",318,0],["收入",396,0]].map((n) => (
+        <g>
+          <circle cx={n[1]} cy="330" r="12" fill={n[2] ? "#0066cc" : "#fff"} stroke={n[2] ? "#0066cc" : "#86868b"} stroke-width="1.5" />
+          <text x={n[1]} y="372" font-size="10.5" fill={n[2] ? "#1d1d1f" : "#86868b"} text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+        </g>
+      ))}
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 04 · AGENTS</text>
+      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">智能体消耗算力</text>
+      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="178" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">73 万次</text>
+      <text x="230" y="206" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">Meta Muse 上线约五天下载量，登顶美区</text>
+      <text x="230" y="228" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">Sensor Tower（TradingKey 转引）· 常驻云端运行</text>
+      <line x1="84" y1="330" x2="146" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="162" y1="330" x2="224" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="240" y1="330" x2="302" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="318" y1="330" x2="380" y2="330" stroke="#0066cc" stroke-width="2" />
+      {[["订单",84,1],["芯片",162,1],["基建",240,1],["应用",318,1],["收入",396,0]].map((n) => (
+        <g>
+          <circle cx={n[1]} cy="330" r="12" fill={n[2] ? "#0066cc" : "#fff"} stroke={n[2] ? "#0066cc" : "#86868b"} stroke-width="1.5" />
+          <text x={n[1]} y="372" font-size="10.5" fill={n[2] ? "#1d1d1f" : "#86868b"} text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+        </g>
+      ))}
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 05 · REVENUE</text>
+      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">云收入回流</text>
+      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="176" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Azure +43%</text>
+      <text x="230" y="202" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">微软 FY26Q4 增速；Azure 全年首破千亿美元</text>
+      <text x="230" y="224" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">Copilot 超 3,000 万席 · 英伟达 Q3 指引 1,080 亿</text>
+      <line x1="84" y1="330" x2="146" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="162" y1="330" x2="224" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="240" y1="330" x2="302" y2="330" stroke="#0066cc" stroke-width="2" />
+      <line x1="318" y1="330" x2="380" y2="330" stroke="#0066cc" stroke-width="2" />
+      {[["订单",84,1],["芯片",162,1],["基建",240,1],["应用",318,1],["收入",396,1]].map((n) => (
+        <g>
+          <circle cx={n[1]} cy="330" r="12" fill={n[2] ? "#0066cc" : "#fff"} stroke={n[2] ? "#0066cc" : "#86868b"} stroke-width="1.5" />
+          <text x={n[1]} y="372" font-size="10.5" fill={n[2] ? "#1d1d1f" : "#86868b"} text-anchor="middle" font-family="PingFang SC, sans-serif">{n[0]}</text>
+        </g>
+      ))}
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section id="thermometers">
+  <SectionHead
+    kicker="10 · 两个温度计"
+    title="黄金与比特币：这一轮钱的两种表情"
+    lead="同样的宏观，在两类资产上读出不同的信息。一个是慢变量的保险，一个是风险偏好的放大镜。"
+  />
+  <Prose>
+
+9 月 21 日的纽约时段是一次干净的跨资产同向：标普 +1.49%、10 年期收益率回落到约 4.96%、美元指数持平在 100.43，比特币单日涨 7.51%、收约 87,241 美元，日内从 80,528 拉到 87,373，约 6.48 亿美元空头被逼平，是年内最大单日涨幅之一。加密在“钱变便宜、股票被买”时跟得最猛，它是这台机器风险偏好最敏感的末梢。拉长看，2026 年以来比特币仍是负收益（StatMuse 口径约 −20.8%），所以这一根更像久跌后的反弹，谈不上趋势确认。
+
+黄金走的是另一条时间轴。年初一度接近 5,600 美元，投机盘把“做多黄金”挤成最拥挤交易之一，3 月全球黄金 ETF 单月净流出 120 亿美元创纪录，金价跌破 4,000；8 月回到 4,400 上方，9 月 22 日 COMEX 收 4,396.20 美元（当日仅 +0.28%）。托底的是央行：二季度全球净购金 289 吨、同比 +62%，中国连续 21 个月增持，欧洲央行报告称黄金已超过美国国债成为全球官方储备第一大资产。它不生息，10 年期在 5% 附近时持有成本高，所以这轮没跟股票冲；它买的是更慢的变量，美元信用和储备多元化。
+
+两个温度计一起读：9 月 21、22 日主导市场的是风险偏好的钱（比特币冲、股票新高），避险的钱按兵不动（黄金安静）。一旦某天黄金和比特币同时被抢、股票被抛，才是机器从“风险偏好”切到“流动性恐慌”的信号。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="2026 年黄金深 V 与比特币 9 月 21 日单日表现">
+      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+
+      <text x="36" y="36" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">黄金：2026 年深 V（美元/盎司，关键点位，非逐日日线）</text>
+      <line x1="60" y1="210" x2="440" y2="210" stroke="#ececf0" stroke-width="1" stroke-dasharray="4 5" />
+      <line x1="60" y1="110" x2="440" y2="110" stroke="#ececf0" stroke-width="1" stroke-dasharray="4 5" />
+      <text x="50" y="114" font-size="9.5" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">5,000+</text>
+      <text x="50" y="214" font-size="9.5" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">4,000</text>
+      <polyline points="80,150 150,72 220,120 270,228 330,200 380,128 430,138" fill="none" stroke="#1d1d1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="150" cy="72" r="4.5" fill="#1d1d1f" />
+      <circle cx="270" cy="228" r="4.5" fill="#e8710a" />
+      <circle cx="430" cy="138" r="4.5" fill="#0066cc" />
+      <text x="150" y="60" font-size="10" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">年初近 5,600</text>
+      <text x="270" y="250" font-size="9.8" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">3 月 ETF 流出 120 亿，跌破 4,000</text>
+      <text x="424" y="124" font-size="9.8" fill="#0066cc" text-anchor="end" font-family="PingFang SC, sans-serif">9/22 收 4,396.20</text>
+
+      <line x1="470" y1="56" x2="470" y2="256" stroke="#ececf0" stroke-width="1" />
+      <text x="494" y="36" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">比特币：风险偏好的放大镜</text>
+      <line x1="510" y1="200" x2="880" y2="200" stroke="#ececf0" stroke-width="1" />
+      <line x1="510" y1="200" x2="510" y2="90" stroke="#c7c7cc" stroke-width="1.4" />
+      <rect x="560" y="104" width="90" height="96" rx="6" fill="#0066cc" />
+      <text x="605" y="92" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">+7.51%</text>
+      <text x="605" y="222" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">9/21 单日</text>
+      <rect x="720" y="150" width="90" height="50" rx="6" fill="#86868b" opacity="0.55" />
+      <text x="765" y="142" font-size="12" font-weight="600" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">−20.8%</text>
+      <text x="765" y="222" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年初至当时</text>
+      <text x="695" y="250" font-size="9.8" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">日内 80,528→87,373 美元，约 6.48 亿空头被逼平</text>
+    </svg>
+  </div>
+</Section>
+
+<Section alt id="playbook">
+  <SectionHead
+    kicker="11 · 历史剧本"
+    title="同一张网，七年断过六次"
+    lead="2026 年 9 月这种“表面平静、底下高杠杆”的组合并不新鲜。每一次断裂，卡住的都是传动图里的同一个齿轮，区别只在引信。"
+  />
+  <Timeline
+    vertical
+    nodes={[
+      {
+        year: "2019/9",
+        title: "美国回购市场钱荒：SOFR 一夜冲高，美联储紧急放水",
+        body: "缩表导致银行准备金不足，季末缴税与发债抽走流动性，隔夜回购利率失控。断裂点：短端融资。对应今天 3 万亿对冲基金回购借款。",
+      },
+      {
+        year: "2020/3",
+        title: "抢现金：连美债都被抛售，美联储无限量接盘",
+        body: "疫情冲击下基金赎回，投资者把最安全的国债也卖掉换现金，现券-期货基差交易被强平放大跌幅。断裂点：国债流动性与基差杠杆。",
+      },
+      {
+        year: "2022/9",
+        title: "英国 LDI 危机：养老金杠杆引爆国债，英央行紧急购债",
+        body: "利率快速上行击穿负债驱动投资策略（LDI）的保证金，被迫抛售金边债券形成螺旋。断裂点：长久期资产＋利率衍生品杠杆。",
+      },
+      {
+        year: "2024/8",
+        title: "日元套息平仓：日经五个交易日跌约 20%",
+        body: "日本加息预期压薄利差，套息盘集中平仓，全球风险资产共振。断裂点：日元套息。这正是 2026 年 9 月那条缝的上一次发作。",
+      },
+      {
+        year: "2025/4",
+        title: "关税冲击：约 600 亿美元互换利差套利被强平",
+        body: "联储记录，国债相对价值头寸在公告后快速去杠杆，数月才修复。断裂点：互换利差与相对价值杠杆。",
+      },
+      {
+        year: "2026 夏",
+        title: "韩国存储股去杠杆＋一只 AI 对冲基金清盘",
+        body: "挂钩三星、SK 海力士的杠杆产品一年内从不到 1 亿涨到 380 亿美元，反转时韩国市场剧震并传导 A 股硬件；7 月一只高杠杆 AI 基金被强平（BIS 记录）。断裂点：单票杠杆 ETF＋个股杠杆。",
+      },
+    ]}
+  />
+  <Prose>
+
+六次断裂的共同点很清楚：资产本身没出问题，出问题的是为持有资产加的杠杆，以及被合同逼着顺着行情交易的机械仓位。引信各不相同（准备金、疫情、预算案、加息、关税、个股波动），但一旦价格越过某个阈值，保证金机制把所有人变成同一方向的卖家。2026 年 9 月这台机器同时具备其中多条引信的条件：创纪录的期权到期、100 分位的系统仓位、两倍于 2020 峰值的基差交易、5% 附近的长端利率、随时可能再被压薄的日元利差。这就是指数新高与脆弱性可以并存的原因。
+
+</Prose>
+</Section>
+
+<Section id="scenarios">
+  <SectionHead
+    kicker="12 · 情景推演"
+    title="下一张多米诺：先盯位置，再谈观点"
+    lead="把传动图倒过来用作监测清单。每个节点都有一个可观察的阈值，越过它，机器的方向就会变。"
+  />
+  <Steps
+    steps={[
+      { title: "长端利率定贴现率", body: "10 年期美债稳在 5% 下方、油价不过 100 美元，成长股就有空间；站稳 5%，全球高久期资产同步承压。" },
+      { title: "美元与日元定全球水位", body: "利差维持则套息盘继续养着风险资产；日本再加息或财务省干预，5,000 亿到 1.1 万亿美元的头寸可能被迫平仓。" },
+      { title: "gamma 与系统仓位定波动", body: "标普守在 7,600 上方正 gamma 压波动；跌破进入负 gamma，CTA/风险平价的 1,630 亿潜在抛压会与做市商追杀叠加。" },
+      { title: "回购与基差定国债流动性", body: "盯 SOFR 是否异常跳升、2 年期及长债拍卖是否持续尾部；基差盘一旦去杠杆，会重演现券被抛售、收益率失控的剧本。" },
+      { title: "信用与盈利定扩张能否持续", body: "CDS 若从 AI 龙头扩散到大盘、高收益与私募信贷冻结、Q3 云收入不及指引，盈利和估值会同时承压。" },
+    ]}
+  />
+  <CompareTable
+    caption="两套剧本与触发条件（用于事先准备，不构成点位预测）"
+    headers={[{ label: "节点" }, { label: "剧本 A · 行情延续" }, { label: "剧本 B · 杠杆出清" }]}
+    rows={[
+      ["10 年期美债 / 油价", "10Y 稳在 5% 下方，油不过 100 美元", "10Y 重新站稳 5%，通胀再超预期"],
+      ["标普 500", "守 7,600，正 gamma 压波动", "破 7,600 进负 gamma，7,350 前无支撑"],
+      ["日元 / 套息", "利差维持，美元兑日元高位震荡", "干预或日本再加息，套息盘被迫平仓"],
+      ["回购 / 基差", "SOFR 平稳，拍卖需求恢复", "SOFR 跳升、拍卖连续尾部，基差盘强平"],
+      ["信用 / 一级市场", "投资级发债顺畅，CDS 不再走阔", "CDS 扩散大盘，高收益/私募信贷冻结"],
+      ["市场宽度", "等权重补涨，赎回止血", "龙头补跌、RSP 继续走弱，18:1 抛压启动"],
+      ["A 股", "硬件链有业绩则跟涨，指数看国内", "海外负反馈压高久期资产，护盘资金限制下行"],
+    ]}
+  />
+</Section>
+
+<Section alt id="ashare">
+  <SectionHead
+    kicker="13 · A 股"
+    title="挂在传动带末端：指数背离，订单不背离"
+    lead="这台美国主导的机器对 A 股没有直接拉动，传导走的是三根弹性不同的传动带。先看同一周两个市场的真实温差。"
+  />
+  <CompareTable
+    caption="同一周的两个市场（美股截至 9/22 收盘，A 股为 9/23 收盘）"
+    headers={[{ label: "对比项" }, { label: "美国 / 纳斯达克" }, { label: "中国 A 股" }]}
+    rows={[
+      ["指数", "连续两日收盘新高，纳指 27,244.28", "沪指 −0.39% 报 3,936.52，成交 1.78 万亿"],
+      ["距年内高点", "收盘即历史新高", "距 5 月高点 4,258.86 约差 8%"],
+      ["货币政策", "加息至 3.75%–4%", "LPR 16 个月不动，7 天逆回购 1.4%"],
+      ["10 年期国债", "约 4.96%（一度破 5%）", "约 1.7%"],
+      ["通胀", "8 月 CPI 约 3.4%", "8 月 CPI 0.8%"],
+      ["资金情绪", "年内第 21 次新高", "国庆前缩量观望"],
+    ]}
+  />
+  <Prose>
+
+BIS 在新兴市场章节里把中国单独点了名：评估期内新兴市场股市普遍跑赢发达市场、信用利差收窄，“中国是例外，跌了近 3%”，原因是风险偏好降温、内需放缓和地产疲软。A 股自己的节奏是：科技行情 3 月底启动，上证 5 月见 4,258.86；6 月底韩国去杠杆经全球科技股传导，7 月 17 日收到 3,764.15（距高点 −11.6%），7 月 20 日“国家队”进场、单周围护宽基 ETF 超千亿元；到 9 月 22 日的 60 个交易日，创业板指仍跌 19.59%、科创 50 跌 18.68%（市场统计口径）。
+
+</Prose>
+
+  <div class="not-prose my-2 chart-scroll">
+    <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="2026 年 5 月到 9 月纳指与上证指数走势背离">
+      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">两条指数，两种节奏（2026 年 5 月 → 9 月，关键点位连线，非逐日）</text>
+      <line x1="70" y1="210" x2="870" y2="210" stroke="#ececf0" stroke-width="1" />
+      {[["5 月",150],["7 月中",420],["9/22",770]].map((t,i)=>(
+        <g>
+          <line x1={t[1]} y1="70" x2={t[1]} y2={i===1?214:232} stroke="#ececf0" stroke-width="1" stroke-dasharray="3 4" />
+          <text x={t[1]} y="252" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{t[0]}</text>
+        </g>
+      ))}
+      <polyline points="150,150 420,196 770,86" fill="none" stroke="#0066cc" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="150" cy="150" r="5" fill="#0066cc" /><circle cx="420" cy="196" r="5" fill="#0066cc" /><circle cx="770" cy="86" r="5.5" fill="#0066cc" />
+      <text x="770" y="72" font-size="11.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">纳指 27,244（新高）</text>
+      <polyline points="150,96 420,200 770,176" fill="none" stroke="#86868b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="150" cy="96" r="5" fill="#1d1d1f" /><circle cx="420" cy="200" r="5" fill="#e8710a" /><circle cx="770" cy="176" r="5" fill="#1d1d1f" />
+      <text x="150" y="84" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">上证 4,258.86（高点）</text>
+      <text x="420" y="232" font-size="10.5" text-anchor="middle" font-family="PingFang SC, sans-serif"><tspan font-weight="600" fill="#e8710a">3,764.15（−11.6%）</tspan><tspan fill="#6e6e73"> · 两条指数同在此处盘整</tspan></text>
+      <text x="770" y="162" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">9/23 报 3,936.52</text>
+      <rect x="650" y="262" width="14" height="3" fill="#0066cc" /><text x="672" y="267" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">纳斯达克</text>
+      <rect x="740" y="262" width="14" height="3" fill="#86868b" /><text x="762" y="267" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">上证指数</text>
+    </svg>
+  </div>
+
+  <Prose>
+
+两根指数可以背离，生意和资金没有。纳指这轮行情和 A 股之间，连着三根弹性不同的传动带。最直接、最快的是产业链订单：光模块（中际旭创、新易盛、天孚）、PCB（沪电）、服务器（工业富联）直接吃全球云厂资本开支，9 月 16–18 日 A 股半导体主力资金三天净流入超 271 亿元、居全行业第一，江波龙上半年营收增 136%，长鑫科技 7 月上市开盘市值 3.31 万亿、单日成交 1,411 亿。这条带双向有效，6 月韩国去杠杆冲击 A 股硬件就是反例。
+
+第二根是汇率与利差。中美周期反向（美国 CPI 3% 以上在加息，中国 CPI 0.8%、7 天逆回购 1.4%，东方金诚甚至预期后续降息 10bp、降准 0.5 个百分点），人民币却在升值：在岸从去年末 6.989 升到 9 月初 6.7218、年内 +3.82%，靠的是出口、结汇和美元回调。这是中期配置的底色，带不来第二天的跟涨。第三根是全球风险偏好，gamma、套息、VIX 决定短期波动环境，但 A 股开关更多在自己手里：国庆资金习惯、7 月大跌后的疤痕效应、11 月到期的贸易安排。
+
+</Prose>
+  <StatGrid cols={4}>
+    <Stat value="4,258.86" label="上证 2026 年 5 月高点" />
+    <Stat value="3,764.15" label="7/17 收盘，回撤 −11.6%" />
+    <Stat value="271 亿+" unit="元" label="9/16–18 半导体主力资金净流入，全行业第一" />
+    <Stat value="+3.82%" count={3.82} countSuffix="%" countDecimals={2} label="在岸人民币年内升值幅度" />
+  </StatGrid>
+</Section>
+
+<Summary
+  takeaways={[
+    {
+      title: "新高是一台机器暂时同向的结果，不只是盈利",
+      conclusion: "盈利是地基（890 亿数据中心季收、43% 的 Azure 增速、1.7 万亿在手订单），但 9 月 21 日的 +2.26% 是 9.6 万亿美元期权到期、正 gamma 压制消失后放出来的，同一天油价下跌松开了 5% 的长端利率，比特币 +7.5% 确认风险偏好全面回归。",
+      detail: "这台机器的引信都在：100 分位的系统仓位（18:1 的抛买比）、两倍于 2020 峰值的国债基差交易、走阔的 AI 龙头 CDS、撤价的数据中心 IPO、随时可能再被压薄的日元利差。",
+    },
+    {
+      title: "盯传动节点，比盯指数点位有用",
+      conclusion: "总闸门是 10 年期美债（5%），放大器在标普 7,600 的 gamma 翻转线、CTA/风险平价的被动减仓、回购市场的基差杠杆，外部火药桶是美元兑日元的干预线。历史上 2019、2020、2022、2024、2025 的五次断裂，卡住的都是同一批机械仓位。",
+      detail: "确认恐慌而非普通回调的信号：黄金与比特币同时被抢、SOFR 异常跳升、CDS 从 AI 龙头扩散到大盘、等权重指数继续跑输而系统基金开始卖。",
+    },
+    {
+      title: "纳指点位带不动 A 股，带动它的是订单和国内流动性",
+      conclusion: "光模块、PCB、存储、服务器在全球 AI 投资里赚到了钱，中报和长鑫上市都在验证；但上证的方向由国内 1.4% 的利率、估值位置和政策节奏决定，BIS 也把中国列为新兴市场里的少数例外。27,000 点的 FOMO 与 3,900 点的缩量可以同周并存。",
+      detail: "往后看三个实在变量：Q3 财报能否兑现硬件链盈利、人民币能否稳住、国内降息降准何时落地；外部变量是 11 月到期贸易安排的去向。",
+    },
+  ]}
+  note="口径说明：行情截至 2026 年 9 月 23 日收盘（美股美东 9/22、A 股北京 9/23），点位取自各国央行、交易所、新华财经/中新经纬/新华社；杠杆与仓位数据以美联储 FEDS Notes、OFR、BIS 2026 年 9 月季度评论、美银/德银/Citadel/SpotGamma 测算为准，并区分名义与 delta 加权口径；套息规模、CME 加息概率、60 日指数跌幅等为单一机构或市场统计，文中已分别标注。历史危机（2019/2020/2022）为公开史实的概要复盘。本文为公开资料研究，不构成投资建议。"
+/>
