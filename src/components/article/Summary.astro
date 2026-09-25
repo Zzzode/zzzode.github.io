@@ -29,7 +29,7 @@ const { takeaways, note, surface = 'paper' } = Astro.props;
           <h3 class="flex items-center gap-2.5 text-[15px] font-semibold text-ink">
             <span
               class:list={[
-                'inline-block h-2 w-2 rounded-full',
+                'inline-block h-2 w-2 shrink-0 rounded-full',
                 (t.dot ?? 'neutral') === 'a'
                   ? 'bg-blue'
                   : t.dot === 'b'

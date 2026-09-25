@@ -23,8 +23,10 @@ const isBand = (i: Item): i is ScheduleBand => 'band' in i;
 
 interface Props {
   items: Item[];
+  /** borderless white tiles on the canvas gray field */
+  tile?: boolean;
 }
-const { items } = Astro.props;
+const { items, tile = false } = Astro.props;
 ---
 
 <ol class="not-prose">
@@ -48,7 +50,12 @@ const { items } = Astro.props;
             <span class="relative mt-[21px] h-[9px] w-[9px] shrink-0 rounded-full border-[3px] border-blue bg-white" />
           </div>
           <div class="pb-3">
-            <div class="rounded-2xl border border-line-soft bg-white px-5 py-3.5">
+            <div
+              class:list={[
+                'px-5 py-3.5',
+                tile ? 'rounded-[18px] bg-white' : 'rounded-2xl border border-line-soft bg-white',
+              ]}
+            >
               <div class="flex items-baseline gap-2.5">
                 <h4 class="text-[14.5px] font-semibold leading-snug text-ink">{item.title}</h4>
                 {item.tag && (

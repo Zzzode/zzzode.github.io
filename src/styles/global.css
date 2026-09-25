@@ -280,10 +280,11 @@
 }
 
 /* tiles: prose text, charts, structured modules all share the SAME
-   full inner width, so text and chart edges align exactly */
-.canvas-section .article-prose {
+   full inner width, so text and chart edges align exactly. A Prose tile
+   placed directly on the canvas (a pre-chapter caliber note) aligns too. */
+.canvas-section .article-prose,
+.article-canvas-body > .article-prose {
   max-width: none;
-  margin-block: 0;
 }
 .canvas-section [class*='my-2'],
 .canvas-section .not-prose.my-2 {
@@ -300,6 +301,36 @@
 .stat-tiles > div {
   border-radius: 18px;
   padding: 22px 24px;
+}
+
+/* One even tile rhythm. Reset + rhythm use ONE specificity tier in
+   source order so the sibling rule reliably wins: every block after the
+   first sits 14px below the previous tile. The section head keeps its
+   own 28px bottom margin. */
+.article-canvas-body .canvas-section > * {
+  margin-block: 0;
+}
+.article-canvas-body .canvas-section > * + * {
+  margin-top: 14px;
+}
+.article-canvas-body .canvas-section > header:first-child {
+  margin-top: 0;
+  margin-bottom: 28px;
+}
+/* Top-level canvas rhythm with the same cascade discipline. */
+.article-canvas-body > * {
+  margin-block: 0;
+}
+.article-canvas-body > * + * {
+  margin-top: 14px;
+}
+/* Chapters separate by 52px; a pre-chapter caliber tile breathes 28px
+   before chapter 01. Both selectors outrank the 14px sibling rule. */
+.article-canvas-body .canvas-section + .canvas-section {
+  margin-top: 52px;
+}
+.article-canvas-body > .article-prose + .canvas-section {
+  margin-top: 28px;
 }
 
 /* reading progress bar — injected by src/scripts/article.ts */

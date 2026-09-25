@@ -11,11 +11,18 @@ interface Step {
 
 interface Props {
   steps: Step[];
+  /** borderless white tile on the canvas gray field */
+  tile?: boolean;
 }
-const { steps } = Astro.props;
+const { steps, tile = false } = Astro.props;
 ---
 
-<ol class="not-prose">
+<ol
+  class:list={[
+    'not-prose',
+    tile && 'rounded-[18px] bg-white px-6 py-6 sm:px-8 sm:py-7',
+  ]}
+>
   {
     steps.map((step, i) => (
       <li class="relative pb-6 pl-9 last:pb-0">
@@ -26,7 +33,7 @@ const { steps } = Astro.props;
           />
         )}
         <span
-          class="absolute left-0 top-0 flex h-[19px] w-[19px] items-center justify-center rounded-full bg-muted-2 text-[10.5px] font-semibold leading-none text-white"
+          class="absolute left-0 top-0 flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-full bg-muted-2 text-[10.5px] font-semibold leading-none text-white"
         >
           {i + 1}
         </span>
