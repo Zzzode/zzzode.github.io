@@ -18,6 +18,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -54,20 +55,23 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 核实方法：本文只采用三层可核对材料——**规则原文**（美国商务部 BIS 刊登在 Federal Register 的终稿，2026 年 1 月 15 日）、**公司原话**（英伟达 2027 财年第二季度财报电话会逐字稿，2026 年 8 月 26 日）、**媒体转述**（南方都市报对财报与中国市场反应的报道，2026 年 8 月 27 日）。25% 抽成来自特朗普 2025 年 12 月 8 日的社交平台表态（媒体广泛转述），本文标注为政策宣示而非 BIS 规则条文；规则原文中没有「25%」字样。
 
 </Prose>
 
-<Section id="timeline">
+<Section canvas id="timeline">
   <SectionHead
-    kicker="01 · TIMELINE"
+    index="01"
+    kicker="时间线"
     title="时间线：从禁售到「不到 1%」的八个月"
     lead="先把事件按一手证据排好，结论自然浮现。"
   />
   <div class="mt-8">
     <Timeline
+      tile
       nodes={[
         { year: "2023.11", title: "H200 发布，随后对华禁售", body: "H200（Hopper 架构）2023 年 11 月发布，此后因美国出口管制无法对华销售。" },
         { year: "2025.12.08", title: "特朗普：允许出口，抽成 25%", body: "南方都市报援引：特朗普在社交平台称，满足国家安全要求前提下允许英伟达对华出口 H200，美国政府抽取 25% 销售收入。属政策宣示，具体执行以 BIS 规则为准。" },
@@ -79,9 +83,10 @@ import {
   </div>
 </Section>
 
-<Section alt id="conditions">
+<Section canvas id="conditions">
   <SectionHead
-    kicker="02 · THE FINE PRINT"
+    index="02"
+    kicker="五道闸门"
     title="放行不是开关，是一道五道闸门的许可"
     lead="随页面滚动，左侧舞台逐条拆解 BIS 终稿的许可条件与技术门槛（宽屏下停驻在屏幕中央）。"
   />
@@ -184,43 +189,45 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="nvidia">
+<Section canvas id="nvidia">
   <SectionHead
-    kicker="03 · NVIDIA'S BOOKS"
+    index="03"
+    kicker="英伟达账本"
     title="英伟达一侧：占比不到 1%、摊薄毛利、展望清零"
     lead="公司自己的三句话，比任何媒体解读都更能定义这笔生意的大小。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="REVENUE" title="<1%：当季数据中心收入中的占比">
+    <InfoCard surface="white" label="REVENUE" title="<1%：当季数据中心收入中的占比">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         财报电话会原话（2026-08-26，Q2 FY2027）：当季依据美国政府许可证发往中国客户的 Hopper 200 产品，不到数据中心总收入的 1%。南都援引 CFO Kress 的表述口径一致。这是实际出货的第一个季度。
       </p>
     </InfoCard>
-    <InfoCard label="MARGIN" title="摊薄毛利率">
+    <InfoCard surface="white" label="MARGIN" title="摊薄毛利率">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         逐字稿明确：当前 Hopper（对华）出货对公司毛利率是 dilutive（摊薄）的。结合 25% 销售收入抽成的政策宣示，这笔生意在财务上不是利润来源，更像缴纳政策成本后的存量变现。
       </p>
     </InfoCard>
-    <InfoCard label="OUTLOOK" title="未来展望不含中国数据中心收入">
+    <InfoCard surface="white" label="OUTLOOK" title="未来展望不含中国数据中心收入">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         「鉴于持续的地缘政治不确定性，我们的前瞻展望中不包含来自中国的数据中心计算产品收入。」换言之，公司自己不把对华 H200 计入可预期增长，许可证随时可能生变（5 月「有证零收入」已有先例）。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 把这三句话连起来读，才能抵抗标题的误导：**「批准销售」是监管事实，「这是一笔大生意」不是商业事实。** 数量天花板（规则里的 50% 上限）、抽成（25% 宣示）、逐案审批的不确定性，共同把 H200 对华业务压缩成了一个财务上无足轻重、战略上留有余地的尾巴。
 
   </Prose>
 </Section>
 
-<Section alt id="china">
+<Section canvas id="china">
   <SectionHead
-    kicker="04 · THE CHINA SIDE"
+    index="04"
+    kicker="中国一侧"
     title="中国一侧：H200 照买，替代照推"
     lead="放行发生在一个国产替代已经自我加速的时间点，这是它影响有限的另一半原因。"
   />
-  <Prose>
+  <Prose tile>
 
 南方都市报在确认交付的同篇报道里，列出了平行发生的事实，构成理解影响的关键背景：**智谱**在 2026 年 8 月 26 日 GLM-5.3-Flash 上线时称，首次在大规模流量中以国产芯片集群（自研高带宽互联）提供服务，硬件效率与 token 成本已与主流英伟达 GPU 相当；7 月 21 日其曾披露已落地一座全部采用国产 AI 芯片的 1GW 级算力数据中心。**腾讯**汤道生 6 月 5 日表示下半年将引入更多国产算力，同时作为国产芯片的算力展示标杆。集邦（TrendForce）分析师的判断是：国内云厂商既会采购 H200，也会同步测试国产 AI 芯片以分散风险——**双轨采购，而非二选一。**
 
@@ -228,6 +235,7 @@ import {
 
   </Prose>
   <CompareTable
+    tile
     headers={[
       { label: "读法" },
       { label: "支持证据" },
@@ -241,13 +249,14 @@ import {
   />
 </Section>
 
-<Section id="reading">
+<Section canvas id="reading">
   <SectionHead
-    kicker="05 · WHAT IT MEANS"
+    index="05"
+    kicker="文本与推测"
     title="政策为什么在这时转向：文本支持的与只能推测的"
     lead="区分规则写了什么，与评论员认为它意味着什么。"
   />
-  <Prose>
+  <Prose tile>
 
 规则文本直接支持的解读有三条：**第一，优先序是美国供应安全**——本土在售、供应充足、不分流晶圆产能排在条件之首；**第二，放行有明确的能力天花板**——TPP 与带宽门槛、50% 出货上限、第三方验规格，都是在保证「目的地能力不超过美国」；**第三，执行自由裁量权在行政部门**——逐案审批而非普遍许可，意味着政策可以随个案与政治节奏收紧或放松，这解释了 1 月定规、5 月零收入、8 月才发货的摇摆节奏。
 
@@ -256,28 +265,29 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="watch">
+<Section canvas id="watch">
   <SectionHead
-    kicker="06 · WHAT TO WATCH"
+    index="06"
+    kicker="观察清单"
     title="后续观察清单：四个比标题更重要的变量"
   />
   <CardGrid cols={2}>
-    <InfoCard label="REVERSIBILITY" title="政策可逆：下一季度会不会又变">
+    <InfoCard surface="white" label="REVERSIBILITY" title="政策可逆：下一季度会不会又变">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         逐案审批 + 公司展望清零，意味着任何季度都可能重现「有证无收入」。跟踪指标：英伟达后续两季中国 DC 收入是否持续低于 1%，还是开始爬坡。
       </p>
     </InfoCard>
-    <InfoCard label="NEXT GENERATION" title="Blackwell 世代与中国特供卡的待遇">
+    <InfoCard surface="white" label="NEXT GENERATION" title="Blackwell 世代与中国特供卡的待遇">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         本规则只覆盖 TPP/带宽门槛以下的次旗舰。更强产品与下一代架构是否会获得类似通道、还是继续催生降规特供版本，才是产业格局的下一个决定点。
       </p>
     </InfoCard>
-    <InfoCard label="SUBSTITUTION TRACTION" title="国产芯片在训练侧（不止推理侧）的份额">
+    <InfoCard surface="white" label="SUBSTITUTION TRACTION" title="国产芯片在训练侧（不止推理侧）的份额">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         智谱披露的是推理流量与成本对标；前沿大模型训练集群对互联、算子生态与稳定性的要求更高。「推理可用」到「训练可替代」之间的距离，比新闻标题长。
       </p>
     </InfoCard>
-    <InfoCard label="THIRD-PARTY TESTING" title="检测与 KYC 的实际执行严格度">
+    <InfoCard surface="white" label="THIRD-PARTY TESTING" title="检测与 KYC 的实际执行严格度">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         五项条件中真正决定放量节奏的是执行：第三方实验室产能、远程访问审计查得多细、再出口与 D:5 总部条款的解释，都会在实操中显现弹性或刚性。
       </p>
@@ -286,6 +296,7 @@ import {
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "「H200 获准对华销售」已被一手材料证实，但被附加了五道实质性闸门",
@@ -300,3 +311,4 @@ import {
   ]}
   note="事实口径：许可条件与技术门槛逐字依据 Federal Register 2026-00789 终稿（BIS，2026-01-15，公开预览 PDF 与正式页面均已核对）；英伟达占比、毛利率与展望表述出自其 2026-08-26 Q2 FY2027 财报电话会逐字稿（投资者关系托管 PDF）；时间线中 2025-12-08 总统表态抽成 25% 与 5 月业绩会内容依据南方都市报 2026-08-27 报道，抽成属政策宣示未见规则条文；智谱/腾讯/高盛数据均为该报道转引的公司口径与投行预测，70% 自给率为按产量口径，本文均已标注限定。"
 />
+</ArticleCanvas>

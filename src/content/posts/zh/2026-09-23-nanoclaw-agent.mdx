@@ -18,6 +18,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -73,19 +74,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 先给口径：本文事实来自 NanoClaw 官网（nanoclaw.dev，2026-09-23 核对）、[Docker 官方博客 2026-03 的集成文章](https://www.docker.com/blog/nanoclaw-docker-sandboxes-agent-security/)与 [SiliconANGLE 的融资报道](https://siliconangle.com/2026/05/20/nanoco-raises-12m-accelerate-nanoclaw-secure-enterprise-grade-agentic-ai-assistant-every-office-worker/)；代码规模等数字是官网自述口径，随版本变化。文中架构判断是我基于公开材料的归纳。NanoClaw 与前一篇 [E2B](/posts/2026-09-23-e2b-sandbox-infra/) 讨论的是同一类问题的两个极端解法——一个卖云原生 microVM，一个让你在自己机器上用 Docker 跑。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BACKDROP"
+    index="01"
+    kicker="前因"
     title="前因：个人智能体卡在「好用」和「敢装」之间"
     lead="让 AI 助手住进你的微信/Slack、替你操作文件和密钥，这件事的门槛从来不是模型能力，而是信任。"
   />
-  <Prose>
+  <Prose tile>
 
 2025 年起，一类新产品形态出现：**消息应用里的个人智能体**。你在 WhatsApp、Telegram 或 Slack 里给它发消息，它替你查日历、整理文件、跑定时简报、操作各种 SaaS。相比 IDE 里的编程助手，这类助手有两个新特征：它**常驻**、它**贴近你的私人身份与凭据**。
 
@@ -96,28 +99,30 @@ NanoClaw（由 NanoCo 维护，2026 年 5 月拿到 1200 万美元种子轮，Va
   </Prose>
 </Section>
 
-<Section alt id="numbers">
+<Section canvas id="numbers">
   <SectionHead
-    kicker="02 · BY THE NUMBERS"
+    index="02"
+    kicker="数字"
     title="它口中的「小」具体是多少"
     lead="官网首页直接放了一张与 OpenClaw 的对照表——用数字定义设计哲学。"
   />
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="~29.3k" unit="行 TS 运行时" label="NanoClaw 自述运行时代码行数；对照 OpenClaw 约 434,453 行" />
     <Stat value="200" unit="个文件" label="运行时 TypeScript 文件数（对照约 3,680 个）" />
     <Stat value="12" unit="个直接依赖" label="运行时直接依赖（对照 70 个）；手工配置文件为 0" />
     <Stat value="15" unit="个核心源文件" label="Docker 博客口径：15 个核心源文件撑起全部智能体行为" />
   </StatGrid>
-  <Prose>
+  <Prose tile>
 
 官网给出的「读懂时间」对照很直白：NanoClaw 是「一个下午」，OpenClaw 是「1–2 周」。注意这些是**厂商自述数字**、口径未必严格（例如运行时 vs 全仓库），但方向是可信的：它把「可审计性」当成首要产品特性来营销——在一个要接触企业数据与凭据的软件品类里，「小到能审」本身就是安全卖点。
 
   </Prose>
 </Section>
 
-<Section id="compare">
+<Section canvas id="compare">
   <SectionHead
-    kicker="03 · THE TRADEOFF"
+    index="03"
+    kicker="安全哲学"
     title="两种安全哲学：OS 级隔离 vs 应用层检查"
     lead="本文卡片按规范约定：蓝点 A = NanoClaw，橙点 B = OpenClaw；只描述官网对照口径，不替你下结论。"
   />
@@ -139,21 +144,23 @@ NanoClaw（由 NanoCo 维护，2026 年 5 月拿到 1200 万美元种子轮，Va
       <p class="mt-2">框架内置：大量通道、提供商与工具随发行版提供，配置文件与依赖数量随之增长（官网称 53 个手工配置文件）。</p>
     </span>
   </DualCompare>
-  <Prose>
+  <Prose tile>
 
 这张表最有价值的不是「谁赢了」，而是它点出了智能体安全的一条原则：**当你打算给智能体开 `--dangerously-skip-permissions` 之类的全自动模式时，它必须被关在一个可以随时丢弃的环境里**。Docker 博客把这句话说得很直白——microVM 隔离让「免确认放权」第一次可以在生产中接受，因为影响范围被物理地限制住了。这和 E2B 的思路殊途同归：自主权要扩大，先得有东西把风险接住。
 
   </Prose>
 </Section>
 
-<Section alt id="architecture">
+<Section canvas id="architecture">
   <SectionHead
-    kicker="04 · THE MACHINE"
+    index="04"
+    kicker="架构解剖"
     title="架构解剖：一条消息的旅程"
     lead="官网公开了从消息进来到回复出去的完整链路，以及每个关键源文件的职责。"
   />
   <Steps
-    steps={[
+    tile
+        steps={[
       { title: "消息进入宿主", body: "WhatsApp / Telegram / Slack / Discord / Signal 等通道适配器在唯一的 Node 宿主进程（src/index.ts）里接收消息，完成数据库初始化与通道轮询。" },
       { title: "路由写进入库", body: "router.ts 按「消息群组 → 智能体组 → 会话」三级把消息写进 inbound.db；中央库 db/ 还管用户、角色、智能体组与接线关系。" },
       { title: "唤醒会话容器", body: "container-runner.ts 为该会话启动/唤醒专属容器，并把它要用的提供商与凭据接好；同组会话共享该组的工作区与记忆，不同组互不可见。" },
@@ -161,31 +168,32 @@ NanoClaw（由 NanoCo 维护，2026 年 5 月拿到 1200 万美元种子轮，Va
       { title: "回复出队送达", body: "delivery.ts 轮询 outbound.db，经对应适配器把流式回复送回消息应用；host-sweep.ts 每 60 秒清扫失活会话、唤醒到期消息。" },
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 注意它的边界划分：**宿主只做路由，容器才做智能体**。宿主不碰模型、不碰业务逻辑；容器之间不共享内存，只通过 SQLite 队列与宿主通信。这套设计用最朴素的手段（单进程 + 容器 + SQLite）回避了微服务与消息队列的复杂度，同时拿到了操作系统级的隔离。
 
   </Prose>
 </Section>
 
-<Section id="credentials">
+<Section canvas id="credentials">
   <SectionHead
-    kicker="05 · CREDENTIALS"
+    index="05"
+    kicker="密钥"
     title="最敏感的部分：密钥默认不归智能体持有"
     lead="一个常驻、能发网络请求、还会自己装东西的助手，凭据设计是安全模型的命门。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="AGENT VAULT" title="请求时注入，而非长期持有">
+    <InfoCard surface="white" label="AGENT VAULT" title="请求时注入，而非长期持有">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         默认情况下智能体不保存原始 API key：所有出站 HTTPS 经 OneCLI 的 Agent Vault 转发，凭据在请求发出时才注入，并按智能体施加策略与速率限制。
       </p>
     </InfoCard>
-    <InfoCard label="WORKSPACE" title="按智能体组隔离的工作区">
+    <InfoCard surface="white" label="WORKSPACE" title="按智能体组隔离的工作区">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         每个智能体组有自己的指令、记忆、凭据与允许挂载（allowed mounts）；它只能看到显式挂载进来的文件系统路径。
       </p>
     </InfoCard>
-    <InfoCard label="FLEXIBLE V2" title="隔离粒度按通道自选">
+    <InfoCard surface="white" label="FLEXIBLE V2" title="隔离粒度按通道自选">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         每个通道可以接独立智能体（完全隐私）、多个通道共享一个智能体（统一记忆）、或折叠进同一个共享会话——隐私与连续性让用户权衡。
       </p>
@@ -193,29 +201,30 @@ NanoClaw（由 NanoCo 维护，2026 年 5 月拿到 1200 万美元种子轮，Va
   </CardGrid>
 </Section>
 
-<Section alt id="product">
+<Section canvas id="product">
   <SectionHead
-    kicker="06 · PRODUCT SHAPE"
+    index="06"
+    kicker="产品形态"
     title="产品形态：消息原生、AI 原生、本地优先"
     lead="它刻意不做仪表盘，把「定制」本身也交给编码智能体。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="MESSAGING NATIVE" title="入口是聊天软件，不是网页控制台">
+    <InfoCard surface="white" label="MESSAGING NATIVE" title="入口是聊天软件，不是网页控制台">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         多通道消息（WhatsApp、Telegram、Slack、Discord、Signal）是一等入口，支持定时任务（晨报、周报）用你选的模型跑完再把结果发回给你。
       </p>
     </InfoCard>
-    <InfoCard label="AI-NATIVE SETUP" title="安装走脚本，卡住了让编码智能体接手">
+    <InfoCard surface="white" label="AI-NATIVE SETUP" title="安装走脚本，卡住了让编码智能体接手">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         nanoclaw.sh 脚本化处理顺利路径（安装、选 Claude/Codex、配 OneCLI、配对通道）；遇到失败或需要判断的定制步骤，直接让你的编码智能体改代码——「无 dashboard，有问题在聊天里描述」。
       </p>
     </InfoCard>
-    <InfoCard label="LOCAL / SELF-HOST" title="跑在你自己的机器或公司基础设施上">
+    <InfoCard surface="white" label="LOCAL / SELF-HOST" title="跑在你自己的机器或公司基础设施上">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         支持 macOS、Linux、Windows（WSL2）；企业版强调部署在用户电脑或公司自有基础设施上，数据不流经厂商云——这是它主打的合规卖点。
       </p>
     </InfoCard>
-    <InfoCard label="BUSINESS BET" title="从个人玩具切入企业办公">
+    <InfoCard surface="white" label="BUSINESS BET" title="从个人玩具切入企业办公">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         融资同步发布的企业级定位是「每个办公室员工的专业助理」：通过日常对话学习员工角色、工具与项目，逐步接管流程；Docker 合作解决的就是企业敢不敢放权的问题。
       </p>
@@ -223,24 +232,25 @@ NanoClaw（由 NanoCo 维护，2026 年 5 月拿到 1200 万美元种子轮，Va
   </CardGrid>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="07 · READ IT RIGHT"
+    index="07"
+    kicker="怎么读"
     title="三个要冷静看待的地方"
     lead="开源、小内核、容器隔离都很好，但不是没有前提。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="CONTAINER ≠ VM" title="Docker 隔离有深浅两档">
+    <InfoCard surface="white" label="CONTAINER ≠ VM" title="Docker 隔离有深浅两档">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         普通 Docker 容器共享宿主内核，隔离强度不如虚拟机；要拿到它宣传的 OS 级隔离，需要启用 Docker Sandbox（microVM 后端）或自己保证宿主可信。容器名不等于硬件隔离。
       </p>
     </InfoCard>
-    <InfoCard label="SELF-MAINTAINED" title="小内核的代价是你自己组装">
+    <InfoCard surface="white" label="SELF-MAINTAINED" title="小内核的代价是你自己组装">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         「按需装技能、fork 成自己的版本」意味着维护责任在你：通道适配、升级、冲突排查都要自己或你的编码智能体承担，开箱体验不如大而全框架。
       </p>
     </InfoCard>
-    <InfoCard label="VENDOR NUMBERS" title="对照表是营销材料">
+    <InfoCard surface="white" label="VENDOR NUMBERS" title="对照表是营销材料">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         代码行数、依赖数、星标数都来自 NanoClaw 官网自述，统计口径（运行时/全仓库、版本时点）并不透明；选型前应自己按同一口径复核。
       </p>
@@ -249,6 +259,7 @@ NanoClaw（由 NanoCo 维护，2026 年 5 月拿到 1200 万美元种子轮，Va
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "智能体框架正在重演「内核大小」的老争论",
@@ -263,3 +274,4 @@ NanoClaw（由 NanoCo 维护，2026 年 5 月拿到 1200 万美元种子轮，Va
   ]}
   note="事实口径：功能与架构依据 2026-09-23 抓取的 NanoClaw 官网、Docker 官方博客（2026-03-13）与 SiliconANGLE 融资报道（2026-05-20）；代码规模为官网自述，随版本变化；与 OpenClaw 的对比为 NanoClaw 单方口径。"
 />
+</ArticleCanvas>

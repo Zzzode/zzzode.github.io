@@ -16,6 +16,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -55,19 +56,22 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+
+<Prose tile>
 
 口径说明：本文依据 Skip 官方语言站（skiplang.com）与开源仓库（[github.com/skiplang/skip](https://github.com/skiplang/skip)，MIT 许可、Facebook 版权，2026-09-23 核对），团队后续商业化见 [SkipLabs](https://skiplabs.io/)。Skip 是一门研究型语言，用户规模不能与工业语言相比；本文关注的是它的**设计思想**——这些思想已经以「增量计算引擎」的形态走向工业界。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE ROOTS"
+    index="01"
+    kicker="前因"
     title="前因：缓存失效为什么难，难在「谁变了」没人知道"
     lead="Phil Karlton 的老笑话背后是一个真正的类型系统问题。"
   />
-  <Prose>
+  <Prose tile>
 
 给纯函数加缓存（memoize）很简单：输入相同，输出必然相同。但真实程序里的函数会读全局变量、会改对象、会发请求、会取当前时间。于是手写缓存必然面对三个问题：**这个函数我能不能缓存？底层数据变了我怎么知道？多个缓存副本并行跑会不会撞到共享可变状态？** 传统语言把答案留给程序员的纪律——注释里写「这个方法不要在多线程里调」、代码评审里盯缓存失效逻辑，错了就是偶发 bug，极难排查。
 
@@ -76,9 +80,10 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
   </Prose>
 </Section>
 
-<Section alt id="core">
+<Section canvas id="core">
   <SectionHead
-    kicker="02 · THE CORE IDEA"
+    index="02"
+    kicker="核心设计"
     title="核心设计：副作用是被类型系统追踪的一等事实"
     lead="随页面滚动，左侧舞台展示「一次证明」如何派生三种能力（宽屏下停驻在屏幕中央）。"
   />
@@ -183,19 +188,20 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
   </ScrollStory>
 </Section>
 
-<Section id="language">
+<Section canvas id="language">
   <SectionHead
-    kicker="03 · THE LANGUAGE SHAPE"
+    index="03"
+    kicker="语言形态"
     title="语言形态：函数式与面向对象的意见明确的混合"
     lead="Skip 没有在范式上骑墙，而是挑了一套互相自洽的组合。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="FUNCTIONAL CORE" title="表达式导向 + ADT + 模式匹配">
+    <InfoCard surface="white" label="FUNCTIONAL CORE" title="表达式导向 + ADT + 模式匹配">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         一切是表达式，支持抽象数据类型（ADT）、模式匹配、易用的 lambda 与高阶函数；可选地加强纯度约束。这些是让副作用推导可行的语言表层。
       </p>
     </InfoCard>
-    <InfoCard label="OBJECT SHELL" title="面向对象封装抽象与接口">
+    <InfoCard surface="white" label="OBJECT SHELL" title="面向对象封装抽象与接口">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         类与 trait/接口提供模块化与封装，组织大规模程序；函数式的「心」装在 OO 的「骨架」里——与 Scala、Swift、Rust 的取舍同族。
       </p>
@@ -203,13 +209,14 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
   </CardGrid>
 </Section>
 
-<Section alt id="afterlife">
+<Section canvas id="afterlife">
   <SectionHead
-    kicker="04 · AFTER THE LAB"
+    index="04"
+    kicker="实验室之后"
     title="后续：从研究语言到「增量计算引擎」创业"
     lead="研究语言的真正影响力，往往不在它自己有多少用户，而在它验证的思想被谁带走。"
   />
-  <Prose>
+  <Prose tile>
 
 Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必成为一门大众语言。更值得一看的是团队的下一步：[SkipLabs](https://skiplabs.io/) 把同一核心——**反应式增量计算**——产品化为面向 TypeScript、Python、Java 的引擎，口号是「把声明式逻辑变成流」：你定义一次视图，外部资源变化时引擎自动保持结果最新，应用逻辑跑在普通的 Node.js/Bun 运行时上，语言中立。
 
@@ -218,24 +225,25 @@ Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必�
   </Prose>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="05 · READ IT RIGHT"
+    index="05"
+    kicker="设计代价"
     title="设计代价：纯边界不是免费午餐"
     lead="把副作用交给类型系统，收益巨大，约束也真实。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="ESCAPE HATCH" title="与不纯世界交互需要显式桥接">
+    <InfoCard surface="white" label="ESCAPE HATCH" title="与不纯世界交互需要显式桥接">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         任何真实系统都要读时间、发网络、碰数据库；在强追踪模型里调用这些都要经过受控的数据源抽象，样板代码和理解成本都高于随手写全局变量的语言。
       </p>
     </InfoCard>
-    <InfoCard label="ECOSYSTEM" title="新语言的网络效应鸿沟">
+    <InfoCard surface="white" label="ECOSYSTEM" title="新语言的网络效应鸿沟">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         AOT + LLVM + 自研 GC 再优雅，也要面对库、工具链、人才的冷启动；这正是研究语言通常止步于实验室、团队最终选择把引擎多语言化的原因。
       </p>
     </InfoCard>
-    <InfoCard label="RESEARCH SCOPE" title="性能与成熟度按研究项目预期看">
+    <InfoCard surface="white" label="RESEARCH SCOPE" title="性能与成熟度按研究项目预期看">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         官方宣传的 GC 可预测性等优势是设计目标与研究基准口径，不应直接等同于工业级语言多年打磨后的表现；生产采用需自行压测。
       </p>
@@ -244,6 +252,7 @@ Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "把「副作用」升级为类型系统的一等事实",
@@ -258,3 +267,4 @@ Skip 本身以 MIT 许可开源（版权 Facebook），但它没有、也不必�
   ]}
   note="事实口径：语言机制依据 2026-09-23 抓取的 skiplang.com 官方描述与 github.com/skiplang/skip（MIT，Facebook 版权）README；商业化信息来自 skiplabs.io；语言成熟度判断为研究项目口径，设计解读为作者归纳。"
 />
+</ArticleCanvas>

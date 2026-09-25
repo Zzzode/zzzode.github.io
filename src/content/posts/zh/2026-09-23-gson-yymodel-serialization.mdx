@@ -16,6 +16,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -63,19 +64,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径说明：本文依据两个库的官方 GitHub README 与 Gson 官方 User Guide（2026-09-23 核对；Gson 当前版本 2.14.0，官方声明处于**维护模式**）。YYModel 是 ibireme 的 YYKit 组件之一，库本身仅 5 个文件。这不是上手指南，而是一次跨生态的机制对比：同一个问题（JSON ↔ 对象）在两种运行时哲学下分别被怎样解决，又为什么双双被代码生成方案取代。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE PROBLEM"
+    index="01"
+    kicker="前因"
     title="前因：手写映射代码的痛，与「零侵入」的诱惑"
     lead="服务端返回 JSON，App 里要用的是对象。中间那段逐字段拷贝，是两个生态共同的无聊税。"
   />
-  <Prose>
+  <Prose tile>
 
 最朴素的 JSON 映射是手写的：解析成字典/树，然后 `user.name = json["name"]` 逐行搬运。嵌套结构、数组里的对象、缺字段、类型不符（服务端把数字返回成字符串是家常便饭）都要自己处理。模型一改，映射代码跟着改，漏一处就是运行时 bug。
 
@@ -84,9 +87,10 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="mechanisms">
+<Section canvas id="mechanisms">
   <SectionHead
-    kicker="02 · FIVE MECHANISMS SIDE BY SIDE"
+    index="02"
+    kicker="五个机制"
     title="五个机制，并排看两种运行时哲学"
     lead="随页面滚动，左侧舞台逐机制对比 Gson（蓝）与 YYModel（黑）的做法（宽屏下停驻在屏幕中央）。"
   />
@@ -195,13 +199,15 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="compare">
+<Section canvas id="compare">
   <SectionHead
-    kicker="03 · THE SCORECARD"
+    index="03"
+    kicker="设计取舍"
     title="一张表看完设计取舍"
     lead="库的形状是被运行时和平台生态一起捏出来的。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "维度" },
       { label: "Gson", dot: "a" },
@@ -220,13 +226,14 @@ import {
   />
 </Section>
 
-<Section alt id="aftermath">
+<Section canvas id="aftermath">
   <SectionHead
-    kicker="04 · WHY BOTH AGED"
+    index="04"
+    kicker="余波"
     title="余波：反射派为什么输给了代码生成派"
     lead="两个库的衰落不是因为设计不好，而是「在运行时读类型」这件事本身，在现代工具链里成了负担。"
   />
-  <Prose>
+  <Prose tile>
 
 Gson 官方 README 现在直白地写着两件事：**项目处于维护模式**；**不推荐在 Android 上使用**——理由正是它的立身之本：开放式反射与 Android 发布构建必经的缩减/优化/混淆流程（R8/ProGuard）天然冲突，字段可能被混淆或裁掉，线上崩溃由此而来；官方的推荐替代是 Kotlin 序列化（kotlinx.serialization），它在编译期生成适配器，还绕开了反射开销。对 Kotlin 的非空类型、默认参数构造器，Gson 也明确说不支持、可能产生「令人困惑的错误行为」。
 
@@ -234,17 +241,17 @@ YYModel 的处境是同一故事的 Swift 版本：Swift 引入 `Codable` 协议
 
   </Prose>
   <CardGrid cols={3}>
-    <InfoCard label="TREE-SHAKING" title="反射让静态分析看不见依赖">
+    <InfoCard label="TREE-SHAKING" title="反射让静态分析看不见依赖" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         R8/ProGuard 无法知道反射会在运行时访问哪些字段，只能整类保留或被误裁；代码生成的适配器是普通方法，编译器看得见、优化得动。
       </p>
     </InfoCard>
-    <InfoCard label="TYPE SAFETY" title="运行时才发现的错，编译期就能发现">
+    <InfoCard label="TYPE SAFETY" title="运行时才发现的错，编译期就能发现" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         字段改名、类型变更，反射映射要到运行时才崩；Codable/代码生成方案在编译期报错。空安全语言里，反射绕过构造器更直接破坏类型不变量。
       </p>
     </InfoCard>
-    <InfoCard label="PERFORMANCE" title="省掉运行时自省的固定税">
+    <InfoCard label="PERFORMANCE" title="省掉运行时自省的固定税" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         YYModel 把反射优化到接近手写已是极限；编译期生成的直接赋值代码没有任何自省开销，也不需要缓存类元信息。
       </p>
@@ -252,19 +259,20 @@ YYModel 的处境是同一故事的 Swift 版本：Swift 引入 `Codable` 协议
   </CardGrid>
 </Section>
 
-<Section id="lesson">
+<Section canvas id="lesson">
   <SectionHead
-    kicker="05 · WHAT TO TAKE AWAY"
+    index="05"
+    kicker="两条经验"
     title="跨生态对比留下的两条通用经验"
     lead="序列化库只是载体，背后是两个反复出现的工程判断。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="RUNTIME SHAPES THE API" title="同一个需求，API 形状被运行时原语决定">
+    <InfoCard label="RUNTIME SHAPES THE API" title="同一个需求，API 形状被运行时原语决定" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         TypeToken 这个看似古怪的匿名子类写法，其实是 JVM 类型擦除逼出来的；modelContainerPropertyGenericClass 的协议字典，则是 ObjC 动态运行时的自然延伸。评估跨语言移植的框架时，先问目标运行时保留了什么元信息。
       </p>
     </InfoCard>
-    <InfoCard label="GENERATION WINS LONG TERM" title="「聪明的运行时」最终输给「笨的编译期」">
+    <InfoCard label="GENERATION WINS LONG TERM" title="「聪明的运行时」最终输给「笨的编译期」" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         从 Gson/YYModel 到 kotlinx.serialization、Swift Codable，方向高度一致：把工作从运行时挪到编译期，用生成代码换可静态分析、可优化、可在编译期报错。这也是评估任何「魔法框架」时值得先问的一句：它的魔法发生在什么时候？
       </p>
@@ -273,6 +281,7 @@ YYModel 的处境是同一故事的 Swift 版本：Swift 引入 `Codable` 协议
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "Gson 与 YYModel 是同一设计在两个运行时上的最优解",
@@ -287,3 +296,4 @@ YYModel 的处境是同一故事的 Swift 版本：Swift 引入 `Codable` 协议
   ]}
   note="事实口径：依据 2026-09-23 抓取的 google/gson README（2.14.0，维护模式、Android 与 Kotlin 限制说明）、Gson User Guide（TypeToken、null 默认值、InstanceCreator）与 ibireme/YYModel README（5 文件、自动转换表、映射协议、iPhone 6 基准口径）；运行时机制层面的描述为作者对两个开源实现的归纳。"
 />
+</ArticleCanvas>

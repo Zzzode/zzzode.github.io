@@ -30,6 +30,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -82,19 +83,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 先界定本文的口径：事实来自 Anthropic 的 [Claude Code 官方文档](https://code.claude.com/docs/en/overview)与 [GitHub 仓库](https://github.com/anthropics/claude-code)（2026-09-23 核对，文档随版本快速迭代，具体字段以最新版为准）；技术源流与竞品判断引自公开发布信息；文中的设计解读是我基于文档的归纳，不代表官方说法。本文不教快捷键，只回答一个问题：**一个被数百万人日常使用的编程智能体，内部由哪些工程机制支撑。**
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BACKDROP"
+    index="01"
+    kicker="背景"
     title="前因：从代码补全，到终端里的智能体"
     lead="Claude Code 不是凭空出现的，它踩在两代编程助手的经验上。"
   />
-  <Prose>
+  <Prose tile>
 
 **第一代：行内补全。** 2021 年 GitHub Copilot 把语言模型带进编辑器，形态是「光标旁边的灰色幽灵文本」——模型只看当前文件与少量上下文，产出一行或一个函数，人始终是驾驶员。它解决了「写得快」，但没有行动能力。
 
@@ -108,6 +111,7 @@ import {
 
   <div class="mt-8">
     <Timeline
+      tile
       nodes={[
         { year: "2021", title: "行内补全", body: "Copilot 开创幽灵文本模式，人是唯一驾驶员" },
         { year: "2023", title: "IDE 聊天", body: "多文件对话与建议，但执行仍靠人" },
@@ -118,20 +122,21 @@ import {
   </div>
 </Section>
 
-<Section alt id="what">
+<Section canvas id="what">
   <SectionHead
-    kicker="02 · THE BIG PICTURE"
+    index="02"
+    kicker="总览"
     title="它到底是什么：一个带手和眼睛的推理循环"
     lead="官方文档把核心机制概括为三阶段智能体循环，外加三种执行环境与一致的多端接口。"
   />
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="3" count={3} unit="阶段" label="收集上下文 → 采取行动 → 验证结果，边界会互相渗透" />
     <Stat value="5" count={5} unit="类工具" label="文件、搜索、执行、网络、代码智能，每类是一种「代理权」" />
     <Stat value="3" count={3} unit="种环境" label="本地、Anthropic 云 VM、远程控制（浏览器控制本机）" />
     <Stat value="6+" count={6} unit="个入口" label="终端、桌面、IDE、网页、Slack、CI 管线，同一套循环" />
   </StatGrid>
 
-  <Prose>
+  <Prose tile>
 
 当你给它一个任务，官方描述的循环是这样的：**收集上下文（gather context）→ 采取行动（take action）→ 验证结果（verify results）**。三个阶段不是流水线，而是互相渗透——问一个问题可能只停在收集；修 bug 会在三阶段间反复多轮；重构则把大量时间花在验证。模型根据上一步工具返回的信息决定下一步，把几十次动作串成链，并在中途自行纠偏。
 
@@ -140,9 +145,10 @@ import {
   </Prose>
 </Section>
 
-<Section id="loop">
+<Section canvas id="loop">
   <SectionHead
-    kicker="03 · THE LOOP"
+    index="03"
+    kicker="主循环"
     title="一步都不少：智能体循环逐帧拆解"
     lead="随页面滚动，左侧舞台会逐步展示循环的每个阶段（宽屏下停驻在屏幕中央）。"
   />
@@ -272,14 +278,15 @@ import {
   </ScrollStory>
 </Section>
 
-<Section alt id="context">
+<Section canvas id="context">
   <SectionHead
-    kicker="04 · CONTEXT ENGINEERING"
+    index="04"
+    kicker="上下文工程"
     title="上下文工程：这个外壳最硬的功夫"
     lead="智能体的能力上限，往往不取决于模型，而取决于它每一步看到什么。Claude Code 把上下文当作需要管理的稀缺资源。"
   />
 
-  <Prose>
+  <Prose tile>
 
 一次会话的上下文窗口里装着：系统指令、你的消息、它读过的文件、命令输出、CLAUDE.md、自动记忆、已加载的 Skills，还有终端里**你根本看不到的内容**（工具描述、MCP 工具名等）。随着任务推进，窗口必然被填满，于是有了自动压缩（compaction）：把对话历史总结成结构化摘要。问题随之而来——早期指令可能在压缩中丢失。
 
@@ -289,6 +296,7 @@ import {
 
   <div class="mt-8">
     <CompareTable
+      tile
       headers={[
         { label: "两套跨会话记忆" },
         { label: "CLAUDE.md", dot: "a" },
@@ -304,59 +312,61 @@ import {
     />
   </div>
 
-  <Prose>
+  <Prose tile>
 
 注意最后一句：**CLAUDE.md 和记忆都是「上下文」，不是「强制配置」**。模型理论上可以违反它们；要做到无论模型怎么想都必须拦截某动作，正确的工具是 PreToolUse Hook（下一节）。这种「软引导与硬约束分层」是整个系统最值得学的治理思想——用最便宜的机制（文本）处理 99% 的情况，只在安全边界上动用强制手段。
 
   </Prose>
 </Section>
 
-<Section id="subagents">
+<Section canvas id="subagents">
   <SectionHead
-    kicker="05 · SUBAGENTS"
+    index="05"
+    kicker="子智能体"
     title="子智能体：用独立的上下文窗口外包噪声"
     lead="主对话不是什么都该自己干。子智能体是 Claude Code 上下文工程里最精巧的一环。"
   />
 
-  <Prose>
+  <Prose tile>
 
 官方对子智能体的定义是：**拥有独立上下文窗口、独立系统提示、独立工具权限的专职助手**。当一个支线任务会产生大量你之后不会再引用的搜索结果、日志、文件内容时——比如「调研这个陌生目录怎么实现的」——主智能体就把它派给子智能体。子智能体在自己的窗口里折腾，**只把摘要和一小段元数据返回主对话**，噪声被物理隔离。
 
   </Prose>
 
   <CardGrid cols={3}>
-    <InfoCard label="ROUTING" title="靠描述自动委派">
+    <InfoCard surface="white" label="ROUTING" title="靠描述自动委派">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         模型读每个子智能体的 description 决定何时派活，所以描述要清晰；但描述也占主上下文，自定义子智能体描述合计超过 15,000 token 会在启动时告警——细节挪进系统提示，只在该子智能体运行时加载。
       </p>
     </InfoCard>
-    <InfoCard label="BUILT-IN" title="Explore 与 Plan 的特权">
+    <InfoCard surface="white" label="BUILT-IN" title="Explore 与 Plan 的特权">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         两个内置调研型子智能体会跳过 CLAUDE.md 与 git 状态快照，保持研究轻量省钱；其余子智能体默认加载两者，除非定义里设置 omitClaudeMd。
       </p>
     </InfoCard>
-    <InfoCard label="COST" title="按任务选模型">
+    <InfoCard surface="white" label="COST" title="按任务选模型">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         每个子智能体可以单独指定模型——把机械的搜索、格式化类任务路由给更快更便宜的模型，把架构判断留给旗舰模型，是官方推荐的成本控制手段。
       </p>
     </InfoCard>
   </CardGrid>
 
-  <Prose>
+  <Prose tile>
 
 会话本身也被当作数据管理：每条消息、工具调用与结果以明文 JSONL 写到 `~/.claude/projects/`，因此支持回退（rewind）、恢复（`--continue` / `--resume`）与分叉（`--fork-session`，复制历史到新会话、原会话不动）。配合 git worktree，可以在不同目录里开多个并行会话而互不污染——这把「多智能体协作」从概念落成了目录学问题。
 
   </Prose>
 </Section>
 
-<Section alt id="governance">
+<Section canvas id="governance">
   <SectionHead
-    kicker="06 · GOVERNANCE"
+    index="06"
+    kicker="治理体系"
     title="治理体系：权限、钩子与扩展点的分工"
     lead="一个能自己执行 shell 的智能体，靠什么不闯祸？靠的是分层，而不是一个总开关。"
   />
 
-  <Prose>
+  <Prose tile>
 
 先看**设置的优先级**。Claude Code 从多个位置读 settings.json（用户级、项目级、企业级、受管策略），大部分键是**合并**而非覆盖——比如项目里允许的命令不会抹掉你个人的配置；而组织/受管设置压过个人设置，命令行参数只对当前会话生效，权限规则另有一套合并语义。这意味着团队可以把「禁止碰生产目录」之类的硬规矩放在企业层，开发者本地再叠加个人偏好，双方不用互相改文件。
 
@@ -365,7 +375,8 @@ import {
   <div class="mt-8">
     <BlockTitle title="四个扩展点解决四类问题" />
     <Steps
-      steps={[
+    tile
+          steps={[
         { title: "Skills：可复用的工作流", body: "SKILL.md 用 frontmatter（name/description）声明、正文给指令；Reference 类内容内联进上下文，Task 类（部署、提交流程）可放在独立子智能体里运行（context: fork）。加载后持续占用 token，所以正文要短。" },
         { title: "Hooks：生命周期上的硬约束", body: "用户定义的 shell/HTTP/MCP/LLM/子智能体钩子，在 SessionStart、UserPromptSubmit、PreToolUse、PostToolUse、Stop 等固定时机触发；PreToolUse 可以直接否决一次工具调用——这才是强制力。" },
         { title: "MCP：接外部世界", body: "把外部服务的工具和资源接进智能体，工具名在启动时就进上下文，所以接得越多启动越重。" },
@@ -374,36 +385,37 @@ import {
     />
   </div>
 
-  <Prose>
+  <Prose tile>
 
 Hooks 的触发时机覆盖三种节奏：每会话（SessionStart/End）、每轮对话（UserPromptSubmit/Stop）、以及循环内每次工具调用（PreToolUse/PostToolUse）。同一份钩子配置在终端、IDE、桌面、云端会话里行为一致。此外它还兼容 AGENTS.md：如果仓库已经为别的编程智能体写了 AGENTS.md，Claude Code 可以直接读，或与 CLAUDE.md 同时读——规则不被厂商锁定。
 
   </Prose>
 </Section>
 
-<Section id="practice">
+<Section canvas id="practice">
   <SectionHead
-    kicker="07 · IN PRACTICE"
+    index="07"
+    kicker="工程实践"
     title="工程实践：headless、并行与落地边界"
     lead="同一个智能体循环也跑在 CI 里，这改变了团队引入它的方式。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="HEADLESS CI" title="GitHub Actions 里无人值守">
+    <InfoCard surface="white" label="HEADLESS CI" title="GitHub Actions 里无人值守">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Claude Code 提供 headless 模式（<code>-p</code>），可在 GitHub Actions 中以非交互方式跑审查、修 issue；Setup 钩子支持 CI 里的一次性准备。权限在这种场景下必须前置配好，因为没有人能点「允许」。
       </p>
     </InfoCard>
-    <InfoCard label="PARALLEL" title="worktree = 多智能体的并发单元">
+    <InfoCard surface="white" label="PARALLEL" title="worktree = 多智能体的并发单元">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         一个会话绑定一个目录；用 git worktree 开多个目录就能并行跑多个 Claude，各自在独立分支上工作，再通过 PR 汇合。/resume 选择器默认只列当前 worktree 的会话。
       </p>
     </InfoCard>
-    <InfoCard label="SAFETY" title="快照与权限询问">
+    <InfoCard surface="white" label="SAFETY" title="快照与权限询问">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         改代码前自动快照受影响文件，可整文件回退；危险命令、越权文件访问默认询问。企业环境用受管设置下发允许/拒绝清单，而不是靠每个人自觉。
       </p>
     </InfoCard>
-    <InfoCard label="DATA" title="数据口径要看清">
+    <InfoCard surface="white" label="DATA" title="数据口径要看清">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         官方说明会采集使用数据（接受/拒绝）、关联对话与 /bug 反馈；敏感信息有留存期与访问限制，商业条款另有约定。公司代码接云端环境前，先读 data usage 政策。
       </p>
@@ -411,24 +423,25 @@ Hooks 的触发时机覆盖三种节奏：每会话（SessionStart/End）、每�
   </CardGrid>
 </Section>
 
-<Section alt id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="08 · READ IT RIGHT"
+    index="08"
+    kicker="三大误解"
     title="三个不该有的误解"
     lead="工具很强大，但文档自己把边界说得很清楚。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="NOT AUTONOMOUS" title="它不是「放手不管」">
+    <InfoCard surface="white" label="NOT AUTONOMOUS" title="它不是「放手不管」">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         人始终在循环内，可随时打断；权限、钩子、快照都是为了让自主权可被随时收回。无人值守的 CI 场景反而要求更严格的前置配置。
       </p>
     </InfoCard>
-    <InfoCard label="MEMORY ≠ ENFORCEMENT" title="写进 CLAUDE.md 不等于必做">
+    <InfoCard surface="white" label="MEMORY ≠ ENFORCEMENT" title="写进 CLAUDE.md 不等于必做">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         记忆只是每次注入的上下文，模型仍可能偏离；真正不可违反的红线必须用 PreToolUse Hook 在工具层拦截。
       </p>
     </InfoCard>
-    <InfoCard label="CONTEXT COST" title="扩展不是越多越好">
+    <InfoCard surface="white" label="CONTEXT COST" title="扩展不是越多越好">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         MCP 工具名、Skill 描述、子智能体描述都在启动时进主上下文。文档给出 15,000 token 的描述告警线——扩展点本身也需要治理。
       </p>
@@ -437,6 +450,7 @@ Hooks 的触发时机覆盖三种节奏：每会话（SessionStart/End）、每�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "Claude Code 的本体是 harness，不是模型",
@@ -451,3 +465,4 @@ Hooks 的触发时机覆盖三种节奏：每会话（SessionStart/End）、每�
   ]}
   note="事实口径：机制描述依据 2026-09-23 抓取的官方文档（code.claude.com）与 GitHub README，产品迭代很快，字段与默认行为以最新文档为准；发布信息引自 Anthropic 官方公告；设计解读为作者归纳。"
 />
+</ArticleCanvas>

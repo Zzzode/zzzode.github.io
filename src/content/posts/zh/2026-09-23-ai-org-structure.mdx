@@ -24,6 +24,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -64,19 +65,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径说明：本文是对工程师「渣B渣B」2026-09-21 发表在微信公众号 zartbot 的随笔《谈谈 AI 时代的组织结构》的炼化与检验，原文声明仅代表个人观点、与任职机构无关。文中三种声音请分开看：**随笔论点**（作者一线经验判断）、**外部框架**（Conway 定律、Allen 曲线、Team Topologies 等公开文献，用来定位而非背书）、**本文作者的延伸解读**（会明确标注）。随笔中的技术案例（RL 训推不一致、RDMA 演进）本文只做结构化转述，不替作者补未展开的技术细节。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE QUESTION"
+    index="01"
+    kicker="前因之问"
     title="前因：资源优势为什么没有稳定地变成创新优势"
     lead="微软、Meta、Google 资金、算力、人才密度皆备，重要创新却从 OpenAI、Anthropic 与一批基模公司里长出来。"
   />
-  <Prose>
+  <Prose tile>
 
 随笔从一个反常识的现象起笔：传统科技巨头拥有雄厚资金、庞大算力与大量优秀人才，却没有「顺理成章地包揽」这一波 AI 最重要的创新。资源规模与创新能力之间，远不是线性对应。它引用梁文锋在 2024 年一次访谈中的判断——「我们创新缺的肯定不是资本，而是缺乏信心以及不知道怎么组织高密度的人才实现有效的创新」——把问题从技术路线与资源投入，推到了**组织能力**这一层。
 
@@ -87,9 +90,10 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="chain">
+<Section canvas id="chain">
   <SectionHead
-    kicker="02 · THE CAUSAL CHAIN"
+    index="02"
+    kicker="因果链"
     title="核心论证：组织低效如何一步步进入技术路线"
     lead="随页面滚动，左侧舞台展示随笔的五环论证链（宽屏下停驻在屏幕中央）。"
   />
@@ -202,43 +206,45 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="frameworks">
+<Section canvas id="frameworks">
   <SectionHead
-    kicker="03 · EXTERNAL FRAMEWORKS"
+    index="03"
+    kicker="外部框架"
     title="外部坐标系：这个论点其实有五十年的学术家谱"
     lead="随笔的直觉并不孤例——组织形状决定技术产物，是组织理论里被反复验证的经典命题。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="CONWAY'S LAW · 1968" title="系统设计镜像组织沟通结构">
+    <InfoCard surface="white" label="CONWAY'S LAW · 1968" title="系统设计镜像组织沟通结构">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Mel Conway 原始论文《How Do Committees Invent?》提出：设计系统的组织，其产出的设计必然复制该组织的沟通结构。后来 Brooks 在《人月神话》里引用并命名。随笔的「组织结构进入技术路线」就是 Conway 定律在 AI 训练系统上的改写。
       </p>
     </InfoCard>
-    <InfoCard label="ALLEN CURVE · 1970s" title="沟通频率随距离指数衰减">
+    <InfoCard surface="white" label="ALLEN CURVE · 1970s" title="沟通频率随距离指数衰减">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         MIT 的 Thomas Allen 对工程师沟通的实证研究发现：两个人的沟通频率随物理/组织距离指数下降。它为「知识过不了部门墙」提供了量化注脚——跨部门不只是流程距离，更是沟通概率的持续衰减。
       </p>
     </InfoCard>
-    <InfoCard label="TEAM TOPOLOGIES · 2019" title="把团队间协作模式当成一等设计对象">
+    <InfoCard surface="white" label="TEAM TOPOLOGIES · 2019" title="把团队间协作模式当成一等设计对象">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Skelton 与 Pais 的方法论把团队分成流对齐、平台、赋能（支持型）、复杂子系统四类，并显式设计团队间的协作模式（协作、服务、促进）。它对应随笔的处方：专业部门继续养标准与基础设施，但关键问题要用目标对齐的小队加明确决策权来打。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 还有一个常被引用的反向操作——**逆向 Conway 策略（Inverse Conway Maneuver）**：既然组织结构会塑造系统结构，那就先演化组织结构与沟通方式，逼出想要的系统架构。亚马逊 2002 年前后的「API 强制令」（团队间只能通过服务接口通信）与两个披萨团队，是工业界最著名的实践。用这面镜子照随笔的论点，会发现它的主张相当具体：不是撤销专业分工，而是**在专业竖井之上设计能整体求解的临时/稳定小队，并把团队交互方式当成和网络拓扑一样需要显式工程化的东西。**
 
   </Prose>
 </Section>
 
-<Section alt id="rlcase">
+<Section canvas id="rlcase">
   <SectionHead
-    kicker="04 · THE RL CASE"
+    index="04"
+    kicker="RL 案例"
     title="案例：RL 训推不一致——三个团队修补丁，没人查共同假设"
     lead="随笔最具体的技术案例，恰好能被一篇新论文接住。"
   />
-  <Prose>
+  <Prose tile>
 
 大模型的 RL 训练通常有两套引擎：推理引擎负责生成回答，训练引擎根据回答与奖励计算更新。即使权重相同，计算精度、算子实现、批处理方式的差异也会让两边算出不同概率分布；异步执行还可能让推理端使用落后版本。随笔描述了部门视角下的「合理」分工：推理团队追求吞吐与延迟、用量化和更高效执行；训练系统团队追求数值一致与稳定；算法团队调重要性采样、裁剪与样本筛选来缓解失配；MoE 场景再记录回放专家路由。补丁各自有技术依据，但**对共同机制的理解没有同步加深**——每个团队都在解决自己收到的问题，「两套引擎不一致时训练更新里到底多出了什么」这个追问长期无人负责。
 
@@ -246,6 +252,7 @@ import {
 
   </Prose>
   <CompareTable
+    tile
     headers={[
       { label: "团队" },
       { label: "收到的问题" },
@@ -258,20 +265,21 @@ import {
       ["算法", "怎样让更新更稳定", "重要性采样、裁剪、样本筛选", "偏差是否可被显式建模并抵消（drift）"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 随笔给的第二个案例是 RDMA over Ethernet：为硬件简单选择的 Lossless RoCE 方案在 HPC 年代合理，AI 时代拥塞模型完全改变，于是多路径用 DDP、可靠性加 SACK、拥塞控制改成 window-based，一路做加法，最终与当年被认为笨重的 iWARP 越来越像。这是作者个人技术史观，本文原样转述、不展开其未给出的细节；但它服务于同一个组织论点：**局部最优的补丁可以无限增加，对共同前提的重审却需要跨边界的人同时在场。**
 
   </Prose>
 </Section>
 
-<Section id="incentives">
+<Section canvas id="incentives">
   <SectionHead
-    kicker="05 · INCENTIVES"
+    index="05"
+    kicker="激励机制"
     title="激励如何替技术委员会做决策"
     lead="聪明人同样响应激励——这是随笔最不留情面的一段。"
   />
-  <Prose>
+  <Prose tile>
 
 当晋升要证明独立贡献、预算要证明部门价值、管理者影响力与团队规模挂钩，理性选择就是建立自己的项目、维护自己的边界、强调成果所有权。帮另一个团队解决关键问题对公司极有价值，对个人却未必形成清晰的晋升材料；把经验沉淀成公共工具能让很多人少走弯路，功劳却散落在别人成果里；相比之下，重建一套带本团队标签的平台反而更易被识别和奖励。重复建设、信息保留、成果争夺于是成为评价体系下的理性选择。
 
@@ -282,13 +290,14 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="ai-amplifies">
+<Section canvas id="ai-amplifies">
   <SectionHead
-    kicker="06 · WHY AI MAKES IT WORSE"
+    index="06"
+    kicker="放大瓶颈"
     title="为什么 AI 会放大协调瓶颈"
     lead="执行越快，等待与协调所占的比例越大。"
   />
-  <Prose>
+  <Prose tile>
 
 随笔结语里有一个本文作者认为最值得拉长的判断：**AI 工具让写代码、处理数据、分析实验越来越快，如果获取上下文与跨团队决策的速度没变，等待与协调会占更大的比例，更多产出堵在同一个决策瓶颈前。** 执行成本过去掩盖了协调成本；当执行成本趋近于零，协调就成了显式瓶颈。
 
@@ -297,35 +306,36 @@ import {
   </Prose>
 </Section>
 
-<Section id="prescription">
+<Section canvas id="prescription">
   <SectionHead
-    kicker="07 · WHAT TO DO"
+    index="07"
+    kicker="怎么做"
     title="五个自检问题与一个组织设计起点"
     lead="随笔最终把宏大判断落成了五件可以当场检查的具体事情。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="Q1 · 入口" title="研究员发现异常后，能直接找到谁？">
+    <InfoCard surface="white" label="Q1 · 入口" title="研究员发现异常后，能直接找到谁？">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         跨部门问题有没有明确入口，还是必须先证明「这是我的问题」才有人介入？AI 研发经常需要先联合诊断，才能知道问题该归谁。
       </p>
     </InfoCard>
-    <InfoCard label="Q2 · 首验速度" title="跨领域想法多久能得到第一次验证？">
+    <InfoCard surface="white" label="Q2 · 首验速度" title="跨领域想法多久能得到第一次验证？">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         实验额度与技术修改权限是否真的交到了围绕目标配置的小队手里，还是每一步都要回多个部门争取支持。
       </p>
     </InfoCard>
-    <InfoCard label="Q3 · 失败沉淀" title="一次失败能否帮所有相关团队少走弯路？">
+    <InfoCard surface="white" label="Q3 · 失败沉淀" title="一次失败能否帮所有相关团队少走弯路？">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         失败实验能否低成本地成为共同知识，而不是被沉默处理；共同的评测口径与可复现结果是否存在。
       </p>
     </InfoCard>
-    <InfoCard label="Q4 · 协作认可" title="帮别人突破能否同样获得认可？">
+    <InfoCard surface="white" label="Q4 · 协作认可" title="帮别人突破能否同样获得认可？">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         删繁、证明实验不必做、沉淀公共工具是否进得了评价依据；奖励项目数量与团队扩张会导向相反行为。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 **Q5：核心领导者的判断能否被新证据改变？** 资源和方向是否随反例调整，核心人物是否愿意公开修正判断。这一问决定前四问的答案是不是装饰。组织设计的具体起点随笔也给了：围绕研究目标（如「改善长上下文训练效率」「降低满足既定质量的推理成本」）配置稳定合作的算法、数据、Infra 成员，从目标与假设开始共同工作，给足实验额度与跨边界修改权限，并事先明确项目时间投入、资源额度与评价依据——只有责任没有资源调动能力的负责人，只会变成会议协调员。专业部门不撤销，继续承担人才培养、技术标准与长期基础设施；要改的是关键问题上的合作方式与决策权限。
 
@@ -334,13 +344,15 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="counter">
+<Section canvas id="counter">
   <SectionHead
-    kicker="08 · COUNTERWEIGHTS"
+    index="08"
+    kicker="反方重量"
     title="反方重量：边界并不全是坏事"
     lead="把这篇随笔用好，需要同时看见它没展开的另一半。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "随笔主张" },
       { label: "合理的反方" },
@@ -356,6 +368,7 @@ import {
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "当问题无法预先拆分，组织结构就成为技术系统的一部分",
@@ -370,3 +383,4 @@ import {
   ]}
   note="事实口径：随笔论点与两个技术案例来自 zartbot 微信公众号原文（2026-09-21，自述个人观点）；梁文锋引语见新浪财经 2024-07-22 转载访谈；Conway 定律依据其 1968 年原始论文，Allen 曲线与 Team Topologies 依据公开文献页面，Anthropic 跨领域工作方式依据其 2024-06-13 官方文章，TIM/drift 机制依据 arXiv 2609.20807 摘要；古典框架与随笔的对应、agent 组织镜像等延伸为本文作者解读。"
 />
+</ArticleCanvas>

@@ -28,6 +28,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -77,19 +78,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 先交代信息来源。本文事实来自 E2B 官方文档（docs.e2b.dev，2026-09-23 核对）、[e2b-dev/E2B](https://github.com/e2b-dev/E2B) 的 SDK 说明，以及 Apache-2.0 许可的 [E2B Runtime 基础设施仓库](https://github.com/e2b-dev/infra)。产品额度随版本变化，具体数字以官方计费页为准。这篇可以和本博客的 MiMo 训练看板那篇对着读：那边一次大跑要同时调动数万个沙箱，这篇讲的是单个沙箱怎么造。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BACKDROP"
+    index="01"
+    kicker="背景"
     title="前因：代码解释器不够用了，智能体要的是一整台机器"
     lead="「在隔离环境里跑 AI 写的代码」这件事早就存在，智能体把要求拉高了不止一档。"
   />
-  <Prose>
+  <Prose tile>
 
 **第一代：代码解释器。** ChatGPT 的 Code Interpreter 让「模型写 Python、后端在容器里跑、返回图表」成为标配。它的执行单元是一个被管起来的解释器内核（kernel）：语言基本固定、生命周期短、交互面是 notebook 式的单元格。它证明了隔离执行是杀手级功能，但也把能力圈在数据分析里。
 
@@ -100,28 +103,30 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="what">
+<Section canvas id="what">
   <SectionHead
-    kicker="02 · THE BIG PICTURE"
+    index="02"
+    kicker="全景"
     title="全景：开源运行时 + 托管云 + 两种 SDK"
     lead="E2B 既是一项云服务，也是一套你可以自己跑的开源基础设施。"
   />
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="1:1" unit="台 / 会话" label="每个沙箱是一台独立 Firecracker microVM，带自己的 envd API" />
     <Stat value="24h" unit="最长连续运行" label="Pro 档单次最长 24 小时（Base 1 小时），暂停可无限期保存" />
     <Stat value="10–20GiB" unit="磁盘" label="Hobby 10GiB / Pro 20GiB 独立文件系统" />
     <Stat value="100" unit="次分叉 / 请求" label="一次快照可以同时分叉出最多约 100 台新沙箱" />
   </StatGrid>
-  <Prose>
+  <Prose tile>
 
 用法只有四行：`Sandbox.create()` 起一台机器，`sandbox.commands.run(...)` 执行命令，`files.write/read` 操作文件，结束自动或手动释放。JavaScript/TypeScript 与 Python 两套 SDK 背后是同一个运行时。开源的 Runtime 仓库包含控制面 API、每台宿主机上的 orchestrator、每个 VM 内部的 envd、边缘路由与模板构建器——公有云、企业专属部署和单机评估包（Embed）跑的是同一套 Go 代码。
 
   </Prose>
 </Section>
 
-<Section id="lifecycle">
+<Section canvas id="lifecycle">
   <SectionHead
-    kicker="03 · THE LIFECYCLE"
+    index="03"
+    kicker="沙箱一生"
     title="一台沙箱的一生：创建、运行、暂停、快照、分叉"
     lead="随页面滚动，左侧舞台展示沙箱的状态流转（宽屏下停驻在屏幕中央）。"
   />
@@ -253,24 +258,25 @@ import {
   </ScrollStory>
 </Section>
 
-<Section alt id="speed">
+<Section canvas id="speed">
   <SectionHead
-    kicker="04 · WHY FAST"
+    index="04"
+    kicker="为什么快"
     title="为什么快：把「启动」重新定义成「恢复」"
     lead="E2B Runtime 仓库把设计哲学说得很直白，核心是三个技巧。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="SNAPSHOT FIRST" title="沙箱是恢复出来的，不是启动出来的">
+    <InfoCard surface="white" label="SNAPSHOT FIRST" title="沙箱是恢复出来的，不是启动出来的">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         模板是预启动 VM 的内存、磁盘与机器状态快照，存在对象存储里。「创建沙箱」= 恢复快照，跳过内核引导与用户空间初始化。暂停态沙箱与模板是同一种产物形态，所以恢复和创建走同一条代码路径。
       </p>
     </InfoCard>
-    <InfoCard label="LAZY RESTORE" title="懒恢复内存页">
+    <InfoCard surface="white" label="LAZY RESTORE" title="懒恢复内存页">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         恢复时不需要把整个内存镜像读进来：页面在被实际访问时才加载（lazy memory restore），模板构建最后还有一道 optimize 过程，只记录一次启动真正碰到的页面，冷启动要搬的数据更少。
       </p>
     </InfoCard>
-    <InfoCard label="COW DISK" title="写时复制的块设备">
+    <InfoCard surface="white" label="COW DISK" title="写时复制的块设备">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         多台沙箱共享同一份只读模板磁盘，各自的写入落在 copy-on-write 块设备上；这让同模板批量创建时几乎没有重复存储成本，也是暂停时磁盘只传 diff 的前提。
       </p>
@@ -278,13 +284,15 @@ import {
   </CardGrid>
 </Section>
 
-<Section id="isolation">
+<Section canvas id="isolation">
   <SectionHead
-    kicker="05 · ISOLATION"
+    index="05"
+    kicker="隔离边界"
     title="隔离边界：为什么必须是 microVM 而不是容器"
     lead="跑的是模型生成、可能被注入的不可信代码，隔离等级就是产品底线。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "隔离手段" },
       { label: "边界" },
@@ -297,66 +305,68 @@ import {
       ["Firecracker microVM", "独立客户机内核，KVM 硬件虚拟化", "快照恢复后亚秒级可用", "不可信代码、多租户智能体（E2B 的选择）"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 E2B 的隔离不是只靠 VM 这一层：每个沙箱有自己的 cgroup 与网络命名空间，每沙箱一条 nftables 出网防火墙，并在 SNI/Host 层做域名允许与拒绝清单。架构上还坚持**控制面与数据面分离**——API 只决定沙箱调度到哪台机器、记录它存在；每台宿主机上的 orchestrator 才掌握 Firecracker 进程、块设备与 cgroup；沙箱流量从边缘直达节点，从不经过控制面 API。这样即使控制面出问题，正在跑的沙箱流量也不受影响。
 
   </Prose>
 </Section>
 
-<Section alt id="shapes">
+<Section canvas id="shapes">
   <SectionHead
-    kicker="06 · USAGE SHAPES"
+    index="06"
+    kicker="使用形态"
     title="都拿它做什么：从代码解释到完整云上电脑"
     lead="文档的 Use cases 列表本身就是一张智能体能力地图。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="CODE INTERPRETING" title="数据分析与图表">
+    <InfoCard surface="white" label="CODE INTERPRETING" title="数据分析与图表">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         上传 CSV，模型生成 pandas/matplotlib 代码在沙箱里跑，生成图表再下载——Code Interpreter 形态的完整复刻，但语言与依赖不受限。
       </p>
     </InfoCard>
-    <InfoCard label="COMPUTER USE" title="浏览器与桌面自动化">
+    <InfoCard surface="white" label="COMPUTER USE" title="浏览器与桌面自动化">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         沙箱里跑带界面的浏览器，智能体像人一样点开网页；云浏览器（cloud browser）与 GitHub Actions 里的 CI/CD 智能体也是同类用法。
       </p>
     </InfoCard>
-    <InfoCard label="STATE & ACCESS" title="卷、密钥与身份">
+    <InfoCard surface="white" label="STATE & ACCESS" title="卷、密钥与身份">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Volumes 让数据寿命超过单个沙箱；密钥只存元数据、值从不经过 API/日志/trace；workload identity 发放短期令牌，控制面自己都不铸造长期凭证。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 它所处的位置也很能说明问题：官方文档列出的集成方包括 Claude Code、Codex、Devin Outposts、Cursor、Grok Build、Vercel Eve、Flue、CrewAI、LangChain、OpenAI Agents SDK 等——**沙箱正在变成智能体生态的公共执行层**，就像数据库是 Web 应用的公共状态层一样。
 
   </Prose>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="07 · READ IT RIGHT"
+    index="07"
+    kicker="几笔账"
     title="使用前要算清的几笔账"
     lead="强大的原语也有明确的边界，文档把坑都写在了明处。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="CONNECTION DROP" title="快照与分叉会掐断连接">
+    <InfoCard surface="white" label="CONNECTION DROP" title="快照与分叉会掐断连接">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         createSnapshot 与 fork 期间的暂停会丢掉所有 WebSocket、PTY 与命令流；分叉的暂停时长随磁盘写量线性增加。生产代码必须实现重连，不能假设会话连续。
       </p>
     </InfoCard>
-    <InfoCard label="TIME WINDOW" title="长跑靠暂停续期，不是硬扛">
+    <InfoCard surface="white" label="TIME WINDOW" title="长跑靠暂停续期，不是硬扛">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         单次连续运行有上限（Pro 24 小时），超过就要用 pause/resume 续期；空闲自动暂停省的是执行费，但状态保留与存储另计口径。
       </p>
     </InfoCard>
-    <InfoCard label="SELF-HOST" title="Embed 是评估包，不是生产形态">
+    <InfoCard surface="white" label="SELF-HOST" title="Embed 是评估包，不是生产形态">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         单机 Embed 要求 Linux + KVM，官方明说它用于评估；生产自建有专属部署（数据留在你自己云账户）与 GCP Terraform/K8s 方案，运维门槛不低。
       </p>
     </InfoCard>
-    <InfoCard label="VERSION" title="快照有版本前提">
+    <InfoCard surface="white" label="VERSION" title="快照有版本前提">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         快照要求 envd v0.5.0+，旧自定义模板要重建。这类版本约束在升级链路上要显式检查，不能假设老模板永远可用。
       </p>
@@ -365,6 +375,7 @@ E2B 的隔离不是只靠 VM 这一层：每个沙箱有自己的 cgroup 与网�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "智能体时代的执行单元是一台可编排的虚拟机",
@@ -379,3 +390,4 @@ E2B 的隔离不是只靠 VM 这一层：每个沙箱有自己的 cgroup 与网�
   ]}
   note="事实口径：机制依据 2026-09-23 抓取的 E2B 官方文档与 e2b-dev/E2B、e2b-dev/infra（Apache-2.0）公开仓库；额度数字（磁盘、24 小时、100 分叉）随套餐与版本变化，以官方计费页为准；Firecracker 描述引自其官方网站。"
 />
+</ArticleCanvas>

@@ -34,6 +34,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -73,19 +74,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径说明：本文是一篇基于公开论文的技术综述，引用的 12 篇论文 arXiv 编号均已逐一核对（2026-09-23）。综述只覆盖「AI/ML 与编译器、类型系统、JS 运行时交叉」的公开学术脉络，不涉及任何内部研究材料；文中对趋势的归纳是作者的解读。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · WHY COMPILERS"
+    index="01"
+    kicker="为何是编译器"
     title="前因：编译器为什么会成为机器学习的猎物"
     lead="一个优化开关序列就是一个组合爆炸问题——启发式是人给的近似解，而学习方法最擅长的就是从数据里逼近这种解。"
   />
-  <Prose>
+  <Prose tile>
 
 经典编译器的每个阶段都在做选择：这个变量该推断成什么类型？这段 IR 该不该内联、向量化？寄存器怎么分配？这些问题大多是 NP 难或不可判定的，编译器工程师用几十年时间手写了大量启发式规则（heuristics）来「在大多数时候足够好」。
 
@@ -97,6 +100,7 @@ import {
 
   <div class="mt-8">
     <Timeline
+      tile
       nodes={[
         { year: "2019-20", title: "专用小模型", body: "GNN/相似学习做类型推断：LambdaNet、TypeWriter、Typilus" },
         { year: "2021", title: "ML 进入优化器", body: "MLGO 把 RL 嵌进 LLVM；CompilerGym 提供训练环境" },
@@ -107,9 +111,10 @@ import {
   </div>
 </Section>
 
-<Section alt id="pipeline">
+<Section canvas id="pipeline">
   <SectionHead
-    kicker="02 · THE PIPELINE"
+    index="02"
+    kicker="流水线"
     title="沿编译流水线看：AI 分别接管了什么"
     lead="随页面滚动，左侧舞台展示每个编译环节的学习化做法（宽屏下停驻在屏幕中央）。"
   />
@@ -221,43 +226,46 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="js">
+<Section canvas id="js">
   <SectionHead
-    kicker="03 · THE JS FRONTIER"
+    index="03"
+    kicker="JS 战场"
     title="JavaScript / Web：最年轻也最别扭的战场"
     lead="JS 引擎把编译器技术藏在运行时里（JIT），这让「AI 优化编译器」的经典套路在这里既更难、也出现了新形状。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="JIT, NOT AOT" title="优化发生在运行时，且会去优化">
+    <InfoCard label="JIT, NOT AOT" title="优化发生在运行时，且会去优化" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         V8 的 Ignition + TurboFan 在运行时按反馈做推测优化，类型一变就去优化（deopt）。静态的编译期 pass 选择在这里让位给「基于 profile 的动态决策」，MLGO 式静态策略不能直接照搬。
       </p>
     </InfoCard>
-    <InfoCard label="FUZZING" title="AI 帮忙找引擎漏洞">
+    <InfoCard label="FUZZING" title="AI 帮忙找引擎漏洞" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         2026 年的研究（arXiv 2512.18102）从「覆盖率」走向「成因」的数据中心模糊测试，针对 JS 引擎生成更易触发深层缺陷的用例——AI 不优化编译，而是攻击编译/执行系统本身。
       </p>
     </InfoCard>
-    <InfoCard label="TYPES EXIST" title="TypeScript 是难得的类型信号">
+    <InfoCard label="TYPES EXIST" title="TypeScript 是难得的类型信号" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         超大规模带类型标注的 TS 代码库，使 LambdaNet 这类概率类型推断有了真实的工业级试验场；类型本身也成为代码模型理解 JS 生态的重要监督信号。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 另一个方向更微妙：**不是「AI 优化编译器」，而是「编译器/运行时服务 AI」**。端侧大模型推理的爆发（本博客另文讨论 MiMo 这类模型的训练与小模型蒸馏）反过来要求 ML 编译器（XLA、TVM、IREE 及 WebGPU/WASM 后端）为神经网络生成高效代码，让模型能在浏览器与手机上跑起来。AI 与编译器在这里是双向关系：AI 改进编译器，编译器也在为 AI 铺路——CMU 2025 的端侧推理报告把 ML 编译器与 Web 技术并列为让 LLM 上设备的两大支柱。
 
   </Prose>
 </Section>
 
-<Section alt id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="04 · WHAT HASN'T LANDED"
+    index="04"
+    kicker="未落地"
     title="冷静面：研究很热闹，接管还很远"
     lead="论文里的 SOTA 与生产编译器里跑的东西之间，隔着几道老问题。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "环节" },
       { label: "研究进展" },
@@ -270,7 +278,7 @@ import {
       ["JIT/JS 引擎", "以模糊测试、辅助分析为主", "运行时开销、去优化交互、安全性，尚无学习型 JIT 主流落地"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 编译器是软件世界里可靠性要求最苛刻的基础设施之一——优化错一次就是错误编译，下游所有程序遭殃。学习模型的概率性、数据分布偏移与不可解释性，与编译器「必须可证明正确」的文化天生冲突。因此目前真正落地的形态几乎都是**建议而非替代**：推荐类型注解由人确认、在受限 pass 上替换单一启发式、在测试与模糊测试环节放大工程师——把 AI 放在「可验证、可回滚」的位置，与 RLVR「可验证奖励」的思想一脉相承。
 
@@ -278,6 +286,7 @@ import {
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "AI 进编译器走的是「按环节替换启发式」路线",
@@ -292,3 +301,4 @@ import {
   ]}
   note="事实口径：本文 12 篇引用论文的 arXiv 编号均于 2026-09-23 逐一核对；趋势划分（三代）与落地判断为作者综述性归纳，不代表论文作者立场；JS 引擎与端侧部分部分依据 2026 年公开研究与机构报告。"
 />
+</ArticleCanvas>

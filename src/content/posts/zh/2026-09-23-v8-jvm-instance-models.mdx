@@ -20,6 +20,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -71,19 +72,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径说明：V8 一侧依据 v8.dev 官方嵌入指南（2026-09-23 核对），JVM 一侧依据 Oracle 发布的 JNI 规范（Java SE 8 文档站，Invocation API / Functions / Design 三章；JNI 的这层接口契约在后续 Java 版本中基本未变）。本文讲的是规范层面的不变量，不深入 HotSpot 的具体数据结构；所有「V8 如何 / JVM 如何」的表述都可以在给出的官方页面逐条复核。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE QUESTION"
+    index="01"
+    kicker="前因"
     title="前因：当虚拟机成为你进程里的一个库"
     lead="嵌入一个运行时和链接一个普通函数库根本不是一回事：你领进进程的，是一整套自带堆、GC 与线程纪律的自治系统。"
   />
-  <Prose>
+  <Prose tile>
 
 Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天起就是一个被宿主启动、也可以被 native 程序反向启动（JNI Invocation API）的运行时。一旦你的进程里住进这样一个房客，三个问题立刻出现：**它能复制出几份（实例拓扑）？你家的几条线程能不能同时进它家门（进入协议）？它搬走时你手里留的钥匙还算不算数（销毁与悬垂）？**
 
@@ -92,9 +95,10 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
   </Prose>
 </Section>
 
-<Section alt id="mechanisms">
+<Section canvas id="mechanisms">
   <SectionHead
-    kicker="02 · FIVE INVARIANTS"
+    index="02"
+    kicker="五个不变量"
     title="五个机制不变量，并排看两种选择"
     lead="随页面滚动，左侧舞台逐组对照 V8（蓝）与 JVM（黑）的契约（宽屏下停驻在屏幕中央）。"
   />
@@ -205,13 +209,15 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
   </ScrollStory>
 </Section>
 
-<Section id="references">
+<Section canvas id="references">
   <SectionHead
-    kicker="03 · REFERENCE LADDER"
+    index="03"
+    kicker="引用分级"
     title="引用为什么必须分级：一张对照表"
     lead="两套运行时的术语不同，层级结构却几乎一一对应——这不是巧合，而是「GC 需要知道根在哪里」的必然设计。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "层级" },
       { label: "V8（嵌入指南）" },
@@ -225,26 +231,27 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
       ["环境层", "Context：同 Isolate 内的独立 JS 全局环境", "（类身份边界由 ClassLoader 承担）", "隔离的是名字空间，不是堆"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 还要注意「保活」与「线程安全」是两件不同的事：global 引用保证对象不被 GC 回收，但**不保证业务数据竞争自动消失**——多个 attached 线程同时操作同一个 Java 对象，同步仍由 Java 侧的锁与内存模型负责；规范层面，跨线程误用线程私有的 JNIEnv、使用已删除的引用都是非法调用。JNI 规范还规定挂起异常（pending exception）期间不允许继续任意调用，native 代码必须显式检查并选择传播或 ExceptionClear——边界正确性靠的是这套分层协议，而不是一把包住一切的大锁。
 
   </Prose>
 </Section>
 
-<Section alt id="why">
+<Section canvas id="why">
   <SectionHead
-    kicker="04 · WHY THE CHOICES DIFFER"
+    index="04"
+    kicker="两种取舍"
     title="两种拓扑各自买到了什么"
     lead="没有免费的隔离——实例边界和共享堆是两种不同的货币。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="V8'S PURCHASE" title="多实例买到故障与内存的硬隔离">
+    <InfoCard surface="white" label="V8'S PURCHASE" title="多实例买到故障与内存的硬隔离">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Isolate 之间堆不相交：一个实例的 GC 停顿、内存膨胀或 JS 崩溃，并不会直接波及另一个；浏览器一个标签页一个隔离环境、Worker 并行做 CPU 密集计算，都是这份隔离的产品化。代价是对象不能直接共享，通信要走序列化、转移所有权或 SharedArrayBuffer——这正是浏览器/Node 世界 postMessage 与 transfer 语义存在的原因。
       </p>
     </InfoCard>
-    <InfoCard label="JVM'S PURCHASE" title="单实例买到共享对象的零拷贝协作">
+    <InfoCard surface="white" label="JVM'S PURCHASE" title="单实例买到共享对象的零拷贝协作">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         多条线程看见同一个堆与同一套类元数据，worker 线程、引擎线程与 attach 的 native 线程可以直接传递对象引用、共享缓存与并发集合。代价是隔离要在应用层重建（ClassLoader 只隔离类身份与命名空间，不隔离堆），正确性由 JMM、monitor、safepoint 协调与一整套 JNI 线程协议共同承担——协议的复杂度就是共享的价格。
       </p>
@@ -252,29 +259,30 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
   </CardGrid>
 </Section>
 
-<Section id="lessons">
+<Section canvas id="lessons">
   <SectionHead
-    kicker="05 · LESSONS FOR EMBEDDERS"
+    index="05"
+    kicker="四条经验"
     title="给任何「在进程里嵌运行时」的人的四条经验"
     lead="Edge.js 趟过的坑、JNI 规范写下的限制，最终都收敛到这几条。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="ORTHOGONAL FIRST" title="先回答两个轴，再设计 API">
+    <InfoCard surface="white" label="ORTHOGONAL FIRST" title="先回答两个轴，再设计 API">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         设计任何嵌入式运行时（或沙箱实例系统），先独立决定「允许几个实例」与「实例内允许几条线程」。删除「唯一 owner」判断不等于获得多线程并行；单实例也不等于会排队——排队只来自单 owner 或粗粒度共享锁。
       </p>
     </InfoCard>
-    <InfoCard label="REGISTER ROOTS" title="跨边界持有对象必须显式登记">
+    <InfoCard surface="white" label="REGISTER ROOTS" title="跨边界持有对象必须显式登记">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         永远不要把托管对象的裸地址私藏在宿主结构里。短期借用走作用域式句柄、跨调用走全局引用、不确定存活用弱引用加使用前检查。这与 [Edge.js 一文](/posts/2026-09-23-edgejs-inprocess-dotnet/)里 V8/CLR 双 GC 互建句柄的协议是同一条规律。
       </p>
     </InfoCard>
-    <InfoCard label="THREAD ENTRY IS A PROTOCOL" title="进入运行时要注册，退出要干净">
+    <InfoCard surface="white" label="THREAD ENTRY IS A PROTOCOL" title="进入运行时要注册，退出要干净">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         attach/detach、线程私有上下文、栈上仍有方法帧时不可脱离——这些仪式不是繁文缛节，而是 GC 枚举线程、safepoint 停顿与异常状态能成立的前提。Locker 同理：它协调的是进入权，不是生命周期。
       </p>
     </InfoCard>
-    <InfoCard label="HOST OWNS TEARDOWN" title="销毁是契约，不是运行时的自动保活">
+    <InfoCard surface="white" label="HOST OWNS TEARDOWN" title="销毁是契约，不是运行时的自动保活">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         两个运行时都不替宿主缓存的 VM 指针做引用计数：销毁后再用旧句柄是宿主违约，悬垂指针甚至可能指向复用后的新实例。正确做法是在宿主侧设唯一 owner 或引用计数，先让所有线程退出，再销毁运行时。
       </p>
@@ -283,6 +291,7 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "实例数量与线程并发是两个正交轴，V8 与 JVM 各占一个极端",
@@ -297,3 +306,4 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
   ]}
   note="事实口径：Isolate（拥有独立堆的 VM 实例）、Context、HandleScope 等定义依据 2026-09-23 抓取的 v8.dev 嵌入指南；worker_threads 并行与内存语义依据 Node.js 官方文档；单进程不支持多 VM、JNIEnv 线程私有、attach/detach 条件、DestroyJavaVM 等待非守护线程、三级引用语义均逐字依据 Oracle JNI 规范 Invocation/Functions/Design 三章（Java SE 8 文档站）；V8 Locker 的具体 API 形态以随版本变化的头文件为准，本文只使用「单时刻单线程进入」这一稳定语义；HotSpot 内部数据结构未作为论据。"
 />
+</ArticleCanvas>

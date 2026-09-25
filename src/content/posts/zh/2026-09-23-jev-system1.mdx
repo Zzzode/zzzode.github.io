@@ -26,6 +26,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -74,19 +75,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径说明：本文依据 TypeSafe 官方文档（2026-09-23 核对，当前版本 Jev 1.13）、Cloudflare 模型卡、一篇 2026 年 9 月的 arXiv 实证论文、Vercel 官方博客与一个开源 harness 仓库。需要先纠正二手传播里的两个常见偏差：**Jev 目前只接受文本输入**（官方明确图像、音频、视频尚不支持，游戏 Demo 也是把世界状态先转成 JSON）；它的输出也不是神秘自由文本，而是三种严格定义的「问题原语」之一。社交媒体上的具体 Demo 速度/成本数字多为演示口径，本文只采用能回到一手来源的数字。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BET"
+    index="01"
+    kicker="前因与赌注"
     title="前因：Agent 不需要一个会写作文的 API"
     lead="TypeSafe 的赌注是：大规模自动化里 99% 是机器对机器，聊天界面反而是例外。"
   />
-  <Prose>
+  <Prose tile>
 
 把通用聊天大模型塞进自动化流水线，会遇到一组结构性麻烦：你让它在几个动作里选一个，它回你一段措辞得体的话；你的程序还得再写解析器把话抠回结构化字段，期间可能撞上格式不符、模型编造出选项之外的内容（幻觉）、以及每次输出长度不可控带来的延迟与费用波动。说穿了，**「人读着舒服」和「软件用着可靠」是两个不同的优化目标。**
 
@@ -95,9 +98,10 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
   </Prose>
 </Section>
 
-<Section alt id="contract">
+<Section canvas id="contract">
   <SectionHead
-    kicker="02 · THE CONTRACT"
+    index="02"
+    kicker="接口契约"
     title="接口契约：一个状态，一组问题，一组带概率的答案"
     lead="随页面滚动，左侧舞台展示一次 Jev 调用从构造状态到代码消费答案的全过程（宽屏下停驻在屏幕中央）。"
   />
@@ -200,13 +204,15 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
   </ScrollStory>
 </Section>
 
-<Section id="rlcd">
+<Section canvas id="rlcd">
   <SectionHead
-    kicker="03 · THE TRAINING"
+    index="03"
+    kicker="训练目标"
     title="RLCD：与 RLHF、RLVR 并列的第三种训练目标"
     lead="输出契约不同，训练目标必然不同。这也是本博客 MiMo 一文里 RLVR 脉络的一个分叉。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "路线" },
       { label: "优化目标" },
@@ -219,7 +225,7 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       ["RLCD", "为校准决策而训练（TypeSafe 路线）", "决策与校准概率，不生成文本", "只擅长封闭判断；开放生成与多步推理非其目标"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 官方 primer 把三者并列的逻辑值得讲清楚：**你奖励什么，模型就成为什么。** RLHF 奖励「人更喜欢的回答」，于是模型学会迎合；RLVR 奖励「答案可验证正确」，于是模型学会长链推理；RLCD（Reinforcement Learning for Calibrated Decisions）奖励「概率与真实结果频率对齐的决策」，于是模型学会在封闭答案空间上表达不确定性。Jev 不接受客户数据做微调或 LoRA，所有租户共享同一组权重——领域适配不靠定制权重，而靠你在 state 里放材料、在问题的 instructions 与 criteria 里写规则、把大判断拆成原子问题组合。
 
@@ -228,9 +234,10 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
   </Prose>
 </Section>
 
-<Section alt id="harness">
+<Section canvas id="harness">
   <SectionHead
-    kicker="04 · THE THREE-LAYER AGENT"
+    index="04"
+    kicker="三层分工"
     title="实战形态：规划、判断、执行的三层分工"
     lead="开源项目 MineLog 把这套分工写得最直白：GPT-6 Astra 规划，Jev 决策，代码拥有每一个 tick。"
   />
@@ -339,13 +346,14 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
   </ScrollStory>
 </Section>
 
-<Section id="judge">
+<Section canvas id="judge">
   <SectionHead
-    kicker="05 · THE EVIDENCE"
+    index="05"
+    kicker="论文证据"
     title="JEV-as-a-Judge：一篇论文给出的能力边界"
     lead="宣传归宣传，目前最硬的第三方证据是一篇对照 16 个裁判模型的 arXiv 论文。"
   />
-  <Prose>
+  <Prose tile>
 
 论文 [《JEV-as-a-Judge: Accept When Confident, Escalate When Unsure》](https://arxiv.org/abs/2609.26550) 研究的正是 Agent 流水线里的另一个经典脏活——**结果裁判**（LLM-as-a-judge，用模型给另一个模型的输出打分）。实验把 Jev 与 16 个生成式/奖励模型裁判对比，并由盲化的人工做最终裁定。三个结论值得记住：
 
@@ -356,24 +364,25 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
   </Prose>
 </Section>
 
-<Section alt id="economics">
+<Section canvas id="economics">
   <SectionHead
-    kicker="06 · THE ECONOMICS"
+    index="06"
+    kicker="成本结构"
     title="为什么输出能免费：自回归成本结构被抽空了"
     lead="以及它在发布渠道上的真实采用数据。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="PRICING" title="$0.042 / 百万输入 token，输出免费">
+    <InfoCard surface="white" label="PRICING" title="$0.042 / 百万输入 token，输出免费">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         官方模型页（Jev 1.13）口径：每百万输入 token 0.042 美元（即每十亿 42 美元），仅按输入计费。输出长度趋近于零，自回归逐 token 生成的主要成本项被抽空，这是定价模型的物理基础。
       </p>
     </InfoCard>
-    <InfoCard label="CAPACITY" title="64k 请求窗口 · 25 万 token/秒">
+    <InfoCard surface="white" label="CAPACITY" title="64k 请求窗口 · 25 万 token/秒">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         每次请求 64k（state + 全部问题合计），state 加最长单问上限 32k（与 Cloudflare 模型卡一致）；限流 250,000 token/秒、1,200 请求/分钟，超限返 429。官方注明限流在动态调整。
       </p>
     </InfoCard>
-    <InfoCard label="ADOPTION" title="Vercel：24 小时近 13% 付费团队接入">
+    <InfoCard surface="white" label="ADOPTION" title="Vercel：24 小时近 13% 付费团队接入">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Vercel 官方博客（2026-09-18）口径：上线 AI Gateway 24 小时内近 13% 付费团队使用，为 GPT-5.6 家族同期的 2 倍、Fable 5.1 的 6 倍以上，称其为网关史上采用最快的模型。渠道方自述口径，应作趋势信号而非长期份额。
       </p>
@@ -381,13 +390,15 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
   </CardGrid>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="07 · READ IT RIGHT"
+    index="07"
+    kicker="边界与读法"
     title="边界：什么时候不该用它"
     lead="System 1 的名字本身就是边界声明——快思考从不负责证明定理。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "场景" },
       { label: "适配判断" },
@@ -402,7 +413,7 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       ["无人监管的全自动决策", "需置信闸门", "校准是群体统计性质；闭源权重、数据出域、供应商绑定需纳入合规评估"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 一句话收束：**Jev 不是一个更便宜的聊天模型，而是一种新的接口形态——把模型从「回答问题的人」变成「函数库里的一个判断函数」。** 评估它的方式也应随之改变：不看单次演示有多惊艳，而看在你自己的任务分布上，置信度阈值划在哪里时，「自动执行的比例」与「误判率」达到什么平衡——这正是判断模型时代的单元测试。
 
@@ -410,6 +421,7 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "System 1 模型真正改变的是输出契约",
@@ -424,3 +436,4 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
   ]}
   note="事实口径：接口、原语、RLCD、定价与限流均依据 2026-09-23 抓取的 docs.typesafe.ai（System One / State / Models / AI primer，Jev 1.13）与 Cloudflare 模型卡；裁判能力数据来自 arXiv 2609.26550 论文自述实验；采用率来自 Vercel 官方博客（渠道方口径）；三层 harness 依据 beamnxw/minelog 开源仓库 README。社交媒体流传的单次 Demo 耗时与成本数字未获一手复核，本文未采用。"
 />
+</ArticleCanvas>

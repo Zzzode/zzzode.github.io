@@ -24,6 +24,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -59,25 +60,28 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+
+<Prose tile>
 
 写之前先说清楚数字怎么读。这篇只用能找到公开出处的数字，并把它们分成三类：**机构统计**（IDC 和 Counterpoint，两家统计范围不一样，数字不能互相替）、**公司高管自己说的**（EssilorLuxottica CEO 讲的累计销量）、**媒体和供应链传闻**（豆包眼镜的参数，字节已经公开否认）。每个份额都是某一家机构在某个季度或半年的切片，不是全年预测，我在文里会一个个标明出处。本文不构成投资建议。
 
 </Prose>
 
-<Section id="market">
+<Section canvas id="market">
   <SectionHead
-    kicker="01 · THE NUMBERS"
+    index="01"
+    kicker="市场实况"
     title="市场实况：两组 tracker，同一个「放量元年」结论"
     lead="先把数字和它们的口径一起摆出来。"
   />
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="+263%" label="Counterpoint 口径：2026 上半年全球 AI 眼镜出货同比；其中无屏 +258%、带 AR 显示 +449%（小基数）" />
     <Stat value="225 万" label="IDC 口径：2026Q1 无屏智能眼镜单季出货约 2.25M，同比 +167%；2024 全年同类仅约 2.7M" />
     <Stat value="≈94%" label="Counterpoint 口径：H1 2026 Meta 占无屏品类份额（小米、阿里各约 1%，其余 4%）" />
     <Stat value="700 万+" label="EssilorLuxottica CEO 口径：2025 年双方累计已售 700 万+ 副，2026 年底冲击千万级年销节奏" />
   </StatGrid>
-  <Prose>
+  <Prose tile>
 
 为什么是 2026 年？三条曲线在这时相交：**产品上**，Ray-Ban Meta 证明了无屏形态（摄像头 + 开放式声学 + 手机助理）可以做到公众愿意戴出门的外观；**能力上**，多模态 AI 助手让「拍一下就问、听到就翻译」成为真实高频用途；**渠道上**，EssilorLuxottica 把 Meta 镜架放进了全球最大的眼镜零售网络——它出现在配镜店而不是数码城里，这是纯硬件公司复制不了的货架。
 
@@ -86,9 +90,10 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
   </Prose>
 </Section>
 
-<Section alt id="chain">
+<Section canvas id="chain">
   <SectionHead
-    kicker="02 · THE CHAIN"
+    index="02"
+    kicker="产业链"
     title="产业链五层：钱、风险与壁垒各落在哪里"
     lead="随页面滚动，左侧舞台自上而下游走这条价值链（宽屏下停驻在屏幕中央）。"
   />
@@ -192,13 +197,15 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
   </ScrollStory>
 </Section>
 
-<Section id="shares">
+<Section canvas id="shares">
   <SectionHead
-    kicker="03 · WHO'S WINNING"
+    index="03"
+    kicker="竞争格局"
     title="竞争格局：无屏看 Meta，带屏看 Rokid，中国占产能不占份额"
     lead="两组 tracker 给出的份额表，请连同统计范围一起读。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "厂商" },
       { label: "IDC Q1 2026 整体份额" },
@@ -214,7 +221,7 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
       ["Others 长尾", "19.8%", "约 4%"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 两张表不可混用：IDC Q1 数字来自其可穿戴与 AR/VR 两个 tracker 的合并口径，Meta 69.2%；Counterpoint 只看无屏 AI 眼镜半年口径，Meta 约 94%——**分母不同，两个数字都对。** 共同结论是：无屏市场目前是「一个巨头 + 长尾」，而挑战者名单上是清一色中国厂商加即将入场的 Google/Samsung（Android XR）与 Apple（已有多家媒体报道其在研无屏眼镜，尚未官宣）。
 
@@ -223,14 +230,16 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
   </Prose>
 </Section>
 
-<Section alt id="doubao">
+<Section canvas id="doubao">
   <SectionHead
-    kicker="04 · THE DOUBAO CASE"
+    index="04"
+    kicker="豆包传闻"
     title="豆包眼镜：一场几小时的传闻，与字节的终端矩阵"
     lead="投研上，被否认的传闻与被确认的事实要放在时间线上分开记。"
   />
   <div class="mt-8">
     <Timeline
+      tile
       nodes={[
         { year: "2024", title: "Ola Friend AI 耳机", body: "字节首款围绕豆包 App 协同的轻硬件，主打 AI 语音交互（已上市的既成事实）。" },
         { year: "2025.11", title: "阿里夸克眼镜爆单", body: "36 氪口径：发布后发货周期一度 45 天，二手溢价至 4000–5000 元；百度小度 AI 眼镜 Pro 同年底发售。" },
@@ -241,31 +250,32 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
       ]}
     />
   </div>
-  <Prose>
+  <Prose tile>
 
 为什么要认真对待一个被否认的传闻？投研上它有三重信号价值：**第一，供应链的能力已经存在**——50 克、2000 元内、ODM 联合研发说明门槛主要在产品化而非技术幻想；**第二，字节的终端矩阵已成体系**——耳机、手机工程机、眼镜三个节点围绕豆包 App，这与 Meta「模型 + 社交图谱 + 眼镜渠道」是同构的入口布局；**第三，否认本身符合大厂节奏**——在模型体验与刚需路径未跑通前不官宣，可以参考小米、理想直接以 1999 元起定价试水的相反打法。但信号不是事实：截至本文核对，豆包眼镜没有官方发布，本文不把任何传闻参数当作可执行结论。
 
   </Prose>
 </Section>
 
-<Section id="value">
+<Section canvas id="value">
   <SectionHead
-    kicker="05 · INVESTMENT LOGIC"
+    index="05"
+    kicker="价值捕获"
     title="价值捕获：硬件可能不赚钱，钱在入口与生态"
     lead="这条产业链最反直觉的一点：最拥挤的环节未必最赚钱。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="ENTRY RENTS" title="入口与服务是利润的候选宿主">
+    <InfoCard surface="white" label="ENTRY RENTS" title="入口与服务是利润的候选宿主">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         36 氪转述产业时评人的判断：互联网公司做眼镜是建「AI 分发网络」，硬件可贴钱，价值在语音/图像请求导向自家模型与服务后的留存与订阅。Meta 的广告体系有能力补贴硬件，这是纯硬件厂不具备的弹药。
       </p>
     </InfoCard>
-    <InfoCard label="CHIP/ODM BETA" title="芯片与代工吃放量弹性，但议价权双向">
+    <InfoCard surface="white" label="CHIP/ODM BETA" title="芯片与代工吃放量弹性，但议价权双向">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         AR SoC 与成熟 ODM 在放量阶段直接受益（订单、良率爬坡）；但客户集中（品牌厂少数）也压议价权。Counterpoint 已提示零部件成本上涨，BOM 通胀可能首先侵蚀组装环节毛利。
       </p>
     </InfoCard>
-    <InfoCard label="OPTICS OPTION" title="显示光学是带屏放量的期权">
+    <InfoCard surface="white" label="OPTICS OPTION" title="显示光学是带屏放量的期权">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         波导与 Micro-OLED 当前量小价高，+449% 的带屏增速建立在小基数上；若 Android XR/Apple 带起带屏周期，Rokid 们的份额与光学供应链的价值会重估——这是高不确定性、高赔率的一端。
       </p>
@@ -273,13 +283,15 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
   </CardGrid>
 </Section>
 
-<Section alt id="risks">
+<Section canvas id="risks">
   <SectionHead
-    kicker="06 · RISKS"
+    index="06"
+    kicker="风险变量"
     title="四个不能忽略的反向变量"
     lead="所有增长率都是在以下风险尚未兑现的前提下成立。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "风险" },
       { label: "已观察到的信号（带来源口径）", wrap: true },
@@ -292,31 +304,32 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
       ["巨头入场重排", "Google/Samsung 的 Android XR、Apple 在研无屏眼镜均为公开报道中的确定方向；IDC 称 Google 的生态深度「结构上不同于」Meta", "长尾品牌的窗口期可能只有 12–24 个月；ODM 与渠道的依附价值随品牌座次重估"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 一个值得跟踪的反直觉趋势是**无摄像头化**：据 Counterpoint（AIBase 转引），更多设备可能在设计上规避摄像头争议，只保留麦克风与 AI 交互——这会把价值量从摄像头模组推向声学与端侧语音芯片，也会改变「眼镜作为视觉传感器」的整条投资逻辑。无屏与带屏、有摄像头与无摄像头，本质是四个不同的 BOM 组合，不能用一个「AI 眼镜」标签统一定价。
 
   </Prose>
 </Section>
 
-<Section id="caliber">
+<Section canvas id="caliber">
   <SectionHead
-    kicker="07 · DATA CALIBER"
+    index="07"
+    kicker="数据口径"
     title="数据口径说明：这些数字不能互相替换"
     lead="投研结论的可靠性首先取决于口径纪律。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="IDC vs COUNTERPOINT" title="两个 2026 增速为何差一倍">
+    <InfoCard surface="white" label="IDC vs COUNTERPOINT" title="两个 2026 增速为何差一倍">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         IDC：Q1 单季、无屏 +167%（225 万台），合并可穿戴与 AR/VR tracker；Counterpoint：H1 半年、AI 眼镜整体 +263%（无屏 +258%、带屏 +449%）。时间窗、品类边界与是否含音频眼镜均不同。
       </p>
     </InfoCard>
-    <InfoCard label="COMPANY FIGURES" title="700 万是累计销量不是年出货">
+    <InfoCard surface="white" label="COMPANY FIGURES" title="700 万是累计销量不是年出货">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         「2025 年售出 700 万+」为 EssilorLuxottica CEO 对双方合作累计成绩的表述，千万级是 2026 年底的年化目标，均非 tracker 口径的单年出货，不可直接与上述份额表相加。
       </p>
     </InfoCard>
-    <InfoCard label="RUMORS" title="豆包参数全部是未证实传闻">
+    <InfoCard surface="white" label="RUMORS" title="豆包参数全部是未证实传闻">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         50 克、2000 元内、龙旗量产、芯片选型均出自媒体与供应链消息，字节当日已否认有明确销售计划；本文只把它们当作供应链能力与战略意向的信号，不作为事实或投资依据。
       </p>
@@ -325,6 +338,7 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "2026 年是无屏 AI 眼镜的放量元年，而放量要等三件事同时成立：形态能戴出门、助理真的好用、还得有眼镜店渠道",
@@ -339,3 +353,4 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
   ]}
   note="事实口径：市场数据依据 2026-09-23 可公开访问的 IDC 官方博客（2026Q1 tracker：225 万台、+167%、份额表）、9to5Mac 与 AIBase 对 Counterpoint 报告的转引（H1 2026：+263%、无屏/带屏增速、94%/41%/37% 份额、区域拆分、700 万累计与千万目标出自 EssilorLuxottica CEO）；豆包相关参数出自 36 氪与快科技 2026-01-06 报道且字节当日已向新京报否认，全部按传闻处理；AR1 定位依据高通官方产品页。本文为公开信息梳理，不构成投资建议。"
 />
+</ArticleCanvas>

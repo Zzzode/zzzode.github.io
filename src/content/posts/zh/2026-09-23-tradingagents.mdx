@@ -20,6 +20,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -71,19 +72,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径先行：本文依据 [arXiv 论文 2412.20138](https://arxiv.org/abs/2412.20138)与 [GitHub 官方仓库](https://github.com/TauricResearch/TradingAgents)的 README（2026-09-23 核对，最新版 v0.5.0）。项目自己在 README 与 [tauric.ai/disclaimer](https://tauric.ai/disclaimer/) 反复声明：**仅供研究，不构成金融、投资或交易建议**，收益受模型、温度、时段、数据质量等大量非确定因素影响。本文是对其**架构**的拆解，不是对策略有效性的背书。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BACKDROP"
+    index="01"
+    kicker="背景"
     title="前因：为什么交易成了多智能体的试验田"
     lead="金融决策本来就是分工的、对抗的，还带着风控否决链，这恰好是多智能体最想解决的形态。"
   />
-  <Prose>
+  <Prose tile>
 
 **单模型交易的三个硬伤。** 让一个 LLM 读完行情数据直接输出「买/卖」，问题立现：它的上下文塞不下基本面、舆情、宏观、技术面四类异构信息；它没有对抗机制来纠正自己的单边叙事；它也没有风控环节，一次过度自信就可能全仓押注。
 
@@ -94,9 +97,10 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="flow">
+<Section canvas id="flow">
   <SectionHead
-    kicker="02 · THE DECISION PIPELINE"
+    index="02"
+    kicker="决策流水线"
     title="一笔交易决策的流水线"
     lead="随页面滚动，左侧舞台展示决策如何逐层上行（宽屏下停驻在屏幕中央）。"
   />
@@ -203,29 +207,30 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="pit">
+<Section canvas id="pit">
   <SectionHead
-    kicker="03 · POINT-IN-TIME"
+    index="03"
+    kicker="数据纪律"
     title="整个项目最严肃的部分：防止「偷看未来」"
     lead="回测类 AI 系统最大的敌人不是模型笨，而是未来函数（look-ahead bias）。v0.4/v0.5 的主要工作都在修这个。"
   />
-  <Prose>
+  <Prose tile>
 
 回测时，你站在历史某一天，只能看到**那一天已经公开**的信息。但现代数据源默认给你的是「最新修正版」——这会让回测成绩虚高到毫无意义。TradingAgents 在 2026 年的版本里把 point-in-time 纪律当成了头等工程：
 
   </Prose>
   <CardGrid cols={3}>
-    <InfoCard label="AS FILED" title="财报按「申报时点」提供">
+    <InfoCard label="AS FILED" title="财报按「申报时点」提供" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         接入 SEC EDGAR 后，回测日期读到的是当天已申报的版本：财年结束但还没申报的报表不提供，日后被重述的数字仍按首次披露读。官方举例：苹果 2008 年总资产申报为 396 亿美元，2010 年重述为 362 亿——处在两者之间的回测只能读到 396 亿。
       </p>
     </InfoCard>
-    <InfoCard label="FILTERING" title="宏观与情绪数据做前视过滤">
+    <InfoCard label="FILTERING" title="宏观与情绪数据做前视过滤" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         v0.3 修 Alpha Vantage 的前视泄露，v0.4 修 FRED 宏观数据、社交情绪与决策日志记忆中的同类问题，v0.5 在每条带日期的数据路径上保证 point-in-time 完整性。
       </p>
     </InfoCard>
-    <InfoCard label="NO DERIVED Q4" title="宁可缺数据，也不「推算」">
+    <InfoCard label="NO DERIVED Q4" title="宁可缺数据，也不「推算」" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         第四季度若只在年报里披露，系统标记为「不可用」而不是用全年减前三季倒推；EDGAR 机器可读数据从 2009 年起，更早的也不硬补。这种克制是回测可信度的底线。
       </p>
@@ -233,29 +238,30 @@ import {
   </CardGrid>
 </Section>
 
-<Section alt id="engineering">
+<Section canvas id="engineering">
   <SectionHead
-    kicker="04 · THE ENGINEERING"
+    index="04"
+    kicker="工程细节"
     title="工程化细节：记忆、检查点与双模型分工"
     lead="研究框架能不能反复实验，取决于这些不性感的机制。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="DECISION LOG" title="跨轮反思的决策记忆">
+    <InfoCard label="DECISION LOG" title="跨轮反思的决策记忆" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         每次完成的决策追加进本地 trading_memory.md；下次分析同一标的时，系统取回真实收益（原始收益 + 相对区域基准的 alpha），生成一段反思注入组合经理的提示——让系统记住上次为什么对/错。该记忆本身也曾有前视偏差，v0.4 已修。
       </p>
     </InfoCard>
-    <InfoCard label="CHECKPOINT" title="逐节点检查点恢复">
+    <InfoCard label="CHECKPOINT" title="逐节点检查点恢复" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         LangGraph 在每个节点后落状态（--checkpoint），崩溃/中断后从最后成功的步骤继续；每标的一个 SQLite 库，成功完成后自动清理。一次多智能体跑成本不低，这个机制省的是真金白银的 token。
       </p>
     </InfoCard>
-    <InfoCard label="TWO MODELS" title="深度思考与快速思考分模型">
+    <InfoCard label="TWO MODELS" title="深度思考与快速思考分模型" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         配置里区分 deep_think_llm（复杂推理）与 quick_think_llm（快速任务），支持 OpenAI、Anthropic、Google、DeepSeek、Qwen、GLM、MiniMax、Ollama 本地模型及任意 OpenAI 兼容端点（vLLM/LM Studio）。把贵模型用在刀刃上。
       </p>
     </InfoCard>
-    <InfoCard label="GRAPH" title="为什么用 LangGraph">
+    <InfoCard label="GRAPH" title="为什么用 LangGraph" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         辩论是循环、风控否决是回边、检查点要按节点持久化——这些需求很自然地对应到有向状态图，而不是一条线性链。propagate() 一次前向传播返回最终决策，图的形状即组织架构。
       </p>
@@ -263,24 +269,25 @@ import {
   </CardGrid>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="05 · READ IT RIGHT"
+    index="05"
+    kicker="怎么读"
     title="三个必须说清的边界"
     lead="研究框架的价值是「可实验的组织假设」，不是印钞机。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="NOT ADVICE" title="官方免责声明是认真的">
+    <InfoCard label="NOT ADVICE" title="官方免责声明是认真的" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         README 与独立免责页都强调：结果受模型、温度、时段、数据质量等非确定因素影响，不构成金融/投资/交易建议。把它当策略直接上真钱，与把论文当荐股是同一个错误。
       </p>
     </InfoCard>
-    <InfoCard label="SIMULATED FILL" title="模拟成交 ≠ 真实市场冲击">
+    <InfoCard label="SIMULATED FILL" title="模拟成交 ≠ 真实市场冲击" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         订单在模拟交易所执行，没有建模真实的滑点、冲击成本、竞价与流动性枯竭；回测好看的规模在实盘里未必成交得了。
       </p>
     </InfoCard>
-    <InfoCard label="LLM NOISE" title="模型输出不稳定且会编">
+    <InfoCard label="LLM NOISE" title="模型输出不稳定且会编" surface="white">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         辩论机制能压住单边叙事，但不能消除幻觉；同一输入跨模型、跨温度结果可能完全不同——这也是框架支持多提供商对照实验的原因。
       </p>
@@ -289,6 +296,7 @@ import {
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "把组织结构直接编码成智能体图",
@@ -303,3 +311,4 @@ import {
   ]}
   note="事实口径：依据 2026-09-23 抓取的 GitHub README（v0.5.0）与 arXiv 2412.20138；功能演进以官方 CHANGELOG 为准；本文为架构研究，不构成任何投资建议（官方免责声明见 tauric.ai/disclaimer）。"
 />
+</ArticleCanvas>

@@ -20,6 +20,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -55,19 +56,22 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+
+<Prose tile>
 
 口径说明：本文依据 Rust 编译器官方开发者手册 rustc-dev-guide 的 Queries、Incremental compilation 与 Overview 三页（2026-09-23 核对），外溢部分依据 Salsa 官方手册与 rust-analyzer 架构手册。需要注意手册自己的措辞：rustc 「仍在从传统 pass 架构向 demand-driven 系统过渡」，并非全部编译流程都已查询化。文中机制描述以手册为准，设计解读为作者归纳。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · WHY PASS-BASED AGED BADLY"
+    index="01"
+    kicker="旧流水线"
     title="前因：一排工序的编译器，改一行就要全跑一遍"
     lead="编译器的经典形状是流水线；流水线好理解，但对「我只改了一个函数」这件事毫无感知。"
   />
-  <Prose>
+  <Prose tile>
 
 传统编译器按趟（pass）组织：第一趟词法语法分析产出 AST，第二趟降级成中间表示，第三趟类型检查，第四趟生成代码，每趟吃进上一趟的全部输出。这个模型清晰、好教，但有一个致命的经济性问题：**趟与趟之间是全量交接**。你在某个函数里改了一个表达式的字面量，类型检查器仍然要检查整个 crate，代码生成仍然要重新产出全部模块。
 
@@ -76,9 +80,10 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="queries">
+<Section canvas id="queries">
   <SectionHead
-    kicker="02 · THE QUERY SYSTEM"
+    index="02"
+    kicker="查询系统"
     title="机制一：编译器变成一张按需求值的查询图"
     lead="随页面滚动，左侧舞台展示一次查询从发起到落缓存的完整生命周期（宽屏下停驻在屏幕中央）。"
   />
@@ -184,13 +189,14 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="pipeline">
+<Section canvas id="pipeline">
   <SectionHead
-    kicker="03 · WHERE QUARRIES LIVE"
+    index="03"
+    kicker="中间表示"
     title="这些查询建在什么数据上：HIR、THIR、MIR"
     lead="需求驱动只解决「何时算」；算什么由 rustc 的分层中间表示决定。"
   />
-  <Prose>
+  <Prose tile>
 
 按 rustc-dev-guide 的 Overview，源码先被词法语法分析成 token 流与 AST，随后**降级（lowering）**成 HIR——对编译器更友好的高层中间表示，过程伴随大量脱糖（desugaring，把循环、`async fn` 等缩写语法展开成更基本的构造）。类型推断、trait 求解、类型检查都在 HIR 上进行。HIR 再经 THIR（进一步脱糖、负责模式与穷尽性检查）降级为 MIR——借用检查（borrow check）与一批 MIR 优化的舞台；手册解释，某些优化在 MIR 层比降到 LLVM-IR 后更好做。最后单态化（monomorphization，把泛型按具体类型实例化）并交给 LLVM。
 
@@ -199,9 +205,10 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="redgreen">
+<Section canvas id="redgreen">
   <SectionHead
-    kicker="04 · THE RED-GREEN ALGORITHM"
+    index="04"
+    kicker="红绿算法"
     title="机制二：二次编译，是一张图上的染色题"
     lead="手册原话：增量编译方案本质上是查询系统一个「出奇简单的扩展」。随滚动看 try-mark-green 如何逐格判色。"
   />
@@ -310,24 +317,25 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="refinements">
+<Section canvas id="refinements">
   <SectionHead
-    kicker="05 · ENGINEERING TRIM"
+    index="05"
+    kicker="工程修剪"
     title="工程上的三处修剪：朴素算法撑不起真实编译器"
     lead="手册在讲完基础算法后，立刻补了三条让它在 rustc 体量下可行的优化。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="HASHES, NOT VALUES" title="默认只存哈希，结果选择性落盘">
+    <InfoCard surface="white" label="HASHES, NOT VALUES" title="默认只存哈希，结果选择性落盘">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         把所有查询结果都序列化反序列化浪费严重——很多结果重算极廉价。实际方案是默认只存各子查询结果的哈希，仅对值得缓存的结果另存。判色与取值因此被拆成两条路径。
       </p>
     </InfoCard>
-    <InfoCard label="COLOR ≠ RESULT" title="判色常常不需要值">
+    <InfoCard surface="white" label="COLOR ≠ RESULT" title="判色常常不需要值">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         输入全绿时无需反序列化旧结果就能判绿；需要值时才走「先判色、绿则读盘、红则执行」的流程。手册提到某些情况下甚至可以跳过结果的序列化本身。
       </p>
     </InfoCard>
-    <InfoCard label="STEAL" title="需要原地改 MIR 时的逃逸舱">
+    <InfoCard surface="white" label="STEAL" title="需要原地改 MIR 时的逃逸舱">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         查询结果通常不可变、可克隆共享；个别场景（廉价地原地修改 MIR）需要例外，rustc 提供 ty::steal::Steal 类型显式标记这种「取走」语义，把对缓存纯度的破坏限制在明处。
       </p>
@@ -335,13 +343,14 @@ import {
   </CardGrid>
 </Section>
 
-<Section alt id="salsa">
+<Section canvas id="salsa">
   <SectionHead
-    kicker="06 · AFTER RUSTC"
+    index="06"
+    kicker="Salsa 外溢"
     title="余波：红绿算法变成了通用框架 Salsa"
     lead="一门编译器内部的机制，最有说服力的成功是被抽出来、在编译器之外养活了一批工具。"
   />
-  <Prose>
+  <Prose tile>
 
 rustc 的查询模型被提炼成独立框架 [Salsa](https://salsa-rs.github.io/salsa/)：官方定义为「编写增量、按需程序的 Rust 框架——程序希望随输入变化持续产出最新输出」，并明确说明它基于 rustc 的增量重编译技术。rustc-dev-guide 脚注里，nikomatsakis 写道早就想把红绿算法改名为「Salsa 算法」，只是没有流行开来。
 
@@ -352,13 +361,15 @@ rustc 的查询模型被提炼成独立框架 [Salsa](https://salsa-rs.github.io
   </Prose>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="07 · READ IT RIGHT"
+    index="07"
+    kicker="读法与边界"
     title="边界与代价"
     lead="增量不是免费的加速键，它有自己的账簿成本与适用范围。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "维度" },
       { label: "收益" },
@@ -374,6 +385,7 @@ rustc 的查询模型被提炼成独立框架 [Salsa](https://salsa-rs.github.io
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "增量编译的前提是先把编译器重构成需求驱动的查询图",
@@ -388,3 +400,4 @@ rustc 的查询模型被提炼成独立框架 [Salsa](https://salsa-rs.github.io
   ]}
   note="事实口径：查询系统、Providers、Steal、红绿/try-mark-green、查询 DAG 顺序与只存哈希等机制均依据 2026-09-23 抓取的 rustc-dev-guide（query.html、incremental-compilation.html、overview.html）；Salsa 定位来自其官方手册，rust-analyzer 用法来自其架构手册 base-db 章节；rustc 仍处架构过渡期的限定以手册原文为准，设计解读为作者归纳。"
 />
+</ArticleCanvas>

@@ -32,6 +32,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -85,14 +86,17 @@ import {
   </svg>
 </CoverBanner>
 
-<Section alt id="session" vertical>
+<ArticleCanvas>
+<Section canvas id="session" vertical>
   <SectionHead
-    kicker="01 · 事情的经过"
+    index="01"
+    kicker="事情的经过"
     title="一句话任务，18 小时后的 16 个 PR"
     lead="Boris Cherny 是 Claude Code 的创建者和负责人。他有个叫 boris-tag-spam 的 Slack 频道，专门往里面丢任务给 agent 干。9 月 21 日晚 10:03（太平洋时间），他丢进去一句英文：用 Lean 验证 SDK 和 claude.ts 的状态机。"
   />
   <Timeline
     vertical
+    tile
     nodes={[
       { year: "9/21 22:03", title: "任务下发：Use lean to verify the sdk and Claude.ts state machine", body: "Opus 5.5 两分钟后给出计划：从代码写 6 个 Lean 4 模型，逐个对照真实代码独立复审，发布发现，二次证明，最后审计 build、公理和 sorry。" },
       { year: "9/22 00:08", title: "五个修复草稿 PR 成形", body: "agent 报告：每个证明吐出的反例都能在真实代码上复现；每个 PR 配的测试修复前红、修复后绿。engine 模型还和几条真实运行对不上，agent 主动标注「证明暂作临时结论」。" },
@@ -104,20 +108,21 @@ import {
       { year: "9/22 16:31", title: "总账：16 PR、24 个缺陷", body: "13 个已合并，其余获批等待落地；非测试代码净增 218 行，测试用例净增 94 个。Boris 当晚 16:39（UTC 23:39）把录屏发到 X。" },
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 这 16 个 PR 分三组：6 个修复、6 个简化、4 个评审跟进。24 个被修复的缺陷里，19 个直接来自证明，另外 5 个是评审过程中发现的；评审还在第一批修复里抓到 6 个覆盖缺口。以上数字全部来自 Boris 公开的 100 秒 Slack 录屏，PR 位于 Anthropic 内部 GitHub，外部无法直接点开，所以本文对具体 PR 的描述口径就是这段视频本身。
 
 </Prose>
 </Section>
 
-<Section id="what-lean">
+<Section canvas id="what-lean">
   <SectionHead
-    kicker="02 · 先补基础"
+    index="02"
+    kicker="先补基础"
     title="Lean 证明到底在证明什么"
     lead="看不懂 Lean 也能看懂这件事的分量，只需要分清三样东西：模型、定理、内核。"
   />
-  <Prose>
+  <Prose tile>
 
 Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种语言里。它的工作方式是：你先把现实中的程序抽象成一个数学模型，状态有哪些、状态之间怎么迁移都写清楚；然后写下你认为必须成立的性质，也就是定理，比如「每个 turn 最终只会产出一个 result」。Lean 内核会逐行检查证明，任何一步跳不过去就拒绝编译。
 
@@ -129,7 +134,7 @@ Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="从真实代码到 Lean 模型、定理检查、反例复现与回放进模型的回路">
-      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="300" rx="20" fill="#ffffff" />
       <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">这次的工作回路（agent 按 Boris 的计划逐步执行）</text>
 
       <rect x="36" y="70" width="180" height="92" rx="12" fill="#f5f5f7" />
@@ -174,9 +179,10 @@ Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种
   </Callout>
 </Section>
 
-<Section alt id="six-machines">
+<Section canvas id="six-machines">
   <SectionHead
-    kicker="03 · 六个状态机"
+    index="03"
+    kicker="六个状态机"
     title="证明吐出反例的六块代码"
     lead="下面逐个走一遍六台状态机：每台要证明的性质是什么，证明找到了什么。数字是各模型的定理数和真实 trace 接受数，全部来自录屏里 1:07 的六模型报告。"
   />
@@ -421,18 +427,20 @@ Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种
   </ScrollStory>
 </Section>
 
-<Section id="bugs">
+<Section canvas id="bugs">
   <SectionHead
-    kicker="04 · 修复 PR"
+    index="04"
+    kicker="修复 PR"
     title="六个证明反例，六个带测试的 PR"
     lead="修复有一条硬规矩：证明吐出的反例必须先在未修改的 main 上复现，配的测试必须先失败再转绿。这条规矩让「模型的幻觉」没有机会混进代码。"
   />
-  <Prose>
+  <Prose tile>
 
 六个修复 PR 全部针对 agent 运行时最容易出并发事故的位置：流边界、重试预算、循环守卫、取消传播、重叠的权限请求、传输层关闭。这些缺陷有一个共同点：单个请求走一遍完全正常，只有特定事件按特定顺序交错才会触发。人工 code review 要看几万行 TypeScript 里两处守卫的相互影响，概率很低；模型把全部交错摊开，反例是它唯一的答案。
 
 </Prose>
   <CompareTable
+    tile
     caption="六个修复 PR（PR 号与描述均录自公开视频，内部仓库无法外部核验）"
     headers={[{ label: "PR" }, { label: "状态机" }, { label: "证明找到的反例" }]}
     rows={[
@@ -444,36 +452,37 @@ Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种
       ["#72162", "engine", "builder 失败后的 flush 中退出、首个 next() 前 return()、abandon 后迟到的 send()，三处取消信号都丢失"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 这批修复同时守住的全局性质，agent 在报告里列了五条：每个 turn 有序地只产出一个结果、初始化先于任何结果、result 一定先于 idle、重试受边界约束且可中止、流只产出闭合块。读起来像合同条款，这正是状态机不变量的样子。
 
 </Prose>
 </Section>
 
-<Section alt id="hardening">
+<Section canvas id="hardening">
   <SectionHead
-    kicker="05 · 证明的第二个用途"
+    index="05"
+    kicker="第二用途"
     title="拿同一份证明去简化代码"
     lead="六个修复落地后，Boris 又给了一句话：用同一份证明把代码简化掉。这一步的结果比找 bug 更能说明形式化模型的价值。"
   />
-  <Prose>
+  <Prose tile>
 
 agent 的第一反应很诚实：证明显示几乎每个 flag 和分支都可达，没有死代码可删。证明真正发给它的许可证，是把多处复制粘贴的同一逻辑合并成一处。人平时不敢做这种合并，因为说不清某段特殊顺序的清理路径删掉一个会不会出事；有了不变量，合并后的代码只要还让定理成立，行为等价就由机器背书。
 
 </Prose>
   <CardGrid cols={3}>
-    <InfoCard title="#72479 session" label="简化">三种 settle 路径合并为一种。</InfoCard>
-    <InfoCard title="#72503 engine" label="简化">两份 open-turns 跟踪表合并为一份。</InfoCard>
-    <InfoCard title="#72513 retry" label="简化">普通退避折进分块睡眠循环。</InfoCard>
-    <InfoCard title="#72517 stream" label="简化">三份关闭消息代码、两个 abort 出口各自合一；claude.ts 少 105 行。</InfoCard>
-    <InfoCard title="#72516 turn loop" label="简化">每次 continue 时重置重试守卫的散落代码，改成一张统一的表驱动。</InfoCard>
-    <InfoCard title="#72518 SDK control" label="简化">所有响应走一个写入点，所有取消走一个 helper。</InfoCard>
+    <InfoCard surface="white" title="#72479 session" label="简化">三种 settle 路径合并为一种。</InfoCard>
+    <InfoCard surface="white" title="#72503 engine" label="简化">两份 open-turns 跟踪表合并为一份。</InfoCard>
+    <InfoCard surface="white" title="#72513 retry" label="简化">普通退避折进分块睡眠循环。</InfoCard>
+    <InfoCard surface="white" title="#72517 stream" label="简化">三份关闭消息代码、两个 abort 出口各自合一；claude.ts 少 105 行。</InfoCard>
+    <InfoCard surface="white" title="#72516 turn loop" label="简化">每次 continue 时重置重试守卫的散落代码，改成一张统一的表驱动。</InfoCard>
+    <InfoCard surface="white" title="#72518 SDK control" label="简化">所有响应走一个写入点，所有取消走一个 helper。</InfoCard>
   </CardGrid>
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 270" class="block w-full" role="img" aria-label="三组 PR 的非测试代码增删行数：修复净增 278、简化净减 195、跟进净增 135">
-      <rect x="0" y="0" width="920" height="270" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="270" rx="20" fill="#ffffff" />
       <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">非测试代码行数（蓝为新增，黑为删除，按 PR 组）</text>
       <line x1="460" y1="64" x2="460" y2="232" stroke="#dedee3" stroke-width="1.2" />
       {[
@@ -494,7 +503,7 @@ agent 的第一反应很诚实：证明显示几乎每个 flag 和分支都可�
     </svg>
   </div>
 
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="16" label="个 PR：6 修复 · 6 简化 · 4 跟进" />
     <Stat value="24" label="个被修复的缺陷，19 个由证明直接找到" />
     <Stat value="1,529" label="条定理，最终总账（凌晨首轮为 1,359）" />
@@ -502,13 +511,14 @@ agent 的第一反应很诚实：证明显示几乎每个 flag 和分支都可�
   </StatGrid>
 </Section>
 
-<Section id="method">
+<Section canvas id="method">
   <SectionHead
-    kicker="06 · 为什么这件事现在成立"
+    index="06"
+    kicker="为何是现在"
     title="等了三十年，建模这一步突然便宜了"
     lead="用数学证明软件正确性并不新鲜。新鲜的是，过去最贵的那一步，也就是把几万行真实代码手工抽象成模型，现在模型自己就能做。"
   />
-  <Prose>
+  <Prose tile>
 
 形式化方法有成熟的家谱。Leslie Lamport 的 TLA+ 专门描述并发和分布式系统的状态迁移；2015 年 Amazon 在《美国计算机协会通讯》发表论文，记录他们用 TLA+ 检查 S3、DynamoDB 等系统的设计，在写代码之前就找出深层缺陷。Boris 在原帖里也说，他平时把 Lean 和 TLA+ 搭配使用：一个管数据与实现层面的严格证明，一个管数据流、并发和状态管理的设计建模。
 
@@ -519,7 +529,8 @@ LLM 恰好卡在这个瓶颈上。Opus 5.5 的定位就是长程 agentic coding�
 </Prose>
 
   <Steps
-    steps={[
+    tile
+        steps={[
       { title: "从代码生成模型", body: "agent 读真实 TypeScript，写 6 个 Lean 4 模型：状态、迁移、要守的不变量，每条迁移标注源码位置，并声明假设边界。" },
       { title: "独立复审模型", body: "模型写完后再逐行对照真实代码复审，防止模型把真实行为理想化。凌晨 engine 模型与真实运行对不上，结论被直接标为临时有效。" },
       { title: "机检全部定理", body: "lake build 跑通，1,529 条定理由 Lean 内核逐条检查；最终审计确认 0 sorry，且只用三条标准公理。" },
@@ -528,23 +539,24 @@ LLM 恰好卡在这个瓶颈上。Opus 5.5 的定位就是长程 agentic coding�
     ]}
   />
 
-  <Prose>
+  <Prose tile>
 
 整条链路上有两道防自欺的关卡。第一道朝内：模型可能错，所以有 520 条真实 trace 的反向回放、有「先红后绿」的测试纪律、agent 还两次主动发更正（一次承认 engine 证明暂作临时结论，一次纠正自己对 #72130 退出保证覆盖范围的表述）。第二道朝外：每个 PR 都要人按批准，Boris 本人盯完全部 16 个；自动合并只在批准之后打开。证明保证的是「代码符合模型」，模型是否刻画了真实世界，靠证据和人共同兜住。
 
 </Prose>
 </Section>
 
-<Section alt id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="07 · 边界"
+    index="07"
+    kicker="边界"
     title="它证明了什么，又没证明什么"
     lead="把这次结果读成「AI 证明了 Claude Code 没有 bug」会过头。录屏里的信息恰好也给出了冷静的边界。"
   />
   <Callout eyebrow="适用范围">
     <p>被证明的只是六个抽象模型覆盖到的状态机性质，每个模型都写明了自己的假设和不证明什么。没有覆盖到的模块、模型抽象掉的真实细节、外部系统的行为，统统不在保证范围内。</p>
   </Callout>
-  <Prose>
+  <Prose tile>
 
 时间本身也说明问题：首轮报告凌晨 0:08 给出时，engine 模型和真实运行存在分歧，agent 没把结论包装成确定，先挂起待修；#72130 的第一个修复后来被承认只覆盖了证明变体假设的一部分，需要跟进 PR；#72135 甚至出现了一次「批准随新提交失效」的流程插曲，agent 随后又更正说旧批准已被系统沿用。这些反复都留在视频里，和 1,529 这个数字一样真实。
 
@@ -554,6 +566,7 @@ LLM 恰好卡在这个瓶颈上。Opus 5.5 的定位就是长程 agentic coding�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "16 个 PR 背后都有证明和测试背书",
@@ -573,3 +586,4 @@ LLM 恰好卡在这个瓶颈上。Opus 5.5 的定位就是长程 agentic coding�
   ]}
   note="口径说明：事件、PR 号、数字与引文均来自 Boris Cherny 2026-09-22 公开发布的 100 秒 Slack 录屏（X 帖子附视频），时间为太平洋时间；PR 位于 Anthropic 内部 GitHub，无法从外部逐条打开核验。Lean 公理与 sorry 的语义依据 lean-lang.org 官方手册，Agent SDK 能力依据 Claude Code 官方文档，Boris 身份依据其个人站点、GitHub 资料与 Anthropic 官方活动页。形式化方法背景引用 Newcombe et al., CACM 2015 与 Leslie Lamport 的 TLA+。本文为公开资料复盘，不代表 Anthropic 官方发布。"
 />
+</ArticleCanvas>

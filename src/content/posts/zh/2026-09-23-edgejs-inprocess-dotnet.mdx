@@ -20,6 +20,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -66,19 +67,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径说明：本文依据 Edge.js 现行维护分支 [agracio/edge-js](https://github.com/agracio/edge-js) 的 README（2026-09-23 核对），原创作者 Tomasz Janczuk 的原始项目与两篇设计博客（2013）作为背景。这是一个**老项目**（核心思想定型于 Node.js 早期），但它处理的「两个托管运行时如何同进程共处」问题，至今仍是任何做语言互操作的人绕不开的经典题。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BACKDROP"
+    index="01"
+    kicker="背景"
     title="前因：Node 很强，但企业世界大半建在 .NET 上"
     lead="2013 年前后，Node.js 想进入企业，迎面撞上的是 ADO.NET、MS SQL、Windows 原生组件——这些全在 CLR 世界里。"
   />
-  <Prose>
+  <Prose tile>
 
 最容易想到的解法是**双进程**：Node 进程和一个 .NET 进程通过 HTTP、命名管道或消息队列通信。它简单、隔离性好，但代价沉重：序列化开销、两套部署、两个错误模型、跨进程调试噩梦，调用延迟从纳秒级函数调用变成毫秒级网络往返。对「在请求处理中频繁调用一个 .NET 组件」的场景，这个税几乎不可接受。
 
@@ -89,9 +92,10 @@ Edge.js 的第三条路是：**把 CLR 作为运行时组件寄宿（host）进 
   </Prose>
 </Section>
 
-<Section alt id="mechanisms">
+<Section canvas id="mechanisms">
   <SectionHead
-    kicker="02 · FIVE MECHANISMS"
+    index="02"
+    kicker="五个机制"
     title="进程内共处，必须解决的五个机制问题"
     lead="把两个运行时塞进一个进程只是开始；真正难的是它们在数据、线程、内存、语言入口四个层面天生不合。Edge.js 的核心价值全在这五处。"
   />
@@ -203,43 +207,46 @@ Edge.js 的第三条路是：**把 CLR 作为运行时组件寄宿（host）进 
   </ScrollStory>
 </Section>
 
-<Section id="why">
+<Section canvas id="why">
   <SectionHead
-    kicker="03 · WHY IT MATTERED"
+    index="03"
+    kicker="实际价值"
     title="它的实际价值：把 C# 变成 Node 的原生扩展语言"
     lead="README 列出的用途清单，今天看仍是互操作设计的典型用例谱。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="LEGACY" title="复用现有 .NET 资产">
+    <InfoCard surface="white" label="LEGACY" title="复用现有 .NET 资产">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         在 Node 新服务里直接调用成熟的 .NET 组件；通过 ADO.NET 访问 MS SQL（edge-sql），不必为了一个数据库重写整套数据层。
       </p>
     </InfoCard>
-    <InfoCard label="CPU WORK" title="借 CLR 线程池干重活">
+    <InfoCard surface="white" label="CPU WORK" title="借 CLR 线程池干重活">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Node 主线程不能被 CPU 密集计算堵住；把计算丢给 CLR 多线程执行，结果异步返回，相当于一条通往多核的桥（作者专门写过 CPU-bound workers 文章）。
       </p>
     </InfoCard>
-    <InfoCard label="EXTENSIONS" title="用 C# 而非 C++ 写原生扩展">
+    <InfoCard surface="white" label="EXTENSIONS" title="用 C# 而非 C++ 写原生扩展">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         需要宿主系统能力时，写一个内存安全、有 GC、异步友好的 C# 方法，比手写 V8 C++ addon 低一个数量级门槛；还能用 F#、PowerShell 直接脚本化。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 调用形态也完全 Node 化：既支持经典的回调 `fn(input, (err, result) => …)`，也支持 Promise/async。一段最简代码就是 `edge.func('async (input) => { return ".NET Welcomes " + input.ToString(); }')`——字符串里是 C# 语言集成查询风格的 lambda，由 Edge 编译并暴露成 JS 异步函数。
 
   </Prose>
 </Section>
 
-<Section alt id="tradeoff">
+<Section canvas id="tradeoff">
   <SectionHead
-    kicker="04 · THE TRADEOFF"
+    index="04"
+    kicker="代价"
     title="进程内互操作的代价：它不是免费的桥"
     lead="省掉 IPC 不等于没有成本，Edge.js 的局限同样是教科书级的。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "方案" },
       { label: "通信成本" },
@@ -253,20 +260,21 @@ Edge.js 的第三条路是：**把 CLR 作为运行时组件寄宿（host）进 
       ["C++ 原生扩展", "最低，直接内存", "最弱，段错误拖垮进程", "开发门槛最高", "极致性能、已有 C/C++ 资产"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 进程内方案的三个硬代价要明确：**故障同归于尽**（CLR 未处理异常或原生崩溃直接带走 Node 进程）、**部署耦合**（Node、CoreCLR/Framework/Mono 版本与原生 ABI 必须匹配，CoreCLR 还要求 .NET 8）、**封送仍有税**（复杂对象图与大字符串在两堆之间复制，动态类型也放弃了编译期检查）。隔离与性能的权衡从来没有银弹——Edge.js 选的是「信任你的 .NET 代码」前提下的性能与便利端点。
 
   </Prose>
 </Section>
 
-<Section id="legacy">
+<Section canvas id="legacy">
   <SectionHead
-    kicker="05 · THE LEGACY"
+    index="05"
+    kicker="遗产"
     title="余波：这个老项目给现代互操作留下了什么"
     lead="Edge.js 最活跃的年代已经过去，但它验证的模式以新形式活了下来。"
   />
-  <Prose>
+  <Prose tile>
 
 今天 Node 调 .NET 有了更官方的途径（.NET 自带的 JavaScript 互操作、gRPC 双进程、ASP.NET Core 直接做服务），而 JS 运行时嵌入 CLR/原生世界的整体思路，在 [WebAssembly](https://webassembly.org/) 时代换了一种更便携的形态回归：Rust/Go/C++ 编译成 Wasm 在 V8 内部沙箱化运行，既有接近进程内的性能，又拿回了故障隔离。Edge.js 在历史坐标里的位置，正是「同进程强互操作」这条路线上，一个把工程细节（封送、线程、GC、动态入口）完整趟过一遍的范本——它当年必须手工解决的问题，正是今天 Wasm runtime、napi-rs、各类 embedding SDK 仍在面对的问题。
 
@@ -274,6 +282,7 @@ Edge.js 的第三条路是：**把 CLR 作为运行时组件寄宿（host）进 
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "互操作难在哪：四个层面的「不合」要一个个调和",
@@ -288,3 +297,4 @@ Edge.js 的第三条路是：**把 CLR 作为运行时组件寄宿（host）进 
   ]}
   note="事实口径：依据 2026-09-23 抓取的 agracio/edge-js README 与 Tomasz Janczuk 的原始项目及 2013 年设计博客；项目年代较早，具体支持矩阵（Framework/Mono/CoreCLR、.NET 8 要求）以仓库现行 README 为准；架构解读为作者归纳。"
 />
+</ArticleCanvas>

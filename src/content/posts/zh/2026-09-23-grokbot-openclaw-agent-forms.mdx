@@ -20,6 +20,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -68,19 +69,21 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+<Prose tile>
 
 口径说明：OpenClaw 一侧依据其 MIT 开源仓库与官方文档（2026-09-23 核对，源码审计快照日期 2026-08-27）；Grok Bot 一侧依据 Unite.AI 对 xAI 2026-08-11 发布的报道，价格变化参考 8 月 27 日创作者媒体转述（非官方公告，引用处保留口径）。两者都在快速迭代，具体功能与定价以官方实时信息为准。本文不评测模型智商，只拆产品形态。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE COMMON BET"
+    index="01"
+    kicker="共同前提"
     title="前因：Agent 产品的共同点是「常驻」与「动手」"
     lead="在分岔之前，先看清这两个产品共享的判断。"
   />
-  <Prose>
+  <Prose tile>
 
 2025–2026 年的 Agent 产品有一个共同的位移：AI 不再是网页里一个用完即走的对话框，而是**长期在线、有身份、能被 @、能替你操作真实系统的行动者**。本博客 [Claude Code 架构解剖](/posts/2026-09-23-claude-code-architecture/)里讲过，能力 = 模型 + harness（外壳：工具、执行循环、记忆、技能）；Grok Bot 与 OpenClaw 的争论本质上是两种 harness 形态之争，模型反而是可替换部件。
 
@@ -89,9 +92,10 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="openclaw">
+<Section canvas id="openclaw">
   <SectionHead
-    kicker="02 · OPENCLAW"
+    index="02"
+    kicker="本地网关"
     title="形态一：本地网关——你自己机器上的总接线员"
     lead="随页面滚动，左侧舞台展示 OpenClaw 的 Gateway 拓扑与信任设计（宽屏下停驻在屏幕中央）。"
   />
@@ -199,43 +203,46 @@ import {
   </ScrollStory>
 </Section>
 
-<Section id="grokbot">
+<Section canvas id="grokbot">
   <SectionHead
-    kicker="03 · GROK BOT"
+    index="03"
+    kicker="云端同事"
     title="形态二：云端 AI 同事——一台 24/7 电脑上的一队 bot"
     lead="xAI 的设计选择是把「机器、登录、编排」全部收进云端，用户只负责像对同事一样发消息。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="OWN CLOUD PC" title="每个用户一台云端电脑，bot 共享">
+    <InfoCard surface="white" label="OWN CLOUD PC" title="每个用户一台云端电脑，bot 共享">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Unite.AI 报道（2026-08-11 发布、beta）：每个用户获得自己的云端计算机，多个 bot 共享同一台、按用户隔离；bot 不靠 API/MCP，而是像人一样登录既有软件、看屏幕点鼠标（computer use），合上笔记本任务照跑，需要审批时才回来找你。
       </p>
     </InfoCard>
-    <InfoCard label="CHIEF OF STAFF" title="幕僚长 + specialist bot 互相派活">
+    <InfoCard surface="white" label="CHIEF OF STAFF" title="幕僚长 + specialist bot 互相派活">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         多个 bot 可并行运行、互发消息、共享线程、在群聊中移交工作与所有权；按「一个幕僚长（Chief of Staff）带一队专员」组织，而不是让用户管理一堆自动化。创作者实践中已出现 11 个命名专职 bot 的配置（创作者媒体口径）。
       </p>
     </InfoCard>
-    <InfoCard label="ZERO SETUP" title="演示一遍，routine 自动沉淀">
+    <InfoCard surface="white" label="ZERO SETUP" title="演示一遍，routine 自动沉淀">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         像给同事发消息那样使用；把工作流当面演示一遍，bot 把步骤存成 routine 后自行执行。无需懂 skill、不打斜杠命令、注册即用——能力获取从「配置式」变成「示范式」。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 发布策略同样是产品形态的一部分：Grok Bot **不单独售卖**，而是寄生在已有的订阅栈里——发布时包含在 SuperGrok Heavy、Cursor Ultra（报道口径 200 美元/月，含独立云电脑与定时 routine）与 Cursor Premium Teams（120 美元/座/月，含团队技能市场、用量分析与 SAML/OIDC 单点登录）三档；下载、注册引导与销售触点走 Cursor 基础设施，企业客户排队等候。8 月 27 日有创作者媒体报道价格下探至 20 美元/月档（非官方公告，应作促销/档位变化的信号看待）。xAI 自述该产品源自内部原型：销售外联 bot 隔夜研究账户、起草邮件；demo 就绪 bot 通宵修种子数据；还有处理 Gmail 发票、更新 CRM、复现 UI bug 的专职 bot。引用的内部判断是「90% 完成与 100% 完成有天壤之别——多数 AI 把你带到差不多，Grok Bot 把工作放进真实工具里的最终位置」。
 
   </Prose>
 </Section>
 
-<Section alt id="compare">
+<Section canvas id="compare">
   <SectionHead
-    kicker="04 · SCORECARD"
+    index="04"
+    kicker="分野对照"
     title="一张表看清分野"
     lead="蓝点归 OpenClaw，橙点归 Grok Bot，颜色只标归属、不表优劣。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "维度" },
       { label: "OpenClaw", dot: "a" },
@@ -255,13 +262,14 @@ import {
   />
 </Section>
 
-<Section id="trust">
+<Section canvas id="trust">
   <SectionHead
-    kicker="05 · THE REAL DIVIDE"
+    index="05"
+    kicker="可信计算基"
     title="真正的分野：谁是可信计算基（TCB）"
     lead="两种形态最深的差异不是功能表，而是「安全由谁兜底」的答案相反。"
   />
-  <Prose>
+  <Prose tile>
 
 OpenClaw 官方文档把话说得很重：**架构决定 agent「能」做什么，远早于策略决定它「可以」做什么。** 它的答案是信任最小化：Gateway 持有长期授权但不直接执行，执行移到沙箱/节点/一次性云机，用生命周期独立的受限凭据；拒绝必须是结构性的（代码里写死的绑定规则与 fail-closed 审批），而不是在系统提示词里恳求模型「请不要这么做」。配套还有默认拒绝的入站访问、凭据归属隔离、schema 版本化状态与防破坏升级。代价是默认沙箱关闭、一切需要你自己配对——自由与责任在同一个地方。
 
@@ -270,25 +278,26 @@ Grok Bot 的答案是信任转移：你把登录态交给 xAI 云端的虚拟机
   </Prose>
 </Section>
 
-<Section alt id="who">
+<Section canvas id="who">
   <SectionHead
-    kicker="06 · WHO IT'S FOR"
+    index="06"
+    kicker="目标客户"
     title="各卖各的客户：它们其实不是竞品"
     lead="选型问题可以简化成三问。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="PICK OPENCLAW IF…" title="你要控制、定制与数据主权">
+    <InfoCard surface="white" label="PICK OPENCLAW IF…" title="你要控制、定制与数据主权">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         数据合规要求凭据不出本机；你想自由换模型、深度定制工具链；你有能力运维一台常开的机器（或团队愿意把它当内部平台运营）；你的协作主轴是「我和我的 AI」，团队场景可以接受额外配置。它的天花板高，但地板也高。
       </p>
     </InfoCard>
-    <InfoCard label="PICK GROK BOT IF…" title="你要立刻拥有一队数字员工">
+    <InfoCard surface="white" label="PICK GROK BOT IF…" title="你要立刻拥有一队数字员工">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         工作发生在没有干净 API 的网页软件里（computer use 是刚需）；任务需要跨天在线、合上电脑照跑；团队要的是共享频道里持久存在、多人可 @ 的 AI 同事；你愿意把数据与登录态托管给供应商，并按岗位月费付费。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 有意思的是，两边都在往对方的方向补功能：OpenClaw 在补云会话（WebVNC/CUA）与团队部署，Grok Bot 生态在补技能市场与企业管控。Agent 产品的终局很可能不是二选一，而是**同一套「常驻 + 动手」范式在信任谱系两端的两个点**——就像企业软件史上自有数据中心与 SaaS 的关系：SaaS 赢下了大多数通用场景，但主权级工作负载从未离开自托管。
 
@@ -296,6 +305,7 @@ Grok Bot 的答案是信任转移：你把登录态交给 xAI 云端的虚拟机
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "Agent 的竞争已经从模型智商转向产品形态",
@@ -310,3 +320,4 @@ Grok Bot 的答案是信任转移：你把登录态交给 xAI 云端的虚拟机
   ]}
   note="事实口径：OpenClaw 架构与治理依据 2026-09-23 抓取的官方 GitHub README 与 docs.openclaw.ai（含其自述的基金会、七条属性与沙箱默认关闭声明）；Grok Bot 发布事实、订阅档位与价格主要依据 Unite.AI 2026-08-11 报道（$120/座、$200/月为该报道口径），$20/月档与 11-bot 实践为 2026-08-27 创作者媒体转述、非官方公告；形态对比与趋势判断为作者归纳。"
 />
+</ArticleCanvas>

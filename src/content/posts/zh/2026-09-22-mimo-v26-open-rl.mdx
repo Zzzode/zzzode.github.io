@@ -28,6 +28,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -80,7 +81,9 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+
+<Prose tile>
 
 先说这件事为什么少见：大模型厂商的强化学习训练看板，业内通常是内部系统，而小米把 MiMo-v2.6 两条训练轨（pro 和 flash）的实时指标——每步成绩、累计账单、上下文长度、事故公告——直接挂在公开网站 mimo.xiaomi.com/rl 上，从 2026-09-16 04:00 UTC 一直播到双轨收官，页脚标语是 “Open is what we value.”。它不是论文配套页，也不是发布后的战报，而是产品发布前的训练过程直播。
 
@@ -88,13 +91,14 @@ import {
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BACKDROP"
+    index="01"
+    kicker="背景"
     title="前因：RLVR 用了两年，从数学题走到了智能体"
     lead="这次训练所用的方法，不是突然出现的。它有一条清晰的两年技术演进线。"
   />
-  <Prose>
+  <Prose tile>
 
 **第一阶段：GRPO 去掉价值网络。** 2024 年 2 月，DeepSeek 在 [DeepSeekMath 技术报告](https://arxiv.org/abs/2402.03300)里提出组相对策略优化（Group Relative Policy Optimization，GRPO）。传统强化学习需要再训练一个「评价器」模型去估计每个动作值多少分；GRPO 的做法是让模型对同一道题采样一组答案，用这组答案的平均分作为基准——比组内平均好的尝试得正优势，差的得负优势。代价更小，也更稳定。
 
@@ -106,6 +110,7 @@ import {
 
   <div class="mt-8">
     <Timeline
+      tile
       nodes={[
         { year: "2025-04", title: "MiMo-7B 四件套", body: "Base/SFT/RL/RL-Zero 同日开源，数学推理起家，连 RL-Zero 权重都公开" },
         { year: "2025-05", title: "MiMo-VL-7B", body: "视觉语言模型，继续开放 RL 权重" },
@@ -119,7 +124,7 @@ import {
     />
   </div>
 
-  <Prose>
+  <Prose tile>
 
 这条自家时间线解释了「为什么是小米做直播」。根据 Hugging Face 上的发布记录，MiMo 系列从 [2025 年 4 月第一代 MiMo-7B](https://arxiv.org/abs/2505.07608)起就保持一个习惯：不只发模型，还发 RL 相关权重与技术报告。开放训练过程对它而言是品牌一致性的延续，不是心血来潮。官方发布页同时提到，v2.6 之前经历了「长达半年的基础研究积累和工程试错」——这次直播某种意义上也是那场试错的公开展示。
 
@@ -132,13 +137,14 @@ import {
   </div>
 </Section>
 
-<Section alt id="what">
+<Section canvas id="what">
   <SectionHead
-    kicker="02 · THE FACTS"
+    index="02"
+    kicker="收官定格"
     title="收官时，看板定格在什么状态"
     lead="以下数字为 2026-09-22 在公开看板上核对的收官口径；成本只含算力账单，不含数据与人力。"
   />
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="3.47" count={3.47} countDecimals={2} countPrefix="$" countSuffix="M" label="两条轨累计算力：pro $2.62M ＋ flash $0.85M（官方发布页口径）" />
     <Stat value="30" count={30} unit="步 / 轨" label="pro 于 09-20、flash 于 09-19 先后停止，均定格在 step 30" />
     <Stat value="75.3" count={75.3} countDecimals={1} countPrefix="~" countSuffix="万" unit="条 / 轨" label="每步 25,088 条轨迹 × 30 步的累计训练量" />
@@ -147,17 +153,17 @@ import {
 
   <div class="mt-6">
     <CardGrid>
-      <InfoCard label="WHAT IT IS" title="开放训练看板">
+      <InfoCard surface="white" label="WHAT IT IS" title="开放训练看板">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           overview / metrics / about 三个页签：置顶趋势图、2,077 个原始指标（pro 2,029 个、flash 2,062 个）的文件夹树，以及一个按秒累加的 TOTAL COST 成本时钟。
         </p>
       </InfoCard>
-      <InfoCard label="TWO RUNS" title="pro 与 flash 两条轨">
+      <InfoCard surface="white" label="TWO RUNS" title="pro 与 flash 两条轨">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           同一套方法下的两档原生全模态模型同时训练：pro 524B、flash 159B（参数量据 Hugging Face 标注）。注意看板自身图例是<b class="text-ink-2">橙=pro、蓝=flash</b>，与本文双栏卡片的约定恰好相反。
         </p>
       </InfoCard>
-      <InfoCard label="AFTERMATH" title="收官即开源">
+      <InfoCard surface="white" label="AFTERMATH" title="收官即开源">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           2026-09-21 官方发布 Pro-RL / Flash-RL 权重、技术报告、7k+ 高质量 RL 任务环境，以及作为 RL 起点的 9B 蒸馏模型；整套 RL 框架基于 verl、uni-agent 与 mini-swe-agent。
         </p>
@@ -166,14 +172,15 @@ import {
   </div>
 </Section>
 
-<Section id="loop">
+<Section canvas id="loop">
   <SectionHead
-    kicker="03 · THE LOOP"
+    index="03"
+    kicker="主循环"
     title="一轮训练：从出题到更新的五步循环"
     lead="随页面滚动，流程图会逐步点亮当前阶段（宽屏下左侧流程会停驻在屏幕中央）。"
   />
 
-  <Prose>
+  <Prose tile>
 
 背景交代完，进入机制。先给一句最朴素的定义：RLVR 是让模型在环境里完成任务，用「测试过没过、任务成没成」这种可以自动判定的客观结果当奖励；当任务是写代码、操作浏览器、跑命令这类需要一连串动作的智能体任务时，它就叫 Agentic RLVR。看板上几乎所有指标，都是在描述「出题—真跑—判分—比较—更新」这个循环某一环节的健康度。下面用一个会跟着滚动变换的图示，把五步逐个讲透。
 
@@ -325,7 +332,7 @@ import {
     </Callout>
   </div>
 
-  <Prose>
+  <Prose tile>
 
 这里值得停一下，把 GRPO 的数学直觉讲透，因为看板里好几个指标都是它的影子。一道题的 16 条轨迹跑完，grader 给出成败（可以理解为 0 或 1 的原始奖励），系统先算这 16 个分的均值和标准差，再把每条轨迹的分减去均值、除以标准差，得到它的「优势」。于是同一道题里，好尝试自然得正分，坏尝试自然得负分，完全不需要外部绝对评分。这个设计直接解释了漏斗里的 dropped_zero_adv：如果 16 条轨迹全成或全败，组内没有差异、优势全是 0，这道题这一步就白采了，丢弃。
 
@@ -334,13 +341,14 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
   </Prose>
 </Section>
 
-<Section alt id="step">
+<Section canvas id="step">
   <SectionHead
-    kicker="04 · ONE STEP"
+    index="04"
+    kicker="单步规模"
     title="一个 step 有多大、要多久"
     lead="收官步的真实规模：下面每个数字都是看板可核对的单步口径。"
   />
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="1,568" count={1568} unit="题" label="每个 step 采样的任务数（train batch）" />
     <Stat value="× 16" unit="条 / 题" label="每题 16 条独立轨迹，目标合计 25,088 条" />
     <Stat value="34–37亿" unit="token" label="收官步入训 token（pro 34.3 亿 / flash 37.0 亿，开播时约 18 亿）" />
@@ -361,12 +369,12 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
   <div class="mt-8">
     <BlockTitle title="判分漏斗：25,088 条采样，为什么只有约 2.27 万条入训" />
     <CardGrid cols={2}>
-      <InfoCard label="THE FUNNEL" title="差额去了哪里">
+      <InfoCard surface="white" label="THE FUNNEL" title="差额去了哪里">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           看板 train / verdicts 把每条消失的轨迹都记了账：dropped_empty_response（模型空回答）、dropped_zero_adv（组内无区分度）、expired（等太久过期）、rejected（判废），以及 carried（结转下步）。收官 pro 入训 22,729 条、flash 22,421 条。
         </p>
       </InfoCard>
-      <InfoCard label="SPARSE REWARD" title="智能体的核心难题：奖励太稀疏">
+      <InfoCard surface="white" label="SPARSE REWARD" title="智能体的核心难题：奖励太稀疏">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           一个几十轮的任务，最后只有「成 / 败」一个分，没法指导中途的每个动作。系统用分阶段信用组（stage credit group）解决：每步形成 2,000–2,700 个判分组，含中间关卡判分与作弊探测，端到端判定成功率约 96%。该系列占了全部指标标签里最大的一支（523 个相关指标）。
         </p>
@@ -374,16 +382,17 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
     </CardGrid>
   </div>
 
-  <Prose>
+  <Prose tile>
 
 一个关键的工程事实：两条轨的采样耗时都不短于训练耗时。智能体任务的瓶颈在「等环境跑完」（启动容器、执行测试、浏览器操作），而不是「等 GPU 算梯度」。这也是它和数学题 RLVR 最根本的成本差异——数学题的判分几乎免费，而这里每一个奖励信号背后都是一台真实运行的机器。metrics 页甚至有一整套 train / trace 指标专门给异步管线记账：背压等待、排空等待、超时返回、孤儿任务回收，都是为了把昂贵的环境等待压到最低。
 
   </Prose>
 </Section>
 
-<Section id="tracks">
+<Section canvas id="tracks">
   <SectionHead
-    kicker="05 · TWO TRACKS"
+    index="05"
+    kicker="双轨取舍"
     title="pro 与 flash：同一套方法，两种工程取舍"
     lead="本文卡片按规范约定：蓝点 A = pro，橙点 B = flash；读看板时记得把颜色反过来。"
   />
@@ -411,7 +420,7 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
     </span>
   </DualCompare>
 
-  <Prose>
+  <Prose tile>
 
 陈旧度是理解这两种取舍的钥匙。一条轨迹用第 k 版策略采样，排队进训练器时策略可能已更新到 k+1、k+2 版；PPO 的重要性采样修正默认「样本来自当前策略」，样本越旧，这个修正越不准、训练越容易飘。pro 选择几乎全程同步，贵但稳；flash 容忍约 1.2 个版本的陈旧，换来 GPU 不空转、单位美元推进更多步。哪种更值，取决于模型大小与目标——看板的价值就在于两种策略在同一时间、同一口径下跑给你看。
 
@@ -424,13 +433,15 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
   </div>
 </Section>
 
-<Section alt id="bench">
+<Section canvas id="bench">
   <SectionHead
-    kicker="06 · FINAL EXAMS"
+    index="06"
+    kicker="离线考卷"
     title="在线成绩会骗人：三张离线基准考卷"
     lead="置顶趋势图考的是「正在练的题」；离线基准考固定的、不参与训练的新题，统一每题独立采 3 次取平均（avg@3）。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "基准（avg@3）" },
       { label: "pro", dot: "a" },
@@ -446,12 +457,12 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
 
   <div class="mt-6">
     <CardGrid cols={2}>
-      <InfoCard label="DEEPSWE V1.1" title="这场考试为什么硬">
+      <InfoCard surface="white" label="DEEPSWE V1.1" title="这场考试为什么硬">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           据其<a class="text-blue" href="https://github.com/datacurve-ai/deep-swe">官方仓库说明</a>，DeepSWE 由 datacurve 出品，含 113 道选自活跃开源仓库的长程任务，覆盖 TypeScript、Go、Python、JavaScript、Rust；每题在隔离 Docker 环境里完成，由隐藏的程序化判分器在独立容器中验收补丁行为，不看实现只看可观察行为。
         </p>
       </InfoCard>
-      <InfoCard label="POST-RL DISTILL" title="9B 蒸馏模型跟着涨了多少">
+      <InfoCard surface="white" label="POST-RL DISTILL" title="9B 蒸馏模型跟着涨了多少">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           官方同时公布了作为 RL 起点的 Distill-Qwen-9B 训练前后成绩：SWE-bench Verified 61.1 → 66.2、Terminal Bench 2.1 37.1 → 52.8、MiMo Visual Coding 64.0 → 72.4、MiMo Cyber Bench 31.3 → 47.0——说明这套 RL 管线对小模型起点同样有效。
         </p>
@@ -466,60 +477,63 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
   </div>
 </Section>
 
-<Section id="panels">
+<Section canvas id="panels">
   <SectionHead
-    kicker="07 · SIX DASHBOARDS"
+    index="07"
+    kicker="六组体检项"
     title="18 张置顶图：六组体检项在监控什么"
     lead="团队从 2,077 个原始指标里置顶了 18 张「每步必看」的图，按职能可以分成六组。"
   />
   <CardGrid>
-    <InfoCard label="SCORE" title="成绩盘">
+    <InfoCard surface="white" label="SCORE" title="成绩盘">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         主指标 avg@n：pro 0.565→0.633、flash 0.514→0.644。配两张尾部分布：16 次全失败率（pro 13.2% / flash 15.6%）与全成功率（26.2% / 29.1%）；num_measurable 是有效分母，缩水则成绩不可信。
       </p>
     </InfoCard>
-    <InfoCard label="REWARD" title="奖励盘">
+    <InfoCard surface="white" label="REWARD" title="奖励盘">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         critic 把 grader 的客观判分按阶段信用分配折算成奖励：收官平均奖励 pro 0.596、flash 0.601。它与成功率同向但不等同，还包含过程塑形与扣分。
       </p>
     </InfoCard>
-    <InfoCard label="POLICY" title="策略更新盘">
+    <InfoCard surface="white" label="POLICY" title="策略更新盘">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         熵从约 0.40 缓升到 0.46–0.47（变擅长但没僵化）；梯度范数常态 0.005–0.006，pro 第 19 步前后冲到 0.034（约 6 倍）。
       </p>
     </InfoCard>
-    <InfoCard label="TASK SHAPE" title="任务形态盘">
+    <InfoCard surface="white" label="TASK SHAPE" title="任务形态盘">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         每条轨迹平均上下文从约 7.2 万 token 涨到 13.7 万 / 14.8 万；轮次起点约 47，pro 收官 44、flash 68.5——任务越来越长、越来越难。
       </p>
     </InfoCard>
-    <InfoCard label="THROUGHPUT" title="吞吐与耗时盘">
+    <InfoCard surface="white" label="THROUGHPUT" title="吞吐与耗时盘">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         单步入训 token 从约 18 亿涨到 34.3 亿 / 37.0 亿；耗时拆为 rollout 生成与 trainer 更新两段，两段都在随任务变难而变长。
       </p>
     </InfoCard>
-    <InfoCard label="INFRA" title="基础设施盘">
+    <InfoCard surface="white" label="INFRA" title="基础设施盘">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         并发沙箱常态 2 万–4 万个；infra 废卷率常态 0.5%–0.7%（flash 第 15 步 3.3% 尖峰）；疑似环境泄漏计数全程为 0。
       </p>
     </InfoCard>
   </CardGrid>
 
-  <Prose>
+  <Prose tile>
 
 其中最容易被误读的是 `train_infer_diff / kl`：它不是「新策略相对旧策略漂移多少」，而是一项工程一致性校验——生成轨迹的推理引擎和做更新的训练器是两套实现，它们对同一批 token 各算一次对数概率，两者的 KL 必须接近零，否则 PPO 赖以更新的重要性采样就会失真。收官时 pro 约 0.002–0.003，flash 后半段约 0.011。metrics 页的 F(τ) 系列还从尾部监控同一问题：概率差超过 τ 的 token 占比。
 
   </Prose>
 </Section>
 
-<Section alt id="notices">
+<Section canvas id="notices">
   <SectionHead
-    kicker="08 · INCIDENTS"
+    index="08"
+    kicker="事故公告"
     title="事故公告流：尖峰先查 notices"
     lead="看板不遮掩中断：6 条人工公告解释了每条曲线为什么突然抖。理解趋势图尖峰，先看公告。"
   />
   <Steps
-    steps={[
+    tile
+        steps={[
       { title: "09-17 凌晨 · 补发离线成绩", body: "更新 flash 第 12 步、pro 第 8 步的 DeepSWE 复测分（离线考分是人工复测后手动录入的）。" },
       { title: "09-17 04:08 · pro 显存重启", body: "单个节点显存（VRAM）问题触发重启。全跑 pro 共重启 14 次、flash 5 次——这个量级的训练里重启是常态。" },
       { title: "09-17 10:27 · flash 从 step 15 重跑", body: "一类基础设施错误连续约 3 小时未被正确检测，可能污染样本，团队回滚重采——对应废卷率 3.3% 尖峰。" },
@@ -528,36 +542,37 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
       { title: "09-19 18:14 · 过滤过易任务", body: "动态课程把对当前模型已经过简单的任务移出训练菜单。" },
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 这 6 条公告合起来教了三件事。其一，大规模训练的真相是「带故障运行」：14 次重启没有毁掉训练，靠的是丢弃补采、结转、重跑这些机制把故障隔离成可回收的废卷。其二，监控本身也会失效：flash 那类 infra error 三小时没被检测出来，团队宁可整步回滚重采，也不赌污染样本无害——样本质量的账比算力贵。其三，奖励之外还有数据治理：cyber 的异常行为、过易的题、MoE 路由失衡，都不是 PPO 自己能解决的问题。
 
   </Prose>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="09 · READ IT RIGHT"
+    index="09"
+    kicker="四点局限"
     title="看板不会告诉你的四件事"
     lead="开放是真实的，局限也是真实的。引用这些数字前，先知道它们的边界。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="SELF-REPORTED" title="这是一份自选视角">
+    <InfoCard surface="white" label="SELF-REPORTED" title="这是一份自选视角">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         置顶的 18 张图是从 2,077 个指标里人工挑选的「每步必看」，曲线平滑滑块、横轴口径都由读者自己调；数据集以随机 ID 匿名（25 个）、测试框架以 A–U 字母匿名（23 个），无法对照题目内容。
       </p>
     </InfoCard>
-    <InfoCard label="TRAINING DISTRIBUTION" title="在线分不是通用能力">
+    <InfoCard surface="white" label="TRAINING DISTRIBUTION" title="在线分不是通用能力">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         avg@n 考的是训练菜单内的题，而菜单本身在动态换人——成绩上升里有多少来自模型变强、多少来自课程换题，单看置顶图分不开。判断真本事要回到 DeepSWE 这类独立基准。
       </p>
     </InfoCard>
-    <InfoCard label="NOT REPRODUCIBLE" title="基础设施无法照抄">
+    <InfoCard surface="white" label="NOT REPRODUCIBLE" title="基础设施无法照抄">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         权重、环境、框架虽然开源，但 4 万沙箱并发的调度集群、判分池和 GPU 规模不可复刻；看板给的是遥测数据，不是一份可复现实验的完整配方。
       </p>
     </InfoCard>
-    <InfoCard label="COST SCOPE" title="账单口径很窄">
+    <InfoCard surface="white" label="COST SCOPE" title="账单口径很窄">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         $3.47M 只是开播后按资源单价累计的训练算力，不含数据、人力，也不含官方承认的半年研究试错；它是「最后一次大跑的电费」，不是项目总投入。
       </p>
@@ -565,24 +580,25 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
   </CardGrid>
 </Section>
 
-<Section alt id="openness">
+<Section canvas id="openness">
   <SectionHead
-    kicker="10 · WHY IT MATTERS"
+    index="10"
+    kicker="开放的含义"
     title="「开放」到底开放了什么"
     lead="不只是最终权重，连训练过程的脏数据也一起公开了。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="PROCESS" title="训练过程实时可见">
+    <InfoCard surface="white" label="PROCESS" title="训练过程实时可见">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         直播期间任何人都能看到成本时钟、当前 step、滚动通过率与事故公告——about 页原话是 “We are streaming our RL big runs.”
       </p>
     </InfoCard>
-    <InfoCard label="TELEMETRY" title="2,077 个指标可深挖">
+    <InfoCard surface="white" label="TELEMETRY" title="2,077 个指标可深挖">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         metrics 页公开全部原始指标（pro 2,029 个、flash 2,062 个），含判分漏斗、异步管线等待、分阶段信用分配等论文通常不会披露的工程细节。
       </p>
     </InfoCard>
-    <InfoCard label="ARTIFACTS" title="权重、环境与框架开源">
+    <InfoCard surface="white" label="ARTIFACTS" title="权重、环境与框架开源">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         收官后放出 Pro-RL / Flash-RL 权重、技术报告、7k+ 任务环境，以及基于 verl / uni-agent / mini-swe-agent 的端到端 RL 框架。
       </p>
@@ -596,6 +612,7 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "这是 RLVR 第三阶段的一次公开解剖",
@@ -610,3 +627,4 @@ PPO 的「近端」二字也有讲究：用旧策略采样、再往新策略上�
   ]}
   note="数字口径：官方发布页（约数）与 2026-09-22 看板观测（收官定格值）并列；引用具体数字时请连同时间口径一起引用。"
 />
+</ArticleCanvas>

@@ -20,6 +20,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -64,19 +65,22 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+
+<Prose tile>
 
 口径说明：本文依据 Kotlin 官方文档（kotlinlang.org，2026-09-23 核对）的 Java 互操作章节与 K2 编译器迁移指南，编译器内部结构参照开源仓库 JetBrains/kotlin 的模块划分。这是一篇语言设计分析，不是上手指南——重点回答一个类型系统问题：**当一门强制空安全的语言必须消费一门没有空安全的语言的全部代码时，类型边界该怎么设计。**
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE DESIGN PROBLEM"
+    index="01"
+    kicker="设计难题"
     title="前因：空安全是卖点，Java 是命门"
     lead="Kotlin 1.0 的核心承诺是空安全，但 JVM 上没有一座孤岛。"
   />
-  <Prose>
+  <Prose tile>
 
 Kotlin 的立身之本是把 null 放进类型系统：`String` 保证非空，`String?` 才可空，错误在编译期暴露。但它的生存策略是**100% 与 Java 互操作**——不是另起炉灶吸引少量新代码，而是让现存的海量 Java 库（以及 Android 当时的全部 API）可以直接被 Kotlin 调用。
 
@@ -87,9 +91,10 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
   </Prose>
 </Section>
 
-<Section alt id="platform">
+<Section canvas id="platform">
   <SectionHead
-    kicker="02 · PLATFORM TYPES"
+    index="02"
+    kicker="平台类型"
     title="核心机制：一种你写不出来的柔性类型"
     lead="官方文档对它的定义非常精确：non-denotable（不可指名）的类型。"
   />
@@ -194,42 +199,44 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
   </ScrollStory>
 </Section>
 
-<Section id="k2">
+<Section canvas id="k2">
   <SectionHead
-    kicker="03 · THE K2 / FIR REWRITE"
+    index="03"
+    kicker="K2 重写"
     title="K2：为什么互操作需要一个新前端"
     lead="旧前端 FE1.0 里 Kotlin 决议、Java 解析、IDE 分析各有一套逻辑；K2 用统一的 FIR 数据结构把它们收敛。"
   />
-  <StatGrid cols={3}>
+  <StatGrid tile cols={3}>
     <Stat value="94%" unit="编译提速" label="官方在 Anki-Android 等开源项目实测：干净构建最高提速约 94%（57.7s → 29.7s）" />
     <Stat value="488%" unit="初始化提速" label="增量构建初始化阶段最高快约 488%，K2 自 Kotlin 2.0（2024）起默认开启" />
     <Stat value="1" unit="个统一 IR" label="FIR 承载更丰富的语义信息，供编译器与 IDE（Analysis API）共用" />
   </StatGrid>
-  <Prose>
+  <Prose tile>
 
 K2 的「根本性变化」（官方原话）是**一个包含更多语义信息的统一数据结构**。旧前端 PSI/FE1.0 时代，命令行编译器与 IDE 各自重复实现分析逻辑，对 Java 类型的处理在不同入口可能不一致。FIR（Frontend IR）作为语义分析、调用决议与类型推断的统一中间表示，让「一个 Java 方法在编译器和 IDE 里被如何解读」只有一个答案——这对平台类型这种跨语言推断尤其关键，也让新语法糖的引入不再需要同时改三套代码。统一的 JVM/JS IR 后端在 K2 之前先行落地，K2 补齐的是前端，至此整个编译器管线围绕共享 IR 重组。
 
   </Prose>
 </Section>
 
-<Section alt id="design">
+<Section canvas id="design">
   <SectionHead
-    kicker="04 · DESIGN LESSONS"
+    index="04"
+    kicker="设计经验"
     title="三条可以搬走的类型系统设计经验"
     lead="Kotlin/Java 互操作是「强类型语言消费弱类型生态」最成功的工业案例之一。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="NON-DENOTABLE" title="让妥协不可被写出">
+    <InfoCard surface="white" label="NON-DENOTABLE" title="让妥协不可被写出">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         柔性只存在于系统内部和边界提示里，用户无法显式声明。这防止「先图省事用柔性、再让柔性扩散到全代码库」的劣化——妥协被限制在接触面上。
       </p>
     </InfoCard>
-    <InfoCard label="LOCALIZE FAILURE" title="在边界处快速失败">
+    <InfoCard surface="white" label="LOCALIZE FAILURE" title="在边界处快速失败">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         自动插断言保证 NPE 在值进入 Kotlin 世界的那一刻爆，而不是深入调用链后以神秘形式出现。风险无法消除时，把爆炸点前移就是最好的可调试性。
       </p>
     </InfoCard>
-    <InfoCard label="CONVENTION BRIDGE" title="用生态既有约定做升级路径">
+    <InfoCard surface="white" label="CONVENTION BRIDGE" title="用生态既有约定做升级路径">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Kotlin 没有发明新注解，而是兼容 JSR-305、JSpecify 等八套既有可空性注解：老项目加注解就能逐步把 T! 收敛成精确类型，互操作体验随生态成熟而自动改善。
       </p>
@@ -237,19 +244,20 @@ K2 的「根本性变化」（官方原话）是**一个包含更多语义信息
   </CardGrid>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="05 · READ IT RIGHT"
+    index="05"
+    kicker="边界提醒"
     title="边界仍在的两个提醒"
     lead="平台类型是优雅的妥协，但妥协不等于问题消失。"
   />
   <CardGrid cols={2}>
-    <InfoCard label="GENERIC GAPS" title="泛型里的 null 仍可能漏">
+    <InfoCard surface="white" label="GENERIC GAPS" title="泛型里的 null 仍可能漏">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         官方文档明确承认，由于泛型与复杂集合签名的存在，编译器无法总是阻止 null 传播；嵌套泛型里的平台类型仍需人保持警惕，不能因为「Kotlin 空安全」就放下所有防御。
       </p>
     </InfoCard>
-    <InfoCard label="REVERSE DIRECTION" title="Kotlin 给 Java 用时另一套规则">
+    <InfoCard surface="white" label="REVERSE DIRECTION" title="Kotlin 给 Java 用时另一套规则">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         反向互操作（Java 调 Kotlin）靠 @Nullable 注解、@JvmStatic/@JvmOverloads 等一整套导出桥接；空安全在 JVM 字节码层面最终仍是断言而非类型保证，Java 侧可以绕过。
       </p>
@@ -258,6 +266,7 @@ K2 的「根本性变化」（官方原话）是**一个包含更多语义信息
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "强类型与弱生态之间，需要的是「受限的柔性」而非二选一",
@@ -272,3 +281,4 @@ K2 的「根本性变化」（官方原话）是**一个包含更多语义信息
   ]}
   note="事实口径：平台类型语义、可空性注解清单、-Xnullability-annotations 选项与 K2 性能数字均来自 2026-09-23 抓取的 kotlinlang.org 官方文档（K2 自 2.0 起默认）；FIR 内部结构参照开源编译器模块划分；设计经验为作者归纳。"
 />
+</ArticleCanvas>

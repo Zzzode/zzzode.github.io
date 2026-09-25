@@ -24,6 +24,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -69,19 +70,22 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+
+<Prose tile>
 
 口径说明：本文事实来自 [withastro/flue 的官方 README](https://github.com/withastro/flue)、flueframework.com 官方指南（2026-09-23 核对，页面最近更新于 2026-07）与 OpenComputer 的架构文档；Cloudflare 相关事实据其官方博客主题与 OpenComputer 文档。Flue 仍在快速迭代，具体 API 以最新文档为准。这篇可以与本博客的 [Claude Code 架构解剖](/posts/2026-09-23-claude-code-architecture/)对照阅读：前者讲一个成品 harness 长什么样，这篇讲怎么自己用代码组合出一个。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE BACKDROP"
+    index="01"
+    kicker="背景"
     title="前因：从「裸调 API」到「harness 即框架」"
     lead="Flue 在 README 里自己讲了三代智能体的演进史。"
   />
-  <Prose>
+  <Prose tile>
 
 **第一代：裸 LLM 调用。** 直接发 HTTP 请求给模型 API，拿到文本回复。它只适合简单聊天机器人和写死的脚本流程——模型没有上下文管理、没有工具、没有环境。
 
@@ -92,19 +96,20 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="model">
+<Section canvas id="model">
   <SectionHead
-    kicker="02 · THE MENTAL MODEL"
+    index="02"
+    kicker="心智模型"
     title="理解它的核心：智能体就是一个函数"
     lead="这是 Flue 最有辨识度的设计——不是写配置文件，而是写一个带 'use agent' 指令的函数。"
   />
-  <Prose>
+  <Prose tile>
 
 官方定义里，智能体由三部分组成：**LLM、harness、专用上下文**。Flue 提供两个核心原语把三者组合起来：Agent Functions 与 Agent Hooks。一个最简智能体长这样（摘自官方 README）：
 
   </Prose>
 
-  <div class="article-prose !mt-0">
+  <Prose tile>
 
 ```ts
 'use agent';
@@ -123,18 +128,15 @@ diagnose, verify, and attempt a fix.`;
 }
 ```
 
-  </div>
-
-  <Prose>
-
 函数的返回值是给模型的指令（instruction），而 `use*` 系列调用在运行时把模型、沙箱、技能与类型化工具「装」进这个智能体。这种设计的直接好处是：**整个 harness 都享受 TypeScript 的类型检查、Vite 的构建与任意环境的部署**，而不是被困在某个私有 DSL 里。你换模型、换沙箱、增删工具，就是改几行代码。
 
   </Prose>
 </Section>
 
-<Section id="sandbox">
+<Section canvas id="sandbox">
   <SectionHead
-    kicker="03 · SANDBOX TIERS"
+    index="03"
+    kicker="三档沙箱"
     title="三档沙箱：这是 Flue 最有教育意义的设计"
     lead="「智能体在哪里执行命令」没有唯一答案。Flue 给出三个档位，隔离强度、真实度、冷启动成本各不相同。"
   />
@@ -239,13 +241,14 @@ diagnose, verify, and attempt a fix.`;
   </ScrollStory>
 </Section>
 
-<Section alt id="durable">
+<Section canvas id="durable">
   <SectionHead
-    kicker="04 · DURABILITY"
+    index="04"
+    kicker="持久化契约"
     title="持久化契约：一旦接纳，就欠你一个终态"
     lead="云端智能体会崩溃、重启、被重新部署。Flue 把「已接纳的工作」做成了显式承诺。"
   />
-  <Prose>
+  <Prose tile>
 
 官方对 durability 的定义值得逐字理解：**一旦输入被接纳（admitted），运行时就欠这个会话一个持久化的终态（durable terminal outcome）——无论进程崩溃、重启还是重新部署。** 任何到达智能体的输入（HTTP prompt、dispatch 调用、通道消息、定时触发）都先作为一条 submission 被持久化记录，**然后**才开始任何模型工作。接纳记录就是崩溃恢复的起点：中断后重放已接纳但未完成的工作，已完成的持久工具与委派任务不重复执行。
 
@@ -254,69 +257,71 @@ diagnose, verify, and attempt a fix.`;
   </Prose>
 </Section>
 
-<Section id="deploy">
+<Section canvas id="deploy">
   <SectionHead
-    kicker="05 · DEPLOY ANYWHERE"
+    index="05"
+    kicker="六种跑法"
     title="同一个函数，六种跑法"
     lead="harness 与运行环境解耦后，部署目标变成构建期选择。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="LOCAL / CI" title="Node.js 与 GitHub/GitLab Actions">
+    <InfoCard surface="white" label="LOCAL / CI" title="Node.js 与 GitHub/GitLab Actions">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Node 目标下可用 local() 直接操作宿主；CLI（flue 二进制）支持本地运行、蓝图生成与离线文档。GitHub Actions、GitLab CI 是一等部署目标，headless 跑智能体与跑测试同构。
       </p>
     </InfoCard>
-    <InfoCard label="EDGE" title="Cloudflare Workers + Durable Objects">
+    <InfoCard surface="white" label="EDGE" title="Cloudflare Workers + Durable Objects">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Cloudflare 官方宣布把 Flue 作为首个外部 harness 接入其 Agent 平台：每个会话一个 Durable Object，对话状态存在 DO 的 SQLite 里；模型型智能体无需预配虚拟机即可启动，需要容器时才按需创建沙箱。
       </p>
     </InfoCard>
-    <InfoCard label="HOSTED" title="Daytona / Render / OpenComputer">
+    <InfoCard surface="white" label="HOSTED" title="Daytona / Render / OpenComputer">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         远程容器沙箱可挂 Daytona 等提供商；Render 等托管 Node 平台直接部署；OpenComputer 则提供「只写 prompt.md 就能上线」的托管路径，并可从 GitHub 按固定 commit 导入。
       </p>
     </InfoCard>
   </CardGrid>
-  <Prose>
+  <Prose tile>
 
 OpenComputer 的架构文档展示了「零代码智能体」的最简形态：一个 `agent.toml`（名字、模型、运行时家族）加一个 `prompt.md`，加 `skills/` 目录，就能部署成一个边缘 Worker。上限是 prompt 256KiB、最多 32 个打包技能、合计 2MiB。需要自定义工具时再加 package.json 与 flue.config 升级为完整应用——身份与会话历史不丢。这个「prompt 起步、代码毕业」的平滑路径，是 Astro 式 DX（开发者体验）在智能体领域的直接投射。
 
   </Prose>
 </Section>
 
-<Section alt id="composition">
+<Section canvas id="composition">
   <SectionHead
-    kicker="06 · THE FULL STACK"
+    index="06"
+    kicker="组合清单"
     title="组合清单：Flue 给一个智能体配了什么"
     lead="除了模型和沙箱，这个 harness 还内置了一整套可插拔能力。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="TOOLS & MCP" title="类型化动作与开放协议">
+    <InfoCard surface="white" label="TOOLS & MCP" title="类型化动作与开放协议">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         defineTool 给智能体类型安全的 API 调用与受控变更；通过 MCP 连接已认证的外部服务。挂沙箱后自动获得 read/write/edit/bash/grep/glob 六个基础工具。
       </p>
     </InfoCard>
-    <InfoCard label="SKILLS" title="按需加载的专长">
+    <InfoCard surface="white" label="SKILLS" title="按需加载的专长">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         SKILL.md 打包可复用工作流，模型在任务需要时才加载——与 Claude Code 的 Skills 概念同源，加载后跨轮驻留，所以正文要短。
       </p>
     </InfoCard>
-    <InfoCard label="SUBAGENTS" title="独立上下文的委派">
+    <InfoCard surface="white" label="SUBAGENTS" title="独立上下文的委派">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         useSubagent 声明具名代表：新鲜上下文、独立指令与工具集，只有最终答案返回父会话；内置通用代表，继承规则可显式控制。
       </p>
     </InfoCard>
-    <InfoCard label="CHANNELS" title="事件从工作平台进来">
+    <InfoCard surface="white" label="CHANNELS" title="事件从工作平台进来">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         Slack、Teams、Discord、GitHub 等通道的已验证事件可以驱动智能体；配合 schedules 实现定时工作流。
       </p>
     </InfoCard>
-    <InfoCard label="STATE" title="路由与数据库">
+    <InfoCard surface="white" label="STATE" title="路由与数据库">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         内置 routing 与 database 抽象，决定不同输入进哪个会话、状态落在哪——在 Cloudflare 上是 DO SQLite，在 Node 上可接自己的库。
       </p>
     </InfoCard>
-    <InfoCard label="OBSERVE" title="OpenTelemetry 可观测性">
+    <InfoCard surface="white" label="OBSERVE" title="OpenTelemetry 可观测性">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         遥测可导出到 OpenTelemetry、Braintrust、Sentry 或自定义 observer；还内置 Evals 用于评估智能体表现，而非只能线上肉眼看。
       </p>
@@ -324,24 +329,25 @@ OpenComputer 的架构文档展示了「零代码智能体」的最简形态：�
   </CardGrid>
 </Section>
 
-<Section id="limits">
+<Section canvas id="limits">
   <SectionHead
-    kicker="07 · READ IT RIGHT"
+    index="07"
+    kicker="适用边界"
     title="适用边界：它刻意不替你决定的事"
     lead="框架的自由度也意味着责任仍在使用者身上。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="LOCAL IS DANGEROUS" title="本地沙箱没有隔离">
+    <InfoCard surface="white" label="LOCAL IS DANGEROUS" title="本地沙箱没有隔离">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         local() 故意直连宿主 shell，跑不可信模型生成的命令时风险自担；多租户或面向公网的场景必须用 remote 容器档，不能因为「框架叫 sandbox」就以为一定安全。
       </p>
     </InfoCard>
-    <InfoCard label="YOUNG ECOSYSTEM" title="年轻项目，API 在变">
+    <InfoCard surface="white" label="YOUNG ECOSYSTEM" title="年轻项目，API 在变">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         文档最近更新于 2026-07，包名、部署目标与平台合作都在快速变动；生产采用前要锁版本并评估生态成熟度，不能按稳定 LTS 预期。
       </p>
     </InfoCard>
-    <InfoCard label="BRING YOUR OWN" title="模型、平台、运维都要自己选">
+    <InfoCard surface="white" label="BRING YOUR OWN" title="模型、平台、运维都要自己选">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         它只提供 harness：模型 API、沙箱提供商、边缘账户、可观测后端全需自行接入与付费；想要开箱即用成品的团队，Claude Code 这类产品可能更合适。
       </p>
@@ -350,6 +356,7 @@ OpenComputer 的架构文档展示了「零代码智能体」的最简形态：�
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "Harness 正在从产品内部能力变成独立的软件层",
@@ -364,3 +371,4 @@ OpenComputer 的架构文档展示了「零代码智能体」的最简形态：�
   ]}
   note="事实口径：依据 2026-09-23 抓取的 withastro/flue README、flueframework.com 指南（文档最近更新 2026-07-21/23）与 OpenComputer 架构文档；Cloudflare 集成据其官方博客主题与上述文档。项目仍在快速迭代，API 以官方最新文档为准。"
 />
+</ArticleCanvas>

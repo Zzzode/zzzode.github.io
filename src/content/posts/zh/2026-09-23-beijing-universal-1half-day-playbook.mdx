@@ -46,6 +46,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -105,25 +106,28 @@ import {
   </svg>
 </CoverBanner>
 
-<Prose>
+<ArticleCanvas>
+
+<Prose tile>
 
 先说哪些信息能信到什么程度。**官方规则**我全部在 2026 年 9 月 23 日那天从北京环球度假区官网逐页核对过：票务信息页、常见问题、两家酒店的介绍、每个项目的骑乘安全页，还有「惊彩环球」的活动新闻，链接都挂在文末，你可以自己点开查。**第三方价格**（优速通套装、OTA 套餐区间）是我调研时看到的在售价，环球优速通按日期浮动定价，今天看到的数字明天可能就变，只能用来估预算，付钱时以下单页为准。**我们自己的计划**是我们两个人还没出发的安排，车次、点什么菜、准备花多少钱都算这一类，它不是园区的承诺。你照着抄之前，记得按自己的日期把官方日历和价格重新查一遍。
 
 </Prose>
 
-<Section id="backdrop">
+<Section canvas id="backdrop">
   <SectionHead
-    kicker="01 · THE CALENDAR GEOMETRY"
+    index="01"
+    kicker="日历几何"
     title="为什么偏偏是 10 月 8–10 日"
     lead="定日期的时候我们没看攻略，先翻了三本日历：活动日历、国庆调休表和夜场开放表。这三天是它们自己对上的。"
   />
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="59" count={59} unit="天" label="「惊彩环球」活动期：2026 年 9 月 4 日至 11 月 1 日（官方新闻）" />
     <Stat value="5" count={5} unit="间" label="五大惊吓空间，有鬼日 17:00–22:00 现场排队、无需另购票（官方新闻）" />
     <Stat value="17" count={17} unit="项" label="官方地图口径的全园玩乐项目数，另有未来水世界等多场演出" />
     <Stat value="60" count={60} unit="分钟" label="两家官方酒店住客提前入园上限：开园前至多 1 小时（官方酒店页）" />
   </StatGrid>
-  <Prose>
+  <Prose tile>
 
 先看年历。2026 年是北京环球度假区开园第五年，万圣季的活动叫「惊彩环球」，9 月 4 日开门，一直开到 11 月 1 日。今年第一次把《盗墓笔记》和《第五人格》两个国产 IP 做进了鬼屋。
 
@@ -142,13 +146,15 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="tickets">
+<Section canvas id="tickets">
   <SectionHead
-    kicker="02 · TICKET VOCABULARY"
+    index="02"
+    kicker="票务名词"
     title="票和权益：五个名字别买混"
     lead="环球的票务名词专门设计来让人多花钱，先把术语翻成大白话。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "产品" },
       { label: "官方规则", wrap: true },
@@ -162,7 +168,7 @@ import {
       ["晚间体验门票", "有鬼日 17:00 后入园的夜场专票，与白天票分开卖", "10/9 持全天票可直接玩到 22:00，我们不用买"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 门票价格天天变。官方票务信息页现在挂的是：指定单日门票 350 元起、酒店套餐 1484 元/人起、优速通单项 190 元起、VIP 贵宾体验 2800 元起。开园那年（2021 年）人民网、新华网报道过单日票分四档定价，418 / 528 / 638 / 748 元，今天实际卖哪一档要看官方价格日历。我们的 8 号和 9 号都是节后工作日，按全年规律属于便宜的那两天。
 
@@ -177,9 +183,10 @@ import {
   </Callout>
 </Section>
 
-<Section id="hotels">
+<Section canvas id="hotels">
   <SectionHead
-    kicker="03 · THE TWO HOTELS"
+    index="03"
+    kicker="两家酒店"
     title="住诺金，还是环球影城大酒店"
     lead="两家官方酒店的权益完全相同，真正要选的是硬件和节奏。"
   />
@@ -201,7 +208,7 @@ import {
       </ul>
     </span>
   </DualCompare>
-  <Prose>
+  <Prose tile>
 
 两家酒店送的权益一模一样：都是开园前至多 1 小时进、走同一个贵宾体验入口、同样的行李服务。要选的只是住得舒不舒服、离门多远。我们 9 号要玩到晚上 10 点，10 号上午还打算用泳池和 SPA，所以订了诺金。
 
@@ -210,17 +217,18 @@ import {
   </Prose>
 </Section>
 
-<Section id="map">
+<Section canvas id="map">
   <SectionHead
-    kicker="04 · THE MAP"
+    index="04"
+    kicker="路线地图"
     title="一张地图看完三天的脚力"
     lead="底图是官方互动地图的插画版，我们把三天的路线直接画在了上面：黑虚线 8 号下午，蓝线 9 号白天，橙虚线 9 号夜场，① 到 ⑧ 是八个关键节点，黑色餐针是三顿已定的园内正餐。"
   />
-  <div class="overflow-hidden rounded-[28px] border border-line-soft bg-white">
+  <div class="overflow-hidden rounded-[18px] bg-white">
     <img src="/images/ubr/route-map.jpg" alt="北京环球影城官方插画地图：黑色虚线是 10/8 半日路线，蓝实线是 10/9 白天动线，橙色虚线是夜场路线，图上标了八个关键节点与三顿正餐位置" class="block w-full" loading="lazy" />
   </div>
   <p class="mt-2.5 text-center text-[11.5px] leading-relaxed text-muted-2">底图为北京环球度假区官方互动地图（官方插画瓦片拼接），黑色虚线为 10/8 半日右半环、蓝实线为 10/9 白天动线、橙色虚线为 10/9 夜场动线；编号节点与三顿正餐位置是我们自己的路线规划。</p>
-  <Prose>
+  <Prose tile>
 
 主入口在最南边的好莱坞（图上 A 点），进门右手顺时针走，东南是小黄人乐园，最东端是哈利波特城堡（②）；沿北环向西依次是未来水世界（D）、功夫熊猫（C），西北端是变形金刚基地（③），西环向南是侏罗纪世界（④），走回好莱坞。B 点就是贵宾体验入口，诺金和环球影城大酒店都在城市大道南侧。
 
@@ -229,13 +237,15 @@ import {
   </Prose>
 </Section>
 
-<Section id="rides">
+<Section canvas id="rides">
   <SectionHead
-    kicker="05 · RIDE GUIDE"
+    index="05"
+    kicker="项目图鉴"
     title="项目图鉴：身高门槛是硬规则，排队时长是软参考"
     lead="身高全部摘自各项目官方骑乘安全页；排队是节后工作日经验区间，当天只信官方 App。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "项目" },
       { label: "景区" },
@@ -257,7 +267,7 @@ import {
       ["灯影传奇 / 炫转武侠", "功夫熊猫", "无门槛", "随到随玩", "悬挂花灯与旋转茶杯类，最出片的温和区；均在优速通名单"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 看身高要求时要分清官方的两种写法。一种是硬杠，比如禁忌之旅、霸天虎写的是「低于 X 厘米不可乘坐」，差一厘米都不行；另一种留了陪同档，鹰马飞行 99–122cm、侏罗纪系 100/102–122cm 之间的孩子有大人陪着就能坐。小黄人闹翻天最宽松，不到 102cm 也能玩，只是必须坐固定座位。另外几个大项目对腰围也有要求，安全压杆合不上就不能坐。入口都摆着测试座椅，先去坐一下再排队，省得白等。
 
@@ -266,13 +276,15 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="halloween">
+<Section canvas id="halloween">
   <SectionHead
-    kicker="06 · HALLOWEEN CALENDAR"
+    index="06"
+    kicker="万圣日历"
     title="万圣夜场：日历比胆子更重要"
     lead="五周年的「惊彩环球」把全年最复杂的营业时间塞进了九月和十月。"
   />
   <Timeline
+    tile
     nodes={[
       { year: "09.04", title: "惊彩环球开幕", body: "五周年万圣季 9/4–11/1；首引盗墓笔记、第五人格两大国产 IP，联动《寂静之地》《梅根》等国际 IP（官方新闻）。" },
       { year: "每周四—周一", title: "有鬼日夜场", body: "惊吓空间、惊叫区与夜间演出仅周四至次周周一开放，17:00–22:00 截止排队；周二、周三不开。" },
@@ -284,54 +296,56 @@ import {
   />
   <div class="mt-10">
     <CardGrid cols={3}>
-      <InfoCard label="NEW · 国产 IP" title="盗墓笔记">
+      <InfoCard surface="white" label="NEW · 国产 IP" title="盗墓笔记">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           2026 年全新惊吓空间，携手南派三叔，跟随吴邪、张起灵、王胖子入墓；我们排的头牌之一，开场先排。
         </p>
       </InfoCard>
-      <InfoCard label="NEW · 游戏 IP" title="第五人格 · 逃离白沙街">
+      <InfoCard surface="white" label="NEW · 游戏 IP" title="第五人格 · 逃离白沙街">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           全新惊吓空间，主题公园首次探索第五人格游戏 IP 联动；我们排的另一间头牌，与盗墓笔记优先刷。
         </p>
       </InfoCard>
-      <InfoCard label="NEW · 惊悚电影" title="静默之地">
+      <InfoCard surface="white" label="NEW · 惊悚电影" title="静默之地">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           2026 年全新惊吓空间，官方称灵感源自好莱坞经典惊悚电影；官宣联动阵容含《寂静之地》《梅根》。
         </p>
       </InfoCard>
-      <InfoCard label="RETURNING" title="环球怪物：地下秘穴">
+      <InfoCard surface="white" label="RETURNING" title="环球怪物：地下秘穴">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           去年人气爆棚的回归项目，经典环球怪物阵容；惊彩优速通序列第三间。
         </p>
       </InfoCard>
-      <InfoCard label="RETURNING · 聊斋" title="画皮幽宅">
+      <InfoCard surface="white" label="RETURNING · 聊斋" title="画皮幽宅">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           回归项目，灵感取自《聊斋志异》的中式恐怖宅第；五间中最后刷。
         </p>
       </InfoCard>
-      <InfoCard label="STREETS · 惊叫区" title="四大街头惊叫区">
+      <InfoCard surface="white" label="STREETS · 惊叫区" title="四大街头惊叫区">
         <p class="mt-2 text-[13px] leading-[1.65] text-muted">
           梅尔斯禁地、梅根（好莱坞景区诡异舞蹈）、反可爱派对、地下世界，搭配全新夜间演出《地下世界崛起》与霍格莫德村「食死徒来袭」。
         </p>
       </InfoCard>
     </CardGrid>
   </div>
-  <Prose>
+  <Prose tile>
 
 执行层面记住几件事。鬼屋不用单独买票，官方新闻的原话是五大空间「无需线上预约、无需单独购票，现场排队入场」，我们拿着全天票过了下午 5 点直接玩。麻烦在排队：普通队一间屋常常 60–120 分钟，五间一晚上根本走不完，只能靠万圣节限定的**惊彩优速通**（3 项或 5 项套装，普通优速通不含鬼屋）。这个票种在有鬼的日子开园几分钟就卖光，确定行程后尽早在官方 App 实名抢掉，最晚别拖到访前一两天。带小孩的话注意官方提示：不推荐 13 岁以下进鬼屋，16 岁以下必须有大人陪。还有外套别嫌麻烦，10 月上旬北京夜里也就 10–15℃，排队一两小时的时候体感更冷。
 
   </Prose>
 </Section>
 
-<Section id="threedays">
+<Section canvas id="threedays">
   <SectionHead
-    kicker="07 · MINUTE-BY-MINUTE"
+    index="07"
+    kicker="逐时执行单"
     title="三天逐时执行单"
     lead="每个时间点在哪、干什么、花多久，照着掐表走。蓝色时间条左边是钟点，右边是动作；9 号按七个阶段分组。"
   />
 
   <BlockTitle>10 月 8 日（周四）· 半日票 · 轻松热身</BlockTitle>
   <Schedule
+    tile
     items={[
       { time: "08:10", title: "G38 湖州站发车", tag: "交通", body: "直达北京南，12:22 到站，4 小时 12 分，二等座 634 元/人。全天唯一一班赶得上当天 14 点半日票的 4 小时直达车（另一班 G40 要 13:23 才发）。车上吃早餐、补觉。" },
       { time: "12:22", title: "打车直奔诺金", tag: "交通", duration: "约 50 分钟", body: "约 37 公里、45–55 分钟、约 100 元，13:25 到店。带行李不折腾地铁。入住登记先办，行李交礼宾直接送房。" },
@@ -348,6 +362,7 @@ import {
   <div class="mt-12">
     <BlockTitle>10 月 9 日（周五）· 早享加夜场 · 13 小时不回酒店</BlockTitle>
     <Schedule
+      tile
       items={[
         { band: "PHASE 1 · 早享黄金窗口 · 名单里最狠的先上", sub: "7:20 排队 · 8:00–9:00" },
         { time: "06:40", title: "熙悦自助早餐", tag: "餐 · 456", body: "成人 228 元/位，两人 456 元（06:30–10:00，订含双早套餐则免）。吃饱再冲，满血日中途不回店。" },
@@ -377,6 +392,7 @@ import {
   <div class="mt-12">
     <BlockTitle>10 月 10 日（周六，调休上班）· 休整返程</BlockTitle>
     <Schedule
+      tile
       items={[
         { time: "08:00", title: "再吃一顿熙悦自助", tag: "餐 · 456", body: "吃完泳池、SPA 收尾，慢慢收拾。" },
         { time: "09:30", title: "退房，打车奔北京南", tag: "交通", duration: "约 1h · 100", body: "带全部行李；10:40 到候车层北侧行李寄存处，凭 G871 车票和身份证存两件，约 60 元。" },
@@ -389,20 +405,22 @@ import {
     />
   </div>
 
-  <Prose>
+  <Prose tile>
 
 表里的客流判断是我们按工作日和夜场规律做的预判（9 号周五夜场的人会比白天多），不是官方承诺。项目开放、演出场次和鬼屋截止排队时间都可能因天气或运营调整，出发前一晚在官方 App 复核并截图；当天路线是活的，哪个项目等候短就先刷哪个。
 
   </Prose>
 </Section>
 
-<Section alt id="meals">
+<Section canvas id="meals">
   <SectionHead
-    kicker="09 · EIGHT MEALS"
+    index="08"
+    kicker="八顿饭"
     title="三天八顿，全部点什么都定好了"
     lead="我们没给吃饭留选择困难：每家店、每道菜、两个人多少钱都定死了。单品价是调研时菜单口径，会随季节浮动，以门店当日菜单为准。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "时间" },
       { label: "餐厅" },
@@ -420,7 +438,7 @@ import {
       ["10/10 11:15", "前门 · 全聚德起源店", "烤鸭一只 279 元 + 饼酱葱丝凉菜约 150 元，大厅 10% 服务费；午市开门就进，鸭架打包上高铁", "约 470 元"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 八顿合计约 2580 元：园内三顿正餐加夜场小食约 1035 元，城市大道霓虹加前门全聚德约 630 元，诺金两顿早餐 912 元；订房时选含双早套餐，这 912 元直接省掉。
 
@@ -429,13 +447,15 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="money">
+<Section canvas id="money">
   <SectionHead
-    kicker="10 · BUDGET & BOOKING"
+    index="09"
+    kicker="预算与预订"
     title="大概花多少钱，按什么顺序订"
     lead="这些价格几乎天天浮动。日期一旦定下来，能早锁就早锁；最后到底多少，以你下单那一页为准。"
   />
   <CompareTable
+    tile
     headers={[
       { label: "项目（两人合计）" },
       { label: "参考价" },
@@ -452,20 +472,21 @@ import {
       ["园内部分合计（两人）", "约 10000–13000 元", "票加酒店约 5000–6500、两档优速通约 2600–4000、餐饮约 2580；不含往返大交通，按节后工作日低位估"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 订票顺序别反了：先锁酒店套餐，再补门票，最后才是优速通。酒店和门票都按日期浮动，节后工作日是全年便宜的时候；优速通按天放票，有鬼日的惊彩 5 项几分钟就抢光，工作日的全项 14 项则多在低价档。所以 9 号那两档优速通，行程一确定就一起买掉。正规渠道就几个：北京环球度假区官方 App、支付宝和微信小程序，飞猪、天猫、京东、抖音的官方旗舰店也行；客服电话 4000-688-688。出发前一晚只做一件事：打开 App，把开园时间、早享开放的景区、演出场次、鬼屋几点截止排队查好截图，再确认门票绑好了、两个人的脸录好了。
 
   </Prose>
 </Section>
 
-<Section id="transport">
+<Section canvas id="transport">
   <SectionHead
-    kicker="11 · GETTING THERE"
+    index="10"
+    kicker="交通与返程"
     title="交通与返程前的半天"
     lead="度假区在通州，地铁直达；返程当天的半天属于前门和天坛。"
   />
-  <Prose>
+  <Prose tile>
 
 最省心的抵达方式是地铁：「环球度假区」站是 7 号线与 1 号线八通线的终点站，B、C、D 口出站步行约 7 分钟到城市大道安检；去诺金走 D 北口（或 C 口），按「诺金酒店」指示牌上天桥，一路有连廊遮雨。夜场 22:00 散场人多，优先坐地铁。从北京南站带行李直接打车到诺金约 37 公里、45–55 分钟、约 100 元（我们实测的打车价，以路况为准）；公共交通备选是 14 号线到九龙山换 7 号线到终点，约 1 小时 10 分。
 
@@ -476,39 +497,40 @@ import {
   </Prose>
 </Section>
 
-<Section alt id="pitfalls">
+<Section canvas id="pitfalls">
   <SectionHead
-    kicker="12 · PITFALLS & CHECKLIST"
+    index="11"
+    kicker="避坑清单"
     title="六个最容易踩的坑，和一张随身清单"
     lead="这六件事每件都只值几分钟，但漏掉一件就值一两小时排队。"
   />
   <CardGrid cols={3}>
-    <InfoCard label="PITFALL 01" title="8 号下午不抢热门">
+    <InfoCard surface="white" label="PITFALL 01" title="8 号下午不抢热门">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         半日票时间有限，工作日下午跟大项目硬碰硬是浪费。大项目全部留给 9 号早上，半天只走低排队区、演出和夜景。
       </p>
     </InfoCard>
-    <InfoCard label="PITFALL 02" title="住诺金别再买早享卡">
+    <InfoCard surface="white" label="PITFALL 02" title="住诺金别再买早享卡">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         提前入园是住客免费权益，早享卡是卖给非住客的同款产品。重复购买是纯粹浪费。
       </p>
     </InfoCard>
-    <InfoCard label="PITFALL 03" title="普通优速通不含鬼屋">
+    <InfoCard surface="white" label="PITFALL 03" title="普通优速通不含鬼屋">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         惊吓空间只认万圣节限定的惊彩优速通；但夜场入园本身已含在全天票里，不需要再买晚间体验门票。
       </p>
     </InfoCard>
-    <InfoCard label="PITFALL 04" title="9 号这天别回酒店">
+    <InfoCard surface="white" label="PITFALL 04" title="9 号这天别回酒店">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         13 个小时全靠中午那顿正餐和一场演出歇脚。回一趟酒店少说两小时，节奏一断，晚上的鬼屋就赶不上了。
       </p>
     </InfoCard>
-    <InfoCard label="PITFALL 05" title="惊彩优速通会售罄">
+    <InfoCard surface="white" label="PITFALL 05" title="惊彩优速通会售罄">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         有鬼日实测开园数分钟内抢光。确定日期就在官方 App 锁票，最晚到访前 1–2 天，别等到当天。
       </p>
     </InfoCard>
-    <InfoCard label="PITFALL 06" title="万圣季花车巡游暂停">
+    <InfoCard surface="white" label="PITFALL 06" title="万圣季花车巡游暂停">
       <p class="mt-2 text-[13px] leading-[1.65] text-muted">
         8 月 31 日至 11 月 6 日环球大巡游停演（官方新闻），夜间内容换成惊彩环球的惊叫区与限定演出，别按旧攻略等花车。
       </p>
@@ -516,7 +538,7 @@ import {
   </CardGrid>
   <div class="mt-8">
     <CardGrid cols={2}>
-      <InfoCard label="PACK · 随身装备" title="带这些就够">
+      <InfoCard surface="white" label="PACK · 随身装备" title="带这些就够">
         <ul class="mt-2 list-disc space-y-1 pl-4 text-[13px] leading-[1.7] text-muted">
           <li>身份证原件：入园刷证人脸核验、酒店入住、早享权益核验全靠它</li>
           <li>舒服的步行鞋：两天两万步以上是常态；薄外套：10 月上旬夜间 10–15℃</li>
@@ -524,7 +546,7 @@ import {
           <li>充电宝、小包；过大的包需寄存，过山车项目有免费存包柜</li>
         </ul>
       </InfoCard>
-      <InfoCard label="APP · 手机里要做的事" title="出发前一晚的四件事">
+      <InfoCard surface="white" label="APP · 手机里要做的事" title="出发前一晚的四件事">
         <ul class="mt-2 list-disc space-y-1 pl-4 text-[13px] leading-[1.7] text-muted">
           <li>官方 App 绑定两张门票、录好两个人的人脸，确认全项 14 项与惊彩 5 项已出票</li>
           <li>截图开园时间、早享开放景区名单、演出场次、鬼屋截止排队时间</li>
@@ -537,6 +559,7 @@ import {
 </Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "这趟能玩得这么满，靠的是把钱花在同一个日子里",
@@ -551,3 +574,4 @@ import {
   ]}
   note="事实口径：票务规则与价格起价出自 2026-09-23 抓取的北京环球度假区官方票务信息页与 FAQ（退改、实名、人脸出入）；1.5 日票分季入园时间据本地宝转载的官方购票条款；酒店权益、入住时间与设施据两家酒店官方页；全部身高门槛逐项核对自各骑乘官方骑乘安全页；万圣活动日期、惊吓空间名单、夜场日历与年龄提示据官方 2026-08-07 新闻稿；天坛联票价格据 visitbeijing 官方平台。优速通套装与 OTA 套餐价格为第三方调研时在售价（环球优速通动态计价，官方仅公布单项 190 元起）；高铁车次、逐餐点单、预算合计与排队时长都是我们自己的计划或节后工作日经验值，出行前请以官方 App、12306 与店内价格重新核对。本文为个人行程记录，不构成票务或出行建议。"
 />
+</ArticleCanvas>
