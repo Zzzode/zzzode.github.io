@@ -17,13 +17,15 @@ interface Props {
   headers: Header[];
   rows: string[][];
   caption?: string;
+  /** wrap as a white tile on a canvas band (surface v2) */
+  tile?: boolean;
 }
 
-const { headers, rows, caption } = Astro.props;
+const { headers, rows, caption, tile = false } = Astro.props;
 ---
 
-<div class="not-prose overflow-x-auto">
-  {caption && <p class="mb-3 text-[12px] text-muted">{caption}</p>}
+<div class:list={['not-prose overflow-x-auto', tile && 'rounded-[18px] bg-white px-4 py-4 sm:px-6']}>
+  {caption && <p class="mb-3 px-1 text-[12px] text-muted">{caption}</p>}
   <table class="w-full min-w-[640px] border-collapse text-[13px]">
     <thead>
       <tr>

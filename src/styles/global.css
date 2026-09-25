@@ -38,6 +38,25 @@
   --radius: 12px;
   --radius-card: 18px;
   --radius-hero: 28px;
+
+  /* liquid glass — floating TOC panel, raised active pill, index chip.
+     Films are translucent whites over the paper canvas; edges are the
+     lit rim and the dark lens edge; focus is the blue accent at alpha. */
+  --glass-chip: rgba(255, 255, 255, 0.42);
+  --glass-film-top: rgba(255, 255, 255, 0.30);
+  --glass-film-mid: rgba(255, 255, 255, 0.07);
+  --glass-film-bottom: rgba(255, 255, 255, 0.15);
+  --glass-pill-top: rgba(255, 255, 255, 0.66);
+  --glass-pill-mid: rgba(255, 255, 255, 0.44);
+  --glass-pill-bottom: rgba(255, 255, 255, 0.54);
+  --glass-rim: rgba(255, 255, 255, 0.95);
+  --glass-rim-soft: rgba(255, 255, 255, 0.45);
+  --glass-rim-faint: rgba(255, 255, 255, 0.16);
+  --glass-edge: rgba(10, 18, 30, 0.09);
+  --glass-edge-soft: rgba(10, 18, 30, 0.05);
+  --glass-focus: rgba(0, 102, 204, 0.6);
+  --glass-focus-soft: rgba(0, 102, 204, 0.18);
+  --glass-focus-glow: rgba(0, 102, 204, 0.22);
 }
 
 @layer base {
@@ -234,6 +253,55 @@
   }
 }
 
+/* ────────────────────────────────────────────────
+   Surface system v2 (opt-in): one continuous
+   full-bleed gray canvas; headings sit on the
+   canvas, content blocks are white tiles aligned
+   to a single inner grid (Apple shop register)
+   ──────────────────────────────────────────────── */
+.article-canvas-wrap {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: var(--color-paper);
+}
+.article-canvas-body {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: 60px 32px 68px;
+}
+@media (max-width: 639px) {
+  .article-canvas-body {
+    padding: 40px 16px 48px;
+  }
+}
+.canvas-section + .canvas-section {
+  margin-top: 52px;
+}
+
+/* tiles: prose text, charts, structured modules all share the SAME
+   full inner width, so text and chart edges align exactly */
+.canvas-section .article-prose {
+  max-width: none;
+  margin-block: 0;
+}
+.canvas-section [class*='my-2'],
+.canvas-section .not-prose.my-2 {
+  margin-block: 14px;
+}
+/* chart panels are white borderless tiles */
+.canvas-section .chart-scroll {
+  border-radius: 18px;
+  background: var(--color-white);
+}
+
+/* KPI tiles gain radius + padding inside the tile grid (legacy hairline
+   grids keep flat cells) */
+.stat-tiles > div {
+  border-radius: 18px;
+  padding: 22px 24px;
+}
+
 /* reading progress bar — injected by src/scripts/article.ts */
 [data-progress] {
   position: fixed;
@@ -253,54 +321,326 @@
   display: none;
 }
 
-/* TOC sits in the left gutter; it fits only once the viewport is wide
-   enough that its right edge clears the 1080px article column. */
+/* -- Liquid glass ----------------------------------------------------------
+   True liquid glass: a highly transparent body whose backdrop is bent by a
+   soft noise lens (SVG feDisplacementMap where supported; light-blur
+   fallback elsewhere), a luminous top rim, and a specular sheen — not a
+   frosted white slab. Tokens live in @theme; the filter itself lives in
+   PostPage.astro (#article-liquid-glass). */
+
+/* Small numbered chip beside a section head — same glass language. */
+.section-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-blue);
+  background: var(--glass-chip);
+  border: 1px solid var(--glass-rim-soft);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 var(--glass-edge-soft),
+    0 1px 2px var(--glass-edge-soft);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+}
+
+/* Floating liquid-glass TOC. It stays transparent at the white/gray seam;
+   the bent backdrop and luminous edges carry the material, not a fill. */
 @media (min-width: 1600px) {
   [data-toc] {
-    display: block;
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: 96px;
-    left: max(24px, calc(50vw - 764px));
-    width: 200px;
+    /* Outside the widest content measure: legacy distilled columns span
+       1080px (edge at 50vw - 540px). Canvas articles inset their tiles
+       32px, so they may pull the panel a little closer. */
+    left: max(24px, calc(50vw - 778px));
+    width: 226px;
+    max-height: calc(100vh - 128px);
+    z-index: 30;
+    border-radius: 24px;
+    background:
+      linear-gradient(
+        165deg,
+        var(--glass-film-top) 0%,
+        var(--glass-film-mid) 40%,
+        var(--glass-film-bottom) 100%
+      );
+    box-shadow:
+      /* lit core of the rim: a razor-crisp bright line over the top and
+         left, like light catching a polished glass edge */
+      inset 0 1px 0 var(--glass-rim),
+      inset 1px 0 0 rgba(255, 255, 255, 0.65),
+      /* the rest of the rim carries a fainter light ring */
+      inset 0 0 0 1px var(--glass-rim-faint),
+      /* lens edge concentrates shadow: one dark line under/beside it */
+      inset 0 -1px 0 var(--glass-edge),
+      inset -1px 0 0 var(--glass-edge-soft),
+      /* a hair of outer definition plus light spilling over the top */
+      0 0 0 0.5px var(--glass-edge-soft),
+      0 1px 1px rgba(255, 255, 255, 0.7),
+      0 -2px 8px rgba(255, 255, 255, 0.3),
+      /* elevation: a close contact shadow and a soft ambient float */
+      0 4px 12px var(--glass-edge-soft),
+      0 18px 42px var(--glass-edge);
+    overflow: hidden;
+  }
+
+  /* Canvas pilot (continuous gray canvas, tiles inset 32px): the panel
+     can sit closer without ever touching body text. */
+  body:has(.article-canvas-wrap) [data-toc] {
+    left: max(24px, calc(50vw - 752px));
+  }
+
+  /* Refractive body layer. Blur is the baseline; engines that accept
+     url() in backdrop-filter (class set from JS) get the noise lens. */
+  [data-toc]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    backdrop-filter: blur(12px) saturate(180%);
+  }
+  html.supports-glass-lens [data-toc]::before {
+    backdrop-filter: url(#article-liquid-glass) blur(3px) saturate(180%);
+  }
+
+  /* Specular layer — optically clean, no grain: light pooled along the top
+     edge under the bright rim, fading out a quarter of the way down, plus a
+     faint reflection the floor throws back along the bottom edge. */
+  [data-toc]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        120% 16% at 50% -10%,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0) 70%
+      ),
+      /* one clean specular streak raking off the upper-left edge */
+      linear-gradient(
+        112deg,
+        rgba(255, 255, 255, 0) 5%,
+        rgba(255, 255, 255, 0.3) 11.5%,
+        rgba(255, 255, 255, 0.06) 16.5%,
+        rgba(255, 255, 255, 0) 27%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.26) 0%,
+        rgba(255, 255, 255, 0.05) 9%,
+        rgba(255, 255, 255, 0) 18%
+      ),
+      radial-gradient(
+        130% 14% at 50% 112%,
+        rgba(255, 255, 255, 0.18),
+        rgba(255, 255, 255, 0) 72%
+      );
   }
 
   .toc-title {
-    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+    flex: none;
+    margin: 0;
+    /* A compact group label, not an eyebrow: slightly larger, the caption
+       and the first row read as one tight group. */
+    padding: 15px 18px 7px;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.12em;
     color: var(--color-muted-2);
   }
+  .toc-title:lang(zh) {
+    /* CJK already carries internal spacing; wide tracking only loosens it. */
+    letter-spacing: 0.04em;
+  }
+
+  .toc-nav {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-padding: 8px 0 40px;
+    scroll-snap-type: y proximity;
+    scrollbar-width: none;
+    /* Only the bottom fades: the fixed caption gives a hard top edge, so a
+       top fade would be dead space between the label and the first row. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 36px), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 36px), transparent 100%);
+  }
+  .toc-nav::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 
   .toc-nav ul {
     list-style: none;
-    border-left: 1px solid var(--color-line-soft);
+    margin: 0;
+    padding: 5px 10px 40px;
+  }
+  .toc-nav li {
+    scroll-snap-align: start;
   }
 
   .toc-nav a {
-    display: block;
-    padding: 5px 0 5px 14px;
-    margin-left: -1px;
-    border-left: 1.5px solid transparent;
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    padding: 5.5px 10px;
+    margin: 2px 0;
+    border-radius: 10px;
     font-size: 12.5px;
-    line-height: 1.45;
+    line-height: 1.4;
     color: var(--color-muted);
     text-decoration: none;
-    transition: color 0.15s ease, border-color 0.15s ease;
+    background: transparent;
+    box-shadow: none;
+    transition: color 0.18s ease;
+  }
+
+  .toc-nav .toc-label {
+    min-width: 0;
+  }
+  .toc-nav.toc-numbered .toc-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toc-nav.toc-numbered a::before {
+    content: attr(data-index);
+    flex: none;
+    min-width: 21px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-muted-2);
+    transition: color 0.18s ease;
+  }
+
+  /* Raised lens: a second shard of the panel's own glass that the active
+     (or hovered) row floats on. Sits behind the text via z-index -1, so
+     the anchor's box-shadow channel stays free for the focus ring. */
+  .toc-nav a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+      165deg,
+      var(--glass-pill-top) 0%,
+      var(--glass-pill-mid) 42%,
+      var(--glass-pill-bottom) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 var(--glass-rim),
+      inset 1px 0 0 rgba(255, 255, 255, 0.65),
+      inset 0 0 0 1px var(--glass-rim-faint),
+      inset 0 -1px 0 var(--glass-edge),
+      inset -1px 0 0 var(--glass-edge-soft),
+      0 1px 1px rgba(255, 255, 255, 0.6),
+      0 4px 12px var(--glass-edge);
+    -webkit-backdrop-filter: blur(6px) saturate(180%);
+    backdrop-filter: blur(6px) saturate(180%);
+    transition: opacity 0.22s ease;
   }
 
   .toc-nav a:hover {
+    color: var(--color-ink-2);
+  }
+  .toc-nav a:hover::after {
+    opacity: 0.55;
+  }
+  .toc-nav.toc-numbered a:hover::before {
+    color: var(--color-ink-2);
+  }
+
+  /* Active chapter: raised glass pill, ink label, blue numeral. */
+  .toc-nav a.is-active {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .toc-nav a.is-active::after {
+    opacity: 1;
+  }
+  .toc-nav a.is-active:hover {
+    color: var(--color-ink);
+  }
+  .toc-nav a.is-active:hover::after {
+    opacity: 1;
+  }
+  .toc-nav.toc-numbered a.is-active::before,
+  .toc-nav.toc-numbered a.is-active:hover::before {
+    color: var(--color-blue);
+  }
+  /* Unnumbered articles have no numeral: the label carries the accent. */
+  .toc-nav:not(.toc-numbered) a.is-active,
+  .toc-nav:not(.toc-numbered) a.is-active:hover {
     color: var(--color-blue);
   }
 
-  .toc-nav a.is-active {
-    color: var(--color-ink);
-    border-left-color: var(--color-blue);
-    font-weight: 500;
+  /* Keyboard focus: blue ring with a white light-gap off the glass. */
+  .toc-nav a:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-radius: 10px;
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.92),
+      0 0 0 4px var(--glass-focus),
+      0 0 0 6.5px var(--glass-focus-soft),
+      0 4px 14px var(--glass-focus-glow);
   }
 
+  .toc-nav.toc-numbered .toc-l3 a::before {
+    content: "";
+    min-width: 12px;
+  }
   .toc-nav .toc-l3 a {
+    font-size: 12px;
     padding-left: 26px;
+  }
+
+  @media (forced-colors: active) {
+    /* In Windows high-contrast the box-shadow ring and translucent glass
+       are dropped; a solid system focus outline must remain visible. */
+    .toc-nav a:focus-visible {
+      outline: 2px solid Highlight;
+      box-shadow: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toc-nav {
+      scroll-snap-type: none;
+    }
+    .toc-nav a,
+    .toc-nav a::before,
+    .toc-nav a::after {
+      transition: none;
+    }
   }
 }
 
@@ -419,7 +759,8 @@
    yield to CSS). The card is the SVG's own first rect — the direct-child
    combinator is required because nested <g><rect/></g> rows must keep
    their authored fills. */
-.bg-paper .ss-frame > rect:first-child {
+.bg-paper .ss-frame > rect:first-child,
+.article-canvas .ss-frame > rect:first-child {
   fill: var(--color-white);
   stroke: var(--color-line-soft);
   stroke-width: 1;

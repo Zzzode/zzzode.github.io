@@ -1,35 +1,43 @@
 ---
 /**
- * Full-bleed alternating section for a distilled article.
- * `alt` renders the paper-gray rounded-28 slab; the default is a plain block.
- * Inner content is constrained to the article column. Pass `id` for TOC anchoring.
+ * Section of a distilled article.
+ * - default: a plain block on the article's white ground
+ * - `alt`: legacy rounded paper slab
+ * - `canvas` (surface v2): a bare group inside an <ArticleCanvas> band;
+ *   its heading sits directly on the gray canvas and child blocks render
+ *   as full-width white tiles
+ * Pass `id` for TOC anchoring.
  */
 interface Props {
   alt?: boolean;
+  canvas?: boolean;
   id?: string;
   /** center the section heading */
   center?: boolean;
   class?: string;
 }
 
-const { alt = false, id, center = false, class: className = '' } = Astro.props;
+const { alt = false, canvas = false, id, center = false, class: className = '' } = Astro.props;
 ---
 
-<section
-  id={id}
-  class:list={[
-    'reveal',
-    alt && 'rounded-[28px] bg-paper px-6 py-12 sm:px-10 sm:py-14',
-    !alt && 'py-6',
-    className,
-  ]}
->
-  <div
-    class:list={[
-      'article-block',
-      center && 'text-center',
-    ]}
-  >
-    <slot />
-  </div>
-</section>
+{
+  canvas ? (
+    <section id={id} class:list={['reveal', 'canvas-section', className]}>
+      <slot />
+    </section>
+  ) : (
+    <section
+      id={id}
+      class:list={[
+        'reveal',
+        alt && 'rounded-[28px] bg-paper px-6 py-12 sm:px-10 sm:py-14',
+        !alt && 'py-6',
+        className,
+      ]}
+    >
+      <div class:list={['article-block', center && 'text-center']}>
+        <slot />
+      </div>
+    </section>
+  )
+}

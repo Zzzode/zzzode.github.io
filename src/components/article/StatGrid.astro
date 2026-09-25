@@ -1,21 +1,34 @@
 ---
 /**
- * KPI / key-number strip. Renders a hairline grid (1px gap on a line-colored
- * background) so dividers are drawn automatically.
+ * KPI / key-number strip.
+ * Default: hairline grid (1px gap on a line-colored background) so
+ * dividers draw themselves. `tile` (surface v2): independent white
+ * tiles with gutters on a canvas band.
  */
 interface Props {
   /** number of columns, 2–4 */
   cols?: 2 | 3 | 4;
+  tile?: boolean;
 }
-const { cols = 3 } = Astro.props;
+
+const { cols = 3, tile = false } = Astro.props;
 ---
 
 <dl
   class:list={[
-    'not-prose grid gap-px overflow-hidden rounded-[18px] border border-line bg-line',
-    cols === 2 && 'grid-cols-2',
-    cols === 3 && 'grid-cols-2 md:grid-cols-3',
-    cols === 4 && 'grid-cols-2 md:grid-cols-4',
+    'not-prose grid',
+    tile
+      ? [
+          'stat-tiles grid-cols-2 gap-3 md:gap-4',
+          cols === 3 && 'md:grid-cols-3',
+          cols === 4 && 'md:grid-cols-4',
+        ]
+      : [
+          'gap-px overflow-hidden rounded-[18px] border border-line bg-line',
+          cols === 2 && 'grid-cols-2',
+          cols === 3 && 'grid-cols-2 md:grid-cols-3',
+          cols === 4 && 'grid-cols-2 md:grid-cols-4',
+        ],
   ]}
 >
   <slot />

@@ -1,0 +1,15 @@
+---
+/**
+ * Surface v2 canvas — ONE continuous full-bleed light-gray band wrapping
+ * the body of a distilled article (the Apple shop register). Wrap all
+ * canvas Sections in it: section headings live directly on the gray and
+ * child blocks render as white tiles aligned to the inner grid. The hero
+ * and sources stay outside on the white ground.
+ */
+---
+
+<div class="article-canvas-wrap">
+  <div class="article-canvas-body">
+    <slot />
+  </div>
+</div>

@@ -13,6 +13,8 @@ interface Props {
   countPrefix?: string;
   countSuffix?: string;
   countDecimals?: number;
+  /** dark emphasis tile (used inside a tile StatGrid) */
+  dark?: boolean;
 }
 
 const {
@@ -23,11 +25,22 @@ const {
   countPrefix = '',
   countSuffix = '',
   countDecimals = 0,
+  dark = false,
 } = Astro.props;
 ---
 
-<div class="bg-white px-5 py-6">
-  <dt class="stat-num text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink">
+<div
+  class:list={[
+    'bg-white px-5 py-6',
+    dark && 'stat-cell-dark bg-ink',
+  ]}
+>
+  <dt
+    class:list={[
+      'stat-num text-[26px] font-semibold leading-[1.1] tracking-[-0.02em]',
+      dark ? 'text-paper' : 'text-ink',
+    ]}
+  >
     {
       typeof count === 'number' ? (
         <span
@@ -41,7 +54,7 @@ const {
         value
       )
     }
-    {unit && <small class="ml-1 text-[13px] font-semibold text-muted">{unit}</small>}
+    {unit && <small class:list={['ml-1 text-[13px] font-semibold', dark ? 'text-[#a1a1a6]' : 'text-muted']}>{unit}</small>}
   </dt>
-  {label && <dd class="mt-1.5 text-[12px] leading-[1.5] text-muted">{label}</dd>}
+  {label && <dd class:list={['mt-1.5 text-[12px] leading-[1.5]', dark ? 'text-[#c7c7cc]' : 'text-muted']}>{label}</dd>}
 </div>

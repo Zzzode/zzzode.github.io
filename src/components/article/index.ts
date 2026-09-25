@@ -1,4 +1,5 @@
 export { default as CoverBanner } from './CoverBanner.astro';
+export { default as ArticleCanvas } from './ArticleCanvas.astro';
 export { default as Section } from './Section.astro';
 export { default as SectionHead } from './SectionHead.astro';
 export { default as CardGrid } from './CardGrid.astro';

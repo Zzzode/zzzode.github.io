@@ -84,6 +84,7 @@ sources:
 import {
   Prose,
   CoverBanner,
+  ArticleCanvas,
   Section,
   SectionHead,
   CardGrid,
@@ -146,14 +147,17 @@ import {
   </svg>
 </CoverBanner>
 
-<Section alt id="this-week" vertical>
+<ArticleCanvas>
+<Section canvas id="this-week" vertical>
   <SectionHead
-    kicker="01 · 这一周"
+    index="01"
+    kicker="这一周"
     title="六个交易日，三种央行，一次史上最大期权到期"
     lead="先把日历排满。理解联动，第一步是看清所有冲击挤在多窄的时间窗里。"
   />
   <Timeline
     vertical
+    tile
     nodes={[
       { year: "9/10", title: "欧洲央行加息 25bp 至 2.50%", body: "全球主要央行 9 月排成一队收紧，背景是能源回摆和欧元区主权利差走阔。" },
       { year: "9/16", title: "美联储加息至 3.75%–4%，美股当日下跌", body: "12 票全票通过，声明删掉把通胀归给供给冲击的措辞。10 年期美债一度到 5%。" },
@@ -167,13 +171,14 @@ import {
   />
 </Section>
 
-<Section id="master-map">
+<Section canvas id="master-map">
   <SectionHead
-    kicker="02 · 总框架"
+    index="02"
+    kicker="总框架"
     title="这台机器的传动图：从油价到 A 股的六层结构"
     lead="全球市场不是一堆并列的资产，而是有因果方向的系统。把这一周的事件按传动顺序排好，后面每个市场都是其中一个齿轮。"
   />
-  <Prose>
+  <Prose tile>
 
 最上游是通胀与财政。油价、关税、工资决定通胀路径，天量赤字和发债决定国债供给，二者共同推高长端利率。2026 年的特殊之处在于，BIS 9 月季度评论明确讲，长端收益率上行“相当一部分来自期限溢价，反映财政压力而不只是通胀担忧”。也就是说，投资者要更多补偿，才肯持有越借越多的美国国债。
 
@@ -187,7 +192,7 @@ import {
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 470" class="block w-full" role="img" aria-label="全球市场因果传动图">
-      <rect x="0" y="0" width="920" height="470" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="470" rx="20" fill="#ffffff" />
       <text x="32" y="34" font-size="11.5" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">传动方向（上 → 下）· 放大层双向作用</text>
 
       <rect x="300" y="48" width="320" height="40" rx="20" fill="#f7f7f9" stroke="#e8e8ed" />
@@ -231,13 +236,14 @@ import {
   </div>
 </Section>
 
-<Section alt id="rate-anchor">
+<Section canvas id="rate-anchor">
   <SectionHead
-    kicker="03 · 第一环"
+    index="03"
+    kicker="第一环"
     title="长端利率：所有资产的贴现锚"
     lead="机器的总闸门在 10 年期美债收益率，不在联邦基金利率。它决定远期盈利折算到今天值多少钱，也决定美元和全球融资的方向。"
   />
-  <Prose>
+  <Prose tile>
 
 9 月 1 日是一次预演。当天 10 年期美债收益率一度报 4.796%，创 2025 年 1 月以来新高，30 年期到 5.272%；同一晚，日本 10 年期自 1996 年来首次升破 3%，英国 10 年期到 5.2341%（2008 年来最高）、30 年期 5.8856%（1998 年来峰值），德国 10 年期创 52 周新高。全球无风险利率一起抬。
 
@@ -251,7 +257,7 @@ import {
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="9 月 17 日美债收益率曲线">
-      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="300" rx="20" fill="#ffffff" />
       <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">美国国债收益率曲线 · 2026/9/17 收盘（%）</text>
 
       {(() => {
@@ -296,13 +302,15 @@ import {
   </div>
 </Section>
 
-<Section id="dollar-carry">
+<Section canvas id="dollar-carry">
   <SectionHead
-    kicker="04 · 第二环"
+    index="04"
+    kicker="第二环"
     title="美元是全球的准备金，日元是最脆的那条缝"
     lead="利率的第二个出口是汇率。美元潮汐决定全球资金往哪走，而借低息货币买高息资产的套息盘，是这轮最容易被撕裂的缝。"
   />
   <CompareTable
+    tile
     caption="2026 年 9 月三家央行的动作（利差为市场测算）"
     headers={[{ label: "央行" }, { label: "政策利率" }, { label: "9 月动作" }, { label: "备注" }]}
     rows={[
@@ -312,7 +320,7 @@ import {
       ["英格兰银行", "3.75%", "9 月按兵不动", "7 月以来维持"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 先用一句话讲清套息交易（carry trade）：在利率低的地方借钱，换成高息货币，放到利率高的地方去吃利差。过去几年最便宜的借钱来源是日元，最稳的去处之一是美国国债和美股。这门生意的利润=两边利差−汇率波动，2026 年 9 月之前，美日利差长期在 2.6 个百分点以上，借日元买美债几乎是白捡，于是规模滚到了惊人的程度。它最怕两件事：借的钱变贵（日本加息），或者汇率反转（日元升值让换回本币的成本暴涨）。9 月这两件事一起来了。
 
@@ -326,7 +334,7 @@ import {
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 248" class="block w-full" role="img" aria-label="日元套息交易的资金流向与平仓回路">
-      <rect x="0" y="0" width="920" height="248" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="248" rx="20" fill="#ffffff" />
       <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">套息交易怎么赚钱 · 平仓时怎么反噬</text>
 
       {[
@@ -354,13 +362,14 @@ import {
   </div>
 </Section>
 
-<Section alt id="amplifiers">
+<Section canvas id="amplifiers">
   <SectionHead
-    kicker="05 · 放大层（上）"
+    index="05"
+    kicker="放大层（上）"
     title="期权 gamma：9.6 万亿美元到期后，盖子被掀开"
     lead="很多反弹事后看像基本面驱动，拆到分钟级别却是交割与对冲盘机械推出来的。9 月 21 日这根大阳线，就有一半属于后者。"
   />
-  <Prose>
+  <Prose tile>
 
 先补一个最基础的概念。期权是一份“未来可以按约定价格买或卖”的合约，投资者花钱买它，把风险转移给做市商。做市商收了这笔钱，不能干等，要在股票或期货市场做反向操作对冲，让自己无论涨跌都尽量不亏。麻烦在于，随着指数涨跌，他们需要对冲的量（叫 delta）一直在变，这种变化的速度就是 gamma。于是做市商被迫不断调整持仓，调整方向决定了他们是市场的减震器还是放大器。
 
@@ -374,7 +383,7 @@ import {
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 252" class="block w-full" role="img" aria-label="正 gamma 压低波动，负 gamma 放大波动">
-      <rect x="0" y="0" width="920" height="252" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="252" rx="20" fill="#ffffff" />
       <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">标普 7,600 上方 · 做市商高抛低吸</text>
       <text x="496" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">标普 7,600 下方 · 追涨杀跌</text>
 
@@ -398,13 +407,14 @@ import {
   </div>
 </Section>
 
-<Section id="systematic">
+<Section canvas id="systematic">
   <SectionHead
-    kicker="06 · 放大层（中）"
+    index="06"
+    kicker="放大层（中）"
     title="CTA、波动率控制与风险平价：1,630 亿美元的弹簧"
     lead="比期权更大的一块机械仓位，是跟着波动率反向加减仓的系统化基金。它们不判断方向，只执行公式，因此方向一致时踩踏最整齐。"
   />
-  <Prose>
+  <Prose tile>
 
 这三类基金名字不同，内核是同一条风控公式：先给组合设定一个波动率目标（比如每年波动不超过 10%），然后按市场实际波动反着调仓位。市场平静、波动小，就借钱加仓去够目标；市场一乱、波动放大，就机械减仓把风险压回目标线。CTA 跟着趋势做，风险平价在股债之间按风险分配资金，但在“波动上升就卖”这一点上动作完全一致。没有基金经理拍脑袋，是合同和模型在下单，所以一旦触发，所有人卖的方向一模一样。
 
@@ -416,7 +426,7 @@ import {
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 330" class="block w-full" role="img" aria-label="系统策略 18 比 1 的买卖不对称与去杠杆回路">
-      <rect x="0" y="0" width="920" height="330" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="330" rx="20" fill="#ffffff" />
       <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">系统策略的剩余弹药 · 上涨可买 vs 下跌被迫卖（美银口径，十亿美元）</text>
 
       <line x1="252" y1="86" x2="252" y2="196" stroke="#c7c7cc" stroke-width="1.2" />
@@ -450,13 +460,14 @@ import {
   </div>
 </Section>
 
-<Section alt id="basis-trade">
+<Section canvas id="basis-trade">
   <SectionHead
-    kicker="07 · 放大层（下）"
+    index="07"
+    kicker="放大层（下）"
     title="国债基差交易：4 万亿敞口压在 3 万亿回购上"
     lead="最深、最不透明的杠杆在国债市场。它平时提供流动性，一旦回购融资收紧，就是 2019 年钱荒和 2020 年 3 月美债抛售的同款引信。"
   />
-  <Prose>
+  <Prose tile>
 
 先解释这台机器最底层的零件：回购。回购（repo）就是一笔以国债作抵押的短期贷款：对冲基金把手里的国债押出去，隔夜或几天之内融进一笔现金，到期还本付息、赎回债券。这类贷款的利率基准就是 SOFR。因为有国债抵押，这笔钱平时很便宜，基金于是敢借很多倍。理解了回购，才看得懂下面这笔交易为什么既普遍又脆弱。
 
@@ -472,7 +483,7 @@ import {
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 360" class="block w-full" role="img" aria-label="基差交易的三步建仓与保证金螺旋">
-      <rect x="0" y="0" width="920" height="360" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="360" rx="20" fill="#ffffff" />
       <text x="36" y="40" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">建仓三步 · 用回购借钱，买现券、空期货，靠杠杆赚薄价差</text>
 
       {[
@@ -511,13 +522,14 @@ import {
   </div>
 </Section>
 
-<Section id="credit-canary">
+<Section canvas id="credit-canary">
   <SectionHead
-    kicker="08 · 第三环"
+    index="08"
+    kicker="第三环"
     title="CDS 与一级市场：信用已经先投了不信任票"
     lead="股票在新高，信用市场往往更早说实话。这一次，AI 龙头的保费在变贵，数据中心公司在一级市场发不出想要的价格。"
   />
-  <Prose>
+  <Prose tile>
 
 CDS（信用违约互换）说白了就是一份公司债的违约保险。你手里有某家公司发的债，怕它还不上，就每年付一笔保费给愿意兜底的人；公司真违约了，对方赔你本金。保费（市场叫利差）越贵，说明越多的人愿意花钱买这份保险，也就是越担心这笔债出事。所以 CDS 价格是债主用真金白银投的不信任票，往往比股票更早转向。
 
@@ -531,7 +543,7 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 290" class="block w-full" role="img" aria-label="AI 龙头 CDS 走阔而大盘稳定、信用分层示意">
-      <rect x="0" y="0" width="920" height="290" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="290" rx="20" fill="#ffffff" />
       <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">左：CDS 利差方向（示意）· 右：各信用层级 2026 年发行冷热</text>
 
       <text x="190" y="64" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">2026 年夏 → 9 月</text>
@@ -568,9 +580,10 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
   </div>
 </Section>
 
-<Section alt id="ai-loop">
+<Section canvas id="ai-loop">
   <SectionHead
-    kicker="09 · 反向的力量"
+    index="09"
+    kicker="反向的力量"
     title="盈利引擎：一美元 AI 资本开支怎么转一圈回来"
     lead="杠杆和信用之所以没有立刻出事，是因为基本面暂时接得住。这是机器上唯一一股向上的力量，也是多空分歧的核心。"
   />
@@ -706,13 +719,14 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
   </ScrollStory>
 </Section>
 
-<Section id="thermometers">
+<Section canvas id="thermometers">
   <SectionHead
-    kicker="10 · 两个温度计"
+    index="10"
+    kicker="两个温度计"
     title="黄金与比特币：这一轮钱的两种表情"
     lead="同样的宏观，在两类资产上读出不同的信息。一个是慢变量的保险，一个是风险偏好的放大镜。"
   />
-  <Prose>
+  <Prose tile>
 
 9 月 21 日的纽约时段是一次干净的跨资产同向：标普 +1.49%、10 年期收益率回落到约 4.96%、美元指数持平在 100.43，比特币单日涨 7.51%、收约 87,241 美元，日内从 80,528 拉到 87,373，约 6.48 亿美元空头被逼平，是年内最大单日涨幅之一。加密在“钱变便宜、股票被买”时跟得最猛，它是这台机器风险偏好最敏感的末梢。拉长看，2026 年以来比特币仍是负收益（StatMuse 口径约 −20.8%），所以这一根更像久跌后的反弹，谈不上趋势确认。
 
@@ -730,7 +744,7 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
           <stop offset="100%" stop-color="#1d1d1f" stop-opacity="0" />
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="300" rx="20" fill="#ffffff" />
       <text x="36" y="36" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">黄金 · 2026 年深 V（美元 / 盎司，关键点位，非逐日）</text>
       <line x1="60" y1="110" x2="440" y2="110" stroke="#f5f5f7" stroke-width="1" />
       <line x1="60" y1="210" x2="440" y2="210" stroke="#e8e8ed" stroke-width="1.1" />
@@ -763,14 +777,16 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
   </div>
 </Section>
 
-<Section alt id="playbook">
+<Section canvas id="playbook">
   <SectionHead
-    kicker="11 · 历史剧本"
+    index="11"
+    kicker="历史剧本"
     title="同一张网，七年断过六次"
     lead="2026 年 9 月这种“表面平静、底下高杠杆”的组合并不新鲜。每一次断裂，卡住的都是传动图里的同一个齿轮，区别只在引信。"
   />
   <Timeline
     vertical
+    tile
     nodes={[
       {
         year: "2019/9",
@@ -804,29 +820,33 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
       },
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 六次断裂的共同点很清楚：资产本身没出问题，出问题的是为持有资产加的杠杆，以及被合同逼着顺着行情交易的机械仓位。引信各不相同（准备金、疫情、预算案、加息、关税、个股波动），但一旦价格越过某个阈值，保证金机制把所有人变成同一方向的卖家。2026 年 9 月这台机器同时具备其中多条引信的条件：创纪录的期权到期、100 分位的系统仓位、两倍于 2020 峰值的基差交易、5% 附近的长端利率、随时可能再被压薄的日元利差。这就是指数新高与脆弱性可以并存的原因。
 
 </Prose>
 </Section>
 
-<Section id="scenarios">
+<Section canvas id="scenarios">
   <SectionHead
-    kicker="12 · 情景推演"
+    index="12"
+    kicker="情景推演"
     title="下一张多米诺：先盯位置，再谈观点"
     lead="把传动图倒过来用作监测清单。每个节点都有一个可观察的阈值，越过它，机器的方向就会变。"
   />
-  <Steps
-    steps={[
-      { title: "长端利率定贴现率", body: "10 年期美债稳在 5% 下方、油价不过 100 美元，成长股就有空间；站稳 5%，全球高久期资产同步承压。" },
-      { title: "美元与日元定全球水位", body: "利差维持则套息盘继续养着风险资产；日本再加息或财务省干预，5,000 亿到 1.1 万亿美元的头寸可能被迫平仓。" },
-      { title: "gamma 与系统仓位定波动", body: "标普守在 7,600 上方正 gamma 压波动；跌破进入负 gamma，CTA/风险平价的 1,630 亿潜在抛压会与做市商追杀叠加。" },
-      { title: "回购与基差定国债流动性", body: "盯 SOFR 是否异常跳升、2 年期及长债拍卖是否持续尾部；基差盘一旦去杠杆，会重演现券被抛售、收益率失控的剧本。" },
-      { title: "信用与盈利定扩张能否持续", body: "CDS 若从 AI 龙头扩散到大盘、高收益与私募信贷冻结、Q3 云收入不及指引，盈利和估值会同时承压。" },
-    ]}
-  />
+  <div class="not-prose rounded-[18px] bg-white px-6 py-6 sm:px-8 sm:py-7">
+    <Steps
+      steps={[
+        { title: "长端利率定贴现率", body: "10 年期美债稳在 5% 下方、油价不过 100 美元，成长股就有空间；站稳 5%，全球高久期资产同步承压。" },
+        { title: "美元与日元定全球水位", body: "利差维持则套息盘继续养着风险资产；日本再加息或财务省干预，5,000 亿到 1.1 万亿美元的头寸可能被迫平仓。" },
+        { title: "gamma 与系统仓位定波动", body: "标普守在 7,600 上方正 gamma 压波动；跌破进入负 gamma，CTA/风险平价的 1,630 亿潜在抛压会与做市商追杀叠加。" },
+        { title: "回购与基差定国债流动性", body: "盯 SOFR 是否异常跳升、2 年期及长债拍卖是否持续尾部；基差盘一旦去杠杆，会重演现券被抛售、收益率失控的剧本。" },
+        { title: "信用与盈利定扩张能否持续", body: "CDS 若从 AI 龙头扩散到大盘、高收益与私募信贷冻结、Q3 云收入不及指引，盈利和估值会同时承压。" },
+      ]}
+    />
+  </div>
   <CompareTable
+    tile
     caption="两套剧本与触发条件（用于事先准备，不构成点位预测）"
     headers={[{ label: "节点" }, { label: "剧本 A · 行情延续" }, { label: "剧本 B · 杠杆出清" }]}
     rows={[
@@ -841,13 +861,15 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
   />
 </Section>
 
-<Section alt id="ashare">
+<Section canvas id="ashare">
   <SectionHead
-    kicker="13 · A 股"
+    index="13"
+    kicker="A 股"
     title="挂在传动带末端：指数背离，订单不背离"
     lead="这台美国主导的机器对 A 股没有直接拉动，传导走的是三根弹性不同的传动带。先看同一周两个市场的真实温差。"
   />
   <CompareTable
+    tile
     caption="同一周的两个市场（美股截至 9/22 收盘，A 股为 9/23 收盘）"
     headers={[{ label: "对比项" }, { label: "美国 / 纳斯达克" }, { label: "中国 A 股" }]}
     rows={[
@@ -859,7 +881,7 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
       ["资金情绪", "年内第 21 次新高", "国庆前缩量观望"],
     ]}
   />
-  <Prose>
+  <Prose tile>
 
 BIS 在新兴市场章节里把中国单独点了名：评估期内新兴市场股市普遍跑赢发达市场、信用利差收窄，“中国是例外，跌了近 3%”，原因是风险偏好降温、内需放缓和地产疲软。A 股自己的节奏是：科技行情 3 月底启动，上证 5 月见 4,258.86；6 月底韩国去杠杆经全球科技股传导，7 月 17 日收到 3,764.15（距高点 −11.6%），7 月 20 日“国家队”进场、单周围护宽基 ETF 超千亿元；到 9 月 22 日的 60 个交易日，创业板指仍跌 19.59%、科创 50 跌 18.68%（市场统计口径）。
 
@@ -867,7 +889,7 @@ BIS 在新兴市场章节里把中国单独点了名：评估期内新兴市场�
 
   <div class="not-prose my-2 chart-scroll">
     <svg viewBox="0 0 920 300" class="block w-full" role="img" aria-label="2026 年 5 月到 9 月纳指与上证指数走势背离">
-      <rect x="0" y="0" width="920" height="300" rx="18" fill="#ffffff" stroke="#ececf0" />
+      <rect x="0" y="0" width="920" height="300" rx="20" fill="#ffffff" />
       <text x="36" y="38" font-size="12" font-weight="600" letter-spacing="0.6" fill="#86868b" font-family="PingFang SC, sans-serif">两条指数，两种节奏（2026 年 5 月 → 9 月，关键点位连线，非逐日）</text>
       <line x1="70" y1="210" x2="870" y2="210" stroke="#e5e5ea" stroke-width="1.2" />
       {[["5 月",150],["7 月中",420],["9/22",770]].map((tt,i)=>(
@@ -912,22 +934,22 @@ BIS 在新兴市场章节里把中国单独点了名：评估期内新兴市场�
     </svg>
   </div>
 
-  <Prose>
+  <Prose tile>
 
 两根指数可以背离，生意和资金没有。纳指这轮行情和 A 股之间，连着三根弹性不同的传动带。最直接、最快的是产业链订单：光模块（中际旭创、新易盛、天孚）、PCB（沪电）、服务器（工业富联）直接吃全球云厂资本开支，9 月 16–18 日 A 股半导体主力资金三天净流入超 271 亿元、居全行业第一，江波龙上半年营收增 136%，长鑫科技 7 月上市开盘市值 3.31 万亿、单日成交 1,411 亿。这条带双向有效，6 月韩国去杠杆冲击 A 股硬件就是反例。
 
 第二根是汇率与利差。中美周期反向（美国 CPI 3% 以上在加息，中国 CPI 0.8%、7 天逆回购 1.4%，东方金诚甚至预期后续降息 10bp、降准 0.5 个百分点），人民币却在升值：在岸从去年末 6.989 升到 9 月初 6.7218、年内 +3.82%，靠的是出口、结汇和美元回调。这是中期配置的底色，带不来第二天的跟涨。第三根是全球风险偏好，gamma、套息、VIX 决定短期波动环境，但 A 股开关更多在自己手里：国庆资金习惯、7 月大跌后的疤痕效应、11 月到期的贸易安排。
 
 </Prose>
-  <StatGrid cols={4}>
+  <StatGrid tile cols={4}>
     <Stat value="4,258.86" label="上证 2026 年 5 月高点" />
     <Stat value="3,764.15" label="7/17 收盘，回撤 −11.6%" />
     <Stat value="271 亿+" unit="元" label="9/16–18 半导体主力资金净流入，全行业第一" />
     <Stat value="+3.82%" count={3.82} countSuffix="%" countDecimals={2} label="在岸人民币年内升值幅度" />
   </StatGrid>
-</Section>
 
 <Summary
+  surface="white"
   takeaways={[
     {
       title: "新高是一台机器暂时同向的结果，不只是盈利",
@@ -947,3 +969,5 @@ BIS 在新兴市场章节里把中国单独点了名：评估期内新兴市场�
   ]}
   note="口径说明：行情截至 2026 年 9 月 23 日收盘（美股美东 9/22、A 股北京 9/23），点位取自各国央行、交易所、新华财经/中新经纬/新华社；杠杆与仓位数据以美联储 FEDS Notes、OFR、BIS 2026 年 9 月季度评论、美银/德银/Citadel/SpotGamma 测算为准，并区分名义与 delta 加权口径；套息规模、CME 加息概率、60 日指数跌幅等为单一机构或市场统计，文中已分别标注。历史危机（2019/2020/2022）为公开史实的概要复盘。本文为公开资料研究，不构成投资建议。"
 />
+</Section>
+</ArticleCanvas>

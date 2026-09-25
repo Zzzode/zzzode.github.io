@@ -6,10 +6,18 @@
  */
 interface Props {
   class?: string;
+  /** render as a white tile on a canvas section (surface v2) */
+  tile?: boolean;
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', tile = false } = Astro.props;
 ---
 
-<div class:list={['prose article-prose', className]}>
+<div
+  class:list={[
+    'prose article-prose',
+    tile && 'rounded-[18px] bg-white px-6 py-7 sm:px-9 sm:py-8',
+    className,
+  ]}
+>
   <slot />
 </div>

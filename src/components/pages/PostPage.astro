@@ -31,6 +31,37 @@ const iso = isoDate(post.data.date);
   <!-- TOC rail populated by the article script at wide widths -->
   <div data-toc aria-hidden="false"></div>
 
+  <!-- Liquid-glass refraction: soft noise lens applied to the TOC's backdrop
+       in Chromium; other browsers fall back to a light blur. -->
+  <svg aria-hidden="true" focusable="false" width="0" height="0" class="absolute h-0 w-0">
+    <filter
+      id="article-liquid-glass"
+      x="-40%"
+      y="-20%"
+      width="180%"
+      height="140%"
+      color-interpolation-filters="sRGB"
+    >
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.008 0.008"
+        numOctaves="2"
+        seed="92"
+        result="noise"
+      >
+      </feTurbulence>
+      <feGaussianBlur in="noise" stdDeviation="2" result="blurred"></feGaussianBlur>
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="blurred"
+        scale="34"
+        xChannelSelector="R"
+        yChannelSelector="G"
+      >
+      </feDisplacementMap>
+    </filter>
+  </svg>
+
   <article
     data-article
     class:list={[

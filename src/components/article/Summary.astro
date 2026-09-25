@@ -14,16 +14,18 @@ interface Takeaway {
 interface Props {
   takeaways: Takeaway[];
   note?: string;
+  /** card surface: paper (default) or white tiles on a canvas band */
+  surface?: 'paper' | 'white';
 }
 
-const { takeaways, note } = Astro.props;
+const { takeaways, note, surface = 'paper' } = Astro.props;
 ---
 
 <section class="reveal not-prose mt-4">
-  <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+  <div class="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
     {
       takeaways.map((t) => (
-        <article class="rounded-[22px] bg-paper p-7">
+        <article class:list={['p-7', surface === 'white' ? 'rounded-[18px] bg-white' : 'rounded-[22px] bg-paper']}>
           <h3 class="flex items-center gap-2.5 text-[15px] font-semibold text-ink">
             <span
               class:list={[
