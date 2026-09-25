@@ -760,7 +760,7 @@
    combinator is required because nested <g><rect/></g> rows must keep
    their authored fills. */
 .bg-paper .ss-frame > rect:first-child,
-.article-canvas .ss-frame > rect:first-child {
+.article-canvas-body .ss-frame > rect:first-child {
   fill: var(--color-white);
   stroke: var(--color-line-soft);
   stroke-width: 1;

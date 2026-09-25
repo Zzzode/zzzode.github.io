@@ -90,6 +90,7 @@ Type scale (base 15.5–16px):
 
 - **No shadows by default** (no Tailwind shadows anywhere, including hover). Separation comes from alternating white/`paper` surfaces plus radii.
 - Cards/surfaces are one of: 1px `line`/`line-soft` outline on white, or borderless white tiles on `paper` sections; stay consistent within a section.
+- Liquid-glass surfaces (floating TOC, active-row pill, section index chips) use the `--glass-*` tokens in `@theme`; the translucent films and rims are defined there — do not re-declare glass colors outside the token block (§3.10).
 - Nav is the one dark surface (translucent `#1d1d1f` + blur, white text); footer stays light: white with a 1px `line-soft` hairline; no gradients.
 
 ---
@@ -159,12 +160,36 @@ The home centerpiece is a light, hairline-driven editorial page — type and 1px
 Distilled research articles (`kind: 'distilled'` MDX posts) compose full-bleed blocks from this library; see `.agents/skills/distill/references/component-catalog.md` for props/slots and `article-template.mdx` for a skeleton.
 
 - `CoverBanner` — required first block; gray provenance kicker, H1, lead, hairline pills, optional inline-SVG `visual` slot; staggers in on load (§7); stacks ≤860px.
-- `Section` (`alt` → paper rounded-28 slab, English kebab `id` for the TOC) with `SectionHead`; `Prose` constrains ordinary Markdown to the 760px column while blocks stay full-width.
+- `Section` — two surface registers (see §3.10): the legacy white/`alt` rounded slab, or `canvas` (bare section inside an `ArticleCanvas` gray field) with `SectionHead`; `Prose` constrains ordinary Markdown to the 760px column while blocks stay full-width, and `tile` makes it a borderless white tile.
+- `ArticleCanvas` — the continuous full-bleed gray canvas that wraps a canvas-register article body; required around any `canvas` sections.
 - `CardGrid` / `InfoCard` — 1/2/3-column overview tiles; `DualCompare` / `BlockTitle` — point-by-point blue/orange dual cards with the three-layer rule (§5); `Steps` (neutral numbered, dot/title center-aligned on a unified connector rail), `Timeline` (rail; horizontally scroll-snapping strip on desktop, joined vertical list on mobile), `Pipeline` (stage cards + arrows).
 - `ScrollStory` — the large-scale scroll-driven moment for process content (§7): authored inline SVG pinned on the left transforming as step panels scroll; `[data-ss-node]` contract per the component catalog.
-- `CompareTable` — dot-headed hairline table, single-line cells with a `wrap` opt-in for prose columns, horizontally scrollable on mobile (min-width 640); `Callout` — white hairline card, blue eyebrow only for `tone="insight"`; `StatGrid` / `Stat` — 1px-gap key-number grid, optional numeric `count` count-up (server output is always the final value).
-- `Summary` — closing takeaway cards + caliber note; `Sources` renders automatically from the post's `sources` front matter with a distillation date.
+- `CompareTable` — dot-headed hairline table, single-line cells with a `wrap` opt-in for prose columns, horizontally scrollable on mobile (min-width 640); `Callout` — white hairline card, blue eyebrow only for `tone="insight"`; `StatGrid` / `Stat` — key-number grid; on legacy surfaces a 1px-gap hairline table, on the canvas `tile` renders independent borderless white tiles (`Stat dark` for an ink emphasis stat); optional numeric `count` count-up (server output is always the final value).
+- `Summary` — closing takeaway cards + caliber note; `surface="white"` when the closing section sits on the canvas; `Sources` renders automatically from the post's `sources` front matter with a distillation date.
 - Section roots carry `reveal` for scroll-in motion; diagrams are hand-written inline SVG in token hex only.
+
+### 3.10 Article surface system (canvas + liquid-glass TOC)
+
+Distilled long-forms use the Apple **shop-register** language: one continuous gray field carrying borderless white tiles. The Nasdaq market piece is the reference; new distillations default to it.
+
+**Architecture**
+
+- `<ArticleCanvas>` wraps the whole body (everything after `CoverBanner`; `Sources` renders outside on the white ground). It is a single full-bleed `--color-paper` field — never attach a background to individual sections (independent gray bands produce white gaps and width jitter at scroll boundaries).
+- Every section uses `<Section canvas id="…">`: headings sit directly on the gray field; content blocks are white tiles aligned to one inner grid (1080px max, 32px side inset desktop / 16px mobile), so prose edges and chart edges align.
+- Tile props (all opt-in; without them the component keeps its legacy surface): `Prose tile`, `Timeline tile`, `CompareTable tile`, `StatGrid tile`, `Summary surface="white"`. Other full-bleed blocks (Steps, ScrollStory stages, bespoke SVGs) get a plain `not-prose rounded-[18px] bg-white` wrapper with matching padding. Chart panel rects drop their hairline stroke (`fill="#ffffff"` only, `rx="20"`).
+- Legacy articles keep `Section alt`/default + non-tile blocks unchanged; the two registers must not be mixed inside one article.
+
+**Chapter numbering**
+
+- Each `SectionHead` in a canvas article carries `index="01"`… (rendered as a glass number pill) and a **short noun-phrase `kicker`** — at most ~6 CJK glyphs (e.g. 第一环, 放大层（下）, 历史剧本). The kicker doubles as the floating TOC's one-line chapter name; pass an explicit `toc="…"` prop only to override it. The long educational title stays the h2 and is shown as the link's native `title` tooltip.
+- The rail numeral is read from the same authored hint (`data-toc-index`), never a separate counter, so page pill and rail cannot desync. Articles without index pills get no number column.
+
+**Liquid-glass TOC** (≥1600px; hidden below — no mobile entry)
+
+- Material = a highly transparent film (`--glass-film-*` tokens) over the gray field, dual-tone rim (lit top/left, dark bottom/right), a top specular, and an SVG noise-lens `backdrop-filter` refraction in Chromium; other engines get the blur-only fallback (feature-detected via `.supports-glass-lens`). Never fill it into an opaque white card — on a featureless ground the rims and sheen carry the material.
+- The active chapter is a **raised shard of the same glass** (`--glass-pill-*`), not a blue fill: ink bold label + blue numeral; unnumbered rails use a blue label instead.
+- The caption (`本页内容` / `ON THIS PAGE`, localized) sits outside the scroll area as a compact group label (11px; CJK tracking 0.04em, Latin 0.12em). The rail scrolls itself to follow the spy without moving the page; focus gets a blue ring with a white light-gap (system outline under `forced-colors`).
+- The panel stays outside the content measure with a ≥12px gap; on legacy 1080px articles it sits farther out so it never overlaps text.
 
 ---
 
@@ -187,8 +212,8 @@ Recommended block order for technical surveys/comparisons: ① cover banner (4.1
 
 ### 4.2 Sections and white/gray alternation
 
-- Default sections are white; `section.alt` is a `paper` rounded-28 block (12–16px outer margin) with cards inside knocked out to white.
-- Centered section heads: gray uppercase kicker (e.g. `01 · INSTANCE MODEL`) → `h2` → one gray supporting line.
+- Two registers: **legacy** — default white sections, `section.alt` as a `paper` rounded-28 block (12–16px outer margin) with cards inside knocked out to white; **canvas** — one continuous `ArticleCanvas` gray field with borderless white tiles (§3.10, the default for new distilled articles).
+- Centered section heads: gray uppercase kicker (e.g. `01 · INSTANCE MODEL`) → `h2` → one gray supporting line. Canvas heads show the kicker as a short noun phrase beside a numbered glass pill (§3.10).
 
 ### 4.3 Dual comparison cards (core component)
 
@@ -303,7 +328,7 @@ After a local build, check at desktop 1280px, tablet 768px, and phone 390px (Dev
 - Tokens and global typography: `src/styles/global.css` (`@theme` + base + `.prose`).
 - Highlight theme and site config: `astro.config.mjs`; UI strings: `src/i18n/ui.ts`.
 - Content schemas: `src/content.config.ts`; entries: `src/content/{posts,publications,talks,teaching}/{zh,en}/` (posts accept `.md` and `.mdx`).
-- Distilled-article components: `src/components/article/` (catalog in `.agents/skills/distill/references/component-catalog.md`); post enhancement script: `src/scripts/article.ts`; distillation workflow skill: `.agents/skills/distill/SKILL.md`.
+- Distilled-article components: `src/components/article/` (catalog in `.agents/skills/distill/references/component-catalog.md`; surface system in §3.10, incl. `ArticleCanvas.astro` and the canvas/tile props); post enhancement script: `src/scripts/article.ts`; distillation workflow skill: `.agents/skills/distill/SKILL.md`.
 - Framework components: `src/components/{Nav,Footer,HomeHero,PageHeader,EntryList,EmptyState}.astro` and page components in `src/components/pages/` (the editorial home is `pages/HomePage.astro`).
 - Routes: `src/pages/index.astro` and `src/pages/{publications,talks,teaching,posts}/index.astro`, posts detail `src/pages/posts/[...slug].astro`, `src/pages/cv.astro`, `src/pages/404.astro`, `src/pages/rss.xml.ts`, plus mirrored files under `src/pages/en/`.
 - Static assets: `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, `public/icon-{192,512}.png`, `public/og.png` (social card), `public/site.webmanifest`, `public/files/` (PDFs), `public/images/`.

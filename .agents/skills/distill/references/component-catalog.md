@@ -14,10 +14,10 @@ import {
 
 ## Prose
 
-Constrains ordinary Markdown to the 760px reading column. Full-width components sit OUTSIDE it as siblings.
+Constrains ordinary Markdown to the 760px reading column. Full-width components sit OUTSIDE it as siblings. In a canvas article (below) pass `tile` so it becomes a borderless white tile on the gray field.
 
 ```mdx
-<Prose>
+<Prose tile>
 
 Ordinary paragraphs, lists, `inline code` go here. Leave blank lines at the edges.
 
@@ -39,16 +39,23 @@ Props: `kicker` (string, provenance, always gray), `title`, `lead?`, `pills?` (`
 </CoverBanner>
 ```
 
-## Section / SectionHead
+## ArticleCanvas + Section / SectionHead — the default surface
 
-`Section` wraps a full-bleed block. Props: `alt?` (paper-gray rounded-28 slab), `id` (kebab English, used by the TOC).
+New distilled articles use the **canvas register** (design guide §3.10): wrap the whole body in one `<ArticleCanvas>` (after `CoverBanner`; `Sources` stays outside), and every section uses `canvas`. Blocks inside become white tiles: `Prose tile`, `Timeline tile`, `CompareTable tile`, `StatGrid tile`, `Summary surface="white"`; bespoke full-width blocks (Steps, SVGs) get a `not-prose rounded-[18px] bg-white` wrapper. Each head gets a sequential `index` and a **short noun-phrase kicker ≤ ~6 CJK glyphs** — it doubles as the one-line TOC chapter name; the long title stays the h2. Never put the number inside the kicker text. Do not mix `canvas` with `alt`/default sections in one article.
 
 ```mdx
-<Section alt id="mechanism">
-  <SectionHead kicker="02 · MECHANISM" title="……" lead="……" />
-  …cards/steps/table…
-</Section>
+import { ArticleCanvas, Section, SectionHead, Prose } from '@/components/article';
+
+<CoverBanner … />
+<ArticleCanvas>
+  <Section canvas id="mechanism">
+    <SectionHead index="01" kicker="总框架" title="……" lead="……" />
+    <Prose tile>…</Prose>
+  </Section>
+</ArticleCanvas>
 ```
+
+`toc="…"` on `SectionHead` overrides the TOC name when the kicker must differ; legacy `Section alt` (paper rounded slab, no index) still exists for older articles.
 
 ## CardGrid / InfoCard — overview tiles
 
