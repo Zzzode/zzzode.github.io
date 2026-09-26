@@ -224,11 +224,22 @@ function init() {
 
   if (tocHost && headings.length >= 2) {
     const zh = document.documentElement.lang.toLowerCase().startsWith('zh');
-    // The caption lives OUTSIDE the masked scroll area, so it never fades
-    // or scrolls away with the rows.
-    const titleP = document.createElement('p');
-    titleP.className = 'toc-title';
-    titleP.textContent = zh ? '本页内容' : 'ON THIS PAGE';
+    // Rail header = the article's own title, fixed outside the scroll area:
+    // it keeps the reader oriented in the document ("which article am I in")
+    // while the rows answer "where in it". A click returns to the top.
+    const articleTitle =
+      article.querySelector<HTMLElement>('h1')?.textContent?.trim() ?? '';
+    const header = document.createElement('div');
+    header.className = 'toc-head';
+    if (articleTitle) {
+      const back = document.createElement('a');
+      back.className = 'toc-head-title';
+      back.href = '#';
+      back.textContent = articleTitle;
+      back.title = zh ? '回到开头' : 'Back to top';
+      back.setAttribute('aria-label', zh ? `${articleTitle}，回到开头` : `${articleTitle}, back to top`);
+      header.appendChild(back);
+    }
     const nav = document.createElement('nav');
     nav.setAttribute('aria-label', zh ? '本页目录' : 'On this page');
     nav.className = 'toc-nav';
@@ -258,7 +269,7 @@ function init() {
       ul.appendChild(li);
     });
     nav.appendChild(ul);
-    tocHost.append(titleP, nav);
+    tocHost.append(header, nav);
 
     const linkFor = new Map<string, HTMLAnchorElement>();
     nav.querySelectorAll<HTMLAnchorElement>('a[data-target]').forEach((a) =>
@@ -296,8 +307,31 @@ function init() {
       if (!(nav.contains(document.activeElement) && keyboardFocus)) revealInNav(a);
     };
 
+    // Back-to-top via the title: no hash in the URL, clear the active row.
+    // While scrolling back, ignore the spy so intermediate chapters don't
+    // re-activate; re-arm once the viewport actually reaches the top band.
+    let suppressSpy = false;
+    const rearmAtTop = () => {
+      if (!suppressSpy) return;
+      if (window.scrollY <= window.innerHeight * 0.2) suppressSpy = false;
+      else requestAnimationFrame(rearmAtTop);
+    };
+    header.querySelector('.toc-head-title')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      suppressSpy = true;
+      linkFor.forEach((l) => {
+        l.classList.remove('is-active');
+        l.removeAttribute('aria-current');
+      });
+      nav.scrollTop = 0;
+      history.replaceState(null, '', `${location.pathname}${location.search}`);
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      rearmAtTop();
+    });
+
     const spy = new IntersectionObserver(
       (entries) => {
+        if (suppressSpy) return;
         for (const entry of entries) {
           if (entry.isIntersecting) mark(linkFor.get(entry.target.id));
         }
