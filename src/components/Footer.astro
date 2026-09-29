@@ -9,7 +9,7 @@ const { lang } = Astro.props;
 const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
 ---
 
-<footer class="mt-8 border-t border-line-soft bg-white">
+<footer data-pagefind-ignore class="mt-8 border-t border-line-soft bg-white">
   <div
     class="container-page flex flex-col gap-3 py-7 text-[12.5px] text-muted-2 sm:flex-row sm:items-center sm:justify-between"
   >

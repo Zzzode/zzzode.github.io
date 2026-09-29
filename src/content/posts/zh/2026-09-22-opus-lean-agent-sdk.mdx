@@ -23,6 +23,14 @@ sources:
     url: "https://lean-lang.org/theorem_proving_in_lean4/axioms_and_computation.html"
   - title: "Theorem Proving in Lean 4 · §6 Interacting with Lean（sorry 只给警告、绕过证明义务）"
     url: "https://lean-lang.org/theorem_proving_in_lean4/interacting_with_lean.html"
+  - title: "Theorem Proving in Lean 4 · Introduction（官方免费教程，从命题即类型讲到归纳与 tactic）"
+    url: "https://lean-lang.org/theorem_proving_in_lean4/introduction.html"
+  - title: "Lean Web · 官方在线 Playground（浏览器里直接写 Lean，右栏实时显示证明目标）"
+    url: "https://live.lean-lang.org/"
+  - title: "Lean 官方 · Download（推荐 VS Code + Lean 4 扩展；命令行可用 elan 手动安装）"
+    url: "https://lean-lang.org/download/"
+  - title: "Mathlib 4 · GitHub（Lean 4 社区标准库：现成 tactic 与数学定理）"
+    url: "https://github.com/leanprover-community/mathlib4"
   - title: "Newcombe et al. · How Amazon Web Services Uses Formal Methods, CACM 2015（DOI: 10.1145/2699417）"
     url: "https://dl.acm.org/doi/10.1145/2699417"
   - title: "Leslie Lamport 个人站点 · TLA+ 作者"
@@ -120,7 +128,7 @@ import {
     index="02"
     kicker="先补基础"
     title="Lean 证明到底在证明什么"
-    lead="看不懂 Lean 也能看懂这件事的分量，只需要分清三样东西：模型、定理、内核。"
+    lead="看不懂 Lean 也能跟上这件事：这一节用一台三个状态的小机器走通模型、定理和反例，代码都能直接运行，最后附上你自己上手的最短路径。"
   />
   <Prose tile>
 
@@ -129,6 +137,134 @@ Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种
 它和测试的区别是覆盖方式。测试选若干个具体输入跑一遍，能覆盖你想得到、且构造得出来的场景。证明面对的是模型允许的全部状态和全部交错顺序：只要存在一个反例，定理就证不出来，而 Lean 会把这个反例的构造路径直接吐给你。并发缺陷大多藏在两个事件罕见的先后次序里，单靠人写测试很难恰好排到，这正是状态机证明最擅长的地形。
 
 这次的模型只描述状态和迁移，不重新实现算法。六个模型分别对应六段代码：SSE 字节流解析（stream）、重试退避（withRetry）、query.ts 的 turn 循环、引擎 turn 调度（engine）、会话权限阶段（session phase）、SDK 控制协议。模型文件里给每个迁移标注了对应的源码 file:line，并写明各自假设了什么、不证明什么。
+
+下面先用一台三个状态的小机器，把模型、定理和内核怎么协作走一遍；每个例子都在稳定版 Lean 4.34.1 上实跑过，你也可以原样复现。
+
+</Prose>
+
+  <Prose tile>
+
+**先看一条最短的证明。** Lean 有个听上去奇怪、用起来省事的设定：命题就是一个类型，证明则是一个符合该类型的「项」，写证明和写程序是同一件事。最短的证明只有一行：
+
+```lean
+theorem one_plus_one : 1 + 1 = 2 := by rfl
+```
+
+冒号右边的 `1 + 1 = 2` 是命题（也就是类型），`by` 之后进入 tactic（策略）模式，`rfl` 这条 tactic 的意思是「等号两边按定义就是同一个东西」。内核逐条 tactic 检查，哪一步化简不出它声称的结果，整份文件编译不过。同一个证明也可以不进 tactic 模式，直接写成一个项：
+
+```lean
+theorem one_plus_one' : 1 + 1 = 2 := rfl
+```
+
+实际写起来，VS Code 右侧的 Infoview 窗口会跟着光标显示「现在还剩什么目标」。整个过程更像逐步约分：每用一条 tactic，目标就矮一截，直到什么都不剩。
+
+</Prose>
+
+  <Prose tile>
+
+**把一台状态机搬进 Lean。** 六个真实模型比这复杂得多，骨架却和下面这台三状态的小机器一模一样。先用 `inductive` 把状态有哪几种写死：
+
+```lean
+-- 一台微型任务机：等待 → 进行中 → 已完成
+inductive State where
+  | idle       -- 等待
+  | running    -- 进行中
+  | done       -- 已完成
+
+-- Step s t 读作「允许从 s 一步走到 t」；三条构造子就是三条合法迁移
+inductive Step : State → State → Prop where
+  | start  : Step .idle .running
+  | finish : Step .running .done
+  | reset  : Step .done .idle
+```
+
+这里没有一行描述「怎么执行」，只规定什么事情被允许发生，和真实模型一样：只刻画状态与状态之间的迁移，不重写算法。「零步或任意多步可达」也用一个归纳类型表示：要么停在原地，要么先走若干步、再走一步。
+
+```lean
+inductive Steps : State → State → Prop where
+  | refl : ∀ {s}, Steps s s
+  | tail : ∀ {s u t}, Steps s u → Step u t → Steps s t
+```
+
+</Prose>
+
+  <Prose tile>
+
+**写下不变量，让机器把走法逐条摊开。** 要守的性质是：一步走到 `done` 的，上一步必须是 `running`，不许从 `idle` 直接跳成「已完成」。
+
+```lean
+theorem no_skip_to_done {s t : State}
+    (h : Step s t) : t = .done → s = .running := by
+  intro ht      -- 假设：这一步走到了 done
+  cases h       -- h 是哪一条迁移？三条构造子逐条交代
+  · cases ht    -- start 到的是 running，与 ht 矛盾，分支直接消失
+  · rfl         -- finish：上一步正是 running，目标化为等式
+  · cases ht    -- reset 到的是 idle，与 ht 矛盾，分支直接消失
+```
+
+关键在 `cases h`：它不替你假设 h 是哪一条迁移，而是把三条构造子全部摊开，逼你逐条通过。两个分支与假设矛盾，自动消失；剩下一个靠等号自反结束。小机器只有三条分支；换成真实模型，一个定理下面挂着全部迁移规则，分支随状态和事件组合迅速膨胀，六个模型这样逐条过下来，一共 1,529 条定理。小机器这一条定理就够了；真实证明还会对 `Steps` 做一次结构归纳，把单步性质提升到任意长度、任意交错的事件序列。测试要你自己碰巧排出那个罕见顺序，证明则不允许漏掉任何一个。
+
+</Prose>
+
+  <Prose tile>
+
+**证明卡住的地方，反例自己浮出水面。** 现在给机器偷加一条坏迁移，对应这次 stream 缺陷的形状：半截响应被当成成功交付，不经过 `running`，从 `idle` 一步直跳 `done`。
+
+```lean
+inductive BuggyStep : State → State → Prop where
+  | start : BuggyStep .idle .running
+  | skip  : BuggyStep .idle .done   -- 坏迁移：没经过 running 就完成
+```
+
+原封不动证同一个定理，`cases` 摊开两个分支：`start` 分支照常消失，`skip` 分支留下一个怎么都消不掉的目标：
+
+```lean
+theorem buggy_no_skip {s t : State}
+    (h : BuggyStep s t) : t = .done → s = .running := by
+  intro ht
+  cases h
+  · cases ht
+  · cases ht   -- 亮红：skip 分支留下一个证不出来的目标
+```
+
+编辑器在这里标红，Lean 给出的报错就是这个样子：
+
+```text
+error: unsolved goals
+case skip.refl
+⊢ State.idle = State.running
+```
+
+`State.idle = State.running` 不成立；卡住的分支叫 `skip`，分支上那条 `idle → done` 就是现成的反例路径：照它走一步，性质即被破坏。这次 19 个直接来自证明的缺陷都是这种结构的放大版：agent 从卡住的分支读出触发顺序，哪个事件先到、哪个取消迟到，再回 main 写成测试。
+
+想视而不见也有办法：写一个 `sorry`，编译立刻放行，但内核每次都会留下警告：
+
+```lean
+theorem buggy_with_sorry {s t : State}
+    (h : BuggyStep s t) : t = .done → s = .running := by
+  intro ht
+  cases h
+  · cases ht
+  · sorry   -- 编译放行；警告：declaration uses 'sorry'
+```
+
+最终审计的「0 sorry」，就是没有一条定理靠这种占位符过关。
+
+</Prose>
+
+  <Prose tile>
+
+**一条命令，把审计落到字面。** `#print axioms` 列出一条定理背后用到的全部公理。在上面两段代码上各跑一次：
+
+```lean
+#print axioms no_skip_to_done
+-- 'no_skip_to_done' does not depend on any axioms
+
+#print axioms buggy_with_sorry
+-- 'buggy_with_sorry' depends on axioms: [sorryAx]
+```
+
+第二行暴露了 `sorry` 的真面目：它是一条叫 `sorryAx` 的公理。录屏里「只用 `propext`、`Classical.choice`、`Quot.sound` 三条标准公理」的审计，就是用这种逐定理检查完成的：任何结论都不许站在临时塞进来的自定义前提上。
 
 </Prose>
 
@@ -173,9 +309,35 @@ Lean 是一个开源编程语言兼证明助手，代码和证明写在同一种
     </svg>
   </div>
 
+  <Prose tile>
+
+**想亲手试一下，三分钟足够。** 不装任何东西：打开官方在线 Playground [live.lean-lang.org](https://live.lean-lang.org/)，左栏贴代码，右栏就是实时目标窗口。在本机长期用，官方推荐 VS Code 加 Lean 4 扩展，扩展会引导你装好工具链；偏爱命令行就用 elan，它是 Lean 的工具链管理器，定位类似 Rust 的 rustup：
+
+```bash
+# 安装 elan
+curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh
+
+# 新建并构建一个工程（lake 之于 Lean，约等于 cargo 之于 Rust）
+mkdir verify-demo && cd verify-demo
+lake init verify-demo
+lake build
+```
+
+日常反复用的是这三条命令：`#eval` 把表达式真正算出来（证明助手同时是一门能跑的编程语言），`#check` 查看任意项的类型，`#print axioms` 做公理审计。
+
+```lean
+#eval 2 + 2                        -- 4
+#check Step.finish                 -- Step.finish : Step State.running State.done
+#print axioms no_skip_to_done      -- does not depend on any axioms
+```
+
+想走得更远：官方免费教程《Theorem Proving in Lean 4》从「命题即类型」讲到归纳和 tactic；Mathlib 是 Lean 4 社区的标准库，大型证明几乎都建在它的现成 tactic 与定理之上。看懂这件事不必先学会写证明，但亲手让一个目标在编辑器里消失一次，再看 1,529 这个数字，体感会很不一样。
+
+</Prose>
+
   <Callout eyebrow="两个必须懂的审计词">
-    <p><strong>sorry：</strong>Lean 里的占位符。写上 sorry，定理不用给证明也能通过编译，内核只给一个警告。一个「证明了」的模型里如果留着 sorry，等于这几条定理是空口说白话。最终审计明确是 0 sorry。</p>
-    <p style="margin-top:10px"><strong>三条标准公理：</strong>Lean 自带 <code>propext</code>、<code>Classical.choice</code>、<code>Quot.sound</code> 三条基础公理。这次最终审计要求只允许使用这三条，没有额外塞假设，意味着结论没有建立在自定义的、可能作弊的前提上。</p>
+    <p><strong>sorry：</strong>它的真面目是一条叫 <code>sorryAx</code> 的占位公理，写上就能免掉证明义务，内核只给一个警告。最终审计明确是 0 sorry。</p>
+    <p style="margin-top:10px"><strong>三条标准公理：</strong><code>propext</code>、<code>Classical.choice</code>、<code>Quot.sound</code> 是 Lean 自带的逻辑地基，<code>#print axioms</code> 逐定理可查；这次审计要求只允许使用这三条，没有任何证明依赖额外塞进来的自定义公理。</p>
   </Callout>
 </Section>
 

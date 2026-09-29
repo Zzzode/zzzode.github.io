@@ -1,0 +1,13 @@
+---
+import TagsPage from '../../../components/pages/TagsPage.astro';
+import { getTags } from '../../../lib/tags';
+
+export async function getStaticPaths() {
+  const tags = await getTags('zh');
+  return tags.map(({ tag }) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+---
+
+<TagsPage lang="zh" tag={tag} />

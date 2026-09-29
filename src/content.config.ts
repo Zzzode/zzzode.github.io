@@ -69,6 +69,22 @@ const teaching = defineCollection({
   }),
 });
 
-export const collections = { posts, publications, talks, teaching };
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  schema: z.object({
+    title: z.string(),
+    // creation/start date; lists sort newest first and show the year
+    date: z.coerce.date(),
+    description: z.string(),
+    stack: z.array(z.string()).default([]),
+    // short factual chips for the flagship band (tests, spec size, license …)
+    highlights: z.array(z.string()).default([]),
+    repo: z.url().optional(),
+    url: z.url().optional(),
+    status: z.enum(['active', 'archived', 'experiment']).default('active'),
+  }),
+});
+
+export const collections = { posts, publications, talks, teaching, projects };
 
 export type CollectionName = keyof typeof collections;

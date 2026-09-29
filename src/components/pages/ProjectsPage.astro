@@ -1,0 +1,229 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EmptyState from '../EmptyState.astro';
+import { type Lang, t } from '../../i18n/ui';
+import { localeOfId, slugOfId } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const all = (
+  await getCollection('projects', (entry) => localeOfId(entry.id) === lang)
+).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const bySlug = new Map(all.map((p) => [slugOfId(p.id), p]));
+const flagship = bySlug.get('zom');
+const website = bySlug.get('website');
+
+interface Group {
+  key: 'languages' | 'decisions' | 'tools';
+  slugs: string[];
+}
+const groups: Group[] = [
+  { key: 'languages', slugs: ['ahfl', 'loom'] },
+  { key: 'decisions', slugs: ['bigshark', 'astock'] },
+  { key: 'tools', slugs: ['pinpoint', 'weakup'] },
+];
+const resolved = groups
+  .map((g) => ({
+    ...g,
+    items: g.slugs.map((s) => bySlug.get(s)).filter(Boolean) as NonNullable<
+      ReturnType<typeof bySlug.get>
+    >[],
+  }))
+  .filter((g) => g.items.length > 0);
+
+type Project = NonNullable<ReturnType<typeof bySlug.get>>;
+const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
+---
+
+<BaseLayout lang={lang} title={t(lang, 'section.projects')}>
+  {
+    all.length === 0 ? (
+      <EmptyState text={t(lang, 'section.projects.empty')} />
+    ) : (
+      // iOS grouped-list field: gray ground, white inset cards.
+      <div class="page-paper -my-10 sm:-my-14">
+        <div class="container-page py-12 sm:py-16">
+          <header data-stagger class="mb-10">
+            <p class="eyebrow">{t(lang, 'section.projects.eyebrow')}</p>
+            <h1
+              class="mt-3 text-[clamp(30px,4vw,40px)] font-semibold tracking-[-0.025em] text-ink"
+            >
+              {t(lang, 'section.projects')}
+            </h1>
+            <p class="mt-3 max-w-[640px] text-[15.5px] leading-[1.7] text-muted">
+              {t(lang, 'section.projects.lead')}
+            </p>
+          </header>
+
+          {/* Flagship: a white card; hovering lifts it as one glass tile. */}
+          {
+            flagship &&
+              (() => {
+                const link = hrefOf(flagship);
+                return (
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-enter
+                    style="--enter-d: 0.06s"
+                    class="project-flagship group block rounded-card px-6 py-9 sm:px-10 sm:py-11"
+                  >
+                    <div class="grid gap-6 lg:grid-cols-[150px_1fr] lg:gap-12">
+                      <aside class="lg:pt-1.5">
+                        <p class="font-mono text-[12.5px] tabular-nums text-muted-2">
+                          {flagship.data.date.getFullYear()}
+                          <span class="mx-1.5 text-line">·</span>
+                          {t(lang, `projects.status.${flagship.data.status}`)}
+                        </p>
+                        <p class="mt-2 text-[12px] text-muted-2">
+                          {t(lang, 'projects.selected')}
+                        </p>
+                      </aside>
+                      <div>
+                        <h2
+                          class="inline text-[clamp(26px,3.2vw,38px)] font-semibold leading-[1.12] tracking-[-0.03em] text-ink transition-colors duration-200 group-hover:text-blue"
+                        >
+                          {flagship.data.title}
+                        </h2>
+                        <span
+                          aria-hidden="true"
+                          class="ext ml-2 inline-block text-[18px] text-muted-2 transition-all duration-200 group-hover:text-blue"
+                        >↗</span>
+                        <p class="mt-4 max-w-[680px] text-[15px] leading-[1.75] text-muted">
+                          {flagship.data.description}
+                        </p>
+                        {
+                          flagship.data.highlights.length > 0 && (
+                            <p class="mt-4 font-mono text-[12px] leading-relaxed text-muted-2">
+                              {flagship.data.highlights.join('  ·  ')}
+                            </p>
+                          )
+                        }
+                        <div class="mt-5 flex flex-wrap items-center gap-1.5">
+                          {flagship.data.stack.map((item) => (
+                            <span class="rounded-full border border-line bg-paper px-2.5 py-0.5 font-mono text-[11.5px] text-ink-2">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })()
+          }
+
+          {/* Curated groups — classifications, not rankings. */}
+          {
+            resolved.map((group, gi) => (
+              <section
+                data-enter
+                style={`--enter-d: ${(0.12 + gi * 0.06).toFixed(2)}s`}
+                class="mt-10 sm:mt-12"
+              >
+                <h2 class="px-5 text-[13.5px] font-semibold uppercase tracking-[0.12em] text-muted-2 sm:px-7">
+                  {t(lang, `projectgroup.${group.key}`)}
+                </h2>
+                <div data-row-stagger class="project-group rounded-card">
+                  {group.items.map((p, i) => {
+                    const year = p.data.date.getFullYear();
+                    const prev = group.items[i - 1];
+                    const showYear = !prev || prev.data.date.getFullYear() !== year;
+                    return (
+                      <a
+                        href={hrefOf(p)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="project-row group relative flex flex-col gap-1.5 px-5 py-6 sm:px-7 lg:grid lg:grid-cols-[64px_1fr_auto] lg:gap-x-7 lg:gap-y-2"
+                      >
+                        <span class="font-mono text-[12px] tabular-nums text-muted-2">
+                          {showYear ? year : ''}
+                        </span>
+                        <span class="min-w-0">
+                          <span
+                            class="block text-[18.5px] font-semibold tracking-[-0.018em] text-ink transition-colors duration-200 group-hover:text-blue"
+                          >
+                            {p.data.title}
+                            <span
+                              aria-hidden="true"
+                              class="ext ml-1.5 inline-block text-[13px] font-normal text-muted-2 transition-all duration-200 group-hover:text-blue"
+                            >↗</span>
+                          </span>
+                          <span class="mt-1.5 block max-w-[620px] text-[13.5px] leading-relaxed text-muted">
+                            {p.data.description}
+                          </span>
+                        </span>
+                        <span class="hidden font-mono text-[11.5px] text-muted-2 lg:block">
+                          {p.data.status !== 'active' && (
+                            <>
+                              {t(lang, `projects.status.${p.data.status}`)}
+                              <span class="mx-1.5 text-line">·</span>
+                            </>
+                          )}
+                          {p.data.stack.join('  ·  ')}
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </section>
+            ))
+          }
+
+          {/* Closing card: this site, then the rest of the work on GitHub. */}
+          <section data-enter style="--enter-d: 0.24s" class="mt-10 sm:mt-12">
+            <div class="project-group rounded-card">
+              {
+                website && (
+                  <a
+                    href={website.data.url ?? website.data.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-row group relative flex flex-col gap-1.5 px-5 py-6 sm:px-7 lg:grid lg:grid-cols-[64px_1fr_auto] lg:gap-x-7 lg:gap-y-2"
+                  >
+                    <span class="font-mono text-[12px] tabular-nums text-muted-2">
+                      {website.data.date.getFullYear()}
+                    </span>
+                    <span class="min-w-0">
+                      <span class="block text-[15.5px] font-semibold tracking-[-0.015em] text-ink transition-colors group-hover:text-blue">
+                        {t(lang, 'projects.site')}
+                        <span aria-hidden="true" class="ext ml-1 inline-block text-[13px] font-normal text-muted-2 transition-all duration-200 group-hover:text-blue">↗</span>
+                      </span>
+                      <span class="mt-1 block font-mono text-[11.5px] text-muted-2">
+                        {t(lang, 'projects.site.stack')}
+                      </span>
+                    </span>
+                  </a>
+                )
+              }
+            </div>
+            <div class="mt-5 flex flex-wrap items-center gap-x-8 gap-y-2">
+              <a
+                href="https://github.com/Zzzode"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="chevron-link inline-flex items-center gap-1 text-[14px] font-medium text-blue transition-colors hover:text-blue-hover"
+              >
+                {t(lang, 'projects.allgithub')}
+                <span aria-hidden="true" class="chevron">›</span>
+              </a>
+              <a
+                href={lang === 'en' ? '/en/rss.xml' : '/rss.xml'}
+                class="text-[13px] text-muted-2 underline-offset-4 transition-colors hover:text-blue hover:underline"
+              >
+                RSS
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    )
+  }
+</BaseLayout>

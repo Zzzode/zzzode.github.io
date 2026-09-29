@@ -72,6 +72,7 @@ const topics: Topic[] = [
   {
     key: 'agents',
     slugs: [
+      '2026-09-27-mimo-v26-rl-oss-environments',
       '2026-09-22-opus-lean-agent-sdk',
       '2026-09-23-claude-code-architecture',
       '2026-09-23-e2b-sandbox-infra',
@@ -121,7 +122,7 @@ const colophon = [
   `${posts.length} ${t(lang, 'home.meta.words')}`,
   `${topics.length} ${t(lang, 'home.meta.threads')}`,
   `${totalSources} ${t(lang, 'home.meta.sources')}`,
-  t(lang, 'home.meta.zerojs'),
+  t(lang, 'home.meta.private'),
 ].join('  ·  ');
 ---
 
@@ -165,9 +166,9 @@ const colophon = [
                         {featureTags.join('  ·  ')}
                       </p>
                     )}
-                    <span class="mt-5 inline-flex items-center gap-1 text-[14.5px] font-medium text-blue">
+                    <span class="chevron-link mt-5 inline-flex items-center gap-1 text-[14.5px] font-medium text-blue">
                       {t(lang, 'home.read')}
-                      <span aria-hidden="true">›</span>
+                      <span aria-hidden="true" class="chevron">›</span>
                     </span>
                   </div>
                 </div>
@@ -238,10 +239,10 @@ const colophon = [
               </h2>
               <a
                 href={`${prefix}/posts/`}
-                class="inline-flex shrink-0 items-center gap-1 text-[14px] font-medium text-blue transition-colors hover:text-blue-hover"
+                class="chevron-link inline-flex shrink-0 items-center gap-1 text-[14px] font-medium text-blue transition-colors hover:text-blue-hover"
               >
                 {t(lang, 'home.archive')}
-                <span aria-hidden="true">›</span>
+                <span aria-hidden="true" class="chevron">›</span>
               </a>
             </div>
 
@@ -326,11 +327,18 @@ const colophon = [
               </div>
               <div class="flex shrink-0 items-center gap-7">
                 <a
+                  href={`${prefix}/projects/`}
+                  class="chevron-link inline-flex items-center gap-1 text-[14.5px] font-medium text-ink-2 transition-colors hover:text-blue"
+                >
+                  {t(lang, 'nav.projects')}
+                  <span aria-hidden="true" class="chevron">›</span>
+                </a>
+                <a
                   href={`${prefix}/posts/`}
-                  class="inline-flex items-center gap-1 text-[14.5px] font-medium text-blue transition-colors hover:text-blue-hover"
+                  class="chevron-link inline-flex items-center gap-1 text-[14.5px] font-medium text-blue transition-colors hover:text-blue-hover"
                 >
                   {t(lang, 'home.archive')}
-                  <span aria-hidden="true">›</span>
+                  <span aria-hidden="true" class="chevron">›</span>
                 </a>
                 <a
                   href="/rss.xml"

@@ -22,10 +22,25 @@ const entries = await getEntries(name, lang);
     lead={t(lang, `section.${name}.lead`)}
   />
   {
+    name === 'posts' && (
+      <p class="mb-2 mt-6">
+        <a
+          href={`${lang === 'en' ? '/en' : ''}/posts/tags/`}
+          class="text-[13.5px] text-muted-2 transition-colors hover:text-blue"
+        >
+          {t(lang, 'tags.browse')} ›
+        </a>
+      </p>
+    )
+  }
+  {
     entries.length === 0 ? (
       <EmptyState text={t(lang, `section.${name}.empty`)} />
     ) : (
-      <EntryList entries={entries} />
+      <EntryList
+        entries={entries}
+        tagHref={name === 'posts' ? `${lang === 'en' ? '/en' : ''}/posts/tags` : undefined}
+      />
     )
   }
 </BaseLayout>

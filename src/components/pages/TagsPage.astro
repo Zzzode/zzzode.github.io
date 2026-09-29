@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../PageHeader.astro';
+import EntryList from '../EntryList.astro';
+import EmptyState from '../EmptyState.astro';
+import { type Lang, t } from '../../i18n/ui';
+import { getTags, getEntriesByTag } from '../../lib/tags';
+
+interface Props {
+  lang: Lang;
+  /** When omitted, renders the tag index; otherwise the posts for that tag. */
+  tag?: string;
+}
+
+const { lang, tag } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
+const tagBase = `${prefix}/posts/tags`;
+
+const tags = await getTags(lang);
+const entries = tag ? await getEntriesByTag(lang, tag) : [];
+---
+
+<BaseLayout lang={lang} title={tag ?? t(lang, 'tags.title')}>
+  {
+    tag ? (
+      <>
+        <PageHeader
+          eyebrow={t(lang, 'tags.eyebrow')}
+          title={tag}
+          lead={`${entries.length} ${t(lang, 'tags.count')}`}
+        />
+        <p class="mb-2 mt-6">
+          <a
+            href={`${tagBase}/`}
+            class="text-[13.5px] text-muted-2 transition-colors hover:text-blue"
+          >
+            ‹ {t(lang, 'tags.back')}
+          </a>
+        </p>
+        {entries.length === 0 ? (
+          <EmptyState text={t(lang, 'tags.empty')} />
+        ) : (
+          <EntryList entries={entries} tagHref={tagBase} />
+        )}
+      </>
+    ) : (
+      <>
+        <PageHeader
+          eyebrow={t(lang, 'tags.eyebrow')}
+          title={t(lang, 'tags.title')}
+          lead={t(lang, 'tags.lead')}
+        />
+        {tags.length === 0 ? (
+          <EmptyState text={t(lang, 'tags.none')} />
+        ) : (
+          <ul>
+            {tags.map(({ tag: name, count }) => (
+              <li class="border-b border-line-soft first:pt-7 last:border-b-0">
+                <a
+                  href={`${tagBase}/${encodeURIComponent(name)}/`}
+                  class="group flex items-baseline justify-between gap-4 py-4"
+                >
+                  <span class="text-[16.5px] font-semibold tracking-[-0.01em] text-ink transition-colors group-hover:text-blue">
+                    {name}
+                  </span>
+                  <span class="shrink-0 text-[12.5px] text-muted-2">
+                    {count} {t(lang, 'tags.count')}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </>
+    )
+  }
+</BaseLayout>

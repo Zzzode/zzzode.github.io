@@ -10,7 +10,10 @@ const prefix = lang === 'en' ? '/en' : '';
 ---
 
 <section class="bg-white">
-  <div class="container-page flex flex-col items-center pb-10 pt-12 text-center sm:pb-14 sm:pt-16">
+  <div
+    data-hero-enter
+    class="container-page flex flex-col items-center pb-10 pt-12 text-center sm:pb-14 sm:pt-16"
+  >
     <p class="eyebrow">{t(lang, 'home.eyebrow')}</p>
     <h1
       class="mt-5 max-w-[900px] text-[clamp(32px,5.2vw,64px)] font-semibold leading-[1.08] tracking-[-0.035em]"
@@ -24,17 +27,17 @@ const prefix = lang === 'en' ? '/en' : '';
     <div class="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
       <a
         href={`${prefix}/posts/`}
-        class="inline-flex items-center gap-1 text-[15px] font-medium text-blue transition-colors hover:text-blue-hover"
+        class="chevron-link inline-flex items-center gap-1 text-[15px] font-medium text-blue transition-colors hover:text-blue-hover"
       >
         {t(lang, 'home.viewWriting')}
-        <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
+        <span aria-hidden="true" class="chevron text-[1.05em] leading-none">›</span>
       </a>
       <a
-        href={`${prefix}/cv/`}
-        class="inline-flex items-center gap-1 text-[15px] font-medium text-ink-2 transition-colors hover:text-blue"
+        href={`${prefix}/about/`}
+        class="chevron-link inline-flex items-center gap-1 text-[15px] font-medium text-ink-2 transition-colors hover:text-blue"
       >
-        {t(lang, 'home.viewCv')}
-        <span aria-hidden="true" class="text-[1.05em] leading-none">›</span>
+        {t(lang, 'home.viewAbout')}
+        <span aria-hidden="true" class="chevron text-[1.05em] leading-none">›</span>
       </a>
     </div>
   </div>

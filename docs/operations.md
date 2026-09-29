@@ -19,15 +19,17 @@ On the ByteDance internal network, the default mirror (`bnpm.byted.org`) may lag
 Production-equivalent build (required before pushing):
 
     npm run check      # astro check: TS strict + content collection validation
-    npm run build      # outputs to dist/
+    npm run build      # outputs to dist/, then runs postbuild (Pagefind → dist/pagefind)
     npm run preview    # serves dist/ locally (default http://localhost:4321)
+
+The `/search/` page loads the Pagefind bundle from `/pagefind`; that directory only exists after a full `npm run build` (the automatic `postbuild` step), so the search fallback copy appears under `npm run dev` — this is expected.
 
 Changes to `astro.config.mjs` or `src/content.config.ts` are re-synced automatically by the dev server.
 
 ## Adding content (bilingual pairs)
 
 - Publications: `src/content/publications/{zh,en}/<slug>.md` (required `title/date/venue`; PDFs go in `public/files/` and are referenced as `pdf: /files/xxx.pdf`).
-- Talks: `src/content/talks/{zh,en}/<slug>.md`; teaching: `src/content/teaching/{zh,en}/<slug>.md`; posts: `src/content/posts/{zh,en}/<slug>.md`.
+- Talks: `src/content/talks/{zh,en}/<slug>.md`; teaching: `src/content/teaching/{zh,en}/<slug>.md`; projects: `src/content/projects/{zh,en}/<slug>.md` (required `title/date/description`; optional `stack/repo/url/status`); posts: `src/content/posts/{zh,en}/<slug>.md`.
 - The zh and en files of an entry must share the same filename (same `<slug>`). Entries without a counterpart are hidden in the other-locale list and show a disabled language toggle.
 - Front matter fields are defined in `src/content.config.ts` and validated at build time. Fix bad data in the source file — do not loosen the schema.
 - Post bodies support GFM and syntax highlighting. Embedded HTML must only use `var(--color-*)` tokens; see `docs/design/apple-style-guide.md`.

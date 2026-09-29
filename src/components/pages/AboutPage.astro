@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { type Lang, t } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
+
+const stack = ['C', 'C++', 'TypeScript', 'JavaScript', 'Linux', 'Docker', 'WASM'];
+const stackLine = stack.join(lang === 'en' ? ' · ' : ' · ');
+
+// Each row adds information the statement does not already carry.
+const facts = [
+  { key: 'about.exploring', body: 'about.exploring.body' },
+  { key: 'about.talk', body: 'about.talk.body' },
+  { key: 'about.beyond', body: 'about.beyond.body' },
+] as const;
+
+const external = [
+  { key: 'about.github', href: 'https://github.com/Zzzode' },
+  { key: 'about.wakatime', href: 'https://wakatime.com/@Zzzode' },
+  { key: 'about.steam', href: 'https://steamcommunity.com/profiles/76561198310137136/' },
+];
+---
+
+<BaseLayout lang={lang} title={t(lang, 'about.title')}>
+  <header data-stagger class="mb-12 sm:mb-16">
+    <p class="eyebrow">{t(lang, 'about.eyebrow')}</p>
+    <h1
+      class="mt-5 max-w-[860px] text-[clamp(30px,4.6vw,48px)] font-semibold leading-[1.12] tracking-[-0.032em] text-ink"
+    >
+      {t(lang, 'about.statement')}
+    </h1>
+    <p class="mt-5 max-w-[620px] text-[16px] leading-relaxed text-muted sm:text-[17px]">
+      {t(lang, 'about.subline')}
+    </p>
+  </header>
+
+  <!-- Terminal transcript: each line is a fact the statement omits.
+       The commands type themselves, then their output fades in — pure
+       CSS choreography (see [data-term] in global.css); reduced motion
+       renders the whole transcript at once. -->
+  <div data-enter style="--enter-d: 0.18s" class="rounded-card bg-paper px-6 py-6 sm:px-8 sm:py-7">
+    <div class="font-mono text-[12.5px] leading-[2.1] sm:text-[13px]">
+      <div data-term class="grid grid-cols-[86px_1fr] gap-x-4 sm:grid-cols-[110px_1fr] sm:gap-x-5">
+        <p class="text-muted-2"><span class="tcmd tcmd-1" style="--tsteps:5">$ now</span></p>
+        <p class="tout tout-1 min-w-0 text-ink-2">{t(lang, 'about.term.building')}</p>
+        <p class="text-muted-2"><span class="tcmd tcmd-2" style="--tsteps:7">$ stats</span></p>
+        <p class="tout tout-2 min-w-0 text-ink-2">{t(lang, 'about.term.numbers')}</p>
+        <p class="text-muted-2"><span class="tcmd tcmd-3" style="--tsteps:7">$ stack</span></p>
+        <p class="tout tout-3 min-w-0 text-ink-2">{stackLine}</p>
+      </div>
+      <p class="tp mt-1 text-muted-2">
+        $ <span class="term-caret" aria-hidden="true"></span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Unnumbered spec rows; the label column aligns with the transcript keys. -->
+  <dl data-stagger class="mt-12 sm:mt-16">
+    {
+      facts.map((fact) => (
+        <div class="grid gap-1.5 border-t border-line-soft py-7 sm:grid-cols-[130px_1fr] sm:gap-5">
+          <dt class="eyebrow pt-0.5">{t(lang, fact.key)}</dt>
+          <dd class="max-w-[640px] text-[15px] leading-[1.75] text-ink-2">
+            {t(lang, fact.body)}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div
+    data-enter
+    style="--enter-d: 0.28s"
+    class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line pt-7"
+  >
+    {
+      external.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-[13.5px] font-medium text-ink-2 transition-colors hover:text-blue"
+        >
+          {t(lang, link.key)}
+          <span aria-hidden="true" class="text-[12px] leading-none">↗</span>
+        </a>
+      ))
+    }
+    <span class="hidden h-3 w-px bg-line sm:inline-block"></span>
+    <a
+      href={`${prefix}/posts/`}
+      class="chevron-link inline-flex items-center gap-1 text-[13.5px] font-medium text-blue transition-colors hover:text-blue-hover"
+    >
+      {t(lang, 'about.more')}
+      <span aria-hidden="true" class="chevron">›</span>
+    </a>
+    <a
+      href={`${prefix}/projects/`}
+      class="chevron-link inline-flex items-center gap-1 text-[13.5px] font-medium text-ink-2 transition-colors hover:text-blue"
+    >
+      {t(lang, 'about.more.projects')}
+      <span aria-hidden="true" class="chevron">›</span>
+    </a>
+  </div>
+</BaseLayout>

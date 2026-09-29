@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../PageHeader.astro';
+import { type Lang, t } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<BaseLayout lang={lang} title={t(lang, 'search.title')}>
+  <PageHeader
+    eyebrow={t(lang, 'search.eyebrow')}
+    title={t(lang, 'search.title')}
+    lead={t(lang, 'search.lead')}
+  />
+
+  <div class="search-ui mt-8">
+    <div
+      id="pagefind"
+      data-locale={lang}
+      data-placeholder={t(lang, 'search.placeholder')}
+      data-clear={t(lang, 'search.clear')}
+      data-load-more={t(lang, 'search.loadMore')}
+      data-zero={t(lang, 'search.zero')}
+      data-one={t(lang, 'search.one')}
+      data-many={t(lang, 'search.many')}
+      data-label={t(lang, 'search.label')}
+      data-fallback={t(lang, 'search.unavailable')}
+    >
+      <p class="rounded-card bg-paper px-6 py-5 text-[13.5px] text-muted">
+        {t(lang, 'search.loading')}
+      </p>
+    </div>
+
+    <noscript>
+      <p class="rounded-card bg-paper px-6 py-5 text-[13.5px] text-muted">
+        <a
+          href={`${lang === 'en' ? '/en' : ''}/posts/`}
+          class="text-blue underline-offset-4 hover:underline"
+        >
+          {t(lang, 'search.archive')} ›
+        </a>
+      </p>
+    </noscript>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  /* Pagefind UI theme — Apple tokens. Scoped under .search-ui so the
+     third-party markup is themed without touching the rest of the site. */
+  .search-ui {
+    --pagefind-ui-primary: var(--color-blue);
+    --pagefind-ui-text: var(--color-ink-2);
+    --pagefind-ui-background: #ffffff;
+    --pagefind-ui-border: var(--color-line);
+    --pagefind-ui-tag: var(--color-paper);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 999px;
+    --pagefind-ui-image-border-radius: 12px;
+    --pagefind-ui-font:
+      "SF Pro SC", "SF Pro Text", "PingFang SC", -apple-system,
+      BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+  }
+
+  .search-ui .pagefind-ui__search-input {
+    height: 44px;
+    border-radius: 999px;
+    padding-inline: 20px;
+    font-size: 14.5px;
+    font-weight: 400;
+    box-shadow: none;
+  }
+  .search-ui .pagefind-ui__search-input:focus {
+    border-color: var(--color-blue);
+    box-shadow: none;
+    outline: none;
+  }
+
+  .search-ui .pagefind-ui__results-area {
+    margin-top: 20px;
+  }
+  /* The locale filter is preselected (zh/en page only searches its own
+     language); the facet switcher itself is hidden so it never doubles
+     as a cross-locale toggle. */
+  .search-ui .pagefind-ui__filter-panel {
+    display: none;
+  }
+  .search-ui .pagefind-ui__result {
+    border-color: var(--color-line-soft);
+    padding-block: 22px;
+  }
+  .search-ui .pagefind-ui__result-title {
+    font-size: 17.5px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .search-ui .pagefind-ui__result-title:hover {
+    color: var(--color-blue);
+  }
+  .search-ui .pagefind-ui__result-excerpt {
+    color: var(--color-muted);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .search-ui .pagefind-ui__result-excerpt mark {
+    color: var(--color-blue);
+    background: transparent;
+    font-weight: 600;
+  }
+  .search-ui .pagefind-ui__button {
+    border-color: var(--color-line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 13.5px;
+  }
+  .search-ui .pagefind-ui__button:hover {
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+  }
+  .search-ui .pagefind-ui__message {
+    color: var(--color-muted-2);
+    font-size: 12.5px;
+  }
+</style>
+
+<script>
+  // Pagefind's static index exists only in the built site (/pagefind/*),
+  // produced by `npm run postbuild`. Load it on demand; the search page
+  // is the only page that ships JavaScript.
+  const host = document.getElementById('pagefind');
+
+  function fallback() {
+    if (!host) return;
+    const p = document.createElement('p');
+    p.className = 'rounded-[18px] bg-paper px-6 py-5 text-[13.5px] text-muted';
+    p.textContent = host.dataset.fallback ?? '';
+    host.replaceWith(p);
+  }
+
+  function init() {
+    if (!host || !(window as any).PagefindUI) return fallback();
+    const d = host.dataset;
+    host.innerHTML = '';
+    new (window as any).PagefindUI({
+      element: '#pagefind',
+      showImages: false,
+      showSubResults: true,
+      excerptLength: 18,
+      filters: { locale: [d.locale ?? 'zh'] },
+      translations: {
+        placeholder: d.placeholder,
+        clear_search: d.clear,
+        load_more: d.loadMore,
+        zero_results: d.zero,
+        one_result: d.one,
+        many_results: d.many,
+        search_label: d.label,
+        clear_search_label: d.clear,
+      },
+    });
+  }
+
+  const script = document.createElement('script');
+  script.src = '/pagefind/pagefind-ui.js';
+  script.onload = init;
+  script.onerror = fallback;
+  document.head.appendChild(script);
+
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/pagefind/pagefind-ui.css';
+  document.head.appendChild(link);
+</script>

@@ -33,7 +33,7 @@ const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
 ---
 
 <!doctype html>
-<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'} data-pagefind-filter={`locale:${lang}`}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

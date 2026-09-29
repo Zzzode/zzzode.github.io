@@ -3,9 +3,11 @@ import type { Entry } from '../lib/entries';
 
 interface Props {
   entries: Entry[];
+  /** when set, tag pills link to `<tagHref>/<tag>/` (post lists only) */
+  tagHref?: string;
 }
 
-const { entries } = Astro.props;
+const { entries, tagHref } = Astro.props;
 ---
 
 <ul>
@@ -35,8 +37,19 @@ const { entries } = Astro.props;
         {entry.tags && entry.tags.length > 0 && (
           <ul class="mt-2.5 flex flex-wrap gap-1.5">
             {entry.tags.map((tag) => (
-              <li class="rounded-full border border-line px-2.5 py-0.5 text-[11.5px] text-ink-2">
-                {tag}
+              <li>
+                {tagHref ? (
+                  <a
+                    href={`${tagHref}/${encodeURIComponent(tag)}/`}
+                    class="inline-block rounded-full border border-line px-2.5 py-0.5 text-[11.5px] text-ink-2 transition-colors hover:border-blue hover:text-blue"
+                  >
+                    {tag}
+                  </a>
+                ) : (
+                  <span class="inline-block rounded-full border border-line px-2.5 py-0.5 text-[11.5px] text-ink-2">
+                    {tag}
+                  </span>
+                )}
               </li>
             ))}
           </ul>
