@@ -1,7 +1,7 @@
 ---
 title: ZOM
 date: 2024-09-22
-description: Zom 现代静态类型编程语言的参考实现：C++ 编写的编译器，涵盖类型推断、仿射所有权与确定性 drop（无 GC）、代数数据类型与模式匹配、泛型和 async/await 并发模型。
+description: Zom 现代静态类型编程语言的参考实现：C++ 编写的编译器。愿景涵盖类型推断、仿射所有权与确定性 drop（无 GC）、代数数据类型与模式匹配、泛型，以及 async/await、actor、通道与结构化并发模型。
 stack: [C++, CMake, ANTLR]
 highlights: [17 章语言规范, Apache-2.0, 自研 lexer/parser grammar]
 repo: https://github.com/Zzzode/ZOM
