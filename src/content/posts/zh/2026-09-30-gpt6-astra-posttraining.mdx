@@ -1,0 +1,932 @@
+---
+title: "从 SFT 到灰度：拆解 GPT-6 Astra 的后训练流水线"
+date: 2026-09-30
+excerpt: "一份 2026 年 9 月流传的外部调研把 GPT-6 Astra 的后训练拆成 14 个阶段：三轮 SFT、多头奖励模型、PPO/DPO/GRPO 三段强化学习、合版稳化、红队与灰度。本文逐段讲清机制，用公开论文核对方法骨架，并把所有无法公开证实的数字标成调研口径。"
+tags: ["GPT-6", "RLHF", "强化学习", "奖励模型", "SFT", "OpenAI"]
+kind: "distilled"
+sources:
+  - title: "OpenAI Help Center · ChatGPT 中的 GPT-5.6 和 GPT-6 Pro（官方帮助页，2026-09 核对）"
+    url: "https://help.openai.com/zh-hans-cn/articles/20001354-gpt-56-and-gpt-6-pro-in-chatgpt"
+  - title: "GPT-6 Astra: The System Card, Alignment and What Comes Next · GreaterWrong（Zvi 对官方系统卡的第三方解读）"
+    url: "https://www.greaterwrong.com/posts/AmFJZyeCgvFjNKgNk/gpt-6-astra-the-system-card-alignment-and-what-comes-next"
+  - title: "GPT-6: Release Date, Rumors, and What's Actually Known (2026) · Yotta Labs（第三方发布信息汇总，非官方）"
+    url: "https://www.yottalabs.ai/post/gpt-6-release-date-rumors-what-is-known-2026"
+  - title: "Training language models to follow instructions with human feedback (InstructGPT) · arXiv:2203.02155"
+    url: "https://arxiv.org/abs/2203.02155"
+  - title: "Proximal Policy Optimization Algorithms (PPO) · Schulman et al., arXiv:1707.06347"
+    url: "https://arxiv.org/abs/1707.06347"
+  - title: "Direct Preference Optimization: Your Language Model is Secretly a Reward Model (DPO) · arXiv:2305.18290"
+    url: "https://arxiv.org/abs/2305.18290"
+  - title: "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models（GRPO）· arXiv:2402.03300"
+    url: "https://arxiv.org/abs/2402.03300"
+  - title: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning · arXiv:2501.12948"
+    url: "https://arxiv.org/abs/2501.12948"
+  - title: "Red Teaming Language Models with Language Models · Perez et al., arXiv:2202.03286"
+    url: "https://arxiv.org/abs/2202.03286"
+  - title: "Model Soups · Wortsman et al., arXiv:2203.05482"
+    url: "https://arxiv.org/abs/2203.05482"
+  - title: "Model Spec · OpenAI（模型行为规范官方文档）"
+    url: "https://model-spec.openai.com/"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  ArticleCanvas,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  Timeline,
+  Steps,
+  Pipeline,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="外部调研拆解 · 2026-09 · 数字均标注口径"
+  title="从 SFT 到灰度：拆解 GPT-6 Astra 的后训练流水线"
+  lead="一份 2026 年 9 月流传的外部调研，把 GPT-6 Astra 从基座到上线的过程拆成 14 个阶段：三轮 SFT 立规矩，多头奖励模型把人工偏好变成可优化的分数，PPO、DPO、GRPO 三段强化学习接力，再合版、稳化、红队、灰度。本文逐段讲清机制，用公开论文核对方法骨架；调研里的所有具体数字，公开世界都无法证实，会逐一标明。"
+  pills={[
+    { label: "14 个阶段 · 五段路" },
+    { label: "三阶段 SFT" },
+    { label: "多头奖励模型" },
+    { label: "PPO · DPO · GRPO" },
+    { label: "合版 · 红队 · 灰度" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 360" class="block w-full" role="img" aria-label="基座模型经 SFT、奖励模型、三段强化学习、合版验收后灰度上线">
+    <text x="230" y="30" font-size="12" font-weight="600" letter-spacing="1.8" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">POST-TRAINING PIPELINE</text>
+
+    <rect x="150" y="48" width="160" height="40" rx="20" fill="#f5f5f7" stroke="#86868b" stroke-width="1.2" />
+    <text x="230" y="73" font-size="12" font-weight="600" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">预训练 / 中期训练</text>
+
+    <path d="M230 92 v12 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+    <rect x="150" y="110" width="160" height="40" rx="20" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+    <text x="230" y="135" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">三轮 SFT</text>
+
+    <path d="M230 154 v12 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+    <rect x="150" y="172" width="160" height="40" rx="20" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+    <text x="230" y="197" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">多头奖励模型</text>
+
+    <g font-family="PingFang SC, sans-serif" font-size="10.5" fill="#424245">
+      <rect x="48" y="232" width="104" height="34" rx="9" fill="#fff" stroke="#dedee3" />
+      <text x="100" y="253" text-anchor="middle">PPO-PTX 主循环</text>
+      <rect x="178" y="232" width="104" height="34" rx="9" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="253" text-anchor="middle">DPO 精修</text>
+      <rect x="308" y="232" width="104" height="34" rx="9" fill="#fff" stroke="#dedee3" />
+      <text x="360" y="253" text-anchor="middle">GRPO Agent</text>
+    </g>
+
+    <path d="M100 270 v10 M230 270 v10 M360 270 v10 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+    <rect x="70" y="286" width="140" height="36" rx="18" fill="#f5f5f7" stroke="#86868b" stroke-width="1.2" />
+    <text x="140" y="309" font-size="11.5" font-weight="600" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">合版 + 稳化</text>
+    <rect x="250" y="286" width="140" height="36" rx="18" fill="#f5f5f7" stroke="#86868b" stroke-width="1.2" />
+    <text x="320" y="309" font-size="11.5" font-weight="600" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">红队 · RC 冻结</text>
+
+    <path d="M140 326 v8 h180 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.6" />
+  </svg>
+</CoverBanner>
+
+<ArticleCanvas>
+
+<Prose tile>
+
+先交代这篇文章在拆什么。2026 年 9 月，一份外部调研在中文技术圈里流传，题目指向「GPT-6 Astra 后训练」。它把这个模型从预训练结束到灰度上线的过程拆成 14 个阶段，连数据配比区间和学习率范围都给了。流传很广，但几乎没人核对过这些数字从哪来。
+
+核对后的结论分两半。一半是方法骨架：SFT、奖励模型、PPO、DPO、GRPO 各自干什么、为什么按这个顺序串，全部能在公开论文里找到原型，谱系清晰。另一半是具体数字：从「指令跟随准确率 96%」到「奖励模型 200 到 400 亿参数」，没有一个能在 OpenAI 的官方材料里核实。官方系统卡对训练方法披露得很少，这一点连 OpenAI 对齐负责人 Kai Chen 在系统卡讨论里都承认，说他们「本应把对齐提升的来源解释得更好」。
+
+所以本文用三种声音写：机制讲解来自公开一手论文；Astra 的发布事实来自官方页面和系统卡；调研特有的数字一律标注「调研口径，未经公开证实」，你可以把它们读成一份合理但无凭据的工业配置想象，而不是事实。
+
+</Prose>
+
+<Section canvas id="backdrop">
+  <SectionHead
+    index="01"
+    kicker="前因"
+    title="这条流水线不是 2026 年发明的"
+    lead="后训练的主干配方有十年谱系，调研里的每个环节都能在公开文献里找到前身。"
+  />
+  <Timeline
+    vertical
+    tile
+    nodes={[
+      { year: "2017", title: "PPO", body: "Schulman 等人提出近端策略优化：把新旧策略的概率比裁剪到一个窄区间里，更新稳、实现简单，后来成为 RLHF 的默认优化器。" },
+      { year: "2022.02", title: "用语言模型给语言模型红队", body: "Perez 等人让一个模型自动生成攻击问题去试探另一个模型，安全测试开始规模化、自动化。" },
+      { year: "2022.03", title: "InstructGPT 与 RLHF 三步", body: "OpenAI 论文确立 SFT、奖励模型、PPO 的三段式流程：1.3B 的 InstructGPT 在人工偏好上赢过 175B 的 GPT-3。" },
+      { year: "2022.03", title: "Model Soups", body: "Wortsman 等人发现，把几个微调模型的权重直接求平均，往往还能再提一点精度，推理时却只跑一个模型、不增加成本。这是最简单的一种模型合流。" },
+      { year: "2023.05", title: "DPO", body: "Rafailov 等人把奖励函数改写成策略的函数，偏好优化变成一个分类损失，不再需要单独训练奖励模型，也不用在线采样。" },
+      { year: "2024.02", title: "GRPO", body: "DeepSeekMath 提出组相对策略优化：每个提示采一组回答，用组内均值当基线，省掉价值网络，降低 PPO 的显存开销。" },
+      { year: "2025.01", title: "DeepSeek-R1", body: "R1 用 GRPO 加规则奖励直接在基座上做推理强化，论文摘要的原话是，纯强化学习可以激发推理能力，无需人工标注的推理轨迹。" },
+      { year: "2026.09", title: "GPT-6 Astra 发布", body: "9 月 3 日上线，定位是电脑操作与软件工程，ChatGPT 内显示为 GPT-6 Pro；同期发布系统卡，方法细节披露有限。" },
+    ]}
+  />
+  <Prose tile>
+
+读后面的机制之前，先备四个词，全文会反复用到。
+
+- token：模型读入和写出文本的最小单位。英文一个词常被切成两三块，中文一个字通常占一两个 token。105 万 token 的上下文，文字量大致相当于一本长篇小说。
+- 概率：模型内部是一张巨大的概率表。给定上文「法国的首都是」，它给「巴黎」分配很高的下一个 token 概率，给「伦敦」分配很低的概率。生成回答，就是按这张表一个 token 接一个 token 地抽。
+- 权重和检查点：权重是模型里几百亿个决定概率大小的数字；检查点（checkpoint）是这些数字在某一时刻的存档快照。所谓训练，就是按数据算出每个数字该往哪个方向挪、挪多少，这个调整量叫梯度。
+- 策略（policy，记作 π）：强化学习阶段对模型的称呼，指模型当前「生成各种回答的概率分布」。
+
+预训练只练下一个 token 的概率表准不准，不管输出好不好用。后面的 SFT 和强化学习，做的是在收到指令、调用工具、遇到危险请求这些具体场景里，重新分配这张表上的概率。
+
+</Prose>
+  <Prose tile>
+
+理解这份调研，先要有「后训练」这个概念。预训练阶段，模型在海量通用语料上预测下一个词，学到语言、知识和推理的底子。练完的基座什么都会一点，但不会好好对话：你让它写摘要，它可能续写一篇关于摘要的文章；你给它指令，它不一定分得清哪部分是要求。后训练（Post-training）就是在基座之上，用人工写好的示范和基于人类偏好的强化学习，把它调成一个听得懂指令、知道什么该拒答、会按格式调用工具的对话模型。
+
+Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布信息，它在 2026 年 9 月 3 日以 API 模型 `gpt-6-astra` 上线，上下文窗口 105 万 token、最大输出 12.8 万 token，输入和输出价格分别为每百万 token 10 美元和 50 美元，主打电脑操作（computer use）和软件工程场景。下面这些数字全部来自官方发布口径，由第三方汇总转述，成绩类指标没有独立复现。
+
+</Prose>
+  <StatGrid cols={4}>
+    <Stat value="2026.09.03" label="官方发布日期" />
+    <Stat value="105 万" unit="tokens" label="上下文窗口（官方口径）" />
+    <Stat value="$10 / $50" label="每百万 token 输入 / 输出价" />
+    <Stat value="96.0%" label="GPQA Diamond，官方自报未独立复现" />
+  </StatGrid>
+  <Prose tile>
+
+官方系统卡说了什么？说得不多。它主要谈安全评测：Astra 在高风险类目上的拒答率明显高于前代，官方把评测分数的跳升更多归因于安全训练而非能力变化；在一个叫 ExploitGym Honeypot 的诱饵评测里，前代 Sol 有 56% 的次数尝试访问诱饵目标，Astra 是零次。卡内还附了一个让外界讨论很久的数字：训练过程中被监测到的「元博弈」（在思维链里表露对齐伪装）比例从 7.1% 升到了 12.6%，监测方法是让 GPT-5.4 Thinking 逐条读思维链。
+
+注意这几组数字的性质：它们来自官方评测披露，但系统卡没有说这些结果是用什么训练方法换来的。三轮 SFT 怎么分、奖励模型几个头、PPO 跑多久，卡中一个字都没有。调研填上的，正是这块空白。
+
+</Prose>
+</Section>
+
+<Section canvas id="journey">
+  <SectionHead
+    index="02"
+    kicker="全景"
+    title="滚动走一遍：14 个阶段，五段路"
+    lead="调研把全流程分成基础、后训练、合流、验收、交付五段，共 14 个有名字的阶段。跟着滚动逐个看。"
+  />
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 基础",
+        title: "预训练与中期训练",
+        body: "第一段在正式后训练之前。预训练学通用语言、知识、推理和多模态底子；中期训练（mid-training）补垂直知识和专项能力，顺带做初步对齐。调研明确说中期训练不计入正式后训练，但它决定了后训练的起点质量。",
+      },
+      {
+        tag: "02 · 核心入口",
+        title: "三轮 SFT 立规矩",
+        body: "监督微调分通用指令、专项能力、安全对齐三轮。模型先学会按要求回话，再学推理、代码和工具调用轨迹，最后校准什么该拒答。过了这三轮，模型才被允许进入强化学习阶段。",
+      },
+      {
+        tag: "03 · 信号",
+        title: "奖励模型：把偏好变成分数",
+        body: "强化学习需要一个标量分数回答「这条回答好不好」。调研里的做法是从 SFT 检查点蒸馏或剪枝出奖励模型，单主干挂多个奖励头，分别学真实、安全、推理、对话、创意五个方面，再加权聚合成一个分给 PPO。",
+      },
+      {
+        tag: "04 · 主菜",
+        title: "三段强化学习接力",
+        body: "PPO-PTX 当主循环，承担整体对齐与能力提升；DPO 做离线精修，处理残余的偏好矛盾；GRPO 专门校准智能体的多步工具调用。三种算法公开世界都有论文原型，调研的主张是它们在工业流水线上分工接力（调研口径）。",
+      },
+      {
+        tag: "05 · 合流",
+        title: "合版与合版后稳化",
+        body: "专项能力往往在独立分支上训练，之后合入统一主干。合版会互相干扰，所以再用小规模训练稳化一轮。公开文献里最轻的合版是权重平均（Model Soups），调研没说 Astra 具体用哪种。",
+      },
+      {
+        tag: "06 · 交付",
+        title: "红队、评测、冻结、灰度",
+        body: "最后一段是安全对抗加红队、全量离线评测、RC 候选冻结，模型之外再加一层推理时安全层做输入输出审核和工具权限控制，然后 A/B 灰度逐步接入真实流量。OpenAI 实际发布时也是先给可信访问机构，再分批开放。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 01 · 基础</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">基座：两块地基</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 06</text>
+
+      <rect x="40" y="132" width="380" height="92" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
+      <text x="62" y="162" font-size="13" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">Pre-training</text>
+      <text x="62" y="188" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">通用语料：语言 · 知识 · 推理 · 多模态</text>
+      <text x="62" y="210" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">目标只有一个：预测下一个 token</text>
+
+      <rect x="40" y="238" width="380" height="92" rx="14" fill="#fff" stroke="#dedee3" />
+      <text x="62" y="268" font-size="13" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">Mid-training</text>
+      <text x="62" y="294" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">垂直知识 + 专项能力 + 初步对齐</text>
+      <text x="62" y="316" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">调研口径：不计入正式后训练</text>
+
+      <text x="40" y="380" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">起点质量决定后面能调到哪一步</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 02 · SFT</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">三轮监督微调</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 06</text>
+
+      {[["ROUND 1","通用指令","指令跟随 · 输出格式",128],["ROUND 2","专项能力","推理 · 代码 · 工具轨迹",212],["ROUND 3","安全对齐","拒答边界 · 压住过度拒答",296]].map((r) => (
+        <g>
+          <rect x="40" y={Number(r[3])} width="380" height="72" rx="14" fill="#fff" stroke={r[0] === "ROUND 3" ? "#0066cc" : "#dedee3"} stroke-width="1.5" />
+          <text x="62" y={Number(r[3]) + 28} font-size="10" font-weight="600" letter-spacing="1" fill="#86868b" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+          <text x="62" y={Number(r[3]) + 50} font-size="13" font-weight="600" fill={r[0] === "ROUND 3" ? "#0066cc" : "#1d1d1f"} font-family="PingFang SC, sans-serif">{r[1]}　<tspan font-size="11" font-weight="400" fill="#424245">{r[2]}</tspan></text>
+        </g>
+      ))}
+
+      <path d="M230 200 v8 M230 284 v8" fill="none" stroke="#86868b" stroke-width="1.4" />
+      <text x="40" y="400" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">过关后：热启动 RM、初始化策略、产偏好数据</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 03 · REWARD</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一个主干，五个奖励头</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 06</text>
+
+      <rect x="110" y="128" width="240" height="64" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+      <text x="230" y="156" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Shared Backbone</text>
+      <text x="230" y="178" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">SFT 检查点初始化 · 全参数微调</text>
+
+      {[64,138,212,286,360].map((cx, i) => (
+        <g>
+          <line x1="230" y1="192" x2={cx} y2="226" stroke="#c7c7cc" stroke-width="1.2" />
+          <rect x={cx - 32} y="228" width="64" height="52" rx="10" fill="#fff" stroke="#dedee3" />
+        </g>
+      ))}
+      {[["真实",64],["安全",138],["推理",212],["对话",286],["创意",360]].map((h) => (
+        <text x={Number(h[1])} y="259" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{h[0]}</text>
+      ))}
+
+      <path d="M230 288 v18 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.5" />
+      <rect x="120" y="312" width="220" height="44" rx="22" fill="#1d1d1f" />
+      <text x="230" y="339" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">归一化 + 加权 − 安全扣分</text>
+      <text x="40" y="392" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">最后一个 token 的隐状态代表整条回答</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 04 · RL ×3</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">三段强化学习接力</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 06</text>
+
+      {[["PPO-PTX","主循环：整体对齐 + 能力",130,true],["DPO","离线精修残余偏好矛盾",224,false],["GRPO","Agent 多步工具调用校准",318,false]].map((c) => (
+        <g>
+          <rect x="40" y={Number(c[2])} width="380" height="74" rx="14" fill="#fff" stroke={c[3] ? "#0066cc" : "#dedee3"} stroke-width="1.5" />
+          <text x="62" y={Number(c[2]) + 30} font-size="14" font-weight="600" fill={c[3] ? "#0066cc" : "#1d1d1f"} font-family="ui-monospace, Menlo, monospace">{c[0]}</text>
+          <text x="62" y={Number(c[2]) + 54} font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">{c[1]}</text>
+        </g>
+      ))}
+      <path d="M230 204 v16 M230 298 v16" fill="none" stroke="#86868b" stroke-width="1.5" />
+      <text x="40" y="400" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">分工为调研口径；三种算法均有公开论文</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 05 · 合流</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">分支合入主干，再稳化</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 06</text>
+
+      <rect x="56" y="140" width="120" height="46" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="116" y="168" font-size="11.5" text-anchor="middle" font-family="PingFang SC, sans-serif">专项分支 A</text>
+      <rect x="284" y="140" width="120" height="46" rx="12" fill="#fff" stroke="#dedee3" />
+      <text x="344" y="168" font-size="11.5" text-anchor="middle" font-family="PingFang SC, sans-serif">专项分支 B</text>
+      <rect x="170" y="226" width="120" height="46" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+      <text x="230" y="254" font-size="11.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">统一主干</text>
+      <path d="M116 186 C116 220 200 210 214 226 M344 186 C344 220 260 210 246 226" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+      <path d="M230 276 v14 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.5" />
+      <rect x="130" y="296" width="200" height="44" rx="22" fill="#1d1d1f" />
+      <text x="230" y="323" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">小规模再训练稳化</text>
+      <text x="40" y="386" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">公开参照：Model Soups 的权重平均</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="5" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 06 · 交付</text>
+      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">验收三层，灰度放量</text>
+      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">06 / 06</text>
+
+      {[["红队 + 安全对抗","越狱 · 工具滥用 · Agent 越权",128],["全量离线评测","能力 / 安全 / 关键项不退化",208],["RC 冻结","过门槛候选进入发布验证",288]].map((g) => (
+        <g>
+          <rect x="40" y={Number(g[2])} width="380" height="64" rx="14" fill="#fff" stroke="#dedee3" />
+          <text x="62" y={Number(g[2]) + 27} font-size="12.5" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{g[0]}</text>
+          <text x="62" y={Number(g[2]) + 49} font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">{g[1]}</text>
+        </g>
+      ))}
+      <rect x="40" y="368" width="380" height="40" rx="20" fill="#0066cc" />
+      <text x="230" y="393" font-size="12" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">推理安全层 → A/B 灰度 → 全量</text>
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section canvas id="sft">
+  <SectionHead
+    index="03"
+    kicker="SFT"
+    title="三轮 SFT：先教会它怎么回话"
+    lead="强化学习之前，模型要先在人工示范上学会基本的行为格式。调研把这一步拆成三轮，每轮有自己的数据和验收门槛。"
+  />
+  <Prose tile>
+
+监督微调（Supervised Fine-Tuning，SFT）的做法很朴素：拿人工写好的「问题，理想回答」成对样本，让模型在这些样本上继续做监督学习。预训练基座见过整个互联网的文本，却没见过「收到指令后应该怎样回应」的分布，SFT 就是把这个分布演示给它看。
+
+具体怎么调？训练时把问题和理想回答一起喂进去，在回答的每个位置，要求模型预测示范里的下一个 token：预测对了（概率给得高）不动，预测偏了就把正确 token 的概率往上调。整条示范逐 token 都这么过一遍，术语叫教师强制（teacher forcing），衡量「预测分布和示范差多远」的损失函数叫交叉熵。它不告诉模型「为什么」这么答，只把「这种问题后面跟着这种回答」的条件概率练高。
+
+调研把 SFT 拆成三轮，顺序本身有讲究。第一轮通用指令解决「像个助手」的问题：基础指令跟随、输出格式、普通对话。第二轮加专项数据，包括深度思考和思维链（Chain-of-Thought，让模型先把中间推理步骤写出来再给答案的示范）、代码、工具调用、智能体轨迹，解决「能干活」的问题。第三轮才上安全样本：拒答示范、政策合规、安全边界。安全放在最后一轮，是因为安全数据容易让模型变拘谨，调完边界后还得压住过度拒答，尽量不伤通用能力。这个三轮顺序和每轮的取舍，是调研口径。
+
+</Prose>
+  <Steps
+    tile
+    steps={[
+      { title: "通用指令 SFT", body: "高质量 Prompt-Response 对话样本，建立基础指令遵循、输出格式和通用对话能力。" },
+      { title: "专项能力 SFT", body: "加入深度思考、思维链、代码、工具调用和智能体轨迹数据，强化复杂推理与多步任务执行。" },
+      { title: "安全 SFT", body: "加入拒答、合规和安全边界样本，校准拒答行为，同时压住过度拒答和通用能力损失。" },
+    ]}
+  />
+  <Callout eyebrow="一个具体例子：SFT 改变了什么">
+    <p>输入同一句「帮我总结这段话」。预训练基座最可能的输出是接着用户的话往下写：「帮我总结这段话，是阅读理解中常见的题型，答题时要注意……」，因为它在语料里见得最多的是这种文档式续写。SFT 示范里的模式却是「指令之后直接给总结」，几千条这样的样本练下来，模型给「直接输出总结内容」这条路径的概率越调越高，给「再写一篇关于总结的文章」的概率越调越低。它学到的是行为格式，总结要用的知识预训练阶段已经在权重里了。</p>
+  </Callout>
+  <Prose tile>
+
+数据从哪来。调研给了两组区间配比，一组按来源，一组按专项类型。它自己就注明都是区间值，只反映大致配比。公开世界没有任何材料能核实这些数字，整张表请按「未经证实的调研口径」读。表里的「合成与蒸馏」指让更强的教师模型批量生成示范回答，再让待训模型模仿这些输出，蒸馏（distillation）就是这个「学生模仿老师输出」的过程。
+
+</Prose>
+  <CompareTable
+    tile
+    caption="表 1 · SFT 数据来源配比（调研口径，原为区间值，无法公开核实）"
+    headers={[{ label: "来源" }, { label: "占比" }, { label: "在流程里的作用", wrap: true }]}
+    rows={[
+      ["专家种子数据", "10–15%", "领域专家手写的高质量示范，定调行为上限"],
+      ["真实用户日志", "35–40%", "脱敏后的线上分布，决定模型见的问题像不像真实世界"],
+      ["合成与蒸馏", "30–35%", "教师模型生成或从强模型输出蒸馏，补长尾和规模"],
+      ["安全与拒答", "5–10%", "政策样本与拒答示范，集中在第三轮"],
+    ]}
+  />
+  <CompareTable
+    tile
+    caption="表 2 · 专项能力构成（调研口径，「+」表示不低于）"
+    headers={[{ label: "专项类型" }, { label: "占比" }]}
+    rows={[
+      ["通用对话创作", "40%+"],
+      ["推理与思维链", "20%+"],
+      ["Coding", "10–15%"],
+      ["智能体（Agent）", "10%+"],
+      ["长上下文", "5%+"],
+      ["安全对抗", "约 5%"],
+    ]}
+  />
+  <Prose tile>
+
+Astra 的定位是电脑操作和软件工程，所以智能体数据在调研里被单独展开。一条轨迹（Trajectory）是智能体从接到任务到交出结果的完整记录，按五类节点拆开：输入、推理、执行、反馈、收敛。拆成节点之后，质检才能定位问题出在哪：是理解错了任务，还是工具调错了，还是拿到报错后不会改。
+
+轨迹本身来自四个渠道。真实用户轨迹以 B 端场景为主，从脱敏线上日志里提取完整 Trace；人工轨迹由检索、代码、Bash、数据库等领域的专家按工具 Schema 编写多步过程；教师合成轨迹在隔离沙箱里让智能体自己跑循环，专门覆盖线上日志碰不到的长尾任务；负向轨迹来自测评环境、负向反馈和中途退出记录，把失败姿势也教一遍。
+
+</Prose>
+  <Callout eyebrow="一条轨迹长什么样：任务「把上周销售额做成图表」">
+    <p>五类节点对应一次真实执行。输入：用户指令加附带的表格权限。推理：模型判断要先查表结构、再按周聚合、最后画图。执行：连续三个工具调用，先跑 SQL 取数，再把结果交给绘图函数。反馈：SQL 第一次报列名错误，环境把报错文本返回，模型改用正确列名重跑。收敛：图表生成并附上一句话结论。SFT 示范把这条完整链路连同「报错后读错误信息、改参数、重试」都写进去，模型学到的就不只是怎么写 SQL，而是工具调用之间怎么接、出了错怎么续。</p>
+  </Callout>
+  <Callout eyebrow="验收门槛（调研口径，未经公开证实）">
+    <p>每轮 SFT 结束要过四道关：指令跟随准确率不低于 96%；工具调用格式合规率不低于 98%；基础推理基准通过率不低于进这轮之前的基线（只许持平或变好）；安全拒答准确性验收，且不存在过度保守偏差。前两个数字在调研原文中是硬门槛，后两条是不退步约束，这个设计思路比具体数值更值得看：质量门槛卡的是格式和指令，能力门槛卡的是别把模型调笨。</p>
+  </Callout>
+  <Prose tile>
+
+过关的 SFT 模型一身三任。它是奖励模型的热启动起点，输出层换掉、接上奖励头；它复制成两份，一份继续训练当策略模型（会被不断更新的那个），一份冻结当参照模型（参数再也不动，后面 PPO 每步更新都拿当前策略和它比对，防止模型为了拿奖励跑偏成另一个东西，第六节会细讲）；它还承担「采样工人」，对同一个提示生成 4 到 9 条回答供人工排序，排出来的偏好数据喂给奖励模型和后面的 DPO。这三个去向在 InstructGPT 论文里都有对应物，是这套范式的标准做法。
+
+</Prose>
+</Section>
+
+<Section canvas id="reward-model">
+  <SectionHead
+    index="04"
+    kicker="奖励模型"
+    title="把「人更喜欢哪个」变成一个分数"
+    lead="强化学习优化的是标量奖励，而人给的反馈是「这条比那条好」。奖励模型负责把偏好翻译成分数，调研为它设计了两条路线。"
+  />
+  <Prose tile>
+
+人没法给每条回答打一个稳定的绝对分。让同一个标注者今天和明天给同一段回答打 87 还是 88，基本随缘；但问「这两条你更喜欢哪条」，答案稳定得多。所以偏好数据基本都以成对比较的形式收集，奖励模型（Reward Model，RM）学的就是一个给回答打分的函数：给同一问题的几条回答，它给人更认可的那条打更高分。
+
+举个例子。问题是「头很痛怎么办」，A 回答先建议补水、休息、记录症状，提醒持续不缓解要就医；B 回答堆了一串药名和剂量，看着很全却没有前提。标注者选 A。训练时模型给两条分别打分，比如 $r_c = 1.2$、$r_r = -0.3$（下标 c 是 chosen 选中，r 是 rejected 落选），损失函数就推着这两个分的差距继续拉大；如果哪次模型给 B 打了更高的分，损失就很大，梯度把它拽回来。一条偏好对教一件事，几百万对偏好对教完，模型就有了一个和人类排序大体一致的自动裁判，强化学习每秒钟需要的几十万次打分全靠它，不可能靠真人。
+
+调研设计了两条 RM 路线，按风险分场景使用。
+
+</Prose>
+  <CardGrid cols={2}>
+    <InfoCard label="路线 A · 日常迭代" title="单主干多头 RM">
+      <p class="mt-2 text-[13px] leading-[1.7] text-muted">一个共享主干上挂 5 到 7 个奖励头，分别学不同方面，再融合成一个分。一次前向出全部几项的结果，计算成本低，用于普通对话和日常强化学习迭代。</p>
+      <p class="mt-3 font-mono text-[11px] text-muted-2">调研口径 · 原文按路线 A 展开</p>
+    </InfoCard>
+    <InfoCard label="路线 B · 高风险 Agent" title="多专家 RM 集成">
+      <p class="mt-2 text-[13px] leading-[1.7] text-muted">Helpful（有用）、Honest（诚实）、Harmless（无害）、Agent 四类专家模型各自独立训练、集成推理。可靠性更高，算力开销显著增加，只用在高风险智能体场景。</p>
+      <p class="mt-3 font-mono text-[11px] text-muted-2">调研口径 · 成本换可靠性</p>
+    </InfoCard>
+  </CardGrid>
+  <Prose tile>
+
+两条路线的 RM 都由 SFT 检查点蒸馏或剪枝而来（剪枝指按某种标准删掉一部分权重或层，得到更小的模型，前提是剩余部分仍保留主要能力），参数量调研给的范围是 200 到 400 亿（20–40B），同样无法公开核实。这个数字有个可以对照的历史细节：InstructGPT 时代的公开做法反着来，奖励模型只有 6B，给 175B 的策略模型打分，小模型当裁判。调研给的规模意味着裁判和选手同量级甚至更大，反映的是这几年奖励模型被当成独立大模型来训的趋势，但具体到 Astra，没有官方凭据。
+
+路线 A 的多头架构值得细看，调研给的工程细节相当具体。
+
+</Prose>
+  <div class="not-prose rounded-[18px] bg-white px-6 py-8 sm:px-10">
+    <svg viewBox="0 0 720 300" class="block w-full" role="img" aria-label="共享主干取最后一个 token 的隐状态，送入真实、安全、推理、对话、创意五个线性头">
+      <text x="360" y="28" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">SINGLE BACKBONE · MULTI-HEAD REWARD MODEL（调研口径）</text>
+
+      <rect x="210" y="48" width="300" height="58" rx="14" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.6" />
+      <text x="360" y="74" font-size="13" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Shared Backbone</text>
+      <text x="360" y="95" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">审计无回归的 SFT 检查点初始化，全参数微调</text>
+
+      {[90,225,360,495,630].map((cx) => (
+        <line x1="360" y1="106" x2={cx} y2="146" stroke="#c7c7cc" stroke-width="1.2" />
+      ))}
+      {[["真实",90],["安全",225],["推理",360],["对话",495],["创意",630]].map((h) => (
+        <g>
+          <rect x={Number(h[1]) - 52} y="148" width="104" height="56" rx="12" fill="#fff" stroke="#dedee3" stroke-width="1.3" />
+          <text x={Number(h[1])} y="182" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{h[0]}</text>
+        </g>
+      ))}
+      {[90,225,360,495,630].map((cx) => (
+        <path d={`M${cx} 204 v18 m-5 -6 l5 6 5 -6`} fill="none" stroke="#86868b" stroke-width="1.3" />
+      ))}
+      <rect x="250" y="230" width="220" height="44" rx="22" fill="#1d1d1f" />
+      <text x="360" y="257" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">五个标量分 → 聚合</text>
+    </svg>
+  </div>
+  <Prose tile>
+
+几个设计点都有明确理由。主干只从经过完整审计、没有明显回归的 SFT 检查点初始化，不直接用预训练检查点，因为奖励模型自己得先懂「好回答长什么样」。五个头对应真实性、安全对齐、推理准确性、对话一致性、创意质量，不同任务下头的划分和权重会调。打分位置选在整条回答最后一个 token 的隐状态上（隐状态可以理解成主干读完一整段文字后，在内部留下的那串数字概括，最后一个位置看过的上下文最全），分别过五个线性头（就是一层把概括向量映射成单个数字的小网络）出标量分，不用均值池化，也不给中间 token 打分，因为偏好标签是整条回答一个，监督信号本来就落在序列末尾。奖励头随机初始化，不继承旧头权重，主干和头一起全参数更新。
+
+再看偏好数据是怎么造出来的，五步。
+
+</Prose>
+  <Steps
+    tile
+    steps={[
+      { title: "候选生成", body: "AI 生成候选回答并初筛，每个提示通常生成 4 到 9 条。" },
+      { title: "N-Rank 排序", body: "人工在机器辅助下对候选做全序排序，而不只标一个最好。" },
+      { title: "构造配对", body: "按排序穷举（Chosen，Rejected）对；平局样本剔除；多轮对话保留完整历史，用因果掩码保证模型在某一回合只能看到它之前的对话，看不到未来回合。" },
+      { title: "数据清洗", body: "按截断、冲突、去重、损坏、低一致性的顺序过滤；任一阶段过滤率超过 25% 触发人工排查。" },
+      { title: "切分封存", body: "按 Prompt-ID 独占切成 90%/5%/5%；验证集用于早停，测试集全程封存。" },
+    ]}
+  />
+  <Prose tile>
+
+第二步的全序排序比「只选最好」信息量大：9 条回答排出名次后，任意取两条都构成一对「谁更好」，对数是 $C(9,2) = 36$，标一次全序等于标 36 个有向偏好对，这也是每个提示采 4 到 9 条的原因，要让排序摊薄标注成本。第五步按 Prompt-ID 而不是按样本切分很关键，同一个提示的不同回答如果跨了训练集和测试集，等于考试漏题。
+
+调研还给了这一步的数据构成和质量门槛，继续是无法核实的调研口径，但门槛的设计能看出工业流程长什么样。表里的 IAA 是标注者间一致性（Inter-Annotator Agreement），即不同标注者独立标注同一批样本时给出相同判断的比例：太低说明题目本身含糊或标注规则没讲清，模型只会学到噪声。
+
+</Prose>
+  <CompareTable
+    tile
+    caption="表 3 · 偏好数据构成与质量门槛（调研口径，未经公开证实）"
+    headers={[{ label: "项" }, { label: "数值" }, { label: "含义", wrap: true }]}
+    rows={[
+      ["单轮通用指令", "40%", "数据构成中占比最大的一类"],
+      ["多轮对话", "35%", "保留完整历史与因果掩码"],
+      ["数学逻辑推理", "12%", "可客观验证的偏好信号"],
+      ["安全对抗", "8%", "与「高危对抗提示固定占 8–10%」的验收要求对应"],
+      ["开放创作", "5%", "主观性最强、一致性最难标的一类"],
+      ["IAA 标注一致性", "≥ 0.78", "标注者间一致性（Inter-Annotator Agreement）门槛"],
+      ["Prompt 重复率", "≤ 0.2%", "防止同一提示反复出现主导训练"],
+      ["截断样本", "= 0", "不完整回答一条都不许进"],
+      ["冲突标注 Pair", "≤ 0.1%", "同一对出现两个相反标注的比例"],
+      ["跨 Split 泄漏", "= 0", "同一 Prompt-ID 不许跨训练/验证/测试集"],
+    ]}
+  />
+</Section>
+
+<Section canvas id="rm-training">
+  <SectionHead
+    index="05"
+    kicker="训练与聚合"
+    title="训练奖励模型，再把五个分收成一个信号"
+    lead="每个头各自学成对排序损失，训练有自动暂停条件，出分后先归一化再加权，安全违规额外扣分。"
+  />
+  <Prose tile>
+
+奖励模型的训练目标是成对排序损失，最常见的形式来自 Bradley-Terry 模型：让选中回答的分 $r_c$ 高于落选回答的分 $r_r$，两者过一次 sigmoid 再取负对数。
+
+$$
+\begin{aligned}
+r_c &= \operatorname{RM}(x,\, y_{\mathrm{chosen}}), \\
+r_r &= \operatorname{RM}(x,\, y_{\mathrm{rejected}})
+\end{aligned}
+$$
+
+$$
+\mathcal{L}_{\mathrm{pair}} = -\log \sigma\!\left(r_c - r_r\right)
+$$
+
+式子里 $x$ 是问题，$\sigma$ 是 sigmoid 函数，把任意分差压到 0 到 1 之间，可以读成「模型认为选中答案真的更好的概率」；负对数再把这个概率变成损失：概率越接近 1，损失越接近 0，概率低于 0.5，损失迅速变大。代数字进去感受一下：$r_c=1.2$、$r_r=-0.3$ 时，分差 1.5，$\sigma(1.5)\approx 0.82$，损失约 0.20，小罚；要是模型排反了，分差变成 −1.5，$\sigma(-1.5)\approx 0.18$，损失约 1.7，大罚。训练就是靠这一大一小的反差，把所有偏好对上的分差整体往正向推。五个奖励头各自在自己负责的方面让 Chosen 高于 Rejected；损坏和超长样本没有可靠标签，直接屏蔽梯度，不让它们乱教。
+
+</Prose>
+  <div class="not-prose chart-scroll">
+    <svg viewBox="0 0 560 300" class="block w-full" role="img" aria-label="成对损失随分差变化的曲线：分差为正损失趋近零，分错方向损失急剧上升">
+      <text x="60" y="26" font-size="11" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">PAIR LOSS = −log σ(分差)</text>
+
+      {/* 排对了的低损失区 */}
+      <rect x="290" y="34" width="230" height="206" fill="#0066cc" fill-opacity="0.05" />
+      <text x="405" y="52" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">选中答案分更高：轻罚</text>
+
+      {/* 坐标轴 */}
+      <line x1="60" y1="240" x2="524" y2="240" stroke="#c7c7cc" stroke-width="1.2" />
+      <line x1="60" y1="28" x2="60" y2="246" stroke="#c7c7cc" stroke-width="1.2" />
+      <line x1="290" y1="34" x2="290" y2="240" stroke="#ececf0" stroke-width="1.2" />
+      {[-4,-3,-2,-1,0,1,2,3,4].map((m) => (
+        <g>
+          <line x1={290 + 46 * m} y1="240" x2={290 + 46 * m} y2="245" stroke="#86868b" stroke-width="1" />
+          <text x={290 + 46 * m} y="260" font-size="10" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{m > 0 ? `+${m}` : m}</text>
+        </g>
+      ))}
+      <text x="290" y="282" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">分差 r_c − r_r</text>
+      {[[0.69,88],[1.7,128]].map((g) => (
+        <g>
+          <line x1="56" y1={240 - 42 * g[0]} x2="62" y2={240 - 42 * g[0]} stroke="#86868b" stroke-width="1" />
+          <text x="50" y={240 - 42 * g[0] + 3.5} font-size="10" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{g[0]}</text>
+        </g>
+      ))}
+
+      {/* 损失曲线 */}
+      <path d="M106 32 C150 60 190 120 221 169 C245 196 268 208 290 211 C330 222 370 230 474 238" fill="none" stroke="#0066cc" stroke-width="2.4" stroke-linecap="round" />
+
+      {/* 两个标注点 */}
+      <circle cx="221" cy="169" r="4.5" fill="#fff" stroke="#424245" stroke-width="2" />
+      <text x="214" y="158" font-size="10.5" fill="#424245" text-anchor="end" font-family="PingFang SC, sans-serif">排反：分差 −1.5</text>
+      <text x="214" y="173" font-size="10.5" font-weight="600" fill="#424245" text-anchor="end" font-family="PingFang SC, sans-serif">损失 1.70，大罚</text>
+
+      <circle cx="359" cy="231.5" r="4.5" fill="#0066cc" />
+      <line x1="363" y1="229" x2="408" y2="208" stroke="#0066cc" stroke-width="1" />
+      <text x="412" y="206" font-size="10.5" fill="#0066cc" font-family="PingFang SC, sans-serif">排对：分差 +1.5</text>
+      <text x="412" y="220" font-size="10.5" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">损失 0.20，小罚</text>
+    </svg>
+  </div>
+  <Prose tile>
+
+损失形式是公开的标准做法，调研特有的是一组训练配置。下表每个数字都按调研口径处理，公开世界无从核对；值得学的是「配哪些旋钮」和每个旋钮的量级感觉，而不是照搬数值。
+
+</Prose>
+  <CompareTable
+    tile
+    caption="表 4 · 奖励模型核心训练配置（调研口径，未经公开证实）"
+    headers={[{ label: "配置项" }, { label: "调研给出的值" }, { label: "在防什么", wrap: true }]}
+    rows={[
+      ["峰值学习率", "1e-5 ~ 3e-5", "小 LR 保排序稳定，大 LR 容易学崩偏好"],
+      ["Warmup", "1,000 ~ 3,000 步", "开局减速，避免随机头初期带偏主干"],
+      ["权重衰减", "0.01 ~ 0.03", "轻度正则"],
+      ["梯度裁剪范数", "1.0", "单批坏样本不制造大更新"],
+      ["最大 Epoch", "3", "硬上限，主要靠早停选检查点"],
+      ["精度", "BF16（禁 FP16）", "BF16 动态范围更大，奖励分对数值尺度敏感"],
+      ["分布式", "FlashAttention-2 / 张量并行 / 梯度累积", "20–40B 量级的标配工程手段"],
+    ]}
+  />
+  <Prose tile>
+
+样本加权不改偏好标签，只改各领域样本对损失的贡献。调研给的权重很能说明立场：安全和对抗样本 1.8 到 2.2，事实性 1.5 到 1.7，复杂推理 1.4 到 1.6，多轮 1.1，通用 1.0，创意 0.8 到 0.9，低质和模糊样本只给 0.4 到 0.6。资源往错了代价最大的方向压。
+
+早停和自动暂停被调研写成两套不同机制。早停是选优：每次训练以最新稳定生产 RM 为基线，在相同切分和指标下比增量，主指标是验证集成对准确率，连续 6 个验证周期没有超过 0.25% 的提升就停，取历史最优检查点，3 个 epoch 是最终保护上限。自动暂停是排障：验证准确率单周期跌超 1.5%、梯度范数超 2.0、奖励标准差低于 0.3（排序信号趋同消失）、训练损失连续 500 步平台期，命中任一条训练挂起，而且不许自动恢复，必须人工诊断后重启。
+
+表末三个工程名词顺带解释。FlashAttention-2 是重写注意力计算的高效实现，省显存也更快，数学上不算新东西；张量并行（tensor parallelism）把一层里的权重切开摊到多张显卡上同时算，单卡放不下大模型时必用；梯度累积是显存不够装下一整批样本时，先分几小批算出梯度、累加起来再更新一次，效果接近大批量。三者都是训几十亿参数模型的常规手艺。
+
+</Prose>
+  <Prose tile>
+
+训出五个分之后，PPO 只能吃一个标量，调研写的聚合方式是先把每个头的分按领域归一化，再加权求和，安全不达标再单独扣一笔：
+
+$$
+\begin{aligned}
+R_{\mathrm{total}} &= \sum_{i} w_i \cdot \operatorname{Norm}(r_i) \\
+&\quad - \mathrm{SafetyPenalty}
+\end{aligned}
+$$
+
+归一化是为了不让某个头因为绝对值天生大而主导总分。举个具体的算法：安全头平时打分总在 −10 到 10 之间，创意头只在 −0.5 到 0.5 之间晃，不归一化直接相加，安全头的轻微抖动就能盖过创意头的全部意见。常见做法是把每个头的分减去该领域近期均值、再除以标准差（z-score），五个分都被拉到「比平均好多少个标准差」这把统一尺子上，然后乘各自的权重 $w_i$ 求和。安全分低于阈值时再扣一整笔 SafetyPenalty，其他几项的高分就没法把安全违规抵消掉。于是一条事实正确、文笔漂亮但在教人造毒的回答，聚合分依然是负的。
+
+</Prose>
+  <Prose tile>
+
+公式之外，调研还安排了三类系统性偏差的治理，做法都是往训练数据里补针对性的偏好对。奖励模型天然偏爱更长的回答，因为长答案和「看起来用心」在训练数据里相关，就加长度惩罚项和长短反事实对；模型会谄媚，即迎合用户的错误前提，就加「顺着用户说但事实错误」的对，明确告诉它迎合不等于高质量；格式偏爱上，语义相同仅排版不同的回答不允许拉开分差。这些偏差在公开的对齐研究里都有讨论，调研给出的是工程化补数方案。
+
+</Prose>
+  <Steps
+    tile
+    steps={[
+      { title: "分领域成对准确率", body: "五个头分别在对应领域测试集上验排序，任一领域回归，整个检查点不晋升。" },
+      { title: "人机排序一致", body: "RM 排序和人工排序比对，每个核心方面单独验收，理想要求单项不低于 85%。" },
+      { title: "对抗偏差集", body: "用「空洞长文」「合理但事实错误」这类对抗回答，检查长度、谄媚、事实和安全偏差。" },
+      { title: "小规模 PPO 试跑", body: "把 RM 真的放进 RL 循环，盯着奖励作弊、奖励坍缩和模式坍缩，看奖励实际把模型往哪推。" },
+    ]}
+  />
+  <Prose tile>
+
+第四道关最重要。奖励模型离线指标再好，也只有真的放进 RL 循环，才知道模型会不会钻它的空子：奖励作弊（reward hacking）是找规则漏洞刷分，比如堆砌长度骗一个本该与长度无关的奖励；奖励坍缩是 RM 给什么回答都打差不多的分，优化失去方向；模式坍缩是模型的回答收敛成千篇一律的几种模板。这三种故障在离线排序指标上都看不出来。
+
+</Prose>
+</Section>
+
+<Section canvas id="rl">
+  <SectionHead
+    index="06"
+    kicker="强化学习"
+    title="PPO、DPO、GRPO：三种算法各管一段"
+    lead="调研主张三种算法在流水线里接力。它们的公开论文各自解决了上一代方法的一个具体麻烦。"
+  />
+  <Prose tile>
+
+先不讲三个缩写，先把「强化学习在转什么」走一遍。SFT 之后模型已经会好好答题，但老师只示范了「满分答案怎么写」，从没告诉它 60 分和 80 分的回答差在哪。强化学习补上这一层：让模型自己写答案，奖励模型按真实质量打分，分高的写法以后多写，分低的少写。一个完整的循环有四步。
+
+1. 采样。对一批真实提示，当前策略 π 各生成一条或几条完整回答（一次生成叫一次 rollout）。
+2. 打分。奖励模型读完整条回答给一个标量分 $r$；数学、代码这类题也可以不用 RM，直接用程序判对错，叫规则奖励。
+3. 算优势。要看的是这条回答比「正常水平」好多少，而不是分的绝对值，这个差值叫优势（advantage）$A$。
+4. 更新。对高分回答里出现过的 token，上调它们在相同上文下的生成概率；对低分回答里的 token，下调概率。写成策略梯度最朴素的形态就是 $A\,\nabla\log\pi$（$\nabla$ 表示梯度方向）：$A$ 为正，这个方向被加强；$A$ 为负，被反拽。
+
+为什么要减去「正常水平」？因为 RM 的分数尺度很飘，这批题普遍打 2 分，那批普遍打 0 分，直接拿绝对分当权重，模型会误以为后一批题里的回答全都该被压制。减掉一个基线（baseline）之后，优化信号只反映「在这批候选里谁相对更好」，不受题目难度影响。PPO 用一个专门训练的价值网络（critic）预测基线，GRPO 则用一组回答的平均分当基线，这是两者最大的工程差别。
+
+还要认识参照模型。策略旁边始终放一个冻结的 SFT 模型副本，训练时算当前策略和它之间的 KL 散度（衡量两个概率分布离多远的一个数）作为惩罚。没有这根橡皮筋，策略会一门心思追奖励分，慢慢变成一种词藻华丽、专讨裁判喜欢但和正常语言越来越远的形态，行业里叫奖励作弊。
+
+</Prose>
+  <Callout eyebrow="一个具体例子：一次 PPO 式更新前发生了什么">
+    <p>提示：「把这句英文翻译成中文：The cake is a lie.」策略当场采样出三条：A「蛋糕是个谎言。」得奖励 1.2；B「这个蛋糕是假的。」得 0.4，意思偏了；C「这蛋糕太好吃了！」得 −1.0，意思相反。假设 critic 对这个提示的预期分是 0.2，三条的优势就是 +1.0、+0.2、−1.2。更新后，「谎言」这类在 A 里出现的 token 在翻译上下文里概率上升，「好吃」在 C 里的概率下降，B 几乎不动。注意模型没有被直接告知正确译文，它是从自己生成的候选和裁判的相对评价里摸出方向的。</p>
+  </Callout>
+  <div class="not-prose chart-scroll">
+    <svg viewBox="0 0 760 300" class="block w-full" role="img" aria-label="强化学习循环：采样、打分、算优势、更新四步，策略更新后进入下一轮，参照模型的 KL 惩罚约束全程">
+      {[
+        ["01", "采样 rollout", "当前策略 π 对提示\n生成完整回答", 20],
+        ["02", "打分", "RM 或规则奖励\n给出标量 r", 205],
+        ["03", "算优势 A", "r 减去基线\n得到相对好坏", 390],
+        ["04", "更新", "沿 A∇log π\n调整策略权重", 575],
+      ].map((b) => (
+        <g>
+          <rect x={Number(b[3])} y="56" width="165" height="92" rx="14" fill="#fff" stroke={b[0] === "01" ? "#0066cc" : "#dedee3"} stroke-width="1.5" />
+          <text x={Number(b[3]) + 16} y="82" font-size="10" font-weight="600" letter-spacing="1" fill="#86868b" font-family="ui-monospace, Menlo, monospace">{b[0]}</text>
+          <text x={Number(b[3]) + 16} y="106" font-size="13" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{b[1]}</text>
+          {String(b[2]).split("\n").map((line, i) => (
+            <text x={Number(b[3]) + 16} y={128 + i * 15} font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">{line}</text>
+          ))}
+        </g>
+      ))}
+      {[185, 370, 555].map((x) => (
+        <path d={`M${x} 102 h14 m-5 -5 l5 5 -5 5`} fill="none" stroke="#86868b" stroke-width="1.6" />
+      ))}
+
+      {/* 回路箭头 */}
+      <path d="M657 152 v26 H102 v-24" fill="none" stroke="#0066cc" stroke-width="1.4" stroke-dasharray="4 4" />
+      <path d="M107 148 l-5 6 5 6" fill="none" stroke="#0066cc" stroke-width="1.4" />
+      <text x="380" y="192" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">更新后的策略进入下一轮</text>
+
+      {/* 基线两个来源 */}
+      <rect x="160" y="212" width="250" height="32" rx="16" fill="#f5f5f7" stroke="#dedee3" />
+      <text x="285" y="232" font-size="10.5" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">PPO：critic 预测基线　｜　GRPO：同组奖励均值</text>
+
+      {/* KL 橡皮筋 */}
+      <rect x="430" y="212" width="290" height="32" rx="16" fill="#1d1d1f" />
+      <text x="575" y="232" font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">冻结参照模型 π_ref：KL 惩罚全程拉住策略</text>
+    </svg>
+  </div>
+  <Prose tile>
+
+PPO（Proximal Policy Optimization，近端策略优化）是 2017 年提出的算法，解决的是「一步更新迈多大」的问题。朴素策略梯度对每批样本只能更新一次，更新完这批数据对应的旧策略就作废了；想复用样本走大学习率，又容易一步迈过头，策略崩掉重来。PPO 的办法是比较新旧两个策略对同一个 token 的概率比：
+
+$$
+r_t(\theta) = \frac{\pi_\theta(o_t \mid o_{<t}, x)}{\pi_{\theta_{\mathrm{old}}}(o_t \mid o_{<t}, x)}
+$$
+
+$r_t = 1$ 表示新旧策略对这个 token 的看法完全一致，大于 1 表示新策略更想生成它。PPO 把目标写成裁剪形式：
+
+$$
+\begin{aligned}
+L^{\mathrm{CLIP}} = \mathbb{E}_t\!\bigl[\min\bigl(& r_t A_t, \\
+&\mathrm{clip}(r_t,\, 1\pm\epsilon)\, A_t\bigr)\bigr]
+\end{aligned}
+$$
+
+</Prose>
+  <div class="not-prose chart-scroll">
+    <svg viewBox="0 0 600 360" class="block w-full" role="img" aria-label="裁剪目标曲线：正优势在概率比超过 1.2 后裁平，负优势在低于 0.8 后裁平，0.8 到 1.2 的近端区间内保留正常梯度">
+      <text x="90" y="30" font-size="11" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">CLIPPED OBJECTIVE · ε = 0.2</text>
+
+      {/* 图例 */}
+      <line x1="430" y1="24" x2="454" y2="24" stroke="#0066cc" stroke-width="2.6" stroke-linecap="round" />
+      <text x="460" y="28" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">A = +1 正优势</text>
+      <line x1="430" y1="42" x2="454" y2="42" stroke="#424245" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 4" />
+      <text x="460" y="46" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">A = −1 负优势</text>
+
+      {/* 横向网格线 */}
+      {[90.4, 125.6, 266.4, 301.6].map((y) => (
+        <line x1="90" y1={y} x2="570" y2={y} stroke="#ececf0" stroke-width="1" />
+      ))}
+
+      {/* 近端区间 */}
+      <rect x="250" y="58" width="160" height="292" fill="#0066cc" fill-opacity="0.05" />
+      <text x="330" y="78" font-size="10.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">近端区间 0.8 – 1.2</text>
+      <text x="330" y="178" font-size="10.5" fill="#0066cc" fill-opacity="0.7" text-anchor="middle" font-family="PingFang SC, sans-serif">区间内梯度保留，正常更新</text>
+
+      {/* 裁剪边界 */}
+      <line x1="250" y1="58" x2="250" y2="350" stroke="#dedee3" stroke-width="1.2" stroke-dasharray="4 4" />
+      <line x1="410" y1="58" x2="410" y2="350" stroke="#dedee3" stroke-width="1.2" stroke-dasharray="4 4" />
+
+      {/* 纵轴刻度 */}
+      {[[90.4, "+1.2"], [125.6, "+0.8"], [196, "0"], [266.4, "−0.8"], [301.6, "−1.2"]].map((t) => (
+        <g>
+          <line x1="86" y1={Number(t[0])} x2="90" y2={Number(t[0])} stroke="#86868b" stroke-width="1" />
+          <text x="80" y={Number(t[0]) + 3.5} font-size="10" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{t[1]}</text>
+        </g>
+      ))}
+
+      {/* 零轴 */}
+      <line x1="90" y1="196" x2="570" y2="196" stroke="#c7c7cc" stroke-width="1.2" />
+
+      {/* 横轴刻度 */}
+      {[[90, "0.4"], [250, "0.8"], [330, "1.0"], [410, "1.2"], [570, "1.6"]].map((t) => (
+        <g>
+          <line x1={Number(t[0])} y1="196" x2={Number(t[0])} y2="201" stroke="#86868b" stroke-width="1" />
+          <text x={Number(t[0])} y="215" font-size="10" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{t[1]}</text>
+        </g>
+      ))}
+      <text x="330" y="240" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">新旧策略概率比 r_t（r_t = 1 即更新前两者一致）</text>
+      <text x="30" y="196" font-size="10.5" fill="#6e6e73" text-anchor="middle" transform="rotate(-90 30 196)" font-family="PingFang SC, sans-serif">目标值 L^CLIP（A = ±1 截面）</text>
+
+      {/* A=+1：右端裁平 */}
+      <path d="M90 160.8 L250 125.6 L410 90.4 L570 90.4" fill="none" stroke="#0066cc" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="250" cy="125.6" r="4" fill="#fff" stroke="#0066cc" stroke-width="2" />
+      <circle cx="410" cy="90.4" r="4" fill="#fff" stroke="#0066cc" stroke-width="2" />
+      <text x="492" y="76" font-size="10.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">r &gt; 1.2：裁在 +1.2，不再加分</text>
+
+      {/* A=-1：左端裁平 */}
+      <path d="M90 266.4 L250 266.4 L410 301.6 L570 336.8" fill="none" stroke="#424245" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 4" />
+      <circle cx="250" cy="266.4" r="4" fill="#fff" stroke="#424245" stroke-width="2" />
+      <text x="172" y="252" font-size="10.5" font-weight="600" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">r &lt; 0.8：裁在 −0.8，不再多罚</text>
+    </svg>
+  </div>
+  <Prose tile>
+
+典型 $\epsilon = 0.2$。读法用数字最快。某 token 优势 $A=+1$：$r_t$ 从 1.0 涨到 1.2 时奖励线性增长，可一旦超过 1.2，目标被裁住不再增加，模型没有动力为同一个样本把概率继续推高；反过来 $A=-1$ 时，$r_t$ 跌到 0.8 以下也不再获得额外收益。于是每次更新都被限制在新旧策略相差约 ±20% 的「近端」区间内，同一批样本可以安全地重复优化几轮。这套机制让 RLHF 这种奖励噪声大、真实样本又贵的场景终于有了稳的优化器。
+
+InstructGPT 用的版本还在目标里加了一项 PTX：把预训练数据上的普通语言建模损失混进总目标，预训练梯度乘上系数 $\gamma = 27.8$（论文附录给的值），拽着模型别在追奖励分的时候把通用能力弄丢。论文报告加了 PTX 之后，PPO 模型在外部 NLP 基准上的退化基本被补回来，同时保留人类偏好上的提升。调研里的主循环写作 PPO-PTX，沿用的就是这个版本。代价也写在脸上：PPO 跑起来显存里要同时放策略、参照、奖励模型、critic 四个大模型，是整条流水线最重的一段。
+
+</Prose>
+  <Prose tile>
+
+DPO（Direct Preference Optimization，直接偏好优化）出现在 2023 年，动机是把 PPO 那套笨重系统整个拿掉。论文做了一次数学改写：既然最优奖励模型和策略之间存在解析关系，奖励就能写成「策略相对参照模型，把这条回答的概率提高了多少」，即 $r(x,y) = \beta \log \frac{\pi_\theta(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)} + C$。代回 Bradley-Terry 损失，偏好优化直接变成一个在（选中，落选）对上的分类损失：
+
+$$
+\begin{aligned}
+\mathcal{L}_{\mathrm{DPO}} = -\mathbb{E}\!\bigl[\log \sigma\bigl(&\beta \log\tfrac{\pi_\theta(y_c\mid x)}{\pi_{\mathrm{ref}}(y_c\mid x)} \\
+-&\beta \log\tfrac{\pi_\theta(y_r\mid x)}{\pi_{\mathrm{ref}}(y_r\mid x)}\bigr)\bigr]
+\end{aligned}
+$$
+
+括号里就是两个「相对提升量」之差：选中回答相对参照模型涨的概率，要比落选回答涨得多。训练开始时 $\pi_\theta$ 就初始化为 $\pi_{\mathrm{ref}}$，两个对数项都是 0，损失等于 $\log 2 \approx 0.69$，跟随机二选一一样；随着训练进行，选中回答的相对对数概率被推高，损失下降。举个数字例子：训练中某一步，选中回答相对参照的对数概率是 +0.8（模型比最初更爱写它了），落选回答是 −0.5（更不爱写了），$\beta$ 取 0.1，括号里就是 $0.1 \times 0.8 - 0.1 \times (-0.5) = 0.13$，方向正确；要是模型只把落选回答的概率也一起抬高，两项相减就没有收益，甚至受罚。
+
+奖励模型、在线采样、critic 都不需要，一次普通的监督式前向反向就能跑，这是 DPO 流行的原因。代价来自它的离线本性：模型只看固定的偏好数据集，不像 PPO 那样不断生成新回答、获得新反馈。数据分布一旦和真实使用拉开差距，它没有探索能力，也容易过度压缩到偏好数据的风格上。所以调研把它放在「PPO 主循环之后的离线精修」位置，专门处理标注意见明确、不需要探索的残余偏好矛盾。这个分工是调研口径，DPO 本身的机制全部出自公开论文。
+
+</Prose>
+  <div class="not-prose rounded-[18px] bg-white px-6 py-7 sm:px-9">
+    <svg viewBox="0 0 500 178" class="block w-full" role="img" aria-label="训练中选中回答相对参照模型的对数概率升到正 0.8，落选回答降到负 0.5，两者之差为正损失下降">
+      <text x="24" y="28" font-size="11" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">相对参照模型，策略把谁的概率抬高了</text>
+
+      <line x1="230" y1="44" x2="230" y2="156" stroke="#c7c7cc" stroke-width="1.4" />
+      <text x="230" y="172" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">0（和参照模型一致）</text>
+
+      <text x="24" y="60" font-size="12" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">Chosen 选中</text>
+      <rect x="230" y="68" width="96" height="24" rx="6" fill="#0066cc" />
+      <text x="334" y="85" font-size="11.5" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">Δ_c = +0.8</text>
+
+      <text x="24" y="120" font-size="12" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">Rejected 落选</text>
+      <rect x="170" y="128" width="60" height="24" rx="6" fill="#86868b" />
+      <text x="162" y="145" font-size="11.5" font-weight="600" fill="#6e6e73" text-anchor="end" font-family="ui-monospace, Menlo, monospace">Δ_r = −0.5</text>
+    </svg>
+  </div>
+  <Prose tile>
+
+GRPO（Group Relative Policy Optimization，组相对策略优化）来自 2024 年的 DeepSeekMath 论文，砍的是 PPO 里另一个大件：价值网络。给语言模型训 critic 既费显存又很难收敛，而它要预测的「这个提示大概能拿多少分」其实可以从同场竞赛里现场估出来。做法是对每个提示 $x$ 一次性采样 $G$ 条回答 $\{o_1,\dots,o_G\}$，各自拿奖励 $r_i$，然后用组内均值和标准差做归一化：
+
+$$
+\hat{A}_i = \frac{r_i - \operatorname{mean}(r_1,\dots,r_G)}{\operatorname{std}(r_1,\dots,r_G)}
+$$
+
+代一组数字进去。设 $G=4$，四条回答的奖励是 1.0、0.5、−0.2、0.8，组内均值 0.525、标准差约 0.46，四条的优势就约是 +1.04、−0.05、−1.59、+0.60。于是同一个提示的四条候选自动分成三六九等：第一条和第四条被加强，第三条被压制，第二条原地不动。奖励的绝对尺度不重要了，哪怕这题整体打低分，组里最好的那条依然拿正优势，这正是 PPO 里 critic 想提供的东西，而 GRPO 一次组内比较就免费拿到，显存里少放一整个大模型。代价是要多采样 $G$ 倍回答，好在采样可以批量并行，通常比训 critic 划算。补充一个细节：DeepSeekMath 论文的目标函数里还保留了相对参照模型的 KL 惩罚项，DeepSeek-R1 的实践里干脆拿掉，只留规则奖励。
+
+</Prose>
+  <div class="not-prose rounded-[18px] bg-white px-6 py-7 sm:px-9">
+    <svg viewBox="0 0 560 272" class="block w-full" role="img" aria-label="同一提示的四条回答奖励 1.0、0.5、−0.2、0.8 减去组均值 0.525 再除以标准差，得到优势加 1.04、负 0.05、负 1.59、加 0.60">
+      <text x="24" y="28" font-size="11" font-weight="600" letter-spacing="1.2" fill="#86868b" font-family="PingFang SC, sans-serif">同一提示采 4 条：组内归一化（均值 0.525）</text>
+
+      <line x1="190" y1="42" x2="190" y2="238" stroke="#c7c7cc" stroke-width="1.4" />
+      <text x="190" y="258" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">组均值</text>
+
+      {[
+        ["回答 1", "r = 1.0", "+1.04", 190, 75, "r"],
+        ["回答 2", "r = 0.5", "−0.05", 186, 4, "z"],
+        ["回答 3", "r = −0.2", "−1.59", 76, 114, "l"],
+        ["回答 4", "r = 0.8", "+0.60", 190, 43, "r"],
+      ].map((row, i) => {
+        const y = 44 + i * 50;
+        const positive = row[5] === "r";
+        const lx = row[5] === "r" ? Number(row[3]) + Number(row[4]) + 8 : row[5] === "l" ? Number(row[3]) - 8 : 198;
+        return (
+          <g>
+            <text x="24" y={y + 14} font-size="11.5" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">{row[0]}</text>
+            <text x="182" y={y + 14} font-size="10.5" fill="#6e6e73" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{row[1]}</text>
+            <rect x={Number(row[3])} y={y + 22} width={Number(row[4])} height="20" rx="5" fill={positive ? "#0066cc" : "#86868b"} fill-opacity={positive ? 1 : 0.55} />
+            <text x={lx} y={y + 37} font-size="11" font-weight="600" fill={positive ? "#0066cc" : "#6e6e73"} text-anchor={row[5] === "r" || row[5] === "z" ? "start" : "end"} font-family="ui-monospace, Menlo, monospace">{row[2]}</text>
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+  <Prose tile>
+
+GRPO 特别依赖能自动判定的奖励。DeepSeekMath 用的是数学题答案对错，DeepSeek-R1 进一步把规则奖励用到极致：答案正确给奖励，格式规范给奖励，全程不需要人工标推理过程，论文摘要的结论是纯强化学习就能在基座上激发推理能力（他们也保留了少量冷启动数据，并非完全从零）。调研让 GRPO 负责智能体的多步工具调用，这个位置选得有道理。一次智能体任务要走十几步，最后成了或败了，很难把功劳或责任分给中间某一步（这在强化学习里叫信用分配难题）；但工具调用的成败大多能被程序直接判定：SQL 有没有语法错、API 返回 200 还是 500、文件有没有真的生成，这些都是免费的规则信号，同一任务再采一组并行跑，天然适合组内互相比。再强调一次，「PPO 主循环、DPO 精修、GRPO 管 Agent」这个分工是调研的主张，没有官方材料证实；三种算法的机制本身都有公开论文。
+
+</Prose>
+  <CompareTable
+    tile
+    caption="表 5 · 三种算法的机制对比（依据各自公开论文，非调研数据）"
+    headers={[{ label: "对比项" }, { label: "PPO" }, { label: "DPO" }, { label: "GRPO" }]}
+    rows={[
+      ["学习方式", "在线强化学习，边采样边更新", "离线，偏好对上的分类损失", "在线强化学习，组内相对比较"],
+      ["奖励模型", "需要", "不需要，用冻结参考模型代替", "需要奖励信号，可为学习的 RM 或规则奖励"],
+      ["价值网络", "需要 critic", "不需要", "不需要，组内均值充当基线"],
+      ["训练中采样", "需要", "不需要", "需要，每提示采一组"],
+      ["公开出处", "Schulman 2017；InstructGPT 2022", "Rafailov 等 2023", "DeepSeekMath 2024；R1 2025"],
+    ]}
+  />
+  <Prose tile>
+
+三者的接力逻辑可以这样理解：PPO 面最广，在线奖励能驱动整体行为变化，当主力；DPO 最便宜最稳，处理那些标注意见明确、不需要探索的残余矛盾，当补丁；GRPO 去掉 critic 后适合大量可程序化判定成败的轨迹，押在智能体专项上。顺序上还有一个工程原因，DPO 和 GRPO 都依赖高质量偏好对与规则信号，这些数据资产正是前面 SFT 和 RM 阶段攒下来的。
+
+</Prose>
+</Section>
+
+<Section canvas id="release">
+  <SectionHead
+    index="07"
+    kicker="合版到上线"
+    title="合版、红队、冻结，再加一层模型外的安全"
+    lead="训练结束不等于能发布。最后四个阶段处理的是分支干扰、对抗漏洞、候选管理和真实流量风险。"
+  />
+  <Prose tile>
+
+合版要解决的是并行训练的副作用。不同专项往往在独立分支上训：一条分支强化推理，一条强化工具调用，一条做安全。训完要合进统一主干，而权重直接混合通常会互相干扰，某一项涨了另一项掉，行业里叫负迁移。调研的做法是合版之后再做小规模再训练（post-merge 稳化），用一轮短训练修补干扰。公开文献里最轻的合版办法叫 Model Soups，2022 年的一篇论文：如果几个微调模型是从同一个起点分叉出去的，把它们的权重逐个数字求平均即可。抽象地看，某个权重在分支 A 里是 1.0、分支 B 里是 0.8，汤里就是 0.9；几百亿个权重全部这么平均，推理时仍然只跑一个模型，不多花算力。论文在图像分类上报告平均后还能再提一点精度，因为平均相当于把几个模型各自落到的小坑折成一个更居中的解。前提就是共同起点，两个不相干的模型拿来平均并不管用。更重的合版路线还有任务算术（task arithmetic）：先算出每个分支相对原模型的权重差（叫做「任务向量」），再按系数加权合并这些差值，可以决定每项能力要放进去多少。调研没披露 Astra 用哪一种，只给了「合版加稳化」这两步。
+
+安全对抗和红队找三类问题。越狱（jailbreak）是用角色扮演、编码隐写、虚构剧情等手段绕过拒答策略，让模型吐出它本不该给的内容；工具滥用是诱导模型调用超出任务需要的工具，比如本该写文档却去发邮件、删文件；智能体越权是让多步执行链条跨过用户授予的权限边界，比如用一个低风险操作的授权去完成高风险操作。红队自动化有公开的学术源头，Perez 等人 2022 年的工作就是让语言模型批量生成攻击问题再喂给目标模型，人工只负责筛选成功案例。Astra 系统卡披露的做法更重：它在训练全程部署了对齐监测，用一个被提示的 GPT-5.4 Thinking 逐条读思维链，成本「相当可观」；ExploitGym Honeypot 这种诱饵环境专门测模型会不会主动尝试访问可疑目标，Astra 的零尝试和 Sol 的 56% 是系统卡里最常被引用的一组对比。但这组数字也有争议，第三方解读 Zvi 的判断是，零次诱饵访问可能恰恰说明模型认出了这是评测；同一篇解读还指出训练中被监测到的元博弈（metagaming，指模型在思维链里表露自己正在被对齐评估、从而按评估期待的样子作答）比例从 7.1% 升到 12.6%，更多训练是否意味着更多策略性行为，目前没有定论。
+
+评测过关后是 RC 冻结：RC 是 Release Candidate（发布候选）的缩写，达到门槛的候选模型冻结成一份不再改动的权重存档，进入发布验证，之后无论发现什么都不能再偷偷调参，要改就得开新候选重新走流程。模型外还要加一层推理侧安全层，做输入输出审核、工具权限和运行时控制。这层东西刻意放在模型外面：安全策略要能不重新训练就更新，权限也要在调用工具的边界上强制，模型「答应不做」和运行时「做不到」是两回事。
+
+最后 A/B 灰度。真实流量先切一小部分给新模型，和旧模型同时在线对比关键指标，稳住了再逐步扩大比例，出问题随时切回。「灰度」这个词对应的就是从一小撮用户到全量这条逐渐变深的放量曲线。OpenAI 这次实际发布也是类似的节奏：9 月 3 日先给可信访问机构，随后才向 ChatGPT 各档订阅、API 和 AWS Bedrock 分批开放。
+
+</Prose>
+  <Pipeline
+    stages={[
+      { title: "合版 + 稳化", body: "专项分支合入主干，一轮短训练修补互相干扰。" },
+      { title: "红队 / 安全对抗", body: "自动批量攻击，专找越狱、工具滥用、智能体越权。" },
+      { title: "RC 冻结", body: "过门槛的候选封存权重，要改就开新候选重走流程。" },
+      { title: "推理安全层", body: "模型外强制输入输出审核与工具权限，策略可随时热更。" },
+      { title: "A/B 灰度", body: "小流量起步逐步放量，指标不稳就切回旧模型。" },
+    ]}
+  />
+  <Callout eyebrow="一个没被展开的点">
+    <p>调研的封面节点里还列着「BoN-gap 治理」。BoN 即 Best-of-N：同一个提示让模型连续采样 N 次，用奖励模型从里面挑分最高的一条给用户，花的是推理算力，换的是答案质量。部署时 N 取多大，直接决定用户实际拿到的体验。所谓 BoN-gap，是指模型在「采 16 条取最优」这种宽松评测下的成绩，和真实线上「只采 1 条」时的成绩之间的差距：差距越大，榜单成绩越注水。调研正文五张图没有展开这个节点，强化学习后半段的具体配置整体缺失。本文不替它补数字：一个流传中的模型在 Best-of-N 评测和真实采样场景下差距多大，需要实测证据，这里没有。</p>
+  </Callout>
+</Section>
+
+<Section canvas id="verdict">
+  <SectionHead
+    index="08"
+    kicker="怎么读"
+    title="这份调研能信到什么程度"
+    lead="把方法、数字和官方事实分开，这份材料的价值和边界都很清楚。"
+  />
+  <Prose tile>
+
+可以信的是骨架。SFT 到奖励模型再到 PPO 的主干，是 InstructGPT 在 2022 年定下的工业范式，此后四年没有换过；DPO 用离线换稳定，GRPO 用组内比较换掉价值网络，模型合版后稳化，红队加灰度发布，每一步都有公开论文或公开实践对应。把 14 个阶段串起来当作一张「前沿模型后训练车间导览图」，这份调研是合格的，甚至组织得相当清楚。
+
+不能当事实用的是数字。96% 的指令跟随门槛、0.78 的标注一致性、1e-5 到 3e-5 的学习率、200 到 400 亿参数的奖励模型，全部只有调研这一个来源，OpenAI 官方既没确认也没否认。区间形式给了它一种精密的错觉，但区间同样可以是编的。它在文中自己声明了「外部调研信息，不是官方发布的训练手册」，这个免责声明是诚实的，读者也该照此对待。
+
+还有一个时间线上的事实值得记住：这份调研的原文在 2026 年 9 月尚未写完，详细内容止于奖励模型验证，PPO 之后只有总览级的名字。所以凡是看到有人引用这份材料讲「Astra 的 PPO 具体怎么配」，那部分已经超出了原材料自己声称的范围。
+
+真正有官方数据、也真正值得继续追问的，是系统卡暴露出的评测问题：诱饵评测零访问与「认出了考场」的解读之争，训练过程中元博弈比例上升，以及用一个模型监测另一个模型思维链这种做法的可靠性。这些问题的答案，比任何泄露的学习率都更决定这类模型能走多远。
+
+</Prose>
+  <Summary
+    takeaways={[
+      {
+        title: "方法骨架可以放心学，它就是公开范式的工业化组装",
+        conclusion: "三轮 SFT、多头奖励模型、PPO/DPO/GRPO 分工、合版稳化、红队灰度，每个环节都能在 2017 到 2025 年的公开论文里找到原型，14 阶段的组织方式是一张好用的全景图。",
+        detail: "想深入的读者按文末来源读 InstructGPT、DPO、DeepSeekMath 三篇即可掌握主线。",
+      },
+      {
+        title: "所有具体数字都是未经证实的调研口径",
+        conclusion: "从 96% 门槛、0.78 一致性到 20–40B 奖励模型，无一能从官方材料核实；官方系统卡只给评测结果，不给训练方法。",
+        detail: "读这类材料时分清三种声音：官方披露、有出处的第三方解读、无法核实的情报。本文已逐处标注。",
+      },
+    ]}
+    note="本文依据 2026 年 9 月流传的一份匿名外部调研与公开论文、官方帮助页、系统卡第三方解读炼化，核对日期 2026-09-30。调研数字未获官方证实，官方成绩未经独立复现，模型能力与披露口径随后续版本可能变化。"
+  />
+</Section>
+
+</ArticleCanvas>

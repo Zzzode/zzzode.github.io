@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 // Near-monochrome Shiki theme — syntax colors stay inside the Apple
 // grayscale token scale (see docs/design/apple-style-guide.md §4.6).
@@ -54,6 +56,10 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   markdown: {
+    // Math renders to static KaTeX HTML at build time (zero client JS);
+    // the KaTeX stylesheet is imported only by the post layout.
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
     shikiConfig: {
       // @ts-expect-error - Astro accepts a custom Shiki theme object
       theme: monoCodeTheme,

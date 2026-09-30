@@ -34,11 +34,11 @@ const posts: Entry[] = [...raw]
 const slugOf = (e: Entry) => (e.href ?? '').split('/').filter(Boolean).pop() ?? '';
 const bySlug = new Map(posts.map((e) => [slugOf(e), e]));
 
-const featureSlug = '2026-09-22-opus-lean-agent-sdk';
+const featureSlug = '2026-09-30-gpt6-astra-posttraining';
 const pickSlugs = [
+  '2026-09-22-opus-lean-agent-sdk',
   '2026-09-23-claude-code-architecture',
   '2026-09-24-nasdaq-record-a-share-linkage',
-  '2026-09-22-mimo-v26-open-rl',
 ];
 const picked = new Set([featureSlug, ...pickSlugs]);
 const feature = bySlug.get(featureSlug);
