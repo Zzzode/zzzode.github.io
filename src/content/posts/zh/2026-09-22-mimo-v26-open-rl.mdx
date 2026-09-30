@@ -102,7 +102,7 @@ import {
 
 **第一阶段：GRPO 去掉价值网络。** 2024 年 2 月，DeepSeek 在 [DeepSeekMath 技术报告](https://arxiv.org/abs/2402.03300)里提出组相对策略优化（Group Relative Policy Optimization，GRPO）。传统强化学习需要再训练一个「评价器」模型去估计每个动作值多少分；GRPO 的做法是让模型对同一道题采样一组答案，用这组答案的平均分作为基准——比组内平均好的尝试得正优势，差的得负优势。代价更小，也更稳定。
 
-**第二阶段：R1 让 RLVR 出圈。** 2025 年 1 月的 [DeepSeek-R1](https://arxiv.org/abs/2501.12948)把这套方法推到聚光灯下：数学题有标准答案、代码题能跑测试，这种「奖励可以自动、客观判定」的强化学习被统称为 RLVR（reinforcement learning with verifiable rewards，可验证奖励强化学习）。它和依赖人类偏好打分的 RLHF 最大的区别，是判分不需要人、也不需要训练偏好模型。
+**第二阶段：R1 让 RLVR 出圈。** 2025 年 1 月的 [DeepSeek-R1](https://arxiv.org/abs/2501.12948)把这套方法推到聚光灯下：数学题有标准答案、代码题能跑测试，这种「奖励可以自动、客观判定」的强化学习被统称为 RLVR（reinforcement learning with verifiable rewards，可验证奖励强化学习）。它和依赖人类偏好打分的 RLHF 最大的区别，是判分不需要人、也不需要训练偏好模型。想看偏好信号那一派的完整流水线（SFT、奖励模型、PPO/DPO/GRPO 分工），可读本站另一篇[《从 SFT 到灰度：拆解 GPT-6 Astra 的后训练流水线》](/posts/2026-09-30-gpt6-astra-posttraining/)，两篇刚好互为对照。
 
 **第三阶段：奖励从字符串变成环境。** 2025 年 2 月的 [SWE-RL](https://arxiv.org/abs/2502.18449)证明，可以把可验证奖励搬到「在真实开源仓库里修复 issue」这类任务上。题还是客观判分，但判分动作从毫秒级的字符串比对，变成了分钟级的容器启动、代码执行、浏览器操作。到 2026 年，多轮智能体强化学习已经成为头部实验室的主战场——而成本结构、工程形态、失败模式，和数学题时代几乎是两个物种。MiMo-v2.6 直播的正是这个第三阶段的一次完整大跑（big run）。
 

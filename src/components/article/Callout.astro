@@ -25,7 +25,7 @@ const { eyebrow, tone = 'neutral' } = Astro.props;
       </p>
     )
   }
-  <div class="text-[13.5px] leading-[1.75] text-muted">
+  <div class="text-[13.5px] leading-[1.75] text-muted [&>p+p]:mt-3">
     <slot />
   </div>
 </aside>
