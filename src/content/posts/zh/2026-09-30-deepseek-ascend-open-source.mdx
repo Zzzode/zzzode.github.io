@@ -1,0 +1,558 @@
+---
+title: "DeepSeek 开源昇腾算子栈：六个项目与一条跨平台语言路线"
+date: 2026-09-30
+excerpt: "2026 年 9 月 30 日，DeepSeek 把整套训练推理基础设施搬上华为昇腾：TileLang 高级语言、DeepGEMM、DeepEP、TileKernels、FlashMLA、DeepSelect，与英伟达版一一对应。稠密矩阵乘跑到硬件上限的 99.8%，稀疏注意力 prefill 410 TFLOPS，MoE 通信达物理带宽九成以上——但通信库仍在施工，多个组件只支持昇腾 950。"
+tags: ["DeepSeek", "昇腾", "TileLang", "开源", "CUDA", "国产算力"]
+kind: "distilled"
+sources:
+  - title: "DeepSeek 官方公众号：DeepSeek 开源昇腾基础组件（2026-09-30）"
+    url: "https://mp.weixin.qq.com/s/X41mKH4Ds-VXUAnK6M8Eww"
+  - title: "TileLang GitHub 仓库（tile-ai/tilelang）"
+    url: "https://github.com/tile-ai/tilelang"
+  - title: "TileLang-Ascend GitHub 仓库（tile-ai/tilelang-ascend）"
+    url: "https://github.com/tile-ai/tilelang-ascend"
+  - title: "DeepGEMM-Ascend GitHub 仓库"
+    url: "https://github.com/deepseek-ai/DeepGEMM-Ascend"
+  - title: "DeepEP-Ascend GitHub 仓库"
+    url: "https://github.com/deepseek-ai/DeepEP-Ascend"
+  - title: "DeepSelect GitHub 仓库"
+    url: "https://github.com/deepseek-ai/DeepSelect"
+  - title: "TileKernels GitHub 仓库"
+    url: "https://github.com/deepseek-ai/TileKernels"
+  - title: "FlashMLA GitHub 仓库"
+    url: "https://github.com/deepseek-ai/FlashMLA"
+  - title: "DeepGEMM GitHub 仓库（英伟达版）"
+    url: "https://github.com/deepseek-ai/DeepGEMM"
+  - title: "DeepEP GitHub 仓库（英伟达版）"
+    url: "https://github.com/deepseek-ai/DeepEP"
+  - title: "TileLang 论文：A Composable Tiled Programming Model for AI Systems（arXiv:2504.17577）"
+    url: "https://arxiv.org/abs/2504.17577"
+  - title: "观察者网：DeepSeek开源昇腾基础组件——与面向英伟达的一一对应（2026-09-30）"
+    url: "https://www.guancha.cn/CaiJing/2026_09_30_902748.shtml"
+  - title: "每日经济新闻：华为昇腾950超节点首次真机亮相，384超节点已商用超750套（2026-07-17）"
+    url: "http://www.nbd.com.cn/rss/zaker/articles/4475816.html"
+  - title: "DeepSeek 官方：DeepSeek-V4 预览版发布（2026-04-24）"
+    url: "https://www.deepseek.com/news/v4-preview/"
+  - title: "IT之家：DeepSeek 开源面向华为昇腾算力平台的基础设施组件（2026-09-30）"
+    url: "https://m.ithome.com/html/1008604.htm"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  ArticleCanvas,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  Timeline,
+  CompareTable,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="官方公告 · DeepSeek 公众号 · 2026-09-30"
+  title="DeepSeek 开源昇腾算子栈"
+  lead="一门语言、五个算子库，与英伟达版一一对应。这篇拆解讲清楚它们各自做什么、性能跑到硬件的几成，以及为什么一门语言比一颗芯片更能决定国产算力的走向。"
+  pills={[
+    { label: "TileLang" },
+    { label: "DeepGEMM / DeepEP" },
+    { label: "昇腾 950" },
+    { label: "一一对应" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="英伟达组件与昇腾组件的一一对应关系">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="12" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">ONE-TO-ONE PORT</text>
+    <text x="40" y="88" font-size="11" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">英伟达平台</text>
+    <text x="424" y="88" font-size="11" font-weight="600" fill="#0066cc" text-anchor="end" font-family="PingFang SC, sans-serif">华为昇腾</text>
+    {[
+      { l: "TileLang · CUDA 后端", r: "TileLang · 昇腾 950 后端", hot: true },
+      { l: "DeepGEMM", r: "DeepGEMM-Ascend", hot: false },
+      { l: "DeepEP", r: "DeepEP-Ascend", hot: false },
+      { l: "TileKernels", r: "TileKernels（同仓双后端）", hot: false },
+      { l: "FlashMLA", r: "FlashMLA（同仓双后端）", hot: false },
+      { l: "DeepSelect", r: "DeepSelect（同仓双后端）", hot: false },
+    ].map((row, i) => (
+      <g>
+        <rect x="30" y={100 + i * 34} width="160" height="24" rx="7" fill="#fff" stroke="#dedee3" />
+        <text x="110" y={116 + i * 34} font-size="9.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{row.l}</text>
+        <line x1="196" y1={112 + i * 34} x2="258" y2={112 + i * 34} stroke={row.hot ? "#0066cc" : "#b8b8bf"} stroke-width="1.5" />
+        <path d={`M258 ${112 + i * 34} l-6 -3.5 v7 z`} fill={row.hot ? "#0066cc" : "#b8b8bf"} />
+        <rect x="266" y={100 + i * 34} width="164" height="24" rx="7" fill={row.hot ? "#eaf2fb" : "#fff"} stroke={row.hot ? "#0066cc" : "#dedee3"} />
+        <text x="348" y={116 + i * 34} font-size="9.5" fill={row.hot ? "#0066cc" : "#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{row.r}</text>
+      </g>
+    ))}
+  </svg>
+</CoverBanner>
+
+<ArticleCanvas>
+<Prose tile>
+
+2026 年 9 月 30 日上午，DeepSeek 通过官方公众号宣布，正式开源面向华为昇腾算力平台的基础设施组件，涵盖 TileLang 高级语言编译工具、计算库、分布式通信库，所有组件与此前面向英伟达平台的开源组件一一对应。
+
+公告本身只有五段话，但六个 GitHub 仓库当天同步更新：TileLang 主线正式支持昇腾 950，DeepGEMM-Ascend 与 DeepEP-Ascend 分别在 9 月 29 日和 30 日建仓，TileKernels、FlashMLA、DeepSelect 三个仓库补齐昇腾后端。这不是象征性的适配——DeepGEMM-Ascend 的稠密矩阵乘跑到硬件上限的 99.8%，FlashMLA 昇腾版稀疏注意力 prefill 达到 410 TFLOPS，DeepEP-Ascend 的 MoE 通信在 EP32 以内跑到物理带宽的九成以上。
+
+要理解这件事的分量，得先回答一个问题：国产芯片喊了这么多年，为什么「能跑 DeepSeek」直到今天才算数？答案不在芯片，在软件。
+
+</Prose>
+
+<Section canvas id="backdrop">
+  <SectionHead
+    index="01"
+    kicker="前因"
+    title="芯片能造，软件栈要重写"
+    lead="DeepSeek 的解法不是给昇腾重写一套算子，而是先把算子写进一门跨平台语言。"
+  />
+  <Prose tile>
+
+训练一个大模型，真正的算力消耗在成千上万的算子（kernel）上：矩阵乘、注意力、通信、量化。这些算子过去几乎全部用 CUDA 编写，而 CUDA 是英伟达的私有技术。芯片可以流片，CUDA 攒下的软件栈却搬不走：这是英伟达最深的护城河，也是国产算力过去几年最痛的地方。
+
+TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师杨智），2025 年 1 月 20 日开源，编译底座是 Apache TVM。它的思路是把算子的数据流（tile 怎么搬、怎么算）与调度（线程怎么绑、流水线怎么排）解耦：前者是人写的，后者尽量交给编译器。2025 年 4 月的[论文](https://arxiv.org/abs/2504.17577)声称，TileLang 在关键算子上达到了当时的最佳性能。
+
+海外社区第一次大规模注意到 TileLang，是因为 DeepSeek V3.2：2025 年 9 月底 V3.2-Exp 发布时，有人发现它的算子用的是 TileLang 而不是 OpenAI 的 Triton（这是社区观察，不是 DeepSeek 官方表述）。到了 2026 年 4 月 [V4 预览版开源](https://www.deepseek.com/news/v4-preview/)时，DeepSeek 自己的说法已经变成：TileLang 承载了 V4 系列模型训练中大部分算子的实现。
+
+再往后就是今天。TileLang 路线先在英伟达成熟平台上验证，再搬昇腾。公告里「一一对应」四个字，是这条路线走了二十个月的结果。
+
+  </Prose>
+  <div class="mt-8">
+    <Timeline
+      tile
+      nodes={[
+        { year: "2025.01", title: "TileLang 开源", body: "北大团队发起，TVM 底座，1 月 20 日公开；论文 4 月上线 arXiv。" },
+        { year: "2025.02", title: "DeepSeek 开源周", body: "DeepGEMM（2-13）、FlashMLA（2-21）、DeepEP（同月底）等基础设施接连开源。" },
+        { year: "2025.09", title: "昇腾路线图与 V3.2", body: "华为公布 950PR / 950DT / 960 / 970 路线图；tilelang-ascend（A2/A3）9-29 开源；DeepSeek V3.2-Exp 发布 DSA 稀疏注意力。" },
+        { year: "2026.04–09", title: "V4 与 V4.1", body: "4-24 V4 预览版开源，1M 上下文成标配；9-10 FlashMLA 发布 V4.1 注意力算子，DeepSelect v1.0.0 同日发布。" },
+        { year: "2026.09.30", title: "本次开源", body: "TileLang 昇腾 950 后端进主线，DeepGEMM-Ascend / DeepEP-Ascend 建仓，三库补齐昇腾后端。" },
+      ]}
+    />
+  </div>
+</Section>
+
+<Section canvas id="overview">
+  <SectionHead
+    index="02"
+    kicker="总览"
+    title="六个项目，一一对应"
+    lead="性能数字全部来自各仓库 README 的官方自测，口径在下文逐项标注。"
+  />
+  <StatGrid cols={4} tile>
+    <Stat value="99.8" count={99.8} countDecimals={1} countSuffix="%" label="DeepGEMM-Ascend 稠密 BF16 GEMM 达硬件上限（昇腾 950DT）" />
+    <Stat value="410" count={410} unit="TFLOPS" label="FlashMLA 昇腾稀疏注意力 prefill，95% 硬件峰值" />
+    <Stat value="90–95%" label="DeepEP-Ascend dispatch 达物理带宽（EP32 以内）" />
+    <Stat value="2–20×" label="DeepSelect 相对 torch.topk 的加速比" />
+  </StatGrid>
+  <div class="mt-6">
+    <CompareTable
+      tile
+      headers={[
+        { label: "组件" },
+        { label: "英伟达版" },
+        { label: "昇腾形态" },
+        { label: "职责", wrap: true },
+      ]}
+      rows={[
+        ["TileLang", "tile-ai/tilelang，CUDA 为主后端", "昇腾 950 后端 9-30 进入主线；A2/A3 走 tilelang-ascend 适配仓库", "高级语言与编译工具"],
+        ["DeepGEMM", "deepseek-ai/DeepGEMM（2025-02 开源）", "DeepGEMM-Ascend（9-29 建仓），API 完全兼容、同名包", "矩阵乘"],
+        ["DeepEP", "deepseek-ai/DeepEP（2025-02 开源）", "DeepEP-Ascend（9-30 建仓），EPBuffer 接口与英伟达版一致", "大规模通信"],
+        ["TileKernels", "同一仓库", "同一仓库，运行时自动选后端", "向量计算与访存算子"],
+        ["FlashMLA", "同一仓库", "同一仓库，9-30 发布昇腾稀疏注意力算子", "稀疏注意力"],
+        ["DeepSelect", "同一仓库", "同一仓库，9-30 发布昇腾 TopK 算子", "数据筛选"],
+      ]}
+    />
+  </div>
+  <Prose tile>
+
+「一一对应」落在三个层面。API 上，DeepGEMM-Ascend 与英伟达版完全兼容、连包名都一样，DeepEP-Ascend 的 EPBuffer 接口与英伟达版 V2.5 一致，训练框架改个硬件后端就能换平台。代码上，TileKernels、FlashMLA、DeepSelect 是同一仓库双后端，运行时按硬件自动选择，不存在两套分叉的代码。能力上，公告原话——DeepSeek 训练中用到的每一个 TileLang 算子，在昇腾上都有对应的高性能实现。
+
+  </Prose>
+</Section>
+
+<Section canvas id="mechanism">
+  <SectionHead
+    index="03"
+    kicker="机制"
+    title="一个算子从 Python 到昇腾硬件"
+    lead="随页面滚动，左侧舞台逐步拆解这条编译与执行链路（宽屏下停驻在屏幕中央）。"
+  />
+  <ScrollStory
+    steps={[
+      {
+        tag: "01 · 写算子",
+        title: "先描述 tile 怎么流动",
+        body: "TileLang 的写法：算子作者描述一小片矩阵（tile）在 DRAM 与片上缓存之间怎么搬、在片上怎么算。线程绑定、数据布局、流水线这些调度决策写成注解，交给编译器。一个带 ReLU 的矩阵乘内核二十来行就够了。手写 CUDA 算子的大部分工作量在调度，不在数据流——这正是 TileLang 想省掉的部分。",
+      },
+      {
+        tag: "02 · 编译",
+        title: "一份源码，多个后端",
+        body: "TileLang 建在 TVM 编译基础设施上。同一份源码先降到统一 IR，再由各后端生成设备代码：CUDA、ROCm、Metal，以及 9 月 30 日进入主线的昇腾后端（原生代码生成、自动调度与同步）。一门语言能覆盖多少硬件，就看这一步的后端列表有多长。",
+      },
+      {
+        tag: "03 · 硬件映射",
+        title: "两套存储层级对上号",
+        body: "昇腾的存储层级和 GPU 不一样：global memory 互相对应；GPU 的 shared memory 对应 cube 核的 L1 buffer 与 vector 核的 unified buffer；寄存器对应 L0A / L0B / L0C。cube 核做矩阵乘，vector 核做向量运算，两核之间靠 flag 同步，开发者模式下编译器自动插入。这层映射做不对，上层语法再优雅也跑不满。",
+      },
+      {
+        tag: "04 · JIT",
+        title: "首次调用时现场编译",
+        body: "DeepGEMM 与 DeepEP 的设备内核不在安装时编译，而是首次调用时由 DeepJIT 在运行时编译，用的是华为 Bisheng 编译器与 CANN 9.2。好处是安装不需要完整工具链、内核可以按矩阵形状特化；代价是首次调用有编译开销，编译产物缓存在 ~/.dj 目录。",
+      },
+      {
+        tag: "05 · 跑满",
+        title: "性能数字的口径",
+        body: "DeepGEMM-Ascend 稠密 GEMM 最高达硬件上限的 99.8%（BF16，4096×7168×16384，昇腾 950DT，冷 L2）；FlashMLA 昇腾版 prefill 410 TFLOPS（95% 峰值）；DeepEP-Ascend dispatch 在 EP32 以内达物理带宽的 90–95%。全部是各仓库 README 的官方自测，测试形状与环境在仓库里可复现。",
+      },
+    ]}
+  >
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · WRITE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先描述 tile 怎么流动</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <text x="50" y="160" font-size="10" fill="#6e6e73" font-family="PingFang SC, sans-serif">global memory（DRAM）</text>
+      <rect x="50" y="170" width="360" height="84" rx="10" fill="#fff" stroke="#dedee3" />
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+        <rect x={66 + (i % 4) * 86} y={184 + Math.floor(i / 4) * 34} width="72" height="24" rx="5" fill={i === 2 ? "#0066cc" : "#ececf0"} />
+      ))}
+      <line x1="230" y1="258" x2="230" y2="292" stroke="#0066cc" stroke-width="1.5" />
+      <path d="M230 292 l-4 -8 h8 z" fill="#0066cc" />
+      <text x="244" y="280" font-size="10" fill="#0066cc" font-family="PingFang SC, sans-serif">T.copy</text>
+      <text x="50" y="320" font-size="10" fill="#6e6e73" font-family="PingFang SC, sans-serif">片上缓存（L1 / UB）</text>
+      <rect x="120" y="330" width="220" height="56" rx="10" fill="#eaf2fb" stroke="#0066cc" />
+      <rect x="136" y="346" width="88" height="24" rx="5" fill="#0066cc" />
+      <rect x="236" y="346" width="88" height="24" rx="5" fill="#bcd6f2" />
+      <text x="230" y="414" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">人写数据流，编译器管调度</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · COMPILE</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一份源码，多个后端</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <rect x="56" y="150" width="348" height="52" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="182" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">TileLang 源码（Python 语法）</text>
+      <line x1="230" y1="206" x2="230" y2="236" stroke="#b8b8bf" stroke-width="1.5" />
+      <path d="M230 236 l-4 -8 h8 z" fill="#b8b8bf" />
+      <rect x="56" y="240" width="348" height="52" rx="10" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.5" />
+      <text x="230" y="272" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">TVM 统一 IR</text>
+      <line x1="230" y1="296" x2="230" y2="322" stroke="#b8b8bf" stroke-width="1.5" />
+      <path d="M230 322 l-4 -8 h8 z" fill="#b8b8bf" />
+      <rect x="56" y="326" width="348" height="52" rx="10" fill="#fff" stroke="#dedee3" />
+      <text x="230" y="358" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">后端代码生成</text>
+      {["CUDA", "ROCm", "Metal", "昇腾"].map((t, i) => (
+        <rect x={56 + i * 89} y="392" width="76" height="26" rx="13" fill={t === "昇腾" ? "#0066cc" : "#ececf0"} />
+      ))}
+      {["CUDA", "ROCm", "Metal", "昇腾"].map((t, i) => (
+        <text x={94 + i * 89} y="409" font-size="10" fill={t === "昇腾" ? "#fff" : "#424245"} text-anchor="middle" font-family="PingFang SC, sans-serif">{t}</text>
+      ))}
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · MAP</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">两套存储层级对上号</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <text x="120" y="150" font-size="10" font-weight="600" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">GPU</text>
+      <text x="340" y="150" font-size="10" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">昇腾 NPU</text>
+      {[
+        { g: "global memory", a: "global memory", y: 170 },
+        { g: "shared memory", a: "L1 buffer / unified buffer", y: 240 },
+        { g: "寄存器", a: "L0A / L0B / L0C", y: 310 },
+      ].map((row) => (
+        <g>
+          <rect x="50" y={row.y} width="150" height="44" rx="9" fill="#fff" stroke="#dedee3" />
+          <text x="125" y={row.y + 27} font-size="10" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">{row.g}</text>
+          <line x1="204" y1={row.y + 22} x2="256" y2={row.y + 22} stroke="#0066cc" stroke-width="1.5" stroke-dasharray="3 3" />
+          <rect x="260" y={row.y} width="150" height="44" rx="9" fill={row.y === 240 ? "#eaf2fb" : "#fff"} stroke={row.y === 240 ? "#0066cc" : "#dedee3"} />
+          <text x="335" y={row.y + 27} font-size="9.5" fill={row.y === 240 ? "#0066cc" : "#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{row.a}</text>
+        </g>
+      ))}
+      <text x="230" y="392" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">cube 核算矩阵乘 · vector 核算向量 · 编译器自动插同步</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · JIT</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">首次调用时现场编译</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      {[
+        { t: "算子首次调用", y: 150, hot: false },
+        { t: "DeepJIT 运行时编译", y: 214, hot: true },
+        { t: "Bisheng + CANN 9.2", y: 278, hot: false },
+        { t: "NPU 内核执行", y: 342, hot: false },
+      ].map((b, i) => (
+        <g>
+          <rect x="80" y={b.y} width="300" height="46" rx="10" fill={b.hot ? "#eaf2fb" : "#fff"} stroke={b.hot ? "#0066cc" : "#dedee3"} stroke-width={b.hot ? 1.5 : 1} />
+          <text x="230" y={b.y + 28} font-size="11.5" font-weight={b.hot ? 600 : 400} fill={b.hot ? "#0066cc" : "#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b.t}</text>
+          {i < 3 && <line x1="230" y1={b.y + 50} x2="230" y2={b.y + 62} stroke="#b8b8bf" stroke-width="1.5" />}
+        </g>
+      ))}
+      <text x="230" y="416" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">安装时不编译设备内核 · 产物缓存在 ~/.dj</text>
+    </svg>
+
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · PEAK</text>
+      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">跑到硬件上限的几成</text>
+      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <line x1="70" y1="160" x2="70" y2="360" stroke="#dedee3" stroke-width="1" />
+      <line x1="70" y1="176" x2="400" y2="176" stroke="#b8b8bf" stroke-width="1" stroke-dasharray="4 4" />
+      <text x="70" y="150" font-size="9.5" fill="#86868b" font-family="PingFang SC, sans-serif">硬件上限 100%</text>
+      {[
+        { t: "GEMM (BF16)", v: 99.8, h: 176, hot: true },
+        { t: "注意力 prefill", v: 95, h: 184, hot: false },
+        { t: "dispatch (EP≤32)", v: 92.5, h: 188, hot: false },
+        { t: "注意力 decode", v: 83, h: 204, hot: false },
+      ].map((b, i) => (
+        <g>
+          <rect x={100 + i * 76} y={b.h} width="52" height={360 - b.h} rx="6" fill={b.hot ? "#0066cc" : "#d6d6db"} />
+          <text x={126 + i * 76} y={b.h - 8} font-size="10" font-weight="600" fill={b.hot ? "#0066cc" : "#424245"} text-anchor="middle" font-family="PingFang SC, sans-serif">{b.v}%</text>
+          <text x={126 + i * 76} y="378" font-size="9" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{b.t}</text>
+        </g>
+      ))}
+      <text x="230" y="414" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">官方自测 · 昇腾 950DT · 口径见各仓库 README</text>
+    </svg>
+  </ScrollStory>
+  <Prose tile>
+
+这五步里真正的护城河在第二步和第三步。第二步决定一门语言能覆盖多少硬件。TileLang 的后端列表里，CUDA 是主后端，ROCm、昇腾 950、Metal 在主线内，昇腾 A2/A3、沐曦、摩尔线程、海光等走独立适配仓库。第三步决定性能能不能打平——昇腾的 cube/vector 双核结构与 GPU 的 SM 差异很大，存储层级映射做不对，上层语法再优雅也跑不满。
+
+公告里那句「对昇腾 Ascend C 底层指令进行封装、提供高级语言的编程方式、同时不损失硬件性能」，说的就是这两层。
+
+  </Prose>
+</Section>
+
+<Section canvas id="libraries">
+  <SectionHead
+    index="04"
+    kicker="五库"
+    title="各自解决什么问题"
+    lead="五个库覆盖一次训练前向的主要环节：算、传、路由、注意力、筛选。"
+  />
+  <CardGrid cols={3}>
+    <InfoCard surface="white" label="计算库" title="DeepGEMM-Ascend：矩阵乘跑到 99.8%">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        支持 BF16 / FP8 / FP4 GEMM、MQA logits、MegaMoE。对昇腾 MAD（矩阵乘加）原语做轻量抽象，藏起分形布局、对齐约束、地址计算这些细节；用稀疏数据加载、协程流水线逼近硬件极限。稠密 BF16 GEMM（4096×7168×16384）达 431 TFLOPS，为硬件上限的 99.8%（昇腾 950DT，CANN 9.20，官方自测）。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="通信库" title="DeepEP-Ascend：EP32 以内跑满九成带宽">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        提供 MoE dispatch / combine 的 all-to-all，支持 FP8 dispatch 与延迟 epilogue；底层用 HCCL/HCOMM、UBMEM、URMA，经 DeepJIT 运行时编译。EP8 dispatch 373–375 GB/s，EP128 313–320 GB/s；EP32 以内持续吞吐达物理带宽的 90–95%（昇腾 950DT，CANN 9.2.0，PoC HDK，超节点外部 Clos 网络）。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="算子库" title="TileKernels：一套 API 两个平台">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        用 TileLang 写的算子库，覆盖 MoE 路由、Engram、FP8/FP4 量化、流形超连接（mHC）、RoPE。9 月 30 日起同一套 Python API 在英伟达 GPU 与昇腾 NPU 上都能跑，运行时自动选后端。官方称全部算子已用于内部训练与推理。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="注意力" title="FlashMLA：prefill 410 TFLOPS">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        DeepSeek V4.1 推理用的稀疏注意力（DSA）算子库。昇腾 950 版 prefill 达 410 TFLOPS（95% 硬件峰值）、decode 360 TFLOPS（83%），支持 FP8 / FP4 KV cache。注意 9 月 30 日版本移除了 Hopper 架构与 V3 / V3.2 / V4.0 的支持，KV cache 格式也变了。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="数据筛选" title="DeepSelect：TopK 加速 2–20 倍">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        为 DSA 的 Lightning Indexer 场景与采样器定制的 TopK 算子，主优化目标是 topk=512（V4 的配置）。TopK 不做浮点运算，比的是有效内存带宽。昇腾版目前只支持 bf16 输入与 int32 索引；fp32 采样场景仍只有 CUDA 版。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose tile>
+
+**一次前向里，五个库各管一段。** 以 DeepSeek V4 的一次推理前向为例：输入 token 先经过稀疏注意力（DSA），由 DeepSelect 从 KV cache 里筛出最相关的 512 个 token，FlashMLA 只对这部分 token 算注意力；进入 MoE 层后，路由为每个 token 选出 6 个专家，DeepEP 把 token 分发到专家所在的卡（dispatch），DeepGEMM 做专家内部的矩阵乘，DeepEP 再把结果收回（combine）。TileKernels 提供路由打分、FP8/FP4 量化、RoPE 这些配套算子。
+
+实际调用都很短。DeepGEMM 的普通矩阵乘就是一行 `deep_gemm.fp8_gemm_nt(...)`，签名 `D = C + A @ B.T`，缩放因子按 UE8M0 打包格式传入；昇腾上首次调用时由 DeepJIT 现场编译，产物缓存在 `~/.dj`。DeepEP 的核心是一个长期存活的 buffer，dispatch 和 combine 都走它：
+
+```python
+from deep_ep import EPBuffer
+buffer = EPBuffer(ep_group, num_max_tokens_per_rank=4096,
+                  hidden=7168, num_topk=6)
+buffer.dispatch(x, topk_idx=idx, topk_weights=w, num_experts=256)
+```
+
+TileKernels 是一组小算子，比如把权重量化成 DeepGEMM 要求的 FP8 布局：
+
+```python
+import tile_kernels
+q_fp8, q_sf = tile_kernels.quant.per_token_cast(
+    q_bf16, 'e4m3', 128, use_packed_ue8m0=True)
+```
+
+FlashMLA 的解码内核在循环里逐 token 调用，KV cache 走 FP8/FP4 量化格式：
+
+```python
+from flash_mla import flash_mla_with_kvcache
+o, lse = flash_mla_with_kvcache(
+    q, kvcache, block_table, cache_seqlens, dv,
+    tile_scheduler_metadata, num_splits, indices=indices)
+```
+
+DeepSelect 就是一个 TopK，但为 DSA 的 topk=512 场景做了极致优化：
+
+```python
+import deep_select
+values, indices = deep_select.topk(x, 512, indices_type=torch.int32)
+```
+
+五个库的调用风格一致：输入输出都是普通 PyTorch tensor，底层的硬件细节（分形布局、地址计算、通信原语）全部藏在库里。换硬件平台时，训练框架只改后端，算子代码不用动。
+
+  </Prose>
+  <Prose tile>
+
+五个库在英伟达侧已经过 V3.2、V4、V4.1 三代模型的生产验证，昇腾侧要回答的问题只有一个：同样的代码，性能差多少。从官方自测看，答案是不差——至少在昇腾 950 这一代、在这些关键算子上。
+
+  </Prose>
+</Section>
+
+<Section canvas id="language">
+  <SectionHead
+    index="05"
+    kicker="语言"
+    title="为什么是 TileLang"
+    lead="算子库可以逐个移植，语言路线错了，整个栈都要重来。"
+  />
+  <Prose tile>
+
+这次开源真正的主角是 TileLang。算子库可以逐个移植，语言路线错了，整个栈都要重来。
+
+做 GPU 算子语言的不止一家。最主流的是 OpenAI 的 Triton，vLLM 等推理栈都在用；最底层的是 CUDA 本身，性能上限最高但只属于英伟达。TileLang 的位置在两者之间：比 CUDA 好写，比 Triton 更强调性能可移植。它的[论文](https://arxiv.org/abs/2504.17577)把调度空间（线程绑定、布局、张量化、流水线）做成一组注解和原语，编译器负责把它们降到不同硬件。
+
+代码量的对比最直观。2025 年 9 月华为全联接大会的开发者日上，TileLang 团队成员董宇骐现场展示：FlashAttention 算子的开发从 500 多行降到 80 行，性能与官方版本持平（媒体报道口径）。海外社区还有开发者称，用不到 100 行 TileLang 写出了比 FlashAttention 2 原版快 30% 的注意力实现——这是单一来源的社区说法，我没有找到独立复现。
+
+DeepSeek 用脚投票的过程很清楚：V3.2 被社区发现用 TileLang（2025 年 9 月），V4 训练大部分算子由 TileLang 实现（2026 年 4 月官方口径），今天昇腾后端进入主线。公告里有一句话说得很直白：TileLang 昇腾版本「希望能对更多 AI 芯片建立高可用软件生态起到示范作用」。它的后端列表也确实在往这个方向走：主线内有 CUDA、ROCm、昇腾 950、Metal，适配仓库覆盖昇腾 A2/A3、沐曦、摩尔线程、海光、日出。
+
+  </Prose>
+  <Prose tile>
+
+**TileLang 代码长什么样。** README 里有一个完整例子：带 ReLU 的 FP16 矩阵乘，FP32 累加，二十来行：
+
+```python
+import torch
+import tilelang
+import tilelang.language as T
+
+@tilelang.jit
+def matmul_relu(A, B, block_M: int = 128, block_N: int = 128, block_K: int = 32):
+    M, N, K = T.const("M, N, K")
+    A: T.Tensor((M, K), T.float16)
+    B: T.Tensor((K, N), T.float16)
+    C = T.empty((M, N), T.float16)
+
+    with T.Kernel(T.ceildiv(N, block_N), T.ceildiv(M, block_M), threads=128) as (bx, by):
+        A_shared = T.alloc_shared((block_M, block_K), T.float16)
+        B_shared = T.alloc_shared((block_K, block_N), T.float16)
+        C_local = T.alloc_fragment((block_M, block_N), T.float32)
+
+        T.clear(C_local)
+        for k in T.Pipelined(T.ceildiv(K, block_K), num_stages=3):
+            T.copy(A[by * block_M, k * block_K], A_shared)
+            T.copy(B[k * block_K, bx * block_N], B_shared)
+            T.gemm(A_shared, B_shared, C_local)
+
+        for i, j in T.Parallel(block_M, block_N):
+            C_local[i, j] = T.max(C_local[i, j], 0)
+
+        T.copy(C_local, C[by * block_M, bx * block_N])
+
+    return C
+```
+
+逐行读它。`@tilelang.jit` 让函数在第一次调用时按实际矩阵形状现场编译，换个形状就重新编译一份。`T.Kernel(...)` 声明线程块网格：每个块负责输出矩阵里的一个 128×128 tile，块内 128 个线程。`alloc_shared` 申请的是片上缓存（GPU 上是 shared memory，昇腾上对应 cube 核的 L1 buffer），`alloc_fragment` 申请的是寄存器级存储（昇腾上对应 L0A / L0B / L0C）。`T.Pipelined` 是软件流水线：搬下一块数据和算当前这块重叠进行，`num_stages=3` 表示三级流水。`T.gemm` 是真正的矩阵乘，编译器把它降到目标硬件的矩阵单元，GPU 上是 tensor core，昇腾上是 cube 核。最后 `T.Parallel` 里的 `T.max` 是 ReLU 收尾，一行写完。
+
+人写的部分是「tile 怎么搬、怎么算」：哪些数据进片上缓存、流水几级、矩阵乘放在哪。编译器管的部分是「线程怎么绑、指令怎么排」：`threads=128` 只是个提示，具体的线程映射、寄存器分配、指令调度都由后端完成。这就是「数据流与调度解耦」在代码里的样子，也是 TileLang 能一份源码跑多个后端的原因。
+
+  </Prose>
+  <CompareTable
+    tile
+    headers={[
+      { label: "对比项" },
+      { label: "CUDA" },
+      { label: "Triton" },
+      { label: "TileLang" },
+    ]}
+    rows={[
+      ["出身", "英伟达，2007", "OpenAI，2021", "北大团队，2025-01 开源"],
+      ["编程模型", "低层 SIMT，手写线程与共享内存", "Python DSL，block 级算子", "tile 级 DSL，数据流与调度解耦"],
+      ["硬件覆盖", "仅英伟达", "依赖各厂商手写后端", "主线四后端，多家国产芯片走社区适配"],
+      ["生产用户", "全行业", "vLLM 等主流推理栈", "DeepSeek V4 训练大部分算子（官方口径）"],
+    ]}
+  />
+</Section>
+
+<Section canvas id="supernode">
+  <SectionHead
+    index="06"
+    kicker="超节点"
+    title="通信库的真正舞台"
+    lead="公告里那句「128 卡超节点方案」，是理解 DeepEP-Ascend 测试口径的钥匙。"
+  />
+  <Prose tile>
+
+通信库的舞台不是单机，是超节点。公告里有一句容易被略过的话：双方「共同推进基于昇腾 950 的 128 卡超节点方案」。DeepEP-Ascend 的性能测试也全部在超节点网络上完成——netlayer 1，即超节点的外部 Clos 网络。
+
+为什么通信对 MoE 这么重要？DeepSeek 的模型每个 token 要路由到 6 个专家（top-6），dispatch 把 token 发给对应专家所在的卡，combine 再把结果收回来，这是一次全连接的 all-to-all 通信。EP 规模越大，通信占比越高：DeepEP-Ascend 的自测里，dispatch 带宽从 EP8 的 373–375 GB/s 缓慢降到 EP128 的 313–320 GB/s，EP32 以内能跑到物理带宽的九成以上。官方也坦白了短板：EP64 / EP128 与 combine 仍在优化，combine 有额外的本地归约开销和与 URMA 的 HBM 竞争。
+
+硬件背景值得交代。华为 2025 年 9 月公布昇腾路线图（950PR 推理、950DT 训练、960、970）；2026 年 7 月 WAIC 上，Atlas 950 SuperPoD 真机亮相：1024 张 NPU 高速互联、256TB 统一内存编址、灵衢互联协议、往返时延约 3 微秒；上一代 384 超节点已商用超过 750 套。DeepSeek 与华为合作的 128 卡方案，可以理解为这个体系里面向训练的一个规模单元。
+
+放在更大的背景里，这是出口管制下国产算力自我加速的一部分：英伟达 H200 今年 8 月才确认交付中国客户，占其数据中心收入不到 1%，而国产替代在推理侧已经跑上大规模流量（参见本站[《H200 对华销售核实》](/posts/2026-09-23-nvidia-h200-china-verification/)）。DeepSeek 这次开源，补上的是训练侧最硬的一块：算子栈。
+
+  </Prose>
+</Section>
+
+<Section canvas id="limits">
+  <SectionHead
+    index="07"
+    kicker="边界"
+    title="哪些还没做完"
+    lead="官方 README 比公告诚实得多。把六个仓库读完，边界很清楚。"
+  />
+  <CardGrid cols={2}>
+    <InfoCard surface="white" label="通信库" title="DeepEP-Ascend 仍在施工">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Bucket 的 reduce-scatter / all-reduce 还没写；专家负载均衡的通信内核未实现；PP 与 Engram 只是实验性。性能数字基于 DeepSeek 拿到的 PoC HDK 加手动配置，商用 HDK 计划 2026 年 10 月中才发布；其他昇腾代际与 CANN 版本未验证。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="注意力" title="FlashMLA 昇腾只有稀疏注意力">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        融合 norm-RoPE-attn-RoPE-cast 内核与稠密 MHA 仍是 CUDA 独占；9 月 30 日版本移除了 Hopper 与 V3 / V3.2 / V4.0 支持，KV cache 格式也变了，旧模型要切回旧 commit。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="数据筛选" title="DeepSelect 昇腾是功能子集">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        只支持 bf16 输入、int32 索引；fp32 的采样场景只有 CUDA 实现。NaN 检查默认开启，发现 NaN 直接 trap 中止。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="语言" title="TileLang 昇腾 950 是 Supported 不是 Primary">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        需要源码编译（USE_ASCEND=ON），依赖 CANN 与 torch_npu；昇腾 A2 / A3 走独立的 tilelang-ascend 适配仓库，不进发布 wheel。主后端仍是 CUDA。
+      </p>
+    </InfoCard>
+  </CardGrid>
+  <Prose tile>
+
+还有一层公告没说的：这次开源能证明的是「昇腾 950 能跑 DeepSeek 全栈」，不等于所有国产芯片都能。TileLang 的多后端列表里，真正进主线的国产后端只有昇腾 950 一家，其余仍是独立适配。语言降低了移植成本，但每个后端的性能打磨仍然是按月计的工程。
+
+接下来值得跟踪的节点：10 月中华为 Atlas 850E 商用 HDK 发布后，DeepEP-Ascend 的性能数字能否在公开版本上复现；昇腾 960（已宣布提前至 2027 年 Q1）出来后，这套算子栈多久能跟上；以及 TileLang 的适配仓库里，会不会出现下一个进入主线的国产后端。
+
+  </Prose>
+</Section>
+
+<Summary
+  surface="white"
+  takeaways={[
+    {
+      title: "实质是「一套算子代码、两个硬件平台」",
+      conclusion: "DeepSeek 把生产级算子栈跨平台化：TileLang 负责语言层，DeepGEMM / DeepEP / TileKernels / FlashMLA / DeepSelect 五个库与英伟达版一一对应，API 一致、代码同仓、能力对应。",
+      detail: "性能口径：稠密 GEMM 达硬件上限 99.8%、稀疏注意力 prefill 410 TFLOPS（95% 峰值）、MoE dispatch 达物理带宽 90–95%（EP≤32），均为各仓库 README 官方自测。",
+    },
+    {
+      title: "语言路线比单颗芯片更值得跟踪",
+      conclusion: "TileLang 承载了 DeepSeek V4 训练大部分算子，后端覆盖 CUDA / ROCm / 昇腾 / Metal 与多家国产芯片适配——它决定的是 DeepSeek 的栈未来能跑在多少种硬件上。",
+      detail: "边界同样明确：通信库仍在施工，多个组件只支持昇腾 950；「昇腾能跑」不等于「国产芯片都能跑」。",
+    },
+  ]}
+  note="口径说明：公告内容依据 DeepSeek 官方公众号 2026-09-30 文章；性能数字均出自各开源仓库 README 的官方自测（昇腾 950DT，CANN 9.20 / 9.2.0，具体形状与环境见各仓库）；TileLang 出身与代码量对比依据观察者网、36氪等媒体报道及华为全联接 2025 开发者日分享，社区「快 30%」说法为单一来源、未独立复现；超节点数据依据每日经济新闻 2026-07-17 报道；DeepSeek V4 信息依据官方发布页。本文写作于 2026-09-30，各仓库仍在快速迭代。"
+/>
+</ArticleCanvas>
