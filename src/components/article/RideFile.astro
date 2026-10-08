@@ -1,0 +1,52 @@
+---
+/**
+ * Ride spec-sheet tile for itinerary sections. One borderless white tile on
+ * the canvas gray field holding hairline-separated ride rows; each row pairs
+ * the ride name with a muted context tag, then a label/value spec list
+ * (locker / queue / seat). Labels are typographic (muted meta column),
+ * never bold inline tags — the tile is a file, not a form.
+ */
+interface RideSpec {
+  label: string;
+  value: string;
+}
+interface RideEntry {
+  name: string;
+  context?: string;
+  specs: RideSpec[];
+}
+interface Props {
+  /** eyebrow line, e.g. "项目档案 · 变形金刚基地" */
+  title?: string;
+  rides: RideEntry[];
+  class?: string;
+}
+
+const { title, rides, class: className = '' } = Astro.props;
+---
+
+<article class:list={['not-prose rounded-[18px] bg-white px-6 py-5', className]}>
+  {title && <p class="eyebrow">{title}</p>}
+  <div class:list={[title && 'mt-4']}>
+    {
+      rides.map((ride, i) => (
+        <div class:list={[i > 0 && 'mt-5 border-t border-line-soft pt-5']}>
+          <div class="flex items-baseline justify-between gap-4">
+            <h4 class="text-[14.5px] font-semibold leading-snug text-ink">{ride.name}</h4>
+            {ride.context && (
+              <span class="shrink-0 text-[11.5px] leading-snug text-muted-2">{ride.context}</span>
+            )}
+          </div>
+          <dl class="mt-3 space-y-2">
+            {ride.specs.map((s) => (
+              <div class="grid grid-cols-[3em_1fr] gap-x-3">
+                <dt class="text-[12px] leading-[1.7] text-muted-2">{s.label}</dt>
+                <dd class="min-w-0 text-[13px] leading-[1.7] text-ink-2">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))
+    }
+  </div>
+</article>

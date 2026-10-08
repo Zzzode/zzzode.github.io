@@ -69,6 +69,28 @@ import { ArticleCanvas, Section, SectionHead, Prose } from '@/components/article
 </CardGrid>
 ```
 
+## RideFile — ride spec-sheet tile (itineraries)
+
+One borderless white tile holding hairline-separated rows; each row is a ride name + muted context tag, then a typographic label/value spec list (locker / queue / seat). Labels are a muted meta column — never bold inline tags. Place one tile right after the `Schedule` phase it details.
+
+`rides: { name, context?, specs: { label, value }[] }[]`; `title?` eyebrow (e.g. "项目档案 · 变形金刚基地").
+
+```mdx
+<RideFile
+  title="项目档案 · 变形金刚基地"
+  rides={[
+    {
+      name: "霸天虎过山车",
+      context: "优速通 · 单人通道二刷",
+      specs: [
+        { label: "存包", value: "过金属探测，零散物品全部入柜；免费，超时收费。" },
+        { label: "座位", value: "第一排视野最开阔，最后一排被甩得最狠。（经验值）" },
+      ],
+    },
+  ]}
+/>
+```
+
 ## DualCompare — point-by-point subject A vs B
 
 Props: `aTitle`, `bTitle`, `aLabel?`, `bLabel?` (default A/B). Slots `a` / `b` carry symmetric content. Both cards must carry the same three layers when making a technical comparison: architecture / pipeline / user difference (use `<BlockTitle title="架构设计" />`). Blue dot marks A, orange marks B — affiliation only, never ranking.
