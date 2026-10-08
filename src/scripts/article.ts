@@ -55,7 +55,11 @@ function init() {
           }
         }
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+      // threshold 0 (not a percentage): a section taller than the viewport
+      // can never expose 8% of itself inside the viewport, so a ratio
+      // threshold would leave it permanently invisible. The -8% bottom
+      // rootMargin already keeps reveals from firing too early.
+      { rootMargin: '0px 0px -8% 0px', threshold: 0 }
     );
     revealables().forEach((el) => {
       el.classList.add('reveal-pending');
