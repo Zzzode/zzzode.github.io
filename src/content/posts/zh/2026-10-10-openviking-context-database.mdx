@@ -1,0 +1,472 @@
+---
+title: "给 AI Agent 一个共享文件系统：拆解 OpenViking"
+date: 2026-10-10
+excerpt: "OpenViking 是字节跳动 Viking 团队开源的 Agent 上下文数据库：把知识、记忆和技能组织成一个 viking:// 虚拟文件系统，让 Codex、Claude Code、Trae 等不同 Agent 共享同一份上下文。本文拆解它的三层加载机制、Session Commit 记忆提取流程，以及跨 Agent 交接的实际工作流。"
+tags: ["OpenViking", "AI Agent", "上下文管理", "MCP", "开源"]
+kind: "distilled"
+sources:
+  - title: "OpenViking：面向 Agent 的统一上下文数据库 · 字节跳动技术团队"
+    url: "https://mp.weixin.qq.com/s/AEaqq7jz0mcdebH0xFHyzQ"
+  - title: "OpenViking GitHub 仓库 · volcengine/OpenViking"
+    url: "https://github.com/volcengine/OpenViking"
+  - title: "OpenViking 官方文档 · Context Layers (L0/L1/L2)"
+    url: "https://docs.openviking.ai/en/concepts/03-context-layers"
+  - title: "OpenViking 官方文档 · Session Management"
+    url: "https://docs.openviking.ai/en/concepts/08-session"
+  - title: "OpenViking 官方文档 · Context Types"
+    url: "https://docs.openviking.ai/en/concepts/02-context-types"
+  - title: "OpenViking 官方文档 · Viking URI"
+    url: "https://docs.openviking.ai/en/concepts/04-viking-uri"
+  - title: "OpenViking 官方文档 · Quickstart"
+    url: "https://docs.openviking.ai/en/getting-started/02-quickstart"
+  - title: "OpenViking 官方文档 · FAQ"
+    url: "https://docs.openviking.ai/en/faq/faq"
+  - title: "Should You Use OpenViking? · OpenViking Blog"
+    url: "https://blog.openviking.ai/post/should-you-use-openviking/"
+  - title: "火山引擎 OpenViking 产品页"
+    url: "https://www.volcengine.com/product/openviking-service"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  ArticleCanvas,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  ScrollStory,
+  Timeline,
+  Steps,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+
+<CoverBanner
+  kicker="产品发布 · 字节跳动技术团队 · 2026-10-09"
+  title="给 AI Agent 一个共享文件系统：拆解 OpenViking"
+  lead="OpenViking 是字节跳动 Viking 团队开源的 Agent 上下文数据库。它把知识、记忆和技能组织成一个 viking:// 虚拟文件系统，让 Codex、Claude Code、Trae 等不同 Agent 读写同一份上下文。Agent 换了，上下文还在。"
+  pills={[
+    { label: "viking:// 文件系统" },
+    { label: "L0/L1/L2 三层加载" },
+    { label: "Session Commit" },
+    { label: "跨 Agent 交接" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" class="block w-full" role="img" aria-label="三个 Agent 连接到同一个 viking:// 共享上下文文件系统">
+    <text x="230" y="28" font-size="11" font-weight="600" letter-spacing="1.6" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">SHARED CONTEXT LAYER</text>
+
+    {[["Claude Code", 72], ["Codex", 230], ["Trae", 388]].map((a) => (
+      <g>
+        <rect x={Number(a[1]) - 52} y="52" width="104" height="36" rx="18" fill="#fff" stroke="#dedee3" stroke-width="1.2" />
+        <text x={Number(a[1])} y="75" font-size="11.5" font-weight="600" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">{a[0]}</text>
+        <line x1={Number(a[1])} y1="88" x2={Number(a[1])} y2="128" stroke="#c7c7cc" stroke-width="1.4" />
+      </g>
+    ))}
+
+    <rect x="90" y="132" width="280" height="140" rx="20" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.6" />
+    <text x="230" y="162" font-size="14" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">viking://</text>
+
+    <rect x="112" y="178" width="110" height="32" rx="8" fill="#fff" stroke="#dedee3" />
+    <text x="167" y="199" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">resources/</text>
+
+    <rect x="238" y="178" width="110" height="32" rx="8" fill="#fff" stroke="#dedee3" />
+    <text x="293" y="199" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">memories/</text>
+
+    <rect x="175" y="220" width="110" height="32" rx="8" fill="#fff" stroke="#dedee3" />
+    <text x="230" y="241" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">skills/</text>
+
+    <text x="230" y="296" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">Agent 用 ls / tree / read / grep 导航上下文</text>
+  </svg>
+</CoverBanner>
+
+<Prose>
+
+你在 Claude Code 里把一个项目做到一半，额度用完了，切到 Codex 继续。新 Agent 面对的是一段简短的 handoff 说明和一堆代码文件。之前聊过的背景、试过的方案、排查过的坑，全都丢了。你不得不重新解释一遍，等着新 Agent 从头再来。
+
+这不是模型不够聪明的问题。是上下文没有跟着任务走。
+
+OpenViking 想解决的就是这个问题。它是字节跳动 Viking 团队开源的 Agent 上下文数据库，把知识、记忆和技能组织成一个 `viking://` 虚拟文件系统。豆包、Trae、Codex、Claude Code 都可以接到同一个 OpenViking 上读写。Agent 换了，上下文还在。
+
+</Prose>
+
+<ArticleCanvas>
+
+  <Section canvas id="backdrop">
+    <SectionHead
+      index="01"
+      kicker="前因"
+      title="Agent 多了，上下文碎了"
+      lead="MCP 解决了 Agent 怎么调工具，但没解决 Agent 怎么记住事情。"
+    />
+    <Prose tile>
+
+2024 年底 Anthropic 发布 MCP（Model Context Protocol），解决了 Agent 标准化调用工具的问题。但 MCP 管的是"手"，不管"脑"。Agent 能调工具了，可它的记忆仍然锁在各自的会话窗口里。
+
+2025 年 Coding Agent 爆发。Claude Code、Codex、Cursor、Trae、豆包各占山头，用户在不同 Agent 之间切换的原因五花八门：额度、环境、合规、工具适配、阶段分工。不管原因是什么，切换的代价都一样：上下文断了。项目做到哪了、为什么选这个方案、哪些路走不通，全在历史对话里，新 Agent 看不到。
+
+文件方案比聊天记录好。Claude Code 有 `CLAUDE.md`，Cursor 有 `.cursor/rules`，把项目约定写成文件，Agent 启动时读一遍。但这些文件是 Agent 各自为政的。你在 Claude Code 里花了三天调教出来的偏好，切到 Cursor 就得重来。
+
+向量数据库提供了另一种思路：把所有内容向量化，用相似度搜索召回。但大多数 Agent 记忆是个黑箱：文本进去，向量出来，没人能看到实际存了什么。检索出了问题，也没法排查是存错了还是搜错了。
+
+OpenViking 选了另一条路：把上下文组织成文件系统。Agent 用 `ls`、`tree`、`read`、`grep` 导航，每个目录都能打开检查。存了什么、缺了什么，一目了然。
+
+    </Prose>
+    <Timeline
+      nodes={[
+        { year: "2024-11", title: "MCP 发布", body: "Anthropic 开源 Model Context Protocol，标准化 Agent 与工具的连接方式。" },
+        { year: "2025", title: "Coding Agent 爆发", body: "Claude Code、Codex、Cursor 各占山头，用户开始在多个 Agent 之间切换。" },
+        { year: "2025–2026", title: "上下文断裂成为痛点", body: "CLAUDE.md、.cursor/rules 等文件方案各自为政，跨 Agent 记忆无法共享。" },
+        { year: "2026-10", title: "OpenViking 开源", body: "字节跳动 Viking 团队发布开源上下文数据库，AGPL-3.0 协议。" },
+      ]}
+    />
+  </Section>
+
+  <Section canvas id="overview">
+    <SectionHead
+      index="02"
+      kicker="总览"
+      title="一个文件系统装下 Agent 知道的一切"
+      lead="三种上下文，三种存法。"
+    />
+    <Prose tile>
+
+OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent 背后，是一个共享的上下文层。三种上下文类型各有分工。Resource 存事实和依据，Memory 存从交互里学到的经验。Skill 存做事的方法。
+
+    </Prose>
+    <CardGrid>
+      <InfoCard label="RESOURCE" title="知识依据层">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted">项目文档、代码仓库、API 手册、技术规范。按目录归档在 <code>viking://resources/</code> 下，用户主动添加，支持定时刷新远程源。</p>
+      </InfoCard>
+      <InfoCard label="MEMORY" title="动态认知层">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted">用户偏好、交互习惯、任务经验。从会话中自动提取，存储在 <code>viking://~/memories/</code> 下，以 Markdown 格式保存，可读可编辑。</p>
+      </InfoCard>
+      <InfoCard label="SKILL" title="标准能力层">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted">任务指令和工作流定义。存在 <code>viking://~/skills/</code> 或 <code>viking://agent/skills/</code> 下，Agent 按需读取执行。</p>
+      </InfoCard>
+    </CardGrid>
+    <div class="mt-6">
+      <StatGrid cols={3}>
+        <Stat value="80–83%" label="LoCoMo 记忆准确率（原生 24–57%）" />
+        <Stat value="34–91%" label="输入 token 减少幅度" />
+        <Stat value="58–66%" label="查询延迟降低幅度" />
+      </StatGrid>
+    </div>
+    <Prose tile>
+
+这组数字来自 OpenViking 官方 README 的 benchmark 报告。评测使用豆包 2.0 Pro 作为 VLM、豆包 embedding 模型，在 LoCoMo 长对话记忆数据集上测了三个 Agent 集成。tau2-bench（多轮 Agent 任务）上，经验记忆让任务成功率提升 6.87 个百分点（零售场景）和 11.87 个百分点（航空场景）。第三方独立复现结果我没有查到，数字口径以官方报告为准。
+
+    </Prose>
+  </Section>
+
+  <Section canvas id="mechanism">
+    <SectionHead
+      index="03"
+      kicker="机制"
+      title="三层加载：不把整个知识库塞进上下文"
+      lead="随页面滚动，流程图会逐步展示上下文的写入、分层、检索、加载和提交。"
+    />
+    <ScrollStory
+      steps={[
+        {
+          tag: "01 · 写入",
+          title: "Agent A 把上下文写进文件系统",
+          body: "项目文档、代码仓库写进 viking://resources/，交互偏好和技术约束写进 viking://~/memories/。内容按目录归档，不进扁平的向量池。每个目录都可以用 ls 和 tree 直接浏览，你能看到 Agent 到底存了什么。",
+        },
+        {
+          tag: "02 · 分层",
+          title: "每个目录自动生成两级摘要",
+          body: "目录写入后，OpenViking 用 LLM 自动生成 L0（约 256 字的一句话摘要）和 L1（约 4000 字的结构化概览）。L0 做向量检索和快速过滤；L1 更厚，负责导航和重排。这两级是目录级的 sidecar 文件（.abstract.md 和 .overview.md），不是每个文件都有。",
+        },
+        {
+          tag: "03 · 检索",
+          title: "在目录范围内语义搜索",
+          body: "Agent B 接入后，不需要把所有历史材料一次性塞进上下文。它先在目录范围内做语义搜索（ov find 命令），读 L0 摘要判断哪些目录相关。搜索范围可以缩小到某个项目或某个记忆子树，不用扫描整个向量池。",
+        },
+        {
+          tag: "04 · 加载",
+          title: "先读摘要，再读原文",
+          body: "相关才读 L1 做规划，真正需要核对细节时才加载 L2 原文。大多数查询在 L0/L1 就解决了。这就是为什么 benchmark 里输入 token 能降 34.3% 到 91.0%：Agent 按需逐层加载，不用把整个知识库塞进上下文窗口。",
+        },
+        {
+          tag: "05 · 提交",
+          title: "Session Commit 归档并提取记忆",
+          body: "任务结束后调 commit()，OpenViking 同步归档对话（messages.jsonl），异步生成结构化摘要并提取长期记忆。记忆以 Markdown 格式存储，附带 memory_diff.json 审计日志，记录每次记忆的增删改。你可以打开任何一个记忆文件检查和编辑。",
+        },
+      ]}
+    >
+      <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
+        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · 写入</text>
+        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">Agent A 把上下文写进文件系统</text>
+        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+
+        <rect x="40" y="140" width="100" height="40" rx="20" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+        <text x="90" y="165" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Agent A</text>
+
+        <path d="M140 160 L185 160" stroke="#86868b" stroke-width="1.6" />
+        <path d="M178 155 L185 160 L178 165" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+        <rect x="190" y="130" width="230" height="220" rx="14" fill="#fff" stroke="#dedee3" />
+        <text x="210" y="158" font-size="13" font-weight="600" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">viking://</text>
+
+        <line x1="210" y1="168" x2="210" y2="178" stroke="#c7c7cc" stroke-width="1.2" />
+        <rect x="210" y="178" width="120" height="28" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.2" />
+        <text x="220" y="197" font-size="10.5" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">resources/</text>
+
+        <line x1="220" y1="206" x2="220" y2="216" stroke="#c7c7cc" stroke-width="1.2" />
+        <text x="232" y="232" font-size="10" fill="#424245" font-family="ui-monospace, Menlo, monospace">my_project/</text>
+
+        <line x1="210" y1="240" x2="210" y2="250" stroke="#c7c7cc" stroke-width="1.2" />
+        <rect x="210" y="250" width="120" height="28" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.2" />
+        <text x="220" y="269" font-size="10.5" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">memories/</text>
+
+        <line x1="210" y1="278" x2="210" y2="288" stroke="#c7c7cc" stroke-width="1.2" />
+        <rect x="210" y="288" width="100" height="28" rx="6" fill="#f5f5f7" stroke="#dedee3" />
+        <text x="220" y="307" font-size="10.5" font-weight="600" fill="#424245" font-family="ui-monospace, Menlo, monospace">skills/</text>
+
+        <text x="40" y="392" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">按目录归档，可浏览可检查</text>
+      </svg>
+
+      <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
+        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · 分层</text>
+        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">每个目录自动生成两级摘要</text>
+        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+
+        <rect x="40" y="140" width="380" height="56" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+        <text x="62" y="164" font-size="12" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">L0 · .abstract.md</text>
+        <text x="62" y="184" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">约 256 字 · 一句话摘要 · 向量检索与快速过滤</text>
+
+        <rect x="40" y="210" width="380" height="56" rx="12" fill="#fff" stroke="#dedee3" />
+        <text x="62" y="234" font-size="12" font-weight="600" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">L1 · .overview.md</text>
+        <text x="62" y="254" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">约 4000 字 · 结构化概览 · 导航与重排</text>
+
+        <rect x="40" y="280" width="380" height="56" rx="12" fill="#fff" stroke="#dedee3" />
+        <text x="62" y="304" font-size="12" font-weight="600" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">L2 · 原始文件</text>
+        <text x="62" y="324" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">无上限 · 完整内容 · 按需加载</text>
+
+        <path d="M230 340 v16 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.5" />
+        <text x="230" y="380" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">L0/L1 是目录级 sidecar，由 LLM 自动生成</text>
+      </svg>
+
+      <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
+        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · 检索</text>
+        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">在目录范围内语义搜索</text>
+        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+
+        <rect x="40" y="132" width="380" height="40" rx="20" fill="#fff" stroke="#dedee3" />
+        <text x="62" y="157" font-size="12" fill="#424245" font-family="ui-monospace, Menlo, monospace">ov find "authentication methods"</text>
+
+        <rect x="40" y="184" width="380" height="28" rx="8" fill="#f5f5f7" />
+        <text x="62" y="203" font-size="10.5" fill="#6e6e73" font-family="ui-monospace, Menlo, monospace">scope: viking://resources/my_project/</text>
+
+        {[["auth.md", "OAuth 2.0, JWT tokens, and API keys…", 226], ["api-keys.md", "API key authentication for service…", 268], ["oauth.md", "OAuth 2.0 flow and examples…", 310]].map((r) => (
+          <g>
+            <rect x="40" y={Number(r[2])} width="380" height="36" rx="8" fill="#fff" stroke={r[2] === 226 ? "#0066cc" : "#dedee3"} stroke-width={r[2] === 226 ? "1.4" : "1"} />
+            <text x="62" y={Number(r[2]) + 15} font-size="10.5" font-weight="600" fill={r[2] === 226 ? "#0066cc" : "#1d1d1f"} font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
+            <text x="62" y={Number(r[2]) + 30} font-size="9.5" fill="#6e6e73" font-family="ui-monospace, Menlo, monospace">{r[1]}</text>
+          </g>
+        ))}
+
+        <text x="40" y="380" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">先读 L0 摘要判断相关性，不读全文</text>
+      </svg>
+
+      <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
+        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · 加载</text>
+        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先读摘要，再读原文</text>
+        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+
+        {[["L0", "256 字", "大多数查询停在这里", 62, 1.4, "#0066cc"], ["L1", "4000 字", "需要规划时才读", 192, 1.0, "#424245"], ["L2", "全文", "核对细节才加载", 322, 1.0, "#86868b"]].map((s) => (
+          <g>
+            <rect x={Number(s[3])} y="160" width="100" height="100" rx="16" fill="#fff" stroke={s[5]} stroke-width={s[4]} />
+            <text x={Number(s[3]) + 50} y="200" font-size="16" font-weight="600" fill={s[5]} text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{s[0]}</text>
+            <text x={Number(s[3]) + 50} y="224" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">{s[1]}</text>
+            <text x={Number(s[3]) + 50} y="244" font-size="9.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">{s[2]}</text>
+          </g>
+        ))}
+
+        <path d="M162 210 L192 210 M185 205 L192 210 L185 215" fill="none" stroke="#c7c7cc" stroke-width="1.4" />
+        <path d="M292 210 L322 210 M315 205 L322 210 L315 215" fill="none" stroke="#c7c7cc" stroke-width="1.4" />
+
+        <rect x="40" y="300" width="380" height="44" rx="10" fill="#fff" stroke="#dedee3" />
+        <text x="62" y="320" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">token 消耗：低 → 中 → 高</text>
+        <text x="62" y="338" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">benchmark 输入 token 降幅 34.3% – 91.0%</text>
+
+        <text x="40" y="388" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">按需逐层加载，不把整个知识库塞进上下文</text>
+      </svg>
+
+      <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
+        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
+        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · 提交</text>
+        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">Session Commit 归档并提取记忆</text>
+        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+
+        <rect x="40" y="140" width="120" height="120" rx="14" fill="#fff" stroke="#dedee3" />
+        <text x="100" y="168" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">对话</text>
+        <line x1="60" y1="182" x2="140" y2="182" stroke="#ececf0" stroke-width="1" />
+        <text x="100" y="200" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">messages.jsonl</text>
+        <text x="100" y="220" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">同步归档</text>
+        <text x="100" y="244" font-size="9.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">commit()</text>
+
+        <path d="M160 200 L195 200" stroke="#86868b" stroke-width="1.6" />
+        <path d="M188 195 L195 200 L188 205" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+        <rect x="200" y="140" width="120" height="120" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
+        <text x="260" y="168" font-size="11" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">归档</text>
+        <line x1="220" y1="182" x2="300" y2="182" stroke="#ececf0" stroke-width="1" />
+        <text x="260" y="200" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">archive_001/</text>
+        <text x="260" y="220" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">.abstract.md</text>
+        <text x="260" y="240" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">.overview.md</text>
+
+        <path d="M320 200 L355 200" stroke="#86868b" stroke-width="1.6" stroke-dasharray="4 3" />
+        <path d="M348 195 L355 200 L348 205" fill="none" stroke="#86868b" stroke-width="1.6" />
+
+        <rect x="360" y="140" width="80" height="120" rx="14" fill="#fff" stroke="#dedee3" />
+        <text x="400" y="168" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">记忆</text>
+        <line x1="376" y1="182" x2="424" y2="182" stroke="#ececf0" stroke-width="1" />
+        <text x="400" y="200" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">preferences.md</text>
+        <text x="400" y="220" font-size="9.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">decisions.md</text>
+        <text x="400" y="244" font-size="9" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">async</text>
+
+        <rect x="40" y="290" width="380" height="56" rx="12" fill="#fff" stroke="#dedee3" />
+        <text x="62" y="314" font-size="10.5" font-weight="600" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">memory_diff.json</text>
+        <text x="62" y="334" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">审计日志：记录每次记忆的增（adds）、删（deletes）、改（updates）</text>
+
+        <text x="40" y="388" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">记忆是 Markdown 文件，可读、可编辑、可审计</text>
+      </svg>
+    </ScrollStory>
+    <Prose tile>
+
+这个循环的关键在于"分层"和"提交"两个动作。分层让 Agent 不用一次性读完所有内容，提交让每次会话的经验不会随对话结束而丢失。OpenViking 把这两个动作做成了文件系统的原生操作：读目录读到的是摘要，不用翻原文；提交会话写下来的是文件，不会丢。
+
+    </Prose>
+  </Section>
+
+  <Section canvas id="filesystem">
+    <SectionHead
+      index="04"
+      kicker="深入"
+      title="viking:// 的目录结构"
+      lead="三种上下文，各有各的路径。"
+    />
+    <Prose tile>
+
+`viking://` 的目录结构遵循一套固定的命名规范。`resources/` 放全局共享的知识，`user/` 是每个用户的私有空间，`agent/` 存账号级共享的技能。`~` 是当前用户根目录的别名，`viking://~/memories/` 展开后就是 `viking://user/{user_id}/memories/`。
+
+    </Prose>
+    <CardGrid>
+      <InfoCard label="RESOURCES" title="全局知识空间">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted"><code>viking://resources/</code> 下按项目或主题组织。文档、代码、网页都可以导入，支持定时刷新远程源。所有用户可见。</p>
+      </InfoCard>
+      <InfoCard label="USER" title="用户私有空间">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted"><code>viking://~/</code> 下包含 <code>memories/</code>（记忆）、<code>resources/</code>（私有资料）、<code>skills/</code>（私有技能）、<code>sessions/</code>（会话归档）。只有当前用户可见。</p>
+      </InfoCard>
+      <InfoCard label="AGENT" title="账号共享空间">
+        <p class="mt-2 text-[13px] leading-[1.65] text-muted"><code>viking://agent/skills/</code> 存放账号级共享的技能定义。所有用户可见。endpoint、tool、payment 等子目录在规划中，尚未开放 API。</p>
+      </InfoCard>
+    </CardGrid>
+    <Prose tile>
+
+记忆类型不止"偏好"一种。OpenViking 支持 profile、preferences、entities、events、identity、soul、cases、trajectories、experiences 等多种记忆类型，也支持自定义类型。其中 experiences 会触发 Agent Evolution 流水线：把任务组织成 case，记录执行轨迹（trajectory），从中提炼可复用的经验。这套流水线默认关闭，需要显式开启 `agent_evolution.enabled`。
+
+底层存储方面，OpenViking 用 Rust 写的 RAGFS 文件系统做 in-process 绑定（`ragfs_python`），文件系统逻辑直接在 Python 进程内执行，不再支持旧的 HTTP 客户端模式。预编译的 wheel 里自带 RAGFS 共享库，也可以从源码构建。
+
+    </Prose>
+  </Section>
+
+  <Section canvas id="workflow">
+    <SectionHead
+      index="05"
+      kicker="实战"
+      title="跨 Agent 交接：小 V 的官网 Demo"
+      lead="豆包理需求，Codex 写原型，Trae 收尾。"
+    />
+    <Prose tile>
+
+微信原文里有一个贴近真实工作的案例。小 V 是前端开发，要做一个 OpenViking 官网 Demo。项目随阶段推进切换不同 Agent，没有在同一个 Agent 里从头做到尾。
+
+    </Prose>
+    <Steps
+      steps={[
+        {
+          title: "豆包：梳理需求",
+          body: "在豆包里补 PRD、拆模块、确认页面结构。产出的需求文档和模块拆解作为 Resource 写进 viking://resources/。",
+        },
+        {
+          title: "Codex：生成原型",
+          body: "切到 Codex 或 Claude Code，读 Resource 里的 PRD 和模块拆解，快速生成首页结构和核心代码。交互偏好和技术约束沉淀到 Memory。",
+        },
+        {
+          title: "Trae：继续开发",
+          body: "Codex 额度不够或需要回公司环境时，切到 Trae。先读 Resource 理解产品价值，再读 Memory 看已确认的设计决策和待办，沿 Skill 里的工作流继续 coding。",
+        },
+      ]}
+    />
+    <Prose tile>
+
+切换的时候，前一个 Agent 做过的事情很难原封不动地传给下一个。人工写 handoff 说明既容易丢信息，也会让后一个 Agent 重复理解。OpenViking 在这里承担的是项目上下文中枢的角色，让不同阶段的材料各归其位。
+
+接入方式也不复杂。OpenViking 提供了一键安装脚本，支持 Claude Code、Codex、Cursor、Trae、OpenCode 等主流 Agent，通过 Hooks + MCP 的方式接入。在控制台选择对应的 Agent，点击"复制为 Markdown"，把内容粘贴给 Agent 就能自动完成安装。托管服务前 50 个文档免费，自托管需要 Python 3.10+ 和一个 embedding 模型。
+
+    </Prose>
+  </Section>
+
+  <Section canvas id="limits">
+    <SectionHead
+      index="06"
+      kicker="边界"
+      title="什么时候不需要 OpenViking"
+      lead="它不是万能的，有些场景用不上。"
+    />
+    <Prose tile>
+
+OpenViking 官方博客的测评文章里列了几种不适合的场景。如果你已经有一套跑得好的向量搜索，只是做相似度查询，那现有的数据库可能就够了。无状态的一次性调用也不需要它。还有一个实际限制：记忆是后台异步处理的，你刚说完一件事，立刻问它可能还没存上。
+
+    </Prose>
+    <CompareTable
+      headers={[
+        { label: "场景" },
+        { label: "需要 OpenViking", dot: "a" },
+        { label: "不需要", dot: "b" },
+        { label: "原因", wrap: true },
+      ]}
+      rows={[
+        ["跨 Agent 协作", "✓", "", "上下文需要在不同 Agent 之间共享和延续"],
+        ["长期项目记忆", "✓", "", "偏好、决策、经验需要跨会话保留"],
+        ["知识库检索", "✓", "", "需要目录浏览 + 分层加载 + 语义搜索"],
+        ["一次性查询", "", "✓", "无状态调用，不需要持久化上下文"],
+        ["已有向量库", "", "✓", "只做相似度查询，现有方案够用"],
+        ["即时记忆召回", "", "✓", "记忆异步处理，说完立刻查可能查不到"],
+      ]}
+    />
+    <div class="mt-5">
+      <Callout tone="insight" eyebrow="HONEST ASSESSMENT">
+        OpenViking 的价值取决于你是否真的在多个 Agent 之间切换。如果你只用一个 Agent 做所有事情，CLAUDE.md 加会话历史可能就够了。但如果你经常因为额度、环境或工具适配而切换 Agent，它解决的痛点是真实的。
+      </Callout>
+    </div>
+  </Section>
+
+</ArticleCanvas>
+
+<Summary
+  takeaways={[
+    {
+      title: "把上下文组织成文件系统",
+      conclusion: "OpenViking 把 Agent 上下文组织成 viking:// 虚拟文件系统，用 ls/tree/read/grep 导航，每个目录都可以打开检查。",
+      detail: "这解决了传统向量数据库的黑箱问题：你能看到 Agent 到底存了什么，检索出了问题也能排查。",
+    },
+    {
+      title: "三层加载省 token，Session Commit 保经验",
+      conclusion: "L0/L1/L2 分层加载让 Agent 按需读取，benchmark 输入 token 降 34.3%–91.0%；Session Commit 把每次会话的经验提取为 Markdown 记忆。",
+      detail: "LoCoMo 评测记忆准确率从 24–57% 提升到 80–83%（官方口径，豆包模型）。",
+      dot: "a",
+    },
+  ]}
+  note="本文依据字节跳动技术团队微信公众号文章（2026-10-09）、OpenViking GitHub README、官方文档（Context Layers / Session / Context Types / Viking URI / FAQ / Quickstart）和官方博客炼化。Benchmark 数字来自官方 README，使用豆包 2.0 Pro 作为 VLM，第三方独立复现结果未查到。OpenViking 版本演进可能改变具体 API 和配置方式。"
+/>

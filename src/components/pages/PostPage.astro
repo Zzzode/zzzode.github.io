@@ -160,7 +160,7 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
         ]}
       >
         {newer ? (
-          <a href={hrefOf(newer)} class="group py-5 sm:pr-6 sm:text-left">
+          <a href={hrefOf(newer)} class="group min-w-0 py-5 sm:pr-6 sm:text-left">
             <span class="block text-[11.5px] uppercase tracking-[0.1em] text-muted-2">
               ‹ {t(lang, 'post.newer')}
             </span>
@@ -174,7 +174,7 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
         {older && (
           <a
             href={hrefOf(older)}
-            class="group border-t border-line-soft py-5 sm:border-l sm:border-t-0 sm:border-line sm:pl-6 sm:text-right"
+            class="group min-w-0 border-t border-line-soft py-5 sm:border-l sm:border-t-0 sm:border-line sm:pl-6 sm:text-right"
           >
             <span class="block text-[11.5px] uppercase tracking-[0.1em] text-muted-2">
               {t(lang, 'post.older')} ›
