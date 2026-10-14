@@ -1,0 +1,525 @@
+---
+title: "用 Aster Team 建中转站：反代原理与接入边界"
+date: 2026-10-12
+updated: 2026-10-13
+excerpt: "结合 Aster 源码拆解官方 API 与 Codex 订阅两类上游，说明反代架构、出口隔离，以及多用户共用账号时的会话连贯性和缓存机制，并核对 Claude 接入与商业授权边界。"
+tags: ["Aster", "AI 网关", "反向代理", "Codex", "Claude", "基础设施"]
+kind: "distilled"
+sources:
+  - title: "Aster Team · 项目仓库"
+    url: "https://github.com/huzz-open/aster-team"
+  - title: "Aster Team · Architecture and trust model"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/architecture.md"
+  - title: "Aster Team · Compatible model API"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/api-reference.md"
+  - title: "Aster Team · Connect an authorized AI account"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/guides/connect-ai-account-and-sync-models.md"
+  - title: "Aster Team · Quota and usage accounting"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/guides/quota-reservation-and-usage-accounting.md"
+  - title: "Aster Team · Developer access isolation"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/guides/developer-access-isolation.md"
+  - title: "Aster Team · Configure Codex with an Aster key"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/guides/configure-codex-api-key.md"
+  - title: "Aster Team · Free and paid license guide"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/guides/aster-team-license-guide.md"
+  - title: "Aster Team · Service boundaries"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/service-boundaries.md"
+  - title: "Aster Team · Releases"
+    url: "https://github.com/huzz-open/aster-team/releases"
+  - title: "Aster Team · OpenAI provider source at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/providers/openai.rs"
+  - title: "Aster Team · Codex Responses adapter at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/gateway/responses.rs"
+  - title: "Aster Team · Control implementation at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/lib.rs"
+  - title: "Aster Team · License"
+    url: "https://github.com/huzz-open/aster-team/blob/main/LICENSE"
+  - title: "Aster Team · Cargo workspace metadata"
+    url: "https://github.com/huzz-open/aster-team/blob/main/Cargo.toml"
+  - title: "CLIProxyAPI · 项目仓库"
+    url: "https://github.com/router-for-me/CLIProxyAPI"
+  - title: "LiteLLM · AI Gateway"
+    url: "https://docs.litellm.ai/docs/simple_proxy"
+  - title: "OpenAI · Authentication"
+    url: "https://learn.chatgpt.com/docs/auth"
+  - title: "OpenAI · Advanced Configuration"
+    url: "https://learn.chatgpt.com/docs/config-file/config-advanced"
+  - title: "OpenAI · Sign in with ChatGPT through a gateway"
+    url: "https://learn.chatgpt.com/docs/enterprise/sign-in-with-chatgpt-through-a-gateway"
+  - title: "Aster Team · Provider registry at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/providers/mod.rs"
+  - title: "Aster Team · Plugin channel catalog at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/plugins/shared/channels.json"
+  - title: "Aster Team · Plugin execution at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/plugins.rs"
+  - title: "Aster Team · Runner implementation at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/runner/src/main.rs"
+  - title: "Aster Team · Deploy a dedicated Runner"
+    url: "https://github.com/huzz-open/aster-team/blob/main/docs/guides/deploy-dedicated-runner.md"
+  - title: "NGINX · Reverse proxy"
+    url: "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/"
+  - title: "OWASP · SSRF prevention cheat sheet"
+    url: "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+  - title: "reqwest 0.12.28 · ClientBuilder"
+    url: "https://docs.rs/reqwest/0.12.28/reqwest/struct.ClientBuilder.html"
+  - title: "Claude Code · Legal and compliance"
+    url: "https://code.claude.com/docs/en/legal-and-compliance"
+  - title: "Anthropic · Commercial terms"
+    url: "https://www.anthropic.com/legal/commercial-terms"
+  - title: "Anthropic · Consumer terms"
+    url: "https://www.anthropic.com/legal/consumer-terms"
+  - title: "Claude · Identity verification"
+    url: "https://support.claude.com/en/articles/14328960-identity-verification-on-claude"
+  - title: "Anthropic · Supported countries and regions"
+    url: "https://www.anthropic.com/supported-countries"
+  - title: "Claude API · Rate limits"
+    url: "https://platform.claude.com/docs/en/api/rate-limits"
+  - title: "Claude API · Errors"
+    url: "https://platform.claude.com/docs/en/api/errors"
+  - title: "Claude · Safeguards, warnings and appeals"
+    url: "https://support.claude.com/en/articles/8241253-safeguards-warnings-and-appeals"
+  - title: "Claude Code · LLM gateway"
+    url: "https://code.claude.com/docs/en/llm-gateway"
+  - title: "OpenAI · Conversation state"
+    url: "https://developers.openai.com/api/docs/guides/conversation-state"
+  - title: "OpenAI · Sign in with ChatGPT preview limitations"
+    url: "https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations"
+  - title: "OpenAI · Prompt caching"
+    url: "https://developers.openai.com/api/docs/guides/prompt-caching"
+  - title: "OpenAI · API deployment checklist"
+    url: "https://developers.openai.com/api/docs/guides/deployment-checklist"
+  - title: "Claude Code · Manage sessions"
+    url: "https://code.claude.com/docs/en/sessions"
+  - title: "Claude Code · How prompt caching works"
+    url: "https://code.claude.com/docs/en/prompt-caching"
+  - title: "Claude Platform · Prompt caching"
+    url: "https://platform.claude.com/docs/en/build-with-claude/prompt-caching"
+  - title: "Aster Team · Account candidates at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/crates/storage/src/mariadb.rs"
+  - title: "Aster Team · Runner selection at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/crates/routing/src/lib.rs"
+  - title: "Aster Team · Shared gateway plugin at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/plugins/shared/gateway.lua"
+  - title: "Aster Team · Messages adapter at ff9d58c"
+    url: "https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/gateway/anthropic.rs"
+---
+
+import { CoverBanner, ArticleCanvas, Section, SectionHead, Prose, ScrollStory, CompareTable, StatGrid, Stat, Summary } from '@/components/article';
+import MemberGraph from '@/assets/aster-team/member.svg';
+import ProtocolGraph from '@/assets/aster-team/protocol.svg';
+import RunnerGraph from '@/assets/aster-team/runner.svg';
+import SettlementGraph from '@/assets/aster-team/settlement.svg';
+import CoverGraph from '@/assets/aster-team/cover.svg';
+import TopologyGraph from '@/assets/aster-team/topology.svg';
+
+<CoverBanner
+  kicker="项目调研 · huzz-open/aster-team · 更新于 2026-10-13"
+  title="用 Aster Team 建中转站：反代原理与接入边界"
+  lead="官方 API 和订阅反代可以共用网关入口，但各自的权限与计费来源要分开。本文从源码解释请求怎样转发、出口如何隔离，再讨论多个用户共用账号时怎样保持独立会话，以及缓存为什么仍可能失效。Claude 接入与商业授权另有明确边界。"
+  pills={[{ label: "两类上游" }, { label: "反代架构" }, { label: "网络隔离" }, { label: "Claude 授权边界" }]}
+>
+  <CoverGraph slot="visual" class="block h-auto w-full" role="img" aria-label="Control 通过可信 Runner 请求 AI 服务提供方" />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="identity">
+  <SectionHead index="01" kicker="成员接入" title="从共享账号凭据到成员独立密钥" />
+  <Prose tile>
+
+[Aster Team](https://github.com/huzz-open/aster-team) 是可私有部署的团队 AI 网关：上游凭据由管理员保管，开发者使用 Aster 签发的个人密钥。成员离开时，撤销他的密钥即可，全组不用更换上游登录信息。
+
+成员的请求先到 Aster，由它转发给上游服务，结果沿原路返回。这种工作方式称为反向代理，通常简称“反代”。Aster 还要做协议转换。工具希望收到标准 API 格式，订阅服务却可能使用客户端专用格式，中间服务需要把两者接起来。
+
+首次调研核对日期为 2026-10-12，本文于 2026-10-13 补充中转站部署、会话与缓存机制，以及 Claude 官方规则。源码固定在提交 `ff9d58c`，其提交日期为 2026-09-29。GitHub 记录的仓库创建日期为 2026-09-14，公开 Release `v2.1.1` 发布于 2026-09-16。创建时间只能说明公开仓库的历史，不能当作产品研发起点。
+
+  </Prose>
+</Section>
+
+<Section canvas id="backdrop">
+  <SectionHead index="02" kicker="需求来源" title="能调用模型以后，团队还要管谁在调用" />
+  <Prose tile>
+
+个人使用编程助手时，登录账号通常就够了。团队多了一层问题：谁能用哪个模型，谁把额度用完了，自动化任务应该归到哪个人的账上？把同一份登录缓存复制给所有人，很难单独撤销权限，也难以区分用量。
+
+协议适配与团队用量管理已有不同实现。[CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) 把多种 AI 客户端和服务接成兼容 API；[LiteLLM](https://docs.litellm.ai/docs/simple_proxy) 提供统一网关，并管理虚拟密钥和预算。Aster 的公开设计将成员管理与独立执行节点放在同一个产品里。功能名称不足以判断它是否优于其他网关，还要比较实际执行与恢复行为。
+
+密钥的来源也要分清。OpenAI 的[鉴权文档](https://learn.chatgpt.com/docs/auth) 将 ChatGPT 登录的订阅访问，与 OpenAI Platform API key 的按量计费访问列为不同路径。Aster 成员密钥是第三条路径：成员先向 Aster 证明身份，再由 Aster 选择已接入的上游容量。外观看起来都是一串 key，计费和权限却来自不同地方。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "凭据" }, { label: "谁验证", wrap: true }, { label: "容量与权限来自哪里", wrap: true }]}
+    rows={[
+      ["ChatGPT 登录", "OpenAI", "对应账号、订阅或工作空间"],
+      ["OpenAI Platform API key", "OpenAI Platform", "API 项目权限与按量计费账户"],
+      ["Aster 成员 key", "你的 Aster 部署", "成员授权，以及管理员接入的上游账号"],
+    ]}
+  />
+</Section>
+
+<Section canvas id="proxy-architecture">
+  <SectionHead index="03" kicker="中转架构" title="同一个入口，两种上游执行方式" />
+  <Prose tile>
+
+反向代理向客户端提供服务入口，再代表这个入口访问后端。正向代理则代表客户端访问外部服务。中转站的 `/v1` 入口承担前一种角色；Runner 若通过你管理的出口代理联网，那个出口承担后一种角色。两者可以出现在同一条请求链上，但职责不同。[NGINX 的反代文档](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)解释了普通 HTTP 转发；Aster 在转发之前还处理成员权限和协议适配。
+
+客户端到中转站、Runner 到上游，各自建立连接。TLS 是保护传输的加密协议，终止 TLS 的服务器能读到解密后的请求。因此，你需要信任部署 Aster 的机器。客户端提交 Aster 成员 key；Runner 向上游提交官方 API key 或经授权取得的订阅访问令牌。两份凭据各有用途，成员 key 不能原样交给上游，上游令牌也不能返回给成员。
+
+下面的部署图按项目执行机制整理。受控出口是额外的基础设施建议，Aster 本身并不因此具备防火墙能力。图中的官方 API 分支依赖对应插件或 Provider；Provider 指具体服务商的接入实现，只有实现了该通道，请求才能按图执行。
+
+  </Prose>
+  <figure class="not-prose rounded-[18px] bg-white p-5 sm:p-8">
+    <TopologyGraph class="mx-auto block h-auto w-full max-w-[640px]" role="img" aria-label="客户端经 Control 和 Runner 访问官方 API 或 Codex 订阅；Control 保存权限和用量，Runner 经受控出口连接上游" />
+    <figcaption class="mt-5 text-center text-sm leading-relaxed text-muted">官方 API 与 Codex 订阅在 Runner 后分流。受控出口是部署建议；上游是否允许该用途仍需单独确认。</figcaption>
+  </figure>
+  <Prose tile>
+
+官方 API 路径应把模型映射为真实的上游模型，构造服务商要求的鉴权和请求格式，通过 Runner 发送，再把结果和实际用量译回客户端协议。Aster 的[插件实现](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/plugins.rs)先解析客户端请求，形成规范化操作，再由插件准备上游执行计划。Control 校验计划与选定连接、模型的对应关系，交给 Runner 执行。插件路径也经过 Runner，不能假定它绕开执行节点直接联网。
+
+订阅路径需要另一套适配器，处理登录授权与令牌刷新，并遵守订阅后端的格式和容量限制。本文核对到的是 Codex 订阅实现，不能照搬为 Claude 订阅接入。
+
+运营两类上游时，建议分开保存凭据与账本，标明服务商和计费来源。官方 API 失败后，不要默认切到订阅，反过来也一样。这样的回退可能影响数据去向和费用，还可能改变请求是否被允许。需要先制定明确的路由政策。
+
+Claude 在这个版本还有一个实现缺口：生产环境的 [Provider 注册表](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/providers/mod.rs)只注册了 OpenAI；[插件通道目录](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/plugins/shared/channels.json)列出 OpenAI、DeepSeek 和 GLM，没有原生 Anthropic 通道。`/v1/messages` 接受 Anthropic 风格的请求，并不等于已经连接 Claude 模型。要接 Claude 官方 API，需要补齐并验证其通道、鉴权、模型映射和流式事件，不能只改一个 `base_url` 就宣称完成。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "路径" }, { label: "凭据与容量", wrap: true }, { label: "当前应如何理解", wrap: true }]}
+    rows={[
+      ["官方 API", "服务商 API key；按 API 账户计费和限流", "按已实现通道接入；Claude 通道在本次源码快照中未就绪"],
+      ["Codex 订阅反代", "OAuth 访问令牌；对应订阅容量", "有可核对实现；技术支持不代表获得分发或转售授权"],
+      ["Claude Free / Pro / Max 代转发", "用户订阅凭据；个人订阅容量", "官方不允许第三方代用户转发，不能列作常规商业上游"],
+    ]}
+  />
+</Section>
+
+<Section canvas id="request-flow">
+  <SectionHead index="04" kicker="请求过程" title="一次调用经过哪些环节" lead="Control 决定是否允许，Runner 执行上游请求。" />
+  <Prose tile>
+
+Control 是控制服务，检查成员身份后决定是否执行请求。Runner 是管理员部署的执行节点，负责访问 AI 服务。两者可以放在同一台机器上，也可以分开部署。下图按[架构文档](https://github.com/huzz-open/aster-team/blob/main/docs/architecture.md) 与公开代码整理；具体请求格式取决于所选上游。
+
+  </Prose>
+  <ScrollStory steps={[
+    { tag: "01 · 接收", title: "验证成员，先预留额度", body: "Control 检查成员 key 和模型访问权限，再为当前请求预留额度。预留让正在并发执行的请求各占一份预算，防止反复花同一笔余额。" },
+    { tag: "02 · 转换", title: "将客户端协议转换为上游请求", body: "Responses、Chat Completions 与 Messages 是不同的请求结构。适配器转换消息和工具调用，解析模型选项，随后交给所选上游的专用适配器。" },
+    { tag: "03 · 执行", title: "把受限任务交给可信 Runner", body: "Runner 主动连接 Control。Control 下发短期、单次的签名任务；Runner 校验任务，使用上游凭据发送 HTTPS 请求，再通过已有连接传回结果。" },
+    { tag: "04 · 结算", title: "用实际用量结算，保留失败状态", body: "有可信用量时结算；确认未执行时释放预留。执行结果不明时，需要持久化记录和恢复核查，不能直接假设请求没有消耗上游资源。" },
+  ]}>
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460" role="img" aria-label="成员鉴权与额度预留">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">01 / 04 · 成员鉴权</text>
+      <MemberGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460" role="img" aria-label="三种客户端请求进入协议适配器">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">02 / 04 · 协议适配</text>
+      <ProtocolGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460" role="img" aria-label="Control 到 Runner 和上游的请求与返回">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">03 / 04 · 上游执行</text>
+      <RunnerGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460" role="img" aria-label="结算、释放预留与结果不明的恢复分支">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">04 / 04 · 用量结算</text>
+      <SettlementGraph x="30" y="88" width="400" height="320" />
+    </svg>
+  </ScrollStory>
+  <Prose tile>
+
+WSS 是加密的 WebSocket 连接。Runner 从内部网络主动向 Control 建立连接，Control 可沿着这条连接交付任务，因此 Runner 不必对外开放入站端口。不过，Control 的客户端入口仍要可达，Runner 也仍要能访问上游服务。
+
+任务签名校验授权是否被修改，单次使用限制则拒绝重复任务。文档把 Runner 的切换时机限定在上游请求开始前；输出开始后，不悄悄重放。否则，用户已经收到半段回答，再生成一次接在后面，就会混入两个执行结果。
+
+  </Prose>
+</Section>
+
+<Section canvas id="subscription-adapter">
+  <SectionHead index="05" kicker="反代实现" title="订阅请求到底发到哪里" />
+  <Prose tile>
+
+公开源码的 [`OpenAiProvider`](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/providers/openai.rs) 将凭据类型标为 `oauth_refreshable`。OAuth 是通过授权流程取得访问凭据的机制；refresh token 用来更新过期的 access token。这里的订阅执行路径使用访问令牌，并携带上游账号标识，请求地址在 Control 中定义为 `https://chatgpt.com/backend-api/codex/responses`。
+
+“订阅反代”指的就是这条链路：Aster 把客户端的 API 请求转换为已登录订阅账号能使用的 Codex 后端请求。客户端看到标准 API，上游执行仍归属于对应服务的账号。
+
+转换会改变部分参数的含义。[`CodexUpstreamAdapter`](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/gateway/responses.rs) 强制上游 `stream=true` 和 `store=false`，把 `service_tier=fast` 改为 `priority`，并移除 `max_output_tokens`。代码注释说明，所用 Codex 传输不接受最后这个字段。客户端设了输出上限，上游却未必收到，因而不能依靠它限制输出。
+
+流式响应要看具体路径。SSE（Server-Sent Events）是服务端向客户端持续发送事件的 HTTP 格式。在这个提交的 [Control 实现](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/lib.rs) 中，Chat Completions 与 Messages 的内置回退路径先调用 `execute_buffered_canonical`，拿到完整结果才构造 SSE；Responses 另有 `Body::from_stream` 路径。
+
+入口会先尝试插件处理，上述观察只适用于所读到的内置回退路径，不代表每种配置。要判断首字延迟，仍需测实际请求。返回 SSE 与实时透传上游是两回事。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "客户端期望", wrap: true }, { label: "源码所示行为", wrap: true }, { label: "实际含义", wrap: true }]}
+    rows={[
+      ["用标准 API 请求模型", "转换为上游专用协议", "应测试实际需要的消息与工具字段"],
+      ["max_output_tokens 限制输出", "Codex 适配器移除该字段", "不能以此保证输出 token 上限"],
+      ["stream=true 实时输出", "部分内置路径缓冲后生成 SSE", "需要测首字延迟和中途取消"],
+      ["模型名称可用", "管理员启用并映射上游模型", "模型列表与账号真实权限都要满足"],
+    ]}
+  />
+</Section>
+
+<Section canvas id="network-isolation">
+  <SectionHead index="06" kicker="出口网络" title="把“纯净环境”改成能检查的部署要求" />
+  <Prose tile>
+
+“纯净 IP”没有一个能保证账号安全的统一技术标准。可验证的是：你是否控制出口、DNS 解析是否符合预期、TLS 是否正常验证、哪些进程能接触凭据，以及请求和响应会不会进入日志。IP 历史与服务商内部风险评分不在你的完全控制之下；本文没有找到某类 IP 能保证免验证或不封禁的官方依据。
+
+[Runner 源码](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/runner/src/main.rs)已有几项保护：模型上游必须使用 HTTPS，URL 不得包含用户名和密码，主机名要同时匹配签名任务与允许列表。上游 HTTP 客户端关闭自动重定向，避免允许的请求被转到别处。
+
+Control 连接和上游连接可以分别配置 CA。CA 是用于验证服务器证书的信任机构；需要内部 CA 时，要明确管理其来源。连接失败不应靠关闭证书验证来修复。
+
+这些检查还不足以完成出口隔离。模型请求的 URL 校验没有在该函数中解析并检查目标 IP，也没有像资源下载路径那样明确限制为 443 端口。资源下载客户端有公共地址检查和 `no_proxy()`，但属于另一条执行路径。模型 HTTP 客户端没有显式调用 `no_proxy()`；[reqwest 文档](https://docs.rs/reqwest/0.12.28/reqwest/struct.ClientBuilder.html)说明该方法会关闭自动系统代理。因此，部署时仍要检查实际代理配置和请求路径。HTTPS 保护传输，不负责固定出口。
+
+SSRF（Server-Side Request Forgery，服务端请求伪造）是让服务器替请求者访问不该访问的地址。[OWASP 的防护指南](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html)建议结合应用校验和网络限制。对于模型出口，建议只接受管理员预设的上游，禁止成员提交任意 URL；解析后校验实际连接地址，拒绝回环、内网和云元数据目标，再连接已验证的地址，同时保留原域名的 TLS 校验。重试和回退也应执行相同检查。仅比较域名字符串，不能防住域名解析结果变化。
+
+部署上可给 Runner 独立的工作负载和网络出口，只允许必要的 Control、上游及受控 DNS 连接。IPv4、IPv6 都要覆盖，网络规则要基于实际所需的地址与端口维护；出口代理或策略服务失效时，应停止请求，不能自动绕过策略直连。专用出口的价值是可追踪、可约束，不是让使用资格发生变化，也不能证明 IP 从未被滥用。
+
+[独立 Runner 指南](https://github.com/huzz-open/aster-team/blob/main/docs/guides/deploy-dedicated-runner.md)明确说，Runner 不永久绑定某个订阅或账号。最近使用过的节点只是路由偏好，其他符合条件的 Runner 仍可能被选中。部署要求出口一致时，所有候选 Runner 都必须遵守同一出口政策。若要求连接严格绑定出口，还需要另行实现并验证硬约束。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "验收对象" }, { label: "建议检查", wrap: true }, { label: "不能据此保证", wrap: true }]}
+    rows={[
+      ["实际出口", "用受控测试端点核对每个 Runner 的来源地址；覆盖重启、回退和 IPv6", "上游认可身份、用途或 IP 信誉"],
+      ["DNS 与 TLS", "验证解析策略、连接地址和证书；只信任明确批准的 CA", "HTTPS 下所有运维人员都看不到正文"],
+      ["失败路径", "在测试环境断开受控出口，确认没有意外直连；检查重试与候选 Runner", "故障时服务仍然持续可用"],
+      ["凭据与日志", "分开管理上游凭据与成员 key；用虚构数据检查访问日志、错误日志和追踪系统", "Aster 数据库不存正文就代表其他日志也不存"],
+    ]}
+  />
+  <Prose tile>
+
+Control 加密保存凭据，保护的是相应的存储边界。Runner 发送请求时仍需处理凭据和正文，因此机器管理员也必须可信。建议让上游密钥远离前端和成员接口，限制管理员权限，并将备份与解密材料分开管理。
+
+日常观测保留内部请求编号、用量、耗时和错误分类即可，不记录访问令牌，也不默认记录完整提示词。调试采样要有明确授权和保留期限。这些是部署与运维要求；本文没有实测 Aster 在所有日志配置下的行为。
+
+若入口另有 NGINX 等反代，还要验证 SSE 缓冲、超时和客户端取消。NGINX 默认的响应缓冲可能改变实时输出体验；关闭相应路径的缓冲后仍需测从首字到中途断线的完整行为。入口防火墙、Runner 出口和客户端协议适配解决的是不同问题。
+
+  </Prose>
+</Section>
+
+<Section canvas id="quota-isolation">
+  <SectionHead index="07" kicker="额度隔离" title="独立的是成员访问，共用的仍是上游容量" />
+  <Prose tile>
+
+设想管理员接入一个账号，给两位开发者各发一把 Aster key。每个人可以有自己的额度记录，访问权限也能分别撤销，但请求最终仍可能落到同一个上游账号。多发两把 key，不会让那份订阅的容量翻倍。这是解释用的例子，不是项目实测。
+
+[账号接入文档](https://github.com/huzz-open/aster-team/blob/main/docs/guides/connect-ai-account-and-sync-models.md) 还明确写到，复制同一个 refresh token 不会形成独立容量，会被视为重复凭据。可以管理多份经过独立授权的凭据，与复制一份凭据制造容量，是两回事。
+
+成员额度采用“预留后结算”：请求进入时先占用一部分可用额度，拿到执行用量后才记为已消费。正在执行的请求会占着预留，所以页面上的可用额度可能暂时小于“总授予额度减去已消费”。这部分差额未必是错误扣费。
+
+按[结算文档](https://github.com/huzz-open/aster-team/blob/main/docs/guides/quota-reservation-and-usage-accounting.md)，Control 重启后会先尝试恢复结果；无法恢复的预留在 30 分钟后进入定期核查的处理范围。释放这类过期预留时，会记录上游最终结果不明。这是网关的账本恢复政策，不是对上游没有计费的证明。
+
+个人密钥也不意味着所有数据都已隔离。[访问隔离说明](https://github.com/huzz-open/aster-team/blob/main/docs/guides/developer-access-isolation.md) 将成员身份与本地历史分开：不同开发者若共用同一个操作系统用户和 `CODEX_HOME`，本地配置与历史仍可能共用。Aster 签发个人密钥，不会自动替你建立本机用户隔离。
+
+  </Prose>
+</Section>
+
+<Section canvas id="session-continuity">
+  <SectionHead index="08" kicker="会话隔离" title="多人共用账号，模型怎样分清各自的对话" />
+  <Prose tile>
+
+一个上游账号可以承载多个独立 Session。Session 指一次会话及其保存的上下文，账号则提供鉴权和容量。共用账号不等于共用一个只记得最后一位用户的模型进程，也不会自动合并两人的历史。
+
+判断会不会串话，要看每次请求带了谁的上下文。
+
+设想 A、B 各有一段对话。A 第二轮请求携带公共指令和此前消息，再追加新问题；B 的请求携带 B 自己的历史。即使发送顺序是 A、B、A，A 最后一次请求看到的仍是自己提交的上下文。这是机制示例，不是实测结果。
+
+串话会发生在另一种设计里：网关只按上游账号保存一份历史，把两人的消息都追加进去。此时混在一起的上下文已经由网关交给了模型。
+
+[Claude Code 的缓存说明](https://code.claude.com/docs/en/prompt-caching)描述了逐轮重发上下文的机制；其[会话文档](https://code.claude.com/docs/en/sessions)说明 CLI 会话记录保存在本地，并与项目目录关联。Codex 的[高级配置](https://learn.chatgpt.com/docs/config-file/config-advanced)也将会话记录保存在 `CODEX_HOME` 下。换上游凭据不会自动把客户端本地会话改成另一个用户的历史；共享客户端进程、历史目录或恢复入口却可能选错会话。
+
+上下文还包括聊天文字之外的内容。[OpenAI 的会话状态指南](https://developers.openai.com/api/docs/guides/conversation-state)要求手动续接时保留相应输出项。工具调用要与结果对应，推理模型还可能需要协议中的推理项。历史超过上下文窗口时，客户端需要压缩或筛选。继续用同一个账号，也不能自动找回已经删掉的信息。
+
+### 中途换账号，能否继续？
+
+每轮都携带所需上下文时，只要新上游具有相同的模型权限、兼容请求协议，通常就能继续处理。这不保证模型表现完全不变，原有缓存也未必可用。另一种情况是请求只引用服务端保存的会话对象；换账号之前，必须确认新凭据有权访问它。
+
+OpenAI 的 [Sign in with ChatGPT 预览限制](https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations)提供了一个具体例子：对应 HTTP 路径要求在 `input` 中发送所需历史，不使用 `previous_response_id`；WebSocket 续接只能引用同一认证连接产生的响应。这份说明适用于它标明的官方接入路径，不能当作 Aster 所用订阅后台端点的完整规格。
+
+Aster 的 Runner 到 Control 使用 WSS，也不能据此推断 Runner 到模型服务建立了同样的续接连接。这是两段不同的传输。`store=false` 涉及响应存储，单凭它不能判断提示词缓存是否启用。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "调度情况", wrap: true }, { label: "会话连贯性", wrap: true }, { label: "缓存应如何理解", wrap: true }]}
+    rows={[
+      ["同账号，独立历史", "各请求携带各自上下文；不应合并历史", "可能复用符合条件的公共或各自前缀"],
+      ["换账号，重发所需历史", "权限与协议兼容时可继续；缺失信息不能自动恢复", "不能假定原缓存仍可访问"],
+      ["换账号，仅引用服务端对象", "必须验证对象归属与新凭据访问权限", "有对象引用也不等于命中缓存"],
+      ["换连接，依赖连接内续接", "需要按实际协议恢复；不能原样假定状态还在", "连接状态与缓存有效期分别检查"],
+      ["不换账号，只发送最新一句", "没有其他有效状态来源时会丢上下文", "缓存不能替请求补回历史"],
+    ]}
+  />
+  <Prose tile>
+
+### Aster 是否已经做了会话绑定？
+
+本次核对的路径中，没有看到按成员和会话持续绑定上游账号的机制。[`gateway_route_candidates`](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/crates/storage/src/mariadb.rs#L4069)接收公开模型名，按账号验证时间和凭证状态等筛选排序；[Control 的请求准备](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/lib.rs)依次寻找可用候选。
+
+这个顺序可能让多次请求落到同一账号，但没有记录“这段对话归哪个账号”。它既不构成明确的会话绑定，也不应被描述成每轮随机分配账号。
+
+[`select_runner`](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/crates/routing/src/lib.rs#L86)优先选择账号上次成功的 Runner，否则选择符合条件且负载较低的节点。这种亲和性属于上游账号。会话粘性则是让同一段对话持续使用选定的上游，两者不能互相替代。
+
+对于经过授权的多用户接入，建议用 `tenant_id` 与 `conversation_id` 标识上下文所有者，并验证访问归属。客户端已经负责重发历史时，网关不必为了缓存再保存一份正文。托管 Agent 则要隔离会话存储与工作区，不能把所有用户接进同一个正在运行的会话。
+
+需要账号粘性时，应另行保存会话到上游的映射，规定绑定何时失效、如何恢复。一个账号仍可绑定多段独立会话，容量不足就按限制排队。政策拒绝或暂停不属于普通故障，不能靠换账号继续执行。
+
+  </Prose>
+</Section>
+
+<Section canvas id="prompt-cache">
+  <SectionHead index="09" kicker="缓存命中" title="会话可以继续，缓存却未必还在" />
+  <Prose tile>
+
+提示词缓存复用输入前缀的中间计算结果，常称为 KV Cache（键值缓存）。它减少重复计算，不负责替用户保存一份可自动恢复的对话。上游没命中缓存时，可以重新处理请求带来的历史。首字可能变慢，按量计费路径还可能增加输入费用，但上下文未必丢失。
+
+回到 A、B 交替请求的例子。两人如果有完全相同的公共指令，且处于允许复用的缓存作用域，公共部分可能命中；到了各自不同的历史，前缀就分叉。不能把这理解成“一个账号只有一个缓存槽，B 的请求覆盖 A”。缓存能否再次复用，还取决于有效期与服务端资源安排。
+
+[Claude Platform 缓存文档](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)要求缓存前缀精确匹配，并说明 Claude API 的组织与工作空间隔离。不同 API key 若仍属于相同工作空间，不能仅凭换 key 就断言缓存一定失效。反过来，跨工作空间也不能只因文本相同就假定可以复用。
+
+[OpenAI API 文档](https://developers.openai.com/api/docs/guides/prompt-caching)也限定组织和区域作用域，缓存由上游节点持有。`prompt_cache_key` 在 GPT-5.6 之前的模型上影响缓存路由；GPT-5.6 及之后由平台自动处理路由，该字段可用于分组核算。它不是会话标识，不能保存历史，也不保证命中。官方 API 的这些规则不能直接当作 Codex 订阅后台的缓存承诺。
+
+保持同一个账号和出口 IP，也不保证命中。即使 Runner 没换，它也只是发送请求的节点，无法替上游决定哪台模型服务器处理请求。
+
+### 协议转换有没有保住缓存字段？
+
+Aster 的原生 [Responses 适配器](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/gateway/responses.rs)保留请求体后修改部分字段；共享插件的 [`prepare_codex`](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/plugins/shared/gateway.lua#L1983)也没有显式删除 `prompt_cache_key`。准备请求时未主动剥除，实际后台是否接受、能否提高命中率，仍需验证。
+
+同一个文件还有通用 Responses 解码路径，使用另一份白名单，并拒绝 `previous_response_id` 等参数。入口路径不同，字段保留情况也要分别核对。
+
+Claude 风格请求的问题在缓存标记。[Messages 适配器](https://github.com/huzz-open/aster-team/blob/ff9d58cd5fd04dd4e6bae9e75cda7e4ad92655e3/customer/backend/control/src/gateway/anthropic.rs)把块式系统内容转换成文本指令，没有原样保留 `cache_control`；部分 Lua 解码路径还会拒绝带这些字段的结构。[Claude Code 官方说明](https://code.claude.com/docs/en/prompt-caching)提醒，网关对标记的处理会影响实际 Claude 上游的缓存。
+
+Aster 若把请求转到 Codex，应该检查的是 Codex 的缓存表现。返回 Claude 风格的缓存用量字段，并不能证明执行了 Anthropic 缓存。
+
+### 应怎样提高并验证命中率？
+
+以下是实现与验收建议，并非 Aster 已有保证。同一会话应尽量保持实际模型和请求结构稳定：不要每轮改写历史，工具定义顺序也要稳定。变化的时间戳若放在最前面，会影响后面的前缀复用。新增内容尽量追加在后面，但必须保持原有语义和权限。
+
+该改的指令仍然要改，不能为了命中率保留过期规则。压缩历史虽然会改变前缀，减少后续输入也可能更划算。
+
+缓存参数应按实际端点和模型处理。Claude 原生上游需要正确转发支持的缓存标记；OpenAI 应使用对应版本支持的字段，按租户安排需要分开的缓存核算。响应存储与提示词缓存要分别配置，不能用 `store=false` 推断缓存关闭。
+
+验收时让两个独立会话按 A、B、A、B 的顺序请求，再与单会话连续请求比较。覆盖第一次请求、已有缓存后的请求，以及暂停、换上游和压缩历史后的恢复。用虚构的用户私有内容检查是否混入另一会话，工具调用的归属也要核对；只测试“还记得上一句吗”不足以验收 Agent 状态。
+
+观测以实际服务商返回的用量为准。[OpenAI 部署检查表](https://developers.openai.com/api/docs/guides/deployment-checklist)建议记录 `cached_tokens`，并在适用模型上记录 `cache_write_tokens`；Claude 查看 `cache_read_input_tokens` 与 `cache_creation_input_tokens`。按各协议口径核算缓存读取占比，再结合首个输出 token 的等待时间和输入费用判断收益。
+
+一次请求即使只命中了很小的公共前缀，也算“有命中”。只看命中请求数，就容易高估收益。兼容响应中的计量字段还要与真实上游核对，避免重复计算。
+
+独立上下文允许多段会话共用上游账号，账号独占并非保持连贯性的必要条件。Aster 的账号选择与 Runner 亲和机制，还不足以证明会话绑定和缓存优化已经完成。上线前需要分别验收，不能承诺百分之百命中。
+
+  </Prose>
+</Section>
+
+<Section canvas id="client-integration">
+  <SectionHead index="10" kicker="客户端接入" title="更换 provider 后，工具仍在客户端执行" />
+  <Prose tile>
+
+按 [Aster 接入指南](https://github.com/huzz-open/aster-team/blob/main/docs/guides/configure-codex-api-key.md)，Codex 通过自定义 provider 连接 Aster：`base_url` 指向 Aster 的 `/v1`，`env_key` 指向成员密钥所在的环境变量，`wire_api` 使用 `responses`。OpenAI 的[高级配置文档](https://learn.chatgpt.com/docs/config-file/config-advanced) 也说明了自定义 provider 的配置方式。
+
+这些设置改变模型请求去哪里。代码读取、终端执行及本地工具的权限，仍由 Codex 等客户端负责；Aster 的 Runner 在这里负责上游模型 HTTP 请求。把请求切到 Aster，不等于把你的开发目录和终端任务迁进 Runner。
+
+文档中的 `x-openai-actor-authorization = "aster-proxy"` 是非秘密的兼容标记。真正用于识别成员的是 `ASTER_API_KEY`，不能把前者当作登录凭据。本文没有改动任何本机 Codex 配置。
+
+“Anthropic 兼容”描述的是请求协议，并不能单凭这个标签推断请求一定到达 Anthropic。模型映射决定实际服务来源；工具调用和图片能力还依赖所装版本、模型及账号。Aster 的 API 文档列出 `/v1/models`、 `/v1/responses`、 `/v1/chat/completions`、 `/v1/messages`，以及图片生成和编辑端点，但列出端点不等于当前部署已经满足每项能力的条件。
+
+OpenAI 另有[通过网关保留 ChatGPT 登录](https://learn.chatgpt.com/docs/enterprise/sign-in-with-chatgpt-through-a-gateway)的官方方案：网关验证自己的凭据后，继续转发客户端的 ChatGPT 身份。Aster 则用成员 key 映射管理员的上游凭据。两者处理身份的方式不同，官方支持网关接入，不代表认可任何具体的订阅分发方式。
+
+  </Prose>
+</Section>
+
+<Section canvas id="claude-verification">
+  <SectionHead index="11" kicker="Claude 规则" title="验证、限流和封禁，需要分别处理" />
+  <Prose tile>
+
+如果“防止 KYC”指永远不被要求验证，做不到。KYC 通常指了解客户身份。Claude 的[官方说明](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)包括个人和企业验证，可能在使用部分能力或平台完整性检查时触发，验证合作方为 Persona。企业流程可能要求注册信息及代表人的身份证明，个人流程可能要求有效证件和自拍。
+
+验证应在官方流程中用真实资料完成。资料不清楚或技术故障导致失败时，走支持渠道。中转站不应代收用户证件，更不能伪造材料。
+
+先确认业务是否允许，再研究出口 IP。[Anthropic 商业条款](https://www.anthropic.com/legal/commercial-terms)允许用 API 支撑面向用户的产品，但要求配合合理的身份和用途核查，并限制未经明确批准的服务转售。内部团队网关与集成 Claude 能力的应用，需要按各自用途审查；对外售卖通用模型调用的中转站也要单独确认。
+
+官方 API key 只解决鉴权。计划卖调用额度时，应在上线前让 Anthropic 明确确认业务及合同，网络策略补不了转售授权。
+
+订阅路径有更直接的限制。[Claude Code 的凭据规则](https://code.claude.com/docs/en/legal-and-compliance)不允许第三方代用户通过 Free、Pro、Max 凭据转发请求，也不允许开发者收集、存储或中介 Claude.ai 会话凭据。[消费者条款](https://www.anthropic.com/legal/consumer-terms)另有限制账号共享和转售。因此，把 Claude Pro / Max 凭据接成对外销售的账号池，不能作为常规的合规设计。网络稳定不会改变这些限制。
+
+组织内部可以采用官方 API 网关。[Claude Code 网关文档](https://code.claude.com/docs/en/llm-gateway)描述了组织如何管理网关鉴权、预算和路由，并要求实际连接 Claude 上游。配置网关凭据后，对应路径通常由上游 API key 所属账户承担用量，不能继续按原来的个人订阅理解。
+
+直接托管 Claude Code 又有不同要求。官方法律文档要求保留原版程序与内置鉴权，由各终端用户使用自己的凭据并直接承担用量，除非另有双方约定。团队网关获得支持，与第三方获准集中代售订阅，需要分别判断。
+
+[支持地区政策](https://www.anthropic.com/supported-countries)也不只检查出口位置，还涉及人员所在地、公司注册或总部，以及所有权和控制关系。核对时的列表未列中国大陆和香港。把 Runner 放到海外，不会自动让原本不符合条件的主体或用户取得使用资格；应按真实情况核对，不能将出口地址作为身份替代。
+
+“风控”还常被用来笼统描述所有失败。实际处理应以[官方错误分类](https://platform.claude.com/docs/en/api/errors)和[限流文档](https://platform.claude.com/docs/en/api/rate-limits)为准，不能看到失败就不断换账号重试。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "信号" }, { label: "含义", wrap: true }, { label: "中转站应对", wrap: true }]}
+    rows={[
+      ["401", "凭据错误、失效或撤销", "检查合法凭据；暂停失效连接，避免重试风暴"],
+      ["402 / 403", "计费问题 / 权限问题；403 本身不证明封禁", "核对余额、权限和错误正文；必要时联系官方支持"],
+      ["429：请求或 token 限流", "超出速率，或流量增长过快", "按官方限制排队；遵守 Retry-After，做有上限的退避"],
+      ["429：支出上限", "如 enforced_spend_limit_reached；继续重试不能补足预算", "停止该上游新请求，等待额度恢复或获批提高上限"],
+      ["500 / 504 / 529", "服务错误、超时或过载", "限定重试次数；流已开始时不得无声重放"],
+      ["身份核查 / 政策警告 / 暂停", "平台验证或规则执行，不能由网络配置消除", "完成官方验证；停止违规用量，按官方流程申诉"],
+    ]}
+  />
+  <Prose tile>
+
+Claude API 的限制包含每分钟请求数 RPM、输入 token 数 ITPM 和输出 token 数 OTPM。token 是模型处理文本的计量单位。Runner 的并发槽控制的是同时执行多少请求，不能替代每分钟限制。工作空间的额度还受组织总上限约束。
+
+建议在网关按上游组织、工作空间和模型执行相应预算，另外限制成员用量，避免一位用户的高流量挤占整个站点。正常业务流量逐步增加，能减少突增造成的限流；这并非模拟真人行为，也不保证免风控。
+
+本次核对的 Runner 响应头允许列表不包含 `retry-after`，也没有覆盖 Claude 的细分限流响应头。客户端未必能直接收到这些信息。接入 Claude 官方 API 时，要验证是否需要安全地保留或规范化相关头，并明确由哪一层重试，避免客户端和网关重复重试。
+
+保留上游 `request-id` 有助于支持排查，日志仍不能带出秘密凭据。HTTP 返回 200 后也可能出现流式错误；必须正确终止并结算，不能直接记成成功。
+
+减少误报需要如实维护账号和业务资料，保护凭据，遵守速率限制，并及时阻断成员滥用。[官方警告与申诉说明](https://support.claude.com/en/articles/8241253-safeguards-warnings-and-appeals)指出，违规可能影响整个账号。
+
+遇到政策拒绝或暂停，应暂停相关成员或上游连接，保存不含正文和凭据的排查信息，再走官方复核。不要把同一违规请求迁到另一账号继续执行。
+
+  </Prose>
+</Section>
+
+<Section canvas id="distribution-trust">
+  <SectionHead index="12" kicker="部署边界" title="私有部署解决管理问题，也把运维交给你" />
+  <StatGrid tile cols={3}>
+    <Stat value="3" count={3} label="免费许可文档：成员席位" />
+    <Stat value="1" count={1} label="免费许可文档：Runner" />
+    <Stat value="1" count={1} label="免费许可文档：逻辑账号" />
+  </StatGrid>
+  <Prose tile>
+
+这些数字来自[免费许可指南](https://github.com/huzz-open/aster-team/blob/main/docs/guides/aster-team-license-guide.md)，不是并发性能测试。该指南还列出每个成员最多 1 把活跃 API key，具体安装应以本机已验证的签名许可为准。付费许可改变产品的权限与资源上限，不会增加上游订阅权益；文档说更换许可无须重装，验证也不需要运行时联系许可服务器。此次未查到可核验的统一付费价格。
+
+截至调研日期，[公开 Releases](https://github.com/huzz-open/aster-team/releases) 可核对到 `v2.1.1` 的 Linux amd64 与 Windows amd64 包。源码中存在其他平台的部署文件，仍不能据此认定每个平台都有正式发布包。安装包有 SHA-256 校验文件，文档另描述了包内签名验证；二者分别检查下载文件与内部发布内容。
+
+架构文档说明，上游凭据在 Control 中加密保存，业务数据库不保存提示词和回答正文。Runner 的操作系统管理员仍能观察其处理的内容，基础设施日志也可能留下数据。私有部署让你控制机器，却不能让提示词对机器管理员保密。
+
+源码许可有一处不一致：[顶层 LICENSE](https://github.com/huzz-open/aster-team/blob/main/LICENSE) 是 MIT，而 [Cargo workspace 元数据](https://github.com/huzz-open/aster-team/blob/main/Cargo.toml) 仍写 `LicenseRef-Aster-Proprietary`。这里只报告可核对的文本差异，不据此作法律结论。需要再分发或商业部署时，应请维护者明确说明源代码许可与成品许可各自适用的范围。
+
+  </Prose>
+</Section>
+
+<Section canvas id="assessment">
+  <SectionHead index="13" kicker="调研判断" title="先验证一条被允许的上游，再扩大规模" />
+  <Prose tile>
+
+从公开文档与所读源码看，Aster 主要解决团队访问管理。管理员控制上游凭据，成员使用可单独撤销的密钥，用量能够归到各个成员；执行节点还可以与控制服务分开部署。管理这些权限与状态，需要比简单 HTTP 转发器更多的机制。
+
+如果个人只是想换个工具调用模型，就要考虑是否值得维护一套 Control、Runner 和成员管理服务。团队若已经需要独立额度和审计记录，这些功能才更有用。选择它还是其他网关，应当用同一组工具调用和故障恢复测试来比较。
+
+此次没有运行 Aster 安装包，也没有使用真实订阅发请求。实际首字延迟、长时间并发、取消后的结算，以及当前账号可调用的模型，都尚未验证。多用户会话隔离与缓存命中率也只做了文档和源码核对，没有真实号池测试。
+
+公开代码中的相关测试实现，本次并未执行。因此，本文不构成安全审计或长期稳定性测试。项目的[服务边界说明](https://github.com/huzz-open/aster-team/blob/main/docs/service-boundaries.md)也把上游授权和服务可用性列为客户需要另外满足的条件。
+
+准备同时经营官方 API 和订阅路径时，先确认业务授权，标明每条路由的服务商和计费来源。在测试环境核对出口与失败路径后，用一个成员完成普通文本请求，再跑包含工具调用的真实开发任务，检查取消与断线恢复。
+
+随后让两个独立会话交替请求，核对上下文归属和上游报告的缓存用量。两条路径各自检查账本、限流和密钥撤销。回答能回来，只是中转站验收的起点。
+
+  </Prose>
+  <Summary surface="white" takeaways={[
+    { title: "可以建设的部分", conclusion: "先验证权限与执行路径，再验收独立会话和缓存表现。", detail: "API 与订阅分别管理凭据和用量；Claude 官方通道需要补齐。账号级 Runner 亲和性不能替代会话粘性，也不保证上游缓存命中。" },
+    { title: "不能靠代理解决的部分", conclusion: "网络隔离不保证免 KYC，也不授予转售资格。", detail: "Claude 订阅代转发受明确限制；官方 API 商业转售也需获批。先确认授权，再决定实现与经营范围。" },
+  ]} note="2026-10-13 补充会话、缓存与官方规则；源码提交 ff9d58c。产品上限来自项目文档，未进行真实账号、缓存命中率、网络隔离或安全测试。" />
+</Section>
+</ArticleCanvas>
