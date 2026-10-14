@@ -1,0 +1,442 @@
+---
+title: "REA：把逆向工程工具接给编程 Agent"
+date: 2026-10-11
+updated: 2026-10-13
+excerpt: "REA 是什么、解决什么问题、怎样设计和实现，以及用户怎么用。用一个 CSV 导出示例讲清本地工具包、MCP 服务和编程助手各自做什么，再核对实际能力与限制。"
+tags: ["REA", "AI Agent", "逆向工程", "MCP", "开发工具"]
+kind: "distilled"
+sources:
+  - title: "REA · README at 6.4.0"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/README.md"
+  - title: "REA · 6.4.0 release"
+    url: "https://github.com/morluto/rea/releases/tag/rea-agents-6.4.0"
+  - title: "REA · Architecture map"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/architecture.mermaid"
+  - title: "REA · MCP runtime contracts"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/mcp-contracts.md"
+  - title: "REA · CLI and Evidence"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/cli.md"
+  - title: "REA · JavaScript Application Graph"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/javascript-application-graph.md"
+  - title: "REA · Installation and setup"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/installation.md"
+  - title: "REA · Native UI and dispatch investigation"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/native-investigation.md"
+  - title: "REA · Reconstruction readiness conformance"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/reconstruction-readiness.md"
+  - title: "REA · Security Policy"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/SECURITY.md"
+  - title: "REA · Native Binary Analysis guide"
+    url: "https://rea.tools/guides/native/"
+  - title: "REA · JavaScript and Electron Analysis guide"
+    url: "https://rea.tools/guides/javascript/"
+  - title: "REA · Browser and Network Analysis guide"
+    url: "https://rea.tools/guides/browser/"
+  - title: "REA · DX-Ball sound-pan evidence"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/website/evidence/dx-ball-sound-pan.md"
+  - title: "REA · Guide example evidence"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/website/evidence/guide-examples.md"
+  - title: "REA · Notes Electron example"
+    url: "https://github.com/morluto/rea/tree/rea-agents-6.4.0/website/public/examples/notes-electron"
+  - title: "REA · EvidenceLedger implementation"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/src/application/investigation/EvidenceLedger.ts"
+  - title: "REA · MIT License"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/LICENSE"
+  - title: "Model Context Protocol · Architecture overview"
+    url: "https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture"
+  - title: "Ghidra · Software reverse engineering framework"
+    url: "https://github.com/NationalSecurityAgency/ghidra"
+  - title: "Model Context Protocol · Security Best Practices"
+    url: "https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices"
+  - title: "REA · MCP process entrypoint"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/src/main.ts"
+  - title: "REA · JavaScript application service"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/src/application/javascript/JavaScriptApplicationService.ts"
+  - title: "REA · JavaScript artifact reconstruction"
+    url: "https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/javascript-artifact-reconstruction.md"
+  - title: "REA · Downloadable Notes example"
+    url: "https://rea.tools/examples/notes-example.zip"
+---
+
+import { CoverBanner, ArticleCanvas, Section, SectionHead, Prose, ScrollStory, CompareTable, StatGrid, Stat, Summary } from '@/components/article';
+import ArchitectureGraph from '@/assets/rea/architecture.svg';
+import CoverGraph from '@/assets/rea/cover.svg';
+import ScopeGraph from '@/assets/rea/scope.svg';
+import InspectGraph from '@/assets/rea/inspect.svg';
+import TraceGraph from '@/assets/rea/trace.svg';
+import VerifyGraph from '@/assets/rea/verify.svg';
+
+<CoverBanner
+  kicker="开源项目调研 · morluto/rea · 6.4.0 · 2026-10-11"
+  title="REA：把逆向工程工具接给编程 Agent"
+  lead="REA 是运行在本地的开源逆向工程工具包。装好以后，你仍在 Claude Code、Codex 等编程助手里提问，REA 为助手提供检查软件的工具。你给出应用文件和想研究的功能，助手调用 REA 查实现、解释结果，还可以为自己的项目编写类似功能。"
+  pills={[{ label: "产品定义" }, { label: "设计与实现" }, { label: "用户操作" }, { label: "实测与案例" }]}
+>
+  <CoverGraph slot="visual" class="block h-auto w-full" role="img" aria-label="编程 Agent 通过 REA 调用本地分析工具，读取证据后继续调查" />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="backdrop">
+  <SectionHead index="01" kicker="产品定义" title="REA 是一个给编程助手使用的本地逆向工具包" />
+  <Prose tile>
+
+[REA](https://github.com/morluto/rea/blob/rea-agents-6.4.0/README.md) 全称 Reverse Engineer Anything，定位是让编程 Agent 调用逆向工程工具，研究软件如何工作。逆向工程指从已经交付的程序、安装包或运行行为，反过来追查实现；Agent 在这里指 Claude Code、Codex、Cursor 这类能调用工具的 AI 编程助手。
+
+它作为 npm 包 `rea-agents` 分发，在你的电脑上运行。你既可以在终端直接调用，也可以把它接入已有的编程助手。接入以后，聊天窗口仍然属于那个助手，使用的模型也仍由助手提供；REA 负责执行分析操作。它不是一个新的大模型，也不要求你切换到一个 REA 聊天客户端。
+
+例如，你有一个桌面应用，想知道它怎样导出 CSV。把应用目录交给助手，要求“用 REA 查清导出功能”。REA 读取文件，找出相关模块和跨进程消息；助手据此解释数据怎样走到文件里。
+
+如果接着要求为自己的项目实现类似导出功能，代码由助手编写。REA 提供的是调查原实现所需的材料。
+
+你交进去的是目标和问题。直接调用 REA，得到的是结构化分析结果；通过编程助手使用，则可以得到带文件位置的解释，以及按要求编写的代码。工具输出与助手回答是两个不同的交付物。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "你接触到的部分" }, { label: "它是什么", wrap: true }, { label: "你怎么用", wrap: true }]}
+    rows={[
+      ["REA 命令行", "本地可执行的分析工具", "在终端运行 rea 或 npx 命令，直接取得分析结果"],
+      ["REA MCP 服务", "把分析能力提供给编程助手的本地进程", "注册到助手后，让助手在对话中选择并调用工具"],
+      ["REA Skill", "给助手阅读的调查工作流说明", "随 setup 安装；说明怎样调查，自己不执行反编译"],
+      ["Hopper / Ghidra / IDA", "实际分析机器码的外部引擎", "研究原生程序时准备一个匹配的引擎；静态 JavaScript 分析不需要它们"],
+    ]}
+  />
+  <Prose tile>
+
+本文于 2026-10-13 核对，源码固定在 [6.4.0 发布版](https://github.com/morluto/rea/releases/tag/rea-agents-6.4.0)的提交 `a56f7bb`，发布日期为 2026-10-11。Notes 静态分析是本次实测，其他案例按官方记录注明范围。
+
+  </Prose>
+</Section>
+
+<Section canvas id="problem">
+  <SectionHead index="02" kicker="解决的问题" title="让助手能检查软件，而不只看着截图猜实现" />
+  <Prose tile>
+
+普通编程任务通常有源码：助手读文件、修改代码，再运行测试。但你想研究的软件可能只剩一个 `.exe`、一个 Electron 应用包，或者浏览器里正在运行的页面。截图能显示导出按钮的样子，不能显示哪个函数处理点击，也不能告诉你它在何处写文件。
+
+传统逆向已经能回答这些问题。人使用 [Ghidra](https://github.com/NationalSecurityAgency/ghidra) 查看程序指令和反编译结果，再搜字符串、追调用关系；研究网页时则用浏览器调试工具。反汇编把机器码显示成处理器指令，反编译尝试恢复成更易读的伪代码。费力的是一步步找线索、决定查哪里，以及把工具里的结果带回编程环境。
+
+REA 把这些操作做成助手能调用的工具。你不必在每次追查时手动复制一段伪代码给模型，再替它执行下一次搜索。助手能根据上一轮结果继续查调用者或相关文件；REA 返回对应位置，供你检查它的解释。
+
+REA 解决的是“怎样让 AI 助手参与软件调查”。它不能凭空找回所有原始源码。已有源码时，直接读源码通常更简单；没有源码或需要核对发布包时，才有明确的理由使用 REA。授权研究旧程序、理解自己应用的打包行为，或查清一个功能后在自己的项目中实现类似功能，都符合它的工作方式。
+
+  </Prose>
+</Section>
+
+<Section canvas id="architecture">
+  <SectionHead index="03" kicker="系统设计" title="把提问、调查工具和分析引擎分开" />
+  <Prose tile>
+
+用户在编程助手里提出目标，例如“查清这个应用的导出功能”。助手调用模型来选择下一步操作；REA 接收操作请求，交给适合的分析工具；结果返回助手，再进入下一轮判断。REA 自身不负责训练模型或生成完整对话。
+
+两者使用 MCP（Model Context Protocol，模型上下文协议）通信。可以把它理解为助手和工具之间约定好的调用接口：工具公布名称、需要的参数和返回格式，助手按这个约定发起调用。[MCP 的设计](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture)允许 AI 应用接入多个工具服务，REA 是其中一个。
+
+REA 的[架构](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/architecture.mermaid)把命令行和 MCP 做成两个入口，下面共用调查工作流。工作流再调用适配器：研究原生机器码时接 Hopper、Ghidra 或 IDA；研究 JavaScript 应用时解析本地文件；研究浏览器时连接调试接口。每条路径都返回带来源的分析记录。
+
+  </Prose>
+  <figure class="not-prose rounded-[18px] bg-white p-6 md:p-8">
+    <ArchitectureGraph class="mx-auto block h-auto w-full max-w-[760px]" role="img" aria-label="REA 在编程 Agent 与原生引擎、JavaScript 分析、浏览器观察之间传递请求和证据" />
+    <figcaption class="mt-5 text-center text-sm leading-relaxed text-muted">用户在助手里提问，终端也能直接调用。两个入口共用 REA 工作流，实际分析按目标类型分派。</figcaption>
+  </figure>
+  <Prose tile>
+
+REA 复用成熟反编译器，避免重新实现一套机器码分析。同一个工作流能从终端和对话调用，人可以先检查结果，再让助手接着查。Skill 提供调查方法，MCP 提供实际操作；只有说明，没有对应工具，助手仍然无法执行反编译。
+
+工具结果还要能追溯。若只给模型一句“找到了导出函数”，后续很难查错；所以 REA 保存目标版本和文件位置，让助手可以继续读那一段。原生分析的 Provider，即引擎适配器，也固定在当前目标会话中；多个引擎可用时要明确选择，失败不会自动换另一个引擎。
+
+  </Prose>
+</Section>
+
+<Section canvas id="implementation">
+  <SectionHead index="04" kicker="具体实现" title="一次导出分析请求，怎样从路径变成函数关系" />
+  <Prose tile>
+
+REA 的服务入口是 TypeScript 程序，由 Node.js 执行。源码 [`src/main.ts`](https://github.com/morluto/rea/blob/rea-agents-6.4.0/src/main.ts)读取配置、创建分析会话，再启动 MCP 的 stdio 传输。Stdio 是标准输入和标准输出：助手启动本地 REA 进程，通过进程的输入输出传递请求和结果，不需要你另建一个 REA 云服务。
+
+以 `analyze_javascript_application` 为例，输入是应用目录或 `app.asar` 的绝对路径。ASAR 是 Electron 常用的应用文件打包格式。[应用分析服务](https://github.com/morluto/rea/blob/rea-agents-6.4.0/src/application/javascript/JavaScriptApplicationService.ts)先校验输入，再执行文件重建与分析。结果结构检查完成后，才生成带来源的分析记录。这些步骤由本地程序执行，不需要大模型读取整份文件来猜。
+
+文件分析过程在[实现文档](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/javascript-artifact-reconstruction.md)中有明确规则：读取目录或 ASAR，记录文件摘要，解析 `package.json` 和本地脚本，找出应用入口。JavaScript 被解析成 AST，即抽象语法树：把源代码转换成表示调用、导入和字符串等语法结构的数据，分析器据此查关系，不运行应用的启动代码。
+
+在 Notes 示例里，分析器识别 preload 暴露的 `notes.exportCsv`，找到 `ipcRenderer.invoke("notes:export")`，再查同名的 `ipcMain.handle`。IPC 是进程间通信；同一个明确的通道字符串和唯一匹配的处理器，让工具能把两端连接起来。如果通道名称动态生成，或有多个可匹配的处理器，它保留未知或歧义，不强行选一个。
+
+分析完成后，图里有模块、API 和处理器之间的关系，附带文件位置。助手沿着这些位置读取代码，解释 `csv.js` 怎样格式化数据、`main.js` 怎样写文件。此时，它才有材料回答导出功能的问题。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "代码所在层" }, { label: "执行的事情", wrap: true }, { label: "导出示例中的作用", wrap: true }]}
+    rows={[
+      ["src/main.ts / src/server", "启动本地服务，注册工具，接收结构化参数", "接收分析应用目录的调用"],
+      ["src/contracts", "定义参数和结果格式", "要求明确的目标路径，拒绝无效输入"],
+      ["src/application/javascript", "协调文件分析、结果校验和来源记录", "执行 analyze_javascript_application 工作流"],
+      ["src/artifacts / src/javascript", "读取交付文件，解析语法和应用结构", "发现入口、页面 API、IPC 通道与处理器"],
+      ["src/domain", "表示并验证图、身份和证据关系", "保存哪些模块连接、连接依据位于哪里"],
+    ]}
+  />
+  <Prose tile>
+
+原生程序走另一条实现路径：打开目标时选定引擎，首次需要分析时启动它。Ghidra 适配器把程序导入临时项目，完成自动分析，再通过打包的 Java 桥接脚本读取函数、指令和引用；Hopper 的桥接脚本则调用 Hopper 的 Python API。这些引擎给出伪代码和机器码信息，REA 统一整理后返回。它没有自研一套替代 Ghidra 的反编译器。
+
+浏览器路径使用 CDP（Chrome DevTools Protocol，Chrome 浏览器调试协议），配合 Playwright 读取页面、脚本和网络观察。CDP 连接的是选定的浏览器目标；它可以告诉助手客户端做了哪些请求，不能把远端服务器内部的实现一起取回来。
+
+  </Prose>
+</Section>
+
+<Section canvas id="getting-started">
+  <SectionHead index="05" kicker="用户使用" title="装进已有助手，给它一个路径和一个问题" />
+  <Prose tile>
+
+想让助手替你调查，就把 REA 接入 Claude Code 或 Codex，再在原来的对话里提需求。想先看看工具到底能读出什么，也可以在终端直接运行分析命令。两条路径使用相同的分析工作流。
+
+按[安装文档](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/installation.md)，6.4.0 支持 Node.js `22.x ≥22.19`、`24.x ≥24.11` 或 `26+`；`23`、`25` 与预发布版本不在支持范围。下面固定到本文核对的版本。只分析 JavaScript 示例，不需要安装 Hopper、Ghidra 或 IDA。
+
+### 接入编程助手
+
+在终端运行：
+
+```bash
+npx -y rea-agents@6.4.0 setup
+```
+
+`npx` 会下载并运行这个 npm 包。Setup 让你选择要接入的助手，显示要改动的配置与 Skill 路径；你确认后，它备份配置、添加固定版本的 MCP 注册，并安装配套调查说明。完成后重启或重新连接所选助手。选择原生分析引擎是另外的步骤，安装 REA 本身不会自动拥有所有引擎。
+
+如果只打算配置 Codex，可以先看计划，再决定是否执行：
+
+```bash
+npx -y rea-agents@6.4.0 setup --client codex --dry-run --json
+npx -y rea-agents@6.4.0 setup --client codex
+```
+
+第一条只查看；第二条进入实际配置流程，仍要审阅确认。单独安装 Skill 只有说明，没有 MCP 服务可供调用。接入完成后，在助手里给出你拥有或获授权的应用路径，例如：
+
+```text
+用 REA 分析 /absolute/path/to/notes-electron 的 CSV 导出功能。
+先做静态分析，找出页面调用、IPC 通道和主进程处理器。
+解释 CSV 在哪里构造、写到哪里，并附相关文件位置。
+暂时不要启动应用，不要访问外部服务。
+```
+
+你应当得到对具体实现的解释，并能按它提供的位置检查代码。如果接下来要给自己的项目增加类似功能，再要求助手编写和测试；“分析原应用”和“改写自己的项目”是两个任务。
+
+### 不接助手，先直接体验一次
+
+下载[官方 Notes 示例 ZIP](https://rea.tools/examples/notes-example.zip)并解压，得到 `notes-example` 文件夹。它的[源文件](https://github.com/morluto/rea/tree/rea-agents-6.4.0/website/public/examples/notes-electron)也可以逐个查看。把下面的路径替换成解压后文件夹的绝对路径：
+
+```bash
+npx -y rea-agents@6.4.0 analyze-javascript-application \
+  /absolute/path/to/notes-example --json
+```
+
+这会直接打印 JSON 分析记录，不产生聊天回答，不启动 Electron，也不改助手配置。本次用这条公共命令实际跑通了示例。返回结果的 `normalized_result.summary.ipc` 中，下面这些字段说明工具找到了什么：
+
+```json
+{
+  "literal_channels": 1,
+  "renderer_transmissions": 1,
+  "main_handlers": 1,
+  "paired_renderer_transmissions": 1,
+  "ambiguous_renderer_transmissions": 0
+}
+```
+
+它们依次表示：发现一个明确的通道、一个页面端发送调用和一个主进程处理器；发送调用匹配到了唯一处理器，没有歧义匹配。继续查看 `normalized_result.graph` 中的来源位置，就能读到对应代码。这里展示的是本次返回的字段节选，不是完整输出。
+
+如果分析 `.exe` 等原生程序，要先按文档准备引擎。例如配置好 Ghidra 后，可运行 `doctor --provider ghidra --json` 检查环境，再在 CLI 分析时选择 `--provider ghidra`，或在 MCP 的 `open_binary` 中选择 `provider_id`。本文没有替个人助手执行 setup，也没有安装原生引擎。
+
+  </Prose>
+</Section>
+
+<Section canvas id="investigation">
+  <SectionHead index="06" kicker="调用过程" title="你发出一条需求，助手怎样把调查做下去" lead="安装和提问之后，再看工具调用怎样连接成一次功能调查。" />
+  <Prose tile>
+
+一次有用的任务要有明确目标和验收条件。官方 [Electron 指南](https://rea.tools/guides/javascript/)研究的是 CSV 导出：页面调用哪个 API，跨进程消息发到哪里，谁把内容写进文件。下面是依据该示例整理的调查顺序；最后的测试是验证建议，不表示本次已经启动 Electron 完成导出。
+
+  </Prose>
+  <ScrollStory steps={[
+    { tag: "01 · 限定", title: "选定目标与要解释的行为", body: "给出应用目录或 app.asar 的绝对路径，把问题限定为导出功能。记录当前文件版本，说明哪些操作允许执行，避免把调查范围扩展到无关目录或已登录的浏览器。" },
+    { tag: "02 · 查看", title: "读取入口和模块关系", body: "REA 静态读取文件，识别页面代码、preload 和主进程中的 IPC 调用。先取得结构，再查看导出相关位置，不需要把整个应用的分析结果全部塞给模型。" },
+    { tag: "03 · 追踪", title: "沿着通道走到文件写入", body: "从 exportCsv 追到 notes:export，再检查对应处理器和 CSV 格式化代码。每个关系都有来源；由静态代码推得的路径，仍须与真实执行区分。" },
+    { tag: "04 · 验证", title: "把解释转成能失败的测试", body: "在自己控制的环境检查生成文件，并测试空数据、特殊字符和写入失败。若结果不吻合，回到相关模块继续调查。测试通过的结论只覆盖实际检查的输入和行为。" },
+  ]}>
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460" role="img" aria-label="限定导出问题与应用目标">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">01 / 04 · 限定调查</text>
+      <ScopeGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460" role="img" aria-label="静态分析页面、preload 与 IPC 处理器">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">02 / 04 · 查看结构</text>
+      <InspectGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460" role="img" aria-label="从页面 API 追踪至 CSV 写入代码">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">03 / 04 · 追踪功能</text>
+      <TraceGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460" role="img" aria-label="测试重建实现并保留差异">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="34" y="64" fill="var(--color-muted)" font-size="12">04 / 04 · 检查结果</text>
+      <VerifyGraph x="30" y="88" width="400" height="320" />
+    </svg>
+  </ScrollStory>
+</Section>
+
+<Section canvas id="native-case">
+  <SectionHead index="07" kicker="原生案例" title="伪代码缺了算式，指令和调用者补上了线索" />
+  <Prose tile>
+
+官方 [DX-Ball 证据记录](https://github.com/morluto/rea/blob/rea-agents-6.4.0/website/evidence/dx-ball-sound-pan.md)研究游戏的声像计算：砖块被击中时，横坐标要转换成声音在左右声道的位置。记录对应 DX-Ball 1.07 的 Windows i386 程序，分析使用 REA 4.1.0、Ghidra 12.1.4 和 Linux x64；重建检查点为 2026-10-07。这是历史案例，不是 6.4.0 的新测评。
+
+目标函数位于 `0x406400`。初始伪代码只显示浮点转整数的调用，遗漏了输入和前面的计算。如果让模型直接“解释这段伪代码”，它没有足够信息。REA 的 `analyze_function` 还提供指令和调用者，`read_bytes` 则能读取引用的常量。
+
+指令显示输入是一个整数；调用者显示传入值来自砖块的水平位置。引用的数据解码为 `1.5625` 和 `500.0`，还有初始值为 `1.0` 的缩放因子。结合浮点指令顺序，重建项目得到 `pan = (x × 1.5625 − 500.0) × scale`。函数名和变量名由重建者命名，不能当作原程序保留下来的源码信息。
+
+伪代码易读，却可能漏掉关键计算。保留原始指令，再用不同来源的线索互相核对，才有机会恢复含义。REA 提供观察，Agent 作出解释；解释是否成立，还要看编译与执行检查。
+
+  </Prose>
+  <StatGrid tile cols={2}>
+    <Stat value="3,205" count={3205} label="官方项目记录：单函数差分输入数" />
+    <Stat value="63" count={63} unit="字节" label="官方项目记录：完整函数的编译字节匹配" />
+  </StatGrid>
+  <Prose tile>
+
+`3,205` 来自横坐标 `0–640` 的 `641` 个整数，乘以 `0、0.5、1、20、−1` 五个缩放值。差分测试把相同输入送进原始 x86 函数和重建函数，比较输出。`63` 字节匹配则使用 VC4.0 编译，在审核重定位并检查常量引用后核对完整函数。两种检查分别约束行为与编译结果。
+
+范围只有这个函数。它没有测所有整数、所有浮点状态，也没有证明整款游戏已经完整恢复。官方网页说明其更新复用了保存的分析结果，没有重新执行这些检查；本文也没有复现原程序运行或编译字节匹配。这组数字可以说明一个小函数被认真核对，不能转换成“REA 还原应用的成功率”。
+
+  </Prose>
+</Section>
+
+<Section canvas id="application-analysis">
+  <SectionHead index="08" kicker="应用案例" title="静态代码说明可能的路径，运行观察说明发生过什么" />
+  <Prose tile>
+
+Electron 应用把网页界面和桌面能力接在一起。渲染进程负责界面，主进程处理文件等桌面操作，preload 负责向页面暴露受控 API；IPC（Inter-Process Communication，进程间通信）传递两侧的消息。只读一个文件，很容易漏掉另一个进程里的处理器。
+
+官方 Notes 示例中，`renderer.js` 调用 `window.notes.exportCsv()`；`preload.js` 把它转成 `ipcRenderer.invoke("notes:export")`；`main.js` 用 `ipcMain.handle` 接住同名通道，再调用 CSV 格式化函数并写入下载目录。REA 将这些位置连接到 [JavaScript Application Graph](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/javascript-application-graph.md)，即跨模块、跨进程的应用关系图。
+
+本次在 macOS arm64、Node.js 22.23.2 下，用发布的 `rea-agents@6.4.0` 实际分析了[同一组六文件示例](https://github.com/morluto/rea/tree/rea-agents-6.4.0/website/public/examples/notes-electron)。命令正常退出，解析了四个 JavaScript 文件，解析失败数为零；结果识别出一个字面量 IPC 通道、一个渲染端发送调用和一个主进程处理器，发送调用匹配数为一，歧义匹配数为零。没有启动 Electron，也没有让模型参与这次分析。
+
+这次结果只说明该示例的静态连接能够被识别。代码里注册了处理器，运行时未必会走到那里；动态拼接的通道名或混淆代码可能仍然无法确定。输出中的限制明确说明，分析把 JavaScript 和 HTML 当作文本读取，没有执行应用的启动代码。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "证据来源" }, { label: "可以据此判断", wrap: true }, { label: "仍不能据此判断", wrap: true }]}
+    rows={[
+      ["静态语法与模块关系", "特定位置存在调用、导入或处理器注册", "该路径在某次运行里确实执行"],
+      ["推断的 IPC 配对", "字面量通道与唯一处理器可建立关系", "所有动态通道都已恢复，文件必定写入成功"],
+      ["浏览器请求捕获", "观察窗口内发出了什么请求，收到什么响应", "窗口外的请求，服务端内部的算法"],
+      ["输出差分测试", "给定输入与观察范围内的结果吻合", "未测输入、并发状态与整款应用都等价"],
+    ]}
+  />
+  <Prose tile>
+
+浏览器调查补上另一种信息。官方 [浏览器指南](https://rea.tools/guides/browser/)通过调试接口捕获导出动作产生的请求，再检查发起请求的脚本。对应[证据说明](https://github.com/morluto/rea/blob/rea-agents-6.4.0/website/evidence/guide-examples.md)特意区分：REA 做被动观察，另一个 Playwright 控制器执行点击；CSV 如何构造还要读源代码，不能单靠一次网络请求推出来。
+
+观察到了某个接口，可以研究客户端怎样使用它。服务端数据库和内部实现并不会随响应一起公开。没有出现在观察窗口里的行为，要继续查，不能写成“不存在”。
+
+  </Prose>
+</Section>
+
+<Section canvas id="evidence">
+  <SectionHead index="09" kicker="证据管理" title="结果要可追溯，也要容得下未知项" />
+  <Prose tile>
+
+REA 把分析结果保存成 Evidence，意为带来源的证据记录。[运行时契约](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/mcp-contracts.md)规定，结果包含 `evidence_id`、目标身份、Provider 和分析配置；`normalized_result` 是整理后的结果，`raw_result` 在有不同上游表示时保留原始表示，没有则为 `null`。文件、函数或运行时位置，以及限制，也随记录传递。
+
+目标身份使用文件摘要，防止把同名文件的不同版本混为一谈。[EvidenceLedger 源码](https://github.com/morluto/rea/blob/rea-agents-6.4.0/src/application/investigation/EvidenceLedger.ts)会验证记录，拒绝相同身份对应冲突内容，并在整包导入验证完成后才合并。摘要能帮助检查记录完整性；它不能证明反编译器恢复正确，也不能让模型推断自动变成事实。
+
+应用关系图还区分 `observed`、`inferred`、`unknown` 和 `unavailable`：分别是观察、推断、未知，以及当前能力无法提供的信息。静态关系推断不能被标成运行观察，缺少覆盖不能被写成“没有这个行为”。这些约束减少的是信息被误读的机会，不是消灭幻觉的保证。
+
+分析较大的应用时，完整结果未必适合一次交给模型。REA 可以在当前 MCP 连接保留完整记录，后续只传精确的 Evidence 引用；模型再用 `inspect_analysis_view` 读取摘要或选定模块，不必反复传整个图。6.4.0 的改进包括不加载大载荷就发现已保存记录，以及按选定视图查看大型分析结果。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "保存机制" }, { label: "解决的问题", wrap: true }, { label: "生命周期与限制", wrap: true }]}
+    rows={[
+      ["同连接 Evidence 引用", "复用已完成分析，不重复传递全部结果", "新连接有自己的记录；close_binary 会清空，切换目标本身不会清空"],
+      ["导出的 Evidence bundle", "把观察和未知项带到后续调查", "重新导入要验证；记录能携带敏感位置与内容，须安全保管"],
+      ["分析 snapshot", "复用完全匹配的历史查询结果", "字节、操作、参数、引擎与设置须匹配；修改和游标相关调用不缓存"],
+      ["摘要与分段视图", "按需读取完整记录的一部分", "视图不扩大原分析覆盖；缺失、截断和未知项仍须保留"],
+    ]}
+  />
+  <Prose tile>
+
+会话复用和快照缓存是分析工具的机制，不等于模型的 Prompt Cache，也不负责恢复聊天记录。REA 的[命令行文档](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/cli.md)说明，命令行每次运行是独立进程；后续命令要使用保存的记录，不能引用另一个 MCP 连接里的内存记录。
+
+MCP 大结果还受传输预算限制。此版本按固定客户端的 `10 MiB` 接收预算准备响应，文本和结构化表示都计入。放不下时返回 `resource_constraint`，分析记录仍可完整保留，再选择小视图或导出。增大服务端预算不会替客户端增大缓冲区。把错误当成“分析没有结果”，或为塞进模型而静默丢弃后半段，都会改变结论。
+
+  </Prose>
+</Section>
+
+<Section canvas id="capabilities">
+  <SectionHead index="10" kicker="能力范围" title="支持一种目标，不代表它的所有行为都能恢复" />
+  <Prose tile>
+
+REA 覆盖多种交付形式，每条路径的依赖和权限不同。[发布版 README](https://github.com/morluto/rea/blob/rea-agents-6.4.0/README.md)列出下表这些能力。表中的“可读结果”是官方描述的范围；本次只实测了 Notes 的静态 JavaScript 路径，没有验证所有引擎或操作系统。
+
+  </Prose>
+  <CompareTable tile
+    headers={[{ label: "目标" }, { label: "可读结果", wrap: true }, { label: "依赖或关键限制", wrap: true }]}
+    rows={[
+      ["原生二进制", "伪代码、指令、字符串、调用与引用", "Hopper / Ghidra / IDA；格式和宿主支持按引擎判断"],
+      ["JavaScript / Electron", "模块、source map、路由、IPC 与原生依赖关系", "静态分析不执行应用；动态表达式可能无法恢复"],
+      ["网站与保存的网络捕获", "页面结构、脚本、请求响应与来源位置", "浏览器观察需 Chrome 系浏览器；HAR 或特定本地捕获格式各有依赖"],
+      [".NET 程序集", "元数据、CIL 指令、声明的原生依赖", "静态检查；CIL 是 .NET 的中间语言，结果不证明运行行为"],
+      ["Android APK / 设备 / 资源", "反编译方法、日志、截图、文件传输与资源信息", "分别依赖 JADX + JDK、adb、Apktool；设备操作可能改变状态"],
+      ["JEB 项目", "项目单元、摘要、选定类型和方法的伪代码", "调用者先启动提供 MCP 的本地 JEB 客户端"],
+      ["固件", "区域、提取结果与原生分析交接", "Linux 下的 Binwalk / Unblob；提取结果仍需进一步分析"],
+      ["离线 ELF / Linux 崩溃记录", "布局、符号、寄存器和记录的线程信息", "Linux x64，调用者提供 pwntools；部分崩溃检查另需 GDB / pwndbg"],
+      ["EVM 字节码", "分派选择器、字节位置、推断的参数和可变性", "本地 raw/hex 输入、Linux x64；推断接口不等于得到原始合约源码"],
+      ["包、资源与进程行为", "文件清单、Apple 包结构、终端和文件系统观察", "资源读出与运行捕获是不同权限；进程捕获需 Linux/macOS 的原生 PTY"],
+    ]}
+  />
+  <Prose tile>
+
+Source map 是打包代码与原始代码位置之间的映射；拿得到它，会让追踪更容易，但不能假设每个发布包都带着完整源码。PTY 是伪终端，用来记录需要终端交互的进程。工具覆盖这些形式，意味着调查可以跨到相应材料，不意味着每种形式都能完整还原。
+
+原生支持尤其要按环境核对。[Ghidra 文档](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/installation.md#ghidra)要求已有的 12.1.x 安装、匹配宿主架构的反编译组件，以及安装声明支持的完整 JDK。Windows x64 P0 仍是实验范围，限定特定本地 NTFS 上的原生 x86/x86-64 PE，且保持只读。平台名字出现在列表里，不能替代实际工作流测试。
+
+项目的[重建就绪检查](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/reconstruction-readiness.md)使用自有测试样例，核对证据、差异、取消和重放等流程；其中的报告评估器不是公开 MCP 工具，也不是面向所有软件的还原能力榜单。本文没有跑这套验证，不能把项目测试规则当成本次实测成绩。
+
+  </Prose>
+</Section>
+
+<Section canvas id="security">
+  <SectionHead index="11" kicker="安全边界" title="本地分析不等于沙箱，也不等于资料不会出机" />
+  <Prose tile>
+
+[安全策略](https://github.com/morluto/rea/blob/rea-agents-6.4.0/SECURITY.md)明确写出：REA 不是沙箱。它用随机能力令牌和私有会话描述符保护本地桥接，并限制临时资源与进程生命周期；同一操作系统用户下已经运行的恶意进程，仍在这层保护之外。把不可信文件交给分析引擎，意味着让引擎用当前用户权限解析它。
+
+静态读取也不能当作绝对安全的文件查看器；复杂格式的解析器本身是攻击面。运行时工具风险更直接：目标可能写文件或访问网络。[原生观察文档](https://github.com/morluto/rea/blob/rea-agents-6.4.0/docs/native-investigation.md)说明，UI 动作可能改变数据，而且不会自动恢复应用状态。浏览器调试接口也能深入访问所选浏览器配置，不应连接放着日常登录状态的主配置。
+
+“本地”描述分析的位置。README 同时说明，Agent 会收到工具结果，模型提供商适用自己的数据政策。如果 Agent 使用云端模型，伪代码、请求内容和路径等工具结果可能进入发送给模型的上下文。REA 不上传原应用，与整个调查过程没有数据出机，是两件不同的事。
+
+因此，建议把不可信目标放在隔离虚拟机或专用低权限环境，使用独立浏览器配置和测试账号，限制外连并保留输入副本。不要把生产凭据带进调查，也不要把完整 Evidence 包直接贴到公开 issue。[MCP 官方安全指南](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices)同样提醒，本地服务执行能力需要限制权限和隔离，确认界面本身不是沙箱。
+
+目标里的文本也只应当作被研究的数据。注释或网页内容如果要求 Agent 忽略指令、上传文件，不能因为它来自工具结果就赋予它操作权限。这是使用建议，不是本文已经验证 REA 能自动阻止提示注入的承诺。
+
+REA 自身使用 [MIT 许可证](https://github.com/morluto/rea/blob/rea-agents-6.4.0/LICENSE)，分析引擎另有许可；被研究软件的授权也要单独确认。适合从自己拥有或获得授权的程序、公开教学样例开始。安装一个开源工具，不会同时取得复制第三方代码、资源或访问其服务的授权。
+
+  </Prose>
+</Section>
+
+<Section canvas id="takeaways">
+  <SectionHead index="12" kicker="使用判断" title="适合把问题查细，不适合把验证省掉" />
+  <Prose tile>
+
+REA 值得尝试的场景，是有明确问题的软件调查：旧程序的某个文件格式，自己应用的跨进程调用，授权目标里某个算法的行为，或发布包与源码之间的变化。它能把查函数、查引用和保留证据的操作交给 Agent，也让后续解释有位置可核对。
+
+缺失的服务端逻辑仍然需要更多材料。混淆后的动态行为和没有覆盖到的输入，也不会因为接入 Agent 就得到解释。公开案例中有说服力的做法，是把结论限定到一个函数，再拿执行和编译结果检查。这个做法比“能逆向一切”的名字更值得借鉴。
+
+本次实测说明小型 Electron 静态调查路径可以工作，源码说明项目在认真处理来源、资源预算与未知项。它们还不足以支持复杂软件的普遍还原能力。对使用者而言，交付物应当是可追溯的解释和经过检查的实现，保留尚未解答的问题，而不只是看起来像原应用的界面。
+
+  </Prose>
+  <Summary surface="white"
+    takeaways={[
+      { title: "技术价值", conclusion: "让已有逆向工具成为 Agent 可连续调用的调查能力。", detail: "统一结果来源，并保留未知项和可复用记录；模型解释仍要人工核对与测试。" },
+      { title: "采用建议", conclusion: "从授权小目标的静态分析开始，逐步增加执行权限。", detail: "隔离不可信目标，核对数据去向，按实际验证范围陈述结果。" },
+    ]}
+    note="资料核对截至 2026-10-13，源码以 REA 6.4.0 为准。Notes 静态分析为本次实测；DX-Ball 指标为官方项目记录，未独立复现。没有完成原生、浏览器运行时、Android 或复杂商业应用的端到端测试。"
+  />
+</Section>
+</ArticleCanvas>
