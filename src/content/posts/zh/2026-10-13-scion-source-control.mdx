@@ -1,0 +1,399 @@
+---
+title: "Scion：版本管理服务"
+date: 2026-10-13
+updated: 2026-10-15
+excerpt: "Git 让本地仓库独立管理版本，Scion 把版本计算交给在线服务。从首页改一句话的例子，看懂这项取舍怎样减少 AI 任务的重复工作，以及它为何不能直接替普通用户换掉 Git。"
+tags: ["Scion", "Anthropic", "Git", "AI Agent", "开发基础设施"]
+kind: "distilled"
+sources:
+  - title: "Redesigning source control at Anthropic"
+    url: "https://www.anthropic.com/engineering/redesigning-source-control"
+  - title: "Scaling Git for the agentic software factory"
+    url: "https://about.gitlab.com/blog/scaling-git-for-the-agentic-software-factory/"
+  - title: "Why Google Stores Billions of Lines of Code in a Single Repository"
+    url: "https://research.google/pubs/why-google-stores-billions-of-lines-of-code-in-a-single-repository/"
+  - title: "Overview"
+    url: "https://sapling-scm.com/docs/scale/overview/"
+  - title: "Git Internals - Git Objects"
+    url: "https://git-scm.com/book/en/v2/Git-Internals-Git-Objects"
+  - title: "Git - partial-clone Documentation"
+    url: "https://git-scm.com/docs/partial-clone"
+  - title: "Git - git-sparse-checkout Documentation"
+    url: "https://git-scm.com/docs/git-sparse-checkout"
+  - title: "Git - Basic Branching and Merging"
+    url: "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+  - title: "Git - diff-format Documentation"
+    url: "https://git-scm.com/docs/diff-format"
+  - title: "Git - About Version Control"
+    url: "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control"
+---
+
+import { CoverBanner, ArticleCanvas, Section, SectionHead, Prose, CardGrid, InfoCard, ScrollStory, CompareTable, StatGrid, Stat, Summary } from '@/components/article';
+import CoverGraph from '@/assets/scion/cover.svg';
+import ArchitectureGraph from '@/assets/scion/architecture.svg';
+import ChangesetGraph from '@/assets/scion/changeset.svg';
+import SelectGraph from '@/assets/scion/select.svg';
+import RequestGraph from '@/assets/scion/request.svg';
+import EditGraph from '@/assets/scion/edit.svg';
+import ReuseGraph from '@/assets/scion/reuse.svg';
+import MaterializeGraph from '@/assets/scion/materialize.svg';
+import WorkloadGraph from '@/assets/scion/workload.svg';
+import GitMergeGraph from '@/assets/scion/git-merge.svg';
+import FileHistoryGraph from '@/assets/scion/file-history.svg';
+
+<CoverBanner
+  kicker="工程调研 · Anthropic · 2026-10-13"
+  title="Scion：版本管理服务"
+  lead="Git 让本地仓库独立管理版本，Scion 把版本计算交给在线服务。你仍在本地编辑文件，却不必让每个 AI 任务都准备一份能独立工作的仓库。少做了哪些工作，又放弃了什么？从首页改一句话讲起。"
+  pills={[{ label: "先讲与 Git 的区别" }, { label: "再走一遍实例" }, { label: "内部已上线" }, { label: "尚无公开安装入口" }]}
+>
+  <CoverGraph slot="visual" class="block h-auto w-full" role="img" aria-label="Scion 概念图：保存B后main仍指向A，合入后main前移到B，两个版本仍然保留" />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="definition">
+  <SectionHead index="01" kicker="根本区别" title="Git 在本地管理版本，Scion 把这项工作交给在线服务" lead="改变的是客户端与服务器的分工，收益来自少做重复工作，代价是依赖在线服务。" />
+  <Prose tile>
+
+假设你在维护一个网站，首页写着“欢迎”。今天改成“你好”，明天想查昨天究竟改了什么，或者恢复旧文案。直接覆盖文件只能看到现在。版本控制系统保留修改记录，让你比较和恢复不同版本。
+
+多人一起做项目时，它还要区分“我的修改已经保存”和“团队同意采用这次修改”。大家共同采用的那条版本记录，通常叫主线。保存到服务器并不意味着网站马上发布了新文案，发布又是另一个步骤。
+
+Git 是常用的版本控制工具。Scion 则是 Anthropic 自研的版本控制系统，已经承担了 Git 原来在其大型仓库中的工作。这里的仓库是一起管理的一组文件及其历史；Anthropic 把多个项目放进同一个仓库，称为 monorepo，即单体仓库。[官方发布说明](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+你的电脑主要准备和编辑文件，Scion 的服务器处理保存版本和查询历史。AI 编程助手也按这种方式使用它。Agent 在本文中指可以读取文件、调用工具并修改代码的 AI 助手。
+
+  </Prose>
+  <Prose tile>
+
+<h3 id="core-difference">同样改一句话，断网后还能做什么？</h3>
+
+用 Git 的普通完整克隆，把首页从“欢迎”改成“你好”后，你可以断网创建提交 B，也可以在本地比较版本、合并已有的改动。等网络恢复，再用 push 把提交分享出去。Git 的服务器通常用于团队协作，但创建提交并不依赖服务器在线。这里说的是完整克隆；缺少对象的部分克隆不能保证所有离线操作都可用。[Git 的分布式设计](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)。
+
+Scion 则由服务器创建 B。断网后，已有文件仍可以在本地编辑，但不能指望客户端独立完成服务端的提交或合并。历史问题由服务器回答，客户端也就不必在本地维护查询所需的仓库数据。它放弃了完整的本地自主能力，换取更轻的客户端。[官方设计原则](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+再假设另一项 AI 任务只想问“谁把首页改成了‘你好’”。Scion 可以通过 API，也就是程序可调用的接口，直接回答；这个任务连编辑用的文件目录都不用创建。Git 托管平台也能提供类似接口，区别在于 Scion 从设计开始就把这些能力作为服务提供，自己的客户端也依赖它们。
+
+存储记录也随之重做。Git 的提交指向目录树，表达完整快照，未变的对象可以复用；Scion 的 changeset 是一份相对父版本的变更记录，再用派生索引回答历史等问题。第 5、6 章会拆开解释。不能把这个区别理解成“Git 每次复制全部文件，Scion 才只保存变化”。[Git 对象](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)、[Scion 数据结构](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+给 Git 加一个远端服务器，并不会自动得到 Scion。Git 即使采用集中协作，本地仓库仍保留独立工作的能力；Scion 连仓库格式与取代码协议也重新设计，让海量在线任务共享服务和缓存。每个任务的准备负担轻了，服务器可用性也成为日常工作的前提。
+
+  </Prose>
+  <CardGrid cols={2}>
+    <InfoCard label="已经发生" title="替换了 Anthropic 自己的 Git 工作流">
+      <p class="mt-3 text-[15px] leading-[1.75] text-ink-2">2026-10-13 的公告说，其单体仓库已完整迁移。Scion 配有名为 <code>scn</code> 的客户端，代码审查由另一个配套工具 Antique 承担。</p>
+    </InfoCard>
+    <InfoCard label="你现在能否使用" title="还不能按官方教程安装">
+      <p class="mt-3 text-[15px] leading-[1.75] text-ink-2">截至 2026-10-15，官方没有提供公开源码、客户端下载或外部接入文档。它不适合作为一般用途的 Git 替代品，也没有承诺兼容原有 Git 工作流。</p>
+    </InfoCard>
+  </CardGrid>
+  <Prose tile>
+
+接下来用一个教学例子解释它。文件名、文案和版本 A/B 都是假设；插图是机制示意，不是 Scion 的真实界面。它们帮助理解公开设计，不代表我们运行过 Anthropic 的内部系统。
+
+  </Prose>
+</Section>
+
+<Section canvas id="problem">
+  <SectionHead index="02" kicker="为何重做" title="改动很小，准备代码的工作却可能反复发生" lead="当同类任务每天启动几千万次，小开销也会变成大问题。" />
+  <Prose tile>
+
+如果一直在自己的电脑上开发，文件和历史早就准备好了，今天只需要继续编辑。临时 AI 任务可能刚启动，环境里还没有这个项目。它先取得指定版本的代码，检查后销毁环境。下一项任务来了，又准备一遍。
+
+Anthropic 同时面对更大的仓库和更多的修改。它报告，2026 年 5 月平均每天合入约 2,500 个代码变更，到 9 月已超过 30,000 个。下面只画官方提供的两个时间点，不把它们补成一条不存在的连续趋势。[数据来源](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+  </Prose>
+  <figure class="not-prose rounded-card bg-white p-6 md:p-8">
+    <WorkloadGraph class="mx-auto block h-auto w-full max-w-[600px]" role="img" aria-label="每日合入变更：2026年5月约2500个，9月超过30000个，九月柱按30000这个下界绘制" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">单位：代码变更 / 天，非代码行数。9 月柱按 30,000 的下界绘制；两根柱共用比例和零起点。</figcaption>
+  </figure>
+  <Prose tile>
+
+只算主线历史就接近 100 GB，压缩后的工作副本超过 25 GB。工作副本指你真正能打开、编辑或运行的那份文件。仅 CI 每天就有约 2,500 万次 checkout，也就是把指定版本准备到工作目录。CI 是持续集成：自动构建项目并运行测试的流程。这个次数还没计入开发环境、Agent 沙箱和研究任务。
+
+官方估算，朴素地反复获取代码会需要超过 600 PB/天的流量。这是一个假设开销，不是已经发生的网络流量。
+
+Git 并非只能下载全部内容。[Partial clone](https://git-scm.com/docs/partial-clone) 可以暂缓下载不需要的数据；[sparse checkout](https://git-scm.com/docs/git-sparse-checkout) 让工作目录只出现选定文件。浅克隆限制历史深度。Anthropic 说这些办法都用过，也做过仓库快照，峰值时运行数百个 Git 镜像，但仍难以跟上主线变更。
+
+共享源码服务已有前例：[Google 的单体仓库研究](https://research.google/pubs/why-google-stores-billions-of-lines-of-code-in-a-single-repository/)介绍过集中管理，[Meta 的 Sapling](https://sapling-scm.com/docs/scale/overview/)也逐步采用按需获取和服务端索引。Scion 从一开始就假定大多数客户端始终在线，因而不保留 Git 那样完整的离线工作能力。
+
+  </Prose>
+</Section>
+
+<Section canvas id="usage">
+  <SectionHead index="03" kicker="完整例子" title="把首页的“欢迎”改成“你好”，从开始到合入" lead="每一步都看得到文件或记录发生了什么变化。" />
+  <Prose tile>
+
+假设首页文案在 `site/home.md`，页面样式在 `site/styles.css`；仓库里另有文档和图片。你请 AI 助手改首页文案，并检查网页仍能正常生成。当前团队采用的是版本 A。
+
+缓存把读取过的原始数据留在近处。后续任务再要同一份，就不必重新从远处取。这些可以单独用标识找回的数据叫对象，例如某个版本的文件内容。
+
+Git 里常说的 push 是推送：把本地已经创建的提交再分享给服务器。Scion 的版本直接在服务器创建，后面的“保存版本”一步就不需要额外推送。
+
+下面按 Scion 的公开机制讲解一次工作。目录选择由任务需要决定；实际构建可能还要配置文件和其他依赖，不能把“只取必要内容”理解成“永远只下载修改的那一个文件”。
+
+用这些文件看一次 Git 合码。文案分支从共同起点 A 出发，产生提交 B，把“欢迎”改成“你好”。主线另有提交 C，调整页面样式。合并得到 M，保留这两项改动。圆点是提交，连线是版本关系。[Git 的分支与合并说明](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging)。
+
+  </Prose>
+  <figure id="git-merge-example" class="not-prose rounded-card bg-white p-6 md:p-8">
+    <GitMergeGraph class="mx-auto block h-auto w-full max-w-[620px]" role="img" aria-label="Git 提交图：A分叉为主线C和文案分支B，B与C共同合入M，M有两个父版本" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">这是已经分叉的合并：M 有两个父版本 C 和 B。若可以直接前移主线指针，Git 也可快进合并，不一定新建 M。</figcaption>
+  </figure>
+  <Prose tile>
+
+合码图回答“哪些修改汇到一起”，diff 图回答“文件究竟改了什么”。下面是同一教学文件从 A 到 B 的真实 Git diff 片段：`-` 表示删除的旧行，`+` 表示加入的新行。没有符号的上下文行没改，`# Home` 和帮助链接都保留下来。[Git diff 格式](https://git-scm.com/docs/diff-format)。
+
+`@@ -1,3 +1,3 @@` 是显示范围：旧文件和新文件都从第一行开始展示三行。图中两个“2”分别属于旧文件与新文件，所以仍然只改了同一行。
+
+  </Prose>
+  <figure id="homepage-diff-example" class="not-prose rounded-card bg-white p-6 md:p-8">
+    <EditGraph class="mx-auto block h-auto w-full max-w-[540px]" role="img" aria-label="Git diff：上下文为Home标题和帮助链接，删除欢迎这一行，加入你好这一行，其他行不变" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">以临时 Git 样例生成的差异片段重绘，左侧是讲解用行号。它表示文件变化，不代表 Scion 内部保存文本补丁。</figcaption>
+  </figure>
+  <Prose tile>
+
+回到 Scion，沿五步流程追踪一次变更。这里暂不加入并行的样式修改 C，只看从 A 开始的文案变更 B。保存它和决定采用它，仍然是两个动作。
+
+  </Prose>
+  <ScrollStory steps={[
+    { tag: "01 · 准备范围", title: "从版本 A，准备首页相关文件", body: "任务要处理 site/。客户端取得这个目录，以及真正需要的配置和依赖。示例中的 docs/、assets/ 暂时不参与，因此不必先把它们全部准备到磁盘上。" },
+    { tag: "02 · 取得内容", title: "已有的原始文件，直接从缓存复用", body: "假设同一节点之前的任务已经读取过版本 A 的首页和样式，本次就复用那些对象。节点没有的内容才向区域缓存请求；区域也没有，再向权威服务获取。" },
+    { tag: "03 · 修改文件", title: "在自己的目录里，把“欢迎”改为“你好”", body: "你或 Agent 编辑 site/home.md，然后进行必要的检查。此时是这份工作目录中的内容变了；共享缓存里的旧内容不会被覆盖，其他任务的目录也不会跟着改变。" },
+    { tag: "04 · 保存版本", title: "服务器保存一份变更记录 B", body: "记录说明：以版本 A 为基础，site/home.md 有了新内容。Scion 把这次变更叫作 changeset。版本在服务器创建，无须再做一次单独的 push；但主线仍然可以是 A。" },
+    { tag: "05 · 合入主线", title: "经过审查与合入，团队才采用新文案", body: "配套流程决定是否接受这次修改。审查通过并合入后，主线采用这次变更。新任务取最新主线时，才能取得“你好”；要让线上网站变化，还需要后续发布流程。" },
+  ]}>
+    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460" role="img" aria-label="教学示例第一步：选择首页相关目录，暂不准备无关目录">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="30" y="67" fill="var(--color-muted)" font-size="16">01 / 05 · 准备范围</text>
+      <SelectGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460" role="img" aria-label="教学示例第二步：复用缓存中首页和样式的原内容">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="30" y="67" fill="var(--color-muted)" font-size="16">02 / 05 · 取得内容</text>
+      <RequestGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460" role="img" aria-label="教学示例第三步：site/home.md 的文案由欢迎改成你好">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="30" y="67" fill="var(--color-muted)" font-size="16">03 / 05 · 修改文件</text>
+      <EditGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460" role="img" aria-label="教学示例第四步：changeset B 记录基础版本、变更文件和内容标识">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="30" y="67" fill="var(--color-muted)" font-size="16">04 / 05 · 保存版本</text>
+      <ChangesetGraph x="30" y="88" width="400" height="320" />
+    </svg>
+    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460" role="img" aria-label="教学示例第五步：刚保存变更时主线仍是欢迎，审查并合入以后主线才采用你好">
+      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
+      <text x="30" y="67" fill="var(--color-muted)" font-size="16">05 / 05 · 合入主线</text>
+      <MaterializeGraph x="30" y="88" width="400" height="320" />
+    </svg>
+  </ScrollStory>
+  <Prose tile>
+
+这个例子最需要分清的是两个时点：保存变更，保护的是你的工作；合入主线，改变的是团队共同使用的版本。Scion 在服务端创建版本，只省掉了单独推送这一步，没有省掉审查或正确性检查。
+
+官方公开了 `scn` 的名称，没有公开命令参考。因此这里不写无法核验的安装、提交和审查命令。前述流程是设计讲解，不是一个可在外部重放的操作教程。[依据：Scion 的职责与开发流程说明](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+  </Prose>
+</Section>
+
+<Section canvas id="architecture">
+  <SectionHead index="04" kicker="系统分工" title="电脑管你正在改的文件，服务器管大家共享的版本" lead="把刚才的例子放回真实组件中看。" />
+  <figure class="not-prose rounded-card bg-white p-6 md:p-8">
+    <ArchitectureGraph class="mx-auto block h-auto w-full max-w-[540px]" role="img" aria-label="职责示意：scn 在本地显示文件并发现修改，Scion 服务端保存版本与回答历史问题，文件读取使用缓存" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">职责示意，不是产品截图。版本写入与历史查询使用服务端 API；文件读取另有缓存路径。</figcaption>
+  </figure>
+  <Prose tile>
+
+例子里，显示和修改 `site/home.md` 是客户端的工作。Scion 的服务器创建提交，也执行合并和 rebase。合并把不同的改动组合起来；rebase 把一组改动重新放到另一个基础版本上。历史问题也由服务器回答，客户端不用自己携带完整历史来计算。
+
+如果某个任务只想知道“版本 B 改了哪个文件”，可以通过服务器 API 直接提问，不用先准备文件目录。Scion 的自动定位问题提交和回退工具，也利用这种能力。回退指撤销已经采用的修改。
+
+虽然由服务端统一给出结果，数据仍是分布存储的。官方说，没有一台机器持有完整落盘的仓库副本；各组件可以分别增加实例来扩容。[官方架构说明](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+  </Prose>
+  <CardGrid cols={2}>
+    <InfoCard label="保存与计算" title="权威服务和持久存储">
+      <p class="mt-3 text-[15px] leading-[1.75] text-ink-2"><code>scion-server</code> 提供版本操作。Spanner 是分布式数据库，公开说明提到它保存派生结果和主线等引用数据。Blob 存储保存压缩文件内容。</p>
+    </InfoCard>
+    <InfoCard label="读取与复用" title="节点缓存和区域缓存">
+      <p class="mt-3 text-[15px] leading-[1.75] text-ink-2"><code>scion-daemon</code> 在一台机器的后台运行，让同机任务复用对象；<code>scion-cache</code> 在区域内提供缓存。缓存没有的对象才逐层向上请求。</p>
+    </InfoCard>
+  </CardGrid>
+  <Prose tile>
+
+公开材料没有给出实现语言、完整接口定义或底层数据库结构。这里能解释系统怎样分工，不能据此声称核查过它的源码。
+
+  </Prose>
+</Section>
+
+<Section canvas id="changesets">
+  <SectionHead index="05" kicker="保存了什么" title="“改了哪份文件”与“文件内容放在哪里”分开记录" lead="一份简化的变更单，比抽象术语更容易看懂。" />
+  <Prose tile>
+
+回到首页例子。保存后得到的 changeset B，可以理解为一份变更单：基于版本 A，修改了 `site/home.md`，用标识 Y 找回新内容“你好”。A/B 表示版本，X/Y 表示文件内容的标识。字母只是教学标签，并非 Scion 的真实格式。
+
+服务器把文件内容压缩后放入 blob 存储。Blob 是一份文件内容数据。用内容计算出的标识找回它，叫内容寻址：标识确定后，这份内容就不变了。“欢迎”与“你好”会是不同的内容；保存新内容不会覆盖旧内容。
+
+  </Prose>
+  <figure class="not-prose rounded-card bg-white p-6 md:p-8">
+    <ChangesetGraph class="mx-auto block h-auto w-full max-w-[540px]" role="img" aria-label="教学简化变更单：以版本A为基础，site/home.md修改，用标识Y找回你好，保存不等于合入" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">概念示意，不是数据库 schema。真实 changeset 还包含版本记录所需的其他信息。</figcaption>
+  </figure>
+  <Prose tile>
+
+在公开实现里，changeset 是预写日志中的一个条目，保存相对第一父版本改变的文件清单，并引用压缩后的内容。第一父版本是这份变化清单用来比较的基础版本；合并有多个父版本时，需要约定以哪个为准。官方脚注解释，这个选择适合他们围绕主线查看历史的工作方式。[数据结构来源](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+这份清单不必把未修改文件全部写成新内容。但也不能把“增量”理解成只存了几个字的文本补丁：公开描述是变更文件清单与文件内容引用。
+
+Git 的 commit，也就是提交记录，指向目录树 tree，表达该版本的完整文件快照。它同样使用内容寻址和对象复用，未修改文件不需要每次重新复制。[Git 对象说明](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)。两者的区别不能被概括为“Git 存全部，Scion 才会复用”。
+
+Scion 还把创建 changeset 与更新主线引用分开。引用 ref 是指向某个版本的指针；main 表示主线。只有创建变更单，主线可以不动，所以提交创建路径不必为每次实验移动共同的主线指针。官方也不鼓励日常为每个任务维护分支引用，主线和发布分支除外；这样要共同协调的状态更少。
+
+“保存 B，main 暂时不动”并非 Scion 独有：Git 在其他分支上提交时，main 也可以不动。下面的图只解释保存与合入的关系。Scion 的不同之处在于版本由服务器创建，而且日常流程尽量不为每个任务维护分支引用；不能只看指针怎么移动，就判断两套系统的区别。
+
+  </Prose>
+  <figure id="scion-main-reference" class="not-prose rounded-card bg-white p-6 md:p-8">
+    <CoverGraph class="mx-auto block h-auto w-full max-w-[540px]" role="img" aria-label="Scion 的简化版本关系图：创建B不移动main，采用B后main从A前移到B，历史A不被覆盖" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">保存与合入的关系示意，并非 Scion 独有能力。这里 B 可直接采用；有并行修改时可能需要合并或 rebase，图不承诺与 Git 兼容。</figcaption>
+  </figure>
+  <Prose tile>
+
+更新 main 时，官方使用 Spanner 单行上的 compare-and-swap，简称 CAS：先确认当前值仍是预期的旧值，再换成新值。这防止一次更新盲目覆盖另一次。它不会自动解决代码冲突。例如，两个任务同时把“欢迎”改成不同的句子，最终采用哪一句，仍需要合并与审查来处理。
+
+  </Prose>
+</Section>
+
+<Section canvas id="derived-data">
+  <SectionHead index="06" kicker="怎样查历史" title="“谁改了首页”可以查索引，不用每个任务翻完整历史" />
+  <Prose tile>
+
+这里另看一段没有分叉的历史：A 后面依次是 B、C。B 改了首页文案，C 基于 B 只改样式。你现在问“‘你好’是在哪次修改中出现的？”答案应当指向 B，而不是把最新的 C 当作文案修改者。
+
+Scion 为不同的问题建立 derived data，即从原始变更记录算出的派生数据。可以把它理解为书后的索引：内容仍在原始记录里，索引帮你更快找到对应位置。图中仓库继续产生新版本，首页内容却没有在每一步变化。
+
+  </Prose>
+  <figure id="file-history-example" class="not-prose rounded-card bg-white p-6 md:p-8">
+    <FileHistoryGraph class="mx-auto block h-auto w-full max-w-[620px]" role="img" aria-label="独立的线性历史：仓库有A、B、C三个提交；首页只在B从内容X欢迎变为Y你好，C继续使用Y" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">独立的线性教学例子，C 基于 B，与前面的分叉场景不同。实线表示内容变化，虚线延续表示 C 沿用原内容。</figcaption>
+  </figure>
+  <Prose tile>
+
+问“首页改过什么”，查这个路径的历史就够了。要知道哪次修改引入“你好”，blame 会追查这行内容的来源，在例子里定位到 B。版本有没有共同祖先，则要查提交图。最新版本不能直接当作所有文件的最后修改者。
+
+官方给出的派生结构包括 blame、路径历史，以及加速提交图查询的 skip list。Skip list 用额外的跳转关系减少逐条遍历。每类派生数据可以从父版本的结果加上当前改动计算出来；既可以提前准备，也可以等查询需要时再算，然后保存结果供后续复用。[派生数据说明](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+原始记录保存变化，索引帮助回答问题。客户端不需要了解索引内部格式，服务器可以调整算法。官方目标是让提交及其后续更新的成本随改动规模增长，而非随整个仓库规模增长，但没有公开证明所有操作都满足这一复杂度的基准。
+
+取代码时仍然有 tree，也就是目录树。官方确认，changeset 是原始记录，读取协议处理 tree 和 blob。结合派生机制，可以把目录树理解为由变更记录构建的读取视图；这是对公开设计的解释，具体树实现没有公布。
+
+  </Prose>
+</Section>
+
+<Section canvas id="checkout">
+  <SectionHead index="07" kicker="文件复用" title="共享的是原始内容，各个任务仍编辑自己的文件" />
+  <Prose tile>
+
+假设任务甲和任务乙都从版本 A 开始。节点缓存中有 `home.md` 的旧内容，用标识 X 找回的就是“欢迎”。任务甲在自己的目录里改成“你好”；任务乙仍用版本 A，就会得到“欢迎”。共享的是原始内容对象，不是一个大家一起写的工作目录。
+
+如果任务乙后来需要包含新文案的版本，它必须按那个版本取得新的内容标识。不能因为缓存里曾出现过“你好”，就把最新读到的对象塞给任何任务。
+
+  </Prose>
+  <figure class="not-prose rounded-card bg-white p-6 md:p-8">
+    <ReuseGraph class="mx-auto block h-auto w-full max-w-[620px]" role="img" aria-label="教学示例：任务甲和任务乙从同一缓存取得版本A，甲的目录改为你好，乙的目录仍为欢迎，编辑不共用" />
+    <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">教学示例：两项任务固定在版本 A 起步。不可变对象可以共享，各自工作副本中的编辑独立进行。</figcaption>
+  </figure>
+  <Prose tile>
+
+实际读取协议也是按对象取。客户端从根目录树开始，检查本地缺少哪些需要的 tree，再取所需 blob。服务器不必为每个客户端计算一个多 GB 的大包；一个对象已经取得，就可以复用，中断后继续补缺少的对象。[官方读取设计](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+Git 的 packfile 是把对象打包压缩后的集合。Scion 没有对应的大包，也不需要同类打包维护。区域缓存直接流式发送节点能使用的格式，不需要每次现场计算压缩差异。节点从定期刷新的快照起步，让同机任务复用已准备的对象。
+
+  </Prose>
+  <CardGrid cols={2}>
+    <InfoCard label="稀疏工作副本" title="选定目录，再准备这些文件">
+      <p class="mt-3 text-[15px] leading-[1.75] text-ink-2">比如这次需要 <code>site/</code>，先不准备无关目录。任务真正需要的配置与依赖仍然要取得，范围由任务决定。</p>
+    </InfoCard>
+    <InfoCard label="虚拟工作副本" title="读到文件时，再取得它的内容">
+      <p class="mt-3 text-[15px] leading-[1.75] text-ink-2">即使目录包含更多文件，也不必一开始全部落到磁盘。程序真正访问某份文件时才准备内容；只查历史的任务可以完全不建工作副本。</p>
+    </InfoCard>
+  </CardGrid>
+  <Prose tile>
+
+共享服务必须可用。节点、区域缓存和权威服务器响应相同的读取 RPC，RPC 是远程过程调用，也就是向另一服务发出操作请求。官方仍严格限制请求层级：区域缓存坏了，不能让所有任务直接涌向权威服务器，把局部故障扩大。限流与故障保护仍然要做，缓存也不能绕过权限检查。
+
+  </Prose>
+</Section>
+
+<Section canvas id="results">
+  <SectionHead index="08" kicker="节省在哪" title="少准备无关文件，重复任务也少算、少取" lead="收益要和测量范围一起读，不能把所有数字都叫作“Git 加速”。" />
+  <Prose tile>
+
+首页例子只改了一句文案。省下的工作来自准备更少的文件，以及反复复用同一份原始内容。查询历史时甚至不用准备文件。这些机制解释了为什么 Scion 能减轻 Anthropic 的开销。
+
+下面是 [Anthropic 的内部结果](https://www.anthropic.com/engineering/redesigning-source-control)，没有独立复现实验。官方也没有提供机器配置或延迟分位数，不能把它们推广成任意仓库上的成绩。
+
+  </Prose>
+  <StatGrid tile cols={2}>
+    <Stat value="200" count={200} countSuffix=" 倍" label="官方报告 · CPU / 内存基础设施占用相对原 Git 镜像缩小" />
+    <Stat value="25%" label="官方报告 · CI 集群获得的 CPU 容量收益" />
+  </StatGrid>
+  <CompareTable tile
+    headers={[{ label: "官方报告" }, { label: "它说明什么", wrap: true }, { label: "没有说明什么", wrap: true }]}
+    rows={[
+      ["每层命中率超过 99%", "这一缓存系统大量复用已有对象", "没有给出请求或字节口径，不能算出精确总流量"],
+      ["基础设施占用缩小 200 倍", "Scion 的 CPU / 内存需求相对原 Git 镜像基础设施降低", "不是所有命令快 200 倍，也不是公司总成本"],
+      ["checkout 快两个数量级", "内部 CI 与研究任务从分钟级准备变成秒级", "不是编译、测试和合并都快 100 倍"],
+      ["CI 获得 25% CPU 容量收益", "准备代码少占用集群资源", "不代表每项任务、每个团队都节省 25%"],
+    ]}
+  />
+  <Prose tile>
+
+这些数字不能简单相加或相乘。特别是缓存命中率：要估算后端流量，还需知道各层统计是否对应同一条请求链、算的是请求数还是字节数，以及冷启动是否纳入。官方没有提供这些条件。
+
+  </Prose>
+</Section>
+
+<Section canvas id="migration">
+  <SectionHead index="09" kicker="仍有代价" title="准备代码更轻了，审查、测试和发布责任没有消失" />
+  <Prose tile>
+
+官方报告，一支七人团队在五个月内完成 Scion、Antique 和其他相关系统的建设与迁移。人数和时间覆盖整组工程，不能缩成“七个人写了一个 Git”。迁移先从历史等元数据查询开始，随后再加入自己的仓库格式、取代码协议和客户端。[工程经验来源](https://www.anthropic.com/engineering/redesigning-source-control)。
+
+Claude 参与实现和优化。官方举的一个例子是 Git 到 Scion 的导入原型：Claude Mythos Preview 重写后，内存占用降低 20 倍，速度提高 4 倍。这是某条流水线的内部结果，不是工程师整体效率实验。
+
+人仍要判断系统约束。Agent 曾试图线性翻提交日志来找合入时间，应当向审查工具查询的问题被做成了低效的遍历。对抗式审查也曾诱导出过度防御的验证代码。写得快不能替代设计判断。
+
+团队报告建设了隔离模拟测试、模糊测试和限流。模糊测试通过大量变化输入寻找异常。系统支持仓库与目录级权限，配套审查可以针对不同语义改动设定审批要求。具体的缓存权限与恢复机制尚未公开，不能据此作出完整的安全保证。
+
+团队还让 Claude Tag 在 Slack 中持续查看各组件的遥测与日志，寻找异常，传统告警仍保留。服务端成为共同依赖后，监控和故障处理就更重要了。
+
+合入策略也变了。Anthropic 说，测试还在运行时可能已有大量其他修改合入，传统带全局仓库锁的合并队列难以扩展，所以更多投入合入后与部署前的自动测试，让 Claude 处理并发冲突。这改变了错误被发现的时点。它没有宣称不用测试，也没有证明适合所有发布安全要求严格的团队。
+
+  </Prose>
+</Section>
+
+<Section canvas id="decision">
+  <SectionHead index="10" kicker="怎么选择" title="学会减少重复准备，暂时不必跟着换掉 Git" />
+  <Prose tile>
+
+回到开头的区别：Git 让本地仓库能够独立管理版本；Scion 把版本操作做成在线服务，让任务只准备真正需要的文件，甚至只通过接口查询。提交在哪里创建、断网后还能做什么，比“合码图长得像不像”更能区分它们。
+
+普通团队目前没有官方安装入口。即便未来开放，采用 Scion 也不只是换一个命令：Anthropic 说，必须迁移审查、搜索与 CI 等配套流程。客户端还要依赖在线服务。小仓库或经常离线工作的人，不一定能从这些取舍中获益。
+
+如果你已经有大量临时 Agent 任务，先测量准备代码花了多少时间、流量和机器资源，再检查 Git 的部分克隆、稀疏目录和缓存是否用对。只查询历史的任务，优先利用已有服务端接口。这是依据公开机制给出的工程建议，不是 Scion 部署教程。
+
+Git 兼容平台也在改进。GitLab 同日的[回应](https://about.gitlab.com/blog/scaling-git-for-the-agentic-software-factory/)介绍了重做服务端、增加 Agent 接口但保留 Git 兼容的路线；该文发布时，next-gen SCM 仍在 private beta，即非公开测试阶段。这也说明，提高 Agent 任务吞吐量不必只有完整迁移这一种办法。
+
+Anthropic 希望分享可被 Git 平台吸收的设计，包括更完整的服务端接口、改进取代码协议和稀疏能力。Scion 已解决它自己的内部问题，公开证据还不能证明其他团队应该全面离开 Git。
+
+  </Prose>
+  <Summary surface="white"
+    takeaways={[
+      { title: "与 Git 的根本区别", conclusion: "Git 的本地仓库能独立工作，Scion 依赖在线版本服务。", detail: "Scion 把提交和历史计算交给服务器，减少任务本地的数据与准备工作；代价是依赖网络和服务可用性。保存与合入分开，并非它独有的能力。" },
+      { title: "你现在能做什么", conclusion: "借鉴它减少重复工作的办法，不把它当作现成的 Git 安装包。", detail: "先排查临时任务是否准备了过多文件、重复下载了相同内容，或只是查询历史却创建了完整工作目录。" },
+    ]}
+    note="2026-10-15 核对。教学示例与机制插图不是真实 Scion UI 或实测记录；实现和性能依据 2026-10-13 的官方单一来源，未独立复现。"
+  />
+</Section>
+</ArticleCanvas>

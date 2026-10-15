@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" fill="none" font-family="var(--font-sans)">
+<text x="20" y="32" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="start" font-family="var(--font-mono)">site/home.md</text>
+<text x="20" y="65" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start" font-family="var(--font-mono)">@@ -1,3 +1,3 @@</text>
+<rect x="16" y="84" width="368" height="178" rx="12" fill="var(--color-paper)" />
+<rect x="20" y="132" width="360" height="36" rx="5" fill="var(--color-white)" />
+<rect x="20" y="174" width="360" height="36" rx="5" fill="var(--color-white)" />
+<g font-family="var(--font-mono)">
+<text x="34" y="114" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">1</text>
+<text x="78" y="114" font-size="20" fill="var(--color-ink-2)" font-weight="400" text-anchor="start"># Home</text>
+<g data-diff-kind="remove" data-old-line="2">
+<text x="34" y="156" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">2</text>
+<text x="60" y="156" font-size="22" fill="var(--color-ink-2)" font-weight="400" text-anchor="start">-</text>
+<text x="78" y="156" font-size="22" fill="var(--color-ink)" font-weight="500" text-anchor="start">欢迎</text>
+<text x="314" y="156" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">删除</text>
+</g>
+<g data-diff-kind="add" data-new-line="2">
+<text x="34" y="198" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">2</text>
+<text x="60" y="198" font-size="22" fill="var(--color-ink-2)" font-weight="400" text-anchor="start">+</text>
+<text x="78" y="198" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="start">你好</text>
+<text x="314" y="198" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">新增</text>
+</g>
+<text x="34" y="240" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">3</text>
+<text x="78" y="240" font-size="20" fill="var(--color-ink-2)" font-weight="400" text-anchor="start">链接：/help</text>
+</g>
+<text x="20" y="299" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">- 删掉旧行，+ 加入新行。</text>
+</svg>

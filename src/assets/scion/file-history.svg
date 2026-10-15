@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 340" fill="none" font-family="var(--font-sans)">
+<text x="24" y="32" font-size="21" fill="var(--color-ink)" font-weight="600" text-anchor="start">仓库历史：A 后面依次是 B、C</text>
+<path d="M70 108H390" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="repo-A-B-C" />
+<g data-commit="A"><circle cx="70" cy="108" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /></g>
+<g data-commit="B"><circle cx="230" cy="108" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /></g>
+<g data-commit="C"><circle cx="390" cy="108" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /></g>
+<text x="70" y="82" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">A</text>
+<text x="230" y="82" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">B</text>
+<text x="390" y="82" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">C</text>
+<text x="70" y="152" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">起点</text>
+<text x="230" y="152" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">改首页</text>
+<text x="390" y="152" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">改样式</text>
+<text x="24" y="206" font-size="20" fill="var(--color-ink)" font-weight="600" text-anchor="start">home.md 的内容历史</text>
+<path d="M86 254H214" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="file-X-Y" />
+<path d="M246 254H390" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="file-Y-reused" stroke-dasharray="5 6" />
+<g data-commit="X"><circle cx="70" cy="254" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /></g>
+<g data-commit="Y"><circle cx="230" cy="254" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /><circle cx="230" cy="254" r="4" fill="var(--color-blue)" /></g>
+<text x="70" y="298" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">X · 欢迎</text>
+<text x="230" y="298" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">Y · 你好</text>
+<text x="390" y="298" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="middle">沿用 Y</text>
+<path d="M230 166V226" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="B-created-Y" stroke-dasharray="5 6" />
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 350" fill="none" font-family="var(--font-sans)">
+<text x="24" y="32" font-size="23" fill="var(--color-ink)" font-weight="600" text-anchor="start">Git · 一次分叉后的合并</text>
+<text x="24" y="68" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">主线 main</text>
+<path d="M64 122H230" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="A-C" />
+<path d="M230 122H396" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="C-M" />
+<path d="M64 122C126 122 132 242 230 242" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="A-B" />
+<path d="M230 242C328 242 328 122 396 122" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="B-M" />
+<g data-commit="A"><circle cx="64" cy="122" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /></g>
+<g data-commit="C"><circle cx="230" cy="122" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /></g>
+<g data-commit="M"><circle cx="396" cy="122" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /><circle cx="396" cy="122" r="4" fill="var(--color-blue)" /></g>
+<g data-commit="B"><circle cx="230" cy="242" r="14" fill="var(--color-white)" stroke="var(--color-ink-2)" stroke-width="2" /></g>
+<text x="64" y="98" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">A</text>
+<text x="230" y="98" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">C</text>
+<text x="396" y="98" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">M</text>
+<text x="64" y="165" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">共同起点</text>
+<text x="230" y="165" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">样式改动</text>
+<text x="396" y="165" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">合并结果</text>
+<text x="24" y="250" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">文案分支</text>
+<text x="230" y="216" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">B</text>
+<text x="230" y="286" font-size="18" fill="var(--color-ink-2)" font-weight="400" text-anchor="middle">文案改动</text>
+<text x="24" y="333" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">M 有两个父版本：C 和 B。</text>
+</svg>

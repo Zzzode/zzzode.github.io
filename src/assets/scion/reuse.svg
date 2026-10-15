@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 400" fill="none" font-family="var(--font-sans)">
+<text x="230" y="30" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="middle">缓存里的原始内容</text>
+<path d="M196 94C120 94 112 150 112 204" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="X-task-a" />
+<path d="M264 94C340 94 348 150 348 204" stroke="var(--color-muted-2)" stroke-width="2.5" stroke-linecap="round" fill="none" data-edge="X-task-b" />
+<circle cx="230" cy="94" r="34" fill="var(--color-paper)" stroke="var(--color-ink-2)" stroke-width="2" />
+<text x="230" y="103" font-size="26" fill="var(--color-ink)" font-weight="600" text-anchor="middle" font-family="var(--font-mono)">X</text>
+<text x="230" y="157" font-size="20" fill="var(--color-ink-2)" font-weight="500" text-anchor="middle">X · 欢迎</text>
+<text x="76" y="163" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="middle">读取 X</text>
+<text x="384" y="163" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="middle">读取 X</text>
+<path d="M28 204H158L194 240V332H28Z M158 204V240H194" fill="var(--color-paper)" stroke="var(--color-line)" stroke-width="1.5" />
+<path d="M266 204H396L432 240V332H266Z M396 204V240H432" fill="var(--color-paper)" stroke="var(--color-line)" stroke-width="1.5" />
+<text x="48" y="240" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">任务甲</text>
+<text x="48" y="282" font-size="30" fill="var(--color-ink)" font-weight="600" text-anchor="start">你好</text>
+<text x="48" y="314" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">自己的编辑</text>
+<text x="286" y="240" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">任务乙</text>
+<text x="286" y="282" font-size="30" fill="var(--color-ink)" font-weight="600" text-anchor="start">欢迎</text>
+<text x="286" y="314" font-size="18" fill="var(--color-muted)" font-weight="400" text-anchor="start">仍用原始内容</text>
+<text x="230" y="380" font-size="20" fill="var(--color-muted)" font-weight="400" text-anchor="middle">共享读取，不共享编辑。</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" fill="none" font-family="var(--font-sans)">
+<rect x="0" y="0" width="400" height="320" rx="18" fill="var(--color-white)" />
+<text x="22" y="35" font-size="25" fill="var(--color-ink)" font-weight="600" text-anchor="start">变更记录 B</text>
+<text x="22" y="60" font-size="13" fill="var(--color-muted)" font-weight="400" text-anchor="start">CHANGESET · 教学简化</text>
+<line x1="22" y1="75" x2="378" y2="75" stroke="var(--color-line-soft)" />
+<text x="22" y="105" font-size="16" fill="var(--color-muted)" font-weight="400" text-anchor="start">基于哪个版本</text>
+<text x="230" y="105" font-size="18" fill="var(--color-ink)" font-weight="600" text-anchor="start">版本 A</text>
+<line x1="22" y1="122" x2="378" y2="122" stroke="var(--color-line-soft)" />
+<text x="22" y="152" font-size="16" fill="var(--color-muted)" font-weight="400" text-anchor="start">改了哪个文件</text>
+<text x="180" y="152" font-size="17" fill="var(--color-ink)" font-weight="600" text-anchor="start">site/home.md</text>
+<line x1="22" y1="172" x2="378" y2="172" stroke="var(--color-line-soft)" />
+<text x="22" y="200" font-size="16" fill="var(--color-muted)" font-weight="400" text-anchor="start">新内容在哪里</text>
+<text x="230" y="200" font-size="18" fill="var(--color-ink)" font-weight="600" text-anchor="start">对象 Y · 你好</text>
+<line x1="22" y1="220" x2="378" y2="220" stroke="var(--color-line-soft)" />
+<text x="22" y="255" font-size="22" fill="var(--color-ink)" font-weight="600" text-anchor="start">服务器已经保存</text>
+<text x="22" y="285" font-size="16" fill="var(--color-muted)" font-weight="400" text-anchor="start">主线还没有因此自动改变。</text>
+</svg>

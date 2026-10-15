@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 400" fill="none" font-family="var(--font-sans)">
+<text x="24" y="40" font-size="28" fill="var(--color-ink)" font-weight="600" text-anchor="start">谁来做哪件事</text>
+<rect x="24" y="66" width="412" height="116" rx="18" fill="var(--color-paper)" />
+<text x="46" y="96" font-size="16" fill="var(--color-muted)" font-weight="400" text-anchor="start">你的电脑 · scn 客户端</text>
+<text x="46" y="132" font-size="24" fill="var(--color-ink)" font-weight="600" text-anchor="start">显示文件，发现你的修改</text>
+<text x="46" y="161" font-size="16" fill="var(--color-ink-2)" font-weight="400" text-anchor="start">只保留需要的文件与有限缓存</text>
+<rect x="24" y="198" width="412" height="144" rx="18" fill="var(--color-paper)" />
+<text x="46" y="230" font-size="16" fill="var(--color-muted)" font-weight="400" text-anchor="start">共享的 Scion 服务</text>
+<text x="46" y="268" font-size="24" fill="var(--color-ink)" font-weight="600" text-anchor="start">保存版本，回答历史问题</text>
+<text x="46" y="300" font-size="15" fill="var(--color-ink-2)" font-weight="400" text-anchor="start">scion-server · Spanner · Blob 存储</text>
+<text x="46" y="323" font-size="15" fill="var(--color-ink-2)" font-weight="400" text-anchor="start">文件读取另有节点缓存与区域缓存</text>
+<text x="24" y="378" font-size="17" fill="var(--color-muted)" font-weight="400" text-anchor="start">版本计算放到服务端，文件按需来到本地。</text>
+</svg>
