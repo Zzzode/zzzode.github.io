@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Daily"
+  short_description: "Research and publish evidence-backed AI daily issues"
+  default_prompt: "Use $ai-daily to research, independently audit, and publish the current Chinese AI Daily issue."

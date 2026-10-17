@@ -1,0 +1,90 @@
+{
+  "policy": "Optional, evolving discovery seeds. No company allowlist, mandatory count or proof of leadership. Revisit identity, sources and relevance; record per-run access in the run ledger, not here.",
+  "asOf": "2026-10-17",
+  "discoveryRoutes": [
+    {
+      "name": "Independent and emerging product discovery",
+      "urls": [
+        "https://news.ycombinator.com/show",
+        "https://huggingface.co/models",
+        "https://huggingface.co/papers"
+      ],
+      "use": "Find leads, then verify original authors, products, versions and time."
+    },
+    {
+      "name": "Financing and policy discovery",
+      "urls": [
+        "https://www.globenewswire.com/",
+        "https://www.nist.gov/news-events/news",
+        "https://www.mofcom.gov.cn/"
+      ],
+      "use": "Find actual announcements, not a preselected daily company quota."
+    }
+  ],
+  "entities": [
+    {
+      "name": "Meta model tools",
+      "identity": "verified_source",
+      "sources": [
+        "https://dev.meta.ai/models/muse-spark-open"
+      ],
+      "reason": "Open-weight deployment and model tooling."
+    },
+    {
+      "name": "Anthropic research",
+      "identity": "verified_source",
+      "sources": [
+        "https://www.anthropic.com/research/ecdsa-curve-origins"
+      ],
+      "reason": "Scientific results and operational safeguards."
+    },
+    {
+      "name": "RapidCanvas",
+      "identity": "verified_source",
+      "sources": [
+        "https://www.globenewswire.com/news-release/2026/10/16/3382607/0/en/rapidcanvas-raises-29m-series-b-to-bring-fortune-100-grade-ai-to-every-enterprise.html"
+      ],
+      "reason": "Enterprise AI delivery and funding announcements."
+    },
+    {
+      "name": "Straiker",
+      "identity": "verified_source",
+      "sources": [
+        "https://www.globenewswire.com/news-release/2026/10/16/3382602/0/en/straiker-brings-independent-ai-agent-red-teaming-to-workday-agent-passport.html"
+      ],
+      "reason": "Agent evaluation and security tooling; distinguish plans from delivered integration."
+    },
+    {
+      "name": "Mistral",
+      "identity": "verified_source",
+      "sources": [
+        "https://mistral.ai/news/timestral/"
+      ],
+      "reason": "Independent lab models, products and financing."
+    },
+    {
+      "name": "JEV",
+      "identity": "pending_user_confirmation",
+      "sources": [
+        "https://typesafe.ai/",
+        "https://typesafe.ai/blog/introducing-system-one-models-and-jev"
+      ],
+      "reason": "Candidate match Jev by TypeSafe AI; do not assume the user confirmed identity, team size, leadership or current news."
+    },
+    {
+      "name": "Laya",
+      "identity": "pending_user_confirmation",
+      "sources": [
+        "https://github.com/NandhaKishorM/laya",
+        "https://huggingface.co/convaiinnovations/laya"
+      ],
+      "reason": "Candidate match Convai Innovations project; identity not user-confirmed; do not use unrelated namesake domains."
+    },
+    {
+      "name": "OSC",
+      "identity": "unresolved",
+      "sources": [],
+      "reason": "Expansion and intended organization/specification remain unresolved. Do not replace with MCP."
+    }
+  ]
+}

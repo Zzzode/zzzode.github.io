@@ -8,7 +8,7 @@ import ArticleCanvas from '../article/ArticleCanvas.astro';
 import DailyBriefing from '../article/DailyBriefing.astro';
 import { isDaily, dailyNewestFirst } from '../../lib/post-policy';
 import { type Lang, t } from '../../i18n/ui';
-import { formatDate, isoDate } from '../../lib/format';
+import { formatDate, formatDailyTime, isoDate } from '../../lib/format';
 import { getLocalized, slugOfId } from '../../lib/content';
 import { readingMinutes } from '../../lib/reading-time';
 
@@ -137,6 +137,7 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
       <>
         <a href={`${prefix}/daily/`} class="mb-5 inline-flex min-h-11 items-center text-[14px] text-blue">‹ {t(lang, 'daily.archive')}</a>
         <CoverBanner kicker={`${t(lang, 'daily.eyebrow')} · ${daily.issueDate} · UTC+8`} title={post.data.title} lead={post.data.excerpt} />
+        {daily.correction && <p class="mb-8 max-w-[760px] text-[14px] leading-relaxed text-muted">{post.data.updated && <><span>{t(lang, 'post.updated')} {formatDailyTime(post.data.updated.toISOString(), lang)}</span><br /></>}{daily.correction}</p>}
         <ArticleCanvas>
           <DailyBriefing lang={lang} daily={daily} sources={post.data.sources ?? []} />
           <Content />

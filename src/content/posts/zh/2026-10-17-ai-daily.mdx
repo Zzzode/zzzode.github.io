@@ -1,51 +1,241 @@
 ---
 {
-  "title": "AI 日报 · 2026-10-17：Beam 接入与 Agent 工程更新",
+  "title": "AI 日报 · 2026-10-17：企业 AI 融资、模型部署与治理观察",
   "date": "2026-10-17T11:00:25Z",
   "draft": false,
   "kind": "distilled",
   "channel": "daily",
-  "excerpt": "本次补跑收录截止北京时间 10 月 17 日 10:00 前的四条工程更新：Beam 框架接入、权限默认值与工具修复。融资并购和新论文未收录达到本次证据要求的事件。",
+  "excerpt": "更正补跑：RapidCanvas 融资、Beam 框架接入与 Agent 工程更新；另列出口治理、研究和模型发布的待核时观察，明确区分公告、计划与已发布版本。",
   "tags": [
     "AI 日报",
+    "企业 AI",
     "模型部署",
     "Agent",
     "数据治理"
   ],
   "sources": [
     {
-      "title": "Transformers 5.20.1 官方发布说明",
+      "title": "RapidCanvas Raises $29M Series B to Bring Fortune 100-Grade",
+      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382607/0/en/rapidcanvas-raises-29m-series-b-to-bring-fortune-100-grade-ai-to-every-enterprise.html",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-10-16T13:00:00Z",
+        "latest": "2026-10-16T13:00:59.999Z",
+        "basis": "Header gives Oct16 09:00 ET at minute precision; America/New_York is daylight saving UTC-04 on that date.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/10/16/3382607/0/en/rapidcanvas-raises-29m-series-b-to-bring-fortune-100-grade-ai-to-every-enterprise.html"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:33:39Z"
+    },
+    {
+      "title": "transformers official version release",
       "url": "https://github.com/huggingface/transformers/releases/tag/v5.20.1",
-      "publishedAt": "2026-10-16T13:02:29Z",
-      "retrievedAt": "2026-10-17T10:56:45Z"
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-16T13:02:29Z",
+        "basis": "Official release published_at; current updated_at is 2026-10-16T13:02:29Z",
+        "sourceUrls": [
+          "https://github.com/huggingface/transformers/releases/tag/v5.20.1"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:46:51Z"
     },
     {
-      "title": "Claude Code 2.1.302 官方发布说明",
-      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.302",
-      "publishedAt": "2026-10-16T20:53:06Z",
-      "retrievedAt": "2026-10-17T10:56:45Z"
-    },
-    {
-      "title": "Deep Agents 0.7.28 官方发布说明",
-      "url": "https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28",
-      "publishedAt": "2026-10-16T20:21:24Z",
-      "retrievedAt": "2026-10-17T10:56:45Z"
-    },
-    {
-      "title": "LangChain Core 1.6.12 官方发布说明",
-      "url": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12",
-      "publishedAt": "2026-10-16T19:28:44Z",
-      "retrievedAt": "2026-10-17T10:56:45Z"
-    },
-    {
-      "title": "Beam 文档：Transformers v5.20.1 发布快照",
+      "title": "transformers/docs/source/en/model_doc/beam.md at v5.20.1 · huggingface/transformers · GitHub",
       "url": "https://github.com/huggingface/transformers/blob/v5.20.1/docs/source/en/model_doc/beam.md",
-      "publishedAt": "2026-10-16T13:02:29Z",
-      "retrievedAt": "2026-10-17T11:00:25Z"
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-16T13:02:29Z",
+        "basis": "Associated immutable v5.20.1 release snapshot, not a separately timed model launch.",
+        "sourceUrls": [
+          "https://github.com/huggingface/transformers/releases/tag/v5.20.1"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:45:37Z"
     },
     {
-      "title": "Reflection：Beam 原始介绍（2026-10-05，背景资料）",
-      "url": "https://reflection.ai/blog/introducing-beam"
+      "title": "claude-code official version release",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.302",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-16T20:53:06Z",
+        "basis": "Official release published_at; current updated_at is 2026-10-16T20:53:06Z",
+        "sourceUrls": [
+          "https://github.com/anthropics/claude-code/releases/tag/v2.1.302"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:46:52Z"
+    },
+    {
+      "title": "Straiker Brings Independent AI Agent Red-Teaming to Workday",
+      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382602/0/en/straiker-brings-independent-ai-agent-red-teaming-to-workday-agent-passport.html",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-10-16T13:00:00Z",
+        "latest": "2026-10-16T13:00:59.999Z",
+        "basis": "Header gives Oct16 09:00 ET at minute precision; America/New_York is daylight saving UTC-04 on that date.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/10/16/3382602/0/en/straiker-brings-independent-ai-agent-red-teaming-to-workday-agent-passport.html"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:45:36Z"
+    },
+    {
+      "title": "deepagents official version release",
+      "url": "https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-16T20:21:24Z",
+        "basis": "Official release published_at; current updated_at is 2026-10-16T20:21:26Z",
+        "sourceUrls": [
+          "https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:46:52Z"
+    },
+    {
+      "title": "langchain-core official version release",
+      "url": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-16T19:28:44Z",
+        "basis": "Official release published_at; current updated_at is 2026-10-16T19:28:46Z",
+        "sourceUrls": [
+          "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:46:53Z"
+    },
+    {
+      "title": "商务部新闻发言人就修订《中国禁止出口限制出口技术目录》答记者问",
+      "url": "https://www.mofcom.gov.cn/zwgk/zcjd/art/2026/art_b11d5c1e9374421e93e85dc87eba6e38.html",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-16",
+        "basis": "Page displays local clock 2026-10-16 16:00 with minute precision, but no explicit offset or independently established website timezone. Preserve date uncertainty rather than manufacturing +08:00.",
+        "sourceUrls": [
+          "https://www.mofcom.gov.cn/zwgk/zcjd/art/2026/art_b11d5c1e9374421e93e85dc87eba6e38.html"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:37:26Z"
+    },
+    {
+      "title": "商务部 科技部公告2026年第48号 就修订《中国禁止出口限制出口技术目录》公开征求意见并对相关技术出口实施临时登记管理",
+      "url": "https://www.mofcom.gov.cn/zcfb/dwmygl/art/2026/art_61446ab4beee4f63973d4d0ab3097648.html",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-16",
+        "basis": "Page displays local clock 2026-10-16 16:00 with minute precision, but no explicit offset or independently established website timezone. Preserve date uncertainty rather than manufacturing +08:00.",
+        "sourceUrls": [
+          "https://www.mofcom.gov.cn/zcfb/dwmygl/art/2026/art_61446ab4beee4f63973d4d0ab3097648.html"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:38:26Z"
+    },
+    {
+      "title": "Claude reveals ECDSA curve origins \\ Anthropic",
+      "url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-16",
+        "basis": "Visible page publication date only; exact offset and publication instant not established.",
+        "sourceUrls": [
+          "https://www.anthropic.com/research/ecdsa-curve-origins"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:33:39Z"
+    },
+    {
+      "title": "Designing more efficient quantum circuits with Claude \\ Anthropic",
+      "url": "https://www.anthropic.com/research/designing-efficient-quantum-circuits",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-16",
+        "basis": "Visible page publication date only; exact offset and publication instant not established.",
+        "sourceUrls": [
+          "https://www.anthropic.com/research/designing-efficient-quantum-circuits"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:37:01Z"
+    },
+    {
+      "title": "Key Practices for Incident Readiness and Response in Super Intelligence Training and Evaluation | NIST",
+      "url": "https://www.nist.gov/news-events/news/2026/10/key-practices-incident-readiness-and-response-super-intelligence-training",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-16",
+        "basis": "Visible NIST news date only; precise publication instant not established.",
+        "sourceUrls": [
+          "https://www.nist.gov/news-events/news/2026/10/key-practices-incident-readiness-and-response-super-intelligence-training"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:37:26Z"
+    },
+    {
+      "title": "Build with Muse Spark Open",
+      "url": "https://dev.meta.ai/resources/blog/build-with-muse-spark-open",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-15",
+        "basis": "Official Meta blog date; timezone/instant not established.",
+        "sourceUrls": [
+          "https://dev.meta.ai/resources/blog/build-with-muse-spark-open"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:38:26Z"
+    },
+    {
+      "title": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+      "url": "https://huggingface.co/blog/meta-muse-spark-open",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-15",
+        "basis": "HF primary blog visible Published October15,2026; offset and precise time unestablished.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/meta-muse-spark-open"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:32:47Z"
+    },
+    {
+      "title": "Timestral: Mistral's time-series foundation models | Mistral",
+      "url": "https://mistral.ai/news/timestral/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-15",
+        "basis": "Visible official blog date only; precise instant unestablished.",
+        "sourceUrls": [
+          "https://mistral.ai/news/timestral/"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:45:37Z"
+    },
+    {
+      "title": "Simons Foundation Launches $15M Effort To Help Mathematicians Navigate AI Era – Simons Foundation",
+      "url": "https://www.simonsfoundation.org/news/simons-foundation-launches-15m-effort-to-help-mathematicians-navigate-ai-era/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-15",
+        "basis": "Visible Simons Foundation publication date only; precise instant unestablished.",
+        "sourceUrls": [
+          "https://www.simonsfoundation.org/news/simons-foundation-launches-15m-effort-to-help-mathematicians-navigate-ai-era/"
+        ]
+      },
+      "retrievedAt": "2026-10-17T12:45:37Z"
+    },
+    {
+      "title": "ollama official release",
+      "url": "https://github.com/ollama/ollama/releases/tag/v0.40.6",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-16T22:00:46Z",
+        "basis": "Official release published_at; updated_at 2026-10-17T00:58:39Z",
+        "sourceUrls": [
+          "https://github.com/ollama/ollama/releases/tag/v0.40.6"
+        ]
+      },
+      "retrievedAt": "2026-10-17T13:01:54Z"
     }
   ],
   "daily": {
@@ -55,6 +245,25 @@
     "cutoff": "2026-10-17T10:00:00+08:00",
     "items": [
       {
+        "title": "RapidCanvas 获 2,900 万美元 B 轮融资，继续押注企业 AI 交付",
+        "summary": "RapidCanvas 宣布完成 2,900 万美元 B 轮融资，由 Vertex Ventures SEA & India 领投，Hitachi Ventures 等参与，累计融资为 5,250 万美元。公司的交付方式结合 AI 平台与现场 AI 工程师，面向企业数据、工作流和上线后的运行环节。这笔融资说明资本仍在支持企业 AI 落地，但公告中的增长和客户成效属于公司陈述，不能据此推导投资回报。",
+        "category": "business",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/10/16/3382607/0/en/rapidcanvas-raises-29m-series-b-to-bring-fortune-100-grade-ai-to-every-enterprise.html"
+        ],
+        "candidateId": "ind-rapid",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-10-16T13:00:00Z",
+          "latest": "2026-10-16T13:00:59.999Z",
+          "basis": "Header gives Oct16 09:00 ET at minute precision; America/New_York is daylight saving UTC-04 on that date.",
+          "sourceUrls": [
+            "https://www.globenewswire.com/news-release/2026/10/16/3382607/0/en/rapidcanvas-raises-29m-series-b-to-bring-fortune-100-grade-ai-to-every-enterprise.html"
+          ]
+        },
+        "releaseStatus": "announced"
+      },
+      {
         "title": "Transformers 5.20.1 接入 Beam，并修复旧版 Torch 加载回归",
         "summary": "Hugging Face 在本窗口发布 5.20.1，加入 Reflection Beam 模型支持，并修复旧版 Torch 下的模型加载问题。版本文档将 Beam 描述为面向编程和 Agent 的开放权重模型：总参数 501B，每个 token 激活 23B。这里的新事件是框架接入，不是模型首次公布；这些规模数据来自官方文档，不代表本站测评。对自部署团队，模型能否正确加载和分片，比单看激活参数量更直接影响上线成本。",
         "category": "products",
@@ -62,7 +271,16 @@
           "https://github.com/huggingface/transformers/releases/tag/v5.20.1",
           "https://github.com/huggingface/transformers/blob/v5.20.1/docs/source/en/model_doc/beam.md"
         ],
-        "eventTime": "2026-10-16T13:02:29Z"
+        "candidateId": "root-transformers",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-10-16T13:02:29Z",
+          "basis": "Official release publication instant, rechecked in this correction run.",
+          "sourceUrls": [
+            "https://github.com/huggingface/transformers/releases/tag/v5.20.1"
+          ]
+        },
+        "releaseStatus": "released"
       },
       {
         "title": "Claude Code 2.1.302 调整特定场景下的默认权限模式",
@@ -71,7 +289,53 @@
         "sourceUrls": [
           "https://github.com/anthropics/claude-code/releases/tag/v2.1.302"
         ],
-        "eventTime": "2026-10-16T20:53:06Z"
+        "candidateId": "root-claude-code",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-10-16T20:53:06Z",
+          "basis": "Official release publication instant, rechecked in this correction run.",
+          "sourceUrls": [
+            "https://github.com/anthropics/claude-code/releases/tag/v2.1.302"
+          ]
+        },
+        "releaseStatus": "released"
+      },
+      {
+        "title": "Straiker 宣布拟将 Agent 红队测试接入 Workday Agent Passport",
+        "summary": "Straiker 公告称，计划把 Ascend 的 Agent 红队测试连接到 Workday Agent Passport，让接入方查看与受测版本关联的签名测试凭证。正文采用“计划连接”的表述，因此本期记录的是集成公告，尚不能认定已全面上线。测试凭证可提供特定版本的评估记录，但不能保证 Agent 在所有任务、配置或更新之后都安全。",
+        "category": "agents",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/10/16/3382602/0/en/straiker-brings-independent-ai-agent-red-teaming-to-workday-agent-passport.html"
+        ],
+        "candidateId": "ind-straiker",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-10-16T13:00:00Z",
+          "latest": "2026-10-16T13:00:59.999Z",
+          "basis": "Header gives Oct16 09:00 ET at minute precision; America/New_York is daylight saving UTC-04 on that date.",
+          "sourceUrls": [
+            "https://www.globenewswire.com/news-release/2026/10/16/3382602/0/en/straiker-brings-independent-ai-agent-red-teaming-to-workday-agent-passport.html"
+          ]
+        },
+        "releaseStatus": "announced"
+      },
+      {
+        "title": "Ollama 0.40.6 预发布加入 q2_0 类型，并修复 Windows 进程问题",
+        "summary": "官方 0.40.6 预发布说明加入 GGUF q2_0 张量及文件类型，修复 Windows 下遗留 runner 进程的问题，并调整 ask 模式问题键的标识方式。该版本仍处于预发布阶段，发布说明没有给出内存节省或速度测量。增加类型支持不代表所有模型和量化组合都已验证；升级时可复查自己的加载结果，以及退出后的进程清理。",
+        "category": "products",
+        "sourceUrls": [
+          "https://github.com/ollama/ollama/releases/tag/v0.40.6"
+        ],
+        "candidateId": "hist-ollama",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-10-16T22:00:46Z",
+          "basis": "Official release published_at; updated_at 2026-10-17T00:58:39Z",
+          "sourceUrls": [
+            "https://github.com/ollama/ollama/releases/tag/v0.40.6"
+          ]
+        },
+        "releaseStatus": "preview"
       },
       {
         "title": "Deep Agents 0.7.28 修复 glob 的路径参数失效",
@@ -80,7 +344,16 @@
         "sourceUrls": [
           "https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28"
         ],
-        "eventTime": "2026-10-16T20:21:24Z"
+        "candidateId": "root-deepagents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-10-16T20:21:24Z",
+          "basis": "Official release publication instant, rechecked in this correction run.",
+          "sourceUrls": [
+            "https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28"
+          ]
+        },
+        "releaseStatus": "released"
       },
       {
         "title": "LangChain Core 1.6.12 补传流式起始事件的附加字段",
@@ -89,17 +362,178 @@
         "sourceUrls": [
           "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12"
         ],
-        "eventTime": "2026-10-16T19:28:44Z"
+        "candidateId": "root-langchain-core",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-10-16T19:28:44Z",
+          "basis": "Official release publication instant, rechecked in this correction run.",
+          "sourceUrls": [
+            "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12"
+          ]
+        },
+        "releaseStatus": "released"
       }
-    ]
-  }
+    ],
+    "pending": [
+      {
+        "title": "中国就技术出口目录修订征求意见，并实施临时登记",
+        "summary": "商务部、科技部公告就涉及 40 项技术的目录修订征求意见，其中 23 项为人工智能相关技术，征求意见期为 10 月 16 日至 11 月 15 日。同时，公告另行规定：从公布之日起到修订目录正式实施前，相关技术出口实行临时登记，已开始但尚未完成的出口也在其表述范围内。目录草案与已启动的临时登记是两个层次，不能写成 23 类 AI 技术全部已被禁止出口。",
+        "category": "governance",
+        "sourceUrls": [
+          "https://www.mofcom.gov.cn/zwgk/zcjd/art/2026/art_b11d5c1e9374421e93e85dc87eba6e38.html",
+          "https://www.mofcom.gov.cn/zcfb/dwmygl/art/2026/art_61446ab4beee4f63973d4d0ab3097648.html"
+        ],
+        "candidateId": "ind-mofcom",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-16",
+          "basis": "Page displays local clock 2026-10-16 16:00 with minute precision, but no explicit offset or independently established website timezone. Preserve date uncertainty rather than manufacturing +08:00.",
+          "sourceUrls": [
+            "https://www.mofcom.gov.cn/zcfb/dwmygl/art/2026/art_61446ab4beee4f63973d4d0ab3097648.html"
+          ]
+        },
+        "releaseStatus": "announced",
+        "uncertainty": "页面标注 2026-10-16 16:00，但尚无可核实的时区依据。目前无法确认事件完全落在本期严格窗口内；保留为待核时事项，不计入上方收录数量。需补充一手时间元数据后再归期。"
+      },
+      {
+        "title": "Anthropic 用 Claude 追溯 ECDSA 曲线种子的历史来源",
+        "summary": "Anthropic 报告使用研究模型追查历史 ECDSA 曲线种子的生成过程，结合 lrand48 和时间戳搜索还原部分来源。这是对参数生成历史的研究，不是破解 ECDSA，也不能据此判断现有曲线全部不安全。结论来自研究方公告，部分历史来源仍未解释。",
+        "category": "research",
+        "sourceUrls": [
+          "https://www.anthropic.com/research/ecdsa-curve-origins"
+        ],
+        "candidateId": "ind-ecdsa",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-16",
+          "basis": "Visible page publication date only; exact offset and publication instant not established.",
+          "sourceUrls": [
+            "https://www.anthropic.com/research/ecdsa-curve-origins"
+          ]
+        },
+        "releaseStatus": "research",
+        "uncertainty": "一手页面仅给出 2026-10-16，未确定发布时间与时区。目前无法确认事件完全落在本期严格窗口内；保留为待核时事项，不计入上方收录数量。需补充一手时间元数据后再归期。"
+      },
+      {
+        "title": "Anthropic 报告 AI 优化量子电路的研究结果",
+        "summary": "研究方称，Claude 在八类计算原语上寻找更节省资源的量子电路，并通过专门评估器检查结果。报告中的量子比特与门数量等理论资源估计，不等同于真实量子硬件的速度提升或普遍量子优势。论文提交与这篇研究公告是不同事件，本期关注的是公告，不把较早的论文提交重算成窗口内新论文。",
+        "category": "research",
+        "sourceUrls": [
+          "https://www.anthropic.com/research/designing-efficient-quantum-circuits"
+        ],
+        "candidateId": "ind-quantum",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-16",
+          "basis": "Visible page publication date only; exact offset and publication instant not established.",
+          "sourceUrls": [
+            "https://www.anthropic.com/research/designing-efficient-quantum-circuits"
+          ]
+        },
+        "releaseStatus": "research",
+        "uncertainty": "一手页面仅给出 2026-10-16，未确定发布时间与时区。目前无法确认事件完全落在本期严格窗口内；保留为待核时事项，不计入上方收录数量。需补充一手时间元数据后再归期。"
+      },
+      {
+        "title": "NIST 等机构发布高级 AI 训练与评估的事件应对实践",
+        "summary": "NIST、NSA 与 CISA 发布十项自愿实践，覆盖准备、检测、响应、恢复和报告五个阶段，讨论高级 AI 训练及评估中出现异常或事件时的处置。它可作为团队检查响应机制的参考，但属于自愿性指导，不能写成新增强制法规。",
+        "category": "governance",
+        "sourceUrls": [
+          "https://www.nist.gov/news-events/news/2026/10/key-practices-incident-readiness-and-response-super-intelligence-training"
+        ],
+        "candidateId": "ind-nist",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-16",
+          "basis": "Visible NIST news date only; precise publication instant not established.",
+          "sourceUrls": [
+            "https://www.nist.gov/news-events/news/2026/10/key-practices-incident-readiness-and-response-super-intelligence-training"
+          ]
+        },
+        "releaseStatus": "announced",
+        "uncertainty": "一手页面仅给出 2026-10-16，未确定发布时间与时区。目前无法确认事件完全落在本期严格窗口内；保留为待核时事项，不计入上方收录数量。需补充一手时间元数据后再归期。"
+      },
+      {
+        "title": "Meta 发布 Muse Spark Open，许可与部署条件需一起看",
+        "summary": "Meta 官方介绍的 Muse Spark Open 是开放权重多模态模型：总参数 816B、每 token 激活 42B，上下文长度为 100 万 token，采用 Muse Model License。这些是发布方给出的规格，未在本站独立测评；开放权重也不自动等于满足开源许可定义。应同时核对许可条件、权重占用与自己的部署负载。",
+        "category": "products",
+        "sourceUrls": [
+          "https://dev.meta.ai/resources/blog/build-with-muse-spark-open",
+          "https://huggingface.co/blog/meta-muse-spark-open"
+        ],
+        "candidateId": "ind-meta",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-15",
+          "basis": "Official Meta blog date; timezone/instant not established.",
+          "sourceUrls": [
+            "https://dev.meta.ai/resources/blog/build-with-muse-spark-open"
+          ]
+        },
+        "releaseStatus": "released",
+        "uncertainty": "一手页面仅给出 2026-10-15，未确定发布时间与时区。目前无法确认事件完全落在本期严格窗口内；保留为待核时事项，不计入上方收录数量。需补充一手时间元数据后再归期。"
+      },
+      {
+        "title": "Mistral 推出面向时间序列预测的 Timestral 系列",
+        "summary": "Mistral 将 Timestral 定位为时间序列基础模型系列，提供多个规模，用于概率预测、多变量序列及协变量场景。它说明专用预测模型仍是企业 AI 的一条产品路径。厂商公布的评测结果需要保留归属，不能直接当作对所有业务数据都成立的领先结论。",
+        "category": "products",
+        "sourceUrls": [
+          "https://mistral.ai/news/timestral/"
+        ],
+        "candidateId": "ind-timestral",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-15",
+          "basis": "Visible official blog date only; precise instant unestablished.",
+          "sourceUrls": [
+            "https://mistral.ai/news/timestral/"
+          ]
+        },
+        "releaseStatus": "released",
+        "uncertainty": "一手页面仅给出 2026-10-15，未确定发布时间与时区。目前无法确认事件完全落在本期严格窗口内；保留为待核时事项，不计入上方收录数量。需补充一手时间元数据后再归期。"
+      },
+      {
+        "title": "Simons Foundation 投入资金与资源支持数学界应对 AI",
+        "summary": "Simons Foundation 宣布一项 1,500 万美元规模的数学与 AI 支持计划，金额口径包含资金和资源。它属于研究支持，不是创业公司的风险融资轮次，也不宜把整个金额都写成现金投资。",
+        "category": "research",
+        "sourceUrls": [
+          "https://www.simonsfoundation.org/news/simons-foundation-launches-15m-effort-to-help-mathematicians-navigate-ai-era/"
+        ],
+        "candidateId": "ind-simons",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-15",
+          "basis": "Visible Simons Foundation publication date only; precise instant unestablished.",
+          "sourceUrls": [
+            "https://www.simonsfoundation.org/news/simons-foundation-launches-15m-effort-to-help-mathematicians-navigate-ai-era/"
+          ]
+        },
+        "releaseStatus": "announced",
+        "uncertainty": "一手页面仅给出 2026-10-15，未确定发布时间与时区。目前无法确认事件完全落在本期严格窗口内；保留为待核时事项，不计入上方收录数量。需补充一手时间元数据后再归期。"
+      }
+    ],
+    "evidenceRun": "docs/daily/runs/2026-10-17.json",
+    "correction": "更正说明：初版仅收录四项 GitHub 工程更新，检索覆盖不足。本次补充 RapidCanvas 融资、Straiker 集成公告及经重新评估的 Ollama 预发布，撤回初版“未找到可收录融资事件”的判断；重要研究、模型和治理事项另列为待核时观察。保留原发布日期、链接及采集窗口，以下显示实际修订时间。"
+  },
+  "updated": "2026-10-17T13:04:51Z"
 }
 ---
-
 import { Section, SectionHead, Prose } from '@/components/article';
 
+<Section canvas id="enterprise-delivery">
+  <SectionHead index="03" kicker="企业落地" title="融资支持交付，测试凭证仍有适用边界" />
+  <Prose tile>
+
+RapidCanvas 的新融资把关注点放在企业 AI 的交付过程：模型之外，还需要接入企业上下文、构建工作流并处理运行问题。公告列出的 Enterprise Context Engine、Visual Development Canvas 和 Operational Harness 是公司的产品设计，不代表这些环节已经在所有客户中验证成功。
+
+Straiker 的公告则聚焦 Agent 接入前的红队测试记录。值得跟踪的是测试对象、版本和部署配置能否对应起来，以及更新后是否重新评估。即使有签名凭证，也不能跳过自己的任务回归。这是本文的工程判断；公告本身仍是计划集成，不能提前写成已实现的安全能力。
+
+  </Prose>
+</Section>
+
+
+
 <Section canvas id="beam-deployment">
-  <SectionHead index="03" kicker="模型接入" title="Beam 的激活参数，不能当作整套权重的内存账单" />
+  <SectionHead index="04" kicker="模型接入" title="Beam 的激活参数，不能当作整套权重的内存账单" />
   <Prose tile>
 
 Reflection 在 [10 月 5 日的原始介绍](https://reflection.ai/blog/introducing-beam) 中已经公布 Beam。本窗口发生的更新是 [Transformers 5.20.1 接入它](https://github.com/huggingface/transformers/releases/tag/v5.20.1)，以及相应的加载兼容修复。把这两个时间点分开，才能判断今天真正多了什么。
@@ -155,7 +589,7 @@ Reflection 在 [10 月 5 日的原始介绍](https://reflection.ai/blog/introduc
 </Section>
 
 <Section canvas id="operating-boundaries">
-  <SectionHead index="04" kicker="运行边界" title="权限和路径参数，需要写进回归用例" />
+  <SectionHead index="05" kicker="运行边界" title="权限和路径参数，需要写进回归用例" />
   <Prose tile>
 
 [Claude Code 的更新](https://github.com/anthropics/claude-code/releases/tag/v2.1.302) 对第三方提供商的默认权限有明确适用条件。原来没有显式指定权限模式的脚本，升级后应重新检查启动参数；显式的 auto 选项仍保留。这里讨论的是工具的启动行为，业务上的提交、发信或部署权限依然来自任务本身的授权。
@@ -168,27 +602,27 @@ MCP 是工具连接协议。本期记录的是客户端对 2026-07-28 协商版�
 </Section>
 
 <Section canvas id="coverage-and-cutoff">
-  <SectionHead index="05" kicker="采集口径" title="本期没有用窗口外的大新闻填空" />
+  <SectionHead index="06" kicker="采集口径" title="更正覆盖缺口，保留尚未解决的时间问题" />
   <Prose tile>
 
-本期是补跑。采集窗口为北京时间 2026 年 10 月 16 日 10:00 之后至 10 月 17 日 10:00，截止点包含在内。来源核验发生在补跑时刻，页面逐条显示实际核验时间；它不代表日报在当天 10:00 已经实时发出。上述四条按官方发布记录确定事件时间，补跑时复核的发布与更新时刻均早于截止点；它们均为正式版本。Beam 的结构说明固定引用 v5.20.1 标签文档。后续编辑过的网页不能代替截止时刻的历史快照。
+本期是补跑后的更正，原窗口仍为北京时间 2026 年 10 月 16 日 10:00 之后至 10 月 17 日 10:00，包含截止点。核验发生在截止之后；页面逐条显示实际读取时刻，不表示文章在当天 10:00 已经发出。两份公司公告只提供到分钟的时间，页面保留分钟区间；GitHub 版本采用官方发布时刻。
 
-融资并购、重要研究论文，以及独立的标准或治理公告都在本次检索范围内，但本轮未找到同时满足一手证据和窗口时间要求、足以收录的新事件。这是本次采集的覆盖限制，不能解释成这些领域当天没有进展。图表中的零只表示本期没有收录。
+初版以四项 GitHub 更新概括本期，遗漏了能用一手材料确认的融资与 Agent 公告。此次扩大中英文开放检索，保留完整候选、排除理由、访问失败及独立补充检索记录。没有按固定公司名单或固定条数筛选，也不因 preview 或 beta 标签自动排除重要更新。
 
-筛选采用事件本身的时间。媒体转载日期、论文列表日期和预发布标签都不足以单独证明一项正式更新发生在本窗口。
+日期不明确不是新闻不重要的证据。上面的待核时部分保留了有一手正文、但无法严格归入本期窗口的公告。Meta、Timestral 与 Simons 页面标注 10 月 15 日，不能使用聚合页的 10 月 16 日替换事件日期；Anthropic 与 NIST 的 10 月 16 日页面也没有已核实的时区。它们不计入收录图表。研究公告、论文提交、风险融资和科研支持资金分别判断。
 
-OSC 的具体指代仍未确认。本期没有据此编写标准更新，也没有把这个缩写替换成 MCP。它与上面的 MCP 客户端修复是两件独立事项。
+覆盖仍有边界：部分动态新闻页未返回正文，一些二手线索未找到原始公告，个别产品与标准名称未确认。这些记录不能被改写成“当天没有更新”。JEV、Laya 仅保留候选身份线索；OSC 的具体指代仍未确认，也没有被替换成 MCP。
 
   </Prose>
 </Section>
 
 <Section canvas id="trend-commentary">
-  <SectionHead index="06" kicker="趋势点评" title="能力接入之后，还要检验部署细节" />
+  <SectionHead index="07" kicker="趋势点评" title="从模型能力走向企业交付和可检查的运行约定" />
   <Prose tile>
 
-本期最值得跟踪的是模型能力怎样进入现有工具链。Beam 的 Transformers 接入让自部署团队多了一条框架路径，但权重占用、加载兼容和分片方式都要计入成本。激活参数较少，不能直接推导出机器更便宜，更不能代替真实业务负载的延迟和稳定性测试。
+本期已确认事件中，企业 AI 融资与工程更新指向同一个实际问题：能力如何进入持续运行的系统。RapidCanvas 的交付方式、Beam 的框架接入，以及 Agent 的权限、路径和流式字段，都需要在具体业务中验证。融资金额、激活参数或测试凭证，单独一项都不能代替交付成效。
 
-另外几项更新提醒我们，Agent 的可用性往往取决于很小的约定：默认权限有没有变化，路径参数是否真正生效，流式事件有没有带齐字段。这里可以作出的判断是“升级需要验证这些接口”，而不是“这些补丁证明 Agent 已经可靠”。下一步应看它们在可复现任务中的表现，并继续寻找可核实的融资、研究和治理进展。
+待核时的治理与研究公告则提醒我们继续跟踪两条线：AI 能否承担更复杂的科学工作，以及团队是否有清晰的事件响应和技术出口处理流程。这里的趋势判断来自本期有限材料，不是对整个行业的全量统计。后续应补齐重要公告的时间证据，并观察计划中的集成和研究结果能否经受独立复核。
 
   </Prose>
 </Section>

@@ -2,6 +2,29 @@
 
 Date: 2026-10-17. Baseline: `d84df2ca319af3a34739d1955309c6a2b62b50b1` (verified against remote `main` before work and again during review). The architecture-only results below were recorded before the first real issue. Subsequent release evidence is recorded in [the 2026-10-17 ledger](research/ai-daily-2026-10-17.md). No scheduler modification or automation enablement is part of this work.
 
+## Current correction and Skill verification
+
+The initial architecture matrix below is historical. The first issue's selected-item fact/render PASS did **not** establish complete-candidate coverage; its financing-absence statement and blanket prerelease exclusion were withdrawn. Current evidence is the [structured run](daily/runs/2026-10-17.json), [independent correction report](daily/reviews/2026-10-17.md) and [independent Skill review](daily/skill-validation.md).
+
+| Gate | Current result | Evidence / limit |
+| --- | --- | --- |
+| Repository Skill placement and structure | PASS | `.agents/skills/ai-daily/`; 62-line main workflow, metadata, three references and one executable validator; short task entrypoint delegates to it |
+| Creator validation | PASS | `quick_validate.py`: `Skill is valid!` |
+| Independent Skill review and forward exercise | PASS | No structural blocker; evidence tests independently 11/11; raw synthetic inputs correctly produced HOLD when discovery/review/render evidence was absent |
+| Open discovery and complete candidate audit | PASS WITH LIMITS | 101 actual search/read/metadata records (56 searches); 57 candidates: 7 confirmed, 7 boundary watches, 12 excluded, 31 unresolved; 91 access records across 64 URLs. Counts do not certify exhaustive coverage |
+| Historical exclusion recovery | Fixed | Previous release/paper/transaction/security leads restored and freshly checked; Ollama preview added, version-only Codex held; specific timing/significance reasons replace stable-only exclusion |
+| Time and source contract | PASS | Instant/date/interval precision; unknown timezone retained; DST and date boundaries tested; article citation publication/retrieval metadata bound to fetched evidence |
+| Visible correction | PASS | Original slug/date retained; actual updated and explanation shown; confirmation bars exclude the separate uncertainty section |
+| Unit tests | PASS | 19 total, including 11 evidence-workflow cases |
+| Astro check | PASS | 93 files, zero diagnostics; existing loader/deprecation notices remain separate |
+| Production build and Pagefind | PASS | 223 static pages, 33 indexed pages; existing warning classes remain |
+| Isolated Daily integration | PASS | Actual copied build: 16 public issues, two archive pages, late backfill, drafts/future/translation privacy, source/preview/date-only/correction rendering; no fixtures written into production |
+| Production isolation and reviewed output | PASS | Seven production routes byte-identical to frozen preview; one home issue teaser, technical writing retained; public list/RSS/sitemap discoverability, English isolation, no fixture URL/token in HTML/XML |
+| Real browser and complete-candidate final gate | See independent report | Chromium 1280/1680/768/390; exact reviewed MDX hash recorded in run. Build success alone is not this gate |
+| Deployment/live and external schedule | Separate release evidence | Scheduler untouched. Exact-commit Actions and live network outcome must be reported separately; local Chromium review is not a physical-device or live-site certification |
+
+All five topics retain `partial`, with dynamic-access, original-source, time and identity limitations disclosed in the public issue and independently assessed. No automatic metric proves global absence. The corrected issue uses primary evidence for confirmed/watch items and preserves publisher claims versus editorial inference. No synthetic exercise or fixture is publishable.
+
 ## Code and architecture checks
 
 | Check | Result | Evidence |
@@ -36,6 +59,6 @@ The final independent review, actual screenshots and browser measurements are su
 
 ## Release boundary
 
-Architecture implementation and the full reusable [execution prompt](prompts/ai-daily.md) are ready for review. The existing external Beijing 10:00 task remains paused during the one-time architecture approval/deployment gate. The user subsequently approved the reviewed architecture plus a real 2026-10-17 issue, conditional on independent factual and real-browser review and passing checks. That explicit scope satisfies the one-time visual/release approval requirement in `AGENTS.md`.
+Architecture implementation and the Skill-backed [execution entrypoint](prompts/ai-daily.md) are ready for review. The existing external Beijing 10:00 task remains paused during the one-time architecture approval/deployment gate. The user subsequently approved the reviewed architecture plus a real 2026-10-17 issue, conditional on independent factual and real-browser review and passing checks. That explicit scope satisfies the one-time visual/release approval requirement in `AGENTS.md`.
 
 The user has separately granted continuing conditional authorization for subsequent daily articles: independent source verification and independent PC/mobile rendering review must pass, and all discovered issues must be fully fixed; then the reviewed issue may be committed and pushed to main without another per-issue human approval. The one-time architecture approval is separate from the standing article authorization. The parent manages initial task activation after the architecture is approved/deployed; a routine issue run does not alter the task. No fixture checkout may be deployed.

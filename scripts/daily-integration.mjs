@@ -25,6 +25,13 @@ for (const folder of [zh, en]) {
 for (let i = 1; i <= 16; i++) {
   const day = `2000-01-${String(i).padStart(2,'0')}`;
   const fixture = dailyFixture(day);
+  if (i === 16) {
+    const eventEvidence = { precision: 'date', value: day, basis: 'TEST FIXTURE date only', sourceUrls: fixture.daily.items[0].sourceUrls };
+    fixture.daily.pending = [{ ...fixture.daily.items[0], title: 'TEST FIXTURE date-only preview', eventEvidence, releaseStatus: 'preview', uncertainty: 'TEST FIXTURE boundary uncertainty' }];
+    delete fixture.daily.pending[0].eventTime;
+    fixture.updated = '2000-02-02T00:00:00Z';
+    fixture.daily.correction = 'TEST FIXTURE visible correction';
+  }
   if (i === 1) fixture.date = '2000-02-01T10:00:00+08:00'; // A late backfill must not replace the latest issue.
   await writeFile(path.join(zh, `${day}-ai-daily.mdx`), fixtureMdx(fixture));
 }
@@ -60,6 +67,12 @@ assert.match(page2, /rel="prev"/);
 assert.match(article, /daily-overview/);
 assert.match(article, /href="\/daily\/" aria-current="page"/);
 assert.match(article, /daily-item-1/);
+assert.match(article, /daily-pending-1/);
+assert.match(article, /日期已知，窗口待核/);
+assert.match(article, /TEST FIXTURE visible correction/);
+assert.match(article, /TEST FIXTURE date-only preview/);
+assert.match(article, /来源未标时区/);
+assert.match(article, /仅日期/);
 assert.match(article, /example.test\/fixture/);
 assert.match(article, /aria-disabled="true"/);
 assert.match(article, /href="\/posts\/2000-01-15-ai-daily\/"/);
