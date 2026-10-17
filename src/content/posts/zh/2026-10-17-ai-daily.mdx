@@ -1,0 +1,194 @@
+---
+{
+  "title": "AI 日报 · 2026-10-17：Beam 接入与 Agent 工程更新",
+  "date": "2026-10-17T11:00:25Z",
+  "draft": false,
+  "kind": "distilled",
+  "channel": "daily",
+  "excerpt": "本次补跑收录截止北京时间 10 月 17 日 10:00 前的四条工程更新：Beam 框架接入、权限默认值与工具修复。融资并购和新论文未收录达到本次证据要求的事件。",
+  "tags": [
+    "AI 日报",
+    "模型部署",
+    "Agent",
+    "数据治理"
+  ],
+  "sources": [
+    {
+      "title": "Transformers 5.20.1 官方发布说明",
+      "url": "https://github.com/huggingface/transformers/releases/tag/v5.20.1",
+      "publishedAt": "2026-10-16T13:02:29Z",
+      "retrievedAt": "2026-10-17T10:56:45Z"
+    },
+    {
+      "title": "Claude Code 2.1.302 官方发布说明",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.302",
+      "publishedAt": "2026-10-16T20:53:06Z",
+      "retrievedAt": "2026-10-17T10:56:45Z"
+    },
+    {
+      "title": "Deep Agents 0.7.28 官方发布说明",
+      "url": "https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28",
+      "publishedAt": "2026-10-16T20:21:24Z",
+      "retrievedAt": "2026-10-17T10:56:45Z"
+    },
+    {
+      "title": "LangChain Core 1.6.12 官方发布说明",
+      "url": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12",
+      "publishedAt": "2026-10-16T19:28:44Z",
+      "retrievedAt": "2026-10-17T10:56:45Z"
+    },
+    {
+      "title": "Beam 文档：Transformers v5.20.1 发布快照",
+      "url": "https://github.com/huggingface/transformers/blob/v5.20.1/docs/source/en/model_doc/beam.md",
+      "publishedAt": "2026-10-16T13:02:29Z",
+      "retrievedAt": "2026-10-17T11:00:25Z"
+    },
+    {
+      "title": "Reflection：Beam 原始介绍（2026-10-05，背景资料）",
+      "url": "https://reflection.ai/blog/introducing-beam"
+    }
+  ],
+  "daily": {
+    "issueDate": "2026-10-17",
+    "timeZone": "Asia/Shanghai",
+    "windowStart": "2026-10-16T10:00:00+08:00",
+    "cutoff": "2026-10-17T10:00:00+08:00",
+    "items": [
+      {
+        "title": "Transformers 5.20.1 接入 Beam，并修复旧版 Torch 加载回归",
+        "summary": "Hugging Face 在本窗口发布 5.20.1，加入 Reflection Beam 模型支持，并修复旧版 Torch 下的模型加载问题。版本文档将 Beam 描述为面向编程和 Agent 的开放权重模型：总参数 501B，每个 token 激活 23B。这里的新事件是框架接入，不是模型首次公布；这些规模数据来自官方文档，不代表本站测评。对自部署团队，模型能否正确加载和分片，比单看激活参数量更直接影响上线成本。",
+        "category": "products",
+        "sourceUrls": [
+          "https://github.com/huggingface/transformers/releases/tag/v5.20.1",
+          "https://github.com/huggingface/transformers/blob/v5.20.1/docs/source/en/model_doc/beam.md"
+        ],
+        "eventTime": "2026-10-16T13:02:29Z"
+      },
+      {
+        "title": "Claude Code 2.1.302 调整特定场景下的默认权限模式",
+        "summary": "在第三方模型提供商上，claude -p 和 Agent SDK 会话若未指定权限模式，且遥测关闭或属于全新安装，现从 default 模式启动；显式指定 --permission-mode auto 仍保持 auto。该版本还修复特定 MCP 协商下遗漏可选字段导致工具不可用的问题，并拒绝超过 128 MB 的图片来源。对无人值守任务，应显式记录权限模式并复查工具连通性；这些修复不等于自动任务已获得全部业务授权。",
+        "category": "governance",
+        "sourceUrls": [
+          "https://github.com/anthropics/claude-code/releases/tag/v2.1.302"
+        ],
+        "eventTime": "2026-10-16T20:53:06Z"
+      },
+      {
+        "title": "Deep Agents 0.7.28 修复 glob 的路径参数失效",
+        "summary": "官方补丁修复 ContextHubBackend.glob 未遵循 path 参数的问题。依赖指定子目录寻找文件的 Agent 应关注这项行为修正：搜索范围要与调用方传入的路径一致。发布说明没有宣称修复了目录越权漏洞，也没有给出吞吐或成功率提升，不能把这次正确性修复当作新的安全保证。",
+        "category": "agents",
+        "sourceUrls": [
+          "https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28"
+        ],
+        "eventTime": "2026-10-16T20:21:24Z"
+      },
+      {
+        "title": "LangChain Core 1.6.12 补传流式起始事件的附加字段",
+        "summary": "本次更新把 extras 传播到 content-block-start 事件，修复了流式内容块起始时附加信息未传递的问题。消费这类字段的上层应用应检查自己的事件处理与回放结果，而不能只验证最终文本。它是流式协议适配的补丁，不是新模型或新的性能基准。",
+        "category": "agents",
+        "sourceUrls": [
+          "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12"
+        ],
+        "eventTime": "2026-10-16T19:28:44Z"
+      }
+    ]
+  }
+}
+---
+
+import { Section, SectionHead, Prose } from '@/components/article';
+
+<Section canvas id="beam-deployment">
+  <SectionHead index="03" kicker="模型接入" title="Beam 的激活参数，不能当作整套权重的内存账单" />
+  <Prose tile>
+
+Reflection 在 [10 月 5 日的原始介绍](https://reflection.ai/blog/introducing-beam) 中已经公布 Beam。本窗口发生的更新是 [Transformers 5.20.1 接入它](https://github.com/huggingface/transformers/releases/tag/v5.20.1)，以及相应的加载兼容修复。把这两个时间点分开，才能判断今天真正多了什么。
+
+[随该版本发布的文档快照](https://github.com/huggingface/transformers/blob/v5.20.1/docs/source/en/model_doc/beam.md) 给出的整体规模是总参数 501B、每个 token 激活 23B。Beam 使用混合专家结构：前三层采用稠密前馈网络，后续 49 个稀疏层中，每个 token 从 256 个路由专家里选择 8 个。没有被该 token 选中的专家仍属于模型权重，因此不能用 23B 来估算整套权重的存储需求。
+
+文档将 BF16 检查点描述为约 1 TB，并给出跨 8 个设备分片的示例。这是官方部署示例，不是“所有环境必须买八张卡”的硬件结论，也不是本文做过的成本测试。发布说明中对分布式检查点的 Torch 版本限制，同样不能外推为所有旧版 Torch 路径都不再受支持。
+
+  </Prose>
+  <figure class="mt-5 rounded-card bg-white p-5 sm:p-8">
+    <svg viewBox="0 0 900 280" class="hidden w-full md:block" role="img" aria-label="Beam 单个稀疏层：token 输入，经路由器选择 256 个专家中的 8 个，聚合后输出。总参数 501B 与激活参数 23B 是模型整体口径。">
+      <rect x="0" y="0" width="900" height="280" rx="18" fill="var(--color-paper)" />
+      <text x="30" y="42" font-size="22" font-weight="600" fill="var(--color-ink)">Beam · 单个稀疏层示意</text>
+      <g fill="var(--color-ink-2)" font-size="18">
+        <rect x="30" y="78" width="150" height="80" rx="12" fill="var(--color-line-soft)" />
+        <text x="105" y="125" text-anchor="middle">token 输入</text>
+        <path d="M190 118 H225 M215 110 L225 118 L215 126" fill="none" stroke="var(--color-muted-2)" stroke-width="2" />
+        <rect x="240" y="78" width="150" height="80" rx="12" fill="var(--color-line-soft)" />
+        <text x="315" y="125" text-anchor="middle">路由器</text>
+        <path d="M400 118 H435 M425 110 L435 118 L425 126" fill="none" stroke="var(--color-muted-2)" stroke-width="2" />
+        <rect x="450" y="78" width="210" height="80" rx="12" fill="var(--color-line-soft)" />
+        <text x="555" y="112" text-anchor="middle">256 个路由专家</text>
+        <text x="555" y="139" text-anchor="middle">本 token 选择 8 个</text>
+        <path d="M670 118 H705 M695 110 L705 118 L695 126" fill="none" stroke="var(--color-muted-2)" stroke-width="2" />
+        <rect x="720" y="78" width="150" height="80" rx="12" fill="var(--color-line-soft)" />
+        <text x="795" y="125" text-anchor="middle">聚合并输出</text>
+        <text x="30" y="211">模型整体：501B 总参数 · 每 token 激活 23B</text>
+        <text x="30" y="245" font-size="18">未激活的专家仍是权重的一部分；示意图不代表完整网络或性能实测。</text>
+      </g>
+    </svg>
+    <svg viewBox="0 0 320 480" class="block w-full md:hidden" role="img" aria-label="Beam 单个稀疏层的竖向示意：token 输入、路由器、从 256 个路由专家中选择 8 个、聚合输出。整体总参数 501B，每 token 激活 23B。">
+      <rect x="0" y="0" width="320" height="480" rx="18" fill="var(--color-paper)" />
+      <g fill="var(--color-ink-2)" font-size="16">
+        <text x="20" y="33" font-size="18" font-weight="600" fill="var(--color-ink)">Beam · 单个稀疏层示意</text>
+        <rect x="20" y="54" width="280" height="52" rx="12" fill="var(--color-line-soft)" />
+        <text x="160" y="86" text-anchor="middle">token 输入</text>
+        <path d="M160 114 V132 M153 125 L160 132 L167 125" fill="none" stroke="var(--color-muted-2)" stroke-width="2" />
+        <rect x="20" y="142" width="280" height="52" rx="12" fill="var(--color-line-soft)" />
+        <text x="160" y="174" text-anchor="middle">路由器</text>
+        <path d="M160 202 V220 M153 213 L160 220 L167 213" fill="none" stroke="var(--color-muted-2)" stroke-width="2" />
+        <rect x="20" y="230" width="280" height="68" rx="12" fill="var(--color-line-soft)" />
+        <text x="160" y="257" text-anchor="middle">256 个路由专家</text>
+        <text x="160" y="282" text-anchor="middle">本 token 选择 8 个</text>
+        <path d="M160 306 V324 M153 317 L160 324 L167 317" fill="none" stroke="var(--color-muted-2)" stroke-width="2" />
+        <rect x="20" y="334" width="280" height="52" rx="12" fill="var(--color-line-soft)" />
+        <text x="160" y="366" text-anchor="middle">聚合并输出</text>
+        <text x="20" y="424">整体：501B 总参数</text>
+        <text x="20" y="450">每 token 激活 23B；非性能实测</text>
+      </g>
+    </svg>
+    <figcaption class="mt-4 text-[13px] leading-relaxed text-muted">依据 <a href="https://github.com/huggingface/transformers/blob/v5.20.1/docs/source/en/model_doc/beam.md" class="text-blue">v5.20.1 版本文档</a>绘制。图中只画一个稀疏层；501B 和 23B 则是模型整体的参数口径。设备数量与实际成本需另行评估。</figcaption>
+  </figure>
+</Section>
+
+<Section canvas id="operating-boundaries">
+  <SectionHead index="04" kicker="运行边界" title="权限和路径参数，需要写进回归用例" />
+  <Prose tile>
+
+[Claude Code 的更新](https://github.com/anthropics/claude-code/releases/tag/v2.1.302) 对第三方提供商的默认权限有明确适用条件。原来没有显式指定权限模式的脚本，升级后应重新检查启动参数；显式的 auto 选项仍保留。这里讨论的是工具的启动行为，业务上的提交、发信或部署权限依然来自任务本身的授权。
+
+MCP 是工具连接协议。本期记录的是客户端对 2026-07-28 协商版本中遗漏字段的兼容修复，不把它描述成今天新发布了一项标准。图片来源超过 128 MB 时被拒绝，也是一个输入边界；它不能证明较小的输入一定安全。
+
+[Deep Agents 的 path 修复](https://github.com/langchain-ai/deepagents/releases/tag/deepagents%3D%3D0.7.28) 和 [LangChain Core 的 extras 修复](https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.12) 规模不大，但都涉及调用约定。维护者可以用一个限定子目录的 glob 用例、一个保留起始事件附加字段的流式用例检查升级结果。这是本文的工程建议，并非发布方给出的性能测试结论。
+
+  </Prose>
+</Section>
+
+<Section canvas id="coverage-and-cutoff">
+  <SectionHead index="05" kicker="采集口径" title="本期没有用窗口外的大新闻填空" />
+  <Prose tile>
+
+本期是补跑。采集窗口为北京时间 2026 年 10 月 16 日 10:00 之后至 10 月 17 日 10:00，截止点包含在内。来源核验发生在补跑时刻，页面逐条显示实际核验时间；它不代表日报在当天 10:00 已经实时发出。上述四条按官方发布记录确定事件时间，补跑时复核的发布与更新时刻均早于截止点；它们均为正式版本。Beam 的结构说明固定引用 v5.20.1 标签文档。后续编辑过的网页不能代替截止时刻的历史快照。
+
+融资并购、重要研究论文，以及独立的标准或治理公告都在本次检索范围内，但本轮未找到同时满足一手证据和窗口时间要求、足以收录的新事件。这是本次采集的覆盖限制，不能解释成这些领域当天没有进展。图表中的零只表示本期没有收录。
+
+筛选采用事件本身的时间。媒体转载日期、论文列表日期和预发布标签都不足以单独证明一项正式更新发生在本窗口。
+
+OSC 的具体指代仍未确认。本期没有据此编写标准更新，也没有把这个缩写替换成 MCP。它与上面的 MCP 客户端修复是两件独立事项。
+
+  </Prose>
+</Section>
+
+<Section canvas id="trend-commentary">
+  <SectionHead index="06" kicker="趋势点评" title="能力接入之后，还要检验部署细节" />
+  <Prose tile>
+
+本期最值得跟踪的是模型能力怎样进入现有工具链。Beam 的 Transformers 接入让自部署团队多了一条框架路径，但权重占用、加载兼容和分片方式都要计入成本。激活参数较少，不能直接推导出机器更便宜，更不能代替真实业务负载的延迟和稳定性测试。
+
+另外几项更新提醒我们，Agent 的可用性往往取决于很小的约定：默认权限有没有变化，路径参数是否真正生效，流式事件有没有带齐字段。这里可以作出的判断是“升级需要验证这些接口”，而不是“这些补丁证明 Agent 已经可靠”。下一步应看它们在可复现任务中的表现，并继续寻找可核实的融资、研究和治理进展。
+
+  </Prose>
+</Section>

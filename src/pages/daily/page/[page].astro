@@ -1,0 +1,11 @@
+---
+import DailyPage from '../../../components/pages/DailyPage.astro';
+import { getLocalized } from '../../../lib/content';
+import { isDaily, archivePageNumbers } from '../../../lib/post-policy';
+export async function getStaticPaths() {
+  const posts = (await getLocalized('posts', 'zh')).filter(isDaily);
+  return archivePageNumbers(posts.length).slice(1).map((page) => ({ params: { page: String(page) }, props: { page } }));
+}
+const { page } = Astro.props;
+---
+<DailyPage lang="zh" page={page} />

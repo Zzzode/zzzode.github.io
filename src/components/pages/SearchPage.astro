@@ -85,7 +85,7 @@ const { lang } = Astro.props;
   /* The locale filter is preselected (zh/en page only searches its own
      language); the facet switcher itself is hidden so it never doubles
      as a cross-locale toggle. */
-  .search-ui .pagefind-ui__filter-panel {
+  .search-ui #pagefind .pagefind-ui__filter-panel {
     display: none;
   }
   .search-ui .pagefind-ui__result {
@@ -147,12 +147,11 @@ const { lang } = Astro.props;
     if (!host || !(window as any).PagefindUI) return fallback();
     const d = host.dataset;
     host.innerHTML = '';
-    new (window as any).PagefindUI({
+    const search = new (window as any).PagefindUI({
       element: '#pagefind',
       showImages: false,
       showSubResults: true,
       excerptLength: 18,
-      filters: { locale: [d.locale ?? 'zh'] },
       translations: {
         placeholder: d.placeholder,
         clear_search: d.clear,
@@ -164,6 +163,9 @@ const { lang } = Astro.props;
         clear_search_label: d.clear,
       },
     });
+    // Default UI filters are selected through this API, not constructor options.
+    // Preserve the locale constraint even when that locale has no indexed pages.
+    search.triggerFilters({ locale: [d.locale ?? 'zh'] });
   }
 
   const script = document.createElement('script');

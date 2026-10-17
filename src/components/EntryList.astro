@@ -3,11 +3,13 @@ import type { Entry } from '../lib/entries';
 
 interface Props {
   entries: Entry[];
+  /** Opt-in for touch-first archive rows without changing legacy lists. */
+  largeTargets?: boolean;
   /** when set, tag pills link to `<tagHref>/<tag>/` (post lists only) */
   tagHref?: string;
 }
 
-const { entries, tagHref } = Astro.props;
+const { entries, tagHref, largeTargets = false } = Astro.props;
 ---
 
 <ul>
@@ -19,7 +21,10 @@ const { entries, tagHref } = Astro.props;
             href={entry.href}
             rel={entry.external ? 'noopener noreferrer' : undefined}
             target={entry.external ? '_blank' : undefined}
-            class="text-[16.5px] font-semibold tracking-[-0.01em] text-ink transition-colors hover:text-blue"
+            class:list={[
+              'text-[16.5px] font-semibold tracking-[-0.01em] text-ink transition-colors hover:text-blue',
+              largeTargets && 'inline-flex min-h-11 items-center',
+            ]}
           >
             {entry.title}
           </a>

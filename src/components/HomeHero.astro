@@ -27,14 +27,14 @@ const prefix = lang === 'en' ? '/en' : '';
     <div class="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
       <a
         href={`${prefix}/posts/`}
-        class="chevron-link inline-flex items-center gap-1 text-[15px] font-medium text-blue transition-colors hover:text-blue-hover"
+        class="chevron-link inline-flex min-h-11 min-w-11 items-center gap-1 text-[15px] font-medium text-blue transition-colors hover:text-blue-hover"
       >
         {t(lang, 'home.viewWriting')}
         <span aria-hidden="true" class="chevron text-[1.05em] leading-none">›</span>
       </a>
       <a
         href={`${prefix}/about/`}
-        class="chevron-link inline-flex items-center gap-1 text-[15px] font-medium text-ink-2 transition-colors hover:text-blue"
+        class="chevron-link inline-flex min-h-11 min-w-11 items-center gap-1 text-[15px] font-medium text-ink-2 transition-colors hover:text-blue"
       >
         {t(lang, 'home.viewAbout')}
         <span aria-hidden="true" class="chevron text-[1.05em] leading-none">›</span>

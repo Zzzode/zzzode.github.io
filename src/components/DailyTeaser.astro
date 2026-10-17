@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { type Lang, t } from '../i18n/ui';
+import { slugOfId } from '../lib/content';
+interface Props { lang: Lang; post?: CollectionEntry<'posts'> }
+const { lang, post } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
+---
+<section aria-labelledby="daily-heading" class="bg-white" data-daily-teaser>
+  <div class="container-page">
+    <div class="border-t border-line py-6 sm:py-8">
+      <div class="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 id="daily-heading" class="text-[18px] font-semibold tracking-[-0.02em] text-ink">{t(lang, 'nav.daily')}</h2>
+        <a href={`${prefix}/daily/`} class="inline-flex min-h-11 items-center text-[14px] text-blue">{t(lang, 'daily.archive')} ›</a>
+      </div>
+      {post ? (
+        <div class="mt-2 max-w-[760px]">
+          <p class="text-[12px] text-muted">{t(lang, 'daily.latest')} · {post.data.daily?.issueDate} · UTC+8</p>
+          <a href={`${prefix}/posts/${slugOfId(post.id)}/`} class="mt-2 inline-flex min-h-11 items-center text-[19px] font-semibold leading-snug text-ink hover:text-blue"><span>{post.data.title}</span><span aria-hidden="true" class="ml-1 shrink-0">›</span></a>
+          <p class="mt-1 text-[14px] leading-relaxed text-muted">{post.data.excerpt}</p>
+        </div>
+      ) : <p class="mt-2 text-[14px] leading-relaxed text-muted">{t(lang, 'daily.empty')}</p>}
+    </div>
+  </div>
+</section>

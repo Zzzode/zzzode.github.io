@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeHero from '../HomeHero.astro';
-import { getCollection } from 'astro:content';
+import DailyTeaser from '../DailyTeaser.astro';
 import { type Lang, t } from '../../i18n/ui';
-import { localeOfId } from '../../lib/content';
+import { getLocalized } from '../../lib/content';
+import { isDaily, dailyNewestFirst } from '../../lib/post-policy';
+import { formatDate } from '../../lib/format';
 import type { Entry } from '../../lib/entries';
 
 interface Props {
@@ -13,7 +15,9 @@ interface Props {
 const { lang } = Astro.props;
 const prefix = lang === 'en' ? '/en' : '';
 
-const raw = await getCollection('posts', (entry) => localeOfId(entry.id) === lang);
+const published = await getLocalized('posts', lang);
+const daily = published.filter(isDaily).sort(dailyNewestFirst)[0];
+const raw = published.filter((post) => !isDaily(post));
 const totalSources = raw.reduce((n, e) => n + ((e.data.sources as { url: string }[] | undefined)?.length ?? 0), 0);
 
 // Editorial curation, independent of same-date glob order.
@@ -22,10 +26,7 @@ const posts: Entry[] = [...raw]
   .map((item) => ({
     title: item.data.title,
     dateValue: item.data.date,
-    meta:
-      lang === 'zh'
-        ? `${item.data.date.getFullYear()}年${item.data.date.getMonth() + 1}月${item.data.date.getDate()}日`
-        : item.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    meta: formatDate(item.data.date, lang),
     excerpt: item.data.excerpt,
     tags: item.data.tags,
     href: `${prefix}/posts/${item.id.replace(/^(zh|en)\//, '')}/`,
@@ -52,10 +53,7 @@ const latestItems = latestPosts.map((post, i) => ({
   num: String(i + 1).padStart(2, '0'),
 }));
 // Strictly chronological feed, grouped by calendar day
-const dayKey = (d: Date) =>
-  lang === 'zh'
-    ? `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
-    : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const dayKey = (d: Date) => formatDate(d, lang);
 const latestGroups: { label: string; items: typeof latestItems }[] = [];
 for (const item of latestItems) {
   const label = dayKey(item.post.dateValue ?? new Date(0));
@@ -129,6 +127,7 @@ const colophon = [
 
 <BaseLayout lang={lang} bare title={t(lang, 'home.title')}>
   <HomeHero lang={lang} />
+  <DailyTeaser lang={lang} post={daily} />
 
   {
     posts.length === 0 ? (
@@ -329,21 +328,21 @@ const colophon = [
               <div class="flex shrink-0 items-center gap-7">
                 <a
                   href={`${prefix}/projects/`}
-                  class="chevron-link inline-flex items-center gap-1 text-[14.5px] font-medium text-ink-2 transition-colors hover:text-blue"
+                  class="chevron-link inline-flex min-h-11 min-w-11 items-center gap-1 text-[14.5px] font-medium text-ink-2 transition-colors hover:text-blue"
                 >
                   {t(lang, 'nav.projects')}
                   <span aria-hidden="true" class="chevron">›</span>
                 </a>
                 <a
                   href={`${prefix}/posts/`}
-                  class="chevron-link inline-flex items-center gap-1 text-[14.5px] font-medium text-blue transition-colors hover:text-blue-hover"
+                  class="chevron-link inline-flex min-h-11 min-w-11 items-center gap-1 text-[14.5px] font-medium text-blue transition-colors hover:text-blue-hover"
                 >
                   {t(lang, 'home.archive')}
                   <span aria-hidden="true" class="chevron">›</span>
                 </a>
                 <a
-                  href="/rss.xml"
-                  class="text-[13px] text-muted-2 underline-offset-4 transition-colors hover:text-blue hover:underline"
+                  href={`${prefix}/rss.xml`}
+                  class="inline-flex min-h-11 min-w-11 items-center text-[13px] text-muted-2 underline-offset-4 transition-colors hover:text-blue hover:underline"
                 >
                   RSS
                 </a>

@@ -36,7 +36,7 @@ The whole site, and all HTML embedded inside posts, follows the **Apple design l
   - **Restraint and breathing room.** Generous whitespace, body line-height 1.6–1.75, relaxed padding; no decorative gradients, stacked shadows, emoji-as-icons; use minimal neutral inline SVG for graphics; system font stack only, no webfonts.
   - **Dual-subject comparisons are point-by-point symmetric.** Each dimension gets a left/right card pair, and both cards carry all three layers — architecture / numbered pipeline steps / user-facing difference table; affiliation is marked only by a small dot, and color never implies ranking.
 - Anything inconsistent with the design guide **must not ship**. Before pushing, run the guide's §8 checklist at 1280/768/390 px widths, in **both** locales.
-- **Preview gate for visual work.** Layout, home-page, component, typography, color and image changes must be served with `npm run preview`, screenshotted at desktop (≥1280px) and 390px mobile, and shown to the user before committing. Wait for explicit approval of the visuals; do not commit first and "fix later."
+- **Preview gate for visual work.** Layout, home-page, component, typography, color and image changes must be served with `npm run preview`, screenshotted at desktop (≥1280px) and 390px mobile, and shown to the user before committing. Use the explicit visual/publication authorization applicable to the change. The standing authorization for routine Daily articles is recorded below; it requires independent review and full fixes, without another per-issue approval. Initial architecture changes still require their own approval before committing.
 
 ## Home page curation
 
@@ -100,7 +100,7 @@ Front matter is defined by the zod schemas in `src/content.config.ts` (a wrong f
    - `npm run dev` to review live (or `npm run preview` after a build).
 4. Run the guide's §8 visual checklist at 1280/768/390, in both locales; check new links and ensure no placeholder copy remains.
 5. Review the Git diff: no `dist/`, `.astro/`, `node_modules/`, no tokens/credentials/personal data, no unexplained drive-by changes.
-6. **Ask the user before pushing** — pushing to `main` is a public release. Then push; Actions deploys automatically.
+6. **Confirm that the publication scope is authorized** — pushing to `main` is a public release. Use an applicable existing user authorization; routine Daily articles use the standing conditional authorization below. Ask only when the proposed release falls outside an already authorized scope. Then push; Actions deploys automatically.
 7. After the push, confirm the workflow is green on Actions and spot-check the live site (nav, entries, language toggle, mobile).
 
 ## Layout and technical constraints
@@ -126,5 +126,9 @@ Front matter is defined by the zod schemas in `src/content.config.ts` (a wrong f
 - Presentation changes live in tokens/components; embedded HTML only uses `var(--color-*)` / `var(--radius-*)`.
 - Content changes ship as zh/en pairs, or the missing translation is intentionally accepted (hidden list entry, disabled toggle).
 - The build emits no first-party JS (unless a justified island is used) and no external fonts/CDNs.
-- Push was explicitly approved by the user; post-push the Actions run is green and live spot-checks pass.
+- Push is covered by explicit user approval, including applicable standing authorization; post-push the Actions run is green and live spot-checks pass.
 - Every line of the diff is explainable as content, config, style, or component work — no build artifacts or secrets.
+
+## Daily AI column
+
+Daily issues use explicit `channel: daily`; `kind: distilled` alone remains a presentation choice. Follow [AI Daily execution](ai-daily.md) and [architecture/operations](../daily-news.md) for the complete metadata, research, idempotency and release contract. The planned Beijing 10:00 external task remains paused until the architecture and real responsive previews are approved. After the approved architecture is deployed, the user's standing authorization permits daily articles to be committed/pushed once independent source verification and independent PC/mobile rendering review pass and all issues are fixed; do not ask for another per-issue human approval. This does not approve new architecture changes. Daily issues get one home teaser and a dedicated paginated `/daily/` archive; preserve the long-form technical feature, picks and latest feed.

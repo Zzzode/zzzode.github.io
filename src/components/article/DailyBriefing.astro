@@ -1,0 +1,44 @@
+---
+import { type Lang, t } from '../../i18n/ui';
+import { dailyCategories, type DailyMetadata, type PostSource } from '../../lib/post-schema';
+import { formatDailyTime } from '../../lib/format';
+import Section from './Section.astro';
+import SectionHead from './SectionHead.astro';
+interface Props { lang: Lang; daily: DailyMetadata; sources: PostSource[] }
+const { lang, daily, sources } = Astro.props;
+const count = (category: string) => daily.items.filter((item) => item.category === category).length;
+const max = Math.max(1, ...dailyCategories.map(count));
+const sourceByUrl = new Map(sources.map((source) => [source.url, source]));
+---
+<Section canvas id="daily-overview">
+  <SectionHead index="01" kicker={t(lang, 'daily.eyebrow')} toc={t(lang, 'daily.overview')} title={t(lang, 'daily.overview')} />
+  <div class="rounded-card bg-white p-5 sm:p-8">
+    <p class="text-[13px] leading-relaxed text-muted">{t(lang, 'daily.window')}：{formatDailyTime(daily.windowStart, lang)} → {formatDailyTime(daily.cutoff, lang)}</p>
+    <figure class="mt-6" aria-labelledby="daily-chart-caption">
+      <ul class="space-y-4">
+        {dailyCategories.map((category) => <li class="grid min-w-0 gap-2 sm:grid-cols-[230px_1fr_32px] sm:items-center sm:gap-4">
+          <span class="text-[14px] text-ink-2">{t(lang, `daily.category.${category}`)}</span>
+          <div aria-hidden="true" class="h-2 overflow-hidden rounded-full bg-paper"><div class="h-full rounded-full bg-ink-2" style={{ width: `${count(category) / max * 100}%` }} /></div>
+          <span class="text-[13px] tabular-nums text-muted">{count(category)}</span>
+        </li>)}
+      </ul>
+      <figcaption id="daily-chart-caption" class="mt-5 max-w-[760px] text-[12px] leading-relaxed text-muted">{t(lang, 'daily.overview.note')}</figcaption>
+    </figure>
+  </div>
+</Section>
+<Section canvas id="daily-stories">
+  <SectionHead index="02" kicker={t(lang, 'daily.eyebrow')} toc={t(lang, 'daily.items')} title={t(lang, 'daily.items')} />
+  <ol class="space-y-5">
+    {daily.items.map((item, index) => <li id={`daily-item-${index + 1}`} class="min-w-0 rounded-card bg-white p-5 sm:p-8">
+      <p class="text-[12px] text-muted">{String(index + 1).padStart(2, '0')} · {t(lang, `daily.category.${item.category}`)}</p>
+      <h3 class="mt-3 text-[clamp(20px,2.5vw,26px)] font-semibold leading-snug tracking-[-0.02em] text-ink">{item.title}</h3>
+      <p class="mt-4 max-w-[760px] text-[15.5px] leading-[1.75] text-ink-2">{item.summary}</p>
+      <ul class="mt-5 border-t border-line-soft pt-3">
+        {item.sourceUrls.map((url) => { const source = sourceByUrl.get(url)!; return <li class="py-2">
+          <a href={url} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center break-words text-[14px] text-blue">{t(lang, 'daily.sources')}：{source.title} ↗</a>
+          <p class="text-[12px] leading-relaxed text-muted">{t(lang, 'daily.published')} {formatDailyTime(source.publishedAt!, lang)}<br />{t(lang, 'daily.retrieved')} {formatDailyTime(source.retrievedAt!, lang)}</p>
+        </li>; })}
+      </ul>
+    </li>)}
+  </ol>
+</Section>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../PageHeader.astro';
+import EntryList from '../EntryList.astro';
+import EmptyState from '../EmptyState.astro';
+import { type Lang, t } from '../../i18n/ui';
+import { getLocalized, slugOfId } from '../../lib/content';
+import { isDaily, dailyNewestFirst, archivePageNumbers, archiveSlice } from '../../lib/post-policy';
+import { formatDailyTime } from '../../lib/format';
+interface Props { lang: Lang; page?: number }
+const { lang, page = 1 } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
+const posts = (await getLocalized('posts', lang)).filter(isDaily)
+  .sort(dailyNewestFirst);
+const pages = archivePageNumbers(posts.length);
+const pageHref = (n: number) => n === 1 ? `${prefix}/daily/` : `${prefix}/daily/page/${n}/`;
+const alternatePath = page === 1 ? undefined : null;
+const entries = archiveSlice(posts, page).map((post) => ({
+  title: post.data.title,
+  meta: `${post.data.daily?.issueDate} · ${t(lang, 'daily.cutoff')} ${formatDailyTime(post.data.daily!.cutoff, lang)}`,
+  excerpt: post.data.excerpt,
+  href: `${prefix}/posts/${slugOfId(post.id)}/`,
+}));
+---
+<BaseLayout lang={lang} title={t(lang, 'daily.archive')} alternatePath={alternatePath}>
+  <PageHeader eyebrow={t(lang, 'daily.eyebrow')} title={t(lang, 'nav.daily')} lead={t(lang, 'daily.lead')} />
+  <p class="mt-4 text-[13px] text-muted">{t(lang, 'daily.timezone')}</p>
+  <div class="mt-5 flex flex-wrap gap-5 text-[14px]">
+    {posts[0] && <a class="inline-flex min-h-11 items-center text-blue" href={`${prefix}/posts/${slugOfId(posts[0].id)}/`}>{t(lang, 'daily.latest')} ›</a>}
+    <a class="inline-flex min-h-11 items-center text-blue" href={`${prefix}/posts/`}>{t(lang, 'home.allWriting')} ›</a>
+    <a class="inline-flex min-h-11 min-w-11 items-center text-blue" href={`${prefix}/rss.xml`}>RSS ›</a>
+  </div>
+  {entries.length ? <EntryList entries={entries} largeTargets /> : <EmptyState text={t(lang, 'daily.empty')} />}
+  {pages.length > 1 && <nav aria-label={t(lang, 'daily.pagination')} class="mt-8 flex flex-wrap gap-3 border-t border-line pt-6">
+    {page > 1 && <a rel="prev" href={pageHref(page - 1)} class="inline-flex min-h-11 items-center px-2 text-blue">‹ {t(lang, 'daily.previous')}</a>}
+    <span class="inline-flex min-h-11 items-center px-2 text-[14px] text-muted">{page} / {pages.length}</span>
+    {page < pages.length && <a rel="next" href={pageHref(page + 1)} class="inline-flex min-h-11 items-center px-2 text-blue">{t(lang, 'daily.next')} ›</a>}
+  </nav>}
+</BaseLayout>

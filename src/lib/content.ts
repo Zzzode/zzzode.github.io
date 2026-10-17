@@ -3,6 +3,7 @@ import type { Lang } from '../i18n/ui';
 import { t } from '../i18n/ui';
 import type { Entry } from './entries';
 import { formatDate } from './format';
+import { isPublicPost, newestFirst, validateDailyIdentities } from './post-policy';
 
 export type SectionName = 'publications' | 'talks' | 'teaching' | 'posts';
 
@@ -19,6 +20,11 @@ export function slugOfId(id: string): string {
 /** Entries of one collection for one locale, newest date/term first. */
 export async function getLocalized<C extends SectionName>(name: C, lang: Lang) {
   const entries = await getCollection(name, (entry) => localeOfId(entry.id) === lang);
+  if (name === 'posts') {
+    const posts = entries as CollectionEntry<'posts'>[];
+    validateDailyIdentities(posts);
+    return posts.filter((post) => isPublicPost(post)).sort(newestFirst) as typeof entries;
+  }
   return [...entries].sort((a, b) => {
     if (name === 'teaching') {
       // teaching.date is a free-form term; fall back to file id ordering
@@ -38,7 +44,8 @@ export async function findCounterpart<C extends SectionName>(
   const targetLang: Lang = localeOfId(entry.id) === 'zh' ? 'en' : 'zh';
   const slug = slugOfId(entry.id);
   const all = await getCollection(name);
-  return all.find((other) => localeOfId(other.id) === targetLang && slugOfId(other.id) === slug);
+  return all.find((other) => localeOfId(other.id) === targetLang && slugOfId(other.id) === slug &&
+    (name !== 'posts' || isPublicPost(other as CollectionEntry<'posts'>)));
 }
 
 /** URL of a collection entry in the given locale. */
@@ -102,7 +109,7 @@ export async function getEntries(name: SectionName, lang: Lang): Promise<Entry[]
     const d = item.data as CollectionEntry<'posts'>['data'];
     return {
       title: d.title,
-      meta: formatDate(d.date, lang),
+      meta: d.daily?.issueDate ?? formatDate(d.date, lang),
       excerpt: d.excerpt,
       tags: d.tags,
       href: `${prefix}/posts/${slugOfId(item.id)}/`,

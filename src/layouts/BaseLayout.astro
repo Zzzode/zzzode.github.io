@@ -6,6 +6,7 @@ import { type Lang, defaultLang, switchLocalePath, t } from '../i18n/ui';
 
 interface Props {
   lang?: Lang;
+  navPath?: string;
   title?: string;
   description?: string;
   /**
@@ -70,7 +71,7 @@ const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
     <meta name="theme-color" content="#1d1d1f" />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Nav lang={lang} alternatePath={altPath} />
+    <Nav lang={lang} alternatePath={altPath} activePath={Astro.props.navPath} />
     <main class:list={['flex-1', bare ? '' : 'container-page py-10 sm:py-14']}>
       <slot />
     </main>

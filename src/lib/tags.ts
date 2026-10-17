@@ -1,16 +1,12 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
-import { localeOfId, slugOfId } from './content';
+import { getLocalized, slugOfId } from './content';
 import type { Entry } from './entries';
 import { formatDate } from './format';
 
 /** Published posts of one locale, newest first. */
 async function publishedPosts(lang: Lang): Promise<CollectionEntry<'posts'>[]> {
-  const posts = await getCollection(
-    'posts',
-    (entry) => localeOfId(entry.id) === lang && !entry.data.draft,
-  );
-  return [...posts].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  return getLocalized('posts', lang);
 }
 
 /** Tag usage counts for one locale, most-used first. */
@@ -34,7 +30,7 @@ export async function getEntriesByTag(lang: Lang, tag: string): Promise<Entry[]>
     .map((post) => ({
       title: post.data.title,
       dateValue: post.data.date,
-      meta: formatDate(post.data.date, lang),
+      meta: post.data.daily?.issueDate ?? formatDate(post.data.date, lang),
       excerpt: post.data.excerpt,
       tags: post.data.tags,
       href: `${prefix}/posts/${slugOfId(post.id)}/`,

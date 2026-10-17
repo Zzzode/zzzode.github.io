@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'zod';
+import { postSchema } from './lib/post-schema';
 
 /**
  * Content collections are the single source of truth for site entries.
@@ -8,26 +9,9 @@ import { z } from 'zod';
  * at build time — a typo fails `astro build`, not a live page.
  */
 
-const sourceSchema = z.object({
-  title: z.string(),
-  url: z.url(),
-});
-
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    updated: z.coerce.date().optional(),
-    excerpt: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    draft: z.boolean().default(false),
-    // 'note' = ordinary blog post; 'distilled' = a research/distillation
-    // article composed with the components in src/components/article.
-    kind: z.enum(['note', 'distilled']).default('note'),
-    // Public sources the article was distilled from (distilled articles only).
-    sources: z.array(sourceSchema).optional(),
-  }),
+  schema: postSchema,
 });
 
 const publications = defineCollection({

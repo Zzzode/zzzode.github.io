@@ -1,12 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import PostPage from '../../components/pages/PostPage.astro';
-import { localeOfId, slugOfId, findCounterpart } from '../../lib/content';
+import { getLocalized, slugOfId, findCounterpart } from '../../lib/content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', (entry) => {
-    return localeOfId(entry.id) === 'zh' && !entry.data.draft;
-  });
+  const posts = await getLocalized('posts', 'zh');
   return Promise.all(
     posts.map(async (post) => ({
       params: { slug: slugOfId(post.id) },

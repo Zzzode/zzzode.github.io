@@ -1,4 +1,5 @@
 ---
+import { formatStatValue } from '../../lib/stat-value';
 /**
  * One key-number cell for <StatGrid>. `unit` renders smaller after the number.
  * Optional count-up (article script, motion only): pass numeric `count` plus
@@ -27,6 +28,7 @@ const {
   countDecimals = 0,
   dark = false,
 } = Astro.props;
+const displayValue = formatStatValue(value, countPrefix, countSuffix);
 ---
 
 <div
@@ -45,10 +47,11 @@ const {
       typeof count === 'number' ? (
         <span
           data-count={count}
+          data-final={displayValue}
           data-prefix={countPrefix}
           data-suffix={countSuffix}
           data-decimals={countDecimals}
-          >{countPrefix}{value}{countSuffix}</span
+          >{displayValue}</span
         >
       ) : (
         value

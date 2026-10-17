@@ -92,7 +92,7 @@ function init() {
         const eased = 1 - Math.pow(1 - t, 3);
         el.textContent = fmt(el, target * eased);
         if (t < 1) requestAnimationFrame(tick);
-        else el.textContent = fmt(el, target);
+        else el.textContent = el.dataset.final ?? fmt(el, target);
       };
       requestAnimationFrame(tick);
     };

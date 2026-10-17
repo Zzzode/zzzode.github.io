@@ -3,6 +3,10 @@ import { render, type CollectionEntry } from 'astro:content';
 import 'katex/dist/katex.min.css';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Sources from '../article/Sources.astro';
+import CoverBanner from '../article/CoverBanner.astro';
+import ArticleCanvas from '../article/ArticleCanvas.astro';
+import DailyBriefing from '../article/DailyBriefing.astro';
+import { isDaily, dailyNewestFirst } from '../../lib/post-policy';
 import { type Lang, t } from '../../i18n/ui';
 import { formatDate, isoDate } from '../../lib/format';
 import { getLocalized, slugOfId } from '../../lib/content';
@@ -22,11 +26,13 @@ const alternatePath = counterpart
   : null;
 
 const distilled = post.data.kind === 'distilled';
+const daily = post.data.daily;
 const iso = isoDate(post.data.date);
 const minutes = readingMinutes(post.body);
 
 // Chronological neighbors within the locale (list order: newest first).
-const ordered = (await getLocalized('posts', lang)).filter((e) => !e.data.draft);
+const ordered = (await getLocalized('posts', lang)).filter((e) => isDaily(e) === isDaily(post));
+if (daily) ordered.sort(dailyNewestFirst);
 const index = ordered.findIndex((e) => e.id === post.id);
 const newer = index > 0 ? ordered[index - 1] : undefined;
 const older = index >= 0 && index < ordered.length - 1 ? ordered[index + 1] : undefined;
@@ -38,6 +44,7 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
   title={distilled ? post.data.title : undefined}
   description={post.data.excerpt}
   alternatePath={alternatePath}
+  navPath={daily ? `${prefix}/daily/` : undefined}
 >
   <!-- TOC rail populated by the article script at wide widths -->
   <div data-toc aria-hidden="false"></div>
@@ -126,13 +133,20 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
       )
     }
 
-    <div class:list={[distilled ? '' : 'prose max-w-none']}>
-      <Content />
-    </div>
+    {daily ? (
+      <>
+        <a href={`${prefix}/daily/`} class="mb-5 inline-flex min-h-11 items-center text-[14px] text-blue">‹ {t(lang, 'daily.archive')}</a>
+        <CoverBanner kicker={`${t(lang, 'daily.eyebrow')} · ${daily.issueDate} · UTC+8`} title={post.data.title} lead={post.data.excerpt} />
+        <ArticleCanvas>
+          <DailyBriefing lang={lang} daily={daily} sources={post.data.sources ?? []} />
+          <Content />
+        </ArticleCanvas>
+      </>
+    ) : <div class:list={[distilled ? '' : 'prose max-w-none']}><Content /></div>}
 
     {
       distilled && (post.data.sources?.length ?? 0) > 0 && (
-        <Sources sources={post.data.sources ?? []} date={iso} />
+        <Sources sources={post.data.sources ?? []} date={daily?.issueDate ?? iso} />
       )
     }
 

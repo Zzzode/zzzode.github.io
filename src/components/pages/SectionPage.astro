@@ -23,12 +23,15 @@ const entries = await getEntries(name, lang);
   />
   {
     name === 'posts' && (
-      <p class="mb-2 mt-6">
+      <p class="mb-2 mt-6 flex flex-wrap gap-5">
         <a
           href={`${lang === 'en' ? '/en' : ''}/posts/tags/`}
           class="text-[13.5px] text-muted-2 transition-colors hover:text-blue"
         >
           {t(lang, 'tags.browse')} ›
+        </a>
+        <a href={`${lang === 'en' ? '/en' : ''}/daily/`} class="text-[13.5px] text-blue">
+          {t(lang, 'daily.archive')} ›
         </a>
       </p>
     )

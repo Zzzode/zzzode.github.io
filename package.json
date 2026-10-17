@@ -9,7 +9,9 @@
     "build": "astro build",
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs",
+    "test:daily:integration": "node scripts/daily-integration.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",

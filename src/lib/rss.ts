@@ -1,15 +1,11 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
-import { getCollection } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import { t } from '../i18n/ui';
-import { localeOfId, slugOfId } from './content';
+import { getLocalized, slugOfId } from './content';
 
 export async function buildFeed(context: APIContext, lang: Lang) {
-  const all = await getCollection('posts', ({ data }) => !data.draft);
-  const posts = all
-    .filter((entry) => localeOfId(entry.id) === lang)
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  const posts = await getLocalized('posts', lang);
 
   const prefix = lang === 'en' ? '/en' : '';
 
