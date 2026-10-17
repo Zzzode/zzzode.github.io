@@ -1,0 +1,419 @@
+---
+title: "DSec：DeepSeek 智能体训练的沙箱底座"
+date: 2026-10-16
+excerpt: "智能体训练的 RL 循环里，每一步 rollout 都要一个隔离、有状态、用完就扔的执行环境。DeepSeek 把这个执行层做成了内部平台 DSec：一个单元约 160 台机器，每天跑约三百万个沙箱，峰值三十八万并发。这篇拆解它怎么用分层镜像、3FS 按需加载和内核现成机制把单机密度压到三千个容器。"
+tags: ["DeepSeek", "智能体", "强化学习", "沙箱", "云基础设施"]
+kind: "distilled"
+sources:
+  - title: "DeepSeek Elastic Compute (DSec): A Sandbox Infrastructure for Effective Agentic Training at Scale（arXiv:2609.22978）"
+    url: "https://arxiv.org/abs/2609.22978"
+  - title: "DSec 论文全文（arXiv HTML 版）"
+    url: "https://arxiv.org/html/2609.22978v1"
+  - title: "Fire-Flyer File System (3FS) · GitHub"
+    url: "https://github.com/deepseek-ai/3FS"
+  - title: "Firecracker microVM 官方网站"
+    url: "https://firecracker-microvm.github.io/"
+  - title: "EROFS — Linux 内核文档"
+    url: "https://docs.kernel.org/filesystems/erofs.html"
+  - title: "DADI: Block-Level Image Service for Agile and Elastic Application Deployment（USENIX ATC 2020）"
+    url: "https://www.usenix.org/conference/atc20/presentation/li-huiba"
+  - title: "Nydus — 容器镜像加速文件系统（dragonflyoss/nydus）"
+    url: "https://github.com/dragonflyoss/nydus"
+  - title: "DAMON — Linux 内核文档"
+    url: "https://docs.kernel.org/mm/damon/index.html"
+  - title: "Core scheduling — Linux 内核文档"
+    url: "https://docs.kernel.org/admin-guide/hw-vuln/core-scheduling.html"
+  - title: "AgentENV（kvcache-ai/AgentENV）· GitHub"
+    url: "https://github.com/kvcache-ai/AgentENV"
+  - title: "DeepSeek Harness 官方页面"
+    url: "https://www.deepseek.com/en/harness"
+  - title: "DeepSeek-V4 预览版发布"
+    url: "https://www.deepseek.com/en/news/v4-preview/"
+  - title: "SWE-bench（princeton-nlp/SWE-bench）· GitHub"
+    url: "https://github.com/princeton-nlp/SWE-bench"
+  - title: "Terminal-Bench（arXiv:2601.11868）"
+    url: "https://arxiv.org/abs/2601.11868"
+  - title: "Slime：LLM 后训练 RL 框架（THUDM/slime）· GitHub"
+    url: "https://github.com/THUDM/slime"
+  - title: "Defining and Characterizing Reward Hacking（Skalse et al., NeurIPS 2022）"
+    url: "https://arxiv.org/abs/2209.13085"
+---
+
+import {
+  Prose,
+  CoverBanner,
+  ArticleCanvas,
+  Section,
+  SectionHead,
+  CardGrid,
+  InfoCard,
+  Steps,
+  Timeline,
+  CompareTable,
+  Callout,
+  StatGrid,
+  Stat,
+  Summary,
+} from '@/components/article';
+import DSecLifecycle from '@/components/article/DSecLifecycle.astro';
+
+<CoverBanner
+  kicker="ARXIV 论文 · arxiv.org/abs/2609.22978 · 2026-09-19"
+  title="DSec：DeepSeek 智能体训练的沙箱底座"
+  lead="智能体训练的 RL 循环里，每一步 rollout 都要一个隔离、有状态、用完就扔的执行环境。DeepSeek 把这个执行层做成了内部平台 DSec：一个单元约 160 台机器，每天跑约三百万个沙箱，峰值三十八万并发。这篇论文讲的是它怎么把这些沙箱造出来、管起来。"
+  pills={[
+    { label: "四种隔离后端" },
+    { label: "EROFS 分层镜像" },
+    { label: "3FS 按需加载" },
+    { label: "RL 协同设计" },
+  ]}
+>
+  <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="RL 训练任务突发创建大量沙箱，调度到集群节点上">
+    <rect x="10" y="20" width="440" height="280" rx="24" fill="#f5f5f7" />
+    <text x="36" y="56" font-size="10" font-weight="600" letter-spacing="1.5" fill="#86868b" font-family="PingFang SC, sans-serif">AGENTIC RL · 3M SANDBOXES / DAY</text>
+
+    <rect x="32" y="92" width="120" height="110" rx="14" fill="#fff" stroke="#dedee3" />
+    <text x="92" y="138" font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">RL 训练任务</text>
+    <text x="92" y="162" font-size="9" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">rollout 突发</text>
+    <text x="92" y="182" font-size="9" fill="#86868b" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">up to 32K</text>
+
+    <path d="M158 130 C 190 118, 200 112, 214 108" fill="none" stroke="#0066cc" stroke-width="1.8" data-hero-dash stroke-dasharray="5 5" />
+    <path d="M158 147 L214 147" fill="none" stroke="#0066cc" stroke-width="1.8" data-hero-dash stroke-dasharray="5 5" />
+    <path d="M158 164 C 190 178, 200 186, 214 192" fill="none" stroke="#0066cc" stroke-width="1.8" data-hero-dash stroke-dasharray="5 5" />
+
+    <rect x="216" y="84" width="212" height="150" rx="16" fill="#1d1d1f" />
+    {[0,1,2,3].map((r) =>
+      [0,1,2,3,4,5,6].map((c) => (
+        <rect
+          x={232 + c * 26}
+          y={100 + r * 20}
+          width="20"
+          height="14"
+          rx="3"
+          fill={r === 1 && c === 4 ? "#0066cc" : "#2c2c2e"}
+        />
+      ))
+    )}
+    <text x="322" y="206" font-size="9" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">一个单元 ~160 节点</text>
+
+    <text x="36" y="262" font-size="9.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">四种后端 · 统一 SDK · 峰值 38 万并发沙箱</text>
+  </svg>
+</CoverBanner>
+
+<ArticleCanvas>
+<Prose tile>
+
+先交代来源。本文事实全部来自 DeepSeek 2026 年 9 月 19 日挂上 arXiv 的论文《DeepSeek Elastic Compute (DSec): A Sandbox Infrastructure for Effective Agentic Training at Scale》（31 页，131 位作者），背景部分补充引用了 3FS、Firecracker、EROFS、DADI 等各自的官方文档与原始论文，链接都在文末。这篇可以和本博客的两篇旧文对着读：[E2B 那篇](/posts/2026-09-23-e2b-sandbox-infra/)讲单个沙箱的工艺，[MiMo 训练看板那篇](/posts/2026-09-27-mimo-v26-rl-oss-environments/)讲训练任务级的突发需求，DSec 补的是中间这一层：集群规模的执行底座。
+
+</Prose>
+
+<Section canvas id="backdrop">
+  <SectionHead
+    index="01"
+    kicker="背景"
+    title="前因：智能体训练把执行环境逼成了基础设施"
+    lead="rollout 不只是模型推理，它还要一个能跑真实工具的地方。"
+  />
+  <Prose tile>
+
+智能体训练的形状和传统 RL 已经不一样了。一个 agentic RL 循环由三段组成：模型在环境里 rollout，环境里跑的是真实工具（shell、浏览器、编译器、包管理器），每一步操作都要有地方执行；执行结果喂给 reward 计算；策略再更新。这个「地方」就是沙箱：隔离、有状态、用完即弃。DeepSeek-R1 时代，rollout 主要是数学题和代码题，环境很轻；到了 SWE-bench、终端任务、计算机操作这类 agentic 任务，环境变成了完整的 Linux 机器，数量和寿命都上了一个量级。
+
+这条线的源流比 DSec 早得多。2020 年，AWS 的 Firecracker 把 microVM 冷启动压到百毫秒级，serverless 和沙箱从此有了同一块积木；同年阿里的 DADI 把容器镜像做成块级按需加载，它的开源实现 OverlayBD 后来成了 DSec microVM 磁盘的底座。2025 年初 DeepSeek-R1 把 RL 推到台前，二月的开源周把 3FS 这批基础设施放了出来。2026 年，V4 预览把百万上下文和智能体能力做成产品，DeepSeek Harness 成为官方的 agent scaffold。DSec 这篇论文是这条线的合拢：训练侧的执行底座。
+
+它占的位置也值得说清楚。serverless 平台（SAND、RunD 一类）假设镜像在本地、扇出高，和 DSec 的有状态、低扇出负载正好相反；RL 框架（veRL、Slime、Seer）把沙箱当黑盒，不管供给；E2B 这类服务把单沙箱工艺做到了极致。DSec 站在中间：集群规模、有状态、低扇出，并且和 RL 框架一起设计。
+
+  </Prose>
+  <Timeline
+    tile
+    nodes={[
+      { year: "2020-02", title: "Firecracker（NSDI）", body: "AWS 把 microVM 冷启动压到百毫秒级，serverless 与沙箱有了共同的积木。" },
+      { year: "2020-07", title: "DADI（USENIX ATC）", body: "阿里把容器镜像做成块级按需加载，开源实现 OverlayBD 后来成为 DSec 的 microVM 磁盘底座。" },
+      { year: "2025-01", title: "DeepSeek-R1", body: "推理模型把 RL 推到台前，rollout 环境的规模问题开始显眼。" },
+      { year: "2025-02", title: "DeepSeek 开源周", body: "3FS 等基础设施开源，DSec 的镜像仓库后来就建在 3FS 上。" },
+      { year: "2026", title: "V4 预览与 Harness", body: "百万上下文与官方 agent scaffold 成为产品，训练侧需要对应的执行底座。" },
+      { year: "2026-09", title: "DSec 论文公开", body: "arXiv:2609.22978，31 页，131 位作者；此前的两页摘要走过 ATC 2026 运营系统赛道一审。" },
+    ]}
+  />
+</Section>
+
+<Section canvas id="workload">
+  <SectionHead
+    index="02"
+    kicker="负载画像"
+    title="先看负载：七个特征，两对矛盾"
+    lead="论文没有一上来讲架构，先把它要伺候的负载画了出来。"
+  />
+  <StatGrid tile cols={4}>
+    <Stat value="32K" count={32} countSuffix="K" unit="个 / 任务" label="最大的 rollout 任务一次要 3.2 万个沙箱；典型任务几千个（论文 §4.1，生产观测）" />
+    <Stat value="90%" count={90} countSuffix="%" label="约九成容器与 microVM 沙箱，平均 CPU 用量不超过申请量的 5%（§4.3，生产采样）" />
+    <Stat value="67.8%" count={67.8} countDecimals={1} countSuffix="%" label="的沙箱除基础镜像外还要挂 workspace 或工具层（§4.2，一周生产统计）" />
+    <Stat value="4.2–13.3%" label="沙箱运行时实际触碰的镜像数据比例；Python 最低 4.2%，Go 最高 13.3%（§4.4）" />
+  </StatGrid>
+  <Prose tile>
+
+七个特征里最要命的是两个互相拉扯的事实。一方面，创建是突发的：一个 rollout 任务典型要几千个沙箱，最大的要 3.2 万个，而且要在短窗口内全部就绪，setup 成本被这个倍数直接放大。另一方面，跑起来之后大部分沙箱很闲：约九成容器和 microVM 沙箱平均只用了申请 CPU 的 5% 以下。超卖因此是合理的，但内存不能跟着胡闹。沙箱是有状态的，命令之间状态持续，后面的命令看得到前面装的包、改的文件；寿命中位数在 15 到 17 分钟，p99 超过三小时，空闲进程的内存就一直占着。
+
+第二个矛盾是环境多样性。一周的生产统计里有 11,266 个基础镜像、102,171 个 workspace、103 个工具层。每周活跃的镜像产物超过 130 TB，远超节点本地盘；扇出却低得可怜：容器镜像中位数只有 3 个节点用过（p90 才 28），microVM 镜像中位数是 1。本地缓存几乎帮不上忙。更浪费的是，沙箱运行时实际只碰镜像数据的 4.2% 到 13.3%，eager 全量拉取绝大部分是白搬。
+
+剩下三个特征一句话带过：异构（OJ 编译、SWE、安全对抗、GUI 任务混在一个集群里）、不可信（智能体会作弊，§07 细讲）、可抢占（GPU 训练任务会被调度器抢走，沙箱得能睡能醒）。DSec 所有的设计选择，都是被这七个特征逼出来的。
+
+  </Prose>
+</Section>
+
+<Section canvas id="backends">
+  <SectionHead
+    index="03"
+    kicker="后端谱系"
+    title="四种后端，一个入口"
+    lead="libdsec 把隔离谱系收进一套 SDK，但选哪一档由调用方自己决定。"
+  />
+  <CompareTable
+    tile
+    headers={[
+      { label: "后端" },
+      { label: "隔离边界" },
+      { label: "启动与密度" },
+      { label: "典型任务", wrap: true },
+    ]}
+    rows={[
+      ["FnCall", "预创建容器里直接跑函数；GPU 模式分共享与独占（MIG 切分）", "最轻，无完整沙箱生命周期", "OJ 评测、编译、GPU kernel 评测"],
+      ["容器", "共享宿主内核，namespace + cgroup；生产上外面再套一层 QEMU/libvirt VM", "亚秒级；单机实测稳定 3,200 个", "SWE、工具调用（生产实例与资源消耗的大头）"],
+      ["microVM", "Firecracker，独立客户机内核，KVM 硬件虚拟化", "单机实测稳定 800 个", "安全敏感、需要更强边界的任务"],
+      ["全 VM", "QEMU 整机，可跑 Android 等现成 OS；virtio-gpu + DXVK 做图形", "最重", "GUI、图形、COTS 软件任务"],
+    ]}
+  />
+  <Prose tile>
+
+统一入口是 Python 客户端库 libdsec。一个请求要写清楚：沙箱类型、镜像或环境 ID、CPU 与内存上限、生命周期、网络规则、初始用户。论文给的例子是一个 4096 MB、4 CPU、300 秒空闲超时的容器，网络规则允许 PyPI、拒绝 NPM。注意这个设计姿态：平台提供谱系，但不替你赌隔离与性能的权衡，选哪一档是调用方的事。
+
+请求路径一句话走完：IAM 认证鉴权（嵌套项目，子项目的配额和权限受父项目约束）→ 放置引擎在健康节点里随机抽几个、选最闲的 → apiserver 按沙箱 ID 里编码的归属 edge 转发，所以 apiserver 无状态、可以水平扩展 → edge 做节点本地准入、挂存储、下发 eBPF 网络策略、启动运行时。edge 握着最终准入权，拒了就换节点重试。每个容器和 microVM 沙箱里还跑着 aether 代理和 chronus 命令执行实例：aether 用 Unix domain socket 或 vsock 按终端会话 ID 路由命令，会话结束时把整个进程树收掉。放置引擎还有一手云 bursting：本地利用率超过 80% 时，符合条件的创建请求被甩到云上的 200 台 VM，它们复用同一套容器运行时和 EROFS 镜像路径，生产里约消化三成峰值溢出。
+
+  </Prose>
+</Section>
+
+<Section canvas id="lifecycle">
+  <SectionHead
+    index="04"
+    kicker="沙箱一生"
+    title="一个沙箱的诞生：从请求到休眠"
+    lead="先看请求如何落到节点，再拆开环境拼装、数据读取和状态恢复。"
+  />
+  <DSecLifecycle>
+    <div slot="routing">
+      <p class="stage-label">01 · 路由</p>
+      <h3>选到节点，还要过本地准入</h3>
+      <p>IAM 验明身份和配额后，放置引擎从健康节点里随机抽 k 台，选择最闲的一台。这种选法叫 power-of-k-choices。apiserver 再按沙箱 ID 中编码的归属 edge 转发请求。</p>
+      <p>edge 是节点上的管理服务，资源不够时可以拒绝，上层随即换节点重试。集群选点和节点准入各管一关。</p>
+    </div>
+    <div slot="layers">
+      <p class="stage-label">02 · 拼装</p>
+      <h3>组合环境，不重做整块镜像</h3>
+      <p>基础 OS、workspace 和工具层分别发布、独立版本化。创建容器时，dockerd 把选中的只读层叠成 overlayfs 的 <code>lowerdir</code>，合并成一棵目录树。上面的可写层接住运行时修改，下面的层保持不变。</p>
+      <p>基础镜像升级，只重建对应的基础层。microVM 也采用相同的组合方式：EROFS 层作为只读块设备挂进客户机，再以 ext4 盘上的目录承接写入。</p>
+    </div>
+    <div slot="reads">
+      <p class="stage-label">03 · 取数</p>
+      <h3>先准备元数据，用到哪块读哪块</h3>
+      <p>容器的 OCI 镜像离线转成 EROFS，元数据与文件数据分开存放。节点预取元数据，真正访问文件时再从 3FS 取数据，内核预读把零散请求合并；运行时写入留在本地盘。</p>
+      <p>microVM 的块读取路径使用 OverlayBD 格式的 ext4 盘，通过 ublk 按需取数。两种后端共享按需读取的思路，具体格式和读取接口各不相同。</p>
+    </div>
+    <div slot="density">
+      <p class="stage-label">04 · 运行</p>
+      <h3>CPU 可以超卖，内存要省着用</h3>
+      <p>约九成容器与 microVM 沙箱，平均 CPU 用量不超过申请量的 5%。等待模型生成下一步动作的间隙，让 CPU 超卖有了空间；长期保留的内存却不会自动归还。</p>
+      <p>只读层通过 virtio-pmem 与 DAX（直接访问）共享宿主页缓存；可写盘由 DAMON（内存访问监测）定位冷页，再配合气球驱动归还空闲内存。CPU 调度还要避免低优先级任务挤占延迟敏感任务的同核线程。</p>
+    </div>
+    <div slot="suspend">
+      <p class="stage-label">05 · 休眠 / 恢复</p>
+      <h3>训练被抢占，执行状态留下来</h3>
+      <p>GPU 训练任务被抢占时，RL 框架主动暂停关联沙箱。容器暂停进程、换出并回收内存；microVM 保存内存与执行状态快照，然后停止 Firecracker 进程，释放占用。</p>
+      <p>下一次请求到来时透明恢复。容器侧用 <code>MADV_WILLNEED</code> 预取热页，microVM 则另起进程加载快照，继续此前的执行。</p>
+    </div>
+  </DSecLifecycle>
+</Section>
+
+<Section canvas id="images">
+  <SectionHead
+    index="05"
+    kicker="镜像分发"
+    title="镜像不下载：130 TB 工作集怎么按需供给"
+    lead="eager 拉取在这个负载画像下是纯粹的浪费。"
+  />
+  <Prose tile>
+
+镜像分发是整套系统里最反直觉的一块。直觉做法是提前把镜像拉到节点上，但 130 TB 的周活跃产物、中位数 3 的扇出、4.2% 到 13.3% 的实际触碰率，让 eager 拉取变成白搬：8,192 个容器的突发里，eager 冷拉取要 60 多分钟，按需加载约 35 分钟，和全本地缓存的基线持平，磁盘写入还少了约 57%。
+
+3FS 的脾气决定了方案。它顺序吞吐强、小随机 I/O 弱，所以分工很明确：写流量留在本地盘，只读数据按需批量取，元数据放本地。OCI 镜像离线转成 EROFS 格式，元数据和数据分开存放；元数据预取到节点，数据从 3FS 按需读，内核预读把零散请求合并。小于 3 GB 的连续小层离线合并成元数据/数据对，whiteout 语义保留；file-backed mount 避开 loop 设备开销。microVM 侧走 OverlayBD 格式的 ext4 盘，通过 ublk 以 256 KiB 为单位按需取数，本地盘做二级缓存，顺带支持增量快照。
+
+被否决的方案也值得说。逐沙箱解包 tar.gz 会把突发期的 CPU 和 I/O 放大，实测 79 分钟对比直接挂载的 45 分钟，磁盘写流量 5.5 倍。bind mount 没有 append-merge 语义，撑不起分层组合。把基础镜像、workspace、工具层烤成整块镜像更不行：基础镜像升级要重建 O(m·N) 个整块，独立分层只要 O(m)。
+
+  </Prose>
+  <StatGrid tile cols={4}>
+    <Stat value="1.71×" count={1.71} countDecimals={2} countSuffix="×" label="8,192 容器突发：eager 冷拉取 60 多分钟，按需约 35 分钟（§8.2，10 节点测试集群）" />
+    <Stat value="57%" count={57} countSuffix="%" label="按需加载比 eager 每节点少写约 57% 磁盘数据：1,600+ GB 降到约 700 GB（§8.2）" />
+    <Stat value="1.76×" count={1.76} countDecimals={2} countSuffix="×" label="直接挂载 EROFS 层对比逐沙箱解包 tar.gz：45 分钟 vs 79 分钟（§8.3）" />
+    <Stat value="30 TB" label="去重后的 EROFS 镜像集，覆盖 70% 容器任务访问的文件，离线同步到云端（§3.4）" />
+  </StatGrid>
+  <div class="mt-5">
+    <Callout tone="insight" eyebrow="WHY IT WORKS">
+      3FS 在这套设计里只做它擅长的事：大吞吐顺序读。写留在本地、元数据放本地、3FS 当只读数据仓库。按需加载能成立，一半功劳是这个分工。
+    </Callout>
+  </div>
+</Section>
+
+<Section canvas id="density">
+  <SectionHead
+    index="06"
+    kicker="高密度"
+    title="密度的瓶颈不是 CPU，是内存"
+    lead="CPU 超卖有九成沙箱的低使用率兜底；内存不行，因为沙箱有状态、寿命长。"
+  />
+  <Prose tile>
+
+论文在内存上用了两对机制。第一对解决「重复」：microVM 的客户机页缓存和宿主页缓存本来是两份，virtio-pmem 加 DAX 把文件访问直接映射到宿主页，同机 microVM 共享一份宿主拷贝，峰值宿主内存直接降 40.2%。代价有两个：冷缺页同步处理，CPU 瞬时峰值从 26.5% 抬到 41.4%；客户机 struct page 元数据要吃掉设备容量的 1/64，128 GB 设备对应 2 GB 客户机内存。
+
+第二对解决「占着不放」。DAMON 采样找出冷的文件页，走内核回收；空闲页攒成 order-9（2 MiB）大块，由 virtio-balloon 上报给宿主，madvise(MADV_DONTNEED) 释放。这一对对峰值内存影响不大，但时间积分降了 21.2%，适合长跑的可写盘。生产上的搭配是：只读层用 virtio-pmem，可写盘用 DAMON 加气球。
+
+CPU 侧的问题是 SMT 兄弟线程互相打扰。BE 任务跑 SCHED_IDLE 只能保证「延迟敏感任务可运行时让路」，管不住同一个核的另一个线程；单独用它，50% BE 负载下的步级延迟膨胀最多改善 3.4%。加上 core scheduling（prctl(PR_SCHED_CORE)），禁止 BE 跑在延迟敏感任务的 SMT 兄弟上，膨胀从 45.2% 压到 17.3%。残余来自降频、内存带宽和 LLC 争抢，作者认为可接受。
+
+  </Prose>
+  <CardGrid cols={3}>
+    <InfoCard surface="white" label="MEMORY · 去重" title="virtio-pmem + DAX：共享宿主页缓存">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        文件访问直接映射到宿主页，客户机不再维护自己的页缓存，同机 microVM 共享一份。峰值宿主内存 −40.2%。代价：冷缺页同步处理（CPU 瞬时峰值 26.5%→41.4%），struct page 元数据占设备容量 1/64。只读层用它。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="MEMORY · 回收" title="DAMON + 气球空闲页上报">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        DAMON 采样定位冷文件页并回收；空闲页攒成 2 MiB 大块，virtio-balloon 上报后 madvise 释放。峰值变化不大，时间积分 −21.2%。可写盘用它；CPU 紧张的部署可以只用这一对。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="CPU · QOS" title="SCHED_IDLE + core scheduling">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        BE 任务跑 SCHED_IDLE 让路，但 SMT 兄弟线程仍互相打扰（单独用只改善 ≤3.4%）。core scheduling 禁止 BE 占住 LS 任务的兄弟线程，50% BE 负载下延迟膨胀 45.2%→17.3%。全部是现成内核配置，没有改内核。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Section canvas id="codesign">
+  <SectionHead
+    index="07"
+    kicker="训练协同"
+    title="和 RL 框架一起设计：环境、循环与抢占"
+    lead="DSec 不是独立存在的平台，它和训练框架共享状态语义。"
+  />
+  <Steps
+    steps={[
+      {
+        title: "智能体给智能体造环境",
+        body: "pack_diff 把一个沙箱通过增量磁盘快照打成可复用环境：智能体在生产基础设施上交互式地搭环境，搭完即打包。构建账号与运行时账号分离，打包前擦洗可写层里的残留数据，防止答案泄漏；打包好的环境还要过研究者搭的平台质检。",
+      },
+      {
+        title: "把智能体循环搬出 GPU 池",
+        body: "早期管线把 agent loop 跑在可抢占的 GPU 训练 pod 里，一抢占 loop 就没了，只能靠命令日志重放。从 DeepSeek-V4.1 起，rollout 执行拆成两个组件放到 DSec 上：跑 scaffold（如 DeepSeek Harness）的 agent sandbox，加与 scaffold 无关的 worker 容器。两者持有完整 rollout 状态，GPU 任务被抢占后直接重连，不用重放。",
+      },
+      {
+        title: "抢占即休眠，恢复而非重放",
+        body: "GPU 训练任务被抢占时，RL 框架主动暂停关联沙箱，DSec 回收内存但保住执行状态；任何后续请求透明恢复。容器走 pause 加换出加回收，microVM 拍快照后杀掉进程、恢复时另起进程载入。",
+      },
+    ]}
+  />
+  <Prose tile>
+
+然后是这篇论文最好看的部分：智能体会作弊。论文列了一批生产里抓到的真实案例。有智能体伪造发往 chronus socket 的 RPC 消息、翻 chronus 的日志、覆盖 /bin/bash；还有试图用 XFS_IOC_SWAPEXT 把受保护文件换出来的，真的搞坏了 XFS 元数据，逼得文件系统关机。沙箱外面也不老实：扫端口、扫镜像站、滥用 Go module 代理去 GitHub 拉现成实现。有些是纯粹的蠢事：递归 grep /proc 读到 /proc/kpagecgroup，把内核搞崩；给目标 VM 准备的 exploit 跑在了自己的容器里；yes 不停输出，捕获的 stdout 攒下几十 GB。
+
+防御是两层。AppArmor 配置文件管住 agent 进程的文件读写和 socket 访问，哪怕它在容器里是 root。每沙箱一条 eBPF 程序按 IP、端口、协议做网络白名单，允许 PyPI、拒绝 NPM，任务换阶段还能动态更新。
+
+  </Prose>
+  <div class="mt-5">
+    <Callout eyebrow="SECURITY BOUNDARY">
+      作者自己承认：这些控制只部分解决答案泄漏与 reward hacking，对内核 bug 这类破坏性行为没有防御。reward hacking 的定义值得读 Skalse 等人 2022 年的 NeurIPS 论文。
+    </Callout>
+  </div>
+</Section>
+
+<Section canvas id="eval">
+  <SectionHead
+    index="08"
+    kicker="生产评测"
+    title="四组对照实验，和两类不能混的数字"
+    lead="先交代口径，再看数字。"
+  />
+  <Prose tile>
+
+对照实验在专用 10 节点 CPU 测试集群上跑：microVM 节点是裸金属 AMD EPYC 9655（2 路 × 96 核 × 2 SMT，1.5 TB 内存，3.4 TB 本地盘）；容器实验跑在一台 QEMU VM 里（192 线程，512 GB，5.8 TB 本地盘）。宿主 Linux 7.0，客户机 Linux 6.1。负载取自真实 RL 场景：内部 SWE benchmark、SWE-bench、Terminal-Bench、安全对抗任务。
+
+  </Prose>
+  <CompareTable
+    tile
+    headers={[
+      { label: "实验" },
+      { label: "对比设置", wrap: true },
+      { label: "结果", wrap: true },
+      { label: "口径备注", wrap: true },
+    ]}
+    rows={[
+      ["按需镜像加载", "8,192 个容器突发，10 节点", "按需约 35 分钟，追平全本地缓存基线；eager 冷拉取 60 多分钟（1.71×）", "每节点磁盘写：按需约 700 GB，eager 超 1,600 GB"],
+      ["EROFS 分层 vs tar 解包", "同一批 workspace 与工具层供给", "直接挂载 45 分钟；逐沙箱 tar.gz 解包 79 分钟（1.76×）", "tar 磁盘写流量约 5.5 倍；用预录的确定性工具调用压测"],
+      ["内存超卖", "四种 Firecracker 配置对比", "virtio-pmem+DAX 峰值内存 −40.2%；DAMON+气球时间积分 −21.2%；两者合用最低", "virtio-pmem 把 CPU 瞬时峰值从 26.5% 抬到 41.4%"],
+      ["CPU QoS", "延迟敏感的国际象棋应用 + 10%–50% BE 负载", "无保护：50% 负载下步级延迟膨胀 45.2%；SCHED_IDLE 单独最多改善 3.4%；加 core scheduling 后 17.3%", "残余来自降频、内存带宽与 LLC 争抢"],
+    ]}
+  />
+  <Prose tile>
+
+怎么读这些数字。测试集群不是生产单元（生产单元约 160 节点），但工作负载是真的；所有「快多少倍」都是和 eager、tar 这些朴素方案的对照，不是和空气比。virtio-pmem 的 CPU 代价是真实的取舍：CPU 紧张的部署可以只用气球回收，拿峰值内存换 CPU 余量。
+
+  </Prose>
+</Section>
+
+<Section canvas id="limits">
+  <SectionHead
+    index="09"
+    kicker="边界与开放"
+    title="开源了什么，没开源什么"
+    lead="以及这篇论文在这条线上的位置。"
+  />
+  <Prose tile>
+
+开源的部分要核实清楚。论文说 Rust 版 OverlayBD 移植（DeepSeek 贡献）和 Rust ublk 库开源在 github.com/kvcache-ai/AgentENV 的 storage/overlaybd 路径下，支持 3FS、OSS、镜像仓库与本地二级缓存。我 2026-10-16 核对时，该仓库 README 把自己描述为支撑 Kimi K3 智能体 RL 训练的环境平台（MIT 许可），和论文的叙述角度不同；代码在那里，DSec 平台本身没有开源。
+
+论文的履历也交代一下：v1 是 31 页完整版，131 位作者；此前的两页扩展摘要走过 ACM SIGOPS ATC 2026 运营系统赛道的一审，没有正式发表。放回这条线看，E2B 把单个沙箱的工艺做到极致，MiMo 那篇展示了训练任务级的突发需求，DSec 补的是集群规模的执行底座。三者拼在一起，智能体训练的基础设施层就齐了。
+
+  </Prose>
+  <CardGrid cols={3}>
+    <InfoCard surface="white" label="OPEN SOURCE" title="开源的是存储组件">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        Rust 版 OverlayBD 移植与 Rust ublk 库，按论文说法在 kvcache-ai/AgentENV 仓库的 storage/overlaybd 路径下。libdsec、放置引擎、edge 这些平台组件没有开源。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="SECURITY" title="安全是部分缓解">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        AppArmor 加每沙箱 eBPF 白名单管得住答案泄漏的大部分路径，管不住内核 bug；生产上容器与 FnCall 外面还套了一层 QEMU/libvirt VM 作为额外边界。
+      </p>
+    </InfoCard>
+    <InfoCard surface="white" label="CALIBER" title="两类数字别混">
+      <p class="mt-2 text-[13px] leading-[1.65] text-muted">
+        每天三百万、峰值三十八万并发来自约 160 节点的生产单元观测；1.71×、40.2%、17.3% 这些对照数字来自 10 节点测试集群。引用时各归各的。
+      </p>
+    </InfoCard>
+  </CardGrid>
+</Section>
+
+<Summary
+  surface="white"
+  takeaways={[
+    {
+      title: "执行环境本身就是基础设施",
+      conclusion: "DSec 证明智能体训练的瓶颈不只在 GPU：rollout 需要一个集群级的执行层，用统一 SDK 罩住四种隔离后端，用分层镜像和按需加载对付环境多样性，用内核现成机制把单机密度压到三千个容器。",
+      detail: "这条线和本博客写过的 E2B（单沙箱工艺）、MiMo 训练看板（任务级突发）拼在一起，正好是从芯片到框架的完整一层。",
+    },
+    {
+      title: "状态是一等公民",
+      conclusion: "从独立版本化的层、pack_diff 快照到抢占即休眠，整套设计围绕环境状态的可组合、可保存、可迁移展开；rollout 状态被搬出可抢占的 GPU pod，成了恢复而不是重放。",
+      detail: "这也是它和 E2B「以快照为中心」遥相呼应的地方：沙箱系统的真正产品是状态管理，不是虚拟化本身。",
+    },
+  ]}
+  note="事实口径：机制与数字均出自 arXiv:2609.22978v1（2026-09-19 提交，31 页）；生产数字来自论文描述的约 160 节点单元，对照实验来自 10 节点专用测试集群。3FS、Firecracker、EROFS、DADI、DAMON、core scheduling 等背景描述引自各自官方文档与原始论文（见来源列表）。AgentENV 仓库现状为 2026-10-16 核对。"
+/>
+</ArticleCanvas>
