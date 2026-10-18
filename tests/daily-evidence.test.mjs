@@ -101,3 +101,42 @@ test('a correction cannot move its update before original publication', () => {
   post.updated = '1999-01-01T00:00:00Z';
   assert.equal(postSchema.safeParse(post).success, false);
 });
+
+test('attributed fetched media reporting can publish without an official announcement', () => {
+  const { run } = evidenceFixture();
+  run.sources[0].publisherKind = 'secondary';
+  assert.equal(dailyLedgerSchema.safeParse(run).success, false);
+  run.candidates[0].reportedEvidence = { sourceIds: ['s'], attribution: 'TEST FIXTURE attributed newsroom report; reprints share one origin.', limitations: 'TEST FIXTURE proposal reported by one original; not independently confirmed or enacted.' };
+  assert.equal(dailyLedgerSchema.safeParse(run).success, true);
+  run.candidates[0].reportedEvidence.attribution = '';
+  assert.equal(dailyLedgerSchema.safeParse(run).success, false);
+});
+
+test('media path rejects snippets, community repetition and uncited reporting', () => {
+  for (const change of ['snippet', 'community', 'uncited', 'undated', 'after-cutoff']) {
+    const { run } = evidenceFixture();
+    run.sources[0].publisherKind = 'secondary';
+    run.candidates[0].reportedEvidence = { sourceIds: ['s'], attribution: 'TEST FIXTURE original reporting chain', limitations: 'TEST FIXTURE no independent corroboration' };
+    if (change === 'snippet') run.sources[0].access = 'search_only';
+    if (change === 'community') run.sources[0].publisherKind = 'community';
+    if (change === 'uncited') { run.sources.push({ ...run.sources[0], id: 'uncited' }); run.candidates[0].reportedEvidence.sourceIds = ['uncited']; }
+    if (change === 'undated') delete run.sources[0].publication;
+    if (change === 'after-cutoff') run.sources[0].publication = { ...run.sources[0].publication, value: '2000-01-17T00:00:00Z' };
+    assert.equal(dailyLedgerSchema.safeParse(run).success, false, change);
+  }
+});
+
+test('reported news still obeys time boundaries and preserves prior candidate assessments', () => {
+  const { run } = evidenceFixture();
+  run.sources[0].publisherKind = 'secondary';
+  const c = run.candidates[0];
+  c.reportedEvidence = { sourceIds: ['s'], attribution: 'TEST FIXTURE new disclosure about prior work', limitations: 'TEST FIXTURE disclosure time is not first operation time' };
+  c.priorAssessments = [{ snapshotAt: '2000-01-16T02:25:00Z', decision: 'pending', reasonCode: 'insufficient_evidence', reason: 'TEST FIXTURE previous source gate', queryIds: ['q'], sourceIds: ['s'] }];
+  assert.equal(dailyLedgerSchema.safeParse(run).success, true);
+  c.eventTime = date('2000-01-16');
+  assert.equal(dailyLedgerSchema.safeParse(run).success, false);
+  c.decision = 'watch'; c.reasonCode = 'time_uncertain'; run.article.includedCandidateIds = []; run.article.watchCandidateIds = ['c'];
+  assert.equal(dailyLedgerSchema.safeParse(run).success, true);
+  c.priorAssessments[0].sourceIds = ['lost-source'];
+  assert.equal(dailyLedgerSchema.safeParse(run).success, false);
+});

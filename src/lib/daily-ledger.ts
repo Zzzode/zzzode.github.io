@@ -5,6 +5,8 @@ import { evidenceRange, newsTimestamp, timeEvidenceSchema, windowRelation } from
 const text = z.string().min(1);
 const ids = z.array(text);
 const category = z.enum(dailyCategories);
+const decision = z.enum(['include', 'watch', 'exclude', 'pending']);
+const reasonCode = z.enum(['selected', 'outside_window', 'duplicate', 'insufficient_evidence', 'time_uncertain', 'low_significance', 'unresolved_identity']);
 const sourceSchema = z.object({
   id: text, title: text, url: z.url(), publisherKind: z.enum(['primary', 'secondary', 'community']),
   access: z.enum(['fetched', 'access_failed', 'search_only']), retrievedAt: newsTimestamp,
@@ -20,9 +22,14 @@ const candidateSchema = z.object({
   id: text, title: text, category, entity: text,
   releaseStatus: z.enum(['released', 'preview', 'beta', 'announced', 'research', 'unknown']),
   queryIds: ids.min(1), sourceIds: ids.min(1), eventTime: timeEvidenceSchema.optional(),
-  decision: z.enum(['include', 'watch', 'exclude', 'pending']),
-  reasonCode: z.enum(['selected', 'outside_window', 'duplicate', 'insufficient_evidence', 'time_uncertain', 'low_significance', 'unresolved_identity']),
+  decision,
+  reasonCode,
   reason: text, importance: text, duplicateOf: text.optional(),
+  reportedEvidence: z.object({ sourceIds: ids.min(1), attribution: text, limitations: text }).optional(),
+  priorAssessments: z.array(z.object({
+    snapshotAt: newsTimestamp, decision, reasonCode, reason: text,
+    queryIds: ids.min(1), sourceIds: ids.min(1), eventTime: timeEvidenceSchema.optional(),
+  })).optional(),
 });
 
 /** Audit evidence, not a certificate of exhaustive discovery or independent judgment. */
@@ -79,6 +86,16 @@ export const dailyLedgerSchema = z.object({
   }
   for (const candidate of run.candidates) {
     refs('query', candidate.queryIds); refs('source', candidate.sourceIds);
+    for (const prior of candidate.priorAssessments ?? []) {
+      refs('query', prior.queryIds); refs('source', prior.sourceIds); actualTime(prior.snapshotAt);
+    }
+    if (candidate.reportedEvidence) {
+      refs('source', candidate.reportedEvidence.sourceIds);
+      for (const id of candidate.reportedEvidence.sourceIds) {
+        const source = maps.source.get(id);
+        if (!candidate.sourceIds.includes(id) || source?.publisherKind !== 'secondary' || source.access !== 'fetched' || !source.publication || evidenceRange(source.publication).earliest > Date.parse(run.cutoff)) fail(`Reporting basis needs cited, fetched and dated secondary evidence: ${candidate.id}`);
+      }
+    }
     const relation = candidate.eventTime ? windowRelation(candidate.eventTime, run.windowStart, run.cutoff) : undefined;
     if (candidate.reasonCode === 'outside_window' && relation !== 'outside') fail(`Outside-window exclusion needs disjoint time evidence: ${candidate.id}`);
     if (candidate.reasonCode === 'duplicate') {
@@ -91,7 +108,7 @@ export const dailyLedgerSchema = z.object({
         const source = maps.source.get(id);
         return source?.access === 'fetched' && source.publisherKind === 'primary' && source.publication && evidenceRange(source.publication).earliest <= Date.parse(run.cutoff);
       });
-      if (!primary) fail(`Publishable candidate needs fetched primary publication evidence: ${candidate.id}`);
+      if (!primary && !candidate.reportedEvidence) fail(`Publishable candidate needs primary evidence or an attributed reporting basis: ${candidate.id}`);
       for (const url of candidate.eventTime?.sourceUrls ?? []) if (!candidate.sourceIds.some((id) => maps.source.get(id)?.url === url && maps.source.get(id)?.access === 'fetched')) fail(`Unfetched event time provenance: ${candidate.id}`);
     }
   }
