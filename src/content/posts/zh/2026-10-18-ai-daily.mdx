@@ -1,11 +1,11 @@
 ---
 {
-  "title": "AI 日报 · 2026-10-18：DeepSeek 更新模型并开放搜索接口",
+  "title": "AI 日报 · 2026-10-18：DeepSeek 更新与气象 AI 观察",
   "date": "2026-10-18T02:15:15.781Z",
   "draft": false,
   "kind": "distilled",
   "channel": "daily",
-  "excerpt": "DeepSeek V4.1 Flash 1017 更新网页、App 与 API，搜索和抓取接口同步开放；另列 Beam 权重、MOSS-Image 与 Google 实验室研究的待核时观察。",
+  "excerpt": "DeepSeek Flash 1017 与搜索接口更新；更正补入“风清”气象 AI 的媒体报道，区分大会披露和首次投运，并追补前一期遗漏。",
   "tags": [
     "AI 日报",
     "DeepSeek",
@@ -130,6 +130,45 @@
           "https://openmoss.ai/MOSS-Image/"
         ]
       }
+    },
+    {
+      "title": "超算互联网助天气预报系统“风清”运行",
+      "url": "https://api3.cls.cn/share/article/2507433?app=&os=ios&sv=859",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-17",
+        "basis": "Displayed publication date only; timezone not established.",
+        "sourceUrls": [
+          "https://api3.cls.cn/share/article/2507433?app=&os=ios&sv=859"
+        ]
+      },
+      "retrievedAt": "2026-10-18T02:42:49.846Z"
+    },
+    {
+      "title": "“风清”人工智能全球短中期集合天气预报系统V1.0投入运行",
+      "url": "https://api3.cls.cn/share/article/2507462?app=&os=ios&sv=859",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-17",
+        "basis": "Displayed publication date only; timezone not established.",
+        "sourceUrls": [
+          "https://api3.cls.cn/share/article/2507462?app=&os=ios&sv=859"
+        ]
+      },
+      "retrievedAt": "2026-10-18T02:45:41.073Z"
+    },
+    {
+      "title": "〖早报〗两部门：支持体育运动进影院；DeepSeek新模型登场",
+      "url": "https://www.cls.cn/detail/2507548",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-18",
+        "basis": "Displayed publication date only; timezone not established.",
+        "sourceUrls": [
+          "https://www.cls.cn/detail/2507548"
+        ]
+      },
+      "retrievedAt": "2026-10-18T02:42:49.846Z"
     }
   ],
   "daily": {
@@ -166,6 +205,27 @@
       }
     ],
     "pending": [
+      {
+        "title": "媒体报道：“风清”集合天气预报系统 V1.0 已投入业务运行",
+        "summary": "据财联社报道，国家超算互联网在 10 月 17 日大会上宣布，联合研制的“风清”V1.0 已通过业务化评审并投入运行。报道给出的全球有效预报时效为 11 天；与 ECMWF 的性能比较属于发布方口径，本站未独立复现。大会宣布日期不等于首次投运日期。",
+        "category": "research",
+        "sourceUrls": [
+          "https://api3.cls.cn/share/article/2507433?app=&os=ios&sv=859",
+          "https://api3.cls.cn/share/article/2507462?app=&os=ios&sv=859",
+          "https://www.cls.cn/detail/2507548"
+        ],
+        "candidateId": "fengqing",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-10-17",
+          "basis": "Selected event is the explicitly reported October17 conference announcement, not the unspecified first operational day. Source wallclocks lack an established offset; retain conservative date bounds.",
+          "sourceUrls": [
+            "https://api3.cls.cn/share/article/2507462?app=&os=ios&sv=859"
+          ]
+        },
+        "uncertainty": "大会宣布日已明确，但可读报道时钟未标明时区，尚未取得可靠 UTC 时间锚；按日期边界保留，不捏造首次投运时刻，也不计入本期确认统计。"
+      },
       {
         "title": "Beam 权重与 Mirror CLI 开放，公告归期待核",
         "summary": "Reflection 的 10 月 16 日公告宣布按 Apache 2.0 发布 Beam 权重，并提供 Mirror CLI 与托管接入。模型总参数 501B、每 token 激活 23B；自托管仍需考虑完整权重。这次权重开放，与昨日已报道的 Transformers 接入属于不同事件。",
@@ -224,8 +284,10 @@
         "uncertainty": "一手页面只标 2026-10-16，未标时区。保守日期范围与本期起点重叠，不能确定消息是否属于本期；不计入确认数量。后续需核对原始公告、订阅源或带时区的发布元数据。"
       }
     ],
-    "evidenceRun": "docs/daily/runs/2026-10-18.json"
-  }
+    "evidenceRun": "docs/daily/runs/2026-10-18.json",
+    "correction": "更正说明：补入原先因一手来源门槛误留待核的“风清”大会报道；报道时区尚未核实，单列日期边界观察，不计入确认统计。Anthropic 融资和安全草案等遗漏写回 10 月 17 日期，保留原始日期与窗口。当前读取和修订发生在截止之后。"
+  },
+  "updated": "2026-10-18T02:53:17.806648+00:00"
 }
 ---
 
@@ -281,8 +343,21 @@ import { Section, SectionHead, Prose } from '@/components/article';
   </Prose>
 </Section>
 
+<Section canvas id="fengqing-report">
+  <SectionHead index="05" kicker="气象 AI" title="大会披露与首次投运，是两个时间问题" />
+  <Prose tile>
+
+[财联社记者的大会报道](https://api3.cls.cn/share/article/2507462?app=&os=ios&sv=859)明确说，国家超算互联网在 10 月 17 日的全国高性能计算学术大会上宣布，“风清”V1.0 已通过业务化评审并投入运行。[次日早报](https://www.cls.cn/detail/2507548)也记述了这次宣布。重要的业务进展可以来自可靠媒体的现场报道，无须等待官网出现同一份公告。
+
+这里能确认的是媒体报道的宣布日期，不能推定系统恰在当天首次上线。集合预报关注多个可能的天气演变，帮助使用者了解预测的不确定性。报道中的 11 天有效预报时效及与 ECMWF 的比较，是报道转述的成果口径；本期未取得独立评测，不能写成本站验证过的领先结论。
+
+原稿检索已经返回财联社线索，却仅保留另一篇写“近日”的转述，随后把缺少官网公告当作不能收录的理由。这次补入正文并修正来源门槛；可读页面时钟没有标出时区，仍按日期边界放入观察区，保留这一尚未解决的归期精度问题。
+
+  </Prose>
+</Section>
+
 <Section canvas id="research-and-limits">
-  <SectionHead index="05" kicker="观察范围" title="待核时研究，保留它的实验边界" />
+  <SectionHead index="06" kicker="观察范围" title="待核时研究，保留它的实验边界" />
   <Prose tile>
 
 [MOSS-Image 项目页](https://openmoss.ai/MOSS-Image/)把物体和文字的位置写进 JSON 提示词。边界框是指定版面位置与大小的输入，不能把展示用的布局标注图当成模型已经生成的图像。它已提供代码和权重，官方 ComfyUI 仓库中的集成仍在进行。
@@ -291,9 +366,20 @@ import { Section, SectionHead, Prose } from '@/components/article';
 
 [Beam 权重公告](https://reflection.ai/blog/beam-is-available)提供的是另一种变化：用户可下载、托管和定制模型，Mirror CLI 提供终端 Agent 入口。其后训练配方中仍有将来发布的内容，不能和已经开放的权重混为一谈。观察区的公告都因时间证据不足放在上方观察区，不作今日确认。
 
-本期只确认一项综合发布，不能据此推断整个行业的发布频率。开放检索已覆盖产品工具、融资并购、研究、安全与数据治理，以及 Agent 工具和协议；英、中、日及法语渠道都提供过线索。部分一手页面或 X 访问失败。“风清”集合预报、部分决策模型与融资线索仍未取得可定位本窗口的一手发布证据，已保留在采集记录中。这不等于相关领域没有新闻。
+本期确认统计仍只计 DeepSeek 的综合发布，不能据此推断整个行业的发布频率。原检索虽涉及多个主题，可靠媒体线索的跟进和跨期去重仍有遗漏，原覆盖判断需要更正。部分一手页面或 X 访问失败；决策模型和部分融资线索仍待核，访问失败不表示没有新闻。
 
 JEV、Laya、OSC 的用户所指对象仍未确认，本期没有擅自替换名称或采用同名网站。后续若取得可靠的发布时间，将按同一日期文章的更正规则处理。
+
+  </Prose>
+</Section>
+
+<Section canvas id="prior-issue-corrections">
+  <SectionHead index="07" kicker="前期补报" title="旧期遗漏写回原期，不充作今天的新事件" />
+  <Prose tile>
+
+[10 月 17 日期已追补](/posts/2026-10-17-ai-daily/)路透社在 10 月 16 日至 17 日发布的 Anthropic 芯片融资与安全草案报道，以及 Meshy 在 10 月 16 日的编辑工具发布公告。它们属于前一期窗口，不计入今天的新增统计。融资仍是媒体报道的计划，草案也未成为法律；Dory 与混元记忆工具的日期边界另在原期观察。
+
+本次对照的其他线索中，无问芯穹融资已有 10 月 12 日报道，法奥融资快讯标注 10 月 16 日，德国与 NVIDIA 的合作计划源于 10 月 15 日报道。OpenAI 人形机器人表态在 9 月已被报道，后来的中文转述也不等于新官宣。这些日期不能因为今天重新发现而刷新。
 
   </Prose>
 </Section>
