@@ -534,9 +534,14 @@
    canvas, content blocks are white tiles aligned
    to a single inner grid (Apple shop register)
    ──────────────────────────────────────────────── */
+/* Root container units exclude classic scrollbars while keeping the canvas
+   full bleed from its centered article column. */
+html:has(.article-canvas-wrap) {
+  container-type: inline-size;
+}
 .article-canvas-wrap {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  width: 100cqi;
+  margin-left: calc(50% - 50cqi);
   background: var(--color-paper);
 }
 .article-canvas-body {
@@ -704,7 +709,7 @@
   /* Canvas pilot (continuous gray canvas, tiles inset 32px): the panel
      can sit closer without ever touching body text. */
   body:has(.article-canvas-wrap) [data-toc] {
-    left: max(24px, calc(50vw - 752px));
+    left: max(24px, calc(50cqi - 752px));
   }
 
   /* Refractive body layer. Blur is the baseline; engines that accept

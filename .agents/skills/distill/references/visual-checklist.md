@@ -12,6 +12,7 @@ Run `npm run check`, `npm run build`, then `npm run preview` and screenshot at *
 
 ## All widths
 
+- [ ] Check both overlay and visible classic scrollbars. In Playwright Chromium, omit the default `--hide-scrollbars` argument for the classic pass. Compare document/body `scrollWidth` with their `clientWidth`, inspect full-bleed bounds, and include 1180×757 alongside the standard widths; `innerWidth` alone can hide scrollbar-width overflow.
 - [ ] Banner is the first block; kicker is gray uppercase provenance (never blue); title matches the file's `title`; pills are hairline with optional 7px dots.
 - [ ] No literal `**` / broken Markdown in rendered output; inline code has the neutral paper chip and no decorative backticks.
 - [ ] Grayscale-first: blue appears only in links, the insight kicker, the progress bar, active/done ScrollStory nodes, and subject-A dots; orange only on subject-B dots.
