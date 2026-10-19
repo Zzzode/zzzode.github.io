@@ -1,0 +1,9 @@
+flowchart TB
+  F[候选配置文件树] --> V[结构与脚本检查]
+  V --> O[OpenCode 适配器]
+  V --> C[Codex 适配器]
+  O --> OC[常驻指令 / Skills / 插件]
+  C --> CX[AGENTS.md / Skills / Hooks]
+  OC --> R[执行器在任务工作区重跑]
+  CX --> R
+  R --> E[保存轨迹与交付物供对比]

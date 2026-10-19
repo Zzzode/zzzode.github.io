@@ -1,0 +1,176 @@
+{
+  "description": "Observed checkpoints from the official deterministic demo. Not autonomous model RSI or benchmark replication.",
+  "observed_on": "2026-10-19",
+  "upstream_commit": "1cfe254e8d25b15f37048c3730134686abe60335",
+  "source": "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/demo.py",
+  "command": "harness2-demo --output <temporary-output-directory> --k 2",
+  "environment": {
+    "system": "macOS",
+    "python": "3.13",
+    "installation": "pip install -e ."
+  },
+  "limitations": [
+    "Editors, composer, selector and reflector are scripted fixtures.",
+    "DemoProposer does not read the library to choose edits.",
+    "The selector directly computes the expected signed sum.",
+    "A library file being present is not evidence that a model used it."
+  ],
+  "task_a": {
+    "id": "ledger-1",
+    "inputs": [
+      "100.25",
+      "-20.10",
+      "5.00"
+    ],
+    "h0": {
+      "script": "import csv\nimport sys\nfrom decimal import Decimal\n\nwith open(sys.argv[1]) as source:\n    amounts = [Decimal(row['amount']) for row in csv.DictReader(source)]\ntotal = sum((amount for amount in amounts if amount > 0), Decimal(0))\nprint(f'Total: {total:.2f}')\n",
+      "sha256": "b199d77fa6641052dd4b7de43ec4a667ae34e465206d8fc1e5512cac262b72f2"
+    },
+    "h1": {
+      "stage": "c1",
+      "script": "import csv\nimport sys\nfrom decimal import Decimal\n\nwith open(sys.argv[1]) as source:\n    amounts = [Decimal(row['amount']) for row in csv.DictReader(source)]\ntotal = sum((amount for amount in amounts), Decimal(0))\nprint(f'Total: {total:.2f}')\n",
+      "sha256": "2f0ac38c6f03816dcdc4c7e8032d481e81255ca7b473d11c9139e5ad1e4a44d6",
+      "diff_from_h0": "--- H0/scripts/summarize.py\n+++ H1/scripts/summarize.py\n@@ -4,5 +4,5 @@\n \n with open(sys.argv[1]) as source:\n     amounts = [Decimal(row['amount']) for row in csv.DictReader(source)]\n-total = sum((amount for amount in amounts if amount > 0), Decimal(0))\n+total = sum((amount for amount in amounts), Decimal(0))\n print(f'Total: {total:.2f}')\n"
+    },
+    "h2": {
+      "stage": "c2",
+      "sha256": "2f0ac38c6f03816dcdc4c7e8032d481e81255ca7b473d11c9139e5ad1e4a44d6",
+      "diff_from_h1": ""
+    },
+    "execution_answers": {
+      "base1": "Total: 105.25",
+      "base2": "Total: 105.25",
+      "inv1": "Total: 85.15",
+      "dom1": "Total: 85.15",
+      "c1": "Total: 85.15",
+      "inv2": "Total: 85.15",
+      "dom2": "Total: 85.15",
+      "c2": "Total: 85.15"
+    },
+    "stages": [
+      {
+        "label": "inv1",
+        "fell_back": false,
+        "kept_base": false,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "dom1",
+        "fell_back": false,
+        "kept_base": false,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "c1",
+        "fell_back": false,
+        "kept_base": false,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "inv2",
+        "fell_back": false,
+        "kept_base": true,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "dom2",
+        "fell_back": false,
+        "kept_base": true,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "c2",
+        "fell_back": false,
+        "kept_base": true,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      }
+    ],
+    "chosen_label": "c1",
+    "experience_markdown": "# ledger-1\n\n- adopted: `c1`  (run `demo-oc-seq2/ledger-1/c1`)\n- components: 1 scripts; 62 always-on chars\n\n## Why this was chosen\nThe signed total matches the source ledger.\n\n## What each edit did\ncomponent: scripts/summarize.py\ncandidates: inv1\nchange: dropped the positive-only filter from the amount sum\nobserved: the probe total included the credits the base run omitted\nverdict: helped\n\n## Transferable lesson\n- **cue**: When a ledger includes credits and debits\n- **lesson**: Include both signs when summing in scripts/summarize.py.\n- **evidence**: The scripts/summarize.py row -- removing the positive-only filter changed the probe total to include the credits omitted by the base trajectory.\n- **confidence**: high for this observed arithmetic contrast\n"
+  },
+  "task_b": {
+    "id": "ledger-2",
+    "inputs": [
+      "35.50",
+      "-10.25",
+      "-5.00"
+    ],
+    "execution_answers": {
+      "base1": "Total: 35.50",
+      "base2": "Total: 35.50",
+      "inv1": "Total: 20.25",
+      "dom1": "Total: 20.25",
+      "c1": "Total: 20.25",
+      "inv2": "Total: 20.25",
+      "dom2": "Total: 20.25",
+      "c2": "Total: 20.25"
+    },
+    "prior_experience_copied_to_editor_context": true,
+    "prior_experience_sha256": "84b374139edf69bdaf78bde03d558030beed67aa6ca75ea2e628586da0bb4e75",
+    "stages": [
+      {
+        "label": "inv1",
+        "fell_back": false,
+        "kept_base": false,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "dom1",
+        "fell_back": false,
+        "kept_base": false,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "c1",
+        "fell_back": false,
+        "kept_base": false,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "inv2",
+        "fell_back": false,
+        "kept_base": true,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "dom2",
+        "fell_back": false,
+        "kept_base": true,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      },
+      {
+        "label": "c2",
+        "fell_back": false,
+        "kept_base": true,
+        "notes": "Keep signed amounts: the base total omitted credits in the source ledger."
+      }
+    ]
+  },
+  "run_summary": {
+    "domain": "accounting",
+    "n_tasks": 2,
+    "seed": null,
+    "done": 2,
+    "failed": 0,
+    "tasks": [
+      {
+        "task": "ledger-1",
+        "status": "ok",
+        "library_entries_before": {
+          "agg": 0,
+          "seq": 0
+        }
+      },
+      {
+        "task": "ledger-2",
+        "status": "ok",
+        "library_entries_before": {
+          "agg": 1,
+          "seq": 1
+        }
+      }
+    ],
+    "execution_count": 28,
+    "editor_calls": 32
+  }
+}

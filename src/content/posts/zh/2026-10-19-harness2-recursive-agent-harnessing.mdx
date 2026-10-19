@@ -1,0 +1,476 @@
+---
+title: "Harness²：让智能体从修改自己的执行流程中积累经验"
+date: 2026-10-19
+excerpt: "拆开 Harness² 的双层递归：怎样提出配置修改、重跑同一任务、用行为对比决定取舍，再把经验留给下次；附论文数据口径、真实本地演示和开源版使用流程。"
+tags: ["Agent", "Harness", "Recursive Self-Improvement", "Google Research"]
+kind: distilled
+sources:
+  - title: "量子位 · 谷歌开源RSI新成果！华人浓度爆表"
+    url: "https://mp.weixin.qq.com/s/kOITEJCs1QRW7nfZbs3Wnw"
+  - title: "Harness² paper · arXiv v1 · 2026-10-09"
+    url: "https://arxiv.org/html/2610.14224v1"
+  - title: "Harness² · official project"
+    url: "https://harness2.github.io/"
+  - title: "Harness² · pinned README"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/README.md"
+  - title: "Harness² · setup and Codex executor"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/docs/SETUP.md"
+  - title: "Harness² · experiments, cost and network access"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/docs/EXPERIMENTS.md"
+  - title: "Harness² · benchmark guide"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/docs/BENCHMARKS.md"
+  - title: "Harness² · recursion implementation"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/core/recursion.py"
+  - title: "Harness² · budget accounting"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/core/ledger.py"
+  - title: "Harness² · improvement library"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/core/library.py"
+  - title: "Harness² · deterministic local demo"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/demo.py"
+  - title: "Self-Refine · iterative output refinement"
+    url: "https://arxiv.org/abs/2303.17651"
+  - title: "Reflexion · linguistic feedback and memory"
+    url: "https://arxiv.org/abs/2303.11366"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, CompareTable, Summary } from '@/components/article';
+import MechanismSequence from '@/components/article/MechanismSequence.astro';
+import overview from '@/assets/harness2/overview.svg?raw';
+import proposals from '@/assets/harness2/proposals.svg?raw';
+import evidence from '@/assets/harness2/evidence.svg?raw';
+import library from '@/assets/harness2/library.svg?raw';
+import recursion from '@/assets/harness2/recursion.svg?raw';
+import demo from '@/assets/harness2/demo.svg?raw';
+import rsiNextTask from '@/assets/harness2/rsi-next-task.svg?raw';
+import runtime from '@/assets/harness2/runtime.svg?raw';
+
+<CoverBanner
+  kicker="PAPER & SOURCE STUDY · HARNESS² · 2026-10-19"
+  title="Harness²：让智能体从修改自己的执行流程中积累经验"
+  lead="同一个模型，换一套工具和工作流程，做事的结果可能不同。Harness² 把这层配置变成可修改、可重跑的实验对象，并把修改经验留给后面的任务。"
+  pills={[{ label: '模型参数固定' }, { label: '执行配置可编辑' }, { label: '跨任务经验库' }]}
+>
+  <Fragment slot="visual" set:html={overview} />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="motivation">
+  <SectionHead index="01" kicker="问题来由" title="模型会做，执行时却可能漏做" lead="从改一份答案，走到改产生答案的工作流程。" />
+  <Prose tile>
+
+让智能体整理一份预算，它可能知道怎么计算，却没有核对不同文件里的数字；让它生成文档，它也可能在写出文件后直接结束，没有重新打开检查。这样的失败与执行流程有关。增加模型知识，未必能直接修好这次漏检。
+
+Harness 是围绕模型运行的一套设施，包括提示词、工具、记忆和任务编排。可以把它理解为智能体的执行环境与工作规程。Harness² 允许另一个负责改进的智能体编辑这些文件，再用修改后的配置重做当前任务。模型参数保持不变，变化发生在模型周围。
+
+这条思路有前序工作。[Self-Refine](https://arxiv.org/abs/2303.17651)让模型给自己的输出提意见，再反复修改输出；[Reflexion](https://arxiv.org/abs/2303.11366)把任务反馈写成语言形式的反思，保存在记忆中，帮助后续尝试。Harness² 把可修改的对象扩展到可执行的配置文件，并追踪一次修改怎样改变执行行为。
+
+现实工作给这种修改带来两个困难。许多任务没有现成的标准答案，编辑器拿不到一个可信分数来决定该保留什么。任务切换也会出问题：为某份合同加入的规则，放到下一份预算表里可能毫无帮助，甚至误导执行。
+
+2026-10-09 的[论文](https://arxiv.org/html/2610.14224v1)由 Ruiyao Xu 等作者发表，署名机构包括 Google Cloud AI Research 和 Northwestern University。量子位的原文介绍了其双层递归和主要成绩。这里进一步核对论文附录与固定版本源码，把操作方法、算力成本以及判断失误也展开说明。开源仓库位于 Google Research 名下，但 README 明确说它不是获得官方产品支持的 Google 产品。
+
+  </Prose>
+</Section>
+
+<Section canvas id="editable-surface">
+  <SectionHead index="02" kicker="修改对象" title="八类文件，作用在不同的运行位置" />
+  <Prose tile>
+
+Harness² 所说的“改自己”，有明确的文件边界。它没有在运行时训练出一个新模型，也没有任意重写整个框架。候选修改发生在暴露给编辑器的组件文件树中，文件差异就是提案。
+
+下面按论文附录 D 和开源适配器梳理。OpenCode 暴露了相对独立的组件路径；Codex 把常驻指令集中在 `AGENTS.md`，技能与运行钩子使用另一组路径。两种执行器实现同类职责，文件并不完全相同。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '组件' }, { label: 'OpenCode 文件或目录' }, { label: '何时发挥作用', wrap: true }]} rows={[
+    ['System prompt', 'systemprompt.md', '常驻的角色与执行规程'],
+    ['Guardrails', 'guardrails.md', '常驻的约束，例如交付前必须检查文件'],
+    ['Memory', 'LongTermMEMORY.md', '常驻的简短领域事实；复用时仍须核对适用性'],
+    ['Tool guidance', 'tool_descriptions/tool_guidance.md', '说明现有工具怎么用，不等于新增工具'],
+    ['Subagents', 'sub_agents/<name>/AGENT.md', '需要委派时，启动独立模型上下文'],
+    ['Skills', 'skills/<name>/SKILL.md', '遇到指定情形时按需加载工作方法'],
+    ['Scripts', 'scripts/<name>.py', '通过 shell 执行确定性提取、转换或检查'],
+    ['Plugin', 'plugin/<name>.ts', '进入工具循环，在调用前后执行代码处理'],
+  ]} />
+  <Prose tile>
+
+“检查总和”可以写成一句指令，也可以实现为脚本。前者依赖模型遵守，后者执行具体计算；插件还能在工具循环里插入检查。放在哪里，会改变可靠性和消耗。长篇常驻说明会反复占用上下文，按需加载的技能则只在相关任务中展开。
+
+编辑器要根据故障选择合适的组件，避免为简单问题增加复杂流程。论文提示词要求把每项修改对应到轨迹中的具体时刻；没有证据时可以保持原配置。创建技能还必须提供触发说明，引用的脚本也要一起交付。源码会检查文件结构等条件，非法提案重试后仍失败，就回退到进入该阶段时的配置。通过这些检查，只说明配置可以进入后续执行，不能证明它会做对任务。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '组件落地', title: '配置必须真正进入执行器', body: '编辑器交出文件树，适配器负责把文件放到执行器会读取的位置。OpenCode 使用常驻指令、技能和插件；Codex 使用 AGENTS.md、.agents/skills 和 .codex/hooks.json 等入口。候选随后在任务工作区中重跑，轨迹与交付物再交回改进流程。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={runtime} />
+    <p slot="caption-0">依据固定版本适配器绘制的教学示意。路径与安装方式由具体执行器、基准适配器共同决定。</p>
+  </MechanismSequence>
+</Section>
+
+<Section canvas id="contrastive-step">
+  <SectionHead index="03" kicker="单次改进" title="先看原来怎么做，再提出两种有针对性的修改" lead="Propose–Probe–Compose：提出修改、试跑、组合。" />
+  <Prose tile>
+
+一次最小改进从参考执行开始：用当前配置跑任务，留下工具调用轨迹和交付物。参考执行提供的是行为样本。它本身可能已经错了，不能拿它的答案充当标准答案。
+
+编辑阶段分成两个视角。Invariant 候选负责跨领域的执行问题，例如不会控制搜索范围、工具失败后无限重试，或者没有检查产物。Domain 候选负责当前专业工作的要求，例如预算表之间如何核对、合同修订应该保留哪些信息。两者都在改组件文件，但关注的故障来源不同。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '一次完整实验', title: '候选要重跑，组合之后也要重跑', body: '通用候选和领域候选各执行同一个任务，使用匹配的模型与环境配置。Composer（组合器）读取参考执行、候选文件差异以及各次轨迹，决定合并什么、修订什么，也可以只采用一个候选或保留当前配置。组合出来的配置还要执行一次，才产生这个阶段的交付物。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={proposals} />
+    <p slot="caption-0">最小步骤 k=1 的教学示意。两项提案会分别试跑；组合不等于机械拼接文本。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+论文图 9 给出了一项真实模型案例，执行器为 Gemini 3.5 Flash，运行在 OpenCode 中。任务涉及日程、场地、人力和预算文件，需要核对材料并完成交付。原执行没有核对源文件之间的数据，也没有重新打开输出文件。可以把作者报告的变化按阶段展开：
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '阶段' }, { label: '看到什么或改了什么', wrap: true }, { label: '留下的证据或限制', wrap: true }]} rows={[
+    ['基础执行', '没有跨文件核对数据，写出文件后未重新打开检查', '作者事后评分 43.1；编辑器当时看不到评分'],
+    ['通用候选', '改约束说明，要求清点输入、追溯数字；增加产物验证脚本', '用工作规程和可执行检查处理过程遗漏'],
+    ['领域候选', '增加专业技能，规定日程、场地、人力、预算的核对方法；补充数字格式的工具指导', '把领域要求写进技能与工具说明'],
+    ['候选探测', '分别运行候选，并把轨迹与文件差异交给组合器', '正文未列出两个候选各自的评分，不补造中间分数'],
+    ['组合与重跑', '保留上述四项修改，再用组合配置执行', '完成跨文件核对，补上备忘录缺失章节；事后评分 77.8'],
+  ]} caption="依据论文第 4 节、图 9 的行为说明整理，不是逐字原始补丁。它展示一次任务内改进；没有提供多轮持续变强的完整日志。" />
+  <Prose tile>
+
+这里从基础配置走到后继配置，新增的是约束、验证脚本、领域技能和工具指导。它们让模型改变了实际工作方式，交付物也随之变化。[论文第 4 节与图 9](https://arxiv.org/html/2610.14224v1#S4)报告的 43.1 到 77.8 是一项任务的结果，不能推广为每轮迭代的固定收益。下文第六节再用有完整本地文件的演示，把配置快照逐个展开。
+
+  </Prose>
+</Section>
+
+<Section canvas id="behavioral-evidence">
+  <SectionHead index="04" kicker="判断依据" title="没有标准答案，怎样决定修改值得留下" />
+  <Prose tile>
+
+Behavioral Contrast 可以译为行为对比。它比较修改前后的执行，寻找目标问题有没有变化。例如原来只写文件，候选增加重开检查，并在这一步发现缺失页；这比模型说“新答案更专业”更容易核对，因为能指出一次具体动作及其结果。
+
+参考执行和候选执行使用同一个任务，并尽量保持模型与环境配置一致，是为了减少比较中的干扰。但模型执行仍有随机性，一次试跑里做得更好，可能包含偶然因素。两个候选如果由相似模型根据相同材料提出，也可能共享同一个错误前提。候选意见一致，并不构成独立证明。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '证据边界', title: '把“这项修改有帮助”与“整个结果正确”分开', body: 'Composer 要为保留、修订或放弃的决定指出轨迹依据。能观察到复查步骤修复了缺项，就有理由保留该步骤；文档中其他数字是否正确、结论是否可靠，还需要另外检查。图中是解释判断方式的教学例子，没有对应的实测分数。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={evidence} />
+    <p slot="caption-0">行为对比是改进信号，不能替代外部验收，也不能证明修改对新任务必然有效。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+这也是论文“没有 ground-truth feedback”的准确含义：改进阶段不依靠标准答案、评分规则或评委打分。它仍依靠模型判断，而且实验结束后照常使用基准评委评分，才能测量有没有进步。“改进不看分数”和“实验没有评估”是两回事。
+
+源码会在构建编辑上下文时过滤评委结果，但边界只在本地文件层面。官方[实验指南](https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/docs/EXPERIMENTS.md#web-access)记录，发布版的一次 Codex 验证运行曾自行从网上下载 JobBench 评分规则。若执行器可以联网，公开规则仍可能绕过本地过滤进入上下文。复现时必须单独控制网络，否则“没有标准答案”的实验前提可能被破坏。这条发布版记录并不能据此证明论文实验已经受到污染。
+
+  </Prose>
+</Section>
+
+<Section canvas id="across-tasks">
+  <SectionHead index="05" kicker="跨任务积累" title="下一次从基础配置开始，但不必忘记上次学到的修改方法" />
+  <Prose tile>
+
+Harness² 区分执行配置和改进配置。执行配置决定当前任务怎么做；改进配置给负责编辑的智能体提供经验，帮助它决定怎么改。标题里的第二层递归，发生在后者。
+
+一次任务结束后，Experience Reflector（经验反思器）回看完整的改进记录，包括候选试过什么、执行有什么差异，以及最后怎样取舍。经验库保存被采用的完整配置文件树，并配一份 `EXPERIENCE.md`。它记录适用情形、修改经验和支撑证据；索引用来帮助后续会话按需找到相关条目。没有足够证据时，可以不写新条目。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '两个任务之间', title: '配置可以被借鉴，不会自动整套继承', body: '任务 A 的配置进入经验库，供任务 B 的编辑器阅读。B 的执行仍从共同基础 H0 开始；编辑器可以复制或改写旧组件，但必须核对 B 的文件、字段和约束。这样保留了可复用的做法，也减少把 A 的具体事实直接带到 B 的机会。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={library} />
+    <p slot="caption-0">模型参数与阶段指令保持固定，持续变化的是改进经验库。当前开源实现按领域组织库，并隔离不同实验配置。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+比如，一次任务发现两份表的岗位名称不同。“先核对名称映射，再连接数据”可能值得复用；“这份文件中的 HR 对应 HR Manager”则是当前工作区的事实。后者可以随原配置保存为案例，但在新任务里必须重新验证。旧案例里的值如果未经核对就沿用，经验库也会传播错误。
+
+所以，这里的递归自我改进有一个具体范围：经验库改变了下一次提出和评估修改时能参考的材料。模型权重、阶段算法及其固定提示词，并没有随着每个任务自行重新训练或任意重写。长期库如何去重、清理过时经验，论文仍把它列为后续方向。
+
+  </Prose>
+</Section>
+
+<Section canvas id="local-demo">
+  <SectionHead index="06" kicker="逐步演进" title="沿着两轮执行，逐个查看 RSI 改了什么" lead="把初始配置、文件差异、执行结果和下次任务的上下文放在一起看。" />
+  <Prose tile>
+
+RSI 是 Recursive Self-Improvement，即递归自我改进。在 Harness² 中，需要追踪两个状态：当前任务的执行配置 H，以及跨任务保留的改进经验库 R。H 决定任务怎么执行，R 影响编辑器下一次根据什么材料提出修改。模型参数始终不变。
+
+下面沿本文已经运行的官方 `harness2-demo --k 2` 查看真实文件。H0、H1、H2 是本文给执行配置快照起的名字，分别对应初始配置、第一轮组合 `c1`、第二轮组合 `c2`；R0、R1 表示空经验库和写入首条经验后的库。它们用于说明状态，不是项目命令。
+
+这是一条真实运行的框架流程，但编辑器是预设程序。文件变化可以直接核对，模型自主发现问题的能力则没有在这个演示中受测。尤其要留意第二轮：这里 H2 与 H1 完全相同，并没有再进步一次。
+
+### 起点：H0 有什么问题
+
+任务 A 的要求是累加账本中的全部带符号金额。输入依次为 `100.25`、`-20.10` 和 `5.00`。初始 `scripts/summarize.py` 却带有正数过滤：
+
+```python
+# H0: excerpts from scripts/summarize.py
+amounts = [Decimal(row['amount']) for row in csv.DictReader(source)]
+total = sum((amount for amount in amounts if amount > 0), Decimal(0))
+```
+
+这会忽略负数。两次参考执行 `base1`、`base2` 都得到 `Total: 105.25`。参考执行的作用是暴露当前配置的行为；它不能充当正确答案。
+
+### 第一轮：修改文件，分别重跑，再组合
+
+演示里的 `DemoProposer.call()` 不会思考原因，而是对文件执行字符串替换，删除 ` if amount > 0`。通用候选 `inv1` 和领域候选 `dom1` 都做同一项改动。这次演示没有体现真实模型版本中两类编辑器的专业分工。
+
+```diff
+--- H0/scripts/summarize.py
++++ H1/scripts/summarize.py
+-total = sum((amount for amount in amounts if amount > 0), Decimal(0))
++total = sum((amount for amount in amounts), Decimal(0))
+```
+
+两个候选各通过真实 Python 子进程重跑，结果均为 `Total: 85.15`。然后组合阶段产出 `c1`，保存为 H1，再执行一次，也得到 `85.15`。改变的是计算程序，结果随后改变；如果只把回答里的数字手动改掉，执行配置仍有错误，就不是这条改进路径。
+
+### 第二轮：沿 H1 继续，但这次没有新改动
+
+顺序递归把 H1 作为下一轮的当前配置，并带上先前的候选、执行轨迹和组合决定。预设编辑器再次尝试删除同一过滤条件，但 H1 中已经没有它，文件不再变化。`inv2`、`dom2` 以及组合结果 `c2` 的输出仍为 `85.15`。
+
+所以 H2 = H1。这次运行没有出现逐轮提升。记录里的 `kept_base: true` 也要按阶段理解：第二轮保持的是进入该阶段时的 H1，并没有恢复到最初出错的 H0。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '检查点' }, { label: '配置变化', wrap: true }, { label: '执行结果' }, { label: '从记录能确认什么', wrap: true }]} rows={[
+    ['A / 参考执行', 'H0：只累加正数', '105.25', 'base1、base2 都忽略负数'],
+    ['A / 第一轮候选', 'inv1、dom1 都删除正数过滤', '85.15', '候选文件修改后，实际执行结果变化'],
+    ['A / 第一轮组合', 'c1：形成 H1', '85.15', '组合配置另行执行，仍保留修正'],
+    ['A / 第二轮候选', '相对 H1 没有新增差异', '85.15', 'kept_base=true 指保持当前配置'],
+    ['A / 第二轮组合', 'c2：H2 = H1', '85.15', '第二轮没有新增代码收益'],
+    ['B / 参考执行', '重新使用 H0', '35.50', '没有自动继承 A 的修正脚本'],
+    ['B / 修正后执行', '预设程序再次删除过滤', '20.25', '不能据此认定经验库促成了修改'],
+  ]} caption="本文本地运行的确定性演示记录；结果是账本金额，不是模型评分。源码与提取记录均可核对。" />
+  <MechanismSequence steps={[
+    { tag: '任务内变化', title: 'H0 变成 H1，H2 保持 H1', body: '第一轮存在可见文件差异：累加时不再过滤负数。候选与组合结果都有独立执行记录。第二轮继续同一任务，文件已修好，预设修改不再产生差异。两轮共享模型参数与任务输入，变化发生在执行脚本中。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={demo} />
+    <p slot="caption-0">顺序递归 k=2 的实际检查点。H0/H1/H2 为本文标记；第二轮没有额外增益。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 任务结束：把 H1 和修改经验写进 R1
+
+最终选择器比较匿名交付物。这次顺序模式采用的是 `c1`，没有因为 `c2` 生成得更晚就选择它。两个结果相同；这里的选择也由预设程序完成，它直接计算账本总和来匹配候选。
+
+反思阶段保存采用的完整脚本，同时生成 `EXPERIENCE.md`。下面按这次文件内容翻译，保留它的字段含义：
+
+```text
+cue: 遇到同时包含借方、贷方金额的账本
+lesson: scripts/summarize.py 求和时要包含正负两种金额
+evidence: 删除正数过滤后，候选执行包含了基础执行漏掉的负数
+confidence: 对这次观察到的算术差异有较高信心
+```
+
+R0 原本没有条目。此后 R1 多了一份能复制使用的执行配置，以及说明何时适用、为什么保留它的经验。保存经验的是框架的反思与入库流程；演示里的经验内容同样由预设程序生成。
+
+### 下一项任务：重置 H，保留 R
+
+任务 B 的输入为 `35.50`、`-10.25`、`-5.00`。参考执行仍使用 H0，所以得到 `35.50`。这说明原始错误仍在共同基础配置中，系统没有把 A 的修正直接写回基础配置。
+
+但 B 的编辑器上下文里已经出现 A 的完整配置和 `EXPERIENCE.md`。本文核对了复制进去的文件，与库中原文件一致。此时两个状态不同步：执行配置回到了 H0，改进经验保留为 R1。
+
+演示随后再次删除过滤条件，得到 `20.25`。但要检查是谁作出了这项修改：`DemoProposer.call()` 没有读取经验库再决定修改，它始终做固定替换。因此，这次运行证明了经验文件确实传到下一项任务，不能证明 R1 改善了编辑决策。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '任务间变化', title: '下一次编辑有了额外材料，但演示没有验证学习效果', body: 'R1 进入 B 的编辑上下文，B 的参考执行仍从 H0 开始。真实模型版本会按提示词检查相关经验，再结合 B 的材料提出修改；这个演示使用预设修改器，文件传递与修改决策之间没有经过验证的因果关系。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={rsiNextTask} />
+    <p slot="caption-0">实线表示已核对的框架步骤，虚线表示经验文件复制。图不声称演示修改器使用了这些经验。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 真正的第二层递归，变化发生在哪里
+
+在论文的模型版本里，B 的编辑器看到 R1 后，可以找到“带符号金额求和”的经验，检查 B 是否也要求保留正负数，再复制或改写相关脚本，提出 B 的候选。之后仍须试跑和组合。这里描述的是论文及编辑提示词规定的机制，不是本文对模型内部思考过程的观察。
+
+编辑器的模型参数和阶段提示词都没有更新；它提出下一次修改时，可读取的经验材料更新了。上一项任务产生的修改经验，又进入下一项任务的修改过程，这就是 Harness² 所称的 harnessing-level recursion。若要证明这层积累确实提高表现，还需像论文的经验库消融实验那样，在相同预算下比较有库与无库的结果。经验文件存在，并不足以支持这个结论。
+
+### 自己核对这条记录
+
+本文将运行产物提取为[可下载的 RSI 检查点记录](/files/harness2/rsi-demo-trace.json)，包含脚本快照、差异、阶段结果、所选标签和原始经验文本。文件不含账号信息或本机绝对路径。H1、H2 的脚本哈希一致，也能直接看到第二轮没有改代码。
+
+官方基准环境建议使用 Linux、Python 3.12 和 `uv`；Python 包也支持 3.13。首次运行可在仓库根目录执行以下命令，`uv` 安装方法见[官方文档](https://docs.astral.sh/uv/getting-started/installation/)：
+
+```bash
+git clone https://github.com/google-research/harness2.git
+cd harness2
+git checkout 1cfe254e8d25b15f37048c3730134686abe60335
+uv venv --python 3.12 .venv
+source .venv/bin/activate
+uv pip install -e '.[render]'
+harness2-demo --output runs/demo --k 2
+```
+
+本文在 macOS、Python 3.13 的隔离环境中安装运行，使用不带可选渲染依赖的 `pip install -e .`。两项任务完成，失败数为 0；同时运行并行和顺序模式，总计 28 次 Python 执行、32 次预设编辑器调用。两种模式共享参考执行，不能把两个独立的 `4k` 预算直接相加来推总数。
+
+复查时先打开 `runs/demo/demo.json`，再沿任务 `summary.json` 记录的路径查看各次执行、配置与经验文件。演示不调用模型；本文也没有用它复现论文跑分或验证自主诊断能力。
+
+  </Prose>
+</Section>
+
+<Section canvas id="budget">
+  <SectionHead index="07" kicker="宽度与深度" title="k 增加的是实验预算，不能只数最终执行步数" />
+  <Prose tile>
+
+最小步骤 `k=1` 有一条参考执行、两个候选执行，以及一条组合后的执行。提高 `k`，可以选并行递归或顺序递归。并行递归探索更多候选；顺序递归则让下一轮沿着上一轮的配置继续修订。
+
+并行模式先收集 `k` 条参考执行，提出并试跑 `k` 个通用候选和 `k` 个领域候选，再启动 `k` 次独立组合。每个组合会话都能读完整候选池，并执行自己的组合结果。当前实现做一次这样的群体更新，`k=5` 不表示五层连续自我重写。
+
+顺序模式同样有 `k` 条初始参考执行，但会串起 `k` 轮改进。后一轮看到当前配置和累积证据，可以保留早先修改，也可以撤回走偏的部分。每轮仍有通用、领域两个候选及组合执行。
+
+固定版本的[选择池实现](https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/core/selection.py)只把各次组合的结果交给最终选择器，参考执行与未经组合的候选不会直接参选。组合阶段可以保留当前配置，这与最终选择阶段的候选范围要分开理解。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '预算分配', title: '向更多方向探索，或沿着已有配置继续修改', body: '并行模式中的候选和组合会话可并发；顺序模式的后续轮次依赖前一轮。k 大于 1 时，最终选择器比较匿名交付物，选出一个已有结果，不合成新答案，也不知道它来自哪套配置。k=1 跳过这一选择阶段。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={recursion} />
+    <p slot="caption-0">依据论文第 2.2.2 节。匿名选择发生在 k&gt;1；选择结果表示采用，不表示已知最优。</p>
+  </MechanismSequence>
+  <CompareTable tile headers={[{ label: '单模式、单任务的名义预算' }, { label: 'k=1' }, { label: 'k=5' }]} rows={[
+    ['参考执行 k', '1', '5'],
+    ['候选执行 2k', '2', '10'],
+    ['组合结果执行 k', '1', '5'],
+    ['执行总次数 4k', '4', '20'],
+    ['提案与组合会话 3k', '3', '15'],
+  ]} caption="依据固定版本 core/ledger.py；不含最终选择、经验反思、重试和事后评分，也不代表 token 数或 API 请求数。" />
+  <Prose tile>
+
+token 是模型处理输入输出时使用的计量单位。这些额外执行是真实成本。并行只能在资源允许时缩短等待，无法消除消耗。论文图 6 比较了提交交付物之前的总 token，包括执行和改进阶段；作者报告其所测配置处在经验上的性能—计算量前沿。这个结论限于图中的模型、基准和预算范围，不能换算成通用省钱比例。
+
+主表的 `#Steps` 是执行器会话里的模型轮数。最终执行轮数减少，也可能伴随大量额外的候选和编辑调用。决定是否采用时，应记录完整调用量与等待时间，不能拿最终那一条轨迹代表全部成本。
+
+  </Prose>
+</Section>
+
+<Section canvas id="results">
+  <SectionHead index="08" kicker="成绩口径" title="11.5 分的提升成立，但先看是谁改、在哪些任务上测" />
+  <Prose tile>
+
+论文主实验使用 Gemini 3.5 Flash 与 GLM-5，分别搭配 OpenCode、Codex，形成四种执行配置。默认编辑器是运行在 OpenCode 中的 Claude Opus 4.8。因此，GLM-5 的主表提升包含另一模型参与编辑的作用。作者另做了 `k=2` 的同模型编辑与执行实验，报告被测模型也有提升；那是另一组设置，不能混在一起解释。
+
+WorkBuddy-Bench 的测试半集有 Code 40 项、Web 35 项、Office 25 项。下表 `Avg.` 是三个领域得分的等权平均；主表括号内为三次打乱任务顺序运行的标准差。分数由基准检查项计算，其中包括确定性检查及模型评判。`k=5` 一列按论文均值和递归增量相加得到，没有推算标准差。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: 'WorkBuddy 配置' }, { label: '基础 Avg.' }, { label: 'k=1 Avg.' }, { label: '提升' }, { label: 'k=5 Avg.' }]} rows={[
+    ['GLM-5 / OpenCode', '64.2（1.4）', '75.7（2.2）', '+11.5 分', '79.6'],
+    ['GLM-5 / Codex', '64.4（1.2）', '75.3（1.3）', '+10.9 分', '78.3'],
+    ['Gemini 3.5 Flash / OpenCode', '72.4（0.9）', '77.5（2.5）', '+5.1 分', '80.8'],
+    ['Gemini 3.5 Flash / Codex', '74.5（1.6）', '77.5（2.0）', '+3.0 分', '80.4'],
+  ]} caption="作者报告，论文表 1；k=5 为并行递归。这些是基准得分，非整体任务成功率，也非本文复现成绩。" />
+  <Prose tile>
+
+GLM-5 加上改进流程后，确实超过了表中相应执行器下 Gemini 的基础分数。但让 Gemini 也使用改进流程，它仍有自己的增益。这说明比较结果会受到执行配置影响。它没有证明模型能力发生了永久变化，也不能推广为任意较小模型都能取代较强模型。
+
+JobBench 使用 34 个测试任务，由加权评分规则评估职业交付物；Gemini / OpenCode 从 31.5 升到 36.0，增加 4.5 分。LAB 使用 100 个保留测试任务，报告逐条标准的通过率 Partial；GLM-5 / OpenCode 从 59.6% 升到 71.4%，增加的是 11.8 个百分点。逐条标准通过，不等于完整法律任务正确。
+
+从 `k=1` 增到并行 `k=5`，跨配置的最大额外增益分别为 WorkBuddy 3.9 分、JobBench 4.2 分和 LAB 6.7 个百分点。它们来自不同配置，不能拼成某一个模型的统一收益。论文也没有在所有比较中获胜：Gemini / Codex 的 LAB 单步成绩低于 Meta-Harness。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '删去什么' }, { label: 'WorkBuddy Avg.' }, { label: 'JobBench Score' }]} rows={[
+    ['完整 Harness²', '77.5', '36.0'],
+    ['不读写经验库', '74.4', '34.2'],
+    ['取消通用 / 领域分工', '74.6', '32.3'],
+    ['取消组合，改为候选二选一', '75.9', '34.1'],
+  ]} caption="论文表 3 消融实验：Gemini 3.5 Flash / OpenCode，k=1。移除一部分后重测，用来判断该部分在此设置中的作用。" />
+  <Prose tile>
+
+这组消融帮助我们判断哪些设计起了作用：只保留候选数量，却取消分工，成绩会下降；试跑完直接选一个候选，省掉组合，也会下降。经验库同样贡献了效果。各部分互相影响，这些差值不能相加当成独立贡献。
+
+跨任务证据也要分开读。作者把 JobBench 积累的库用于 WorkBuddy 的单步改进，Code、Web、Office 分别再增 0.6、0.5、2.9 分，支持一定程度的迁移。另一项“留一重跑”实验允许任务读取后来任务产生的经验，因此属于离线回看，不能称为在线任务流的额外进步。
+
+附录的组件移除实验还发现，技能和脚本的作用随领域变化：办公室任务尤其受益于确定性脚本。这与工具可靠性结果相呼应。在 JobBench 上，工具错误率从 14.4% 降到 9.1%，平均工具调用却从 27.4 增到 32.8 次。有些检查会增加调用量，可靠性提升未必让执行更短。
+
+  </Prose>
+</Section>
+
+<Section canvas id="model-backed-use">
+  <SectionHead index="09" kicker="模型实跑" title="选一个基准、一个领域、一项任务，再接真实模型" />
+  <Prose tile>
+
+开源版是一套实验框架，提供 JobBench、LAB 和 WorkBuddy-Bench 三类适配器，默认执行器为 OpenCode。接入其他任务，需要提供任务材料、执行方式和产物读取等适配，无法只给现有编程会话加个开关，就获得整套跨任务改进能力。
+
+模型实跑按官方安装指南准备 Linux、Node.js 20+、Google Cloud CLI；LAB 还需要 Pandoc 和 Poppler，WorkBuddy 需要 Docker。下面沿官方 Vertex AI 路线，模型必须是你账号实际有权调用的标识。
+
+README 要求复制 `.env.example`，但本文固定的提交没有这份文件。可以直接新建 `.env`，使用源码读取的变量；下列全部是待替换的教学占位符，不是可用账号或经过验证的模型名称。
+
+```dotenv
+GOOGLE_CLOUD_PROJECT=REPLACE_WITH_YOUR_PROJECT
+GOOGLE_CLOUD_LOCATION=global
+HARNESS2_SOLVER_MODEL=google-vertex/REPLACE_WITH_EXECUTOR_MODEL_ID
+HARNESS2_IMPROVER_MODEL=google-vertex/REPLACE_WITH_IMPROVER_MODEL_ID
+HARNESS2_JUDGE_MODEL=REPLACE_WITH_BARE_JUDGE_MODEL_ID
+```
+
+执行器和改进器使用 OpenCode 的 `provider/model` 格式，评委变量使用不带 provider 前缀的模型标识。`HARNESS2_IMPROVER_MODEL` 未设置时默认沿用执行模型。环境变量优先于 `.env`，排查“改了配置却不生效”时要一起检查。凭据与 `.env` 留在本地，不要加入版本库。
+
+准备好账号权限后登录，再安装 LAB 并检查：
+
+```bash
+gcloud auth application-default login
+harness2-setup lab
+harness2-check --bench lab
+
+export HARNESS2_RUNS_DIR=runs/lab-first-task
+harness2 --bench lab --k 1 --mode parallel \
+  --only-domains antitrust-competition --max-tasks 1 --dry-run
+```
+
+`--dry-run` 预览任务选择，不调用模型。`harness2-check` 检查依赖、凭据和配置，也不验证模型实际上能否调用；真实可用性要等第一次模型请求才知道。确认选择之后，移除 `--dry-run` 执行，再评分和出报告：
+
+```bash
+harness2 --bench lab --k 1 --mode parallel \
+  --only-domains antitrust-competition --max-tasks 1
+harness2-judge --bench lab --k 1 --mode parallel
+harness2-report --bench lab --k 1 --mode parallel
+```
+
+这里先限制一个领域很有必要：`--max-tasks 1` 表示每个领域最多一项，单独使用并不是全局只跑一次。运行、评分与报告须对应同一个基准、执行器、模式、预算及种子；使用相同的输出根目录查看此次运行。想比较预算或更换模型时，另设 `HARNESS2_RUNS_DIR`，避免续跑结果混淆。本文没有执行这些付费模型命令。
+
+### 使用 Codex 执行器
+
+Codex 路线增加了模型接口适配：它连接 Responses API 端点；仓库内的 `harness2-bridge` 用本地 LiteLLM 服务把 Vertex Gemini 暴露成该接口。这层桥接解决模型通信，Harness² 的提案、试跑和经验库仍在外层运行。
+
+```bash
+uv pip install -e '.[render,bridge]'
+harness2-bridge
+```
+
+保持 bridge 在单独终端运行，把它打印的 `HARNESS2_CODEX_*` 设置加到本地 `.env`。随后在另一终端执行：
+
+```bash
+harness2-setup lab --substrate cx
+harness2-check --bench lab --substrate cx
+harness2 --bench lab --substrate cx --k 1 --mode parallel \
+  --only-domains antitrust-competition --max-tasks 1
+harness2-judge --bench lab --substrate cx --k 1 --mode parallel
+harness2-report --bench lab --substrate cx --k 1 --mode parallel
+```
+
+使用其他 Responses API 端点时，按[设置文档](https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/docs/SETUP.md#codex-executor)配置 `HARNESS2_CODEX_BASE_URL`、`HARNESS2_CODEX_API_KEY` 和 `HARNESS2_CODEX_MODEL`。修改端点或模型后要重跑 setup，因为安装过程会把它们写进隔离的 Codex 配置。
+
+开源执行器默认不限制网络，Codex 的沙箱也被关闭。真正做基准实验时，按官方指南在执行器网络层阻止获取公开答案或评分规则的渠道，同时保留任务需要的模型通信。这项措施与安装阶段下载依赖的网络需求不同。它也说明实跑应放在专用环境，先检查候选脚本和插件的执行权限。
+
+  </Prose>
+</Section>
+
+<Section canvas id="assessment">
+  <SectionHead index="10" kicker="适用边界" title="能积累修改经验，还需要对失败和成本负责" />
+  <Prose tile>
+
+Harness² 的可借鉴之处，是把修改执行流程这件事留下完整记录：问题在哪次轨迹中出现，候选改了什么，重跑发生什么变化，以及这条经验下次何时适用。经验库同时保存可执行组件，后续智能体可以真正借用它们。
+
+这套判断也会失误。论文附录 E.6 展示过选择器放弃得分 95 的候选，选中得分 55 的结果；分数是事后评估，选择当时并不知道。其他失败来自错误前提被多个候选共同采用，或一次执行的随机波动。增加递归预算不能自动修好这些判断。
+
+在自己的系统里试验时，先挑输入固定、能够重跑的工作，并确保产物有办法验收。隔离候选工作区，保留基础执行作为对照，再统计完整调用量和人工验收结果。对于会直接发邮件、改线上数据的任务，需要先把可重复的试验环境建好：Harness² 会多次执行当前任务，任务本身的外部副作用不会因为换了配置就自动消失。这是由重跑机制得到的工程建议，不是本文已经验证的产品保障。
+
+复现论文还要固定任务划分。发布版文档说 LAB 完整任务流有 1,143 项，论文主表却只使用 100 项保留测试任务；不加选择地运行默认全集，不会自然得到相同口径。库是否从空开始、任务顺序和联网条件都需要记录。框架默认的种子控制任务排列，不控制模型采样。
+
+开源代码采用 Apache 2.0 许可证，第三方基准保留各自许可。未来的自动预算分配、经验库整理，仍属于论文提出的研究方向。当前材料支持的结论是：在被测职业任务与配置上，冻结模型也可以通过改进执行流程提高成绩，并让修改经验帮助后续任务。要判断它是否值得加入自己的系统，还得把额外推理与检查成本一同算进去。
+
+  </Prose>
+  <Summary surface="white" takeaways={[
+    { title: '理解方法', conclusion: '当前任务修改执行配置，后续任务借鉴修改经验。', detail: '新任务重置为基础配置；旧组件经核对后按需复用。行为对比支持取舍，但不保证答案正确。' },
+    { title: '动手顺序', conclusion: '先运行确定性演示，再做有明确预算的一项模型任务。', detail: '分开记录框架流程验证、作者报告的分数和自己的模型实测；检查任务划分、完整消耗与评分规则泄漏。' },
+  ]} note="依据 2026-10-09 论文 v1 与 2026-10-19 获取的源码提交 1cfe254。图为 Mermaid 教学示意。本地仅执行确定性演示，未复现模型基准或调用真实账号。" />
+</Section>
+</ArticleCanvas>
