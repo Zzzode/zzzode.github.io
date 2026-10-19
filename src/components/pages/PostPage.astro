@@ -6,6 +6,7 @@ import Sources from '../article/Sources.astro';
 import CoverBanner from '../article/CoverBanner.astro';
 import ArticleCanvas from '../article/ArticleCanvas.astro';
 import DailyBriefing from '../article/DailyBriefing.astro';
+import DailyCoverVisual from '../article/DailyCoverVisual.astro';
 import { isDaily, dailyNewestFirst } from '../../lib/post-policy';
 import { type Lang, t } from '../../i18n/ui';
 import { formatDate, formatDailyTime, isoDate } from '../../lib/format';
@@ -136,7 +137,9 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
     {daily ? (
       <>
         <a href={`${prefix}/daily/`} class="mb-5 inline-flex min-h-11 items-center text-[14px] text-blue">‹ {t(lang, 'daily.archive')}</a>
-        <CoverBanner kicker={`${t(lang, 'daily.eyebrow')} · ${daily.issueDate} · UTC+8`} title={post.data.title} lead={post.data.excerpt} />
+        <CoverBanner kicker={`${t(lang, 'daily.eyebrow')} · ${daily.issueDate} · UTC+8`} title={post.data.title} lead={post.data.excerpt}>
+          <DailyCoverVisual slot="visual" lang={lang} daily={daily} />
+        </CoverBanner>
         {daily.correction && <p class="mb-8 max-w-[760px] text-[14px] leading-relaxed text-muted">{post.data.updated && <><span>{t(lang, 'post.updated')} {formatDailyTime(post.data.updated.toISOString(), lang)}</span><br /></>}{daily.correction}</p>}
         <ArticleCanvas>
           <DailyBriefing lang={lang} daily={daily} sources={post.data.sources ?? []} />

@@ -1,0 +1,36 @@
+---
+import { type Lang, t } from '../../i18n/ui';
+import type { DailyMetadata } from '../../lib/post-schema';
+
+interface Props { lang: Lang; daily: DailyMetadata }
+const { lang, daily } = Astro.props;
+const confirmed = daily.items.length;
+const pending = daily.pending?.length ?? 0;
+const countSize = confirmed >= 100 ? 44 : confirmed >= 10 ? 56 : 72;
+const label = `${daily.issueDate} · ${t(lang, 'daily.cover.confirmed')} ${confirmed} · ${t(lang, 'daily.cover.pending')} ${pending}`;
+---
+
+<svg
+  data-daily-cover
+  data-confirmed-count={confirmed}
+  data-pending-count={pending}
+  viewBox="0 0 360 320"
+  class="w-full max-w-[440px]"
+  role="img"
+  aria-label={label}
+  style="font-family:var(--font-sans)"
+>
+  <rect width="360" height="320" rx="28" fill="var(--color-paper)" />
+  <rect x="42" y="30" width="288" height="278" rx="18" fill="var(--color-paper)" stroke="var(--color-line)" />
+  <rect x="30" y="18" width="288" height="278" rx="18" fill="var(--color-white)" stroke="var(--color-line-soft)" />
+  <text x="52" y="56" font-size="18" fill="var(--color-muted)">{daily.issueDate}</text>
+  <circle cx="292" cy="50" r="3.5" fill="var(--color-blue)" />
+  <path d="M52 76H296" stroke="var(--color-line-soft)" />
+  <text x="52" y="158" font-size={countSize} font-weight="600" fill="var(--color-ink)">{confirmed}</text>
+  <text x="152" y="128" font-size="22" font-weight="600" fill="var(--color-ink)">{t(lang, 'daily.cover.confirmed')}</text>
+  <text x="152" y="158" font-size="18" fill="var(--color-muted)">{t(lang, 'daily.cover.inWindow')}</text>
+  <path d="M52 186H296" stroke="var(--color-line-soft)" />
+  <text x="52" y="234" font-size="32" font-weight="600" fill="var(--color-ink-2)">{pending}</text>
+  <text x="104" y="230" font-size="20" fill="var(--color-ink-2)">{t(lang, 'daily.cover.pending')}</text>
+  <text x="52" y="270" font-size="18" fill="var(--color-muted)">{t(lang, 'daily.cover.note')}</text>
+</svg>
