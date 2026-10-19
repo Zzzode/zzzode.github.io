@@ -142,6 +142,8 @@ const dict = {
 
     'post.rssDescription': 'Zzzode 的技术文章与笔记。',
     'post.untranslated': '本文暂无英文版。',
+    'article.sequence.overview': '图解总览',
+    'article.sequence.pan': '横向查看完整图解',
     'post.minutes': '分钟阅读',
     'post.updated': '更新于 ',
     'post.adjacent': '上一篇 / 下一篇',
@@ -337,6 +339,8 @@ const dict = {
 
     'post.rssDescription': 'Technical articles and notes by Zzzode.',
     'post.untranslated': 'No English version of this post yet.',
+    'article.sequence.overview': 'Diagram overview',
+    'article.sequence.pan': 'Scroll horizontally to see the full diagram',
     'post.minutes': 'min read',
     'post.updated': 'Updated ',
     'post.adjacent': 'Previous / next post',

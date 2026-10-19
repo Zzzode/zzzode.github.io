@@ -1,0 +1,13 @@
+sequenceDiagram
+  participant A as Agent
+  participant G as Magpie
+  participant M as Model
+  A->>G: Messages + tools
+  G->>M: Model request
+  M-->>G: Tool + arguments + id
+  G-->>A: Client tool call
+  Note over A: Execute tool
+  A->>G: Tool result + id
+  G->>M: Continue
+  M-->>G: Reply
+  G-->>A: Client reply

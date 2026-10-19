@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant C as Claude Code
+  participant G as Magpie
+  participant U as Upstream
+  Note over C: settings.json
+  C->>G: POST /v1/messages
+  G->>U: Chat + tools
+  U-->>G: tool_calls · Read · id
+  G-->>C: tool_use · Read · id
+  Note over C: Run Read locally
+  C->>G: tool_result · id
+  G->>U: Tool result · same id
+  U-->>G: Answer text
+  G-->>C: Messages response

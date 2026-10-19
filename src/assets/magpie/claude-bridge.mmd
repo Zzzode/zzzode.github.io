@@ -1,0 +1,10 @@
+flowchart TB
+  client["Caller Agent"]
+  gateway["Magpie subscription bridge"]
+  cli["Local claude process"]
+  upstream["Claude subscription backend"]
+  client -->|"Request + tools"| gateway
+  gateway -->|"Start or resume"| cli
+  cli --> upstream
+  cli -->|"MCP tool call"| gateway
+  gateway -->|"Client executes tool"| client

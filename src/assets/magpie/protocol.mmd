@@ -1,0 +1,10 @@
+sequenceDiagram
+  participant C as Codex
+  participant G as Magpie
+  participant U as Upstream
+  C->>G: Responses request
+  Note over G: parse into Request
+  G->>U: Chat Completions
+  U-->>G: Chat stream
+  Note over G: decode into Event
+  G-->>C: Responses events

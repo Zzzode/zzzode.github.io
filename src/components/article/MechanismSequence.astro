@@ -1,0 +1,96 @@
+---
+import { createHash } from 'node:crypto';
+import { t, type Lang } from '../../i18n/ui';
+
+interface Step {
+  tag: string;
+  title: string;
+  body: string;
+}
+interface Props {
+  steps: Step[];
+}
+const { steps } = Astro.props;
+const missing = steps.flatMap((_, i) => Astro.slots.has(`frame-${i}`) ? [] : [`frame-${i}`]);
+if (steps.length === 0 || missing.length) {
+  throw new Error(`MechanismSequence requires ${steps.length} frame slots; missing: ${missing.join(', ') || 'steps'}`);
+}
+// Stable per-sequence anchors also distinguish the two sequences in one article.
+const sequenceId = `sequence-${createHash('sha256').update(JSON.stringify(steps)).digest('hex').slice(0, 10)}`;
+const lang: Lang = Astro.currentLocale === 'en' ? 'en' : 'zh';
+---
+
+<div class="mechanism-sequence not-prose" data-mechanism-sequence>
+  <nav class="sequence-overview" aria-label={t(lang, 'article.sequence.overview')}>
+    <p class="sequence-label">{t(lang, 'article.sequence.overview')}</p>
+    <ol>
+      {steps.map((step, i) => (
+        <li>
+          <a href={`#${sequenceId}-${i}`}>
+            <span class="sequence-number">{String(i + 1).padStart(2, '0')}</span>
+            <span>{step.tag.replace(/^\d+\s*[·/]\s*/, '')}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+  {steps.map((step, i) => (
+    <div class="sequence-row" id={`${sequenceId}-${i}`} data-sequence-step={i}>
+      <div class="sequence-copy">
+        <p class="sequence-label">{step.tag}</p>
+        <h3 data-sequence-title>{step.title}</h3>
+        <p class="sequence-body">{step.body}</p>
+      </div>
+      <figure>
+        <p class="sequence-pan">{t(lang, 'article.sequence.pan')}</p>
+        <div class="sequence-diagram" role="region" aria-label={step.title} tabindex="0">
+          <slot name={`frame-${i}`} />
+        </div>
+        {Astro.slots.has(`caption-${i}`) && (
+          <figcaption class="sequence-caption"><slot name={`caption-${i}`} /></figcaption>
+        )}
+      </figure>
+    </div>
+  ))}
+</div>
+
+<style>
+  .mechanism-sequence { padding: 28px; border-radius: var(--radius-card); background: var(--color-white); color: var(--color-ink-2); }
+  p, ol, figure { margin: 0; }
+  ol { padding: 0; list-style: none; }
+  .sequence-label { font-size: 12px; line-height: 1.6; color: var(--color-muted); }
+  .sequence-overview ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-top: 10px; }
+  .sequence-overview a { display: flex; align-items: baseline; gap: 10px; min-height: 44px; padding-block: 10px; font-size: 14px; font-weight: 500; text-decoration: none; color: var(--color-ink); }
+  .sequence-overview a:hover { color: var(--color-blue); }
+  .sequence-number { flex-shrink: 0; font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--color-muted); }
+  .sequence-row { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 36px; align-items: start; padding-block: 28px; border-top: 1px solid var(--color-line-soft); scroll-margin-top: 72px; }
+  .sequence-overview + .sequence-row { margin-top: 12px; }
+  .sequence-row:last-child { padding-bottom: 0; }
+  .sequence-copy, figure { min-width: 0; }
+  h3 { margin: 10px 0 14px; font-size: 21px; line-height: 1.35; font-weight: 600; letter-spacing: -0.02em; color: var(--color-ink); }
+  .sequence-body { font-size: 15.5px; line-height: 1.75; overflow-wrap: anywhere; }
+  .sequence-diagram { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-color: var(--color-line) transparent; scrollbar-width: thin; }
+  /* Numeric width is an authored readability floor for dense legacy diagrams.
+     Imported SVGs keep their own viewBox and natural readable size. */
+  .sequence-diagram :global(svg) { display: block; width: auto; max-width: none; height: auto; margin: 0 auto; }
+  .sequence-diagram :global(svg.sequence-frame) { min-width: 100%; }
+  .sequence-diagram :global(svg svg) { min-width: 0; }
+  .sequence-caption { margin-top: 12px; font-size: 12px; line-height: 1.7; color: var(--color-muted); overflow-wrap: anywhere; }
+  .sequence-caption :global(p) { margin: 0; }
+  .sequence-caption :global(p + p) { margin-top: 6px; }
+  .sequence-pan { display: none; font-size: 12px; color: var(--color-muted); margin-bottom: 8px; }
+  @media (max-width: 1199px) {
+    .sequence-diagram:has(svg[width]:not([width="100%"])) { padding-bottom: 8px; }
+    figure:has(svg[width]:not([width="100%"])) .sequence-pan { display: block; }
+  }
+  @media (max-width: 899px) {
+    .sequence-row { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  }
+  @media (max-width: 599px) {
+    .mechanism-sequence { padding: 20px; }
+    .sequence-overview ol { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .sequence-overview a { padding-block: 8px; }
+    .sequence-number { width: 24px; }
+    h3 { font-size: 20px; }
+  }
+</style>

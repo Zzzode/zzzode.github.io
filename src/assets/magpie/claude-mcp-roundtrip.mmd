@@ -1,0 +1,18 @@
+sequenceDiagram
+  participant A as Caller
+  participant G as Magpie
+  participant H as MCP helper
+  participant C as claude
+  A->>G: Request + tools
+  G->>C: stdin · JSON
+  Note over C: Ask backend
+  C->>H: tools/call
+  H->>G: POST + run token
+  G-->>A: Tool call · id
+  Note over H,C: Wait for result
+  Note over A: Run tool
+  A->>G: Result · id
+  G-->>H: Tool result
+  H-->>C: MCP tool result
+  C-->>G: stdout · JSON
+  G-->>A: Response

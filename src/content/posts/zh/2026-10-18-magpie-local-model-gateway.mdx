@@ -1,0 +1,417 @@
+---
+title: "Magpie：让多个 Agent 共用一个模型网关"
+date: 2026-10-18
+excerpt: "从一次 Codex 请求出发，讲清 Magpie 如何管理模型配置、转换协议、接入订阅与切换上游，再走完安装到真实任务验收的使用流程。"
+tags: ["Magpie", "AI Gateway", "Agent", "Developer Tools"]
+kind: distilled
+sources:
+  - title: "Magpie README · pinned source"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/README.md"
+  - title: "Magpie reference · configuration, gateway and routing"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/reference.md"
+  - title: "Magpie gateway implementation"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/gateway.go"
+  - title: "Magpie Request and Event intermediate representation"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/ir.go"
+  - title: "Magpie Claude subscription bridge"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/subsystems/claude-subscription-bridge.md"
+  - title: "Magpie fallback candidate planning"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/fallback.go"
+  - title: "Magpie native compaction ownership"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/native_compaction.go"
+  - title: "Magpie gateway sessions and optional recording"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/subsystems/gateway-sessions.md"
+  - title: "Magpie get started"
+    url: "https://usemagpie.ai/docs/start"
+  - title: "Magpie intent routing"
+    url: "https://usemagpie.ai/docs/intent"
+  - title: "Magpie privacy"
+    url: "https://usemagpie.ai/docs/privacy"
+  - title: "Remote Magpie"
+    url: "https://usemagpie.ai/docs/remote"
+  - title: "OpenAI · Advanced Configuration"
+    url: "https://learn.chatgpt.com/docs/config-file/config-advanced"
+  - title: "LiteLLM AI Gateway · context"
+    url: "https://docs.litellm.ai/docs/simple_proxy"
+  - title: "Magpie releases"
+    url: "https://github.com/yetone/magpie-releases/releases"
+  - title: "Magpie Claude Code configuration adapter"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/agent/claude.go"
+  - title: "Magpie Claude subprocess and MCP callback implementation"
+    url: "https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/claude_subscription.go"
+  - title: "Claude Code · Other LLM gateways"
+    url: "https://code.claude.com/docs/en/llm-gateway"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, CompareTable, Summary } from '@/components/article';
+import MechanismSequence from '@/components/article/MechanismSequence.astro';
+import overviewDiagram from '@/assets/magpie/overview.svg?raw';
+import protocolDiagram from '@/assets/magpie/protocol.svg?raw';
+import toolsDiagram from '@/assets/magpie/tools.svg?raw';
+import claudeBridgeDiagram from '@/assets/magpie/claude-bridge.svg?raw';
+import claudeCodeProxyDiagram from '@/assets/magpie/claude-code-proxy.svg?raw';
+import claudeMcpRoundtripDiagram from '@/assets/magpie/claude-mcp-roundtrip.svg?raw';
+
+<CoverBanner
+  kicker="SOURCE STUDY · YETONE/MAGPIE · 2026-10-18"
+  title="Magpie：让多个 Agent 共用一个模型网关"
+  lead="继续用你熟悉的编程 Agent，把模型选择和接口适配交给 Magpie。它在本机运行网关，也管理备用上游；是否值得安装，要看它能替你省掉多少反复改配置的工作。"
+  pills={[{ label: '本地网关' }, { label: '协议转换' }, { label: '模型路由' }]}
+>
+  <Fragment slot="visual" set:html={overviewDiagram} />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="why-magpie">
+  <SectionHead index="01" kicker="解决什么" title="工具越用越多，模型配置却各管各的" />
+  <Prose tile>
+
+Magpie 是一个开源的本地模型网关。它给本机上的 Agent 提供统一的模型入口，带有桌面管理界面，也能从命令行或终端界面操作。这里的 Agent 指围绕任务反复调用模型、读写文件或执行工具的应用，例如 Claude Code、Codex 和 Gemini CLI。[项目 README](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/README.md)说得很明确：如果你同时使用多个 Agent、多个模型供应商，或者多个账号，它才更有用。
+
+假设你喜欢 Codex 的工作方式，却想把日常任务交给另一个供应商的模型。你得找到配置文件，填上地址和凭据，再确认对方的接口是否符合 Codex 要求。换到 Claude Code，同一个供应商又要配置一遍。还有备用账号的话，遇到故障就得再手动切一次。
+
+麻烦在于，配置分散容易改错，协议不同又让填对地址的客户端未必能工作。OpenAI 的[自定义 provider 配置说明](https://learn.chatgpt.com/docs/config-file/config-advanced)解释了客户端如何接入自定义模型服务；上游接口的适配仍要另外处理。Magpie 把这部分工作放进了网关。
+
+供应商添加一次，各 Agent 就可以从同一个目录里选模型，接口转换和备用规则也在这里处理。代价同样具体：本地多了一个要持续运行的进程，出错时也多了一层兼容代码要查。
+
+如果你只用一个 Agent 和它原本的订阅，从来不切换，新增网关可能省不了多少事。它主要省掉的是反复改配置、切服务的操作。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '遇到的问题', wrap: true }, { label: 'Magpie 做什么', wrap: true }, { label: '仍取决于什么', wrap: true }]} rows={[
+    ['不同 Agent 分别配置供应商', '统一模型目录，按各工具的格式写配置', 'Agent 版本和本地配置的实际优先级'],
+    ['客户端与供应商使用不同接口', '转换请求和回复，包括流式输出及工具调用', '目标模型与该路径支持的能力'],
+    ['额度用完后要手动换服务', '按路由规则选择账号或备用模型', '可用额度、失败阶段和上下文是否可迁移'],
+    ['难以判断一次任务用了谁', '记录路由结果与用量，提供统一查看界面', '上游返回的计量数据和配置的价格'],
+  ]} />
+</Section>
+
+<Section canvas id="configuration-and-runtime">
+  <SectionHead index="02" kicker="两个动作" title="选模型时改配置，发请求时走网关" />
+  <Prose tile>
+
+你在 Magpie 界面上给 Codex 选择模型时，它会修改 Codex 自己的配置。随后在 Codex 里发送任务，模型请求才经过网关。这是两个动作。桌面菜单用来管理设置，请求能否发出去则依赖网关继续运行。
+
+按[固定源码版本的手册](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/reference.md#agents)，Claude Code 的相关设置在 `~/.claude/settings.json`，Codex 则使用 `~/.codex/config.toml`。Magpie 为 Codex 写入自己的 provider 配置，把模型入口指向本机网关，并设置选定的模型。项目说明，写入会保留无关的注释和格式，并采用原子写入，避免留下只写了一半的文件。项目内配置或客户端参数仍可能覆盖这些全局设置。
+
+网关默认地址是 `127.0.0.1:3425`。`127.0.0.1` 表示本机回环地址，按默认设置，其他电脑无法直接连接。桌面应用会启动网关，也可以用 `magpie serve` 单独运行它。终端界面 `magpie tui` 在没有其他 Magpie 实例提供网关时，也会承担这项工作；此时退出终端界面，客户端就失去了模型入口。
+
+模型通常写成 `provider/model`，例如 `deepseek/deepseek-chat`。前一段是 Magpie 中的供应商，后一段是该供应商提供的模型标识。即使两个服务提供同名模型，也能据此前缀区分来源。使用时从自己的目录里复制完整名称，文档中的示例名称未必一直有效。
+
+Provider 可以是持有 API key 的服务商，也可以是本地模型服务或订阅接入。API key 是调用服务的密钥。路由组则把多个候选模型放在一个名字后面，例如 `group/daily-coding`；Agent 只需选择这个组，网关再决定实际发往哪里。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '界面对象' }, { label: '它代表什么', wrap: true }, { label: '操作后的结果', wrap: true }]} rows={[
+    ['Providers', '提供模型的服务及其凭据', '模型进入统一目录，凭据由 Magpie 管理'],
+    ['Agents', '本机已识别的客户端', '为该客户端写入选定模型和网关地址'],
+    ['Routing groups', '一个名字后面的候选服务', '请求到来时按规则选路和处理故障'],
+    ['Profiles', '一组 Agent 设置的快照', '切回先前保存的设置组合；不等于完整文件备份'],
+  ]} />
+  <Prose tile>
+
+### Claude Code 的请求怎么接进来？
+
+以“继续用 Claude Code，模型换成另一个供应商”为例。[Claude Code 官方网关文档](https://code.claude.com/docs/en/llm-gateway)说明了自定义入口；Magpie 的[配置适配代码](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/agent/claude.go#L1486)利用这个入口，把请求导向本机网关。它修改配置，无须修改 Claude Code 程序。接入非 Claude 模型属于 Magpie 的适配行为，Anthropic 官方明确不提供这类路由的支持。
+
+下面是理解流程所需的配置片段。模型标识和网关凭据使用占位内容，实际由 Magpie 按你的选择写入；生成的完整文件还会包含其他字段。
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:3425",
+    "ANTHROPIC_AUTH_TOKEN": "REPLACE_WITH_MAGPIE_GATEWAY_TOKEN"
+  },
+  "model": "provider/model"
+}
+```
+
+`ANTHROPIC_BASE_URL` 改变请求的目的地址。`ANTHROPIC_AUTH_TOKEN` 用于连接网关，上游服务的密钥由 Magpie 使用。顶层 `model` 决定主要模型，Opus、Sonnet 和 Haiku 等档位还可以通过 `ANTHROPIC_DEFAULT_*_MODEL` 分别映射。
+
+旧教程中的模型设置可能与当前实现不同。本次核对的 Magpie 会删除它接管的配置中的 `ANTHROPIC_MODEL`，把主模型写到顶层 `model`。源码解释，前者会盖过 Claude Code 中 `/model` 的选择。设置时应核对所装版本，避免混用不同版本的字段。
+
+配置生效后，Claude Code 仍使用自己认识的 Messages 接口，只是目标服务器变成了 Magpie。接下来由网关选择真正的上游，需要时转换协议。
+
+  </Prose>
+</Section>
+
+<Section canvas id="protocol-and-tools">
+  <SectionHead index="03" kicker="请求流程" title="接口格式可以转换，工具调用还要完整走回来" />
+  <Prose tile>
+
+普通网络代理可以替你连接服务器，却未必懂模型接口。Magpie 还要读懂请求：用户消息和工具参数各按什么格式表示，哪些事件标记输出开始与结束。它对外提供 OpenAI Chat Completions、OpenAI Responses、Anthropic Messages 和 Gemini 接口。
+
+以 Codex 请求一个 Chat Completions 上游为例。这个教学例子中，Codex 发送 Responses 格式，目标服务却要求 `messages` 和另一种工具结构。Magpie 读取请求后，按目标接口重建内容；收到回复，再转回客户端认识的事件。
+
+在 [`translate`](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/gateway.go#L5575) 和 [`ir.go`](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/ir.go) 中，可以看到这条路径。`Request` 保存解析后的模型请求，包括消息和工具等信息；`Event` 表示流式回复中的文本、工具事件或错误。有了共同的内部表示，入口和出口就能组合，不必为每一种协议配对各写一套独立转换器。
+
+当上游已经支持客户端使用的协议时，网关可以走相应的直通路径，减少重新编码。不过，选路、鉴权以及必要的兼容处理仍然存在，不能把“直通”理解成任何请求都逐字节不变。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '01 · 接口转换', title: '请求和回复分开转换', body: '入口先把客户端请求读成内部 Request，再构造上游请求。回复中的流式事件被读成 Event，随后输出为客户端认识的协议。图示是教学路径，不是实测抓包。' },
+    { tag: '02 · 工具往返', title: '调用标识要随工具结果返回', body: '模型给出工具名和参数，网关转回客户端。客户端按自己的权限执行，再把结果和对应调用标识发回。读文件、运行测试等动作仍由原来的 Agent 承担。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={protocolDiagram} />
+    <p slot="caption-0">图中省略路由和鉴权；展示 Responses 与 Chat Completions 不同协议之间的转换。</p>
+    <Fragment slot="frame-1" set:html={toolsDiagram} />
+    <p slot="caption-1">普通客户端工具路径。网关自带的搜索等能力另有执行路径，见第九节。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 一次 Claude Code 读文件请求如何往返？
+
+假设 Claude Code 已经通过 Magpie 选择一个支持工具调用的 Chat Completions 模型。你让它检查项目中的文件，它把消息历史和可用工具一起发给网关。这个例子只解释执行顺序，没有使用真实账号抓包。
+
+模型选择调用 `Read` 后，上游返回工具名、参数和调用标识。Magpie 把它们转换成 Messages 的 `tool_use`，交给 Claude Code。Claude Code 按本地权限读取文件，再把同一调用标识对应的 `tool_result` 送回网关。Magpie 转成上游需要的工具结果格式，模型才能根据文件内容继续回答。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: 'Claude Code 作客户端', title: '文件由用户正在使用的 Claude Code 读取', body: '模型请求发往 Magpie，读文件仍留在 Claude Code。图中的 id 表示同一次工具调用的标识，用来把返回结果接回正确的调用；它不指某个固定编号。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={claudeCodeProxyDiagram} />
+    <p slot="caption-0">教学示例：Messages 入口连接 Chat Completions 上游。Read 的具体参数被省略，图中标出两边的工具事件与执行位置。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+能正常聊天，工具调用仍可能出错。模型返回一段看起来像 JSON 的文字，客户端未必会把它识别为工具调用。工具名和参数片段都要符合协议，调用标识与结束事件也得正确，下一次请求才能把执行结果接回去。
+
+转换接口也不会补上模型缺少的能力。图片能否处理、结构化输出是否有效，要看具体模型和请求路径，推理内容与服务端专用状态也一样。上游加密的内容，网关无法随意解读。选好模型后，用一次真实的读文件与测试任务检查工具能否正常往返，单纯问答验证不了这些。
+
+  </Prose>
+</Section>
+
+<Section canvas id="subscriptions">
+  <SectionHead index="04" kicker="订阅接入" title="API key 和订阅，走的可能是不同路径" />
+  <Prose tile>
+
+使用 API key 时，Magpie 用你添加的服务地址与密钥请求上游。订阅接入还涉及账号登录状态，各产品的实现不同。在 Providers 页面里，它们看起来都是模型来源，背后却可能走着不同的请求流程。
+
+“代理 Claude Code”还可能指反过来的方向：你在别的 Agent 中工作，由 Magpie 调用 Claude Code 来接入 Claude 订阅。两种方向中都有 Claude Code，它的位置却不同。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '比较项' }, { label: 'Claude Code 连接其他模型', wrap: true }, { label: '其他 Agent 使用 Claude 订阅', wrap: true }]} rows={[
+    ['Claude Code 的角色', '用户正在操作的客户端', '由 Magpie 启动或复用的上游子进程'],
+    ['请求怎么进入', 'Claude Code 向 Magpie 发送 Messages 请求', '原 Agent 向 Magpie 发请求，再由桥接交给 claude'],
+    ['连接使用的凭据', 'Claude Code 连接网关，Magpie 管理上游凭据', 'claude 子进程使用对应 Claude 订阅登录'],
+    ['谁读取项目文件', '用户的 Claude Code', '原 Agent；工具请求通过 MCP 桥接回来'],
+  ]} />
+  <Prose tile>
+
+按[订阅接入手册](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/reference.md#signed-in-agents-as-providers)，ChatGPT / Codex 路径利用账号登录状态访问相应后台接口；Claude 订阅路径会驱动本机真实的 `claude` 程序。后者还要把外部 Agent 声明的工具转接到这个进程。
+
+[Claude bridge 文档](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/subsystems/claude-subscription-bridge.md)说明，调用方的工具通过 MCP 提供给 Claude Code。MCP，即 Model Context Protocol，是让应用发现和调用外部工具的协议。Claude Code 发起工具请求，桥接把它交回调用方执行，再将结果送回等待中的 Claude Code 进程。
+
+下一轮对话到来时，桥接会尝试继续使用原进程。原进程已经被收起，就尝试从保存的会话恢复；无法恢复，才以完整历史启动新进程。Claude 订阅接入因此还要管理本地进程和会话，不能只按一次远程 API 转发来理解。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: 'Claude 订阅路径', title: '真实 CLI 进程处在模型请求链路中', body: 'Magpie 启动或恢复本机 claude，把调用方工具通过 MCP 提供给它。claude 向订阅后台请求模型，工具调用再沿桥接返回原 Agent。该结构来自源码文档，本文没有用真实账号运行。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={claudeBridgeDiagram} />
+    <p slot="caption-0">图中省略登录与回复文本，只标出进程边界和工具执行位置。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 子进程怎么等到原 Agent 的工具结果？
+
+[`claudeCLIArgs`](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/claude_subscription.go#L1919)将子进程的输入输出格式设为 `stream-json`。Magpie 通过标准输入、标准输出逐条交换 JSON 消息，把对话交给真实的 `claude` 程序，并持续接收其输出。
+
+工具定义通过一个单独的 MCP helper 提供给这个进程。helper 是 Magpie 启动的辅助程序，命令名为 `magpie claude-mcp-helper`。当 Claude Code 调用其中的工具，helper 会向网关的 `POST /_magpie/claude-mcp/<token>` 回调。这里的 token 属于本次运行，用于把回调交给正确的桥接进程；它与供应商 API key、远程客户端的 gateway key 用途不同。[实现代码](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/claude_subscription.go#L621)记录了 helper 配置和回调地址的准备过程。
+
+helper 中的工具调用会等着结果。Magpie 先按原 Agent 的接口返回调用，原 Agent 执行后，用下一次 HTTP 请求提交结果。网关把结果交回等待的 helper，Claude Code 的同一回合才继续。客户端发了两次 HTTP 请求，接续的是同一次工具调用。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: 'MCP 回调与恢复', title: '客户端返回工具结果，等待中的调用才继续', body: '图中 Caller 是用户真正操作的 Agent，claude 是 Magpie 启动的上游进程。MCP helper 把两者连接起来，模型要求的文件操作仍交给 Caller 执行。' },
+  ]}>
+    <Fragment slot="frame-0" set:html={claudeMcpRoundtripDiagram} />
+    <p slot="caption-0">教学时序图。图中省略 Claude 后台的网络往返，只标出子进程通信、带运行 token 的回调，以及工具结果如何解除等待。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+子进程也有专门的工具与环境设置。源码用 `--tools` 限制它自己的内置工具，通过 `--mcp-config` 提供桥接工具，`--strict-mcp-config` 则要求只使用指定的 MCP 配置。可选的内置搜索单独启用。因此，这个辅助 `claude` 不会替原 Agent 直接执行普通的 Read 或 Bash 工具。
+
+[`cleanClaudeEnv`](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/claude_subscription.go#L1961)还会移除继承环境里的 `ANTHROPIC_BASE_URL`、`ANTHROPIC_API_KEY` 和 `ANTHROPIC_AUTH_TOKEN` 等变量，启动参数中另有 `--setting-sources ""`。若继承了前一条路径指向 Magpie 的配置，子进程又可能把请求发回网关。这里对环境清理作用的解释来自源码推断，本文没有实际运行子进程验证。
+
+提示词也有区别。[桥接文档](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/subsystems/claude-subscription-bridge.md#the-callers-instructions-as-the-system-prompt-claudeleanprompt)说明，默认保留 Claude Code 自己的系统提示词，外部 Agent 的指令放在第一条用户消息的 `<external_system_instructions>` 中。因此，上游收到的提示词结构与原 Agent 最初提交的 API 请求不同。文档另有默认关闭的短系统提示词选项，不能把两种模式混为一谈。
+
+实际使用时，在 Providers 中添加订阅并完成对应服务的登录，再检查显示的模型与额度。Magpie 也会发现本机部分 Agent 已有的登录；不希望它读取时，可关闭 Settings → Privacy → Subscription accounts，或按手册使用 `magpie accounts discovery off`。只添加 API key 供应商也可以使用网关。
+
+以上是项目实现的技术路径。账号能访问哪些模型、订阅允许哪些用途，仍由服务商和账号条件决定。接入成功本身，不能证明服务商允许任意第三方客户端或共享方式。
+
+  </Prose>
+</Section>
+
+<Section canvas id="first-use">
+  <SectionHead index="05" kicker="完整上手" title="先接一个 API 供应商，把一次任务跑通" />
+  <Prose tile>
+
+第一次使用，建议从你已有权限的 API 供应商开始，先检查配置与协议转换。下面使用 DeepSeek 预设和 Codex，命令来自固定版本手册，模型标识需要换成你当前目录中的实际值。这些命令用于说明操作流程，本文未实际安装软件或修改 Agent 配置。
+
+### 安装并启动
+
+从 [usemagpie.ai](https://usemagpie.ai) 下载对应平台的应用。项目也提供终端安装方式：
+
+```bash
+curl -fsSL https://usemagpie.ai/install.sh | sh
+```
+
+打开应用，网关就会运行。只需要网关的话，执行 `magpie serve` 并保持该进程运行；在终端里管理模型则用 `magpie tui`。先把连接跑通，后台服务可以稍后再设。
+
+### 添加供应商，查看真实目录
+
+在 Providers → Add provider 中选择 DeepSeek，填入你自己的 API key，然后保存。密钥在界面里输入即可。随后用界面上的 Test 检查连接，或执行：
+
+```bash
+magpie provider test deepseek
+magpie models
+```
+
+Test 成功，说明相应的小请求能够完成。从 `magpie models` 输出中复制完整模型标识，避免凭显示名拼写，或照抄旧文章的模型版本。接自建服务时，在 Add provider 中填写兼容地址与密钥：OpenAI 兼容地址通常以 `/v1` 结束，Anthropic 兼容地址填写根地址，具体按该服务的说明操作。
+
+### 保存设置，再切换 Codex
+
+已有常用的 Agent 配置时，先用 `magpie save before-magpie` 保存设置组合。这份 profile 只涵盖 Magpie 管理的字段，重要配置文件仍应完整备份。然后在 Agents 页面选择 Codex，选中刚才目录里的模型。也可以用命令行操作，记得替换占位内容：
+
+```bash
+magpie save before-magpie
+MODEL_ID='deepseek/REPLACE_WITH_ID_FROM_MAGPIE_MODELS'
+magpie codex "$MODEL_ID"
+magpie ls
+```
+
+按[上手指南](https://usemagpie.ai/docs/start)，运行中的会话会保留启动时的设置。这次切换要到新会话才生效，Codex 应用还可能需要重启才能刷新目录。没有生效时，先确认自己是否仍在旧会话，再查项目配置或启动参数是否覆盖了全局设置。
+
+### 先验入口，再验工具
+
+也可以绕过 Agent，直接向默认本地网关发一个小请求。下面沿用已替换的 `MODEL_ID`，执行前请确认应用或 `magpie serve` 正在运行。
+
+```bash
+curl --no-buffer -i http://127.0.0.1:3425/v1/chat/completions \
+  -H 'Authorization: Bearer magpie' \
+  -H 'Content-Type: application/json' \
+  --data "{\"model\":\"${MODEL_ID}\",\"messages\":[{\"role\":\"user\",\"content\":\"Reply with OK.\"}],\"stream\":true}"
+```
+
+这里的 `magpie` 是默认本机接入示例中的占位 token，上游仍使用你在 Providers 添加的凭据。手册说明回复头 `X-Magpie-Provider` 和 `X-Magpie-Model` 会标出实际服务来源。把它们和 Routing 页面核对，比根据模型自我介绍判断可靠。远程、Docker 或经反向代理访问时，要按对应部署使用真正的 gateway key。
+
+入口通了，再新开一个 Codex 会话，让它在可丢弃的小项目里读取文件、运行现有测试。除了检查工具调用是否有效，还要看结果能否接回下一轮，最终回答是否符合实际测试结果。这样才能知道日常工作能不能跑通。
+
+要切回已保存的设置组合，执行 `magpie use before-magpie`，再新开会话。若你在切换后又手动改过配置，应核对恢复结果。恢复模型设置不会撤销 Agent 已经修改的代码。
+
+  </Prose>
+</Section>
+
+<Section canvas id="routing">
+  <SectionHead index="06" kicker="路由选择" title="先写清备用顺序，再考虑自动分配" />
+  <Prose tile>
+
+选路可以发生在两个地方：同一供应商有多个账号或 key，要选谁来服务；路由组里有多个模型，要选先尝试哪一个。备用模型的能力和价格可能不同，把它当成原模型的额外额度，容易忽略切换后的变化。
+
+刚开始配置时，`order` 最容易检查：主服务先用，无法回答时再尝试后面的候选。下面是教学模板，假设你已经添加两个有权使用的服务，并复制了各自的完整模型标识。
+
+```bash
+PRIMARY_MODEL='provider-a/REPLACE_WITH_PRIMARY_MODEL'
+BACKUP_MODEL='provider-b/REPLACE_WITH_BACKUP_MODEL'
+magpie group add 'Daily Coding' "models=$PRIMARY_MODEL,$BACKUP_MODEL" routing=order stays=session
+magpie groups
+magpie codex group/daily-coding
+```
+
+命令格式见[路由组手册](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/reference.md#routing-groups)。`routing=order` 决定候选顺序，`stays=session` 表示同一会话在选定账号或 key 还能服务时尽量保持在那里。创建后核对 `magpie groups` 显示的组标识，再为 Agent 选择它。日常也可以完全在 Routing 页面完成这些操作。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '模式' }, { label: '选择依据', wrap: true }, { label: '使用时要理解的区别', wrap: true }]} rows={[
+    ['order', '按配置顺序使用候选', '适合明确主备关系，不主动平均分流'],
+    ['smart', '在额度允许的订阅中，考虑额度重置时间', '默认策略；不根据回答质量给模型排名'],
+    ['rotate', '按会话的新一轮轮换候选', '通常会增加跨轮切换，可能牺牲缓存复用'],
+    ['usage', '优先较少使用的账号或 key', '有额度信息时用额度口径，否则还要依赖近期用量'],
+    ['pace', '结合剩余额度与重置前的时间', '用于分配订阅窗口，不能降低模型本身的消耗'],
+    ['weight', '按成员权重分配请求', '用于指定分流比例，不是质量权重'],
+  ]} />
+  <Prose tile>
+
+策略只作用于符合条件的候选。[候选规划代码](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/fallback.go)和手册都说明，是否启用、模型能力及故障冷却等条件也会影响结果。看一个策略名称，无法直接推断这次请求一定选谁。
+
+需要按任务选模型，可以在组内加规则：图片交给支持视觉的模型，长输入交给能容纳它的模型。[意图路由](https://usemagpie.ai/docs/intent)则会调用你选定的分类模型，判断新一轮用户消息属于哪类任务，再选对应成员。分类本身也是一次请求，可能增加延迟和用量，也可能判断错误。
+
+先让固定主备跑通，再观察哪些任务值得自动分类。规则少一些，结果变差时才容易查清：是分类错了，换了备用模型，还是协议转换出了问题。
+
+  </Prose>
+</Section>
+
+<Section canvas id="continuity-and-failure">
+  <SectionHead index="07" kicker="连续对话" title="能换上游，不代表任意时刻都能无缝继续" />
+  <Prose tile>
+
+对话能否继续，要同时看客户端持有的消息历史和上游已有的状态。普通历史文本可以重新发送，上游的提示词缓存与加密状态却未必能迁到另一个服务。
+
+Magpie 用会话亲和性保存一段对话与上游账号或 key 的关系。默认 `auto` 会考虑缓存是否值得保持；`session` 倾向于整个会话保持；`turn` 在一次用户输入及后续工具往返期间保持；`off` 允许每次重新选择。`strict` 则不允许已有会话切到另一个账号或 key，即使原候选已经限流，也会把错误交给客户端。
+
+这些选项来自[手册描述的策略](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/reference.md#how-magpie-picks-an-account)。保持账号有助于复用缓存，实际有没有命中、节省了多少，要看上游的计量。同一个账号还可以承载多段独立对话，因此不能仅凭账号判断会话归属。
+
+切换还得看回复到了哪一步。网关确认上游失败，尚未向客户端交付有效回复时，可以考虑下一候选。已经发出部分回复或工具事件，就不能把另一个模型的开头接在后面。源码用暂存与提交回复的处理区分这两种状态，重试因此受到约束。
+
+工具可能已经改了文件，网络才断。没有收到成功回复，不能证明工具没有执行；重发一次请求，也不保证这些副作用只发生一次。恢复时还得看 Agent 怎么处理。
+
+另一个明确限制来自[原生压缩状态的实现](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/internal/gateway/native_compaction.go)。当上游返回加密的压缩内容，Magpie 会记录由谁生成，后续带着该内容的请求只能回到能读取它的候选。原候选不可用时，代码会拒绝请求并说明原因，而不会随意删掉这段状态后换服务。否则，较早的上下文可能悄悄丢失。
+
+验收时，除了普通文本历史，还要检查跨工具调用的对话与压缩后的长会话。短问答能切换，只能说明那条路径走通了。
+
+  </Prose>
+</Section>
+
+<Section canvas id="usage-and-privacy">
+  <SectionHead index="08" kicker="用量与隐私" title="看见实际上游，也看清数据留在哪里" />
+  <Prose tile>
+
+一个会话可能访问多个候选，Agent 显示的组名并不能告诉你是谁回答了这次请求。到 Routing 页面可以查每次选择和尝试，到 Usage 看 token 与费用等数据；各服务报告的剩余额度则用 `magpie quota` 查看。token 是模型处理输入输出时使用的计量单位。
+
+项目支持按模型价格估算调用成本，也允许自行设置价格。这里的估算金额要与实际支出分开看：已经支付的订阅费用，与同一调用按 API 标价计算出的金额不同，后者不代表同额扣款。是否省钱，还要结合供应商账单和真实任务表现判断，本文没有做这项实验。
+
+凭据集中后，客户端通常只持有网关地址与本地接入信息。按[文件说明](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/reference.md#files)，API key 位于 Magpie 配置目录的 `providers.json`，登录信息另有文件。文档标注的 `0600` 是 Unix 文件权限，表示只允许文件所有者读写；它本身并不表示磁盘内容已加密。备份和同步时仍需要保护这些文件。
+
+网关在本机运行，模型请求仍会发给你选择的供应商；模型也在本机时，才可能不经过远程模型服务。[隐私页面](https://usemagpie.ai/docs/privacy)还说明，正式发布版本默认发送每日使用统计，包含随机安装标识、版本与系统，以及所用 Agent、供应商和模型等受限制的信息。项目声明，这些统计不发送提示词或凭据。可以在 Settings → Privacy 关闭统计，或设置 `DO_NOT_TRACK=1`。更新检查和模型目录等公共数据获取属于另外的网络活动。
+
+有路由和用量记录，不代表一定保存了完整会话正文。[会话记录文档](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/docs/subsystems/gateway-sessions.md#local-gateway-conversation-recording)说明，额外的本地网关会话记录开关默认关闭；开启后，才会保存经过规范化和清理的对话内容。Agent 自己保存的会话文件另算。向外部观测服务导出数据时，还要单独检查是否启用了正文。
+
+  </Prose>
+</Section>
+
+<Section canvas id="extensions-and-remote">
+  <SectionHead index="09" kicker="进一步用" title="插件和远程共享，按需要逐项增加" />
+  <Prose tile>
+
+基础网关跑通之后，Magpie 还有几类扩展。Provider 插件可以提供登录流程和模型调用；网关中间件则在请求经过时修改参数或处理回复。两者职责不同。项目的[插件说明](https://github.com/yetone/magpie/blob/ccb2eea1597d6d68e18427d6a9a2cbbe437c0602/README.md#plugins)列出这些入口，插件运行依赖 Bun，首次需要时会下载相应运行环境。
+
+中间件能看到流经它的请求和回复，也能改变发送内容。排查兼容问题时，要把它的处理一起查；用不到的能力不必加进来。Library 负责把指令、MCP 配置和技能等内容写入不同 Agent 的对应文件，省去重复维护。不过，文件分发一致，各 Agent 执行技能和工具的方式仍可能不同。
+
+搜索和图像能力也有单独路径。Magpie 可以借助有搜索能力的服务或搜索 API 提供搜索，并以 MCP 暴露相关工具。这些额外能力由网关参与调用，与“模型要求原 Agent 读本地文件”的普通工具路径不同；新增服务也有自己的凭据和费用来源。
+
+如果你想让笔记本使用台式机已有的模型服务，[Remote Magpie](https://usemagpie.ai/docs/remote)提供了对应模式：主要机器保存供应商和账号；另一台机器仍运行自己的 Magpie，负责配置本机 Agent，并把远程 Magpie 当作一个 provider。代码读写和终端任务仍留在发起任务的那台机器。
+
+共享时按文档开启局域网访问，并为客户端分配 gateway key，例如 `magpie gateway-key add 'Laptop'`。客户端使用该 key 连接，不能把默认回环示例的 `magpie` 当作远程密钥。项目还支持 Docker 部署和后台服务，但模型接口与管理页面需要分别配置。默认模型端口为 `3425`，管理页面通常使用 `3430`；能管理账号和设置的页面应当按管理权限保护。
+
+同步配置，是在机器之间复制受支持的设置。远程模式则把供应商凭据留在主机，由主机提供模型服务。哪些登录状态能同步、哪些必须重新登录，要查当前手册；一份配置备份未必包含可原样复制的全部账号状态。
+
+  </Prose>
+</Section>
+
+<Section canvas id="assessment">
+  <SectionHead index="10" kicker="如何判断" title="用你真实的 Agent 工作流决定是否保留它" />
+  <Prose tile>
+
+供应商和备用规则集中到 Magpie 后，你可以继续用熟悉的 Agent，按任务选择模型来源，也能查清实际请求去了哪里。网关本身必须保持可用；客户端或上游协议更新后，还得确认适配是否跟上。
+
+模型网关已有成熟产品，例如 [LiteLLM](https://docs.litellm.ai/docs/simple_proxy) 提供统一模型入口和用量管理。从本文材料看，Magpie 更突出的一点，是把本机各 Agent 的配置管理和运行时网关放在一起，同时接入订阅与本地模型。主要给程序提供服务时，应按部署与运维要求比较产品。每天在多个编程工具之间切换的人，则更容易用上 Magpie 的本地管理界面。
+
+这次调研依据公开文档和固定提交 `ccb2eea`，完整提交标识见引用链接。项目采用 MIT 许可证。发布包在独立的 [magpie-releases](https://github.com/yetone/magpie-releases/releases) 仓库分发，源码中的功能与某个已安装版本是否一致，还需要核对发布说明。本文没有做真实账号请求、故障切换实验或性能测试，也没有改动本机任何 Agent 设置。
+
+从第五节的单供应商流程开始，用一个可撤销的小任务检查文件读取与工具结果。确认能用，再加备用候选，观察请求实际去了哪里，中断后能否恢复。原来经常需要手动处理的工作省下来了，网关才值得留下。如果只是多运行了一个进程，日常操作没有减少，继续直接连接也很合理。
+
+  </Prose>
+  <Summary surface="white" takeaways={[
+    { title: '它负责的事情', conclusion: '统一模型配置，并在运行时处理请求的路由和协议转换。', detail: '原来的 Agent 继续承担任务编排与本地工具执行；订阅桥接和额外搜索能力有各自路径。' },
+    { title: '使用的起点', conclusion: '先验收一个真实任务，再增加主备路由。', detail: '核对实际供应商、工具往返和长会话恢复。兼容接口、缓存复用及订阅权益分别判断。' },
+  ]} note="2026-10-18 文档与源码调研。图为 Mermaid 教学示意；命令含明确占位符，需使用本机目录中的模型标识。未做真实上游执行或性能测量。" />
+</Section>
+</ArticleCanvas>

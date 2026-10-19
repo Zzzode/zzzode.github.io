@@ -1,0 +1,10 @@
+flowchart TB
+  agents["Claude Code · Codex · Gemini CLI"]
+  gateway["Magpie · 127.0.0.1:3425"]
+  api["API keys"]
+  plans["Subscriptions"]
+  local["Local models"]
+  agents --> gateway
+  gateway --> api
+  gateway --> plans
+  gateway --> local
