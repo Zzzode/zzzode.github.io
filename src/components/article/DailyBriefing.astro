@@ -40,7 +40,14 @@ const groups = [{ pending: false, items: daily.items }, { pending: true, items: 
       {item.eventEvidence && <p class="mt-4 text-[12px] leading-relaxed text-muted">{t(lang, 'daily.eventTime')} {formatEvidenceTime(item.eventEvidence, lang)}</p>}
       <ul class="mt-5 border-t border-line-soft pt-3">
         {item.sourceUrls.map((url) => { const source = sourceByUrl.get(url)!; return <li class="py-2">
-          <a href={url} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center break-words text-[14px] text-blue">{t(lang, 'daily.sources')}：{source.title} ↗</a>
+          <a href={url} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center break-words text-[14px] text-blue">
+            <span class="min-w-0">
+              {t(lang, 'daily.sources')}：{source.title}{' '}
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="inline-block h-3 w-3 align-[-1px]">
+                <path d="m4 12 8-8M4 4h8v8" />
+              </svg>
+            </span>
+          </a>
           <p class="text-[12px] leading-relaxed text-muted">{t(lang, 'daily.published')} {source.publication ? formatEvidenceTime(source.publication, lang) : formatDailyTime(source.publishedAt!, lang)}<br />{t(lang, 'daily.retrieved')} {formatDailyTime(source.retrievedAt!, lang)}</p>
         </li>; })}
       </ul>
