@@ -1,6 +1,6 @@
 {
   "policy": "Optional, evolving discovery seeds. No company allowlist, mandatory count or proof of leadership. Revisit identity, sources and relevance; record per-run access in the run ledger, not here.",
-  "asOf": "2026-10-17",
+  "asOf": "2026-10-22",
   "discoveryRoutes": [
     {
       "name": "Independent and emerging product discovery",
@@ -22,6 +22,30 @@
     }
   ],
   "entities": [
+    {
+      "name": "Recursive",
+      "identity": "verified_source",
+      "sources": ["https://recursive.com/updates/introducing-recursive-flint"],
+      "reason": "Local coding models and automated model research. Distinguish vendor descriptions from independently established self-improvement; follow exact checkpoint availability."
+    },
+    {
+      "name": "Opposable",
+      "identity": "verified_source",
+      "sources": ["https://getopposable.com/blog/computer-use-on-the-phone"],
+      "reason": "Independent on-device computer-use implementation. Preserve device, execution-stage and evaluation limits; source identity does not establish team size."
+    },
+    {
+      "name": "Flapping Airplanes",
+      "identity": "verified_source",
+      "sources": ["https://www.indexventures.com/perspectives/toward-more-efficient-ai-leading-flapping-airplanes-1b-series-a/"],
+      "reason": "Emerging AI research lab and financing. Trace round, currency and valuation to their distinct origins; funding is not technical validation."
+    },
+    {
+      "name": "Photon Bridge",
+      "identity": "verified_source",
+      "sources": ["https://www.photonbridge.com/news/photon-bridge-raises-%E2%82%AC10m-to-tackle-ai%E2%80%99s-emerging-laser-bottleneck"],
+      "reason": "AI infrastructure optical interconnect components. Follow engineering availability and financing without inferring deployment from a fundraising announcement."
+    },
     {
       "name": "Meta model tools",
       "identity": "verified_source",
