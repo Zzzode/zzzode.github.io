@@ -1,0 +1,123 @@
+{
+  "example_only": true,
+  "provenance": "Author-designed implementation blueprint, not a product configuration or an observed run.",
+  "project": "PocketTasks (fictional local CLI project)",
+  "proposal_id": "PLAN-G1-R1",
+  "goal_id": "G1",
+  "expected_goal_revision": 1,
+  "policy_version": "P1",
+  "baseline_revision": "CASE_BASELINE",
+  "harness_version": "H0",
+  "tasks": [
+    {
+      "id": "T1",
+      "role": "diagnosis",
+      "title": "Reproduce cancellation failure and freeze acceptance",
+      "depends_on": [],
+      "write_scope": [],
+      "acceptance_ids": [
+        "A1",
+        "A2"
+      ],
+      "gate_ids": [
+        "cancel-stops-writer",
+        "cancel-stops-file-growth"
+      ]
+    },
+    {
+      "id": "T2",
+      "role": "implementation",
+      "title": "Fix cancellation propagation",
+      "depends_on": [
+        "T1",
+        "T3"
+      ],
+      "write_scope": [
+        "src/jobs/**",
+        "tests/jobs/unit/**"
+      ],
+      "acceptance_ids": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "gate_ids": [
+        "job-regression"
+      ]
+    },
+    {
+      "id": "T3",
+      "role": "implementation",
+      "title": "Add an independent process scenario",
+      "depends_on": [
+        "T1"
+      ],
+      "write_scope": [
+        "tests/process/**"
+      ],
+      "acceptance_ids": [
+        "A1",
+        "A2"
+      ],
+      "gate_ids": [
+        "cancel-stops-writer",
+        "cancel-stops-file-growth"
+      ]
+    },
+    {
+      "id": "T4",
+      "role": "integration",
+      "title": "Integrate implementation and process tests",
+      "depends_on": [
+        "T2"
+      ],
+      "write_scope": [],
+      "acceptance_ids": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "gate_ids": [
+        "job-regression",
+        "cancel-stops-writer",
+        "cancel-stops-file-growth"
+      ]
+    },
+    {
+      "id": "T5",
+      "role": "review",
+      "title": "Review the integrated candidate and original acceptance",
+      "depends_on": [
+        "T4"
+      ],
+      "write_scope": [],
+      "acceptance_ids": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "gate_ids": [
+        "independent-review"
+      ]
+    },
+    {
+      "id": "T6",
+      "role": "delivery",
+      "title": "Produce authorized delivery and evidence package",
+      "depends_on": [
+        "T5"
+      ],
+      "write_scope": [],
+      "acceptance_ids": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "gate_ids": [
+        "integration-check"
+      ]
+    }
+  ],
+  "scheduling_note": "One repository writer slot. T3 first establishes the process scenario on a goal-local baseline. T2 starts from that baseline. Integration is serialized; parallel writing is outside the starting profile.",
+  "status": "PROPOSED_NOT_EXECUTED"
+}

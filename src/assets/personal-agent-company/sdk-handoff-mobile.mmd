@@ -1,0 +1,16 @@
+flowchart TB
+ N0["control → 数据库\n保存 PLAN 作业"]
+ N1["runner → 数据库\n领取并创建 Attempt"]
+ N2["runner → SDK 会话\nquery：使命与目标\n代码与输出 Schema"]
+ N3["SDK 会话 → runner\nstructured_output\n返回计划提案"]
+ N4["runner → control\n提交带版本的结果"]
+ N5["control 业务检查\n授权与无环依赖\n核对验收路径"]
+ N6["control → 数据库\n一次提交任务\n与 IMPLEMENT 作业"]
+ N7["后续按结果继续\n自动创建 VERIFY、REVIEW\n或关联返工作业"]
+ N0 --> N1
+ N1 --> N2
+ N2 --> N3
+ N3 --> N4
+ N4 --> N5
+ N5 --> N6
+ N6 --> N7

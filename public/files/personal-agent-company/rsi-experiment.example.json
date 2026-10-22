@@ -1,0 +1,34 @@
+{
+  "example_only": true,
+  "provenance": "Author-designed teaching example; not a product configuration or observed autonomous run.",
+  "project": "PocketTasks (fictional local CLI project)",
+  "experiment_id": "E1",
+  "scope": "harness improvement, not business-code completion",
+  "baseline_harness": "H0",
+  "candidate_harness": "H1",
+  "hypothesis": "Conditional process-lifecycle guidance reduces first-candidate cancellation defects and rework while preserving all required final behavior gates.",
+  "editable_surface": [
+    "skills/cancellation-verification/**"
+  ],
+  "frozen_surface": [
+    "mission and authority policy",
+    "evaluation runner",
+    "evaluation-set manifest",
+    "required final behavior gates"
+  ],
+  "development_cohort_ref": "teaching/dev-cancellation-cases",
+  "promotion_cohort_ref": "teaching/held-out-cases",
+  "measurements": [
+    "behavioral acceptance results",
+    "human interventions",
+    "false completion declarations",
+    "end-to-end agent time",
+    "execution cost"
+  ],
+  "promotion_rule": "Required behavior must not regress; prefer reduced human intervention within budget.",
+  "rollout": "New attempts only; retain old version and rollback reason.",
+  "result": {
+    "status": "NOT_RUN",
+    "reason": "This is an experiment contract example; no agents, model calls or project replay were executed."
+  }
+}

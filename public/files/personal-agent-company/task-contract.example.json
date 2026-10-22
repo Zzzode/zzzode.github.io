@@ -1,0 +1,55 @@
+{
+  "example_only": true,
+  "provenance": "Author-designed teaching example; not a product configuration or observed autonomous run.",
+  "project": "PocketTasks (fictional local CLI project)",
+  "task_id": "T2",
+  "goal_id": "G1",
+  "mission_id": "M1",
+  "title": "Fix cancellation propagation to the background writer",
+  "origin": {
+    "kind": "reproduced_failure",
+    "evidence_ref": "case/G1/T1/reproduction"
+  },
+  "depends_on": [
+    "T1",
+    "T3"
+  ],
+  "state": "READY",
+  "owner_role": "implementation",
+  "file_ownership": [
+    "src/jobs/**",
+    "tests/jobs/unit/**"
+  ],
+  "baseline_revision": "CASE_BASELINE (teaching identifier, not a real commit)",
+  "harness_version": "H0",
+  "acceptance": [
+    {
+      "id": "A1",
+      "behavior": "The background writer exits after cancellation",
+      "verification_kind": "process_scenario",
+      "scenario_id": "cancel-stops-writer"
+    },
+    {
+      "id": "A2",
+      "behavior": "The target file stops growing after acknowledged cancellation",
+      "verification_kind": "process_scenario",
+      "scenario_id": "cancel-stops-file-growth"
+    },
+    {
+      "id": "A3",
+      "behavior": "Existing task execution still passes the native suite",
+      "verification_kind": "native_suite",
+      "suite_id": "job-regression"
+    }
+  ],
+  "budget": {
+    "max_agent_seconds": 900,
+    "attempts_before_replan": 2
+  },
+  "completion_requires": [
+    "candidate revision",
+    "runner-collected evidence",
+    "review tied to that revision"
+  ],
+  "status_note": "READY assumes T1 and T3 are complete and the task baseline contains the independent scenario; no agent was actually dispatched."
+}

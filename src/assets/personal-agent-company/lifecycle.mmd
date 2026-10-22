@@ -1,0 +1,23 @@
+stateDiagram-v2
+ state "等待依赖" as Blocked
+ state "任务就绪" as Ready
+ state "执行中" as Running
+ state "独立验证" as Verifying
+ state "独立审查" as Reviewing
+ state "需要返工" as Rework
+ state "任务完成" as Done
+ state "任务撤销" as Cancelled
+ [*] --> Blocked
+ Blocked --> Ready: 依赖与授权满足
+ Ready --> Running: 原子领取有效尝试
+ Running --> Verifying: 候选与产物已接纳
+ Verifying --> Reviewing: 必要验证通过
+ Verifying --> Rework: 行为失败
+ Reviewing --> Rework: 审查缺陷
+ Reviewing --> Verifying: 请求补证
+ Reviewing --> Done: 合约通过
+ Rework --> Ready: 新尝试或修订计划
+ Running --> Blocked: 等待外部条件
+ Ready --> Cancelled: 目标撤销或计划替换
+ Running --> Cancelled: 停止并隔离尝试
+ Done --> Rework: 下游发现原产物缺陷

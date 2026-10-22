@@ -1,0 +1,47 @@
+{
+  "example_only": true,
+  "provenance": "Author-designed teaching example; not a product configuration or observed autonomous run.",
+  "project": "PocketTasks (fictional local CLI project)",
+  "mission_id": "M1",
+  "mission": "Maintain a reliable local task CLI with a compatible public interface.",
+  "outcomes": [
+    "Cancellation stops background writes",
+    "Existing workflows remain compatible",
+    "Reduce required human interventions"
+  ],
+  "authority": {
+    "autonomous": [
+      "Create and prioritize in-scope goals",
+      "Decompose, assign, review and rework tasks",
+      "Reallocate per-task budget within the company cap",
+      "Merge compatible fixes after required gates",
+      "Publish compatible patches only under an initial release grant"
+    ],
+    "human_decision": [
+      "Change mission or product direction",
+      "Break established public contracts",
+      "Perform irreversible user-data migration",
+      "Expand credentials or external data access",
+      "Increase company-wide resource cap"
+    ]
+  },
+  "release_grant": {
+    "enabled": false,
+    "scope": "No release authorization is granted by this example."
+  },
+  "resources": {
+    "max_concurrent_workers": 2,
+    "max_agent_seconds_per_day": 7200,
+    "attempts_before_replan": 2
+  },
+  "quality": {
+    "required_gate_ids": [
+      "native-regression",
+      "process-cancellation",
+      "independent-review",
+      "integration-check"
+    ],
+    "accept_unverified_as_pass": false
+  },
+  "idle_policy": "Wait for a relevant signal when no worthwhile eligible task exists."
+}

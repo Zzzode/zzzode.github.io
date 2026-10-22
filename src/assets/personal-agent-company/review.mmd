@@ -1,0 +1,11 @@
+sequenceDiagram
+ participant W as 实现 Agent
+ participant R as 执行与证据程序
+ participant Q as 审查 Agent
+ W->>R: 提交候选版本
+ R->>R: 固定版本运行原生验证
+ R->>Q: 合约、差异与证据引用
+ Q->>R: 要求补充场景与复核
+ R-->>Q: 原始结果和未验证项
+ Q-->>R: 绑定版本的缺陷或通过结论
+ R-->>W: 自动返工任务或集成状态

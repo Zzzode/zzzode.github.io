@@ -1,0 +1,13 @@
+sequenceDiagram
+ participant C as control
+ participant R as runner
+ participant M as SDK 模型会话
+ participant D as 持久状态
+ C->>D: 保存 PLAN 作业
+ R->>D: 领取并创建 Attempt
+ R->>M: query：使命、目标、代码、输出 Schema
+ M-->>R: structured_output：计划提案
+ R->>C: 提交带版本的结果
+ C->>C: 检查授权、无环依赖和验收路径
+ C->>D: 一次提交任务与 IMPLEMENT 作业
+ Note over C,D: 后续按结果创建 VERIFY、REVIEW 或返工作业

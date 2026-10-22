@@ -1,0 +1,55 @@
+{
+  "example_only": true,
+  "provenance": "Author-designed implementation blueprint, not a product configuration or an observed run.",
+  "project": "PocketTasks (fictional local CLI project)",
+  "runtime": {
+    "language": "TypeScript",
+    "database": "PostgreSQL",
+    "agent_adapter": "Claude Agent SDK",
+    "model_id": "SET_TO_A_LOCALLY_EVALUATED_MODEL",
+    "sdk_version": "PIN_AFTER_ADAPTER_VALIDATION"
+  },
+  "processes": [
+    "control",
+    "runner"
+  ],
+  "scheduling": {
+    "max_active_model_attempts": 2,
+    "max_repository_writers": 1,
+    "job_scan_seconds": 10,
+    "lease_seconds": 60,
+    "heartbeat_seconds": 15,
+    "progress_timeout_seconds": 300,
+    "failed_hypotheses_before_replan": 2,
+    "max_successive_plan_revisions": 3
+  },
+  "budget": {
+    "agent_seconds_per_day": 7200,
+    "harness_experiment_share": 0.1,
+    "accounting": "Reserve before dispatch; settle after receipts; retain unknown usage conservatively. Time and provider billing are different limits."
+  },
+  "authority": {
+    "initial_policy_version": "P1",
+    "release_enabled": false,
+    "external_notifications_enabled": false
+  },
+  "verification": {
+    "required_gate_registry": "control-owned registry, pinned outside worker-writable source",
+    "evidence_binding": [
+      "candidate_revision",
+      "requirements_version",
+      "runner_image_digest",
+      "verifier_version",
+      "command_or_scenario",
+      "artifact_hash"
+    ],
+    "scenario_limits": "Configure per project; no universal cancellation latency is implied."
+  },
+  "operations": {
+    "durable_truth": "database rows",
+    "notification_role": "wake-up hint only",
+    "unknown_external_outcome": "reconcile before retry",
+    "on_plan_exhaustion": "defer the goal with reasons; continue unrelated work; do not require routine human dispatch"
+  },
+  "status": "DESIGN_ONLY_NOT_RUNNABLE"
+}

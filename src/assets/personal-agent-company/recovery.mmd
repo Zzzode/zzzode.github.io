@@ -1,0 +1,11 @@
+sequenceDiagram
+ participant S as 调度程序
+ participant D as 持久状态
+ participant W as 工作进程
+ S->>D: 原子领取任务与尝试代次
+ S->>W: 启动并固定代码和 Harness
+ W-->>D: 追加阶段进展和证据
+ Note over S,W: 调度或工作进程中断
+ S->>D: 重启读取状态与外部回执
+ S->>W: 核对存活并停止过期尝试
+ S->>D: 接纳当前代次结果或排定恢复

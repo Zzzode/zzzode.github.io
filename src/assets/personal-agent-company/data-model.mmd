@@ -1,0 +1,20 @@
+flowchart TB
+ P[Project
+使命与策略版本] --> G[Goal
+结果与来源]
+ G --> T[Task
+业务合约与依赖]
+ T --> J[Job
+角色、去重键、待执行状态]
+ J --> A[Attempt
+代次、租约、环境、Harness]
+ A --> E[Evidence
+版本、验证项、原始产物]
+ E --> R[Review
+同一候选的结论]
+ G --> D[Decision
+只阻塞受影响目标]
+ J --> V[Event
+转换原因与后续作业]
+ A --> X[EffectIntent
+外部动作与回执]

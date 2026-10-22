@@ -1,0 +1,14 @@
+sequenceDiagram
+ participant C as 控制 / 领取程序
+ participant D as PostgreSQL
+ participant R as Runner / 容器
+ C->>D: 开始短事务，锁项目配额与 READY 作业
+ C->>D: 核对依赖、策略、配额；递增代次
+ C->>D: 保存 Attempt、预算预留和事件
+ D-->>C: 提交执行资格
+ C->>R: 以 Attempt 标识幂等启动
+ Note over C,R: 外部执行期间不持有数据库锁
+ R-->>C: 回传候选与产物引用
+ C->>D: 短事务核对代次、租约与版本
+ C->>D: 接纳结果、结算并创建 VERIFY 作业
+ D-->>C: 提交，后续调度可见

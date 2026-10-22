@@ -1,0 +1,22 @@
+flowchart TB
+ H[人：使命与重大选择] --> C[control：事件、策略、调度]
+ S[CI / Issue / 周期扫描] --> C
+ C <--> D[(PostgreSQL
+权威状态与作业)]
+ D <--> R[runner：领取与启动]
+ R --> A[受限容器
+经营 / 计划 / 实现 / 审查]
+ A --> R
+ R --> V[独立 verifier
+原生验证与场景]
+ V --> F[制品目录
+证据与哈希]
+ R --> F
+ F --> I
+ C --> I[可信 integrator
+集成与授权交付]
+ I --> G[目标 Git 分支 / 产物]
+ D --> L[improver
+回放与 Harness 候选]
+ L --> D
+ C -.重大决策包.-> H

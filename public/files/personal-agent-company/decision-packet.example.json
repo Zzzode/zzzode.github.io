@@ -1,0 +1,32 @@
+{
+  "example_only": true,
+  "provenance": "Author-designed teaching example; not a product configuration or observed autonomous run.",
+  "project": "PocketTasks (fictional local CLI project)",
+  "decision_id": "D1",
+  "mission_id": "M1",
+  "goal_id": "G2",
+  "kind": "product-direction",
+  "status": "NEEDS_DECISION",
+  "question": "Should PocketTasks expand from a local CLI to an account-based cloud sync service?",
+  "reason_for_escalation": "Outside the current local-only mission and data-access grant.",
+  "evidence_refs": [
+    "case/G2/request-summary"
+  ],
+  "options": [
+    {
+      "id": "local-only",
+      "effect": "Retain local behavior and document export/import.",
+      "recommended": true
+    },
+    {
+      "id": "research-sync",
+      "effect": "Authorize a bounded design study; no service deployment or user-data upload."
+    },
+    {
+      "id": "cloud-product",
+      "effect": "Revise the mission, privacy/data rules and operating budget before implementation."
+    }
+  ],
+  "while_waiting": "Continue independent maintenance goals under M1. Do not create an unapproved cloud deployment.",
+  "decision_effect": "Record the selected option and new policy version; resume affected work only if authorized."
+}

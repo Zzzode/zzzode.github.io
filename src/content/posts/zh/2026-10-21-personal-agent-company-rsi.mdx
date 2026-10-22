@@ -1,0 +1,1008 @@
+---
+title: "个人 Agent 公司：让代码项目自主运转"
+date: 2026-10-21
+updated: 2026-10-22
+excerpt: "一套可以据此实现的个人 Agent 公司设计：TypeScript 控制服务、PostgreSQL 作业与事务、Claude Agent SDK、独立验收和版本化 RSI；具体讲清模块、选型、调度、自动返工与恢复，只把重大决策交给人。"
+tags: ["Agent", "RSI", "Harness", "Software Engineering", "Autonomy"]
+kind: distilled
+sources:
+  - title: "Cognition · Devin can now Manage Devins · 2026-03-19"
+    url: "https://cognition.com/blog/devin-can-now-manage-devins"
+  - title: "Anthropic · Harness design for long-running application development · 2026-03-24"
+    url: "https://www.anthropic.com/research/harness-design-long-running-apps"
+  - title: "Cursor · Agent swarms and the new model economics · 2026-07-20"
+    url: "https://cursor.com/blog/agent-swarm-model-economics"
+  - title: "OpenAI Symphony · pinned README and preview boundary"
+    url: "https://github.com/openai/symphony/blob/be10a1b79df723d6d7612b5651c8522704dafb2e/README.md"
+  - title: "OpenAI Symphony · service specification · Draft v1"
+    url: "https://github.com/openai/symphony/blob/be10a1b79df723d6d7612b5651c8522704dafb2e/SPEC.md"
+  - title: "OpenAI Symphony · reference workflow"
+    url: "https://github.com/openai/symphony/blob/be10a1b79df723d6d7612b5651c8522704dafb2e/elixir/WORKFLOW.md"
+  - title: "OpenAI Symphony · continuation and reconciliation implementation"
+    url: "https://github.com/openai/symphony/blob/be10a1b79df723d6d7612b5651c8522704dafb2e/elixir/lib/symphony_elixir/orchestrator.ex"
+  - title: "Google Research Harness² · two recursion levels"
+    url: "https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/README.md"
+  - title: "Harness² · Recursive Agent Harnessing for an Open World · 2026-10-09"
+    url: "https://arxiv.org/abs/2610.14224"
+  - title: "GEPA · reflective optimization and evaluator interface"
+    url: "https://github.com/gepa-ai/gepa/blob/8f287de942f41a6d1e0e7e5b2d576247c4bedee9/README.md"
+  - title: "Karpathy autoresearch · editable code and fixed evaluation"
+    url: "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/program.md"
+  - title: "Karpathy autoresearch · scope and human-authored program"
+    url: "https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/README.md"
+  - title: "LangGraph · persistence, checkpointers and stores"
+    url: "https://docs.langchain.com/oss/python/langgraph/persistence"
+  - title: "Sakana AI · Darwin Gödel Machine · 2025-05-30"
+    url: "https://sakana.ai/dgm/"
+  - title: "Claude Agent SDK · programmable Claude Code runtime"
+    url: "https://code.claude.com/docs/en/agent-sdk/overview"
+  - title: "Claude Agent SDK · structured output and error handling"
+    url: "https://code.claude.com/docs/en/agent-sdk/structured-outputs"
+  - title: "Claude Agent SDK · permission evaluation order"
+    url: "https://code.claude.com/docs/en/agent-sdk/permissions"
+  - title: "Claude Agent SDK · secure deployment boundaries"
+    url: "https://code.claude.com/docs/en/agent-sdk/secure-deployment"
+  - title: "PostgreSQL 18 · SELECT and SKIP LOCKED"
+    url: "https://www.postgresql.org/docs/18/sql-select.html"
+  - title: "PostgreSQL 18 · LISTEN"
+    url: "https://www.postgresql.org/docs/18/sql-listen.html"
+  - title: "PostgreSQL 18 · NOTIFY"
+    url: "https://www.postgresql.org/docs/18/sql-notify.html"
+  - title: "Git · worktree boundaries"
+    url: "https://git-scm.com/docs/git-worktree"
+  - title: "Docker · isolation and daemon security"
+    url: "https://docs.docker.com/engine/security/"
+  - title: "Temporal · durable workflow execution"
+    url: "https://docs.temporal.io/workflow-execution"
+  - title: "Fastify · HTTP framework documentation"
+    url: "https://fastify.dev/docs/latest/"
+  - title: "node-postgres · same-client transactions"
+    url: "https://node-postgres.com/features/transactions"
+  - title: "Zod · parsing and schema validation"
+    url: "https://zod.dev/basics"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, CompareTable, Summary } from '@/components/article';
+import MechanismSequence from '@/components/article/MechanismSequence.astro';
+import CompanyDiagram from '@/components/article/personal-agent-company/CompanyDiagram.astro';
+import overview from '@/assets/personal-agent-company/overview.svg?raw';
+import authority from '@/assets/personal-agent-company/authority.svg?raw';
+import roles from '@/assets/personal-agent-company/roles.svg?raw';
+import intake from '@/assets/personal-agent-company/intake.svg?raw';
+import dependencies from '@/assets/personal-agent-company/dependencies.svg?raw';
+import lifecycle from '@/assets/personal-agent-company/lifecycle.svg?raw';
+import recovery from '@/assets/personal-agent-company/recovery.svg?raw';
+import review from '@/assets/personal-agent-company/review.svg?raw';
+import operatingDay from '@/assets/personal-agent-company/operating-day.svg?raw';
+import rsi from '@/assets/personal-agent-company/rsi.svg?raw';
+import architecture from '@/assets/personal-agent-company/architecture.svg?raw';
+import dataModel from '@/assets/personal-agent-company/data-model.svg?raw';
+import claimTransaction from '@/assets/personal-agent-company/claim-transaction.svg?raw';
+import sdkHandoff from '@/assets/personal-agent-company/sdk-handoff.svg?raw';
+
+import architectureNarrow from '@/assets/personal-agent-company/architecture-mobile.svg?raw';
+import authorityNarrow from '@/assets/personal-agent-company/authority-mobile.svg?raw';
+import rolesNarrow from '@/assets/personal-agent-company/roles-mobile.svg?raw';
+import intakeNarrow from '@/assets/personal-agent-company/intake-mobile.svg?raw';
+import dataModelNarrow from '@/assets/personal-agent-company/data-model-mobile.svg?raw';
+import lifecycleNarrow from '@/assets/personal-agent-company/lifecycle-mobile.svg?raw';
+import rsiNarrow from '@/assets/personal-agent-company/rsi-mobile.svg?raw';
+import claimTransactionNarrow from '@/assets/personal-agent-company/claim-transaction-mobile.svg?raw';
+import recoveryNarrow from '@/assets/personal-agent-company/recovery-mobile.svg?raw';
+import reviewNarrow from '@/assets/personal-agent-company/review-mobile.svg?raw';
+import sdkHandoffNarrow from '@/assets/personal-agent-company/sdk-handoff-mobile.svg?raw';
+
+<CoverBanner kicker="SOURCE STUDY & DESIGN · PERSONAL AGENT COMPANY · UPDATED 2026-10-22" title="个人 Agent 公司：让代码项目自主运转" lead="具体设计一套能自己接活、分派、验收和返工的个人 Agent 系统。选定技术栈，画清进程与数据，再逐步走过调度、失败恢复和 RSI。人只决定方向与重大授权。" pills={[{ label: '自主经营' }, { label: '重大决策' }]}>
+  <Fragment slot="visual" set:html={overview} />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="company-and-evidence">
+  <SectionHead index="01" kicker="目标与现状" title="一个人拥有项目，由 Agent 负责日常经营" />
+  <Prose tile>
+
+个人代码项目常常卡在工作交接处：实现模型结束后，人把代码发给审查模型；审查模型找到问题，人再把意见搬回去；会话停了，人补一句“继续”。即使代码大多由模型完成，决定下一步和推动工作的人仍然没有离开。
+
+个人 Agent 公司要接管这些日常经营工作。人给出项目使命、资源上限和需要自己决定的重大事项；系统在这些条件内观察问题，形成目标，自主选择优先级，再把目标推进到交付。它也负责判断什么工作不值得做，什么时候应该等待新证据。长期目标足够清楚，Agent 就应能据此建立后续的多个工作项。
+
+这里的“公司”是职责和授权的组织方式，不涉及公司注册，也没有证明系统已经可以自动赚钱。本文讨论的是个人代码项目的设计蓝图。产品能力采用官方说明，开源机制核对固定源码；后面的 PocketTasks 案例、预算和版本变化均为教学设计，没有运行一家真实的自主 Agent 公司。
+
+### 自主经营与 RSI 解决不同问题
+
+RSI 是 Recursive Self-Improvement，即递归自我改进。个人项目最容易着手的对象是 Harness：围绕模型运行的提示词、工具、上下文管理与执行流程。模型权重可以保持不变。若改进器本身也根据已有经验改变候选生成和选择方式，就进一步触及“怎样改进自己的改进方法”。
+
+[Sakana AI 的 DGM](https://sakana.ai/dgm/)展示了改写 Agent 代码、用编程任务评测、保留不同变体继续探索的研究路线。[Harness²](https://arxiv.org/abs/2610.14224)则区分当前任务上的执行配置改进，以及跨任务保留的改进经验。关于其具体递归过程，可接着读[本站的 Harness² 源码文章](/posts/2026-10-19-harness2-recursive-agent-harnessing/)。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '能力' }, { label: '具体变化', wrap: true }, { label: '对个人项目的意义', wrap: true }]} rows={[
+    ['任务执行', '把当前代码修好，交付需求', '解决这一件事'],
+    ['自主经营', 'Agent 决定下一步工作，自动分派并监督完成', '人不再承担日常推进与转发'],
+    ['Harness 改进', '从失败中提出流程或工具修改，验证后用于后续任务', '减少同类错误与人为介入'],
+    ['改进方法的改进', '改变改进器选择问题、产生候选与保留经验的方法', '需要额外评测，不能仅凭自述认定更聪明'],
+  ]} />
+  <Prose tile>
+
+### 业内已经公开了哪些可借鉴机制
+
+[Cognition 的 Managed Devins](https://cognition.com/blog/devin-can-now-manage-devins)已把主会话设为协调者，让它创建隔离子会话、查看轨迹并纠偏，还能监控消耗、安排回访。它直接覆盖了模型管理模型的产品需求；以下不声称对这个闭源产品做过独立实测。
+
+[Anthropic 的长任务实验](https://www.anthropic.com/research/harness-design-long-running-apps)把计划、实现与评估分开，并在开发前明确完成条件。它同时记录了审查偏宽松、漏检，以及更换模型后可以删去部分复杂流程的情况。[Cursor 的研究](https://cursor.com/blog/agent-swarm-model-economics)则把任务树用于上下文分工，尝试多种审查视角，并让 Agent 维护共享 Field Guide。这些材料解释了各自为何选择相应机制，不能直接拼成通用的“最佳公司配置”。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '参考方案' }, { label: '可借鉴的职责', wrap: true }, { label: '需要保留的边界', wrap: true }]} rows={[
+    ['Managed Devins', '模型协调者分派、监控、纠偏', '官方产品说明；不是本文实测的无人值守保证'],
+    ['Anthropic 长任务 Harness', '任务合约、独立评估、实际操作应用', '工程实验；Evaluator 仍需校准'],
+    ['Cursor Agent Swarm', '分层上下文、共享决策、不同审查视角', '大规模研究；其吞吐策略和花费不直接适用于个人项目'],
+    ['OpenAI Symphony', '任务领取、隔离执行、续跑和状态核对', '工程预览；自身不交付完整经营层或 RSI'],
+    ['GEPA', '用轨迹反馈优化提示词、代码或配置', '需要评测器；不负责日常任务队列'],
+    ['autoresearch', '固定评测与预算，保留改善、丢弃退化', '原项目优化训练代码，program.md 主要由人编写'],
+    ['Harness²', '当前任务的配置试验与跨任务改进经验', '研究实现；模型判断仍可能选错候选'],
+  ]} />
+  <Prose tile>
+
+后文给出的是综合这些机制后的个人项目方案。公司的经营职责、事件模型和 JSON 模板是本文建议，并非任何一个产品原样提供的接口。先让普通工作自行流转，再通过可验证的改进减少它对人的依赖。
+
+  </Prose>
+</Section>
+
+<Section canvas id="system-architecture">
+  <SectionHead index="02" kicker="运行架构" title="一套控制服务，按需启动 Agent，所有交接进入数据库" />
+  <Prose tile>
+
+本文选择一套具体的起步架构：单台持续在线的 Linux 主机，运行 TypeScript 控制服务和 PostgreSQL；编码会话由 Claude Agent SDK 在受限容器里按需启动。一个仓库起步只允许一个代码写入者，读代码、审查和收集证据可以按配额并行。没有工作时不调用模型。这个选择面向个人持有、规模有限的代码项目，属于本文的工程建议。
+
+控制服务采用模块化单体：代码在一个工程里，模块之间通过明确函数和持久对象交接。部署时把可信的控制进程与执行不可信代码的进程分开。暂时不引入微服务，也不让公司里的每个角色都成为常驻服务。
+
+### 先把进程画清楚
+
+常驻的 `control` 进程接收信号，处理事件，维护业务状态，决定是否需要调用某个角色。常驻的 `runner` 进程负责领取执行作业、准备容器、启动模型会话并收回产物。两者可以出自同一个代码包，但使用不同凭据。PostgreSQL 保存权威状态；本地制品目录保存大型日志和验证产物，数据库保存它们的哈希与引用。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '部署与信任边界', title: '控制器掌握状态，执行器承接模型，验证器独立取证', body: '人通过决策入口修改授权。控制器把需要判断的工作写入持久作业；执行器拉取后启动对应角色。源码和测试在隔离环境运行，代码写入者拿不到任务数据库、发布凭据或控制器源码的写权限。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={architecture} narrow={architectureNarrow} />
+    <p slot="caption-0">本文选定的参考架构，未部署。图中箭头是数据或控制通道，不表示每个盒子都是独立微服务。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+`control` 内部有五个模块。`intake` 将 CI 失败、Issue 与周期扫描统一成 Signal；`portfolio` 调用经营 Agent，决定接受哪个目标；`planning` 接受计划者生成的任务依赖图；`scheduler` 根据依赖和配额生成执行作业；`reducer` 接收执行、验证和审查结果，推进状态。`policy` 是它们共同调用的授权检查模块。它们都在控制服务内，不需要单独的网络服务。
+
+`runner` 不决定产品方向。它把某条 Job 变成 Attempt，运行时固定任务合约、代码版本、策略版本及 Harness。`verifier` 运行项目登记的验证项并采集结果；它属于执行侧，但使用独立于实现者的环境与证据回传身份。`integrator` 是唯一能更新目标分支的受信组件。`improver` 则按周期消费失败轨迹，提交新的 Harness 候选。
+
+### 模型在哪些地方作决定
+
+经营 Agent 判断工作值不值得做，计划 Agent 决定怎样拆分，实现 Agent 选择局部实现，审查 Agent 寻找遗漏。程序负责校验权限、领取任务、记录状态和触发下一步。模型可以重写计划，验收规则与总预算仍按已批准的策略执行。
+
+例如，计划者输出“先复现，再分别修改代码和编写进程场景”。控制服务检查依赖图后保存任务。此后谁可以启动、结果是否过期、是否该发起审查，都由状态机处理。实现失败后，只要存在普通返工路径，程序就生成返工作业，再按需要调用模型调整方案。人不用在两个窗口之间转述意见。
+
+### 这套设计坚持哪些原则
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '设计原则' }, { label: '落实到什么机制', wrap: true }, { label: '违反时会出现什么问题', wrap: true }]} rows={[
+    ['业务判断交给模型，执行资格由程序校验', '结构化提案经过策略、依赖和配额检查后生效', '模型说一句批准就扩大权限'],
+    ['状态必须独立于模型会话', 'Goal、Task、Job、Attempt 分开保存，事件可追溯', '会话结束后靠人补一句继续'],
+    ['正常路径可以无人确认地走完', '审查失败自动返工，依赖满足自动派发', '人变成消息队列和任务调度器'],
+    ['完成必须对应版本与证据', '验收绑定代码、验证器版本、环境和原始结果', '用一句测试通过覆盖未知行为'],
+    ['失败先留在公司内部处理', '诊断、重规划、等待资源是正常业务状态', '每次超时和模型分歧都找人'],
+    ['改进不能修改自己这次的评分条件', '候选 Harness 与采用基线分开，尝试固定版本', '通过降低门槛制造进步'],
+    ['先限制并发，再用证据扩大', '单仓库一个写入槽，集成串行', '多个 Agent 同时改接口，协调成本超过收益'],
+  ]} />
+  <Prose tile>
+
+这里没有要求业务流程永远固定。Agent 可以增加诊断任务、改变依赖或放弃低价值目标。固定的是提交这些变化时必须满足的约束，以及“什么算已经完成”的判定过程。这样既保留模型的规划能力，也让运行可以解释和恢复。
+
+  </Prose>
+</Section>
+
+<Section canvas id="technology-choices">
+  <SectionHead index="03" kicker="技术选型" title="起步就选一条实现路线，并说明什么时候才换" />
+  <Prose tile>
+
+对这个单人场景，本文推荐 TypeScript、PostgreSQL 和 Claude Agent SDK。HTTP 入口可用 [Fastify](https://fastify.dev/docs/latest/)，结构校验用 [Zod](https://zod.dev/basics)，数据库连接用 [pg](https://node-postgres.com/features/transactions)。TypeScript 让控制逻辑直接使用带类型的对象。数据库承担持久状态与事务，SDK 则负责已有的编码工具循环。自己编写的部分集中在经营规则与状态转换上。下表是建议的默认方案，不是对所有框架的排行榜。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '位置' }, { label: '本文选择', wrap: true }, { label: '取舍及更换条件', wrap: true }]} rows={[
+    ['控制服务', 'TypeScript；HTTP 用 Fastify，输入和模型结果用 Zod 校验', '一个语言维护控制器与 SDK 适配；已有稳定 Python 栈时可整体用 Python，无需混写'],
+    ['权威状态', 'PostgreSQL；Node 驱动用 pg，显式 SQL 事务', '任务、作业和事件一次提交；单进程试验可用 SQLite，本文的多进程领取以 PostgreSQL 为准'],
+    ['作业派发', '数据库 jobs 表；定时扫描，LISTEN/NOTIFY 仅作唤醒提示', '减少数据库加消息队列的双写；需要复杂长事务编排时再评估 Temporal'],
+    ['编码运行时', 'Claude Agent SDK 的 TypeScript query()；固定经过验证的 SDK 版本', '沿用 Claude Code 的工具循环；替换编码运行时只修改适配器，不迁移任务状态'],
+    ['代码与执行隔离', 'Git 管理基线；尝试使用独立容器和本地源码副本', 'worktree 可协助宿主机准备代码，但不是权限隔离；可写的共享 Git 元数据不挂进 Worker'],
+    ['验证', '项目原生测试加独立 verifier；登记场景与环境', '复用真实验证，不重写一套只给 Agent 看的测试'],
+    ['产物与经验', 'Git 保存版本；本地制品目录保存日志；PostgreSQL 保存引用与经验索引', '先按项目、文件和失败类型检索；出现真实检索缺口后再引入向量库'],
+    ['常驻部署', 'Linux 主机上的 control、runner、数据库；用现有进程管理器重启', '个人电脑合盖后不算持续在线；宿主机离线期间停止接活，恢复后核对状态'],
+    ['人机入口', '一个决策收件箱和只读经营报告', '日常派发在内部完成；入口只处理授权变化、暂停和需要人的选择'],
+  ]} />
+  <Prose tile>
+
+### 为什么这里不把所有框架都接上
+
+[Symphony](https://github.com/openai/symphony/blob/be10a1b79df723d6d7612b5651c8522704dafb2e/README.md)可以承担已有 Issue 的执行调度，LangGraph 可以管理图状态和检查点；[Temporal](https://docs.temporal.io/workflow-execution)适用于需要可靠恢复的长流程编排。本文默认方案由 PostgreSQL 和有限状态机承担任务状态，起步再套一层图状态与另一套任务队列，会产生多个“当前任务到底在哪一步”的来源。
+
+已有 Symphony 或 LangGraph 系统时，应保留一个权威状态源，按它的恢复语义补经营能力。本文选择显式业务状态机，是为了把个人项目必须实现的转换写清楚，范围仅限这套代码交付流程。若后来需要维护大量跨服务的定时器、补偿流程与长时间等待，应重新评估成熟工作流引擎，避免继续扩建自制平台。
+
+### 哪些技术事实已经核对
+
+[Claude Agent SDK 官方说明](https://code.claude.com/docs/en/agent-sdk/overview)明确它可在 TypeScript/Python 中使用 Claude Code 的工具循环。[PostgreSQL 的 SELECT 文档](https://www.postgresql.org/docs/18/sql-select.html)说明 `SKIP LOCKED` 可用于多个消费者领取队列型表；它不适合拿来产生普通业务的一致性视图。[LISTEN](https://www.postgresql.org/docs/18/sql-listen.html)的注册随连接结束而清除，[NOTIFY](https://www.postgresql.org/docs/18/sql-notify.html)则在事务提交后发送。因此任务保存在表里，通知仅提示控制器重新查询，丢一次通知仍能由扫描补上。
+
+Git 的 [worktree](https://git-scm.com/docs/git-worktree)允许一个仓库有多个工作树，但不提供进程或凭据隔离。本文让容器拿独立源码副本，产物由可信进程收回。容器本身还需要文件和网络限制；[Docker 官方文档](https://docs.docker.com/engine/security/)也指出隔离效果取决于配置，不能仅凭用了容器就认定权限受控。
+
+  </Prose>
+</Section>
+
+<Section canvas id="mission-and-authority">
+  <SectionHead index="04" kicker="使命与授权" title="人决定方向，Agent 获得日常工作的决定权" />
+  <Prose tile>
+
+如果每一个 Bug 是否值得修、每个子任务交给谁，都要人确认，系统仍然只是一组执行工具。要让它负责项目，必须把一部分决定权交出去。需要写清“允许它为了什么结果做哪些决定”。工具权限只是其中一部分。
+
+以虚构的 PocketTasks 为例，它是一款本地任务 CLI，即命令行工具。使命可以是：持续改善任务运行的可靠性，同时维持已有公开接口的兼容。负责人 Agent 可以自行处理符合使命的缺陷、安排验证、调整日常工作顺序；将产品改成需要账号的云服务，则改变了项目方向，应由人决定。
+
+### 用可解释的条件定义重大事项
+
+重大决策应当由后果界定。一个文件改动很少，也可能改变持久化数据格式；一次多文件修复，也可能完全处于已授权的兼容维护范围。不能只用修改行数或“涉及共享模块”这类表面指标代替判断。实际落地仍要服从所在仓库已经约定的变更规则，授权不一致时先修订约定。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '事项' }, { label: '日常授权内如何处理', wrap: true }, { label: '何时才需要人决定', wrap: true }]} rows={[
+    ['目标与路线', 'Agent 从使命产生并排序兼容维护目标', '改变目标用户、项目使命或核心产品方向'],
+    ['任务安排', 'Agent 拆任务、选执行者、安排审查与返工', '为完成目标必须扩大既定授权'],
+    ['资源分配', '负责人在公司总配额内调整各任务预算', '增加公司总预算或引入未经批准的外部服务'],
+    ['接口与数据', '按现有兼容承诺实施修复', '打破公开契约，或执行不可逆的用户数据迁移'],
+    ['发布', '有初始发布授权时，满足条件的兼容补丁自动发布', '超出发布授权范围；未授权时不得自行视为允许'],
+    ['普通故障', '运维角色恢复环境、重排任务或等待资源', '恢复必须新增权限，或需要承担未授权后果'],
+  ]} caption="本文建议的授权分工。具体项目可不同，但必须预先写清；这张表不授予当前仓库提交、合并或发布权限。" />
+  <MechanismSequence steps={[
+    { tag: '决策归属', title: '先检查既定授权，再决定是否需要人', body: '计划、分派和局部重试应在 Agent 内部处理。只有行动需要改变使命、权限或总资源承诺时，才提交重大决策。任务局部预算耗尽可以先重排，不应自动变成人的待办。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={authority} narrow={authorityNarrow} />
+    <p slot="caption-0">设计建议。条件应由结构化策略和运行时共同检查；主控模型的同意不等于增加了权限。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 一份公司章程需要约束什么
+
+[公司章程示例](/files/personal-agent-company/company-charter.example.json)包含使命、结果要求、授权和资源上限。下列字段来自该教学模板；这些字段不是某个 Agent 产品的配置规范：
+
+```json
+{
+  "mission_id": "M1",
+  "resources": {
+    "max_concurrent_workers": 2,
+    "max_agent_seconds_per_day": 7200,
+    "attempts_before_replan": 2
+  },
+  "release_grant": {
+    "enabled": false,
+    "scope": "No release authorization is granted by this example."
+  }
+}
+```
+
+这里的并发数和时间上限都是教学起点，没有实测最优之意。两次尝试后进入重新规划，也不意味着必须找人批准第三次；负责人可以在公司总预算内更换假设、另行分配资源。达到公司上限后，系统可以等待下一周期；只有确实需要提高上限时，才请求人的决定。
+
+策略还需要版本。人批准一个改变后，系统保存决定、理由和生效版本；子任务引用自己运行时采用的版本。这样事后才能解释某次行动依据什么授权，也能避免一次聊天中的模糊答复被永久扩大解释。
+
+  </Prose>
+</Section>
+
+<Section canvas id="organization">
+  <SectionHead index="05" kicker="职责组织" title="让经营、实现和监督分别保留合适的上下文" />
+  <Prose tile>
+
+一套个人系统可以有多个职责，按需启动相应模型会话。没有必要让每个角色全天保持一个持续思考的进程。真正需要持续存在的是目标、任务和运行状态；模型上下文可以按当前职责重建。
+
+经营负责人维护项目整体：当前结果离使命有多远，哪些问题值得投入，本周期资源先给谁。计划角色把目标拆成可执行工作，确定依赖与边界。实现角色集中处理一个局部问题。审查角色从验收条件出发重新检查，运维职责则由程序和必要的诊断模型共同承担。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '职责' }, { label: '它必须知道什么', wrap: true }, { label: '交回什么', wrap: true }]} rows={[
+    ['经营负责人', '使命、结果指标、目标组合、总配额与主要阻塞', '目标优先级、预算安排、重大决策包'],
+    ['计划角色', '目标、代码边界、依赖与已有设计决定', '任务合约、依赖图、执行角色选择'],
+    ['实现角色', '分配到的合约、必要代码和相关经验', '候选版本、执行记录、剩余问题'],
+    ['审查角色', '原始需求、验收项、实际差异与可信执行结果', '绑定版本的缺陷、补证请求或通过结论'],
+    ['运维职责', '进程、租约、队列、资源和外部回执', '恢复动作、状态核对和可追踪事件'],
+    ['改进角色', '多次任务的失败证据、代价与适用范围', '可评测的 Harness 候选与采用建议'],
+  ]} />
+  <MechanismSequence steps={[
+    { tag: '职责与信息', title: '每个角色拿到足够判断的信息，也承担明确输出', body: '负责人通过结果和证据摘要掌握经营状态，实现者保留局部细节，审查者独立检查。改进职责可以按周期启动，不必加入每一次修复。图表示职责关系，不要求部署同等数量的常驻 Agent。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={roles} narrow={rolesNarrow} />
+    <p slot="caption-0">本文设计图；起步时经营与计划可由同一主控承担，审查仍应使用新的上下文。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 模块放在哪里，调用边界怎么划
+
+下面给出建议的代码布局。这些文件属于待创建的 Agent 公司工程，尚未实现。
+
+```text
+src/control/main.ts
+src/control/intake.ts
+src/control/portfolio.ts
+src/control/planning.ts
+src/control/scheduler.ts
+src/control/reducer.ts
+src/control/policy.ts
+src/runner/main.ts
+src/runner/adapters/claude.ts
+src/runner/sandbox.ts
+src/verification/registry.ts
+src/verification/runner.ts
+src/integration/service.ts
+src/improvement/experiments.ts
+src/domain/contracts.ts
+src/storage/queries.ts
+```
+
+`contracts.ts` 定义 Signal、GoalProposal、PlanProposal、TaskContract 与各类执行结果。`storage` 只处理持久读写，不能自行决定某个候选已经通过验收；这个决定归 `reducer`，并由 `policy` 和验证门槛共同约束。Agent Adapter 不直接写 Task 状态，避免换一个模型运行时就改变业务规则。
+
+控制器对执行器提供 `claimJob`、`heartbeatAttempt`、`submitAttemptResult` 和 `readAssignedContext` 等内部入口，执行器凭尝试身份只能访问自己被分配的对象。`planning.acceptPlan` 和 `reducer.applyResult` 是控制器内部方法，不作为任意 Worker 可以调用的公开管理工具。它们是本文设计的接口名称，需要在自己的工程里实现。
+
+### 分派要有工具和结果通道
+
+主控需要能创建任务、查询状态、给正在执行的会话补充信息，以及启动审查。若它只能在聊天里说“让另一个 Agent 去做”，却没有相应执行接口，分派仍会落回人身上。工具调用的结果必须进入任务记录，而不只是展示一句已发送。
+
+可以把接口设计为 `create_task`、`assign_task`、`request_review` 和 `request_decision` 等受约束的动作。这些是本文建议的工具名称，实际系统可使用自己的 API。运行时检查目标任务、现有权限和资源余量，成功后返回任务或尝试标识；模型据此跟踪结果。
+
+Agent 之间也不必互相广播完整对话。局部实现细节优先保留在证据文件里，给负责人一个短摘要和可追溯引用；发生矛盾时再取回原始记录。公司内的共享设计决定需要一个权威版本，由负责该问题的角色维护，避免两个计划者分别替同一接口作决定。
+
+第一版可以让经营、计划、实现与审查使用同一个经过项目评测的模型，分别启动上下文。先把公司运行通路做对，再用项目轨迹决定哪些角色适合更便宜的模型。更贵的模型适合哪些判断、便宜模型能否可靠执行清楚的合约，都需要在自己的项目上测。此文不把某次厂商实验的模型组合当作通用答案。
+
+  </Prose>
+</Section>
+
+<Section canvas id="work-discovery">
+  <SectionHead index="06" kicker="自主立项" title="工作从使命和项目状态产生，无须人逐条派单" />
+  <Prose tile>
+
+让 Agent 公司独立运转，必须补上“下一件事从哪里来”。仅从人写好的 Issue 领取任务，自动化的是派单后的执行。经营负责人还应读取已授权的数据来源，把失败、用户反馈和既定路线中的缺口整理成工作线索，再自行决定哪些值得立项。
+
+对个人代码项目，可用来源包括原生测试结果、已收集的运行错误、现有 Issue、发布后的回归信号，以及负责人维护的路线图。数据源需要先接通，且保留来源身份。系统不能把访问不到的用户反馈当成已经看过，也不能从一条外部 Issue 文本获得新增权限。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '从信号到目标', title: '先建立有来源的线索，再决定是否投入', body: '相似报告归并到同一问题，负责人核对使命与价值后创建目标。目标再变成有依赖的任务。价值不足、条件尚未成熟或没有证据的问题，可以归档并等待；持续运行不要求持续制造代码变更。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={intake} narrow={intakeNarrow} />
+    <p slot="caption-0">本文建议的工作来源。系统只读取已接入并获授权的资料，不会自动获得这些外部平台的访问权。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 哪些事件会唤醒经营 Agent
+
+外部 CI 失败先以来源系统和运行标识去重，写入 Signal 与待处理事件。单纯心跳、同一失败的重复日志不会再次启动经营 Agent。新增独立失败、目标完成、计划无法继续，以及定期经营检查到期，才生成 OWNER Job。同一项目的经营 Job 合并尚未处理的线索，避免十条同源日志启动十个负责人。
+
+经营 Agent 读取使命、当前目标摘要、资源余量与本次线索，返回 `CREATE_GOAL`、`ATTACH_TO_GOAL`、`DEFER` 或 `DISCARD`。`portfolio` 检查提案后提交：创建目标同时生成 PLAN Job；归并则把来源附到现有目标。它不会直接从日志跳到任意 Shell 命令。
+
+优先级先分故障恢复、兼容维护与可选改进，再在同类中考虑影响、阻塞关系与等待时间。模型提供理由和等级，程序按已接受的优先级、依赖及公平性规则领取。计划者已经决定任务内容、责任角色与模型配置建议，经营者决定优先级和预算；程序只落实合法的就绪任务。这样，分派判断由 Agent 作出，启动与交接由程序保证，无须主控在聊天里点名“下一位请工作”。
+
+### 线索需要怎样变成可决定的工作
+
+一条“任务偶尔取消失败”还不足以安排实现。诊断角色先关联可复现的调用路径，保存输入条件与行为证据，并确认是否已有同类任务。若多个报错来自同一根因，就合并到一个目标中，避免多个 Agent 同时修同一个问题。
+
+判断是否重复，需要比较问题本身。完全相同的日志可能由不同环境引起，不同日志也可能属于同一个资源释放缺陷。可以先用确定性的标识缩小候选，再让模型比较根因与影响范围。合并后的目标仍要保留原始引用，才能检查修复是否覆盖了不同表现。
+
+优先级由经营负责人决定，但要能解释。对 PocketTasks，丢失用户结果或后台任务无法停止，应高于没有已知影响的内部整理；阻塞既定路线的缺陷，应高于一个刚想到的新功能。这里的排序是使命下的设计建议，应由项目自己的价值规则约束。
+
+### 目标与候选池分别保存
+
+目标表达希望改善的结果，例如“取消后后台写入可靠停止”；任务表达达成它的一部分工作，例如“复现进程仍在运行的路径”。负责人可以自主创建这些普通目标，也可以把探索性工作放进候选池，等待信息或配额更充分时再处理。
+
+候选池不应成为无边界的愿望清单。每项至少有来源、预期结果和不处理的影响，过期后重新检查或删除。一个改进看起来有趣，却无法说明为何服务当前使命，可以不做。空闲期间，运行时等待相关事件或下一次经营检查；不必唤醒模型反复问自己还有什么可以重构。
+
+  </Prose>
+</Section>
+
+<Section canvas id="contracts-and-dispatch">
+  <SectionHead index="07" kicker="任务分派" title="从结果拆到合约，再让运行时执行分派" />
+  <Prose tile>
+
+计划者需要把目标拆到一个执行会话可以处理的范围，并保留依赖。DAG 是有向无环图，用来表达哪些任务必须先完成。它能让系统区分真正独立的并行工作和需要顺序执行的工作，也避免已完成一个局部任务就误报整个目标完成。
+
+在教学案例中，T1 复现取消失败并固定验收；T3 建立独立进程验证，先确认旧版本会失败；T2 再以包含该场景的内部基线修改取消传播。本文默认一个仓库写入槽，先验证场景、后业务修复。T4 将修复集成到目标候选，T5 完成独立审查，T6 才按现有授权交付。审查发现缺陷时，系统自动产生关联返工，无须人搬运意见。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '依赖与集成', title: '先完成可验证的场景，再实现修复并集成重验', body: '本例先建立能暴露缺陷的进程场景，再交给实现者。独立审查指使用新的上下文与可信验证结果，不要求所有工作同时运行。集成后仍须重新验收。图中任务编号是标识，不表示排序。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={dependencies} />
+    <p slot="caption-0">T1—T6 是教学任务，不代表真实仓库已创建这些 Issue，也没有实际启动工作会话。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 合约定义可观察结果，给实现保留空间
+
+[任务合约示例](/files/personal-agent-company/task-contract.example.json)记录上级目标、依赖、文件职责、验收条件与采用的 Harness 版本。示例中的逻辑验证项需要由目标项目映射成自己的原生命令；它不是可直接运行的服务配置。
+
+```json
+{
+  "task_id": "T2",
+  "goal_id": "G1",
+  "depends_on": ["T1", "T3"],
+  "owner_role": "implementation",
+  "file_ownership": ["src/jobs/**", "tests/jobs/unit/**"],
+  "harness_version": "H0",
+  "budget": {
+    "max_agent_seconds": 900,
+    "attempts_before_replan": 2
+  }
+}
+```
+
+完成条件应写成“取消后，后台写入进程退出，目标文件不再增长”。“增加一个取消标记”只能描述实现手段，无法证明结果；“所有测试通过”又没有说明测试覆盖了什么。合约还要包含需要保留的旧行为，避免修好取消却破坏正常运行。
+
+计划者不应在最初把所有函数结构写死。确定目标和接口约束后，执行者根据代码选择实现；若必须改变已约定的设计，则提交内部设计问题给负责的计划者。只有超出公司现有授权的部分才进入人的重大决策队列。
+
+### 一个结果会自动触发哪一个角色
+
+下面是 `reducer` 的转换规则，属于本文设计。每条转换同时检查有效 Attempt、任务版本和权限；状态改变、事件与下一条 Job 在同一事务里写入。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '收到的结果' }, { label: '程序动作', wrap: true }, { label: '下一次模型调用', wrap: true }]} rows={[
+    ['计划提案有效', '保存任务和依赖，开放前置条件满足的任务', '需要诊断或实现时启动相应角色'],
+    ['实现返回候选', '保存候选，Task 进入 VERIFYING，创建 VERIFY Job', '验证本身不要求模型参与'],
+    ['必要验证失败', '保存失败证据，创建关联返工 IMPLEMENT Job', '实现者读取原始失败并修正假设'],
+    ['必要验证通过', 'Task 进入 REVIEWING，创建绑定候选的 REVIEW Job', '新上下文的审查者'],
+    ['审查 REWORK', '将缺陷交给负责的任务，失效受影响的下游结果', '原执行者或重新分配的执行者'],
+    ['审查 NEEDS_EVIDENCE', '只增加对应 VERIFY Job，不能写成通过', '补证后再审查，不必重写代码'],
+    ['审查 PASS', '完成当前任务；依赖满足则开放集成或后续任务', '只在下一任务需要判断时调用'],
+    ['连续假设失败', '冻结失败记录，创建 PLAN 修订作业', '计划者缩小问题或更换技术路径'],
+    ['交付回执已确认', 'Goal 完成；更新经营摘要，生成下一轮经营事件', '经营者从未完成目标继续选择'],
+  ]} />
+  <Prose tile>
+
+新计划替换尚未执行的任务时，需要检查旧计划 revision，并撤销旧 Job 的执行资格。已完成产物只有仍满足新合约才可复用；已经启动的尝试则先取消或隔离，不能让两份计划同时拥有相同写入职责。
+
+可给重规划设一个连续次数上限。本文的[运行策略示例](/files/personal-agent-company/runtime-config.example.json)采用两次失败假设后重规划，最多连续三次计划修订；这些是教学参数。仍无法推进时，目标进入 `DEFERRED`，保存诊断、已试方案和可恢复条件，经营者继续处理其他目标。只有下一步需要改变使命或授权，才创建人的决策项。失败次数耗尽本身不会把人变成替补调度器。
+
+### 分派包含角色、工作区与验收责任
+
+分派时，负责人可以选择执行模型和工具集，运行时负责建立隔离工作区，固定代码基线，并登记尝试。一个任务只应有一个有效的执行责任者；多人读代码不冲突，多个执行者同时拥有同一份写入职责则需要特别处理。
+
+任务可以被重新分配。若原执行者反复在同一假设上失败，计划者应读取失败记录，改变任务大小或验证路径，再交给新的尝试。仅更换模型名称、把相同提示词重新发送，不足以说明策略已经改变。此前做过什么和为什么失败，要一起传给接任者。
+
+  </Prose>
+</Section>
+
+<Section canvas id="persistent-schema">
+  <SectionHead index="08" kicker="数据与事务" title="Task 是业务责任，Job 是待执行工作，Attempt 是一次实际运行" />
+  <Prose tile>
+
+这三个对象承担不同责任。Task 表示要实现的结果，例如 T2 修复取消传播。Job 表示系统现在需要调用哪种能力。每次实际运行则登记为 Attempt，同一条 Job 可以有多次尝试。审查失败会建立新的实现 Job，运行中断会产生新的 Attempt。用一个 `status` 同时表示它们，会很难解释“代码写好了，但验证器还没运行”这类正常状态。
+
+本文提供[核心表结构示例](/files/personal-agent-company/control-schema.example.sql)。它覆盖对象关系、作业去重和有效尝试约束，是设计用 SQL，不包含完整运行程序、预算账本或生产迁移。业务权限、依赖图和证据内容仍需要服务层校验，不能把建表成功当成公司已经可用。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '持久对象关系', title: '目标到任务，再到作业和尝试；验收指向实际候选', body: '一个目标包含多个任务，一个任务可产生多条执行作业，每条作业可重试。证据关联具体尝试和代码版本，审查引用证据，决策只阻塞受影响的目标。事件保留每次状态变化的原因。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={dataModel} narrow={dataModelNarrow} />
+    <p slot="caption-0">本文最小关系模型，省略了索引和预算明细。Task 与 Attempt 之间通过 Job 关联，不把会话记录当作任务状态。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 关键记录具体长什么样
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '表或对象' }, { label: '关键字段', wrap: true }, { label: '必须成立的约束', wrap: true }]} rows={[
+    ['goals', 'project_id、source、priority、policy_version、state', '每个目标有来源；超出使命的提案先进入决策队列'],
+    ['tasks / task_dependencies', 'goal_id、contract、state、revision；前置任务引用', '依赖无环；计划更新时加锁并检查旧 revision'],
+    ['jobs', 'kind、task_id、dedupe_key、state、available_at、generation', '同一触发原因不重复创建作业；延迟重试持久化'],
+    ['attempts', 'job_id、generation、sandbox_id、baseline、policy_version、harness_version、lease_until', '同一作业一个有效尝试；过期代次不能接纳为结果'],
+    ['evidence / reviews', 'candidate_revision、gate_id、runner_identity、artifact_hash、verdict', '通过结论引用同一候选、同一要求集的原始证据'],
+    ['events / effect_intents', '事件来源去重键；副作用键、目标与回执', '状态改变和后续内部作业同事务提交；外部操作单独对账'],
+    ['decisions', 'goal_id、expected_policy_version、options、answer、state', '旧版本答复不能直接改变新授权；只恢复受影响目标'],
+    ['budget buckets / reservations', '周期、总额度、预留、实际消耗、attempt_id', '领取时预留，结果时结算；未知消耗保守保留而非清零'],
+  ]} />
+  <Prose tile>
+
+`events` 是审计记录，当前状态由业务表保存。这里不要求从全部事件重建数据库，也不引入完整的事件溯源框架。事件处理器把消费标记、状态变化与新 Job 放在同一个事务里，Job 再用去重键兜住重复投递。例如 `review:G1:T4:candidate-C2:requirements-R1` 只能产生一次对应审查，不同候选则是不同作业。
+
+### 如何领取任务而不抢单
+
+先按项目锁定调度配额行，检查可用执行槽与预算。再从已经完成依赖检查的 READY 作业中取一条。使用 pg 时，事务内的语句必须复用同一个 client，不能用连接池随机分配的不同连接。下面只演示领取的锁与返回字段，参数 `$1` 是项目标识，不是一套完整的派发函数：
+
+```sql
+SELECT id, task_id, kind, generation
+FROM jobs
+WHERE project_id = $1
+  AND state = 'READY'
+  AND available_at <= now()
+ORDER BY priority DESC, created_at ASC
+FOR UPDATE SKIP LOCKED
+LIMIT 1;
+```
+
+在同一短事务里，控制器再核对任务和授权版本，登记预算预留，把 Job 改成 RUNNING，`generation` 加一，写入 Attempt 和 `attempt.claimed` 事件。任何一项失败就回滚。事务提交后才启动容器和模型，数据库锁不会一直持有到模型完成。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '领取、运行与接纳', title: '短事务发出执行资格，外部运行结束后再短事务接纳', body: '数据库内的领取与状态改变是原子的，模型和 Shell 运行在事务之外。接纳结果时重新比对代次、租约和版本。丢失运行回执时先进入核对流程，避免把未发生和结果未知混成同一种失败。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={claimTransaction} narrow={claimTransactionNarrow} />
+    <p slot="caption-0">本文建议的事务边界。图不声称数据库能原子地启动外部进程，也不声称租约会自动杀掉旧进程。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+运行成功后，接收端锁定 Job，要求 `job.generation == attempt.generation`，且尝试仍在有效状态、租约未过期。核对产物后，写事件并建立后续 VERIFY Job，再一并提交。重复回传命中同一 Attempt 时返回已有回执；旧代次只保留诊断记录，不能推进业务状态。
+
+领取后、启动容器前可能崩溃。恢复器根据 Attempt 标识查询运行器：确实没启动就回收；已经启动则重新关联；不能确定时隔离该尝试。多个控制器也必须采用相同项目锁与状态转换规则。起步可只部署一个控制器，但不能依赖它永远不会重启来保证正确性。
+
+  </Prose>
+</Section>
+
+<Section canvas id="agent-runtime-adapter">
+  <SectionHead index="09" kicker="模型接入" title="用 SDK 启动具体角色，结果直接回到任务系统" />
+  <Prose tile>
+
+以 Claude Code 路线为例，执行器在容器里调用 `@anthropic-ai/claude-agent-sdk` 的 `query()`，由 SDK 驱动读代码、调用工具和修改文件。控制器管理任务和运行资格；SDK 管理一次模型会话里的工具循环。二者职责分开，会话结束也不会让公司停止处理下一件事。
+
+经营和计划角色使用结构化输出。计划者回传[计划提案示例](/files/personal-agent-company/agent-plan.example.json)：目标版本、任务列表、依赖、文件范围、验收项，以及建议的运行角色。它提交提案后，`planning.acceptPlan()` 才会检查并落库。这个函数是本文设计的内部接口，不是 SDK 自带能力。
+
+### 先把模型输出变成机器可读的对象
+
+以下 TypeScript 片段接收 SDK 的结构化结果。实际应用需要提供 `prompt`、JSON Schema 和已经创建好的受限工作目录 `workspace`；这不是完整的公司启动程序。`query()`、`outputFormat` 和结果里的 `structured_output` 来自[官方结构化输出文档](https://code.claude.com/docs/en/agent-sdk/structured-outputs)，其余落库与授权逻辑由自己的系统实现。
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+type PlanInput = {
+  prompt: string;
+  schema: Record<string, unknown>;
+  workspace: string;
+};
+
+async function collectPlan(input: PlanInput): Promise<unknown> {
+  for await (const message of query({
+    prompt: input.prompt,
+    options: {
+      cwd: input.workspace,
+      maxTurns: 12,
+      outputFormat: { type: "json_schema", schema: input.schema },
+    },
+  })) {
+    if (message.type !== "result") continue;
+    if (message.subtype !== "success" || !message.structured_output) {
+      throw new Error("Planner returned no usable structured result");
+    }
+    return message.structured_output;
+  }
+  throw new Error("Planner session ended without a result");
+}
+```
+
+结果交回程序后，Adapter 还要完成运行管理，包括配置固定模型与角色提示词、工具集、外部超时和取消，保存会话标识与消息轨迹，并将失败交回运行器。不能因为 SDK 返回 `success` 就把 Task 标成完成；结构正确也不能证明计划正确。
+
+`planning.acceptPlan()` 必须检查：目标仍在同一版本，所有任务服务原目标，依赖存在且无环，验收项有实际验证路径，文件职责没有未经处理的重叠，所需工具和预算属于现有授权。返回对象即使通过 Zod，也可能引用不存在的任务或提出越权行动。语法校验和业务校验需要分别做。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '一条真实交接通道', title: '模型提案经检查写库，下一角色由事件触发', body: 'Runner 收到规划作业后启动 SDK。计划者返回结构化提案，控制器检查并落库。调度器据此创建执行作业，结果触发验证，再触发审查。角色之间没有要求人转发的自由文本消息。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={sdkHandoff} narrow={sdkHandoffNarrow} />
+    <p slot="caption-0">本文 Adapter 设计；SDK 调用方式已核对官方文档，业务接口和整套自动运行尚未实现或实测。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 公司级委派与会话内子 Agent 要分开
+
+SDK 可以在一次会话内调用子 Agent，适合局部调查。跨小时的实现、审查、重试与恢复，应作为数据库中的 Job 存在，由控制器启动独立会话。否则主会话退出后，子任务谁接任、谁拥有预算、哪个结果有效，都容易重新变成聊天历史里的隐含约定。
+
+各角色共享的协议是 TaskContract 和结果对象。实现者提交候选与剩余问题；验证器提交实际执行证据；审查者返回 `PASS`、`REWORK`、`NEEDS_EVIDENCE` 或 `PLAN_CONFLICT`。控制器据此选择固定转换。最后一种回到计划者内部解决；它不自动代表需要人的判断。
+
+### 不要让权限回调变成新的人工转接台
+
+预先允许的日常操作由程序自动放行，超出角色能力的操作返回结构化拒绝原因。普通拒绝触发重新规划，只有确实需要改变公司授权才建立 Decision。不要把每一个工具权限弹窗直接转发给人，再声称系统已经自主经营。
+
+[SDK 权限文档](https://code.claude.com/docs/en/agent-sdk/permissions)明确，`allowedTools` 表示自动批准规则，并不等于其余工具不存在；提前获准的调用也可能不经过 `canUseTool`。因此不能只在这个回调里检查权限。角色工具配置、必要的调用前检查和容器边界需要配合使用。
+
+实现容器不连接任务数据库，不挂载发布凭据和 Docker Socket；模型 API 通过受限凭据通道访问。经营与计划角色不需要可任意执行 Shell 的宿主机权限。关于凭据代理和文件、网络边界，可以参考[官方部署说明](https://code.claude.com/docs/en/agent-sdk/secure-deployment)。这是减少无人值守误操作所需的运行边界，不能靠提示词替代。
+
+  </Prose>
+</Section>
+
+<Section canvas id="supervision-and-evidence">
+  <SectionHead index="10" kicker="监督验收" title="审查拿到可核对的证据，缺陷自动返回执行端" />
+  <Prose tile>
+
+把实现结果发给另一个模型，只建立了审查入口。要替代人的日常监督，系统还需要明确：审查根据什么判断，提出缺陷后谁处理，哪份代码可以进入下一阶段，以及运行结果缺失时怎样表示。
+
+可信的完成结论至少要对应任务合约和具体代码版本。验证程序运行项目原生检查，保存命令、环境与退出状态；需要交互或进程行为时，再执行对应真实场景。模型负责解释证据与寻找遗漏，不能仅凭 Worker 提交的 `passed` 字符串完成验收。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '自动监督', title: '结论绑定候选版本，意见直接进入返工任务', body: '实现端提交版本，程序采集验证结果，审查者按合约检查并要求必要补证。缺陷记录保留复现与预期结果，再由主控重新安排执行。人无须把审查消息转发回实现者。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={review} narrow={reviewNarrow} />
+    <p slot="caption-0">本文设计建议。审查会话可以独立，但仍可能与实现模型共享盲点，不能将多模型一致等同于事实成立。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 分开检查实现、行为和经营结果
+
+代码审查适合发现边界错误、缺失分支和不合理依赖。运行验证判断某条路径是否真的成立。目标验收还要确认交付是否解决了最初的问题。它们可以相互支持，但不能仅凭其中一项覆盖全部结论。
+
+对取消写入的案例，函数里出现取消检查，只是代码事实；单元测试通过，只证明所测输入；启动后台写入、触发取消并观察进程和文件变化，才更接近要求的行为。若系统没能力启动所需进程，应记录未验证项并寻找可行验证路径，不能改写为通过。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '交回的材料' }, { label: '应当包含什么', wrap: true }, { label: '接收端怎样使用', wrap: true }]} rows={[
+    ['实现产物', '候选代码版本、变更范围、未完成项', '固定审查对象，检查是否越界'],
+    ['执行证据', '实际命令、环境标识、结果、产物与引用', '核对证据属于当前候选而非旧运行'],
+    ['审查缺陷', '对应验收项、复现条件、实际与预期行为', '形成可执行返工，不让人重新翻译'],
+    ['审查结论', '通过、失败、未验证分别列出', '缺必要证据时不自动晋级'],
+    ['集成回执', '合并后版本及受影响验证', '防止局部通过被扩大成整体验收'],
+    ['交付回执', '实际产物、目标是否满足、发布状态', '区分准备好交付与已经对外发布'],
+  ]} />
+  <Prose tile>
+
+### 验证器也不能由实现者随意改写
+
+`verification/registry.ts` 保存控制服务认可的验证项，绑定命令或场景、运行镜像、超时和要求版本。Worker 可以为项目增加测试，但不能在同一任务里移除必须通过的 Gate，不能修改受信验证器，也不能直接写 Evidence 表。命令登记在控制服务并不使项目测试代码自动可信，因此关键行为需要保留独立场景，按原始验收核对变更后的测试。
+
+验证器在新的环境固定候选，采集原始退出状态及产物。实现者提交的“测试已通过”可作为调查线索，不能作为受信 PASS。审查也会检查测试是否被弱化。新场景第一次被加入时，要在已知失败版本和已知正确条件上检查它能否区分结果，否则错误的验证方法也可能被长期自动执行。
+
+集成由单一 integrator 串行处理，所有提交先变成候选。文件职责约束由计划接纳和变更接收共同检查；代码冲突回到计划者，无法自动合并不意味着必须找人选文件。涉及公共接口承诺的不兼容方案，则按授权规则转成重大决策。
+
+### 自动返工也需要收敛
+
+审查报告应把缺陷交给负责的任务，保留证据并说明影响。实现者可以修复，也可以提出反证；争议回到主控核对原始验收，不必把每次意见冲突都升级给人。若争议其实来自产品承诺不清，再生成需要决定的产品问题。
+
+重试不应只是累加次数。每次返工都要说清上一轮为什么没解决，以及新一轮将改变什么。持续出现同一失败时，系统可以缩小问题、补诊断或暂停该任务，继续推进无依赖的工作。负责人只有在现有授权无法给出下一步时，才向人提出决策请求。
+
+审查成本也要有比例。清晰的局部修复，先跑确定性检查，再做有针对性的独立审查；复杂交互则需要更完整的运行证据。对每个小改动都召集许多审查模型，会让协调成本超过实际收益。架构应随模型和项目证据调整，保留真正有用的步骤。
+
+  </Prose>
+</Section>
+
+<Section canvas id="durable-runtime">
+  <SectionHead index="11" kicker="持续运行" title="让程序记住工作，让模型在需要判断时介入" />
+  <Prose tile>
+
+会话再长，也不能成为公司保存运行状态的唯一地方。程序可能重启，模型上下文会变化，外部操作也可能已经执行但回执还没回来。系统需要把已知事实写到会话之外，再根据这些事实决定下一步。
+
+[Symphony 的规范](https://github.com/openai/symphony/blob/be10a1b79df723d6d7612b5651c8522704dafb2e/SPEC.md)区分调度器内部领取状态和 Issue 的业务状态。它的重启恢复依赖重新读取任务系统和保留的工作区，不承诺恢复进程内的重试计时器或正在运行的会话。个人系统可以借鉴这个边界，再根据需要选择持久任务存储；不能把“可重新派发”当成“所有工作原地复活”。
+
+### 至少保存哪些经营对象
+
+下表归纳需要持久保存的经营对象。具体任务关系和事务见前面的数据与事务章节，默认使用 PostgreSQL 与本地制品目录。已有可靠任务系统时可以复用，但必须指定哪一份状态具有最终解释权。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '对象' }, { label: '主要内容', wrap: true }, { label: '为何要独立保存', wrap: true }]} rows={[
+    ['Mission / Policy', '使命、授权、生效版本与总预算', '判断这次行动是否仍被允许'],
+    ['Goal', '结果目标、来源、优先级与负责人', '一个局部任务结束后仍知道整体要完成什么'],
+    ['Task', '依赖、职责、验收条件与业务状态', '不依赖聊天历史判断下一步'],
+    ['Attempt', '任务的某次执行、租约、工作区与 Harness 版本', '保留失败尝试，区分接任者与过期结果'],
+    ['Evidence', '代码版本、环境、命令、结果及产物引用', '把结论对应到实际执行'],
+    ['Decision', '选择、理由、决定者与授权变化', '避免反复讨论已决定的事项'],
+    ['HarnessVersion', '执行流程快照、评测与采用记录', '解释行为变化，并支持恢复旧版本'],
+  ]} />
+  <MechanismSequence steps={[
+    { tag: '业务状态', title: '正常结束一次会话，还要检查目标是否完成', body: '运行结束后，系统检查产物和证据，再进入审查与集成；不满足条件就继续返工。等待外部条件和等待重大决策分别记录，独立目标仍然可以推进。' },
+    { tag: '中断恢复', title: '先核对已经发生什么，再决定从哪里继续', body: '恢复时检查持久状态、工作区和外部回执。已完成步骤不重复执行，过期进程先停止或隔离，新尝试带新的代次。模型根据恢复后的任务状态接任，不需要人重新讲述全部历史。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={lifecycle} narrow={lifecycleNarrow} />
+    <p slot="caption-0">本文的 Task 状态图，与 SQL 示例一致。线索和重大决策属于 Goal 层；READY 表示任务依赖与现有授权已满足。</p>
+    <CompanyDiagram slot="frame-1" wide={recovery} narrow={recoveryNarrow} />
+    <p slot="caption-1">恢复流程为设计建议。检查点、事件记录和进程处置都需要真实实现与故障演练，图不构成运行证明。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 谁负责唤醒下一次工作
+
+调度程序接收任务事件或按周期检查。它核对依赖、资源和领取状态，把就绪任务交给工作进程；只有遇到需要判断的问题，才调用负责人或计划模型。这样的事件循环能够在一个模型会话退出后继续运行。
+
+[Symphony 的实现](https://github.com/openai/symphony/blob/be10a1b79df723d6d7612b5651c8522704dafb2e/elixir/lib/symphony_elixir/orchestrator.ex)提供了一个具体例子：Worker 正常退出也会安排活动状态续跑检查；故障退出走另一个恢复路径。代码审阅支持这一行为说明，本文没有启动该服务验证实际调度。
+
+下面是建议的调度伪代码，只表达职责顺序，不是某个框架可直接执行的 API：
+
+```text
+on_event(event):
+    persist_once(event.id, event)
+    reconcile_task_state_and_external_receipts()
+    invalidate_evidence_for_changed_revisions()
+    if a_business_decision_is_needed:
+        proposal = call_responsible_agent(current_state)
+        apply_only_if_allowed(proposal, current_policy)
+    dispatch_eligible_tasks_with_atomic_claims()
+    schedule_next_check_or_wait_for_event()
+```
+
+### 恢复时实际检查哪几件事
+
+进程重启后，控制器先提交 LISTEN 注册，再查询未处理事件和到期 Job，之后才依赖通知唤醒；还保留周期扫描。启动顺序参考 PostgreSQL 对 LISTEN 建立时竞争条件的说明，避免先读完表、后订阅期间漏掉变化。
+
+恢复器先检查 STARTING 或 RUNNING 的 Attempt，查询 `sandbox_id` 和运行器标签。模型进程退出但容器内子进程仍存活时，要清理整个尝试环境；仅杀主进程不能证明后台写入已停止。确认旧环境已停止或隔离，再撤销代次、回收作业并创建新尝试。旧尝试晚到的结果只归档，不能重新进入有效链路。
+
+对 VERIFYING 或 REVIEWING 的 Task，检查对应 Job 是否存在。缺失时以原候选与要求版本重建去重 Job；已存在则继续等待或恢复它。对副作用 UNKNOWN 的交付操作先查外部回执，不直接重复执行。恢复不需要每次都调用负责人模型，大部分是确定性的核对。
+
+### 存活、进展与完成，要分别观察
+
+[运行策略模板](/files/personal-agent-company/runtime-config.example.json)用 15 秒心跳、60 秒租约、10 秒队列扫描和 300 秒无进展诊断作为教学设置，实际值需要根据任务时长调整。心跳可以说明进程仍然连接，不能证明它在有效推进。进展应结合阶段状态、产物变化、验证结果与失败假设判断。一个模型持续输出文字，却一直重复同一个无效命令，仍可能没有进展。看门狗应触发诊断或重新规划，保留停滞原因。
+
+领取任务需要原子操作，避免两个执行者同时认为自己负责。租约是有期限的执行资格；新尝试取得新代次后，结果接收端只接纳当前有效代次。租约过期本身不会让旧 Shell 自动停止，所以还要终止或隔离过期进程，并为不同尝试使用隔离工作区。
+
+外部副作用还需要核对。例如发布操作超时，不能直接认定没有发布。建议先保存操作意图和稳定的操作标识，再执行；重试前查询回执或外部状态。接口支持幂等键时，同一意图可用它避免重复创建；不支持时，仍需要查询与对账。任务数据库与外部服务之间不存在自动成立的一次性执行保证。
+
+  </Prose>
+</Section>
+
+<Section canvas id="operating-example">
+  <SectionHead index="12" kicker="完整调用" title="从一条失败信号走到交付，逐步看谁调用谁" />
+  <Prose tile>
+
+以下仍是虚构 PocketTasks 的设计推演，全部标识和结果均用于教学。没有启动该项目或调用付费模型。使命 M1 是可靠维护本地 CLI；策略 P1 允许兼容修复，默认不允许对外发布。A1 要求取消后后台进程退出，A2 要求文件不再增长，A3 要求旧行为回归通过。具体超时由实际 CLI 的契约规定，本文不虚构一个通用的取消时限。
+
+### 信号如何成为工作
+
+`intake` 从已接入 CI 收到失败 S1，用外部运行标识防重，提交 Signal 和 `signal.received`。事件处理器建立 OWNER 作业 J1。Runner 领取 J1 后启动经营角色；模型检查使命与重复目标，返回建立 G1 的提案。`portfolio` 核验通过，在一次事务中写 G1 和 PLAN 作业 J2。
+
+Runner 执行 J2，计划者返回 PLAN-G1-R1。`planning.acceptPlan` 确认依赖无环，生成 T1—T6。T1 诊断与冻结验收；T3 先建立进程场景，在旧版本上确认它确实能暴露问题。场景保存到内部基线 S1-test，目标分支此时没有收到一个带已知失败的版本。T2 从这个内部基线开始修复，避免实现者只按自己方便的测试来定义问题。
+
+### 第一轮失败后，程序自己把工作送回去
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '顺序' }, { label: '调用及持久变化', wrap: true }, { label: '为何会自动继续', wrap: true }]} rows={[
+    ['1 · 接收', 'intake 保存 S1；events 保存 signal.received', '事务提交后，事件处理器创建去重的 OWNER Job'],
+    ['2 · 立项', 'portfolio 接纳 G1；同时写 PLAN Job', '没有等人创建工单'],
+    ['3 · 计划', 'acceptPlan 保存 T1—T6、验收与依赖', 'scheduler 查询可运行前置任务'],
+    ['4 · 复现', 'T1 固定验收；T3 保存可暴露旧缺陷的进程场景', 'T2 的前置条件满足，生成 IMPLEMENT Job'],
+    ['5 · 第一轮', 'T2 的 Attempt A21 提交候选 C1；任务进入 VERIFYING', 'reducer 创建 VERIFY Job，Worker 不自行宣布完成'],
+    ['6 · 失败', 'verifier：模块测试过，后台进程仍写入；保存证据 E1', '验证失败直接产生关联返工，不浪费一次宽泛审查'],
+    ['7 · 返工', 'A22 读取 E1，沿后台生命周期修复；提交 C2', '运行器重新取证；旧 C1 的验证结果不能代替 C2'],
+    ['8 · 局部接纳', 'C2 的要求通过，新审查会话确认 T2 合约', 'T2 完成，T4 集成任务就绪'],
+    ['9 · 集成', 'integrator 将变更放到最新基线，得到 C3', 'C3 重跑必要验证，再创建 T5 整体审查'],
+    ['10 · 交付', 'T5 PASS，T6 保存修复产物与证据包回执', 'Goal 完成并触发经营事件；发布仍按现有授权判断'],
+  ]} caption="合成轨迹，非运行日志。A21/A22 是同一业务任务的不同尝试，C1/C2/C3 是不同候选标识，不是真实 Git 提交哈希。" />
+  <Prose tile>
+
+T2 的局部完成与 G1 的整体完成分别判断。T2 必须证明本任务约定的行为；T4 则检查放到目标分支最新基线后是否仍成立。实现期间目标分支如果变化，integrator 重新构造候选，不使用过期的 C2 证据直接放行 C3。T5 再从 G1 最初的结果要求检查是否遗漏，而不是只检查某个函数改得是否工整。
+
+整个过程没有“请用户把 E1 发给实现者”的步骤。E1 关联 Task、Attempt、候选和验收项，`reducer` 直接把引用放进下一条 IMPLEMENT Job；上下文构建器按引用取原始日志。重派后的模型看到的是自己需要解决的具体失败。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '公司自行推进', title: '重大方向提议等待人，兼容维护继续运行', body: 'G1 沿 P1 的现有授权完成交付。同期出现云同步提议 G2 时，只有 G2 等待决策；已经被允许的任务继续执行。等待某个人的答复不是公司全局暂停状态。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={operatingDay} />
+    <p slot="caption-0">教学设计。默认章程没有发布授权，因此交付包并不表示已经公开上线。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### 重大决策通过一个确定入口写回来
+
+G2 要把本地工具改成账号与云同步服务，超出 M1。经营者生成[决策包 D1](/files/personal-agent-company/decision-packet.example.json)，给出维持本地、有限研究与改变方向等选项。控制器把 G2 标成 `NEEDS_DECISION`，保存问题、依据和等待期间的安排，经营报告只展示这一项需要人的选择。
+
+可以把人的答复入口设计为 `POST /decisions/D1/answer`，载荷为选项、理由和 `expected_policy_version`。这是本文建议的 API。入口只接纳经过身份验证的决策者，并在事务中比对 P1：若授权已变化，答复标成过期并重新生成问题；若仍有效，则保存决定和新策略 P2，建立受影响目标的 PLAN Job。
+
+批准有限研究后，计划者自行拆研究任务，运行器自行派发。人不需要继续选择执行模型或修改哪个文件。对 G1 的普通维护作业也没有重新逐条授权的必要；涉及新增限制的策略修改则立即撤销对应执行能力，不能让旧 P1 任务继续越过已经收回的权限。
+
+### 交付到目标分支和对外发布怎样处理
+
+integrator 使用目标分支的预期旧版本做条件更新；版本已经改变就重新构造和验证候选。外部发布另写 EffectIntent，执行后保存真实回执，超时则标为 UNKNOWN 并查询实际目标。默认未授予发布权时，以明确的交付包结束这次维护，不把每一次发布都伪装成“重大决策”。如果希望兼容补丁自动发布，应在初始章程授予有限发布权并规定门槛。
+
+  </Prose>
+</Section>
+
+<Section canvas id="recursive-improvement">
+  <SectionHead index="13" kicker="递归改进" title="让一次任务的教训改变下一轮执行，也改进改进方法" />
+  <Prose tile>
+
+G1 的代码修复不会自动让未来所有 Agent 学会检查后台进程。要形成持续改进，还需要一个独立过程：收集失败，提出可定位的流程修改，在相同条件下比较，再决定是否用于后续任务。
+
+[GEPA](https://github.com/gepa-ai/gepa/blob/8f287de942f41a6d1e0e7e5b2d576247c4bedee9/README.md)让模型读取执行轨迹与诊断反馈，并通过评测筛选候选。[autoresearch 的程序约定](https://github.com/karpathy/autoresearch/blob/228791fb499afffb54b46200aca536f79142f117/program.md)把可修改对象和固定评测分开。这两种机制可以帮助个人项目建立受控试验。原版 autoresearch 的研究指令主要由人编写，不能把其训练循环直接描述为一个会改写自身经营方式的公司。
+
+### 日常经营循环与改进循环分别运行
+
+日常循环消化目标并交付代码；改进循环读取多个任务的轨迹，调整 Harness。两者可以共享证据，但不能让改进试验不断扰乱正在执行的任务。建议每次尝试固定 Harness 版本，新的配置供后续新尝试使用，已有任务是否迁移要另作明确决定。
+
+[Harness² 的双层递归](https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/README.md)提供更进一步的参考：当前任务产生配置修改和行为对照，改进经验又帮助之后的改进。它的默认执行配置不是简单地永久叠加全部历史规则；经验如何选择和应用，本身就是需要管理的对象。
+
+  </Prose>
+  <MechanismSequence steps={[
+    { tag: '从经验到版本', title: '改动先进入候选，验证后再影响新任务', body: '改进 Agent 根据失败证据提出单项假设，生成独立 Harness。开发回放用于选择候选，满足条件后再通过保留集审核并有限采用。失败候选保留原因，帮助下一次提出更好的假设。' },
+  ]}>
+    <CompanyDiagram slot="frame-0" wide={rsi} narrow={rsiNarrow} />
+    <p slot="caption-0">本文建议的改进流程。图中审核通过是需要执行的条件，没有表示本文已经取得改进收益。</p>
+  </MechanismSequence>
+  <Prose tile>
+
+### H0 到 H4：改了哪些具体东西
+
+下面继续使用取消任务的教学案例。版本变化是拟定试验，没有成功率或成本实测；每一项都需要比较，并允许拒绝。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '版本' }, { label: '拟改进的机制', wrap: true }, { label: '需要回答的问题', wrap: true }]} rows={[
+    ['H0', '参考控制器门槛已固定；实现者习惯先做模块测试', '最终验证能挡住错误，但实现阶段是否反复返工'],
+    ['H1', '取消或并发类任务按条件加载进程验证方法', '是否减少第一轮缺陷与返工，又不拖慢普通任务'],
+    ['H2', '增加整理进程退出与文件变化记录的辅助工具', '是否减少重复诊断；受信 verifier 仍独立取证'],
+    ['H3', '审查上下文优先加载当前候选的要求与原始证据', '是否减少审查漏读；控制器的版本检查保持不变'],
+    ['H4', '改进器按根因分类，每个候选聚焦一类机制', '能否减少无效候选，保留对新任务的效果'],
+  ]} />
+  <Prose tile>
+
+H1—H3 改的是执行环境和监督流程，H4 改的是产生改进的过程。若 H4 只是换了一段自我介绍，没有可定位的策略变化和评测，就不能认定发生了更高一层的 RSI。要保留改进器版本、候选来源以及选择理由，才能追踪它是否让后面的试验更有效。
+
+[RSI 试验合约](/files/personal-agent-company/rsi-experiment.example.json)把假设、可修改范围、固定评测和采用条件放在一起。示例结果明确是 `NOT_RUN`。其中的逻辑评测集引用仅用于说明需要什么材料，落地时必须建立实际数据与执行器。
+
+### H0 到 H1，具体修改哪个文件
+
+参考控制器从一开始就要求最终行为验证。H0 的问题是实现者没有尽早追踪后台进程，最终被 verifier 拦下并返工。改进器读取 A21 的轨迹和 E1，提出“在取消类任务中提前加载生命周期验证方法”这一假设。它创建 Harness 分支 H1，只修改如下 Skill。以下 diff 是教学候选，不是已产生收益的实测补丁：
+
+```diff
+--- harness/H0/skills/cancellation-verification.md
++++ harness/H1/skills/cancellation-verification.md
+@@
+-Run the module regression suite before submitting the candidate.
++For cancellation tasks, map the foreground and background process lifecycle.
++Load the registered process scenario and inspect its known-failure evidence.
++Check the acknowledged cancellation boundary and observe writer termination.
++Report any missing process capability instead of assuming the scenario passed.
++Run the module regression suite before submitting the candidate.
+```
+
+条件加载发生在 ContextBuilder，触发条件来自任务合约中的取消行为。普通文案修正不会带上这段方法。这里没有增加一种可由实现者随意决定是否执行的最终门槛，也没有改变 A1—A3；只是让实现者更早获得已经需要满足的行为知识。
+
+### 一次试验如何从提案变成采用
+
+`improvement.createExperiment()` 接受基线 H0、候选 H1、编辑范围和假设，固定回放清单、要求版本和预算。函数名称属于本文设计。回放从缺陷修复前的代码开始，H0 和 H1 使用同一模型、环境与验收，记录首次候选是否满足要求，以及计划、实现、验证、返工的总消耗。
+
+开发集结果供改进器修改候选；保留集只做采用审核，不把预期修复直接交给实现者。关键要求有退化就拒绝，结果不确定则继续收集证据。全部试验结果写入记录，不只保留最幸运的一轮。本文未运行这些回放，因此采用状态仍是 `NOT_RUN`。
+
+允许采用时，写入不可变的 Harness 快照及其哈希，在事务里更新新尝试使用的默认版本。已有 Attempt 仍使用启动时的 H0。有限采用中的真实任务如果出现同类退化，更新默认版本回 H0，并对受影响任务重新核对；已经发生的代码交付不能靠切回提示词自动撤销。
+
+### H2 和 H3 怎样继续变化
+
+H2 可增加一个受限辅助工具，把原始进程日志归并为退出事件、取消确认点与文件增长区间，输出原始引用。工具不拥有写 Evidence 表的权限；verifier 仍独立取得最终证据。评测要同时检查“节省诊断步骤”和“有没有把进程未退出写成退出”。如果只是让报告更漂亮，不能因此采用。
+
+H3 修改审查的上下文选择策略：优先装入当前候选的要求、失败记录和原始证据，旧候选结论只作为历史。版本匹配早已是控制器的固定门槛，不把补上基础正确性冒充 RSI。H3 需要证明改善的是审查判断或效率，而不是删掉必须看的材料换来更低成本。
+
+### H4 改变改进器的方法
+
+假设改进器反复提出内容相似的候选，H4 可以修改 `improver/policy.json`，把逐条按日志尝试改成按根因聚类。下面是拟定的策略变化：
+
+```json
+{
+  "before": { "sample_unit": "failure_log", "candidates_per_batch": 3 },
+  "after": { "sample_unit": "root_cause_group", "candidates_per_batch": 3 },
+  "frozen": ["authority", "evaluation_protocol", "total_experiment_budget"]
+}
+```
+
+比较对象变成两个改进器版本：给定相同任务分布与总试验预算，哪个能提出更有用、重复更少的 Harness 候选。最终还要回到后续任务的行为与人为介入。如果只看到候选数量变少，尚不能证明改进方法变好了。改进器也不能自己改掉这次试验的采用标准。
+
+### 改进权也有自己的边界
+
+改进 Agent 可以提出新的验证方法或更好的任务拆分规则，但不应在同一试验里改变使命、放宽授权或降低判分条件。业务测试可以补充，新的评测也可以另行设计；被用来判定这次候选是否更好的评测基线需要固定。涉及授权变化的提议回到正常决策机制。
+
+采用新版本时，保存基线、候选和采用依据，并留有退回旧版本的路径。有限采用后，还要观察真实任务的失败、成本与人为介入。回放表现较好，只证明它在那组条件下有效；对未来任务的影响需要继续观察。
+
+  </Prose>
+</Section>
+
+<Section canvas id="evaluation-and-memory">
+  <SectionHead index="14" kicker="评测与记忆" title="公司要记住事实，也要知道哪些经验还不可信" />
+  <Prose tile>
+
+长期运行会积累不同性质的信息：任务现在在哪一步，某项设计为什么成立，以及某种办法过去为何失败。把它们混进一个不断增长的系统提示词，会让过期状态和局部教训影响所有工作。
+
+[LangGraph 的持久化说明](https://docs.langchain.com/oss/python/langgraph/persistence)区分当前线程的检查点和跨线程的长期存储。它也明确提醒：保存在内存里的 Saver 不会跨进程重启保留。采用框架之后，仍须确认实际配置是否使用持久存储，以及保存内容是否足够支持自己的恢复过程。
+
+### 经营事实与候选经验分开保存
+
+任务完成、代码版本、外部回执属于经营事实，应有权威来源。经验条目则应保留来源任务、适用范围和反例。它可以先作为候选建议，验证后再成为默认执行规则。经验过期或被新版本推翻时，应能撤回。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '信息类型' }, { label: '保存方式建议', wrap: true }, { label: '使用条件', wrap: true }]} rows={[
+    ['当前工作状态', '任务与尝试记录，附事件历史', '恢复或分派时读取权威状态'],
+    ['已批准决定', '版本化设计记录及影响范围', '关联代码或任务需要时引用'],
+    ['局部经验', '短条目、来源证据、适用标签与有效版本', '与当前任务相关才加载'],
+    ['失败候选', '假设、修改、结果和拒绝原因', '避免相同策略反复试验'],
+    ['通用方法', '经回放验证的 Skill 或工具版本', '符合触发条件才成为执行流程'],
+  ]} />
+  <Prose tile>
+
+经验库需要整理预算。定期把重复条目合并、撤销错误规则，索引保持简短，完整证据按需读取。只往库里添加“下次注意”，很容易让系统在简单任务上也背着所有历史失败。这里借鉴的是可追溯经验的维护方法，没有声称一份记忆文件就能产生可靠学习。
+
+### 每个角色到底拿到哪些上下文
+
+上下文构建器按角色生成 ContextBundle。经营者读使命、目标组合、当期资源和新增线索；计划者多读代码索引与设计决定；实现者拿任务合约、依赖产物、必要代码和本任务失败；审查者拿原始要求、候选差异与验证证据，避免只听实现者解释为什么正确。
+
+经验先按项目、相关文件、失败类别和 Harness 适用版本检索，加载匹配条目的摘要与引用。模型需要时再取原始证据。每次 Attempt 保存使用过的条目 ID 与版本；后来发现经验错误，可以追踪受影响的尝试并撤回该规则。第一版用结构字段和普通文本检索即可，不能因为用了向量库就省掉版本与适用范围。
+
+### 预算如何约束自主经营
+
+开始作业前，程序在项目预算周期内预留配额，并把预留关联到 Attempt。结束后按实际结果结算；超时且消耗未知时先保留估计上限，之后核对。资源判断必须与领取在同一事务规则下执行，不能让两个并发角色都看到同一份未预留余额。
+
+本文示例限制 Agent 执行时间，这与供应商账单金额不同。一次正在飞行的模型请求，也不能靠终止本地进程保证账单精确停在指定金额。要控制花费，需要同时设置调用预算、供应商可用的账户限制和运行器超时，并保留误差。总预算内重新分配由经营者完成；预算耗尽后等待新周期，不反复催人加钱。
+
+### 优先测人是否真的少介入
+
+个人项目的首要质量条件是关键行为和必要回归没有退化。满足这些条件后，再比较人为介入、耗时和资源。不能为了让自动完成比例更高，就把需要验证的行为移出验收，或者把复杂任务都留给人处理。
+
+建议同时记录接收了哪些任务、拒绝或延后了什么，以及最终实际完成的目标。任务难度变化会影响比率，单看某一周完成比例，无法区分系统进步和选择了更简单的工作。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '观察项' }, { label: '怎样解释', wrap: true }]} rows={[
+    ['自主完成的目标', '在约定授权内完成，并有交付与验收依据；同时展示接收任务范围'],
+    ['人为介入次数与时间', '分别记录重大决策、手动转发、补上下文与重新启动'],
+    ['首次交付通过情况', '与返工次数一起看，避免只自动化了反复重做'],
+    ['错误完成声明', '完成结论被后续行为证据推翻的情况'],
+    ['恢复中的重复操作', '中断后重做已完成步骤，或重复产生外部副作用'],
+    ['完整目标成本', '计入计划、实现、审查、返工和改进试验，而非只看一轮调用'],
+  ]} />
+  <Prose tile>
+
+### 评测改进器时，保留未用于调优的任务
+
+历史任务回放应从修复前的代码版本开始，在隔离环境中比较 Harness；泄露修复结果会改变问题难度。开发回放集用来产生和选择候选，保留任务用于采用审核。不断反复试探同一保留集，也会产生间接过拟合，因此长期运行需要补充新任务和更新评测协议。
+
+有噪声的结果要保留重复运行和失败分布，不能只取一次最好的输出。没有可靠自动判分器的任务，可以结合运行证据和模型评估，但应保留不确定性。审查模型自身也需要校准，已知通过与已知失败的案例可以帮助检查它是否过宽。
+
+评价公司的表现，可以保留多项结果。先满足关键行为，再比较对人的依赖与资源代价，通常更容易解释。一个更省钱但经常错误宣布完成的版本，不应因总分抵消而自动采用。
+
+  </Prose>
+</Section>
+
+<Section canvas id="implementation-path">
+  <SectionHead index="15" kicker="实施顺序" title="先做控制器的一条完整通路，再扩大经营与改进权限" />
+  <Prose tile>
+
+实现从以下入口开始：`control/main.ts` 启动 HTTP、事件处理与调度扫描；`runner/main.ts` 领取 Job 并管理容器；`verification/runner.ts` 在指定候选执行登记验证。数据库和制品目录必须挂持久卷。首次启动写入项目、P1 章程、H0 配置和验证登记，之后服务重启只恢复状态，不重新初始化任务。
+
+HTTP 第一版只需要接收已授权信号、查询报告、提交决策、暂停/恢复项目，以及运行器的受限回传接口。人可以提交一个长期目标，后续 Task 和 Job 由公司自己创建。界面先用简单表单和只读列表；任务正确流转比模仿公司通讯软件更有价值。
+
+### 每阶段交付什么，怎样知道真的接管了工作
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '阶段' }, { label: '需要完成的工程', wrap: true }, { label: '完成证据', wrap: true }]} rows={[
+    ['一条自动交付通路', '迁移、合约 Schema、领取事务、SDK Adapter、验证登记、reducer 与 integrator', '给一个授权内目标，系统自己完成实现、失败返工和交付；无人复制意见'],
+    ['自主发现与立项', 'CI/Issue 接入、来源去重、经营提案、计划接纳与上下文构建', '只给使命，接入真实失败后系统自行建立 G1 与任务'],
+    ['恢复与资源治理', '租约、进程清理、预算预留、操作意图、状态核对', '强制终止 control 与 runner，重启后不重复交付，不接纳旧代次'],
+    ['重大决策入口', '版本化章程、决策包、身份认证、受影响目标唤醒', 'G2 等待人选择时，G1 继续完成；答复后自动产生研究任务'],
+    ['受控 RSI', '轨迹采样、回放环境、固定评测、候选版本和有限采用', '候选失败就拒绝，采用后可定位变化并撤回；不伪造收益'],
+  ]} />
+  <Prose tile>
+
+这些阶段可以由编码 Agent 实现，但仍由实际程序承担运行。第一阶段也应包含最基本的中断核对，后续阶段扩大故障覆盖；不宜等公司开始无人值守后才发现所有状态仍在内存里。
+
+### 默认参数与依赖固定在哪里
+
+[运行策略示例](/files/personal-agent-company/runtime-config.example.json)把并发、租约、重规划和版本策略放在一起。模型标识与 SDK 版本故意没有填写未经验证的“最佳组合”：接入时选择实际可用、通过自己任务验证的型号，固定依赖锁文件和容器镜像摘要。这个模板不是任何现成框架的可执行配置，也没有自动获得 API 凭据。
+
+这一版没有部署 Agent 公司。把文中的设计变成软件，仍要实现上述入口和事务、接通实际仓库与模型账户，并按最后一章的故障场景取得证据。下载表结构和配置只能帮助开始工程，不能代替这些实现。
+
+  </Prose>
+</Section>
+
+<Section canvas id="operating-acceptance">
+  <SectionHead index="16" kicker="交托标准" title="看人是否只处理重大决策，也看系统如何面对失败" />
+  <Prose tile>
+
+能连续运行一段时间，只证明进程没有停。个人 Agent 公司是否达到目标，要检查工作如何产生、谁决定分派、监督能否回到证据，以及中断后是否还记得自己的职责。
+
+建议把验收放到一组完整经营场景里。给定使命后，让系统从真实接入的信号产生工作；让实现遇到失败，让审查提出返工，再制造一次中断。另放入一个超出使命的提议，检查它能否生成重大决策包，同时继续推进其他目标。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '验收问题' }, { label: '应看到的证据', wrap: true }]} rows={[
+    ['下一件事是否仍由人派发', 'Agent 建立目标的来源、优先级与任务记录'],
+    ['谁完成工作交接', '自动分派、审查和返工事件，不依赖人复制消息'],
+    ['完成是否可以相信', '同一候选版本的必要验证、未覆盖项与交付回执'],
+    ['中断是否可以恢复', '状态核对、过期尝试处置和未重复的已完成步骤'],
+    ['重大决策是否集中', '只有需要改变目标或授权的问题进入人的决策队列'],
+    ['是否真正减少人的负担', '人为介入按原因分类；不仅展示提交数量'],
+    ['改进是否可以追踪', '候选差异、固定评测、采用记录和撤回依据'],
+  ]} />
+  <Prose tile>
+
+日常经营报告可以按周期汇总，作为可查看的结果，不应默认要求人确认才能继续。报告应把已交付、等待条件和重大决策分开，保留证据链接。出现重大决策时，给出建议和备选方案；没有这类事项，系统就按原约定运行或等待。
+
+这篇文章交付的是截至 2026-10-22 的一手资料研究与设计蓝图。源码审阅和 JSON、Mermaid、MDX 检查只能验证材料与产物的一部分。本文没有付费平台横向实测，没有运行真实公司的无人值守周期，也没有证实所建议的 RSI 一定改善未来任务。真正采用时，应按上述场景取得自己项目的证据。
+
+人可以把日常任务决定权交给 Agent，同时保留使命和重大承诺的决定权。本文将这个分工落实到 control 与 runner、持久 Task/Job/Attempt、可信验证器和版本化决策入口。能否退出日常转发，应由一条完整任务及故障恢复的实际证据判断。
+
+  </Prose>
+  <Summary surface="white" takeaways={[
+    { title: '自主经营', conclusion: '由 Agent 自主建立目标、分派任务并监督交付。', detail: '人维护使命与重大授权；普通返工、恢复与计划调整在公司内部完成。' },
+    { title: '持续改进', conclusion: '把有证据的流程修改送入评测，再供后续任务使用。', detail: '经营状态与经验分开保存，改进器也接受验证，版本变化可以解释和撤回。' },
+  ]} note="更新日期 2026-10-22。产品能力来自官方说明，开源机制核对固定版本；参考架构、SQL 与 JSON 文件及 PocketTasks 轨迹均为设计建议，未部署真实 Agent 公司。" />
+</Section>
+</ArticleCanvas>

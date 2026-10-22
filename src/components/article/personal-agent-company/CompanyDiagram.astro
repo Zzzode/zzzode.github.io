@@ -1,0 +1,38 @@
+---
+/** Article-owned diagrams: wide layouts in normal flow, narrow layouts on phones. */
+interface Props {
+  wide: string;
+  narrow?: string;
+}
+const { wide, narrow } = Astro.props;
+---
+<div class:list={['company-diagram', narrow && 'company-diagram--responsive']}>
+  <div class="company-diagram-wide" set:html={wide} />
+  {narrow && <div class="company-diagram-narrow" set:html={narrow} />}
+</div>
+
+<style>
+  /* Scope the layout change to rows containing this article-owned component. */
+  :global(.sequence-row:has(.company-diagram)) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  :global(.sequence-row:has(.company-diagram) .sequence-copy) { max-width: 760px; }
+  :global(.sequence-diagram:has(.company-diagram)) { overflow: visible; padding: 0; }
+  :global(figure:has(.company-diagram) > .sequence-pan) { display: none; }
+  .company-diagram { min-width: 0; }
+  .company-diagram-wide, .company-diagram-narrow { min-width: 0; }
+  .company-diagram-narrow { display: none; }
+  :global(.sequence-diagram) .company-diagram :global(svg),
+  .company-diagram :global(svg) {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+  }
+  @media (max-width: 899px) {
+    .company-diagram--responsive .company-diagram-wide { display: none; }
+    .company-diagram--responsive .company-diagram-narrow { display: block; }
+  }
+</style>

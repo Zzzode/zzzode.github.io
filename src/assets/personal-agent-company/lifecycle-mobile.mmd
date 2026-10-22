@@ -1,0 +1,18 @@
+flowchart TB
+ A[等待依赖 BLOCKED] -->|条件满足| B[就绪 READY]
+ B -->|原子领取| C[执行 RUNNING]
+ C -->|候选已接纳| D[验证 VERIFYING]
+ D -->|必要验证过| E[审查 REVIEWING]
+ E -->|合约通过| F[完成 DONE]
+ F ~~~ G[失败或缺陷
+进入 REWORK]
+ G --> H[新尝试 / 修订计划
+返回 READY]
+ H ~~~ I[审查要求补证
+返回 VERIFYING]
+ I ~~~ J[RUNNING 等待条件
+返回 BLOCKED]
+ J ~~~ K[READY / RUNNING 撤销
+停止尝试后 CANCELLED]
+ K ~~~ L[下游发现原产物缺陷
+DONE 返回 REWORK]
