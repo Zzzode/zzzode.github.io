@@ -1,0 +1,636 @@
+---
+title: "Raven：从设计目标到 Agent 协作与自我改进"
+date: 2026-10-22
+updated: 2026-10-23
+excerpt: "从官方设计目的出发，用 HTML 图解连接目标、核心能力、记忆与技能、运行架构和 RSI，再给出 Claude Code 的完整接入配置与项目任务实例。"
+tags: ["Raven", "Agent", "RSI", "Harness", "Orchestration"]
+kind: distilled
+sources:
+  - title: "EverMind-AI/Raven · project overview · pinned 2026-10-22"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/README.md"
+  - title: "Raven · runtime architecture"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/architecture.md"
+  - title: "Raven · DAG orchestration and recovery"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/orchestration.md"
+  - title: "Raven · external agent integration and setup"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/agent-integrations.md"
+  - title: "Raven · Claude Code preset and bundled adapter boundary"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/raven/agent/subagent/presets.py"
+  - title: "Raven · DAG verdict implementation"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/raven/agent/subagent/dag_verdict.py"
+  - title: "Raven · permissions and delegation boundaries"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/permissions.md"
+  - title: "Raven · quick start"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/quick-start.md"
+  - title: "Raven Curator · architecture and four strategy surfaces"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/docs/design.md"
+  - title: "Raven Iteration and Analyst · feedback-to-code walkthrough"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/docs/rsi-iteration.md"
+  - title: "Raven · published three-round worker improvement case"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/simulation/cases/s0925c/README.md"
+  - title: "Raven · published case criterion ledger"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/simulation/cases/s0925c/transcript/6-ledger.md"
+  - title: "Raven Evolver · usage, evidence and lifecycle status"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/evolver.md"
+  - title: "Raven Evolver · methodology-to-code map and unwired features"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/self-evolution-map.md"
+  - title: "Raven · The Harness of Harnesses for Composable Agentic Intelligence · abstract"
+    url: "https://arxiv.org/abs/2609.33439"
+  - title: "Agent Client Protocol · introduction"
+    url: "https://agentclientprotocol.com/get-started/introduction"
+  - title: "Raven technical report · design objectives and collaboration mechanisms"
+    url: "https://arxiv.org/html/2609.33439v1"
+  - title: "Raven · official WebUI brand mark"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/ui-web/src/assets/raven-mark.svg"
+  - title: "Raven · memory, skills and extension boundaries"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/skills-and-extensions.md"
+  - title: "Raven · proactivity and scheduled work"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/proactivity.md"
+  - title: "Raven · configuration home and path rules"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/raven/home.py"
+  - title: "Raven · ACP configuration schema"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/raven/config/schema.py"
+  - title: "Raven · Agent Hub connect and readiness implementation"
+    url: "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/raven/rpc/methods/subagents.py"
+  - title: "Claude Code · authentication"
+    url: "https://code.claude.com/docs/en/authentication"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, CompareTable, Summary } from '@/components/article';
+import RavenFigure from '@/components/article/raven/RavenFigure.astro';
+
+<CoverBanner kicker="DESIGN & SOURCE STUDY · EVERMIND-AI/RAVEN · UPDATED 2026-10-23" title="Raven：从设计目标到 Agent 协作与自我改进" lead="为什么需要一个管理 Agent 的 Agent？从官方设计目标出发，画清能力之间的关系与实现架构，再实际配置 Claude Code，让它接到项目任务、返回结果并接受监督。" pills={[{ label: '设计目的与目标' }, { label: 'HTML 能力图解' }, { label: 'Claude Code 实例' }]}>
+  <div slot="visual" class="w-full rounded-[28px] bg-paper px-6 py-9 text-center md:py-12">
+    <img src="/images/raven/official-mark.svg" width="144" height="144" class="mx-auto h-28 w-28 md:h-36 md:w-36" alt="Raven 官方 Logo，取自官方 WebUI 的 raven-mark.svg" />
+    <p class="mt-6 text-[36px] font-semibold tracking-[-0.04em] text-ink">Raven</p>
+    <p class="mt-2 text-[15px] text-muted">The Harness of Harnesses</p>
+    <p class="mx-auto mt-5 max-w-[24em] text-[14px] leading-[1.75] text-ink-2">把不同的专业 Agent 组织起来，<br />让一次工作留下可继续使用的经验。</p>
+  </div>
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="purpose-and-goals">
+  <SectionHead index="01" kicker="设计目的" title="让专业 Agent 的能力组合起来，完成跨领域的整项工作" />
+  <Prose tile>
+
+[Raven](https://github.com/EverMind-AI/Raven)希望用户能把整项工作的组织交给系统。用户提出目标后，由 Host Agent 选择执行者，安排任务的先后与交接，汇总交付物。Host 就是主控 Agent，可以调用 Raven 自带的专家，也可以指挥 Claude Code 等独立产品。
+
+官方报告以开发 FPS 游戏为例。研究需求、编写玩法代码、制作视觉内容，直到集成测试和持续运行，每一步需要的工具与验收标准都不同。一个聊天模型能讨论这些工作，不等于同一套执行程序就能把它们做好。编码 Agent 与设计 Agent 各有一套适合自己领域的工作方法。
+
+Harness 是模型周围的执行程序和规则：工具怎样使用，上下文怎样处理，技能、失败恢复和检查怎样接入。Raven 把“模型 + Harness”作为完整的调用单元。因此，接入 Claude Code，也就接入了它处理项目的那套方法。Host 负责安排它与其他执行者合作。
+
+[官方报告引言](https://arxiv.org/html/2609.33439v1#S1)指出，专用 Harness 越做越复杂，靠人逐个适配模型和领域很难持续。即使各自做好了，不同 Harness 的输入、产物和执行方式也不一致，能力仍接不到一起。Raven 的编排与改进机制由此展开。
+
+  </Prose>
+  <RavenFigure id="raven-goal-map" title="困难、目标与设计选择，一项项对应" caption="根据官方报告引言、系统设计与当前文档整理。目标说明为什么做；设计选择说明用什么机制去达成。">
+    <div class="rv-matrix-row rv-matrix-head"><div>工作中的困难</div><div>设计目标</div><div>采用的机制</div></div>
+    <div class="rv-matrix-row"><div><span class="rv-mobile-label">困难</span>专业 Agent 各有自己的工具、接口和执行循环。</div><div><span class="rv-mobile-label">目标</span><h4>能力可以组合</h4>保留各自的专业执行能力，又能共同交付。</div><div><span class="rv-mobile-label">机制</span>注册表描述可用能力；ACP（Agent 会话协议）、CLI（命令行）和 HTTP 后端提供调用适配；明确各后端能读什么、怎样返回。</div></div>
+    <div class="rv-matrix-row"><div><span class="rv-mobile-label">困难</span>人要选模型、拆任务、搬运结果，再追着返工。</div><div><span class="rv-mobile-label">目标</span><h4>由 Host 组织工作</h4>把日常任务交接交给系统。</div><div><span class="rv-mobile-label">机制</span>Host 提交 DAG，程序检查依赖、调度节点、记录产物；结果审查与异常处理推动下一步。</div></div>
+    <div class="rv-matrix-row"><div><span class="rv-mobile-label">困难</span>任务结束后，经验随着会话离开当前上下文。</div><div><span class="rv-mobile-label">目标</span><h4>经验可以再次使用</h4>后续任务能找到过去的事实与方法。</div><div><span class="rv-mobile-label">机制</span>会话与节点产物保留直接证据；EverOS 负责长期记忆；SkillForge 检索可复用的操作方法。</div></div>
+    <div class="rv-matrix-row"><div><span class="rv-mobile-label">困难</span>同类错误反复发生，专用 Harness 仍依赖人手工调优。</div><div><span class="rv-mobile-label">目标</span><h4>工作方法可以改进</h4>让失败指向具体可验证的修改。</div><div><span class="rv-mobile-label">机制</span>四个可替换策略面暴露修改位置；改进器提出候选，评价者检查效果，保留经过验证的版本。</div></div>
+  </RavenFigure>
+  <Prose tile>
+
+官方衡量组合价值时，比较的是同一资源预算下能可靠完成哪些任务。多加 Agent 也会增加规划和交接成本。专业能力互补，产物又能接上，才有机会完成单个 Agent 做不好的工作；交付结果仍需检验。
+
+报告结尾还提出跨设备的长期助手：让不同环境中的 Raven 实例互相协调，延续任务与经验。记忆和开放协议都服务于这个方向，但跨设备进度同步等愿景尚不能算作当前能力。本文研究的是 `4315993` 源码快照，包版本为 `0.2.5`，官方仍标为 pre-alpha。
+
+  </Prose>
+</Section>
+
+<Section canvas id="capability-map">
+  <SectionHead index="02" kicker="能力全景" title="协作和 Harness 改进是主干，记忆与技能让成果留下来" />
+  <Prose tile>
+
+Raven 的主干能力可以分成两项：组织不同执行者完成当前任务，以及改进执行者以后怎样工作。记忆与技能把经验带到后续任务；主动触发与多种入口，则让系统能在配置允许的时机继续推进。
+
+  </Prose>
+  <RavenFigure id="raven-capability-system" title="一项任务进入系统，经过执行，再留下经验" caption="这是能力之间的关系图。常规执行可以使用记忆与技能；改写 Harness 则需要单独进入改进流程，并非每次聊天都启动。">
+    <div class="rv-node rv-emphasis"><span class="rv-label">目标输入</span><h4>用户交出完整目标与约束</h4><p>例如“完成游戏原型及展示页面”，同时说明项目目录、可用资源与需要人决定的事项。</p></div>
+    <div class="rv-transfer">Host 判断能否自己完成，还是需要组织专家</div>
+    <div class="rv-grid">
+      <div class="rv-node"><span class="rv-label"><span class="rv-dot"></span>主干 A · 当前任务</span><h4>多 Agent 协作</h4><p>选择执行者、提交依赖图、调度就绪节点、传递产物、审查与处理异常。</p><p class="rv-small">产出：任务结果、文件、执行记录。</p></div>
+      <div class="rv-node"><span class="rv-label"><span class="rv-dot"></span>主干 B · 后续执行</span><h4>Harness 改进</h4><p>从失败或反馈中提出修改，改变可替换的工作策略，验证后保留新版本。</p><p class="rv-small">产出：新的配置、流程或策略代码。</p></div>
+    </div>
+    <div class="rv-transfer">当前工作提供证据；后续工作读取筛选过的经验</div>
+    <div class="rv-grid-three">
+      <div class="rv-node"><h4>记忆</h4><p>保存用户约束、事件和 Agent 经验，按新任务检索相关内容。</p></div>
+      <div class="rv-node"><h4>技能与流程</h4><p>SkillForge 提供操作方法；Playbook 保存经过审查的多步执行安排。</p></div>
+      <div class="rv-node"><h4>持续入口</h4><p>WebUI、终端、消息与协议接入；定时和主动触发在配置允许时发起工作。</p></div>
+    </div>
+  </RavenFigure>
+  <Prose tile>
+
+Raven 自带的专家各有侧重。Research 搜集资料并追踪来源，Code 修改项目并验证结果；Design 组织视觉交付，通常把 PPT 工作转给隐藏的 PPT Agent。Oncall 负责推进和观察长时间任务。它们在 Raven 的执行基础上增加领域工具与检查，外部 Agent 则保留自己的内部工作方式。
+
+专家连上之后，交接仍得有人安排。历史也一样：存下来了，还要能找到并用于下一次工作，否则协调与补上下文的负担仍在人身上。
+
+  </Prose>
+</Section>
+
+<Section canvas id="collaboration-design">
+  <SectionHead index="03" kicker="协作设计" title="Host 负责语义决策，调度器负责把任务图执行准确" />
+  <Prose tile>
+
+拆成哪些工作、交给谁、需要什么输入，以及结果是否要返工，这些决定需要理解任务，交给模型。节点引用是否合法、依赖有没有环、后端是否支持所需能力，则由程序检查。并发名额和结果存储也由程序管理，不靠模型记住执行到哪一步。
+
+简单任务可以直接做，单个子任务用 `spawn`，多项相互依赖的工作用 `run_subagent_dag`。DAG 是有向无环图，节点表示一次 Agent 调用，边表示产物依赖。Host 提交图后，运行时校验并启动就绪节点。这里并没有强制前置的独立 Planner：默认 Planning 策略原样传递消息，模型可以在自己的工具循环里规划。
+
+  </Prose>
+  <RavenFigure id="raven-project-dag" title="开发一项功能：并行只发生在没有依赖的位置" caption="个人代码项目的教学设计。实现与文档使用不同文件范围；测试节点等待实现产物。是否采用这样的拆分，由 Host 结合项目决定。">
+    <div class="rv-node rv-emphasis"><span class="rv-label">Host 的目标</span><h4>为导出功能补上边界处理，并给出可复核的交付</h4><p>先读项目约定，确定文件所有权、测试命令和禁止的外部动作。</p></div>
+    <div class="rv-transfer">把任务与输入交给两个可以独立推进的节点</div>
+    <div class="rv-grid">
+      <div class="rv-node"><h4>实现节点 · Claude Code</h4><p>只改导出模块与对应测试；交出 diff、测试命令和实际输出。</p><p class="rv-small">输出 A：实现文件与验证记录。</p></div>
+      <div class="rv-node"><h4>文档节点 · 另一位 Agent</h4><p>只读接口，起草使用说明；不写实现节点拥有的文件。</p><p class="rv-small">输出 B：文档草案与待确认项。</p></div>
+    </div>
+    <div class="rv-transfer">独立验收依赖实现；最终汇总依赖所有所需结果</div>
+    <div class="rv-grid">
+      <div class="rv-node"><h4>验收节点</h4><p>按验收条件检查 A，核对失败场景与测试证据；发现问题交回 Host。</p></div>
+      <div class="rv-node"><h4>Host 汇总</h4><p>结合 A、B 和验收意见，决定继续、重规划或交付。需要发布时再触发重大授权。</p></div>
+    </div>
+  </RavenFigure>
+  <Prose tile>
+
+能读本机文件的后端可以接收输出路径，不能读的后端则需要在任务里拿到内容。节点提示词中的 `{{ api_audit.output }}` 引用已有输出，`depends_on` 声明前置节点。这样交接时，Host 不必重新复述所有内容，后续也能沿引用找到原始证据。
+
+节点返回后，还要经过 verdict，即完成情况审查。失败进入异常处理时，Host 可以带着修正要求继续，也可以放弃或改用新节点重规划；已经完成的产物仍可引用。`instance` 表示子 Agent 的会话实例，同一实例的调用会串行。有确定先后要求时仍要写依赖，并行写代码也要另行划分文件所有权：系统不会自动创建隔离的 Git worktree。
+
+交接可以自动推进，验收却要看具体检查了什么。当前实现中，普通节点的模型审查若超时或失败，会接受后端的正常返回。关键任务仍需真实测试和更严格的外部验收，发布权限也应独立管理。
+
+  </Prose>
+</Section>
+
+<Section canvas id="self-improvement-design">
+  <SectionHead index="04" kicker="改进设计" title="把工作方法拆成可替换策略，才能提出具体修改" />
+  <Prose tile>
+
+RSI 是 Recursive Self-Improvement，递归自我改进。Raven 主要研究怎样修改 Harness，执行模型可以保持不变。重试能改变这次输出；要影响后续任务，就得把上下文或工作策略的改动保存成可运行的新版本，再检验效果。
+
+四个策略面给出了具体修改位置，外面的执行程序仍统一负责工具派发、事件、持久化和有边界的重试。改进器因此可以区分“工具根本没提供”与“工具提供了但执行前没检查”，针对原因修改，无需每次重写整个 Agent。
+
+  </Prose>
+  <RavenFigure id="raven-harness-seats" title="同一个模型周围，四个位置各管一种决定" caption="根据报告第 4 节与当前 Harness 模块整理。这里是执行责任划分；不表示默认每个模块都会额外调用一次模型。">
+    <div class="rv-node rv-emphasis"><h4>模型与它的工作上下文</h4><p>模型提出回答或工具调用。Harness 控制它看到什么、可以做什么，以及结果如何进入下一步。</p></div>
+    <div class="rv-transfer">改进器只改与失败原因有关的位置</div>
+    <div class="rv-grid">
+      <div class="rv-node"><span class="rv-label">Memory · 看见什么</span><h4>上下文与工作记忆</h4><p>组装材料、保留重要约束、在上下文压力下选择怎样缩减。</p><p class="rv-small">可改产物：引导文件、上下文策略或记忆接法。</p></div>
+      <div class="rv-node"><span class="rv-label">Planning · 如何组织</span><h4>计划与协作程序</h4><p>提供逐步建议，或组织必须遵循依赖的多步工作。</p><p class="rv-small">可改产物：Playbook、技能与规划策略。</p></div>
+      <div class="rv-node"><span class="rv-label">Capability · 能用什么</span><h4>工具与外部能力</h4><p>选择工具，通过 MCP 协议接入工具与资源，关闭不合适的入口或增加自检工具。</p><p class="rv-small">可改产物：工具配置、插件或新工具。</p></div>
+      <div class="rv-node"><span class="rv-label">Action · 怎样执行</span><h4>响应与动作审查</h4><p>取得可用响应，在执行或交付前检查，必要时拒绝或要求重写。</p><p class="rv-small">可改产物：策略代码、工具关口与结果检查。</p></div>
+    </div>
+    <div class="rv-transfer">候选修改经过装配检查与任务评测后，才成为后续执行可用的版本</div>
+    <div class="rv-node"><h4>执行程序保留统一责任</h4><p>工具派发、事件顺序、状态记录和重试控制继续由运行时处理，避免每个候选各做一套记录方式。</p></div>
+  </RavenFigure>
+  <Prose tile>
+
+改进器依据任务证据提出方案，评价者按既定条件检查效果。两者各管一件事。评价代码、评测任务和记账不能让候选随意修改，否则分数提高了，也可能只是评分方法变了。
+
+当前仓库提供两条实现路径。实验目录中的 Curator 为 Worker 生成局部策略、配置与流程，校验后安装；独立的 Evolver 则围绕基准测试生成候选 Git 提交，筛选并保存版本。普通聊天不会默认启动它们。
+
+### 落到文件上，究竟改了什么
+
+改动可以小到一份工作说明，也可以是一段真正运行的检查代码。下面这些文件与配置都出现在 Raven 的扩展设计或公开培养案例中。它们属于被改造的 Worker 或候选产物，不能直接当作每次安装都会有的固定文件。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '改动对象', wrap: true }, { label: '具体文件或配置', wrap: true }, { label: '影响后续哪一步', wrap: true }]} rows={[
+    ['工作说明与上下文', 'TOOLS.md、agent.md、soul.md，以及 Memory 策略', '决定每轮读到哪些规则、带入哪些资料，以及怎样处理工作上下文。'],
+    ['任务流程', 'playbook.md、节点的 requirements.json', '决定谁先做、谁依赖谁，以及产物交给哪个执行者或检查环节。'],
+    ['工具能力', 'disabled_tools、MCP 配置、deck_audit.py 等新增工具代码', '关闭不合适的工具，或提供原先没有的自检能力。'],
+    ['执行与交付检查', 'hl_action.py、brief_action.py 等策略模块', '在回复、工具执行或交付前检查；按策略放行、要求重写或结束。'],
+  ]} />
+  <Prose tile>
+
+用个人代码项目作教学对照：修改 `src/export.py` 修好一个 bug，交付的是这次任务的业务代码；修改 Agent 的完成检查，让它以后宣布完成前都核对测试结果，改变的是 Harness。把实现后的独立审查和返工安排保存到 Playbook，也是在改变后续的工作方法。这些是本文的迁移示例，没有实际执行这项项目改造。
+
+### 改的是哪一层 Agent
+
+在公开的 Curator 案例中，被修改的是受管理的 Raven Worker。生成物通过配置、home 文件、工具和回调等原有扩展点生效，不需要修改 `raven/` 核心源码。Evolver 的落点不同：它可以修改指定仓库中允许编辑的 Harness 源码，并把候选保存为 Git 提交。
+
+把 Claude Code 通过 ACP 接进来，提供的是调用它的能力。不能由此推断 Curator 已经能够改写 Claude Code 自身的内部执行器。某项改进能不能实施，取决于那一层是否开放了对应的修改位置。[Curator 的扩展与装配说明](https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/docs/design.md)明确描述了它与 Raven Worker 的连接方式。
+
+  </Prose>
+</Section>
+
+<Section canvas id="supporting-capabilities">
+  <SectionHead index="05" kicker="支撑能力" title="记忆保存经历，技能提供方法，主动性负责在合适时机启动" />
+  <Prose tile>
+
+已经确认的项目约束，不该每轮重新解释；上次为什么失败，也值得留给后续任务。Raven 分别保存历史产物、长期记忆和可复用程序，再按需要读取。
+
+EverOS 是独立分发的记忆后端。用户轨道记录偏好、约束与事件，Agent 轨道记录执行经验和可复用案例。新请求到来时，Raven 通过 Memory Engine 检索相关内容，与工作区归档一起组装上下文。保存下来的内容，并不会全部塞进每次模型调用。
+
+  </Prose>
+  <RavenFigure id="raven-experience-flow" title="任务结束后，哪些东西留下，下一次怎样使用" caption="当前运行文档所述的数据路径。记忆写入与索引可以异步完成；一次回答结束不等于全部记忆已经可检索。">
+    <div class="rv-grid">
+      <div class="rv-node"><span class="rv-label">直接证据</span><h4>节点产物与会话记录</h4><p>保存任务原文、输出、错误和元数据。同会话里的后续任务可以按节点引用。</p></div>
+      <div class="rv-node"><span class="rv-label">待保留的信息</span><h4>用户上下文与 Agent 经验</h4><p>已确认的偏好进入用户轨道；执行方法和失败经历进入对应 Agent 的案例轨道。</p></div>
+    </div>
+    <div class="rv-transfer">记录或提取后，放到各自的存储责任方</div>
+    <div class="rv-grid">
+      <div class="rv-node"><h4>历史与工作区归档</h4><p>下次需要精确文件或已有节点结果时，直接读取原始产物。</p></div>
+      <div class="rv-node"><h4>EverOS 记忆库</h4><p>以身份和范围隔开数据；按新任务检索相关事件、事实或 Agent 案例。</p></div>
+    </div>
+    <div class="rv-transfer">新请求到来，按需要读取，而非重放所有历史</div>
+    <div class="rv-node rv-emphasis"><h4>本轮上下文</h4><p>当前任务、必要的历史引用、检索出的约束与方法，共同帮助 Host 决定派给谁、该怎样验收。</p></div>
+  </RavenFigure>
+  <Prose tile>
+
+需要现成方法时，SkillForge 可以查询本地 Skill、记忆后端提供的技能和 SkillHub 目录。Skill 是操作说明，可以附带脚本或参考文件。当前默认采用 `pull`：模型先看小型菜单，用 `find_skill` 搜索，再用 `read_skill` 读取正文；`push` 则经过选择流程把正文放入上下文。目录里的全部技能不会一次性进入模型。
+
+  </Prose>
+  <RavenFigure id="raven-skill-flow" title="同样叫可复用能力，Skill 与 Playbook 分工不同" caption="根据 skills-and-extensions.md 与 Playbook 文档。检索到技能、取得依赖资源、实际执行成功，分别需要证据。">
+    <div class="rv-grid-three">
+      <div class="rv-node"><h4>本地 Skill</h4><p>项目或用户维护的程序说明与资源。</p></div>
+      <div class="rv-node"><h4>记忆中的方法</h4><p>由实际记忆后端返回的 Agent 经验或技能。</p></div>
+      <div class="rv-node"><h4>SkillHub</h4><p>远程候选目录；需要按下载与使用策略处理资源。</p></div>
+    </div>
+    <div class="rv-transfer">SkillForge 发现与读取，结合当前任务和工具能力判断适用性</div>
+    <div class="rv-grid">
+      <div class="rv-node rv-emphasis"><h4>Skill 告诉 Agent 怎样做</h4><p>操作知识进入本轮上下文，Agent 按说明选择工具推进工作。</p></div>
+      <div class="rv-node"><h4>Playbook 保存怎样协作</h4><p>有名字、参数和节点依赖的重复流程，最终交给 DAG 执行；它由独立的流程入口管理。</p></div>
+    </div>
+  </RavenFigure>
+  <Prose tile>
+
+报告还讨论了在后端提取案例、聚类并更新技能的过程。但当前代码文档明确提醒，`skillForge.extraction` 不会自行启动 Host 侧的技能提炼流程。有没有生成新技能，要去记忆后端检查产物，配置字段本身说明不了结果。
+
+让系统在合适的时机行动，还需要触发机制。Cron 执行明确的计划，Heartbeat 周期检查，Sentinel 则根据上下文判断是否值得提醒或跟进。使用它们需要常驻宿主，并配置启用状态、目标和成本约束。Oncall 执行长时间工作，Sentinel 决定何时主动行动，各有职责。
+
+  </Prose>
+  <RavenFigure id="raven-proactive-flow" title="没有新的聊天请求，也能按配置进入工作流程" caption="主动执行需要单独启用与配置。Sentinel 的规划、发现和启动任务可能额外调用模型；这不是固定费用的后台能力。">
+    <div class="rv-grid-three"><div class="rv-node"><h4>明确时间表</h4><p>Cron：什么时候做什么。</p></div><div class="rv-node"><h4>周期与事件</h4><p>Heartbeat：何时检查；事件触发：发生什么变化。</p></div><div class="rv-node"><h4>上下文判断</h4><p>Sentinel：当前是否有值得提醒或跟进的工作。</p></div></div>
+    <div class="rv-transfer">经过各自的启用、策略与成本条件</div>
+    <div class="rv-node rv-emphasis"><h4>提交提醒或任务</h4><p>进入可用的投递与执行路径，再由 Agent 和工具推进。触发器负责启动，不替代任务验收。</p></div>
+  </RavenFigure>
+</Section>
+
+<Section canvas id="implementation-architecture">
+  <SectionHead index="06" kicker="实现架构" title="入口接到同一运行基础，专业执行交给独立后端" />
+  <Prose tile>
+
+再往实现里看，除了代码的位置，还要弄清状态归谁保存。Raven 核心使用 Python，要求 `Python >= 3.12`。`raven/core/runtime.py` 中的 `build_runtime` 根据配置和插件贡献装配组件；交互入口由 Spine 调度执行并传递事件，Agent Loop 组织模型调用、工具结果和委派。Host 与子 Agent 各自保存的状态，在图中单独列出。
+
+  </Prose>
+  <RavenFigure id="raven-runtime-blueprint" title="从用户请求到执行进程，再到证据与经验" caption="主图表示交互式 Host 路径。入站 A2A 当前还有一次性执行路径；运行架构不等于已经拥有跨机器的持久任务队列。">
+    <div class="rv-rail">
+      <div>
+        <div class="rv-node"><span class="rv-label">入口层</span><h4>WebUI · TUI · 消息通道</h4><p>WebUI 和终端界面共用 RPC 契约；入口处理交互与会话定位。</p><p class="rv-small"><code>rpc-schema/openrpc.json</code></p></div>
+        <div class="rv-transfer">提交本轮工作，接收执行事件</div>
+        <div class="rv-node"><span class="rv-label">装配与调度</span><h4>Assembly Root + Spine</h4><p>配置与插件决定本次运行组件；Spine 协调交互轮次。</p><p class="rv-small"><code>raven/core/runtime.py</code> · <code>raven/spine/</code></p></div>
+        <div class="rv-transfer">调度一轮 Agent Loop</div>
+        <div class="rv-node rv-emphasis"><span class="rv-label">Host 执行层</span><h4>Agent Loop 与四个 Harness 模块</h4><p>组装上下文，取得模型响应，执行工具并观察结果；需要时提交子任务与任务图。</p><p class="rv-small"><code>raven/agent/loop/</code> · <code>raven/agent/harness/</code></p></div>
+        <div class="rv-transfer">工具执行，或通过委派管理器启动节点</div>
+        <div class="rv-grid"><div class="rv-node"><h4>工具路径</h4><p>文件、命令、MCP 与插件工具，经相应权限与执行器处理。</p></div><div class="rv-node"><h4>委派路径</h4><p>注册表选择后端，DAG 调度依赖，Manager 管并发与结果通知。</p><p class="rv-small"><code>raven/agent/subagent/</code></p></div></div>
+        <div class="rv-transfer">后端调用与返回</div>
+        <div class="rv-grid-four"><div class="rv-node"><h4>内建</h4><p>进程内 Raven Loop。</p></div><div class="rv-node"><h4>ACP</h4><p>子进程、会话与进度。</p></div><div class="rv-node"><h4>CLI</h4><p>命令模板与输出解析。</p></div><div class="rv-node"><h4>HTTP</h4><p>远程兼容端点。</p></div></div>
+      </div>
+      <aside class="rv-side" aria-label="状态与证据的存储责任">
+        <div class="rv-node"><h4>项目工作目录</h4><p>代码、测试与交付文件。多个写任务需要明确所有权。</p></div>
+        <div class="rv-node"><h4>Host 会话与节点历史</h4><p>图、状态、prompt、输出和错误，供查看与后续引用。</p></div>
+        <div class="rv-node"><h4>Agent 自有会话</h4><p>Claude Code 等后端保存自己的执行上下文与认证状态。</p></div>
+        <div class="rv-node"><h4>长期记忆与技能</h4><p>归档、EverOS 与本地资源，通过检索向后续任务供给上下文。</p></div>
+      </aside>
+    </div>
+  </RavenFigure>
+  <Prose tile>
+
+RPC 是远程过程调用，在这里连接界面与控制能力；ACP 管 Host 和一个 Agent 的会话通信；A2A 则面向独立运营的远端 Agent；MCP 用来接入工具和资源。一个 MCP 工具不是完整子 Agent，一个 HTTP 模型端点也不会自动获得本机工具循环。区分这些协议，才能知道新能力该接在哪一层。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '选型' }, { label: '解决的具体问题', wrap: true }, { label: '对使用者的含义', wrap: true }]} rows={[
+    ['Python + Pydantic', '实现执行程序与结构化契约校验', '配置、工具参数与后端必须符合真实 schema'],
+    ['LiteLLM', '主模型的供应商接入', 'Host 的模型配置与 Claude 子 Agent 的认证分开'],
+    ['RPC + WebUI / React、Ink TUI', '让界面共享控制契约', '换入口仍需要找对同一实例与会话'],
+    ['ACP / CLI / HTTP 后端', '接入保有不同执行方式的 Agent', '文件访问、流式事件和续接能力各不相同'],
+    ['插件 + EverOS + 本地归档', '扩展工具并保留跨会话上下文', '要分别确认插件可用、写入完成和检索结果'],
+  ]} />
+  <Prose tile>
+
+模型做语义判断，程序检查确定性约束，后端负责自身运行。接入时也得顺着这些职责逐层验证：配置登记后先看进程能否启动，握手后再查认证与任务执行，拿到回答后还要核对文件和测试。
+
+  </Prose>
+</Section>
+
+<Section canvas id="claude-code-setup">
+  <SectionHead index="07" kicker="接入实例" title="把 Claude Code 接入 Raven，再交给它一项项目任务" lead="下面给出界面与配置文件两条路径，连接的是完整 Claude Code Agent。" />
+  <Prose tile>
+
+假设你有一个代码项目，想让 Raven 负责接活与监督，Claude Code 负责读文件、改代码和跑测试。需要分别准备 Host 的模型配置与子 Agent 的认证。Raven Host 能理解目标，不代表 Claude Code 已经能执行任务；Host 的 API Key 也不会变成 Claude Code 的账号。
+
+### 准备 Raven 与 Claude 认证
+
+macOS／Linux 的官方入门路径是：
+
+```bash
+curl -fsSL https://raven.evermind.ai/install.sh | bash
+raven onboard
+raven web
+```
+
+在 `onboard` 中配置主模型及需要的专业 Agent。普通 WebUI 默认地址为 `http://127.0.0.1:18792`；Docker 示例的 `18793` 是另一条启动路径。`raven status` 和 `raven doctor` 可以检查主服务和环境。
+
+使用已有 Claude Code 登录时，先在日常终端启动一次 `claude`，按[官方认证说明](https://code.claude.com/docs/en/authentication)完成登录，并确认能正常回答。已有 API Key 或云平台配置的用户按原认证方式处理。Raven 常驻进程要能取得相应环境；在另一个终端里临时设置的变量，不会自行进入已经启动的服务。
+
+Raven 的 `claude_code` 预设使用 ACP 适配器。当前快照固定的启动命令是：
+
+```bash
+npx -y @agentclientprotocol/claude-agent-acp@0.81.1
+```
+
+环境里需要可用的 `npx`，首次连接也可能下载适配器。按预设源码的说明，它运行 SDK 依赖所带的 CLI，不一定是 `PATH` 上那份 `claude`。已有登录是否可用，仍要通过 Raven 的真实任务检查确认。版本号对应本文快照，后续安装应核对当时的预设。
+
+### 路径 A：从界面连接
+
+  </Prose>
+  <RavenFigure id="raven-claude-connect" title="Agent Hub 中，每一步都要确认实际结果" caption="根据 Agent Hub 界面代码与 subagents.add 实现整理。Connect 当前会执行真实的可用性任务探测，可能消耗 Claude 额度；它不只是保存一个名字。">
+    <ol class="rv-steps">
+      <li><div><h4>打开 Agent Hub，找到 Claude Code</h4><p>使用预设 <code>claude_code</code>。确认选择的是本机连接，而不是另一个远程或 Mirasim 路由。</p></div></li>
+      <li><div><h4>点击 Connect／连接</h4><p>Raven 根据预设生成启动配置，启动适配器并测试是否能实际响应。测试中等待结果，失败时先看本行错误。</p></div></li>
+      <li><div><h4>检查连接状态和测试结果</h4><p>需要进一步检查时在详情中执行 Test。若失败，区分启动、认证、模型访问和超时，不把“能启动”当成“能执行任务”。</p></div></li>
+      <li><div><h4>把会话工作目录选为你的项目</h4><p>确认 Host 和 Claude Code 任务访问的是同一个目标目录。Agent home 放状态，项目目录放代码。</p></div></li>
+      <li><div><h4>明确要求把第一项工作交给 Claude Code</h4><p>先做只读审查，确认过程里实际出现 Claude Code 子任务；再扩大到有文件范围的修改。</p></div></li>
+    </ol>
+  </RavenFigure>
+  <Prose tile>
+
+### 路径 B：直接合并配置
+
+默认配置文件是 `~/.raven/config.json`；设置了 `RAVEN_HOME` 时，则使用该目录下的 `config.json`。下面是要合并到现有文件的片段。保留原来的 provider、主模型和其他 Agent，不要用这一段覆盖整个配置。`/absolute/path/to/project` 必须换成你的真实项目路径。
+
+```json
+{
+  "subagents": {
+    "agents": [
+      {
+        "name": "Claude Code",
+        "preset": "claude_code",
+        "kind": "acp",
+        "enabled": true,
+        "command": "npx -y @agentclientprotocol/claude-agent-acp@0.81.1",
+        "cwd": "/absolute/path/to/project",
+        "readyTimeoutMs": 120000,
+        "timeout": 600
+      }
+    ]
+  }
+}
+```
+
+这是完整的 ACP 子 Agent 配置示例，无需再把 `ANTHROPIC_BASE_URL` 指向 Raven。调用方向是 Raven 启动并指挥 Claude Code，这条接入路径不提供 Claude 模型网关。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '字段' }, { label: '具体含义', wrap: true }]} rows={[
+    ['name / preset', 'name 是 Host 选择的注册名称；preset 记录来源。手工配置时，preset 本身不代替 command。'],
+    ['kind: acp', '使用 ACP 会话协议；命令启动一个服务进程，任务随后通过 session/prompt 发送。'],
+    ['command', '启动适配器的完整命令，不要加入 CLI 的 {prompt} 等占位符。'],
+    ['cwd', '子 Agent 的工作目录示例；还要确认当前任务绑定的 workspace。'],
+    ['readyTimeoutMs', '启动与握手最多等 120000 毫秒，沿用该预设给下载和启动留出的窗口。'],
+    ['timeout', '本示例为每次任务设置 600 秒；这是教学选择，省略时当前 schema 没有自动任务截止时间。'],
+  ]} />
+  <Prose tile>
+
+手动修改后，重启驻留的 WebUI，使下一次运行读取新配置：
+
+```bash
+raven web --stop
+raven web
+```
+
+这个操作会停止当前 WebUI 服务；先完成正在执行的任务。界面内的正常 Connect 路径可以更新当前 roster，手工改文件则不要假定旧进程已经读到新内容。
+
+### 接入后，实际发什么任务
+
+把会话工作目录设为项目后，先给 Host 这个任务：
+
+> 请明确调用已连接的 Claude Code，检查当前项目 README、构建配置和测试入口，返回“如何启动、如何验证、缺什么前置条件”的报告。每项结论给文件位置。只读，不改文件，不提交，不推送。由你检查它的结果并汇总。
+
+要看它是否真的读了项目。子任务中应有 Claude Code 的执行记录，报告也应指向正确的文件位置；一句“连接正常”不足以验证认证、目录和文件读取都可用。
+
+接着再给一个范围明确的修改任务。下面是教学示例，文件名要换成项目里的真实路径：
+
+> 请把导出模块的空数据处理交给 Claude Code 实现，只允许修改 `src/export/` 和 `tests/export/`。开始前先读取项目约定并确定测试命令；完成后交出 diff、测试命令、退出结果和未解决问题。你负责审查，发现问题直接继续或重规划，不需要我搬运意见。不要提交、推送或发布。
+
+如果启用了 Raven-Code，可以让它独立审查实现，自己核对测试和边界条件。审查意见交回 Host，由它决定返工并推动后续执行。是否合格看文件和验证结果，模型说“完成”还不够。
+
+  </Prose>
+  <RavenFigure id="raven-claude-acceptance" title="接入验收要走到项目行为，而不只看握手" caption="这是一套建议的用户验收顺序。本文给出配置与源码核对，没有使用你的账号执行这些付费任务。">
+    <div class="rv-grid-three"><div class="rv-node"><span class="rv-label">第一层</span><h4>能启动和认证</h4><p>Connect／Test 返回真实响应，错误没有被忽略。</p></div><div class="rv-node"><span class="rv-label">第二层</span><h4>能在目标项目工作</h4><p>读到真实文件，报告引用正确位置；没有混到另一个目录。</p></div><div class="rv-node"><span class="rv-label">第三层</span><h4>能交付可验证的修改</h4><p>文件范围正确，测试实际执行；Host 能处理审查与返工。</p></div></div>
+  </RavenFigure>
+</Section>
+
+<Section canvas id="claude-code-runtime-path">
+  <SectionHead index="08" kicker="调用实现" title="任务发给 Claude Code 后，消息与结果怎样往返" />
+  <Prose tile>
+
+进程启动后，任务通过 ACP 传递。ACP 是 Agent Client Protocol，规定客户端与 Agent 怎样通信。Raven 充当客户端，另一端的 Claude ACP 适配器提供会话服务。stdio 则表示协议消息走子进程的标准输入与输出。
+
+  </Prose>
+  <RavenFigure id="raven-acp-sequence" title="一项子任务中的控制消息、进度与最终结果" caption="协议时序根据 ACP 与 Raven 后端整理。角色栏保持可读；手机上每条消息按发送方向与内容堆叠，不需要横向拖动。">
+    <div class="rv-sequence">
+      <div class="rv-node rv-emphasis"><h4>Raven Host／ACP Client</h4><p>提供任务、workspace 和会话绑定，收集结果并监督。</p></div>
+      <div class="rv-node rv-emphasis"><h4>Claude ACP／Claude Code</h4><p>运行自己的模型与工具循环，返回执行进度和结果。</p></div>
+      <div class="rv-message"><div class="rv-direction">Raven 发起</div><div><h4>启动适配器，发送 initialize</h4><p>协商协议版本与能力；不能凭 Agent 名推断它支持续接或文件操作。</p></div></div>
+      <div class="rv-message"><div class="rv-direction">Raven 发起</div><div><h4>session/new，或能力允许时加载会话</h4><p>绑定项目目录，保存子 Agent 原生 session ID。</p></div></div>
+      <div class="rv-message"><div class="rv-direction">Raven 交任务</div><div><h4>session/prompt</h4><p>发送任务正文、已有产物和必要输入；DAG 节点对应一次调用。</p></div></div>
+      <div class="rv-message"><div class="rv-direction">Claude Code 执行</div><div><h4>自己的模型与工具循环</h4><p>读文件、运行命令、修改代码。session/update 把文本和工具进度送回 Raven。</p></div></div>
+      <div class="rv-message"><div class="rv-direction">协议内往返</div><div><h4>权限或提问请求</h4><p>按当前客户端与子 Agent 的政策处理；不要假定每次内部动作都回到人。</p></div></div>
+      <div class="rv-message"><div class="rv-direction">Claude Code 返回</div><div><h4>最终结果与停止信息</h4><p>Raven 把结果写入节点记录，交给 verdict 检查，再交付、继续或重规划。</p></div></div>
+    </div>
+  </RavenFigure>
+  <Prose tile>
+
+Host 会话、DAG 节点与 Claude Code 原生 session 不能混用。`instance` 用于复用子会话，节点输出另有地址。传递产物靠引用，继续此前的 Claude Code 工作则要绑回正确会话。
+
+Raven 的无人值守 ACP 客户端通常选择子 Agent 提供的允许选项。若权限请求携带明确命令，Host 的 deny 检查可以拒绝匹配的命令；子 Agent 自己已经允许、没有向 Host 询问的动作不会经过这个入口。要限制它能碰到什么，仍要配置子 Agent 自身权限、可写目录和运行环境。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '现象', wrap: true }, { label: '先检查哪里', wrap: true }]} rows={[
+    ['找不到 Claude Code 或 npx', '确认 Agent Hub 选择的路由；检查常驻进程能取得的 PATH，安装后重启或重新检查环境。'],
+    ['握手超时', '适配器首次下载、网络与启动错误；readyTimeoutMs 控制的是准备阶段。'],
+    ['能握手，但任务报认证或额度错误', '检查 Claude 侧登录、环境和账号额度；Host 模型可用并不能说明子 Agent 认证可用。'],
+    ['回答了，却没读到项目', '检查 Host workspace、子 Agent cwd 与后端报告的本地文件能力。'],
+    ['回复正常，但结果不完整', '检查任务超时、停止原因、真实文件和测试输出，必要时让 Host 继续而非直接交付。'],
+  ]} />
+</Section>
+
+<Section canvas id="published-rsi-case">
+  <SectionHead index="09" kicker="三轮实例" title="从内部备注泄漏，到写文件前逐项拦截" lead="以下来自仓库公开的旅行社模拟案例，不是本文编造的运行日志。" />
+  <Prose tile>
+
+公开案例 `s0925c` 模拟培养虚构旅行社“海岚旅行”的顾问。根 Agent 接待客人，再把调研、需求单和方案 PPT 分给子 Agent。老板提供服务流程与价目表等资料，扮演客人提出需求，随后评价交付物。
+
+案例共 `3` 轮，每轮只有 `1` 张家庭题卡，具体日期、出发地和孩子年龄会变化。[案例说明](https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/simulation/cases/s0925c/README.md)报告第 `3` 轮全部 `11` 条红线通过。这个口径是单个模拟案例的作者记录，不能换算成实际业务的成功率。历史运行采用 `--analysis owner`，老板的要求直接转交 Curator；当前默认实现使用通用 Analyst 路径。
+
+  </Prose>
+  <RavenFigure id="raven-rsi-revisions" title="每轮发现什么、改在哪里、下一轮看到什么" caption="来自公开 s0925c 模拟案例。入职与三轮修订都常驻显示；右列区分下一轮验证与最终作者记录。">
+    <div class="rv-ledger">
+      <div class="rv-revision"><div><span class="rv-label">入职 · 初始版本</span><h4>先按资料定制</h4></div><div><h4>改了什么</h4><p>规划调研、需求单和 PPT 的依赖；限制根 Agent 搜索；生成提问数量检查。</p><p class="rv-small">Planning、Capability、Action 都有实际产物。</p></div><div><h4>怎样执行</h4><p>回复前数问号，超过两个就带理由要求重写；流程把交付物送回主 Agent 质检。</p></div></div>
+      <div class="rv-revision"><div><span class="rv-label">第 1 轮后</span><h4>补交付检查</h4></div><div><h4>发现与修改</h4><p>方案出现内部备注，酒店名缺少限定。给需求单子 Harness 增加写盘前的 action.strategy；给 PPT 子 Harness 增加自检工具。</p></div><div><h4>后续验证</h4><p>第 2、3 轮相关问题改好。检查被接到了写入与交付的位置，模型需要先通过再往下做。</p></div></div>
+      <div class="rv-revision"><div><span class="rv-label">第 2 轮后</span><h4>细化事实规则</h4></div><div><h4>发现与修改</h4><p>门票被错误归纳为“一人免票、一人半价”。需求单审核改成读取调研的年龄规则，对每个孩子逐个求值。</p></div><div><h4>后续验证</h4><p>第 3 轮这项要求通过，作者记录需求单审核实际打回 4 次。保留的是可反复执行的检查。</p></div></div>
+      <div class="rv-revision"><div><span class="rv-label">第 3 轮</span><h4>检查新版本</h4></div><div><h4>本轮证据</h4><p>有交付物、规则台账和机制活动。作者报告该轮 11 条红线全部通过。</p></div><div><h4>能得出的结论</h4><p>这套规则在本次模拟中起了作用。单个案例不能说明在所有新任务上都成立。</p></div></div>
+    </div>
+  </RavenFigure>
+  <Prose tile>
+
+### brief_action.py 怎样改变写文件这一步
+
+公开案例里，写需求单的 Agent 已经收到提示词要求，却仍把内部调研备注写进需求单。PPT Agent 又沿用需求单内容，错误就进入最终方案。Curator 因此生成 `brief_action.py`，把审核接到需求单写盘前，也检查最后回答交出的需求单正文。检查从“模型应该记住的要求”变成了实际执行路径。
+
+  </Prose>
+  <RavenFigure id="raven-harness-write-review" title="同一次写文件调用，增加审核后怎样执行" caption="根据公开第 1 轮修订记录整理。这里画的是发现问题后要求修改的路径；该策略设有重试上限，并非永不放行的安全屏障。">
+    <ol class="rv-steps">
+      <li><div><h4>模型提出写入需求单</h4><p>提出 <code>write_file</code> 调用，参数里包含路径和准备写入的正文。</p></div></li>
+      <li><div><h4>brief_action.py 读取待写内容</h4><p>在动作执行前取得正文，并使用任务中提供的称呼、晚数和调研原文等信息。</p></div></li>
+      <li><div><h4>检查对客文案</h4><p>查找内部备注、缺少限定的酒店名和与已知信息冲突的内容；设计说明按自身范围处理。</p></div></li>
+      <li><div><h4>有问题就给出修改要求</h4><p>在允许的修订次数内打回，说明哪句话有问题，让模型重新提交。</p></div></li>
+      <li><div><h4>重写后再次经过检查</h4><p>通过检查的需求单可以继续交给 PPT Agent；达到重试上限时，则按该策略的放行与记录规则处理。</p></div></li>
+    </ol>
+  </RavenFigure>
+  <Prose tile>
+
+这项策略在一轮对话里最多打回四次，之后会放行并留下问题记录，以免整条制作流程卡住。这个限制来自[公开的修订记录](https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/simulation/cases/s0925c/transcript/3-round-1.md)，不能省略后再把审核描述成必然阻止所有错误的关口。
+
+第二轮门票归纳又出错时，Curator 在这个审核模块中增加了按调研年龄规则逐个孩子核对的逻辑。它保留下来的改进，是后续任务会再次运行的代码。
+
+### 看一段真正生成的检查
+
+入职时生成的 `hl_action.py` 用下面的判断限制提问数量。节选保留原意，完整 diff 在公开的入职记录中。
+
+```python
+asked = text.count("？") + text.count("?")
+if asked > 2:
+    problems.append(f"一条消息里问了 {asked} 个问题，每条消息最多问两个问题")
+```
+
+检查已经接进执行路径，但它只能数问号，判断不了一句话里实际问了几个问题。用了 Python，也仍有这种覆盖范围的限制。
+
+第二轮后的门票检查更接近业务规则。下面是[案例提供的生成代码节选](https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/simulation/cases/s0925c/README.md)，不是可独立运行的完整程序：
+
+```python
+rules = _rules(research, free)
+results = [(snippet, [pred(a) for a in ages]) for snippet, pred in rules]
+if computable and counts_set == {claimed}:
+    continue
+```
+
+代码从调研中取出可计算的年龄规则，对每个孩子求值，再与文稿声称的人数比较。一致才放行。第一轮加审核，第二轮补规则，到第三轮才看到新条件实际拦住错误。反馈由此变成了以后每次执行都能经过的检查。
+
+### 逐轮效果并不整齐
+
+台账里也有退步：需求收集与确认在第 `1` 轮通过，第 `2` 轮失败，到第 `3` 轮恢复。交接要求和调研事实从第 `2` 轮开始通过，交付禁写内容却连续失败两轮。最终版本之前，仍出现了新的问题。
+
+  </Prose>
+  <CompareTable tile headers={[{ label: '作者台账中的项目', wrap: true }, { label: '第 1 轮' }, { label: '第 2 轮' }, { label: '第 3 轮' }]} rows={[
+    ['需求收集与确认', '通过', '失败', '通过'],
+    ['交接与后续步骤', '失败', '通过', '通过'],
+    ['方案外部事实经过调研', '失败', '通过', '通过'],
+    ['方案没有禁止内容', '失败', '失败', '通过'],
+  ]} />
+  <Prose tile>
+
+这些结果来自[逐项台账](https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/experimental/simulation/cases/s0925c/transcript/6-ledger.md)。本次还核对了仓库 provenance 中列出的 `9` 个公开文件的 SHA-256，包括两份 PPTX 和各阶段记录，全部一致；[核对结果可以下载](/files/raven/published-case-integrity.json)。这只能确认当前公开包与清单一致，没有验证原始私有运行记录，也没有独立重现作者的打分。
+
+个人代码项目可以借用这种改法。例如，Agent 经常没跑测试就宣布完成，可以在宣布完成的位置接入测试命令与可核查结果，再用后续任务检验。这里是本文提出的迁移建议；旅行社案例没有验证它能替你完成这项代码项目改造。
+
+  </Prose>
+</Section>
+
+<Section canvas id="offline-evolver">
+  <SectionHead index="10" kicker="离线进化" title="基因库保留不同改法，评测决定什么值得继续" />
+  <Prose tile>
+
+[官方报告第 4 节](https://arxiv.org/html/2609.33439v1#S4)把候选组织成 Harness Gene Bank。它按照改动类型与失败类型保存经过评价的完整 Harness，支持从档案中取出机制重新组合；组合后仍要单独评测，不能把两项收益直接相加。仓库里的 Evolver 提供一条独立执行路径：固定基准任务与评分，让模型诊断失败、设计补丁，再把候选 Harness 放到相同条件下评测。它是独立工具，使用 Raven 作为库；正常的 Host 运行时不导入它。当前统一启动器只注册了 AppWorld，仓库中出现其他评测目录不代表它们也能直接作为启动目标。
+
+先固定根 Git 提交和被测 Agent 的模型配置，跑出冷启动基线。模型读取训练任务的失败轨迹，提出候选补丁；程序记录候选为真实的子提交。默认先用每题 `K=1` 次的低成本筛选，幸存候选再用全训练集 `K=3` 次确认。`K` 表示每项任务尝试的次数，冒烟配置可以覆盖这些默认值。
+
+  </Prose>
+  <RavenFigure id="raven-evolution-search" title="一次失败不是只产生一个补丁，还会留下可再利用的候选" caption="上半部分概括报告中的 Harness Gene Bank 方法；下半部分对应仓库 Evolver 的评测责任。报告方法与当前启动器的实现、状态需要分别核对。">
+    <div class="rv-node rv-emphasis"><h4>固定模型、任务与评分，诊断失败轨迹</h4><p>提出具体假设：什么行为失败，证据在哪，改什么位置，预期怎样改变。</p></div>
+    <div class="rv-transfer">生成新改法，或把已有候选的机制组合成新候选</div>
+    <div class="rv-grid"><div class="rv-node"><h4>候选 A · 恢复机制</h4><p>修复特定执行中断，记录实际改动与触发条件。</p></div><div class="rv-node"><h4>候选 B · 完成前检查</h4><p>要求交付前验证，记录对应代码与评价结果。</p></div></div>
+    <div class="rv-transfer">先检查可执行性，再用任务确认触发与收益</div>
+    <div class="rv-grid-three"><div class="rv-node"><h4>有效性</h4><p>候选能运行，评测条件成立。</p></div><div class="rv-node"><h4>触发证据</h4><p>新机制确实执行过；埋点不能单独证明因果。</p></div><div class="rv-node"><h4>效果比较</h4><p>同条件比较任务结果，检查退步与收益。</p></div></div>
+    <div class="rv-transfer">记录完整候选、改动位置、失败类型、来源与成绩</div>
+    <div class="rv-node rv-emphasis"><h4>Harness Gene Bank · 多样候选档案</h4><p>按修改类型和失败类型保留代表版本。一个候选即使没有成为当前最强父版本，也可能提供后续组合所需的机制。</p></div>
+    <div class="rv-transfer">从训练结果选择继续探索的父版本；结束后固定版本，再测未参与选择的任务</div>
+    <div class="rv-node"><h4>留下版本与证据</h4><p>保存提交与评测记录。晋级、统计信用、合并和部署是不同事件。</p></div>
+  </RavenFigure>
+  <Prose tile>
+
+几道门槛检查的东西不同。Gate-f 记录基础设施污染，残留故障仍留在固定分母里，按未通过计算。Gate-b 用 activation beacon（执行标记）检查候选代码是否执行，没有埋点数据时可能不起作用；Gate2 则计算候选与基线的成对收益。Beacon 只能证明带标记的代码跑过，不能单独证明收益由它造成。
+
+[实现映射文档](https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/self-evolution-map.md)还明确区分“被选作继续探索的版本”和 `credited_2sigma` 统计信用。训练平均分高一些可以推动探索，不等于已经证明具有统计显著性。候选被 promoted，也不等于已经合并到你的工作分支或部署。
+
+一旦准备好真实任务、独立 AppWorld 环境和配置文件，官方操作顺序是：
+
+```bash
+uv run python -m evolver check --config /path/to/my_run.yaml
+uv run python -m evolver run --config /path/to/my_run.yaml --smoke
+uv run python -m evolver status --config /path/to/my_run.yaml --smoke
+uv run python -m evolver run --config /path/to/my_run.yaml
+```
+
+运行前要准备好配置，固定 `repo_root`、`base_sha`、模型与任务划分；完整字段见[官方运行说明](https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/docs-site/docs/evolver.md)。`check` 默认就可能发出小型真实模型探测，smoke 也可能调用模型、执行候选代码并生成提交。反复执行被测 Agent 是主要开销，限制轮次并不能保证费用不超出某个金额。
+
+完成的试验与轮次可以从产物恢复，封存测试集的结果通常不进入决策路径。`finalize --yes` 会结束实验并解封，不是暂停按钮；之后继续针对已看到的测试结果改版本，会破坏这次留出评测的意义。
+
+### 为什么现在不宜把它当作长期依赖
+
+当前文档已注明，`evolver/` 计划随相关旧树退役，仍待确认。公开状态记录了测试和真实 AppWorld 冒烟，尚未证明完成真实大规模多轮与封存测试保留率验证。部分算法文件也没有接入主流程。README 中的宣传图和展示项目不提供这些缺失的验证。
+
+候选代码会以评测进程的权限执行，路径白名单和评分代码的不可改约束也没有构成完整的操作系统沙箱。若要研究这条路线，应在隔离环境中跑实验，并审查候选 diff。对日常个人项目，更直接的起点是先把任务调度和验收做稳。
+
+  </Prose>
+</Section>
+
+<Section canvas id="personal-agent-company">
+  <SectionHead index="11" kicker="个人项目" title="它可以接管任务交接，可靠经营还要补上外部约束" />
+  <Prose tile>
+
+按[个人 Agent 公司](/posts/2026-10-21-personal-agent-company-rsi/)的目标看，Raven 已经能接管一些日常协调：Host 安排工作，DAG 按依赖执行，异常交回继续或重规划，Playbook 保留常用流程。人可以少做任务中转，把注意力放到目标、授权与重大决策上。
+
+要让人能放心离开，还得补齐运行约束。下面是依据当前实现提出的采用建议，其中有些能力需要另行实现。
+
+  </Prose>
+
+  <CompareTable tile headers={[{ label: '责任', wrap: true }, { label: 'Raven 当前能提供', wrap: true }, { label: '个人项目建议补齐', wrap: true }]} rows={[
+    ['接活与分派', 'Host、spawn、DAG、Playbook', '清晰的项目目标、可执行优先级和不做事项'],
+    ['并行开发', '共享并发限制、节点依赖、实例串行', '每个写任务的独立工作副本或不重叠文件所有权'],
+    ['验收与返工', 'verdict、异常继续和重规划', '真实测试输出与关键验收的失败即停止规则'],
+    ['中断恢复', '记录 graph、manifest 与节点产物', '持久待办与恢复协调；重启后检查副作用再续剩余工作'],
+    ['重大决策', '工具权限与交互审批机制', '发布凭据和生产权限由独立服务控制，不能只靠提示词'],
+    ['持续改进', '实验 Curator、独立 Evolver', '历史任务评测、版本记录、预算与明确的回退条件'],
+  ]} />
+  <Prose tile>
+
+### 两个尤其容易被误当成保证的开关
+
+`background: true` 表示工具尽早返回 run ID，结果随后通知会话；它没有承诺宿主进程结束后继续运行。重启后从历史看到 `interrupted`，说明记录恢复了，任务并没有自动恢复执行。重新派发前要检查已经写出的文件或外部副作用。
+
+`confirm: true` 请求先批准整张图。当前实现没有接入 ask channel 时，会记录提示并继续未经确认的调度。它不能独自保护无人值守的发布操作。要做到“只有重大决策需要人”，应让日常任务在明确授权内自动完成，同时让重大动作在缺少批准时确实无法取得执行权限。
+
+权限本身也有边界。`smart` 模式用模型审查 ask 级动作，失败会升级；`full` 处理的是省去询问，仍保留 deny。无响应者的单次 CLI 不能完成人工审批，相关拒绝会反映到退出状态。外部 Agent 内部的工具权限还要单独配置，不能只看 Host 的模式。
+
+可以从只读研究与审查开始，再开放有文件边界的开发任务。测试、失败恢复和预算观察都留下证据后，再扩大无人值守范围。RSI 优先处理反复出现、能核查结果的问题，也便于判断这些新增机制究竟省了多少人的工作。
+
+  </Prose>
+</Section>
+
+<Section canvas id="evidence-and-conclusion">
+  <SectionHead index="12" kicker="设计判断" title="看它怎样把专业能力接起来，也看改进怎样得到验证" />
+  <Prose tile>
+
+判断 Raven 是否适合自己的项目，可以沿 Claude Code 实例一路检查：Host 能否调到正确执行者，任务与产物能否接上，文件和测试结果是否可核查。记忆与技能负责把经验留给后续工作，可替换的 Harness 策略则提供修改工作方法的位置；新版本是否有用，还要经过评价。
+
+本文的官方设计意图来自技术报告的引言与相关机制章节，运行细节核对固定源码与文档。HTML 图解是根据这些关系重新绘制；封面 Logo 则直接采用官方 WebUI 资产，没有重画。公开案例采用完整案例说明、逐项台账与相关代码和机制片段，没有声称通读全部长记录，也没有独立重跑作者实验。
+
+配置与示例已经按来源核对，本文没有实际安装启动 Raven，也没有使用你的登录或调用付费模型。来源、代码范围与验证结果记在 `docs/research/raven.md`。先跑通只读项目任务，再开放有范围的开发工作，便于逐步检查它在自己项目中的表现。
+
+  </Prose>
+  <Summary surface="white" takeaways={[
+    { title: '项目的设计目的', conclusion: '让不同专业 Agent 共同完成跨领域工作，并让经验用于后续任务。', detail: 'Host、任务图、产物、记忆与技能分别解决组织、交接和复用问题。' },
+    { title: '怎样实际采用', conclusion: '接入 Claude Code 后，要验证它真的能在项目中执行并返回证据。', detail: '再考虑 Harness 改进；每次修改都要有版本、检查和后续任务结果，不能只凭一次反思判断。' },
+  ]} note="源码快照：2026-10-22；本文重写：2026-10-23。公开模拟结果归项目方记录，个人项目采用方式属于建议。" />
+</Section>
+</ArticleCanvas>

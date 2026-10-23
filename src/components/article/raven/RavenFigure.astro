@@ -1,0 +1,80 @@
+---
+/** Article-local HTML figure surface; explanatory content stays in the MDX slots. */
+interface Props {
+  id: string;
+  title: string;
+  caption: string;
+}
+const { id, title, caption } = Astro.props;
+---
+<figure id={id} class="raven-diagram not-prose" aria-labelledby={`${id}-title`}>
+  <header class="figure-head"><h3 id={`${id}-title`}>{title}</h3></header>
+  <div class="figure-body"><slot /></div>
+  <figcaption>{caption}</figcaption>
+</figure>
+<style>
+  .raven-diagram { margin: 16px 0; padding: 28px; background: var(--color-white); border-radius: var(--radius-card); color: var(--color-ink-2); min-width: 0; }
+  .figure-head { margin-bottom: 22px; }
+  h3 { margin: 0; font-size: clamp(20px, 2.2vw, 25px); line-height: 1.35; font-weight: 600; letter-spacing: -0.025em; color: var(--color-ink); }
+  figcaption { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--color-line-soft); font-size: 13px; line-height: 1.7; color: var(--color-muted); }
+  .figure-body { min-width: 0; }
+  .raven-diagram :global(p), .raven-diagram :global(ol), .raven-diagram :global(ul) { margin: 0; }
+  .raven-diagram :global(p + p) { margin-top: 7px; }
+  .raven-diagram :global(h4) { margin: 0 0 8px; font-size: 18px; line-height: 1.4; font-weight: 600; color: var(--color-ink); }
+  .raven-diagram :global(code) { font-size: 0.88em; font-family: var(--font-mono); overflow-wrap: anywhere; }
+  .raven-diagram :global(.rv-label) { display: block; font-size: 12px; line-height: 1.5; color: var(--color-muted); margin-bottom: 8px; }
+  .raven-diagram :global(.rv-small) { font-size: 13px; line-height: 1.65; color: var(--color-muted); }
+  .raven-diagram :global(.rv-node) { padding: 20px; border: 1px solid var(--color-line-soft); border-radius: 14px; background: var(--color-white); min-width: 0; font-size: 15px; line-height: 1.7; overflow-wrap: anywhere; }
+  .raven-diagram :global(.rv-node.rv-emphasis) { background: var(--color-paper); border-color: transparent; }
+  .raven-diagram :global(.rv-grid) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .raven-diagram :global(.rv-grid-four) { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .raven-diagram :global(.rv-grid-three) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .raven-diagram :global(.rv-matrix-row) { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.3fr); border-top: 1px solid var(--color-line-soft); }
+  .raven-diagram :global(.rv-matrix-row > div) { padding: 18px 16px; font-size: 15px; line-height: 1.7; min-width: 0; overflow-wrap: anywhere; }
+  .raven-diagram :global(.rv-matrix-row > div + div) { border-left: 1px solid var(--color-line-soft); }
+  .raven-diagram :global(.rv-matrix-row h4) { font-size: 16px; }
+  .raven-diagram :global(.rv-matrix-head) { border-top: 0; color: var(--color-muted); }
+  .raven-diagram :global(.rv-matrix-head > div) { font-size: 12px; padding-top: 0; padding-bottom: 12px; }
+  .raven-diagram :global(.rv-mobile-label) { display: none; }
+  .raven-diagram :global(.rv-transfer) { display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center; padding: 15px 6px; font-size: 13px; line-height: 1.65; color: var(--color-muted); }
+  .raven-diagram :global(.rv-transfer::before) { content: ''; width: 7px; height: 7px; border-right: 1px solid var(--color-muted-2); border-bottom: 1px solid var(--color-muted-2); transform: rotate(45deg); flex-shrink: 0; margin-top: -4px; }
+  .raven-diagram :global(.rv-rail) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 0.32fr); gap: 18px; }
+  .raven-diagram :global(.rv-side) { display: flex; flex-direction: column; gap: 12px; }
+  .raven-diagram :global(.rv-sequence) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; }
+  .raven-diagram :global(.rv-sequence > .rv-node) { margin-bottom: 14px; }
+  .raven-diagram :global(.rv-message) { grid-column: 1 / -1; display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 16px; padding: 16px; border-top: 1px solid var(--color-line-soft); font-size: 15px; line-height: 1.7; overflow-wrap: anywhere; }
+  .raven-diagram :global(.rv-direction) { font-size: 12px; color: var(--color-muted); }
+  .raven-diagram :global(.rv-ledger) { display: grid; gap: 0; }
+  .raven-diagram :global(.rv-revision) { display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1fr); gap: 18px; padding: 22px 0; border-top: 1px solid var(--color-line-soft); }
+  .raven-diagram :global(.rv-revision:first-child) { border-top: 0; padding-top: 0; }
+  .raven-diagram :global(.rv-revision:last-child) { padding-bottom: 0; }
+  .raven-diagram :global(.rv-revision p) { font-size: 15px; line-height: 1.7; }
+  .raven-diagram :global(.rv-revision h4) { font-size: 17px; }
+  .raven-diagram :global(.rv-dot) { display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--color-blue); vertical-align: middle; }
+  .raven-diagram :global(.rv-steps) { list-style: none; padding: 0; counter-reset: raven-step; }
+  .raven-diagram :global(.rv-steps > li) { counter-increment: raven-step; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; padding: 18px 0; border-top: 1px solid var(--color-line-soft); }
+  .raven-diagram :global(.rv-steps > li:first-child) { border-top: 0; padding-top: 0; }
+  .raven-diagram :global(.rv-steps > li:last-child) { padding-bottom: 0; }
+  .raven-diagram :global(.rv-steps > li::before) { content: counter(raven-step, decimal-leading-zero); color: var(--color-muted); font: 13px/1.8 var(--font-mono); }
+  .raven-diagram :global(.rv-steps p) { font-size: 15px; line-height: 1.7; }
+  @media (max-width: 900px) {
+    .raven-diagram :global(.rv-grid-four) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .raven-diagram :global(.rv-rail) { grid-template-columns: minmax(0, 1fr); }
+    .raven-diagram :global(.rv-side) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 680px) {
+    .raven-diagram { padding: 20px; }
+    .raven-diagram :global(.rv-grid), .raven-diagram :global(.rv-grid-three), .raven-diagram :global(.rv-grid-four), .raven-diagram :global(.rv-side) { grid-template-columns: minmax(0, 1fr); }
+    .raven-diagram :global(.rv-matrix-row) { grid-template-columns: minmax(0, 1fr); padding: 14px 0; }
+    .raven-diagram :global(.rv-matrix-row > div) { padding: 7px 0; }
+    .raven-diagram :global(.rv-matrix-row > div + div) { border-left: 0; }
+    .raven-diagram :global(.rv-matrix-head) { display: none; }
+    .raven-diagram :global(.rv-mobile-label) { display: block; font-size: 12px; line-height: 1.5; color: var(--color-muted); margin-bottom: 5px; }
+    .raven-diagram :global(.rv-revision) { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .raven-diagram :global(.rv-message) { grid-template-columns: minmax(0, 1fr); gap: 6px; padding-inline: 0; }
+    .raven-diagram :global(.rv-node) { padding: 17px; }
+    .raven-diagram :global(.rv-sequence) { gap: 12px; }
+    .raven-diagram :global(.rv-sequence > .rv-node) { padding: 12px; }
+    .raven-diagram :global(.rv-sequence h4) { font-size: 16px; }
+  }
+</style>

@@ -1,0 +1,51 @@
+{
+  "revision": "4315993300e538ec954c79565cbc8585006c8053",
+  "scope": "Public repository artifacts only; not an independent rerun",
+  "files": [
+    {
+      "file": "round1-HL-Q-1020-4P.pptx",
+      "matches": true,
+      "sha256": "4caac24cb657303a131c867d1380d4ffc6dc3b3b84a551d5b8d54c6c8cd9df10"
+    },
+    {
+      "file": "round3-HL-Q-1028-4P.pptx",
+      "matches": true,
+      "sha256": "5cd1799ea2328ba303926a1efd1179e733ff8e0a64d37637c3eab06ccd170128"
+    },
+    {
+      "file": "transcript/1-inputs.md",
+      "matches": true,
+      "sha256": "30b7b720f5c5114335bca7680c9c5d253431f20ffd0d23f3ad4c7e3cb4d0a7ba"
+    },
+    {
+      "file": "transcript/2-onboarding.md",
+      "matches": true,
+      "sha256": "235541844f792265d843d15f786f04e3ecd72d17b19193255296e2b65148b547"
+    },
+    {
+      "file": "transcript/3-round-1.md",
+      "matches": true,
+      "sha256": "fbd369913ba743fea9a0e60862663cb7c85fb8621dd0b42334590149f552d2db"
+    },
+    {
+      "file": "transcript/4-round-2.md",
+      "matches": true,
+      "sha256": "7c2f975ad107170669268dfb09e9d41d120a711a1f3ff3383a74527841cc06c2"
+    },
+    {
+      "file": "transcript/5-round-3.md",
+      "matches": true,
+      "sha256": "f0195dd2a93c9bd55a807afb7525acce7d0d4b18306bc5a36e8961d557695b56"
+    },
+    {
+      "file": "transcript/6-ledger.md",
+      "matches": true,
+      "sha256": "cf7d8b87b937aa237cc6608127c447e6ca6012aaf716f60af5d1f1a50c9d4387"
+    },
+    {
+      "file": "transcript/README.md",
+      "matches": true,
+      "sha256": "bbfe0ff9e98c3d3127795b6c1c03019dc48eb17314e487402a938e6dd80da5a2"
+    }
+  ]
+}
