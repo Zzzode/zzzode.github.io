@@ -1,6 +1,6 @@
 {
   "policy": "Optional, evolving discovery seeds. No company allowlist, mandatory count or proof of leadership. Revisit identity, sources and relevance; record per-run access in the run ledger, not here.",
-  "asOf": "2026-10-22",
+  "asOf": "2026-10-23",
   "discoveryRoutes": [
     {
       "name": "Independent and emerging product discovery",
@@ -109,6 +109,31 @@
       "identity": "unresolved",
       "sources": [],
       "reason": "Expansion and intended organization/specification remain unresolved. Do not replace with MCP."
+    },
+    {
+      "name": "Agentic AI Foundation projects",
+      "identity": "verified_source",
+      "sources": [
+        "https://aaif.io/news/agentic-ai-foundation-announces-four-new-projects"
+      ],
+      "reason": "Shared Agent capabilities, model interfaces, RL environments and sandbox governance. Contribution is not an interoperability or security certification."
+    },
+    {
+      "name": "Sierra evaluation research",
+      "identity": "verified_source",
+      "sources": [
+        "https://sierra.ai/blog/tau-entity-can-voice-agents-get-the-details-right"
+      ],
+      "reason": "Voice-agent detail capture, repair and multilingual evaluations. Distinguish each benchmark and its new publication from older underlying papers; vendor-run evaluations need task and model-version limits."
+    },
+    {
+      "name": "Enact",
+      "identity": "verified_source",
+      "sources": [
+        "https://enact-intelligence.com/",
+        "https://www.linkedin.com/company/enact-intelligence"
+      ],
+      "reason": "Emerging force-and-touch robotics team. Official public social announcements are readable but relative ages do not prove an absolute launch or closing instant; financing is not independent technical validation."
     }
   ]
 }
