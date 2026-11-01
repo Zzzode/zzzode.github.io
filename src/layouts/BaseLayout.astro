@@ -31,6 +31,7 @@ const altPath = alternatePath === undefined ? switchLocalePath(pathname, lang) :
 const zhPath = lang === 'zh' ? pathname : altPath;
 const enPath = lang === 'en' ? pathname : altPath;
 const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim();
 ---
 
 <!doctype html>
@@ -69,6 +70,17 @@ const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
     <meta name="twitter:image" content={new URL('/og.png', Astro.site)} />
     <meta name="twitter:image:alt" content={siteName} />
     <meta name="theme-color" content="#1d1d1f" />
+    {import.meta.env.PROD && umamiWebsiteId && (
+      <script
+        is:inline
+        defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id={umamiWebsiteId}
+        data-domains="zzzode.github.io"
+        data-exclude-search="true"
+        data-exclude-hash="true"
+      ></script>
+    )}
   </head>
   <body class="flex min-h-screen flex-col">
     <Nav lang={lang} alternatePath={altPath} activePath={Astro.props.navPath} />

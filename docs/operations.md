@@ -64,6 +64,40 @@ There is no deploy script: pushing a commit to `main` triggers `.github/workflow
 
 ## Troubleshooting
 
+### Website analytics
+
+Umami Cloud provides optional pageview and visitor analytics. Add `zzzode.github.io`
+as a website in [Umami Cloud](https://cloud.umami.is), then save its Website ID as
+the GitHub Actions repository variable `PUBLIC_UMAMI_WEBSITE_ID` (Settings → Secrets
+and variables → Actions → Variables). This ID is public tracking configuration,
+not an API key. Never place an account password or API token in this variable.
+
+The deployment workflow passes the variable to the Astro build. Redeploy after
+changing it: the ID is embedded at build time. An empty variable disables analytics
+on the next deployment. For a local production build, set the same environment
+variable before `npm run build`.
+
+The shared layout loads the official Umami script with `defer` only in production
+builds with an ID configured. This analytics script is an intentional exception to
+the site's default zero-JavaScript framework pages. Tracking is restricted to
+`zzzode.github.io`, so localhost development and previews do not send pageviews.
+Chinese and English paths remain separate; query strings and fragment identifiers
+are excluded. No custom events, visitor identities, session replay, or heatmaps
+are configured. Browser blockers may prevent collection; visitor counts are
+estimates rather than an exact count of people.
+
+After deployment, visit a Chinese page and an English page, check the browser's
+Network panel for successful requests to Umami, and confirm both visits in the
+dashboard. An offline or blocked analytics endpoint must not prevent reading or
+navigation. To exclude your own browser, open the console on the production site
+and run `localStorage.setItem('umami.disabled', '1')`; repeat for each browser or
+profile. To resume tracking, run `localStorage.removeItem('umami.disabled')`.
+
+See [tracker configuration](https://docs.umami.is/docs/tracker-configuration) and
+[excluding your own visits](https://docs.umami.is/docs/exclude-my-own-visits).
+
+### Common issues
+
 - **`No matching version found for @astrojs/markdown-satteri` during install**: internal mirror lag; the repo `.npmrc` already pins the public npm registry — don't override it with `--registry`.
 - **Build fails on content/schema**: fix the flagged front matter per file/line (ISO dates, valid enum values, valid URLs); don't weaken the schema.
 - **Styles/new tokens don't apply**: in Tailwind v4 token names need the `--color-*` / `--radius-*` namespaces inside `@theme`; restart the dev server after changes.
