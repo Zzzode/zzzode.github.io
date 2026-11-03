@@ -12,6 +12,7 @@ export { default as Schedule } from './Schedule.astro';
 export { default as RideFile } from './RideFile.astro';
 export { default as Pipeline } from './Pipeline.astro';
 export { default as ScrollStory } from './ScrollStory.astro';
+export { default as MechanismSequence } from './MechanismSequence.astro';
 export { default as CompareTable } from './CompareTable.astro';
 export { default as Callout } from './Callout.astro';
 export { default as StatGrid } from './StatGrid.astro';
