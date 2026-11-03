@@ -12,28 +12,28 @@
   <text x="30" y="92" font-size="13" font-weight="600" fill="var(--color-ink)">Thread</text>
   <text x="30" y="110" font-size="10.5" fill="var(--color-muted)">PR #123 · 讨论串</text>
   <rect x="30" y="122" width="108" height="20" rx="6" fill="var(--color-paper)"/>
-  <text x="38" y="136" font-size="9.5" fill="var(--color-muted)">评论 1</text>
+  <text x="38" y="136" font-size="10.5" fill="var(--color-muted)">评论 1</text>
   <rect x="30" y="148" width="108" height="20" rx="6" fill="var(--color-paper)"/>
-  <text x="38" y="162" font-size="9.5" fill="var(--color-muted)">评论 2</text>
+  <text x="38" y="162" font-size="10.5" fill="var(--color-muted)">评论 2</text>
   <rect x="30" y="174" width="108" height="20" rx="6" fill="var(--color-paper)"/>
-  <text x="38" y="188" font-size="9.5" fill="var(--color-muted)">评论 3 · 后续</text>
+  <text x="38" y="188" font-size="10.5" fill="var(--color-muted)">评论 3 · 后续</text>
 
   <rect x="244" y="64" width="200" height="76" rx="14" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
   <text x="258" y="88" font-size="13" font-weight="600" fill="var(--color-ink)">工单 A</text>
   <text x="258" y="106" font-size="10.5" fill="var(--color-muted)">Worker 处理后续</text>
   <text x="258" y="122" font-size="10.5" fill="var(--color-ink-2)">超出范围 → 交回评估</text>
-  <text x="258" y="134" font-size="10" fill="var(--color-muted)">Mandate：修复该缺陷</text>
+  <text x="258" y="134" font-size="10.5" fill="var(--color-muted)">Mandate：修复该缺陷</text>
 
   <rect x="244" y="160" width="200" height="76" rx="14" fill="var(--color-white)" stroke="var(--color-line-soft)" stroke-dasharray="4 4"/>
   <text x="258" y="184" font-size="13" font-weight="600" fill="var(--color-ink)">工单 B</text>
   <text x="258" y="202" font-size="10.5" fill="var(--color-muted)">仅上下文订阅</text>
   <text x="258" y="218" font-size="10.5" fill="var(--color-muted)">不获授权 · 不唤醒</text>
-  <text x="258" y="230" font-size="10" fill="var(--color-muted)">只补充背景</text>
+  <text x="258" y="230" font-size="10.5" fill="var(--color-muted)">只补充背景</text>
 
   <path d="M152 102 C190 102 206 100 240 100" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#continuation-arrow)"/>
-  <text x="196" y="92" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">订阅扇出</text>
+  <text x="196" y="92" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">订阅扇出</text>
   <path d="M152 190 C190 190 206 196 240 196" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#continuation-arrow)"/>
-  <text x="196" y="182" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">仅上下文</text>
+  <text x="196" y="182" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">仅上下文</text>
 
   <text x="20" y="262" font-size="10.5" fill="var(--color-muted)">人的新消息可以唤醒正常结束的工单；被人明确停止的工单保持停止。</text>
 </svg>

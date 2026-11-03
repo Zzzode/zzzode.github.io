@@ -1,42 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 360" fill="none" font-family="var(--font-sans)">
   <defs>
     <marker id="cover-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="var(--color-muted-2)"/>
+      <path d="M0 0 L10 5 L0 10 Z" fill="var(--color-muted)"/>
     </marker>
   </defs>
   <rect width="460" height="360" rx="28" fill="var(--color-paper)"/>
   <text x="24" y="42" font-size="20" font-weight="600" fill="var(--color-ink)">你继续说话，系统记住工作</text>
-  <text x="24" y="64" font-size="13" fill="var(--color-muted)">同一段对话，多项工作各有进度</text>
+  <text x="24" y="64" font-size="14" fill="var(--color-muted)">同一段对话，多项工作各有进度</text>
 
   <rect x="24" y="94" width="122" height="64" rx="14" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
-  <text x="38" y="120" font-size="15" font-weight="600" fill="var(--color-ink)">新工作</text>
-  <text x="38" y="141" font-size="11.5" fill="var(--color-muted)">群聊 · Issue · PR</text>
+  <text x="38" y="120" font-size="16" font-weight="600" fill="var(--color-ink)">新工作</text>
+  <text x="38" y="141" font-size="12" fill="var(--color-muted)">群聊 · Issue · PR</text>
   <path d="M146 126 H176" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#cover-arrow)"/>
 
   <rect x="178" y="82" width="108" height="88" rx="18" fill="var(--color-white)" stroke="var(--color-line)"/>
   <text x="232" y="114" font-size="17" font-weight="600" fill="var(--color-ink)" text-anchor="middle">Router</text>
-  <text x="232" y="136" font-size="11.5" fill="var(--color-muted)" text-anchor="middle">评估 · 分派</text>
-  <text x="232" y="154" font-size="11" fill="var(--color-muted-2)" text-anchor="middle">常驻主会话</text>
+  <text x="232" y="136" font-size="12" fill="var(--color-muted)" text-anchor="middle">评估 · 分派</text>
+  <text x="232" y="154" font-size="11" fill="var(--color-muted)" text-anchor="middle">常驻主会话</text>
 
   <path d="M286 106 H318" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#cover-arrow)"/>
   <path d="M286 146 C304 146 304 172 318 172" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#cover-arrow)"/>
 
   <rect x="320" y="72" width="116" height="68" rx="14" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
-  <text x="334" y="99" font-size="15" font-weight="600" fill="var(--color-ink)">工单 A</text>
-  <text x="334" y="119" font-size="11.5" fill="var(--color-muted)">Worker 执行中</text>
+  <text x="334" y="99" font-size="16" font-weight="600" fill="var(--color-ink)">工单 A</text>
+  <text x="334" y="119" font-size="12" fill="var(--color-muted)">Worker 执行中</text>
   <circle cx="337" cy="133" r="3" fill="var(--color-blue)"/>
-  <text x="347" y="136" font-size="10.5" fill="var(--color-muted)">订阅已建立</text>
+  <text x="347" y="136" font-size="11" fill="var(--color-muted)">订阅已建立</text>
 
   <rect x="320" y="156" width="116" height="68" rx="14" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
-  <text x="334" y="183" font-size="15" font-weight="600" fill="var(--color-ink)">工单 B</text>
-  <text x="334" y="203" font-size="11.5" fill="var(--color-muted)">Worker 执行中</text>
-  <text x="334" y="219" font-size="10.5" fill="var(--color-muted-2)">并列推进</text>
+  <text x="334" y="183" font-size="16" font-weight="600" fill="var(--color-ink)">工单 B</text>
+  <text x="334" y="203" font-size="12" fill="var(--color-muted)">Worker 执行中</text>
+  <text x="334" y="219" font-size="11" fill="var(--color-muted)">并列推进</text>
 
   <rect x="24" y="230" width="134" height="60" rx="14" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
-  <text x="38" y="256" font-size="15" font-weight="600" fill="var(--color-ink)">后续评论</text>
-  <text x="38" y="276" font-size="11.5" fill="var(--color-muted)">CI 失败 · 评审意见</text>
+  <text x="38" y="256" font-size="16" font-weight="600" fill="var(--color-ink)">后续评论</text>
+  <text x="38" y="276" font-size="12" fill="var(--color-muted)">CI 失败 · 评审意见</text>
   <path d="M158 260 C230 260 300 200 376 144" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#cover-arrow)"/>
   <text x="244" y="212" font-size="11" fill="var(--color-muted)" text-anchor="middle">订阅直达</text>
 
-  <text x="24" y="334" font-size="13" fill="var(--color-muted)">会话停下，工单、授权与订阅仍然保留。</text>
+  <text x="24" y="334" font-size="14" fill="var(--color-muted)">会话停下，工单、授权与订阅仍然保留。</text>
 </svg>

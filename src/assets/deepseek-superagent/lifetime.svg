@@ -42,13 +42,13 @@
 
   <path d="M364 150 H392" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
   <path d="M392 170 H364" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
-  <text x="378" y="142" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">读写</text>
+  <text x="378" y="142" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">读写</text>
 
   <path d="M120 220 V246" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
   <path d="M140 246 V220" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
-  <text x="156" y="238" font-size="9.5" fill="var(--color-muted)">命令 / 结果</text>
+  <text x="156" y="238" font-size="10.5" fill="var(--color-muted)">命令 / 结果</text>
 
   <path d="M420 250 C400 236 366 230 348 226" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#lifetime-arrow)"/>
-  <text x="390" y="246" font-size="9.5" fill="var(--color-muted)" text-anchor="end">检查 / 修复</text>
+  <text x="390" y="246" font-size="10.5" fill="var(--color-muted)" text-anchor="end">检查 / 修复</text>
 
 </svg>

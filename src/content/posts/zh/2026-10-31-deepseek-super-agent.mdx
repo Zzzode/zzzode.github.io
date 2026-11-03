@@ -1,7 +1,7 @@
 ---
 title: "DeepSeek Super-agent：从管理会话到管理工作"
 date: 2026-10-31
-updated: 2026-11-02
+updated: 2026-11-03
 excerpt: "Super-agent 把注意力当作约束：消息留在原来的讨论串，工作变成可追踪的工单，授权范围写进记录。"
 tags: ["DeepSeek", "AI Agent", "Harness", "多 Agent", "系统架构"]
 kind: "distilled"
@@ -159,7 +159,7 @@ Router 是路由层，接收事件并判断它属于哪项任务；Worker 是执
     <ArchitectureGraph class="mx-auto block h-auto" width="880" role="img" aria-label="对象链：Source 产生 Trigger，Thread 归入讨论串，Eval 产出 Decision，获准后生成带 Mandate 的 Ticket，Assignment 交给 Executor，Report 经 Channel 写回来源" />
   </div>
   <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
-  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">原型中一条工作的对象链。实线是新建工作的路径，虚线是订阅扇出与结果写回；订阅只送上下文，不产生新的授权。</figcaption>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">原型中一条工作的对象链。实线是新建工作的路径，虚线是订阅扇出与回复写回；报告记录在工单上，订阅只送上下文，不产生新的授权。</figcaption>
 </figure>
 <Prose tile>
 
@@ -195,7 +195,7 @@ Router 是路由层，接收事件并判断它属于哪项任务；Worker 是执
 
 主 Session 的权限被刻意收窄。它不能把路由写成实现方案：`orchestrator_route` 的备注最多 30 词，接单时只生成一句确认；它不能自己合并 PR，也不能凭外部文本改策略；只有人明确要求时，才通过设置工具修改。它的工具集中在路由（`orchestrator_route`）、评估（`orchestrator_eval` 系列）、回复和设置上；真正的代码调查留给 Worker。宿主还会拦截 `sleep`、超过 30 秒的命令和超过 5 秒的作业等待，避免一个等待步骤挡住后面的候选。
 
-Worker 的能力则集中在“把这项工作做完”。它可以用 shell 和后台作业，可以读图、搜索网页、维护待办，也可以启动子 Agent；但它没有面向人的提问工具、改配置工具或跨 Session 调度工具。它通过 `orchestrator_ack`、`orchestrator_report`、`orchestrator_read` 与线程工具和宿主交互；报告状态是 `progress / ready / blocked / failed / dropped`，需要人决定时把问题放进 `human_action`。工单结束时，宿主把它的工具收回；工单受阻或失败时，工具保留，人仍可以直接进入这个 Session 继续处理。
+Worker 的能力则集中在“把这项工作做完”。它可以用 shell 和后台作业，可以读图、搜索网页、维护待办，也可以启动子 Agent；但它没有独立的提问工具、改配置工具或跨 Session 调度工具。它通过 `orchestrator_ack`、`orchestrator_report`、`orchestrator_read` 与线程工具和宿主交互；报告状态是 `progress / waiting / ready / blocked / failed / dropped`，需要人决定时把问题放进 `human_action`。工单结束时，宿主把它的工具收回；工单受阻或失败时，工具保留，人仍可以直接进入这个 Session 继续处理。
 
 </Prose>
 <Prose tile>
@@ -210,7 +210,7 @@ Session 的生命周期与工单分开管理。主 Session 的 id 由状态目�
     <SessionFlowGraph class="mx-auto block h-auto" width="880" role="img" aria-label="消息序列：人把请求发给 Source，Source 生成 Trigger，Engine 送候选卡给主 Session，主 Session 回 Decision，Engine 把 Assignment 和 Input 交给 Worker，Worker 回 ack 和 report，Engine 再通知主 Session 并发回原讨论" />
   </div>
   <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
-  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">一次请求的顺序。主 Session 与 Worker Session 不直接对话；候选、决定、派工、报告和回复都经过 Engine。</figcaption>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">一次请求的顺序。实线是命令，虚线是通知或转述；主 Session 与 Worker Session 不直接对话，候选、决定、派工、报告和回复都经过 Engine；常规进展留在工单上。</figcaption>
 </figure>
 <Prose tile>
 
@@ -219,7 +219,7 @@ Session 的生命周期与工单分开管理。主 Session 的 id 由状态目�
 1. 人 → Source → Engine：新消息变成 Trigger。
 2. Engine → 主 Session：候选卡；主 Session → Engine：`orchestrator_route` 或 `orchestrator_eval_decide`。
 3. Engine → Worker：Assignment 和 Input；Worker → Engine：`orchestrator_ack`、`orchestrator_report` 或 `orchestrator_trigger_handback`。
-4. Engine → 主 Session：报告、待办和通知；主 Session → Engine：回复、备注、状态查询或重试。
+4. Engine → 主 Session：需要处理的报告、问题和通知，常规进展留在工单上；主 Session → Engine：回复、备注、状态查询或重试。
 5. Engine → Source → 原讨论：回复经 Outbox 发回。
 6. Worker → 子 Agent：DSH 内部的子 Session 消息；结果回到 Worker。
 
@@ -238,7 +238,7 @@ Source 表示接入 GitHub、飞书等平台的事件来源，每次收到的不
 
 </Prose>
 <MechanismSequence steps={[
-  { tag: "01 · 新请求", title: "代码先查准入，模型再判断含义", body: "来源配置先决定系统是否接收事件，准入规则再检查发言身份与请求方式。已订阅工单的消息绕开评估，直接作为上下文送达。其余事件中，明确请求可以接单，推断候选还要按已开启的规则研判。只有获准的工作才生成工单。" },
+  { tag: "01 · 新请求", title: "代码先查准入，模型再判断含义", body: "来源配置先决定系统是否接收事件，准入规则再检查发言身份与请求方式。已订阅工单的人的后续消息由执行器直接处理；机器人消息仍会独立评估。其余事件中，明确请求可以接单，推断候选通常还要按已开启的规则研判。只有获准的工作才生成工单。" },
   { tag: "02 · 后续讨论", title: "已知归属的消息进入原执行会话", body: "工单订阅相关讨论串后，后续消息可以直接送到执行器，省去再次分派。执行器发现新要求超出原授权范围时，把消息交回评估路径，不能自行扩张任务。" },
 ]}>
   <AdmissionGraph slot="frame-0" width="520" class="sequence-frame" role="img" aria-label="准入示意：新事件先经来源过滤与准入，已订阅工单直接收下消息；明确请求生成工单，推断候选进入规则研判，未获准的事件记录后忽略" />
@@ -254,7 +254,7 @@ Source 表示接入 GitHub、飞书等平台的事件来源，每次收到的不
 
 评估本身也可能没跑完。原型会重试，连续超时后记为未完成（`unavailable`），而不是当成普通的忽略；后续事件仍可再发起评估。
 
-在[原型的准入规则](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/002-authorization.md)中，授权人的明确请求可以正常接单，系统推断的候选则要按已开启的规则评估，至少命中一条才可能自动接受。机器人事件只能成为推断候选，不能充当人的明确请求。
+在[原型的准入规则](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/002-authorization.md)中，授权人的明确请求可以正常接单，系统推断的候选通常要按已开启的规则评估，至少命中一条才可能自动接受；如果候选卡明显不涉及任何已开启规则，主会话也可以直接忽略。机器人事件只能成为推断候选，不能充当人的明确请求。
 
 | 模式 | 推断出的工作 | 已获准的明确请求 |
 | --- | --- | --- |

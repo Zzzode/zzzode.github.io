@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 340" fill="none" font-family="var(--font-sans)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 348" fill="none" font-family="var(--font-sans)">
   <defs>
     <marker id="admission-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0 0 L10 5 L0 10 Z" fill="var(--color-muted-2)"/>
@@ -6,7 +6,7 @@
   </defs>
 
   <text x="20" y="26" font-size="15" font-weight="600" fill="var(--color-ink)">一条新事件，先过代码，再问模型</text>
-  <text x="20" y="46" font-size="11.5" fill="var(--color-muted)">已订阅工单收到消息，不再走评估；送达不等于授权。</text>
+  <text x="20" y="46" font-size="11.5" fill="var(--color-muted)">已订阅工单的人的后续消息不再走评估；送达不等于授权。</text>
 
   <rect x="150" y="66" width="160" height="46" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
   <text x="162" y="86" font-size="13" font-weight="600" fill="var(--color-ink)">Trigger</text>
@@ -22,7 +22,7 @@
 
   <rect x="150" y="270" width="160" height="46" rx="12" fill="var(--color-white)" stroke="var(--color-line)"/>
   <text x="162" y="290" font-size="13" font-weight="600" fill="var(--color-ink)">Decision</text>
-  <text x="162" y="306" font-size="10.5" fill="var(--color-muted)">接单 / 停止 / 忽略</text>
+  <text x="162" y="306" font-size="10.5" fill="var(--color-muted)">接单/停止/忽略/未完成</text>
 
   <path d="M230 112 V130" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#admission-arrow)"/>
   <path d="M230 180 V198" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#admission-arrow)"/>
@@ -30,26 +30,27 @@
 
   <rect x="334" y="270" width="108" height="46" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
   <text x="346" y="290" font-size="12" font-weight="600" fill="var(--color-ink)">Ticket</text>
-  <text x="346" y="306" font-size="10" fill="var(--color-muted)">范围 + 策略版本</text>
+  <text x="346" y="306" font-size="10.5" fill="var(--color-muted)">范围 + 策略版本</text>
   <path d="M310 293 H330" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#admission-arrow)"/>
 
   <rect x="334" y="202" width="108" height="46" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)" stroke-dasharray="4 4"/>
   <text x="346" y="222" font-size="11.5" font-weight="600" fill="var(--color-ink)">observe / auto</text>
-  <text x="346" y="238" font-size="10" fill="var(--color-muted)">推断候选的许可</text>
+  <text x="346" y="238" font-size="10.5" fill="var(--color-muted)">推断候选的许可</text>
   <path d="M310 225 H330" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#admission-arrow)"/>
 
   <rect x="16" y="66" width="112" height="46" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)" stroke-dasharray="4 4"/>
   <text x="28" y="86" font-size="12" font-weight="600" fill="var(--color-ink)">已订阅工单</text>
-  <text x="28" y="102" font-size="10" fill="var(--color-muted)">直接送达，不再评估</text>
+  <text x="28" y="102" font-size="10.5" fill="var(--color-muted)">人的后续消息直达</text>
   <path d="M148 89 H132" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#admission-arrow)"/>
 
   <rect x="16" y="134" width="112" height="110" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
-  <text x="28" y="166" font-size="11.5" font-weight="600" fill="var(--color-ink)">未获准</text>
-  <text x="28" y="184" font-size="10" fill="var(--color-muted)">或不匹配规则</text>
-  <text x="28" y="208" font-size="10" fill="var(--color-muted)">记录后忽略</text>
-  <text x="28" y="224" font-size="10" fill="var(--color-muted)">不生成工单</text>
+  <text x="28" y="166" font-size="11.5" font-weight="600" fill="var(--color-ink)">Gate 拒绝</text>
+  <text x="28" y="184" font-size="10.5" fill="var(--color-muted)">或规则不匹配</text>
+  <text x="28" y="208" font-size="10.5" fill="var(--color-muted)">记录后忽略</text>
+  <text x="28" y="224" font-size="10.5" fill="var(--color-muted)">不生成工单</text>
   <path d="M148 157 H132" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#admission-arrow)"/>
   <path d="M148 225 H132" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#admission-arrow)"/>
 
-  <text x="20" y="332" font-size="10.5" fill="var(--color-muted)">明确请求可以跳过研判；推断候选必须按已开启的规则评估。</text>
+  <text x="20" y="322" font-size="10.5" fill="var(--color-muted)">明确请求可跳过研判；推断候选通常按规则评估。</text>
+  <text x="20" y="338" font-size="10.5" fill="var(--color-muted)">off 不成为候选；未完成记 unavailable；bot/CI 仍评估。</text>
 </svg>

@@ -16,9 +16,9 @@
   <path d="M315 70 V84" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4"/>
   <path d="M315 136 V150" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4"/>
   <rect x="280" y="140" width="70" height="22" rx="7" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
-  <text x="315" y="155" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">新消息</text>
+  <text x="315" y="155" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">新消息</text>
   <path d="M315 140 V126" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#async-arrow)"/>
-  <text x="400" y="156" font-size="10" fill="var(--color-muted)">排队到工具结束</text>
+  <text x="400" y="156" font-size="10.5" fill="var(--color-muted)">排队到工具结束</text>
 
   <text x="24" y="220" font-size="13" font-weight="600" fill="var(--color-ink)">后台作业</text>
   <text x="24" y="238" font-size="10.5" fill="var(--color-muted)">下一步读取消息</text>
@@ -26,18 +26,18 @@
   <text x="300" y="222" font-size="11.5" fill="var(--color-ink-2)" text-anchor="middle">编译继续执行</text>
 
   <path d="M425 184 V252" stroke="var(--color-muted-2)" stroke-width="1.5"/>
-  <text x="425" y="178" font-size="10" fill="var(--color-muted)" text-anchor="middle">5 秒：转入后台，返回已启动</text>
+  <text x="425" y="178" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">5 秒：转入后台，返回已启动</text>
 
   <rect x="280" y="252" width="70" height="22" rx="7" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
-  <text x="315" y="267" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">新消息</text>
+  <text x="315" y="267" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">新消息</text>
   <path d="M350 263 C385 263 405 250 421 246" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#async-arrow)"/>
-  <text x="432" y="267" font-size="10" fill="var(--color-muted)">到下一步才读取</text>
+  <text x="432" y="267" font-size="10.5" fill="var(--color-muted)">到下一步才读取</text>
 
-  <text x="590" y="178" font-size="10" fill="var(--color-muted)" text-anchor="middle">结果事件唤醒</text>
+  <text x="590" y="178" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">结果事件唤醒</text>
   <path d="M590 192 V184" stroke="var(--color-muted-2)" stroke-width="1.5"/>
 
   <line x1="150" y1="300" x2="590" y2="300" stroke="var(--color-line)"/>
-  <text x="150" y="314" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">0 s</text>
-  <text x="370" y="314" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">4 s</text>
-  <text x="590" y="314" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">8 s</text>
+  <text x="150" y="314" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">0 s</text>
+  <text x="370" y="314" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">4 s</text>
+  <text x="590" y="314" font-size="10.5" fill="var(--color-muted)" text-anchor="middle">8 s</text>
 </svg>

@@ -55,6 +55,7 @@
   <text x="608" y="278" font-size="13" font-weight="600" fill="var(--color-ink)">Assignment</text>
   <text x="608" y="298" font-size="10.5" fill="var(--color-muted)">派工关系</text>
   <text x="608" y="314" font-size="10.5" fill="var(--color-muted)">pending · running</text>
+  <text x="608" y="330" font-size="10.5" fill="var(--color-muted)">ended</text>
 
   <rect x="396" y="250" width="178" height="84" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
   <text x="408" y="278" font-size="13" font-weight="600" fill="var(--color-ink)">Executor Session</text>
@@ -64,7 +65,8 @@
   <rect x="216" y="250" width="158" height="84" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
   <text x="228" y="278" font-size="13" font-weight="600" fill="var(--color-ink)">Report</text>
   <text x="228" y="298" font-size="10.5" fill="var(--color-muted)">progress · waiting</text>
-  <text x="228" y="314" font-size="10.5" fill="var(--color-muted)">ready · blocked · failed</text>
+  <text x="228" y="314" font-size="10.5" fill="var(--color-muted)">ready · blocked</text>
+  <text x="228" y="330" font-size="10.5" fill="var(--color-muted)">failed · dropped</text>
 
   <rect x="28" y="250" width="166" height="84" rx="12" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
   <text x="40" y="278" font-size="13" font-weight="600" fill="var(--color-ink)">Channel</text>
@@ -73,7 +75,6 @@
 
   <path d="M594 292 H578" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
   <path d="M394 292 H378" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
-  <path d="M214 292 H198" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
   <path d="M688 140 V246" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
   <text x="678" y="198" font-size="10.5" fill="var(--color-muted)" text-anchor="end">派工</text>
   <path d="M28 292 H10 Q6 292 6 288 V106 Q6 102 10 102 H26" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arch-arrow)"/>
