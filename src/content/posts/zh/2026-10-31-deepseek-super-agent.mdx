@@ -1,0 +1,445 @@
+---
+title: "DeepSeek Super-agent：从管理会话到管理工作"
+date: 2026-10-31
+updated: 2026-11-02
+excerpt: "Super-agent 把注意力当作约束：消息留在原来的讨论串，工作变成可追踪的工单，授权范围写进记录。"
+tags: ["DeepSeek", "AI Agent", "Harness", "多 Agent", "系统架构"]
+kind: "distilled"
+sources:
+  - title: "DeepSeek · Super-agent 设计探索（知乎原文，当前抓取受限）"
+    url: "https://zhuanlan.zhihu.com/p/2099987320443237060"
+  - title: "Super-agent 设计探索 · 注明作者与来源的全文转载"
+    url: "https://blog2.eimoon.com/p/deepseek-super-agent-design/"
+  - title: "DeepSeek · Super-agent prototype README"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/README.md"
+  - title: "DeepSeek · Philosophy"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/000-philosophy.md"
+  - title: "DeepSeek · Domain model"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/001-domain.md"
+  - title: "DeepSeek · Authorization"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/002-authorization.md"
+  - title: "DeepSeek · Execution and recovery"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/003-execution.md"
+  - title: "DeepSeek · Prompts"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/004-prompts.md"
+  - title: "DeepSeek · Supervision panel"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/005-panel.md"
+  - title: "DeepSeek · Deployment"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/006-deployment.md"
+  - title: "DeepSeek · Architecture and source map"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/007-architecture.md"
+  - title: "DeepSeek · Trigger intake implementation"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/src/core/intake.ts"
+  - title: "DeepSeek · Context resource implementation"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/src/app/resources.ts"
+  - title: "DeepSeek · Setup walkthrough"
+    url: "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/SETUP.md"
+  - title: "DeepSeek Harness · Official introduction"
+    url: "https://www.deepseek.com/en/harness/"
+  - title: "Anthropic · Scaling Managed Agents: Decoupling the brain from the hands"
+    url: "https://www.anthropic.com/research/managed-agents"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, CardGrid, InfoCard, MechanismSequence, Summary } from '@/components/article';
+import CoverGraph from '@/assets/deepseek-superagent/cover.svg';
+import ArchitectureGraph from '@/assets/deepseek-superagent/architecture.svg';
+import AdmissionGraph from '@/assets/deepseek-superagent/admission.svg';
+import ContinuationGraph from '@/assets/deepseek-superagent/continuation.svg';
+import RecallGraph from '@/assets/deepseek-superagent/recall.svg';
+import AsyncGraph from '@/assets/deepseek-superagent/async.svg';
+import LifetimeGraph from '@/assets/deepseek-superagent/lifetime.svg';
+import ExperimentGraph from '@/assets/deepseek-superagent/experiment.svg';
+import IsolationGraph from '@/assets/deepseek-superagent/isolation.svg';
+import SessionFlowGraph from '@/assets/deepseek-superagent/session-flow.svg';
+
+<CoverBanner
+  kicker="ARCHITECTURE · DEEPSEEK HARNESS TEAM · 2026-10-31"
+  title="DeepSeek Super-agent：从管理会话到管理工作"
+  lead="Agent 能独立做完一项工作之后，多项工作的协调就成了人的新负担。Super-agent 把会话管理接过去：用户继续在原讨论里说话，工作由系统记住。"
+  pills={[{ label: "常驻任务" }, { label: "事件驱动" }, { label: "研究原型" }]}
+>
+  <CoverGraph slot="visual" class="block h-auto w-full" role="img" aria-label="示意图：用户继续在原讨论串里说话，Router 把新工作分给两个工单，后续评论沿订阅直达，工作由系统记住" />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="attention-problem">
+<SectionHead index="01" kicker="问题" title="Agent 越多，人越像调度台" lead="任务交出去以后，人还在替系统记会话、找上下文、催进度。" />
+<Prose tile>
+
+一个 Agent 修缺陷时，流程很简单：在会话里说明问题，等它做完，检查结果。几个修复和代码评审同时推进，情况就变了。群里来了新反馈，你得先找到对应的会话，想起刚改过的限制，还要记得上一位 Agent 试过什么。任务交出去了，会话之间的关系仍由人维护。
+
+DeepSeek Harness 团队提出的 Super-agent，尝试让系统承担这项组织工作。用户继续在群聊、Issue（问题单）或 Pull Request（PR，代码合并请求）里交流，后台由不同会话推进任务。Session 指模型的一段会话历史，不必与用户眼前的聊天窗口一一对应。围绕模型运行、调用工具并保存状态的软件，则称为 Harness，它也负责安排执行的下一步。公开的 [`dsh-superagent`](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/README.md) 以插件形式运行在 [DeepSeek Harness](https://www.deepseek.com/en/harness/) 中，后文简称 DSH。
+
+一种直觉是把所有消息塞进同一个会话。背景连续，但执行会排队，几项任务的细节也容易混在一起。另一种是每条消息另开一个会话，代价是系统认不出两次讨论说的是同一件事。Super-agent 把这两种负担拆到不同的层，但它的出发点更深一层：人的注意力被当成了免费资源。
+
+Agent 发一条消息、问一个问题、弹一个通知，都会占用某个人的注意力。一个能替团队做事的 Agent，也能消耗整个团队的注意力。DeepSeek 团队把这一点写成了设计前提。
+
+本文把设计文章与公开原型分开看：前者讲方向，后者是可以核对的研究代码。原文与代码的具体版本，留到第 10 节说明。
+
+</Prose>
+</Section>
+
+<Section canvas id="philosophy">
+<SectionHead index="02" kicker="设计原则" title="每个机制都要通过注意力成本检验" lead="自主越多，打扰也可能越多。设计要先把这笔账算清楚。" />
+<Prose tile>
+
+项目的 [README](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/README.md) 把原则写得很直接：Take as little human attention as possible, and give as much value as possible. 译成中文是：尽可能少占用人的注意力，尽可能多交付价值。它听起来像一句产品口号，落到实现里却是一组很硬的约束。
+
+</Prose>
+<CardGrid cols={3}>
+  <InfoCard label="行动" title="默认不接单">
+    <p class="mt-2 text-[13px] leading-[1.65] text-muted">只有明确请求，或团队写下的规则允许时才行动。没人要求的工作，先只记录。</p>
+  </InfoCard>
+  <InfoCard label="说话" title="默认安静">
+    <p class="mt-2 text-[13px] leading-[1.65] text-muted">有可用结果、需要决定或无法完成时才回复。确认一次，过程不刷屏。</p>
+  </InfoCard>
+  <InfoCard label="停止" title="按影响停">
+    <p class="mt-2 text-[13px] leading-[1.65] text-muted">能形成可评审结果的改动继续做完；需要设计决策的改动带着一个具体问题停下。</p>
+  </InfoCard>
+</CardGrid>
+<Prose tile>
+
+这三条约束解释了很多看似“产品细节”的选择。Agent 只在被请求或被规则允许时行动，所以有了准入与 Mandate；它只在人需要行动或能用结果时说话，所以有了确认、报告和面板；它按影响停止，所以“PR 可以评审”和“工单已经完成”被分成两个状态。
+
+原则也约束了系统本身。设计只保留必要的领域概念，一个业务需求变成已有概念的属性或提示词，不新增概念；能用默认值的地方不加设置；面板先列等人处理的事项，健康状态不占空间。每多一个概念、设置或列表，操作者都要多学一点。
+
+这套原则听起来像“少做事”，实际要求更精确的判断。什么时候该行动、什么时候该说话、什么时候该停，都要有可执行的规则。`observe` 模式就是一个例子：主动工作先只记录“本来会接什么”，不真正接单；团队看过记录，再把规则放到 `auto`。
+
+目标是在对的时候帮上忙，其他时候不出现。接下来的架构和实现，都是在这条约束下做取舍。
+
+</Prose>
+</Section>
+
+<Section canvas id="mental-model">
+<SectionHead index="03" kicker="用户心智" title="你管理的是工作，不是会话" lead="用户继续在原讨论里说话；会话、工单和授权由系统维护。" />
+<Prose tile>
+
+理解 Super-agent，可以先换一个单位，不必先记 Session、Ticket、Mandate 这些词：以前你管理的是会话，现在你管理的是一项项工作。
+
+会话仍然存在，只是退到系统内部。你不再需要打开某个会话、把背景复制过去，或者在几个窗口之间确认哪一项做完了。你在群聊、Issue 或 PR 里说话，系统把消息归到对应的工作上，执行结束后仍回到原讨论。
+
+同一段对话，在用户侧和系统侧是两种视图。系统对象负责保存和追踪，不要求用户去操作它们。
+
+| 你看到的 | 系统里的 | 它解决什么 |
+| --- | --- | --- |
+| 讨论串消息 | Trigger + Thread | 消息有归属，后续可查 |
+| 一项工作 | Ticket + Mandate | 范围不靠会话记忆 |
+| 一次执行 | Assignment + Executor Session | 执行可替换，进度不丢 |
+| 一条回复 | Report + Channel | 结果回到原讨论 |
+
+这张表也说明几个容易混淆的地方。一段讨论串可以承载多项工作，一项工作也可以跟随多个讨论串，所以“哪段对话”和“哪项工作”是两个问题。消息送达到工单，只提供上下文；能不能继续做、做到哪里，由 Mandate 决定。
+
+用户侧的规则可以概括成四条：
+
+- 一句话可以开始工作、继续工作，也可能只是补充背景。
+- 沉默是常态。Agent 确认一次请求，工作期间不刷屏，有结果、需要决定或无法完成时才回来。
+- 你仍然掌握停止和范围。人明确停止的工单保持停止；主动接单默认只观察。
+- 不需要管理 Session，但仍要评审结果。系统保存进度，不替团队做设计决策。
+
+所以“用户心智”的变化，是少了一层搬运：不再把消息从一个会话搬到另一个会话，也不再把上下文从记忆里翻出来。你继续用原来的工作平台，系统在背后维护工作对象。
+
+</Prose>
+</Section>
+
+<Section canvas id="router-and-worker">
+<SectionHead index="04" kicker="系统架构" title="Router 负责归属，Worker 负责做完" lead="两层分工把“这消息归谁”和“这项工作怎么做”分开。" />
+<Prose tile>
+
+Router 是路由层，接收事件并判断它属于哪项任务；Worker 是执行层，在自己的上下文中使用工具完成工作。群里提出一个缺陷，Router 把它交给某个 Worker，另一个功能需求则交给另一个 Worker，两边可以并行。Router 无须读完所有实现细节。让它亲自编译、查日志，就会拖住其他任务的接入。
+
+常见的 Agent Team 把一个大任务拆给不同角色，成员可能需要围绕同一份设计频繁协作。这里更关心多项任务分别由谁负责，以及后续讨论怎样接回去。Worker 遇到复杂工作，仍可在内部调用子 Agent，怎样拆分不影响上层分派。
+
+在原型的[领域模型](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/001-domain.md)里，主会话负责评估和分派。每项获准执行的工作生成一个 Ticket（工单），授权记录（Mandate）写明允许的范围；Ticket 通过 Assignment（派工关系）交给 Executor（执行器）。工单与会话分开保存，重启执行器后仍能接上原任务。一轮会话停下，也就不必被当作整项工作结束。
+
+图里的 Source 是事件来源，Trigger 是一条不可变消息，Thread 是它所属的讨论串；Eval 负责评估，Decision 是评估结果。
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-6 md:p-8">
+  <div class="chart-scroll" tabindex="0" role="region" aria-label="从来源事件到执行器与回复通道的对象链">
+    <ArchitectureGraph class="mx-auto block h-auto" width="880" role="img" aria-label="对象链：Source 产生 Trigger，Thread 归入讨论串，Eval 产出 Decision，获准后生成带 Mandate 的 Ticket，Assignment 交给 Executor，Report 经 Channel 写回来源" />
+  </div>
+  <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">原型中一条工作的对象链。实线是新建工作的路径，虚线是订阅扇出与结果写回；订阅只送上下文，不产生新的授权。</figcaption>
+</figure>
+<Prose tile>
+
+这套结构同时服务四个目标。连续：工单与会话分开保存，一轮会话结束不等于工作结束。效率：订阅把后续消息直接送到执行器，批量评估分担路由开销。主动：规则与 `observe` 让团队先观察再放行。持久：计算、状态和执行环境各自有生命周期。后文按这四条展开。
+
+设计文章强调由 Router 统一对外回复，公开原型的[提示词规范](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/004-prompts.md)则还要求执行器确认具体请求、处理自己的后续消息。两者并不完全一致，读源码时要按这个版本的实际分工理解。
+
+</Prose>
+</Section>
+
+<Section canvas id="harness-and-sessions">
+<SectionHead index="05" kicker="运行模型" title="角色、Session 与消息路径" lead="Harness 把工作分给几个 Session；它们不直接对话，由 Engine 转发。" />
+<Prose tile>
+
+先分清三个东西。DSH 是运行 Agent Session 的宿主；`dsh-superagent` 是宿主里的插件；Session 是模型的一段会话历史，不是聊天窗口。插件在宿主里维护一个主 Session，以及每个工单一个执行 Session。工单会比一次 Session 回合活得更久，可能经历多次派工、重启和恢复。
+
+</Prose>
+<CardGrid cols={2}>
+  <InfoCard label="ROUTER" title="主 Session">
+    <p class="mt-2 text-[13px] leading-[1.65] text-muted">每个部署一个，使用评估模型。只评估与分派；接单、评估、回复、设置，不写代码。</p>
+  </InfoCard>
+  <InfoCard label="WORKER" title="执行 Session">
+    <p class="mt-2 text-[13px] leading-[1.65] text-muted">每个工单一个，使用执行模型。在独立目录里读写、搜索、跑 shell 与后台作业，可开子 Agent；用报告回传状态。</p>
+  </InfoCard>
+  <InfoCard label="SUBAGENT" title="Worker 子 Agent">
+    <p class="mt-2 text-[13px] leading-[1.65] text-muted">在 Worker Session 内启动，DSH standard 预设；继承工作工具，没有领域工具，结果回到 Worker。</p>
+  </InfoCard>
+  <InfoCard label="HOST" title="Source 与 Engine">
+    <p class="mt-2 text-[13px] leading-[1.65] text-muted">不是 Agent。Source 读事件、去重、翻译成 Trigger；Engine 负责存储、授权检查、状态迁移和消息转发。</p>
+  </InfoCard>
+</CardGrid>
+<Prose tile>
+
+主 Session 的权限被刻意收窄。它不能把路由写成实现方案：`orchestrator_route` 的备注最多 30 词，接单时只生成一句确认；它不能自己合并 PR，也不能凭外部文本改策略；只有人明确要求时，才通过设置工具修改。它的工具集中在路由（`orchestrator_route`）、评估（`orchestrator_eval` 系列）、回复和设置上；真正的代码调查留给 Worker。宿主还会拦截 `sleep`、超过 30 秒的命令和超过 5 秒的作业等待，避免一个等待步骤挡住后面的候选。
+
+Worker 的能力则集中在“把这项工作做完”。它可以用 shell 和后台作业，可以读图、搜索网页、维护待办，也可以启动子 Agent；但它没有面向人的提问工具、改配置工具或跨 Session 调度工具。它通过 `orchestrator_ack`、`orchestrator_report`、`orchestrator_read` 与线程工具和宿主交互；报告状态是 `progress / ready / blocked / failed / dropped`，需要人决定时把问题放进 `human_action`。工单结束时，宿主把它的工具收回；工单受阻或失败时，工具保留，人仍可以直接进入这个 Session 继续处理。
+
+</Prose>
+<Prose tile>
+
+Session 的生命周期与工单分开管理。主 Session 的 id 由状态目录生成，启动时创建；Worker Session 的 id 是 `worker-<工单 id>`，目录按工单短名创建。Session 在创建时固定预设和模型，后续重试、重启和恢复都沿用它。历史记录会保存下来，所以 `ticket/<id>/transcript` 可以读回某个工单的完整会话；工单结束后，Session 不必立刻销毁。宿主还提供 HTTP 管理路由和面板：人可以在那里查看待办、暂停处理和停止工单，不必进入 Session。
+
+消息投递也有自己的规则。宿主按请求 id 去重，支持三种投递方式：`queue` 等下一轮、`steer` 进入当前轮、`inject` 只放进上下文而不唤醒。输入投递失败会从 2 秒开始退避重试，最长到 1 分钟；通知和转述走持久化的 Effects，失败也会重试。并发上，一个工单占一个 Worker 槽位；人的消息和状态查询可以多用一格，避免新任务把人挡在外面。后台作业最多再跑 30 分钟；到点会杀掉 shell 作业并报告等待，子 Agent 可以继续。交给人处理时槽位立即释放。
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-6 md:p-8">
+  <div class="chart-scroll" tabindex="0" role="region" aria-label="主 Session、Engine 与 Worker Session 之间的消息顺序">
+    <SessionFlowGraph class="mx-auto block h-auto" width="880" role="img" aria-label="消息序列：人把请求发给 Source，Source 生成 Trigger，Engine 送候选卡给主 Session，主 Session 回 Decision，Engine 把 Assignment 和 Input 交给 Worker，Worker 回 ack 和 report，Engine 再通知主 Session 并发回原讨论" />
+  </div>
+  <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">一次请求的顺序。主 Session 与 Worker Session 不直接对话；候选、决定、派工、报告和回复都经过 Engine。</figcaption>
+</figure>
+<Prose tile>
+
+把这条路径拆开，跨 Session 的通信只有六类：
+
+1. 人 → Source → Engine：新消息变成 Trigger。
+2. Engine → 主 Session：候选卡；主 Session → Engine：`orchestrator_route` 或 `orchestrator_eval_decide`。
+3. Engine → Worker：Assignment 和 Input；Worker → Engine：`orchestrator_ack`、`orchestrator_report` 或 `orchestrator_trigger_handback`。
+4. Engine → 主 Session：报告、待办和通知；主 Session → Engine：回复、备注、状态查询或重试。
+5. Engine → Source → 原讨论：回复经 Outbox 发回。
+6. Worker → 子 Agent：DSH 内部的子 Session 消息；结果回到 Worker。
+
+没有 Session 到 Session 的直接通道。主 Session 不能给 Worker 发一条“悄悄话”绕过 Engine；Worker 只能在自己的子 Agent 树里发消息，找不到另一个工单的 Worker。所有跨 Session 的动作都落成 Engine 的命令或记录，再由 Store 和 Effects 投递。设计文章里的跨实例 A2A 会打破这一点，所以它需要额外的授权层，而公开原型还没有实现。
+
+</Prose>
+</Section>
+
+<Section canvas id="intake-and-authorization">
+<SectionHead index="06" kicker="接单与授权" title="一条消息怎样变成一项获准的工作" lead="先判断该不该接，再判断这项工作允许做到哪里。" />
+<Prose tile>
+
+有人在 GitHub Issue 里请 Agent 修复缺陷。几分钟后，持续集成（CI）报告测试失败，评审者又指出一个边界条件。这些消息都与工作有关，处理方式却不同：最初要决定是否接单，后来的消息则要送回已经接下这项工作的会话。
+
+Source 表示接入 GitHub、飞书等平台的事件来源，每次收到的不可变事件叫 Trigger；同一个 PR 下的连续评论，则属于一条 Thread，也就是相关讨论串。有了这层关系，新评论就无须每次都变成一个新任务。下面的两条路径对应[原型的接收实现](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/src/core/intake.ts)。
+
+</Prose>
+<MechanismSequence steps={[
+  { tag: "01 · 新请求", title: "代码先查准入，模型再判断含义", body: "来源配置先决定系统是否接收事件，准入规则再检查发言身份与请求方式。已订阅工单的消息绕开评估，直接作为上下文送达。其余事件中，明确请求可以接单，推断候选还要按已开启的规则研判。只有获准的工作才生成工单。" },
+  { tag: "02 · 后续讨论", title: "已知归属的消息进入原执行会话", body: "工单订阅相关讨论串后，后续消息可以直接送到执行器，省去再次分派。执行器发现新要求超出原授权范围时，把消息交回评估路径，不能自行扩张任务。" },
+]}>
+  <AdmissionGraph slot="frame-0" width="520" class="sequence-frame" role="img" aria-label="准入示意：新事件先经来源过滤与准入，已订阅工单直接收下消息；明确请求生成工单，推断候选进入规则研判，未获准的事件记录后忽略" />
+  <p slot="caption-0">教学示意。被系统看到、获准成为候选、获准开始工作，是不同阶段。</p>
+  <ContinuationGraph slot="frame-1" width="520" class="sequence-frame" role="img" aria-label="订阅示意：讨论串的后续消息同时送达两个工单，工单 A 在授权范围内处理，工单 B 只获得上下文；超出范围的要求交回评估" />
+  <p slot="caption-1">订阅是多对多关系。同一讨论串可以把上下文送给多个有关工单；送达本身不改变各自的授权范围。</p>
+</MechanismSequence>
+<Prose tile>
+
+直通省掉了重复路由，权限仍受原任务约束。[授权文档](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/002-authorization.md)将工作依据保存为 Mandate（授权记录），记录允许的范围和策略版本。CI 报错可以帮助 Worker 修复已授权的缺陷，一段日志却不能授权它去修改另一个项目。
+
+有些讨论串只为查背景而订阅。这种上下文订阅提供信息，不赋予处理其中新请求的权限，也不会唤醒已经结束的工单。普通完成的工单，经授权复核后可以被人的后续消息恢复；人明确停止的工单则保持停止。要解释系统为什么继续执行，既要看收到什么消息，也要看它原来获准做什么、是否已被停止。
+
+评估本身也可能没跑完。原型会重试，连续超时后记为未完成（`unavailable`），而不是当成普通的忽略；后续事件仍可再发起评估。
+
+在[原型的准入规则](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/002-authorization.md)中，授权人的明确请求可以正常接单，系统推断的候选则要按已开启的规则评估，至少命中一条才可能自动接受。机器人事件只能成为推断候选，不能充当人的明确请求。
+
+| 模式 | 推断出的工作 | 已获准的明确请求 |
+| --- | --- | --- |
+| `off` | 不成为推断候选 | 仍可执行 |
+| `observe`，默认 | 评估并记录本来会接受什么，不真正接单 | 仍可执行 |
+| `auto` | 命中允许规则后可以接单 | 仍可执行 |
+
+用 `observe` 可以校准主动规则，但已获准的明确请求仍会执行，它并非整个系统的只读开关。停止任务和暂停处理各有控制入口。修改策略时，原型会通知受影响的运行中工单，恢复已结束工单前也会重新核对授权；从名单删掉一个名字，不会立刻终止所有既有执行。
+
+[项目的工作原则](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/000-philosophy.md)建议先用短授权名单和观察模式，检查候选的接受、忽略记录，再扩大范围。只数开了多少个 PR，还不足以判断价值，必须看交付有没有减少人的实际工作。
+
+</Prose>
+</Section>
+
+<Section canvas id="execution-and-recovery">
+<SectionHead index="07" kicker="执行与恢复" title="工单比进程活得久" lead="执行器可以离开再回来，任务不必从头开始。" />
+<Prose tile>
+
+经典的 ReAct 循环在推理后调用工具，再根据结果继续。如果一次工具调用要同步等到编译结束，循环就会被堵住，新输入也无法及时处理。全双工交互希望消除这段等待：编译还在后台运行，你已经可以补充要求或叫停。
+
+做法是启动任务后先返回已启动状态，等完成了再把结果作为事件送回来。原型的[执行文档](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/003-execution.md)规定，Router 与 Worker 的角色预设在 shell 命令运行超过 5 秒后将其转入后台。只要后台工作尚未结束，工单仍占用执行槽位。一轮对话结束了，不代表它已经闲置。
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-6 md:p-8">
+  <div class="chart-scroll" tabindex="0" role="region" aria-label="同步工具调用与后台作业的时间线对比">
+    <AsyncGraph class="mx-auto block h-auto" width="880" role="img" aria-label="时间线对比：同步调用时新消息要等工具结束；后台作业先返回已启动，编译继续，下一步读取新消息，结果事件再唤醒执行器" />
+  </div>
+  <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">教学示意。5 秒是原型角色预设的转入后台阈值；模型推理本身仍按步执行，不会变成可随时打断的线程。</figcaption>
+</figure>
+<Prose tile>
+
+异步缩短了长工具造成的阻塞，但一次模型推理仍不会变成可随时中断的线程。新消息要等到系统能够处理的下一步才能进入。任务超时怎样收尾、进程重启后如何恢复，都要有明确规定；交给人之后还留下哪些后台工作，也一样。
+
+工单的状态因此不能跟着执行器走。执行器可能报告进展、等待评审、受阻或失败；工单自己记录“在等人回答”“等人评审”“可以继续”这些阶段。PR 准备好可以评审，与工单已经完成，是两种状态。若执行器重启，还要先检查目录和外部平台的实际结果，免得重复执行已经完成的动作。
+
+在设计文章中，计算实例可以替换，会话历史独立保存，真实的代码与工具链则留在用户机器上。它们各自有独立的生命周期。端侧部署一个常驻小进程 daemon，负责接收命令、执行并返回结果，就能把已有环境接入系统。BYOM（Bring Your Own Machine，自带执行机器）指的正是这种方式，无须先把全部开发状态搬进云端沙箱。
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-6 md:p-8">
+  <div class="chart-scroll" tabindex="0" role="region" aria-label="计算实例、持久状态、执行环境与 Watchdog 的关系">
+    <LifetimeGraph class="mx-auto block h-auto" width="880" role="img" aria-label="示意图：计算实例可替换，持久状态保存工单与会话历史，执行环境留在用户机器上，Watchdog 在主系统之外检查进展并尊重人工停止" />
+  </div>
+  <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">设计层面的分离。计算实例换掉以后，状态还在；执行环境可以独立接入，监督则放在主系统之外。</figcaption>
+</figure>
+<Prose tile>
+
+Anthropic 在 2026-04-08 的[Managed Agents 架构文章](https://www.anthropic.com/research/managed-agents)中也将 harness 与持久会话日志、执行环境分离。日志还在，替换计算实例后就有机会接回历史；执行环境独立访问，调度也不再被单个容器绑住。远程连接怎么维护、权限由谁管理，随之成为新的责任。
+
+进程没退出，任务却可能早已陷入无效循环。设计中的 Watchdog 为此在主系统外定时运行一个监督会话，检查基础设施故障，也判断工作有没有进展。发现异常后，它可以介入修复，形成外部控制回路。监督会话本身同样可能误判，自动恢复也必须尊重人工停止。
+
+公开原型还没有交付整套弹性云端与跨设备产品。[部署文档](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/006-deployment.md)采用独立 DSH 运行配置（profile）和本地状态目录，将领域记录保存在 SQLite 本地数据库中。它还给出从另一 profile 定时检查健康状态的方案，用 `--respect-stop` 保留人工停机。这样的运行检查，与前面按任务进展进行的完整语义监督，仍有区别。
+
+</Prose>
+</Section>
+
+<Section canvas id="context-and-recall">
+<SectionHead index="08" kicker="上下文" title="窗口装不下时，上下文怎样被找回" lead="窗口里放近期线索和引用，完整记录留在外面。" />
+<Prose tile>
+
+消息不断抵达，模型窗口装不下全部历史；压成一句摘要，又可能漏掉关键限制。设计文章借用 Inline 与 Spill 来说明怎样取舍。Inline 把近期可能用到的信息直接带进窗口，Spill 将长内容留在外面，窗口里只保留续读入口。把上下文当作缓存管理，并不会让模型自动拥有无限记忆。
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-6 md:p-8">
+  <div class="chart-scroll" tabindex="0" role="region" aria-label="模型窗口与窗口之外资源的引用关系">
+    <RecallGraph class="mx-auto block h-auto" width="880" role="img" aria-label="示意图：模型窗口只保留近期消息、工单卡和资源引用；完整消息、讨论串、报告和会话记录留在窗口之外的资源库，按引用分页读取并校验权限" />
+  </div>
+  <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">窗口里是缓存，窗口外是记录。模型沿引用逐级读取，每次读取仍按工单与订阅范围校验。</figcaption>
+</figure>
+<Prose tile>
+
+原型通过[资源读取实现](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/src/app/resources.ts)，让模型用 `orchestrator_read` 调用这些入口。读 `trigger/<id>` 可以了解当前消息及相邻背景，沿着 `thread/<key>` 找到关联工单，再用 `ticket/<id>/result` 查看最近报告。需要完整会话时，读取 `ticket/<id>/transcript`。这些标识由工具解释，不能作为 HTTP URL 打开。
+
+每个对象都带着可以继续追踪的引用，模型沿引用逐步找回背景，这个过程叫链式召回。它利用工单和讨论串已有的关联关系，无须先对全部文档做向量检索。长文本会分页返回，读取时仍须通过权限检查。例如 Worker 不能任意读取只属于主会话的设置，拿到一个引用并不意味着获准访问。
+
+有了读取历史的路径，跨月任务的长期记忆仍待验证。资料保存着，模型也未必每次都能找到正确引用；可读回历史与可靠地记住任务之间，还有距离。省掉的是人翻会话的时间，代价则可能以错误回答的形式回来。
+
+</Prose>
+</Section>
+
+<Section canvas id="what-it-solves">
+<SectionHead index="09" kicker="取舍" title="它解决了什么，代价是什么" lead="更少的打扰和更长的连续性，换来更多会话、更多概念和新的运维责任。" />
+<Prose tile>
+
+把前面的机制放回注意力预算，每一项都在减少一类搬运，同时引入新的成本：
+
+- 人记会话、转消息 → 订阅直通 + 工单；代价是更多会话与 token。
+- 人判断该不该接 → 准入 + 规则；规则写错会制造噪音。
+- 人盯长任务 → 后台作业 + 报告；超时与恢复要设计。
+- 人翻历史 → 引用 + 链式召回；模型未必找对引用。
+
+这些做法没有让 Agent 变成“更少人管”的魔法。它们把人的工作从搬运和催问，挪到了设定范围、评审结果和处理异常。后者仍然花时间，只是更接近只有人才能做的判断。
+
+原文的初步实验使用合成负载，本文没有复现。每轮约 300 条消息，其中约 20 条是工作请求，每种方案运行 5 次。编码环节换成了一个只消耗时间的工具；消息间隔和工作时长按 1/4 缩放，模型调用仍用真实耗时。实验因此能观察调度与协作，却不能回答实际修复质量如何，也不能估算真实项目成功率或部署后能节省多少人力。
+
+| 观察 | 原文报告值 | 能说明什么 |
+| --- | --- | --- |
+| Super-agent 耗时 | p50 为 12.4 分钟，p95 为 15.7 分钟 | 在该消息负载下的典型等待与尾部等待 |
+| 单会话、中性委派提示 | p95 为 29.5 分钟；5 次均未调用子 Agent | 只有工具可用，不保证模型会选择委派 |
+| 单会话、优先委派提示 | 5 次中 4 次进行了委派 | 提示能改变行为，仍存在一次自行执行 |
+| 移除订阅直通 | Router 决定数约增 30%；读缓存 token 从 2323 万增至 3177 万，约增 37% | 本实验里耗时基本相同，直通主要节省路由开销 |
+
+p50 是一半任务已完成时对应的耗时，p95 用来看较慢的一端，计时从工作请求开始，到结果消息结束。这组结果说明，将分工固定在双层架构中，可以减少主会话临场判断是否委派带来的不确定性；模型编程能力提升了多少，则无法从表中得出。
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-6 md:p-8">
+  <div class="chart-scroll" tabindex="0" role="region" aria-label="合成负载下各方案的完成耗时对比">
+    <ExperimentGraph class="mx-auto block h-auto" width="880" role="img" aria-label="条形图：Super-agent 完成耗时 p50 为 12.4 分钟、p95 为 15.7 分钟；单会话中性提示的 p95 为 29.5 分钟" />
+  </div>
+  <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">原文报告的完成耗时，同一合成负载下每组 5 次。p95 在这点样本里接近最慢一次，两组提示也不同，只能当作方向性参考。</figcaption>
+</figure>
+<Prose tile>
+
+另一个实验单独观察 Router：它使用真实模型，Worker 使用模拟模型。待决定事件从约每分钟 1 条增加到约 40 条时，平均 batch 从 1.0 增至 2.8，单次请求耗时从 2.5 秒增至 3.9 秒。原文报告的单个决定分摊推理时间从 6.4 秒降至 1.6 秒。batch 指把积压事件合进一次调用，借此分担重复开销。
+
+两种耗时的统计口径不同，仅凭这些端点相除，无法还原它们的关系。本文没有原始测量记录，不能自行补齐计算方式或误差范围。实验支持先利用批处理、观察实际瓶颈，再决定是否拆分 Router。它没有证明流量持续增加时还能保持同样延迟。
+
+token 是模型计量文本的单元，读缓存 token 表示从提示缓存读入的文本量。上述实验数据来自[原文的第 7 节及其转载](https://blog2.eimoon.com/p/deepseek-super-agent-design/)。缓存读取量还不能直接换算成美元账单，需要结合模型与计价。完成得更快，也未必花得更少。
+
+实验支持“接得更快、路由更省”，没有回答“修复得更好”或“总成本更低”。这和设计原则是两回事：注意力省下来了，token 和会话未必省。
+
+</Prose>
+</Section>
+
+<Section canvas id="limits-and-risks">
+<SectionHead index="10" kicker="边界与风险" title="研究原型还不是生产系统" lead="设计文章里的云端、跨设备和语义监督，公开代码只落地了一部分。" />
+<Prose tile>
+
+先说证据边界。知乎原页在核对时返回 403，阅读采用[明确注明 DeepSeek 作者身份的全文转载](https://blog2.eimoon.com/p/deepseek-super-agent-design/)，未能确认与原页逐字一致。公开的 [`dsh-superagent`](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/README.md) 是研究原型，与团队内部实现不同；代码核对固定在 `6337fc823ce20251c8de8085948165c81aaa701e`，日期为 2026-11-02。
+
+组织扩大后，共用全局上下文意味着更多人的信息进入同一实例。先确定哪些团队需要共享背景、哪些必须隔离，再决定实例怎样划分。实例之间的 A2A（Agent 间通信）会跨越权限边界，需要比实例内部的消息转发多考虑一层授权。
+
+Router 何时拆分，耦合任务何时需要 Worker 直接通信，要看实际负载。分片能增加吞吐，全局背景却更难保持一致。长期记忆还待验证，人工中途接管也要在产品里落实。任务界面得让人看清范围和进展，知道工作为什么停下，并能在必要时介入；单靠多开几个聊天窗口还不够。
+
+[部署文档](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/006-deployment.md)还写明了当前的执行权限：Router 和 Worker 预设使用 `danger-full-access`，命令以操作者的系统用户运行。CLI 包装器默认选用 Agent 账号，Git 工作树（worktree）负责分开代码目录，两者都没有提供操作系统隔离。执行器仍能按绝对路径运行程序、读取该用户可访问的文件。文档因此建议使用专用系统账号，其中只保存 Agent 的凭据。
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-6 md:p-8">
+  <div class="chart-scroll" tabindex="0" role="region" aria-label="公开原型当前的执行权限与隔离边界">
+    <IsolationGraph class="mx-auto block h-auto" width="880" role="img" aria-label="示意图：Router 与 Worker 以操作者系统账号运行，CLI 包装器和工作树只提供默认值；评论与日志作为任务数据进入上下文，可能带来提示词注入风险；建议使用只保存 Agent 凭据的专用账号" />
+  </div>
+  <p class="mt-2 text-center text-[11px] text-muted-2 lg:hidden">横向查看完整图解</p>
+  <figcaption class="mt-4 text-center text-sm leading-relaxed text-muted">公开原型当前的执行边界。工作树与包装器减少误用，但不能阻止按绝对路径执行或读取用户文件。</figcaption>
+</figure>
+<Prose tile>
+
+[执行规范](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/003-execution.md)中的自动合并条件，主要靠给 Agent 的指令约束，宿主没有专门的合并决策逻辑。必须执行的评审要求，要写进 GitHub 分支保护。评论和日志可以作为任务数据读入，不能凭其中的内容改写权限规则。
+
+设计中的跨设备连接也扩大了受攻击范围。云端会话一旦受到提示词注入影响，接入的设备可能一起遭到牵连；凭据进入模型上下文，同样存在泄露风险。继续落地需要收窄账号权限，并让执行器无法直接读到秘密。这些工程问题仍须解决，不能当作原型已经提供的保证。
+
+这套设计真正的贡献，是把“消息、工作、授权、执行”拆成了可检查的对象。它没有解决所有工程问题，也没有证明规模化以后仍然成立。读这份原型时，把设计文章当作方向，把公开代码当作证据，两者的差距要逐项核对。
+
+</Prose>
+</Section>
+
+<Section canvas id="read-and-try">
+<SectionHead index="11" kicker="落地" title="沿着工单读代码，从一个测试仓库开始" lead="把概念落到文件，再用一个小仓库验收。" />
+<Prose tile>
+
+沿[实现索引](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/007-architecture.md)往下读，前面的案例就能对应到具体文件：
+
+| 位置 | 应关注的问题 |
+| --- | --- |
+| `src/core/intake.ts` | 来源事件如何去重、记录并发送给已订阅工单 |
+| `src/core/evals.ts` | 同一讨论串如何批量评估，决定何时过期或重试 |
+| `src/core/tickets.ts` | 工单如何接收输入、保持范围与恢复执行 |
+| `src/app/resources.ts` | 模型按什么资源标识读回历史，如何限制访问 |
+| `src/app/store.ts` | 工单、讨论串、决定和待发送消息如何持久保存 |
+| `docs/003-execution.md` | 何谓执行中、等人评审、受阻和失败，以及如何恢复 |
+
+把这些文件连起来看：授权人提出请求，来源将其转成 Trigger，评估接受后生成带授权范围的 Ticket。prepare 命令准备目录，Executor 随后在自己的 Session 中工作，接收订阅送来的 CI 结果和评论。需要人决定时，它用结构化报告让监督面板显示待办。PR 准备好可以评审，与工单已经完成，是两种状态。若执行器重启，还要先检查目录和外部平台的实际结果，免得重复执行已经完成的动作。
+
+试用入口是[SETUP](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/SETUP.md)和[部署文档](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/006-deployment.md)。先准备 DSH 支持的运行环境与模型来源，选一个测试仓库，配好命令行工具（CLI）和专用 GitHub 用户账号。然后配置独立 profile 及状态目录，确定允许谁发起工作，并填写工单目录准备命令。飞书可选，先跑通 GitHub 即可。
+
+首次验收，用授权账号在测试 Issue 下新发一条提及 Agent 的评论，对照工单和执行目录，检查结果是否回到原讨论。随后再试未授权来源，检查人工停止能否保留、重启后是否重复交付。服务状态正常只能说明部分环节正常。[监督面板](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/005-panel.md)优先展示需要人的事项，也是为了让你知道下一步该处理什么。
+
+本文未安装、启动 DSH，也未授权账号或执行真实仓库任务。以上试用顺序和验收建议仍待实际运行验证。
+
+</Prose>
+<Summary surface="white" takeaways={[
+  { title: "把注意力当预算", conclusion: "行动、说话、停止都先问“这一步值不值得占用一个人的注意力”。", detail: "Super-agent 的对象模型和授权规则，都是这条约束的实现。" },
+  { title: "按证据判断成熟度", conclusion: "合成实验检验调度，公开代码展示研究原型，云端与跨设备设计仍需逐项核实。", detail: "先从测试仓库、短授权名单和观察模式开始。" }
+]} note="原文经注明来源的转载阅读；公开实现核对至 6337fc823ce20251c8de8085948165c81aaa701e。本文未复现实验，也未运行真实账号任务。" />
+</Section>
+</ArticleCanvas>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" fill="none" font-family="var(--font-sans)">
+  <text x="24" y="30" font-size="17" font-weight="600" fill="var(--color-ink)">合成负载下的完成耗时</text>
+  <text x="24" y="52" font-size="12" fill="var(--color-muted)">单位：分钟 · 每组 5 次</text>
+
+  <line x1="373" y1="84" x2="373" y2="268" stroke="var(--color-line-soft)"/>
+  <line x1="527" y1="84" x2="527" y2="268" stroke="var(--color-line-soft)"/>
+  <line x1="680" y1="84" x2="680" y2="268" stroke="var(--color-line-soft)"/>
+
+  <text x="204" y="124" font-size="12.5" fill="var(--color-ink-2)" text-anchor="end">Super-agent p50</text>
+  <rect x="220" y="104" width="190" height="30" rx="6" fill="var(--color-ink-2)"/>
+  <text x="418" y="124" font-size="12.5" font-weight="600" fill="var(--color-ink)">12.4</text>
+
+  <text x="204" y="184" font-size="12.5" fill="var(--color-ink-2)" text-anchor="end">Super-agent p95</text>
+  <rect x="220" y="164" width="241" height="30" rx="6" fill="var(--color-ink-2)"/>
+  <text x="469" y="184" font-size="12.5" font-weight="600" fill="var(--color-ink)">15.7</text>
+
+  <text x="204" y="244" font-size="12.5" fill="var(--color-ink-2)" text-anchor="end">单会话 p95（中性提示）</text>
+  <rect x="220" y="224" width="452" height="30" rx="6" fill="var(--color-line)" stroke="var(--color-muted-2)"/>
+  <text x="682" y="244" font-size="12.5" font-weight="600" fill="var(--color-ink)">29.5</text>
+
+  <line x1="220" y1="268" x2="680" y2="268" stroke="var(--color-line)"/>
+  <text x="220" y="286" font-size="10" fill="var(--color-muted)" text-anchor="middle">0</text>
+  <text x="373" y="286" font-size="10" fill="var(--color-muted)" text-anchor="middle">10</text>
+  <text x="527" y="286" font-size="10" fill="var(--color-muted)" text-anchor="middle">20</text>
+  <text x="680" y="286" font-size="10" fill="var(--color-muted)" text-anchor="middle">30</text>
+
+</svg>

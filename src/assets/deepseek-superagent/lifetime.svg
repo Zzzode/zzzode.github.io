@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 392" fill="none" font-family="var(--font-sans)">
+  <defs>
+    <marker id="lifetime-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="var(--color-muted-2)"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="30" font-size="17" font-weight="600" fill="var(--color-ink)">三者的生命周期各自独立</text>
+  <text x="24" y="52" font-size="12" fill="var(--color-muted)">设计层面的分离；原型落地一部分。</text>
+
+  <rect x="24" y="80" width="340" height="140" rx="18" fill="var(--color-paper)"/>
+  <text x="44" y="110" font-size="13" font-weight="600" fill="var(--color-ink)">计算实例（可替换）</text>
+  <text x="44" y="130" font-size="10.5" fill="var(--color-muted)">Router 主会话 · Worker 执行中</text>
+  <rect x="44" y="144" width="300" height="28" rx="8" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
+  <text x="56" y="163" font-size="10.5" fill="var(--color-ink-2)">进程重启后，换一个实例接上</text>
+  <rect x="44" y="180" width="300" height="28" rx="8" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
+  <text x="56" y="199" font-size="10.5" fill="var(--color-ink-2)">会话历史不随实例消失</text>
+
+  <rect x="396" y="80" width="340" height="140" rx="18" fill="var(--color-paper)"/>
+  <text x="416" y="110" font-size="13" font-weight="600" fill="var(--color-ink)">持久状态</text>
+  <text x="416" y="130" font-size="10.5" fill="var(--color-muted)">工单 · 讨论串 · 报告 · 待投递输入</text>
+  <rect x="416" y="144" width="300" height="28" rx="8" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
+  <text x="428" y="163" font-size="10.5" fill="var(--color-ink-2)">Session 历史单独保存</text>
+  <rect x="416" y="180" width="300" height="28" rx="8" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
+  <text x="428" y="199" font-size="10.5" fill="var(--color-ink-2)">原型：本地 SQLite / 状态目录</text>
+
+  <rect x="24" y="250" width="340" height="130" rx="18" fill="var(--color-paper)"/>
+  <text x="44" y="280" font-size="13" font-weight="600" fill="var(--color-ink)">执行环境（你的机器）</text>
+  <text x="44" y="300" font-size="10.5" fill="var(--color-muted)">端侧 daemon 接收命令、执行并返回结果</text>
+  <rect x="44" y="314" width="300" height="28" rx="8" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
+  <text x="56" y="333" font-size="10.5" fill="var(--color-ink-2)">代码仓库与工具链留在本地</text>
+  <rect x="44" y="350" width="300" height="28" rx="8" fill="var(--color-white)" stroke="var(--color-line-soft)"/>
+  <text x="56" y="369" font-size="10.5" fill="var(--color-ink-2)">BYOM：不必先搬进云沙箱</text>
+
+  <rect x="396" y="250" width="340" height="130" rx="18" fill="var(--color-white)" stroke="var(--color-line)" stroke-dasharray="4 4"/>
+  <text x="416" y="280" font-size="13" font-weight="600" fill="var(--color-ink)">Watchdog（主系统之外）</text>
+  <text x="416" y="300" font-size="10.5" fill="var(--color-muted)">定时检查任务有没有进展</text>
+  <rect x="416" y="314" width="300" height="28" rx="8" fill="var(--color-paper)"/>
+  <text x="428" y="333" font-size="10.5" fill="var(--color-ink-2)">可以介入修复，形成外部控制回路</text>
+  <rect x="416" y="350" width="300" height="28" rx="8" fill="var(--color-paper)"/>
+  <text x="428" y="369" font-size="10.5" fill="var(--color-ink-2)">必须尊重人工停止</text>
+
+  <path d="M364 150 H392" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
+  <path d="M392 170 H364" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
+  <text x="378" y="142" font-size="9.5" fill="var(--color-muted)" text-anchor="middle">读写</text>
+
+  <path d="M120 220 V246" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
+  <path d="M140 246 V220" stroke="var(--color-muted-2)" stroke-width="1.5" marker-end="url(#lifetime-arrow)"/>
+  <text x="156" y="238" font-size="9.5" fill="var(--color-muted)">命令 / 结果</text>
+
+  <path d="M420 250 C400 236 366 230 348 226" stroke="var(--color-muted-2)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#lifetime-arrow)"/>
+  <text x="390" y="246" font-size="9.5" fill="var(--color-muted)" text-anchor="end">检查 / 修复</text>
+
+</svg>
