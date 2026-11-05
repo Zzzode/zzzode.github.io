@@ -1,0 +1,8 @@
+flowchart LR
+  D("个人设备") -->|"HTTPS / 网关 key"| C("Caddy 443")
+  C -->|"保留 /v1"| G("网关 3425")
+  D -->|"SSH 转发"| W("管理 3430")
+  G --> P("Claude Code")
+  P -->|"已验证的出口"| A("Anthropic")
+  W -.->|"管理 key"| G
+  P --- V("/config 卷")

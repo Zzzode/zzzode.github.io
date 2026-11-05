@@ -1,0 +1,8 @@
+flowchart LR
+  A["浏览器授权：用户确认身份"] --> B["一次性授权码"]
+  B --> C["VPS 登录进程交换令牌"]
+  C --> D["VPS 持有 access / refresh token"]
+  D --> E["令牌刷新后保存新状态"]
+  E --> D
+  F["其他设备"] -->|"仅拿 Magpie 网关 key"| G["VPS 模型网关"]
+  G --> D

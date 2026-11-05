@@ -1,0 +1,582 @@
+---
+title: "在 VPS 上部署个人 Magpie 网关：Claude OAuth、网络与验收"
+date: 2026-10-22
+updated: 2026-11-02
+excerpt: "个人多设备优先用 Tailscale Serve，公网客户端再选 Caddy。讲清网络选型、Docker 部署和 SSH 管理，再拆解 Claude 的远程 OAuth、令牌持久化与出站代理，说明无法保证免 KYC 的原因。"
+tags: ["Magpie", "VPS", "Claude", "OAuth", "AI 网关"]
+kind: "distilled"
+sources:
+  - title: "QianFan · Magpie 服务器部署实践"
+    url: "https://blog.mapin.net/posts/Magpie%20服务器部署实践"
+  - title: "QianFan · Magpie 模型路由实践"
+    url: "https://blog.mapin.net/posts/Magpie%20模型路由实践"
+  - title: "Magpie · Pinned reference manual"
+    url: "https://github.com/yetone/magpie/blob/ccd746e03937ad6d9fbce69d9113c425ca215708/docs/reference.md"
+  - title: "Magpie · Claude sign-in implementation"
+    url: "https://github.com/yetone/magpie/blob/ccd746e03937ad6d9fbce69d9113c425ca215708/internal/provider/claude_signin.go"
+  - title: "Magpie · Claude subscription bridge"
+    url: "https://github.com/yetone/magpie/blob/ccd746e03937ad6d9fbce69d9113c425ca215708/docs/subsystems/claude-subscription-bridge.md"
+  - title: "Magpie · CLI proxy bridge"
+    url: "https://github.com/yetone/magpie/blob/ccd746e03937ad6d9fbce69d9113c425ca215708/internal/netproxy/bridge.go"
+  - title: "Magpie · Docker image"
+    url: "https://github.com/yetone/magpie/blob/ccd746e03937ad6d9fbce69d9113c425ca215708/Dockerfile"
+  - title: "Magpie · Remote access"
+    url: "https://usemagpie.ai/docs/remote"
+  - title: "Claude Code · Authentication"
+    url: "https://code.claude.com/docs/en/authentication"
+  - title: "Claude Code · Network configuration"
+    url: "https://code.claude.com/docs/en/network-config"
+  - title: "Claude Code · Credential use and compliance"
+    url: "https://code.claude.com/docs/en/legal-and-compliance"
+  - title: "Claude · Identity verification"
+    url: "https://support.claude.com/en/articles/14328960-identity-verification-on-claude"
+  - title: "Docker · Ubuntu installation and firewall limitations"
+    url: "https://docs.docker.com/engine/install/ubuntu/"
+  - title: "Caddy · Reverse proxy"
+    url: "https://caddyserver.com/docs/caddyfile/directives/reverse_proxy"
+  - title: "Caddy · Path-prefix stripping"
+    url: "https://caddyserver.com/docs/caddyfile/directives/handle_path"
+  - title: "Caddy · Automatic HTTPS"
+    url: "https://caddyserver.com/docs/automatic-https"
+  - title: "Tailscale · Private Docker web server"
+    url: "https://tailscale.com/docs/solutions/host-private-server-docker"
+  - title: "Tailscale · Serve command"
+    url: "https://tailscale.com/docs/reference/tailscale-cli/serve"
+  - title: "Tailscale · Linux installation"
+    url: "https://tailscale.com/docs/install/linux"
+  - title: "Tailscale · Access control"
+    url: "https://tailscale.com/docs/features/access-control"
+  - title: "Tailscale · Grant examples"
+    url: "https://tailscale.com/docs/reference/examples/grants"
+  - title: "Tailscale · Firewall ports"
+    url: "https://tailscale.com/docs/reference/faq/firewall-ports"
+  - title: "Tailscale · HTTPS certificates"
+    url: "https://tailscale.com/docs/how-to/set-up-https-certificates"
+  - title: "Tailscale · Funnel"
+    url: "https://tailscale.com/docs/features/tailscale-funnel"
+  - title: "Tailscale · Exit nodes"
+    url: "https://tailscale.com/docs/features/exit-nodes"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, Callout, Summary } from '@/components/article';
+import traffic from '@/assets/magpie-vps/traffic.svg?raw';
+import cover from '@/assets/magpie-vps/cover.svg?raw';
+import oauth from '@/assets/magpie-vps/oauth.svg?raw';
+import ownership from '@/assets/magpie-vps/ownership.svg?raw';
+
+<CoverBanner
+  kicker="DEPLOYMENT NOTES · QIANFAN + PRIMARY SOURCES · 2026-11-02"
+  title="在 VPS 上部署个人 Magpie 网关：Claude OAuth、网络与验收"
+  lead="先选个人私网还是公网 HTTPS，再把账号授权和模型路由留在 VPS。从 Tailscale、Caddy 到 Claude 的远程授权，逐步搭出个人设备共用的入口。"
+  pills={[{ label: "个人多设备" }, { label: "远程 OAuth" }, { label: "按层验收" }]}
+>
+  <div slot="visual" set:html={cover} />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="scope">
+<SectionHead index="01" kicker="部署目标" title="先决定要集中维护什么" />
+<Prose tile>
+
+换一台电脑，就要重新整理 AI 工具的账号和路由，多设备使用时尤其麻烦。Magpie 可以把这些状态放到一台虚拟专用服务器（VPS）上，个人设备只保存访问网关的密钥。配置少维护几份，服务器却多了一份责任：VPS 不可用，依赖它的设备都会受影响。
+
+QianFan 在 2026-10-22 发布了两篇相关实践。本文沿着其中的部署步骤，重新核对 Magpie 源码和供应商资料，实现分析固定在 `ccd746e03937ad6d9fbce69d9113c425ca215708`，核对日期为 2026-11-02。这里提供部署方案和操作说明，尚未在真实 VPS 上执行，也没有用真实订阅测试登录与续期。原文记录的成功只对应作者当时的环境。
+
+起步只需要一台 VPS、本人有权使用的账号和一个稳定模型组，每台个人设备分配一把网关 key。只有 Claude 一个来源，就先省去意图分类器，无须复制原文中包含 ChatGPT、其他订阅和付费中转的配置。协议转换和工具调用见[前一篇 Magpie 文章](/posts/2026-10-18-magpie-local-model-gateway/)，本文接着讲服务器怎么部署。
+
+订阅能用在哪里，要先看[Anthropic 的当前说明](https://code.claude.com/docs/en/legal-and-compliance)。用户可以在未修改的 Claude Code 中登录自己的订阅；第三方开发者收集、中介 Claude.ai 凭据或代用户转发订阅请求则受到限制。Magpie 会调用真正的 Claude Code，与直接重放令牌的做法有技术差别，但不能据此认定所有网关用法都已获授权，个人自用也没有无条件豁免。要走明确的官方支持路径，就直接使用 Claude Code。通用网关应选择本人有权使用的 API 凭据，API 账单单独承担。
+
+</Prose>
+<Callout eyebrow="关于 KYC">
+<p>没有可核验的“VPS 登录且绝不触发身份验证”配置。本文会解释正常授权和网络排错，不把住宅 IP、伪装客户端或复制令牌写成免验证方法。遇到平台验证，应完成真实验证或联系支持。</p>
+</Callout>
+</Section>
+
+<Section canvas id="network-plan">
+<SectionHead index="02" kicker="网络选型" title="个人设备优先用 Tailscale，需要公网入口再选 Caddy" />
+<Prose tile>
+
+设备访问 VPS 是入站，VPS 访问 Anthropic 是出站。授权页面则由本机浏览器访问。先决定设备如何接入 VPS，再处理服务器如何访问 Anthropic，排错时才不会把两端混在一起。本机浏览器完成登录后，生成请求仍由服务器发出。
+
+### Caddy、Tailscale 和 SSH 分别做什么
+
+[Caddy](https://caddyserver.com/docs/automatic-https) 是 Web 服务器，本文用它做反向代理：设备把 HTTPS 请求发给 Caddy，Caddy 解开加密连接后，把请求转给本机的 Magpie，再把响应送回设备。HTTPS 使用传输层安全协议（TLS）加密，客户端通过证书验证所访问域名的服务端身份。Caddy 能自动申请、续期证书；本文的配置还会限制可转发的 URL 路径。账号授权和模型选择仍由 Magpie 处理。
+
+Tailscale 则让 VPS 和个人设备加入一个经过身份认证、加密连接的虚拟专用网络（VPN），这个网络叫 tailnet。设备之间可以通过私网地址访问，不必把 Magpie 端口公开给互联网。在此基础上，[Tailscale Serve](https://tailscale.com/docs/solutions/host-private-server-docker) 还能提供 HTTPS，并把请求转给宿主机的本地服务。只需要这层转发时，Serve 就能承担本文原本交给 Caddy 的工作，不必同时安装两套入口。
+
+SSH 本地转发更适合起步和临时维护。它把个人电脑上的一个端口，通过 SSH 加密连接送到 VPS 的某个端口。已有 SSH 就能用，不需要域名或证书；代价是连接必须保持，手机和多个客户端长期使用也不如固定 HTTPS 地址方便。
+
+### 按客户端条件选择一条路径
+
+| 使用条件 | 本文建议 | 需要维护什么 | 主要取舍 |
+| --- | --- | --- | --- |
+| 先在一台电脑上验证 | SSH 本地转发 | SSH 登录及持续连接 | 最少新增服务；每次使用要保持隧道 |
+| 本人的电脑、手机都能安装 Tailscale | Tailscale + Serve | 两端客户端、tailnet 权限及设备登录态 | 无须自购域名或公开模型端口；依赖两端在线和私网连接 |
+| 第三方云服务或无法安装 Tailscale 的设备也要访问 | 公网域名 + Caddy | DNS、证书、云安全组及公网鉴权 | 客户端接入方便；入口会被公网访问和扫描 |
+| 已有 Nginx、Traefik 或统一入口 | 沿用现有反向代理 | 现有入口里的站点规则 | 无须为本文再启动 Caddy；自行核对路径、流式响应与证书配置 |
+
+以本人多设备使用为目标，本文优先推荐 Tailscale Serve。若只有远程编码需求，SSH 配合官方 Claude Code 也可能已经够用。需要普通公网 HTTPS 客户端时，再走 Caddy 分支。Caddy 和 Tailscale 可以共存，例如公网提供模型接口，管理 SSH 走私网；起步时没有必要同时维护两个模型入口。
+
+还要分清 [Serve 和 Funnel](https://tailscale.com/docs/features/tailscale-funnel)：Serve 面向 tailnet 内获准访问的设备，Funnel 会把服务提供给公网，访问者不用安装 Tailscale。个人私网方案使用 Serve，不要把 Funnel 当成同一个功能的别名。tailnet 权限限制谁能连上服务，Magpie 的网关 key 再限制应用调用，两层都保留。
+
+### VPS、端口与域名如何准备
+
+服务器可以从支持的 Ubuntu LTS 开始，安装 Docker Engine 和 Compose 插件。选实例时要给 Claude Code 子进程留出资源，不能只估算 Magpie 转发 HTTP 的开销。本文没有最低 CPU 或内存需求的实测值。先限制并发，观察单会话占用的内存和进程数，再决定是否扩容。
+
+修改安全组之前，在云控制台确认 SSH 的实际端口和登录方式，并保留当前连接，免得把自己锁在服务器外。公网 Caddy 分支需要安排 80/443；SSH 和 Tailscale Serve 分支都不需要为模型服务开放这两个公网 TCP 端口。下表按方案区分，不能不加选择地全部开放。
+
+| 端口 | 用途 | 本文的暴露范围 |
+| --- | --- | --- |
+| 实际 SSH 端口 | 远程管理和本地转发 | 管理来源；不要假定一定是 22 |
+| 80 / TCP | Caddy 的 HTTP 与 ACME 验证 | 公网，按证书方案保留 |
+| 443 / TCP | 客户端模型 HTTPS 请求 | Caddy 分支为公网；Serve 分支只在 tailnet 提供 |
+| 3425 | Magpie 模型网关 | 宿主机 `127.0.0.1` |
+| 3430 | Magpie 管理页面 | 宿主机 `127.0.0.1`，经 SSH 使用 |
+| OAuth 回调端口 | 等待中的授权进程 | 不长期开放公网 |
+
+公网 Caddy 分支才需要准备自己的域名。域名系统（DNS）中的 A 记录把域名指向 VPS 的 IPv4 地址；AAAA 对应 IPv6，只在 IPv6 确实可达时保留，否则部分客户端会优先连接不可用的地址。起步使用 DNS-only，也就是只做域名解析、不经过 CDN 代理，直接连到服务器。Tailscale Serve 使用它提供的完整 `.ts.net` 名称，SSH 使用本机地址，这两条路径不用配置自有域名的 A/AAAA 记录。
+
+[Tailscale 的防火墙文档](https://tailscale.com/docs/reference/faq/firewall-ports)区分应用端口与隧道连接。两端要能访问协调服务和称为 DERP 的中继服务，后者使用出站 TCP 443；允许 UDP 有助于设备直连。默认监听 UDP 41641，但应以实际配置为准，不要为了它开放所有端口。无法直连时可能经中继，延迟和稳定性要在自己的网络里观察，不能把 VPN 等同于加速线路。
+
+Docker Engine 运行容器，Compose 用一个 YAML 文件记录服务、端口及持久卷，按 [Docker 官方安装文档](https://docs.docker.com/engine/install/ubuntu/)安装。Docker 发布的端口可能绕过 UFW 规则，所以后面的 Compose 会明确绑定回环地址。回环地址 `127.0.0.1` 只指当前网络空间里的本机，远端设备不能直接访问。还要从另一台机器检查端口是否可达，只看 `ufw status` 不足以确认暴露范围。
+
+```bash
+# 在 VPS 上检查环境和冲突；不修改已有服务。
+docker version
+docker compose version
+sudo ss -lntp
+timedatectl status
+
+sudo install -d -m 700 -o "$(id -un)" -g "$(id -gn)" /opt/personal-magpie
+cd /opt/personal-magpie
+```
+
+以下操作需要相应的文件和 Docker 权限。新服务器可以使用有 sudo 权限的维护账号，不要为省事向所有人开放 Docker socket。服务器若已有 Caddy、80/443 服务或同名 Compose 项目，应先安排好共存方式，再合并配置。
+
+</Prose>
+</Section>
+
+<Section canvas id="compose">
+<SectionHead index="03" kicker="容器部署" title="把登录态留在卷里，把端口留在回环地址上" />
+<Prose tile>
+
+将下面的配置保存为 `/opt/personal-magpie/compose.yaml`。首次用 `latest` 拉取官方当前镜像，验收后记录实际摘要，并将镜像引用改为固定 digest，以后才能知道这份配置对应哪份镜像。本文核对的源码与当天 `latest` 是否完全一致，没有建立对应关系。
+
+```yaml
+name: personal-magpie
+services:
+  magpie:
+    image: ghcr.io/yetone/magpie:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3425:3425"
+      - "127.0.0.1:3430:3430"
+    environment:
+      MAGPIE_ADDR: "0.0.0.0:3425"
+      MAGPIE_WEB_KEY: ${MAGPIE_WEB_KEY:?Set the management key}
+      MAGPIE_PUBLIC_URL: ${MAGPIE_PUBLIC_URL:-http://127.0.0.1:13425}
+      MAGPIE_NO_STATS: "1"
+    volumes:
+      - magpie-config:/config
+    command: ["web", "--addr", "0.0.0.0:3430", "--no-open"]
+volumes:
+  magpie-config:
+```
+
+这份 Compose 适用于后面的三条接入路径。`MAGPIE_PUBLIC_URL` 是给客户端使用的网关基地址，不是监听地址，也不会自动创建转发。这里暂用 SSH 分支的本机地址，选定入口后在 `.env` 中改成实际值。容器内监听 `0.0.0.0`，宿主机发布的端口才能连到进程；宿主机侧绑定 `127.0.0.1`，限制外部直接访问。两者处在不同的网络空间，并不冲突。
+
+创建 `.env`，只保存管理密钥。下面会直接写文件，不把密钥打印到终端：
+
+```bash
+umask 077
+printf 'MAGPIE_WEB_KEY=%s\n' "$(openssl rand -hex 32)" > .env
+chmod 600 .env
+docker compose config -q
+docker compose pull magpie
+docker compose up -d magpie
+docker compose ps
+docker compose exec -T magpie magpie --version
+docker image inspect ghcr.io/yetone/magpie:latest \
+  --format '{{json .RepoDigests}}'
+```
+
+生成 `.env` 的命令只在首次创建时运行，重复执行会轮换管理密钥。需要使用密钥时，在自己的受信终端读取，存进密码管理器，避开截图、聊天和 Git。校验使用 `docker compose config -q`，它不会把环境里的秘密展开打印出来。
+
+[官方镜像](https://github.com/yetone/magpie/blob/ccd746e03937ad6d9fbce69d9113c425ca215708/Dockerfile)使用 UID `65532` 的非 root 用户，`HOME=/config/home`，缓存也放在 `/config` 下。命名卷因此能保留 Magpie 配置、账号状态和持久缓存中的 Claude Code。改用宿主目录挂载时，要给这个 UID 写入权限，不要直接设成 `777`。另一个容易误读的设置是 `MAGPIE_NO_STATS`：它关闭的是 Magpie 自身统计，不代表供应商不记录请求。
+
+</Prose>
+</Section>
+
+<Section canvas id="tailscale-and-ssh">
+<SectionHead index="04" kicker="个人私网" title="先用 SSH 管理，再用 Tailscale Serve 接入设备" />
+<Prose tile>
+
+### 所有方案共用的管理连接
+
+在个人电脑上建立 SSH 本地转发，将 `vps-host` 换成自己的 SSH 配置名或主机。SSH 使用非默认端口时，在配置中设置，或用 `-p` 指定。
+
+```bash
+# 在个人电脑执行，保持终端运行。
+ssh -N -o ExitOnForwardFailure=yes \
+  -L 127.0.0.1:13430:127.0.0.1:3430 vps-host
+```
+
+转发建立后，在浏览器打开 `http://127.0.0.1:13430`，通过表单输入管理密钥。远程传输由外层 SSH 加密，书签只保存地址，不附带密钥。原文让管理页面和模型网关共用公网域名；这里把管理页面留给 SSH，因此不设置公开的 `MAGPIE_WEB_URL`。
+
+如果先在一台电脑上验证模型网关，可以在另一终端增加一条 SSH 转发，仍保留上面的管理连接：
+
+```bash
+# Run on the personal computer and keep the tunnel open.
+ssh -N -o ExitOnForwardFailure=yes \
+  -L 127.0.0.1:13425:127.0.0.1:3425 vps-host
+```
+
+此时模型基地址是 `http://127.0.0.1:13425`，管理地址是 `http://127.0.0.1:13430`。这里的 HTTP 只走两端回环和 SSH 隧道，不能把同样的明文地址换成 VPS 公网 IP 使用。容器端口保持原样，不用改成 `0.0.0.0` 发布。仅走 SSH 的读者可以跳到远程授权章节。
+
+### 在宿主机加入 Tailscale
+
+多设备长期使用时，在 VPS 宿主机安装 Tailscale。宿主机上的 Serve 可以直接访问 Compose 已发布的 `127.0.0.1:3425`，Magpie 容器无须额外的 VPN 或网络权限。按 [Linux 安装文档](https://tailscale.com/docs/install/linux)选择对应发行版的软件包；下面将官方安装脚本先下载到文件，阅读后再执行：
+
+```bash
+# Run on the VPS host. Inspect the downloaded script before executing it.
+curl -fsSL https://tailscale.com/install.sh -o /tmp/tailscale-install.sh
+less /tmp/tailscale-install.sh
+sh /tmp/tailscale-install.sh
+sudo tailscale up
+tailscale status
+tailscale ip -4
+```
+
+`tailscale up` 会给出设备登录链接，在个人电脑的浏览器完成登录，把 VPS 加入自己的 tailnet。这个登录授权给 Tailscale，与后面的 Claude OAuth 是两次独立授权。再给电脑、手机安装官方客户端，登录同一个 tailnet，并在控制台确认设备身份和在线状态。管理入口先保留原有 SSH，不要刚连上 VPN 就关闭唯一的救援通道。
+
+### 用 Serve 提供私网 HTTPS
+
+在 Tailscale 控制台启用 MagicDNS 和 HTTPS certificates。MagicDNS 负责设备名称解析，HTTPS certificates 则允许为设备的完整 `.ts.net` 名称签发证书。命令也可能输出一个配置确认链接，按官方页面完成所需设置。证书的主机全名会进入公开的证书透明度记录，命名时不要放入秘密信息，详见[HTTPS 说明](https://tailscale.com/docs/how-to/set-up-https-certificates)。
+
+先查看已有 Serve 配置，确认这台机器没有另一个服务占用同一入口，再设置根路径转发：
+
+```bash
+# Run on the VPS host after Magpie has started.
+tailscale serve --help
+tailscale serve status
+sudo tailscale serve --bg --https=443 http://127.0.0.1:3425
+tailscale serve status
+```
+
+保存输出中的完整 HTTPS URL，后文称为网关基地址。不要把它换成短机器名、Tailscale IP 或自己的公网域名；此处证书对应的是完整 `.ts.net` 名称。Serve 终止 TLS，再通过本机 HTTP 转给 Magpie。根路径转发使 `/v1/messages` 沿用原路径，不额外挂载 `/magpie`。`--bg` 会保留配置，宿主机或 Tailscale 重启后恢复服务；这些命令的语法与停用方式见 [Serve CLI 文档](https://tailscale.com/docs/reference/tailscale-cli/serve)。
+
+使用编辑器修改 `/opt/personal-magpie/.env`，保留原来的 `MAGPIE_WEB_KEY`，另加一行 `MAGPIE_PUBLIC_URL=`，等号后填写刚才的完整 HTTPS 基地址。然后在项目目录运行 `docker compose up -d magpie`，让容器读取新环境。客户端也使用这个地址和自己的网关 key。不要重新运行前面的密钥生成命令覆盖 `.env`。
+
+Serve 只转发模型端口 `3425`，不转发管理端口 `3430`。如果想让管理 SSH 也走 Tailscale，把 `vps-host` 的 SSH 主机地址改为该 VPS 的 Tailscale 地址，并保留原有 SSH 用户、端口和密钥。这里仍是普通 OpenSSH 通过私网连接，不要求启用另一个叫 Tailscale SSH 的身份接管功能。
+
+只安装 Tailscale，还不能直接访问 `http://VPS的Tailscale地址:3425`：Compose 只把端口发布在宿主机回环地址上，没有发布到 Tailscale 网卡。本文选择 Serve，正是为了保留这个绑定并提供标准 HTTPS。如果改成直接绑定 Tailscale 地址使用 HTTP，就要另行处理 Docker 的地址绑定和客户端兼容性；不能靠把发布地址改成 `0.0.0.0` 来省略这些步骤。
+
+### 限制 tailnet 内的访问，再做双向验收
+
+私网也要检查访问范围。如果仍保留允许整个 tailnet 互通的初始策略，其他成员也可能接触网关。按 [Tailscale 的访问控制](https://tailscale.com/docs/features/access-control)配置谁可以连接；下面示例用用户组识别调用者，用标签识别 VPS，语法参照[官方 grants 示例](https://tailscale.com/docs/reference/examples/grants)：
+
+```json
+{
+  "groups": {
+    "group:magpie-users": ["owner@example.com"]
+  },
+  "tagOwners": {
+    "tag:magpie": ["owner@example.com"]
+  },
+  "grants": [
+    {
+      "src": ["group:magpie-users"],
+      "dst": ["tag:magpie"],
+      "ip": ["tcp:443"]
+    }
+  ]
+}
+```
+
+把教学邮箱换成自己的 Tailscale 用户身份，并在控制台给 VPS 应用 `tag:magpie`。这是要合并进现有策略的片段，不能覆盖整个策略文件。标签会改变设备身份，先核对管理连接的规则。若普通 SSH 也走私网，还需为维护来源保留实际 SSH 端口的授权；上面的规则只允许模型 HTTPS。其他已有的宽泛允许规则也要收窄，因为添加一条窄规则不会抵消它们。
+
+从已授权设备访问完整 HTTPS URL 的 `/v1/models`：不带 key 应被拒绝，带 key 后应得到模型目录。再从无授权身份的设备检查它是否无法连接。最后在个人客户端暂时断开 Tailscale 重试，私网入口也应不可达。不要在唯一的远程管理连接上做断网测试。网络是否获准与 key 是否有效，必须分别验收。
+
+需要撤销本节创建的入口时，在 VPS 运行 `sudo tailscale serve --https=443 off`，再用 `tailscale serve status` 确认。不要随手运行 `serve reset` 清掉同机其他配置。设备退出、被撤销或登录态过期同样会影响接入，应纳入日常检查。
+
+### 何时才需要再加 Caddy
+
+本文这条 Serve 路径会把模型端口的全部路径提供给获准访问的 tailnet 设备，没有复制下一节 Caddy 的模型路径白名单。若要在私网内也严格只开放指定路径，可以让 Serve 转给一个只监听回环的反向代理，再由它筛选路径；这才是额外增加 Caddy 的理由。不要把 Serve 直接转发的宽路径配置改成 Funnel 发布到公网。
+
+Tailscale 普通组网和 Serve 都不会把 VPS 的所有互联网请求改道。[Exit node（出口节点）](https://tailscale.com/docs/features/exit-nodes)是另行选择的全局出口功能；本文没有启用。Claude 生成和令牌刷新仍走 VPS 原有路由或显式代理，浏览器仍走本机网络，OAuth 的 localhost 回调也不会因为加入 tailnet 自动落到 VPS。后面的手动回调步骤照常进行。
+
+</Prose>
+</Section>
+
+<Section canvas id="admin-and-tls">
+<SectionHead index="05" kicker="公网分支" title="需要普通公网客户端时，用 Caddy 接收 HTTPS" />
+<div class="not-prose overflow-x-auto rounded-[18px] bg-white p-4 sm:p-8 [&_svg]:min-w-[900px]" tabindex="0" role="region" aria-label="公网 Caddy 分支的入站与出站连接图，窄屏可横向滚动" set:html={traffic} />
+<Prose tile>
+
+本节只面向公网 Caddy 分支，已经选定 SSH 或 Tailscale Serve 的读者可以跳过。图中模型请求经过 Caddy，管理页面仍通过上一节的 SSH 转发访问。Caddy 可以只负责入口，Magpie 无须直接监听公网地址。
+
+先完成第 2 节的公网域名与安全组配置，再在 `.env` 中保留管理密钥并设置 `MAGPIE_PUBLIC_URL=https://magpie.example.com`，将教学域名替换为自己的域名。运行 `docker compose up -d magpie` 更新容器环境。Caddy 接收 `443` 上的 TLS 连接，通过回环地址访问 `3425`；下面的 Caddyfile 只开放模型协议路径，其他路径统一返回 404：
+
+```caddyfile
+magpie.example.com {
+    header Cache-Control "no-store"
+
+    @models path /v1 /v1/* /v1beta /v1beta/*
+    handle @models {
+        reverse_proxy 127.0.0.1:3425
+    }
+
+    handle {
+        respond "Not found" 404
+    }
+}
+```
+
+`handle` 会保留 `/v1`，让 Magpie 收到完整路径。若改用 `handle_path /v1/*`，前缀会被剥离。另一个需要避开的路径是 `/api/*`，模型兼容接口和管理功能都会用到它，本方案不对外转发。上面的规则也没有覆盖所有插件和 MCP 路由，需要哪些接口，就核对其认证方式后单独加入。
+
+VPS 上尚未部署 Caddy 时，可以将下列服务片段加入同一个 Compose 项目，并提前创建 `Caddyfile` 文件。已有 Caddy 的服务器只需合并对应站点。
+
+```yaml
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+```
+
+顶层 `volumes` 还要增加 `caddy-data:` 与 `caddy-config:`。这份配置面向 Linux VPS，Caddy 使用 host 网络，`127.0.0.1` 指向宿主机。若换成 bridge 网络，相同地址就会指向 Caddy 容器自身，需要重新配置后端地址。验收后也要记录并固定 Caddy 镜像的摘要。
+
+```bash
+# 在包含 Caddy 服务的项目目录执行。
+docker compose config -q
+docker compose run --rm caddy caddy validate --config /etc/caddy/Caddyfile
+docker compose up -d caddy
+# 后续修改正在运行的配置时：
+docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile
+```
+
+选择 Caddy 的主要理由是这一个服务就能完成 HTTPS 证书维护和请求转发，单台 VPS 的配置也容易读懂。已有反向代理的服务器沿用现有工具即可，不必为了本文替换入口。
+
+这里沿用 Caddy 默认的自动 HTTPS，省去了原文对证书挑战和协议的特殊限制。ACME 是自动申请证书的协议，其中的挑战用于验证域名控制权；域名解析及 80/443 是否可达，仍须符合所选挑战的要求。流式输出也先保留默认行为：Caddy 会及时转发 `text/event-stream`。不必直接加上 `flush_interval -1`，这个设置还会改变客户端断开后的取消行为，详见[反向代理文档](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy)。
+
+</Prose>
+</Section>
+
+<Section canvas id="oauth-flow">
+<SectionHead index="06" kicker="远程授权" title="浏览器在本机，登录进程必须在 VPS 容器里" />
+<div class="not-prose overflow-x-auto rounded-[18px] bg-white p-4 sm:p-8 [&_svg]:min-w-[680px]" tabindex="0" role="region" aria-label="Claude 远程授权时序图，窄屏可横向滚动" set:html={oauth} />
+<Prose tile>
+
+授权图在窄屏可左右滑动，键盘用户可聚焦图框后使用方向键。
+
+OAuth 让应用在你同意后获得有限授权。浏览器完成“你同意这次授权”的确认，将一次性授权码交回发起流程的进程，由它换取后续请求使用的 access token。续期则由持有 refresh token 的进程向服务商申请新令牌。回调地址只参与这次交接，不能当作长期调用模型的 API key。
+
+[当前 Magpie 的 Claude 授权源码](https://github.com/yetone/magpie/blob/ccd746e03937ad6d9fbce69d9113c425ca215708/internal/provider/claude_signin.go)会在独立配置目录中启动真正的 `claude auth login --claudeai`。你打开它给出的官方登录链接，授权后再把回调粘贴回来，接收回调的仍是原来等待中的 Claude Code。这个流程应使用本人的账号，官方页面的口令也只在官方页面输入，不交给网站管理员。
+
+登录前，要确认容器里能运行所需命令。只在 VPS 宿主机安装 Claude Code 不够，Magpie 的上游进程实际运行在容器中。当前版本可以下载官方原版 CLI：
+
+```bash
+# 在 VPS 的 Compose 项目目录执行。
+docker compose exec magpie magpie --help
+docker compose exec magpie magpie accounts --help
+docker compose exec magpie magpie claude-code install
+docker compose exec magpie magpie claude-code
+docker compose exec magpie magpie accounts add claude
+```
+
+交互运行这些命令，读完安装和订阅使用提示后再决定是否继续。下载器会按供应商清单核对文件大小和 SHA-256；本文尚未实测安装。下载后的 CLI 可能只放在 Magpie 的缓存目录，供它自行调用，未必能通过 `command -v claude` 找到。安装结果应查看 `magpie claude-code`。如果镜像根本没有这些命令，先核对版本，不要急着换用来历未核实的登录脚本。
+
+授权时按下面的顺序操作：
+
+1. 保持 VPS 上的授权进程运行，复制它为这次操作生成的 HTTPS 链接，在自己的浏览器打开。确认目的站点属于 Anthropic 的官方授权流程，再登录本人的订阅账号。
+2. 页面如果显示需要粘贴的授权码，就把完整内容粘贴回当前终端或 Magpie 管理页面。以页面和当前版本提示为准，保留要求的 `code#state` 完整形式。
+3. 如果浏览器跳到 `http://localhost:某端口/...` 并显示连接失败，复制地址栏里的完整回调 URL，粘贴回同一个等待中的流程。这个 localhost 指向个人电脑；等待它的 Claude Code 却在 VPS 容器中，所以浏览器不能直接连接并不奇怪。
+4. 等待 Magpie 明确报告完成，并检查账号及模型目录。浏览器显示“已授权”还不等于服务器成功换到了可用登录态。
+
+回调提交时，源码会核对 loopback 主机、当前等待的端口和授权码，再由容器访问对应回调地址。端口以本次登录为准，不要照抄网上的固定值，尤其不要把 Codex 示例的端口套给 Claude。采用粘贴方式后，临时 OAuth 端口无须在安全组中开放，供应商后台的 redirect URI 也无须改成公网域名。
+
+回调 URL、一次性授权码以及 state 只属于这次登录，应避开聊天、浏览器同步书签和公共日志。若提示 state 不匹配、流程已结束或授权码过期，就结束旧流程，重新发起一次并使用新链接。旧页面不能交给新终端继续处理。
+
+</Prose>
+</Section>
+
+<Section canvas id="official-login">
+<SectionHead index="07" kicker="原生登录" title="只想在 VPS 用订阅，可以直接登录官方 CLI" />
+<Prose tile>
+
+只想在 VPS 上运行 Claude Code，可以采用[官方无浏览器登录方式](https://code.claude.com/docs/en/authentication)。安装原版 CLI 后，在 VPS 的普通用户终端发起登录，用本机浏览器打开输出的链接，再按提示粘贴页面给出的登录码。
+
+```bash
+# 这组命令用于已安装官方 CLI 的 VPS 用户环境，
+# 与前一节由 Magpie 管理的容器授权是两种入口。
+claude auth login
+claude auth status
+```
+
+发起登录前，检查 shell 和 Claude 设置里是否还留着旧网关的 `ANTHROPIC_BASE_URL`、`ANTHROPIC_AUTH_TOKEN` 或 API key 覆盖。这些设置可能让请求继续走旧入口，使你误以为已经在用订阅。检查时也别把完整环境变量发给别人，其中可能包含密钥。
+
+Magpie 在独立目录中管理账号。宿主机的 `claude auth status` 只反映它所在环境的状态，无法证明容器里的账号可用；Magpie 登记成功，也不意味着宿主机 CLI 已登录。排查时先确认自己查的是哪一份登录态。
+
+仅用于远程编码，到这里就够了。如果还要让通用客户端调用，再确认使用方式符合供应商要求，继续配置后面的网关。导出 OAuth 令牌、手写 Authorization 请求，或把令牌逐个填进第三方客户端，都不作为本文的默认接法。
+
+</Prose>
+</Section>
+
+<Section canvas id="egress-and-kyc">
+<SectionHead index="08" kicker="出站核验" title="代理要验证完整路径，KYC 不能靠配置保证" />
+<Prose tile>
+
+[Claude Code 官方网络文档](https://code.claude.com/docs/en/network-config)说明它支持 HTTP/HTTPS 代理，不直接支持 SOCKS。网络确实需要代理时，在 Magpie 的 Compose 环境中加入下面的配置，将真实代理地址保存到 `.env`。能够直连就先直连，省去额外一跳。
+
+```yaml
+      HTTP_PROXY: ${MAGPIE_PROXY:-}
+      HTTPS_PROXY: ${MAGPIE_PROXY:-}
+      ALL_PROXY: ${MAGPIE_PROXY:-}
+      NO_PROXY: "localhost,127.0.0.1,::1"
+```
+
+代理优先选择网络管理员或服务商提供、本人获准使用的 HTTP CONNECT 服务。`HTTPS_PROXY` 指定 HTTPS 目标流量使用的代理，变量值仍可以是 `http://` 地址；目的站点使用 HTTPS，并不要求代理地址采用相同的协议。代理凭据里的特殊字符要按 URL 规则编码，配置文件权限保持 `600`。
+
+两篇原文都没有证实 Claude 的完整链路经过住宅出口。此处还存在版本差异：本文读取的源码已有 `EnvForBunWith`，它为 Magpie 启动的 Claude 登录、生成等进程选择账号或 provider 代理，在能够访问本机回环的路径中将 SOCKS 桥接为 HTTP，桥接失败则返回错误。旧路径中“直接把 SOCKS 交给 Claude Code”的兼容性问题因此有了处理办法，但这还不是禁止直连的网络策略。设备端 Claude 设置也可能走不同的处理路径。
+
+容器里的 `curl` 走通，验证的也只是 curl。授权码交换、令牌刷新和 Claude 实际生成仍要分别观察。可以对照受信代理的连接记录，在容器网络空间中检查连接，并发一次小请求，确认流量经过哪里；不记录令牌和正文。若要求代理失效后绝不直连，还须设计覆盖 DNS、IPv6 和子进程的出站网络策略。仅设置环境变量做不到，关闭证书校验也解决不了这个问题。
+
+浏览器的授权连接仍使用本机网络，VPS 上的代理设置不会替它生效。代理也不改变用户的真实地区和使用资格，不能用住宅 IP 或修改指纹来冒充身份、所在地。
+
+[KYC，即身份核验](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)，可能在访问某些能力或平台检查时触发。没有哪种 IP 类型、等待时长或登录频率得到官方的免验证保证。真实填写账号资料、保护凭据并遵守使用限制，属于正常维护，也无法保证永远不被要求验证。出现提示后，按真实情况完成验证或联系支持，不要继续换号、换出口、自动重试。
+
+排错时先看具体错误：`401` 检查凭据和入口，`403` 检查权限、地区或策略，`429` 则看限额和重试提示。网络超时、订阅额度耗尽、身份验证与封禁各有处理办法，“不断重新登录”无法解决所有问题。
+
+</Prose>
+</Section>
+
+<Section canvas id="credentials">
+<SectionHead index="09" kicker="凭据归属" title="设备持有网关 key，服务器管理上游登录态" />
+<div class="not-prose overflow-x-auto rounded-[18px] bg-white p-4 sm:p-8 [&_svg]:min-w-[680px]" tabindex="0" role="region" aria-label="凭据持有与刷新图，窄屏可横向滚动" set:html={ownership} />
+<Prose tile>
+
+`MAGPIE_WEB_KEY` 允许维护账号和路由，模型客户端不应持有它，而应使用单独生成的网关 key。供应商 OAuth 的 access token 和 refresh token 则保存在服务器状态中，不下发到设备。分清用途后，再为设备创建密钥。
+
+```bash
+# 输出是新生成的秘密，只在自己的终端查看并安全保存。
+docker compose exec magpie magpie gateway-key add "personal-laptop"
+docker compose exec magpie magpie models
+docker compose exec magpie magpie accounts claude
+```
+
+每台设备单独建 key，某台设备丢失时，只撤销它的权限即可。模型范围和用量限制按实际版本的 UI 设置。即使从宿主机用 curl 访问回环地址，请求也来自容器外，仍须提供有效网关 key。
+
+OAuth 的刷新令牌可能轮换。若复制登录文件，让两台机器长期同时刷新，旧令牌失效或文件相互覆盖的问题就更难排查。因此本文在服务器侧单独授权，设备只拿网关 key。这种安排不增加订阅额度，也不保证服务商允许任意并发方式。如果只是迁移，需要导入账号，应先查清当前版本是否会影响旧工具的登录态。
+
+服务运行期间，不要手工修改账号文件。`0600` 只能限制操作系统层面的访问，不能代替加密，`/config` 备份也必须按秘密材料保管。旧备份中的令牌可能已经过期，恢复后看得到账号名称，仍未必能刷新成功。持久卷里还保存着官方 CLI 下载缓存和账号文件，删除容器时不要误用 `docker compose down -v` 把卷一并清掉。
+
+</Prose>
+</Section>
+
+<Section canvas id="routing-and-clients">
+<SectionHead index="10" kicker="设备接入" title="一个 Claude 账号，从一个明确的模型组开始" />
+<Prose tile>
+
+运行服务器上的 `magpie models`，从目录中选择实际可用的完整模型 ID，填入下面的 `MODEL_ID`。不要根据示例猜测订阅的模型权限。
+
+```bash
+# 在自己的 VPS shell 中填写目录里的实际 ID。
+MODEL_ID='replace-with-an-actual-catalog-id'
+docker compose exec magpie magpie group --help
+docker compose exec magpie magpie group add personal \
+  "models=$MODEL_ID" routing=order stays=session
+docker compose exec magpie magpie group personal
+```
+
+建组前先查有无同名组，防止覆盖原配置。`stays=session` 用于表达会话亲和意图，不能保证缓存命中，也不能保证任何故障后都能接续。一个账号只有一个配额池，分成四组仍是这份额度。只有 Claude 一个来源时，再花一次订阅调用去分类、选择相似模型，未必划算。
+
+有多个来源后，再考虑 plan、build、review、light 这类职责分组。规则里要分清“按计划做普通检查”和“独立复核安全问题”，也要让“继续”能承接前文。分类和 compact 都要额外调用模型。配置保存后，还得观察中途换模型时，上下文和工具调用是否接得上。
+
+按量 API 备用放在独立的组里，需要时手动选择。若直接追加到日常组末尾，某个局部失败就可能触发收费调用，哪怕其他订阅组还有额度。API key 与 Claude 订阅分别计费，备用服务也必须是本人有权使用的来源。
+
+回到个人电脑的 Magpie，添加 Remote Magpie provider，地址填所选方案的网关基地址：SSH 为 `http://127.0.0.1:13425`，Tailscale Serve 使用命令输出的完整 HTTPS URL，公网 Caddy 使用自己的 `https://magpie.example.com`。密钥填本设备的网关 key。例如本机 provider 命名为 `vps`，服务器上的 `group/personal` 就会显示成 `vps/group/personal`。模型组留在 VPS 维护，各设备只引用它。
+
+让客户端继续连接本机 Magpie，可以保留本机的代理配置管理和模型选择。如果直接连接 VPS，OpenAI 兼容客户端通常需要带 `/v1` 的地址；Anthropic 兼容客户端常用域名根地址，再自行追加 `/v1/messages`。配置后检查最终路径，别拼成 `/v1/v1/messages`。主模型、快速模型和子代理的引用也要逐项检查，不能指望改完主模型就自动迁移所有子代理。
+
+</Prose>
+</Section>
+
+<Section canvas id="acceptance">
+<SectionHead index="11" kicker="逐层验收" title="目录正常之后，还要验证生成、工具和刷新" />
+<Prose tile>
+
+从个人设备开始验收。Tailscale 分支先确认私网在线，SSH 分支保持模型隧道运行；Caddy 分支从公网检查。将 `GATEWAY_BASE_URL` 设置成前面选定的基地址，不带末尾斜杠。HTTPS 方案要验证证书，遇到错误不要用 `curl -k` 跳过；SSH 分支使用本机 HTTP 地址，由隧道加密远程传输。网关 key 通过当前用户的密码管理方式提供，避免把明文写进共享终端历史。
+
+```bash
+# Set this to the chosen gateway base URL; SSH and Serve users must replace it.
+GATEWAY_BASE_URL='https://magpie.example.com'
+curl -sS -o /dev/null -w '%{http_code}\n' \
+  "$GATEWAY_BASE_URL/v1/models"
+# 预期：无凭据被拒绝；当前文档描述为 401。
+
+# MAGPIE_GATEWAY_KEY 由当前 shell 的安全输入方式提供。
+curl -fsS "$GATEWAY_BASE_URL/v1/models" \
+  -H "Authorization: Bearer $MAGPIE_GATEWAY_KEY"
+```
+
+目录可用后，对已创建的 `group/personal` 发送一个小型 Messages 流式请求。它会消耗真实上游额度，须在完成授权、确认使用方式后执行：
+
+```bash
+curl -N -sS "$GATEWAY_BASE_URL/v1/messages" \
+  -H "x-api-key: $MAGPIE_GATEWAY_KEY" \
+  -H 'anthropic-version: 2023-06-01' \
+  -H 'Content-Type: application/json' \
+  --data '{"model":"group/personal","max_tokens":32,"stream":true,"messages":[{"role":"user","content":"只回复 OK"}]}'
+```
+
+测试完清理 shell 中的 key，分享日志时也不要启用会打印请求头的调试参数。再检查权限隔离：管理密钥不能调用模型，网关 key 不能进入管理界面。公网 Caddy 的非模型路径应返回 404；Tailscale Serve 直连不具备这条路径白名单，应另外验证未授权设备和断开私网后的访问均失败。SSH 则检查断开模型隧道后本机入口不可达。
+
+| 验收阶段 | 真正要证明什么 | 单靠什么还不够 |
+| --- | --- | --- |
+| 容器 | 进程启动、端口符合预期、卷可写 | `healthy` 无法证明订阅能用 |
+| 鉴权 | 正确 key 可用，错误或跨用途 key 被拒绝 | 管理页面能登录 |
+| 模型目录 | 本设备能看到目标模型或组 | `/v1/models` 返回 200 |
+| 一次生成 | 小请求实际由目标来源回答 | 账号名称可见 |
+| 流式与取消 | 输出持续抵达，取消行为可控 | 一次非流式成功 |
+| 工具与多轮 | 本地工具执行结果能回到同一对话 | 模型只输出普通文本 |
+| 刷新与重启 | 自然续期、重建后仍能正常请求 | 重启后文件仍存在 |
+| 出站 | 登录、生成与刷新走预期网络 | curl 查询出口成功 |
+| 恢复 | 隔离恢复后配置与必要登录能重建 | 归档文件生成成功 |
+
+第一轮只要求回复一个短词即可。接着试一次本机无副作用的文件读取，再用多轮请求检查前文约束是否保留。工具仍在客户端执行，把模型放到 VPS，并不会把个人电脑的项目目录一起搬过去。连通性测试也不该使用真实付款、删除等有副作用的任务。
+
+令牌刷新留到正常使用、自然过期时观察，记录结果或明确错误即可，无须打印令牌和刷新响应。反复登录也不能制造可靠的“稳定性样本”。如果出现 KYC 或策略拒绝，停止对应操作，按平台流程处理。
+
+</Prose>
+</Section>
+
+<Section canvas id="operations">
+<SectionHead index="12" kicker="持续维护" title="固定版本，保留能恢复的状态" />
+<Prose tile>
+
+备份要包含 Compose、`.env`、`/config` 卷和运行镜像的摘要。Caddy 分支还要保存 Caddy 配置与证书数据；Tailscale 分支要记录 Serve 转发、tailnet 策略和设备标签，替换服务器时重新加入网络并复核授权。限制备份的访问权限，做好加密，并保留离机副本。要归档一致的应用状态，可以在维护窗口停止 Magpie 后再备份卷。这会中断服务，维护前应结束正在运行的长任务。
+
+备份完成后，再拉取镜像并重建。固定摘要的部署需要先修改镜像引用；跟随 `latest` 也得显式拉取，`restart: unless-stopped` 只负责重启，不会自动更新镜像。
+
+```bash
+# 在维护窗口执行，先完成状态备份并记录旧镜像。
+docker compose pull magpie
+docker compose up -d --no-deps magpie
+docker compose ps
+docker compose exec -T magpie magpie --version
+```
+
+新版本若迁移过状态格式，回退时还需要恢复对应的卷，只换旧镜像可能无法恢复。恢复演练应在隔离环境进行，避免旧令牌与线上服务争用，必要时重新授权。使用 Caddy 或 Serve 时，证书续期都要另行观察，首次签发成功不能代替续期验证。
+
+原文用夜间更新配合“最近完成请求”判断是否空闲。这个判断会漏掉仍在运行的长请求，检查完也可能马上收到新请求。个人起步部署可以先手工维护，确认能够恢复，再加入自动化。以后使用 timer 时，时区、锁、维护窗口、失败通知和状态回退都要有安排；仅复制 timer，更新脚本并不会随之具备这些能力。
+
+</Prose>
+<Summary surface="white" takeaways={[
+  { title: "最小可维护方案", conclusion: "管理入口留给 SSH；个人多设备优先用 Tailscale Serve，需要公网客户端再选 Caddy。每台设备单独使用网关 key。", detail: "VPS 集中维护账号和模型组；设备保留自己的工具执行环境。" },
+  { title: "OAuth 的完成标准", conclusion: "官方授权页面完成后，VPS 中原来的登录进程还要成功交换并持久化登录态。", detail: "正常授权、订阅使用许可和免身份验证是不同问题。本文不承诺免 KYC，也不把一次调用成功当作全链路验收。" }
+]} note="本文为源码核对后的部署说明，未执行真实 VPS 部署、订阅授权或付费请求；没有验证实际出口、令牌刷新、证书续期和备份恢复。" />
+</Section>
+</ArticleCanvas>

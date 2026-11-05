@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant B as 本机浏览器
+    participant M as VPS 内 Magpie
+    participant C as 容器内 Claude Code
+    participant A as Anthropic 授权服务
+    M->>C: auth login --claudeai（独立配置目录）
+    C-->>M: 授权链接（含本次 state）
+    M-->>B: 用户在本机打开链接
+    B->>A: 登录本人账号并授权
+    A-->>B: 一次性 code / localhost 回调
+    B->>M: 粘贴完整回调或页面授权码
+    M->>C: 仅提交给本次等待中的进程
+    C->>A: 交换授权码并保存登录态
+    C-->>M: 登录完成，登记账号
+    Note over M,C: /config 保留登录态；CLI 负责刷新
