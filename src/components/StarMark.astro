@@ -1,0 +1,18 @@
+---
+/**
+ * StarMark — the editorial section glyph (four-point sparkle).
+ * Inherits color and size from the parent; decorative only.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+><path d="M12 1c.55 5.6 5.4 10.45 11 11-5.6.55-10.45 5.4-11 11-.55-5.6-5.4-10.45-11-11C6.6 11.45 10.45 6.6 12 1Z" /></svg>

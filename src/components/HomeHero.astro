@@ -9,12 +9,13 @@ const { lang } = Astro.props;
 const prefix = lang === 'en' ? '/en' : '';
 ---
 
-<section class="bg-white">
+<section class="relative bg-white">
+  <p class="hero-rail eyebrow" aria-hidden="true">{t(lang, 'home.eyebrow')}</p>
   <div
     data-hero-enter
     class="container-page flex flex-col items-center pb-10 pt-12 text-center sm:pb-14 sm:pt-16"
   >
-    <p class="eyebrow">{t(lang, 'home.eyebrow')}</p>
+    <p class="eyebrow hero-eyebrow">{t(lang, 'home.eyebrow')}</p>
     <h1
       class="mt-5 max-w-[900px] text-[clamp(32px,5.2vw,64px)] font-semibold leading-[1.08] tracking-[-0.035em]"
     >
@@ -42,3 +43,33 @@ const prefix = lang === 'en' ? '/en' : '';
     </div>
   </div>
 </section>
+
+<style>
+  /* Vertical edition label on the hero edge (lg+); below lg the centered
+     horizontal eyebrow carries the same words. */
+  .hero-rail {
+    display: none;
+  }
+  .hero-eyebrow {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-rail {
+      display: block;
+      position: absolute;
+      left: max(20px, calc(50% - 540px - 52px));
+      top: 50%;
+      transform: translateY(-50%);
+      writing-mode: vertical-rl;
+      margin: 0;
+      letter-spacing: 0.32em;
+      text-transform: none;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: none;
+    }
+  }
+</style>
