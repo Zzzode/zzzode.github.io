@@ -35,7 +35,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   Steps,
   CompareTable,
@@ -167,9 +167,9 @@ OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent �
       index="03"
       kicker="机制"
       title="三层加载：不把整个知识库塞进上下文"
-      lead="随页面滚动，流程图会逐步展示上下文的写入、分层、检索、加载和提交。"
+      lead="先看完整流程，再逐步解释上下文的写入、分层、检索、加载和提交。"
     />
-    <ScrollStory
+    <MechanismSequence
       steps={[
         {
           tag: "01 · 写入",
@@ -198,11 +198,7 @@ OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent �
         },
       ]}
     >
-      <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · 写入</text>
-        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">Agent A 把上下文写进文件系统</text>
-        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+      <svg width="485" slot="frame-0" class="sequence-frame" viewBox="28 118 404 290">
 
         <rect x="40" y="140" width="100" height="40" rx="20" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
         <text x="90" y="165" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Agent A</text>
@@ -228,14 +224,10 @@ OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent �
         <rect x="210" y="288" width="100" height="28" rx="6" fill="#f5f5f7" stroke="#dedee3" />
         <text x="220" y="307" font-size="10.5" font-weight="600" fill="#424245" font-family="ui-monospace, Menlo, monospace">skills/</text>
 
-        <text x="40" y="392" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">按目录归档，可浏览可检查</text>
-      </svg>
+      <text x="40" y="392" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">按目录归档，可浏览可检查</text>
+</svg>
 
-      <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · 分层</text>
-        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">每个目录自动生成两级摘要</text>
-        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+      <svg width="441" slot="frame-1" class="sequence-frame" viewBox="28 127 404 240">
 
         <rect x="40" y="140" width="380" height="56" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
         <text x="62" y="164" font-size="12" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">L0 · .abstract.md</text>
@@ -250,14 +242,10 @@ OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent �
         <text x="62" y="324" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">无上限 · 完整内容 · 按需加载</text>
 
         <path d="M230 340 v16 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.5" />
-        <text x="230" y="380" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">L0/L1 是目录级 sidecar，由 LLM 自动生成</text>
+
       </svg>
 
-      <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · 检索</text>
-        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">在目录范围内语义搜索</text>
-        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+      <svg width="511" slot="frame-2" class="sequence-frame" viewBox="27 120 404 276">
 
         <rect x="40" y="132" width="380" height="40" rx="20" fill="#fff" stroke="#dedee3" />
         <text x="62" y="157" font-size="12" fill="#424245" font-family="ui-monospace, Menlo, monospace">ov find "authentication methods"</text>
@@ -273,14 +261,10 @@ OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent �
           </g>
         ))}
 
-        <text x="40" y="380" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">先读 L0 摘要判断相关性，不读全文</text>
-      </svg>
+      <text x="40" y="380" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">先读 L0 摘要判断相关性，不读全文</text>
+</svg>
 
-      <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · 加载</text>
-        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先读摘要，再读原文</text>
-        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+      <svg width="515" slot="frame-3" class="sequence-frame" viewBox="27 148 407 256">
 
         {[["L0", "256 字", "大多数查询停在这里", 62, 1.4, "#0066cc"], ["L1", "4000 字", "需要规划时才读", 192, 1.0, "#424245"], ["L2", "全文", "核对细节才加载", 322, 1.0, "#86868b"]].map((s) => (
           <g>
@@ -296,16 +280,11 @@ OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent �
 
         <rect x="40" y="300" width="380" height="44" rx="10" fill="#fff" stroke="#dedee3" />
         <text x="62" y="320" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">token 消耗：低 → 中 → 高</text>
-        <text x="62" y="338" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">benchmark 输入 token 降幅 34.3% – 91.0%</text>
 
-        <text x="40" y="388" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">按需逐层加载，不把整个知识库塞进上下文</text>
-      </svg>
+      <text x="40" y="388" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">按需逐层加载，不把整个知识库塞进上下文</text>
+</svg>
 
-      <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-        <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-        <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · 提交</text>
-        <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">Session Commit 归档并提取记忆</text>
-        <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+      <svg width="567" slot="frame-4" class="sequence-frame" viewBox="27 128 425 230">
 
         <rect x="40" y="140" width="120" height="120" rx="14" fill="#fff" stroke="#dedee3" />
         <text x="100" y="168" font-size="11" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">对话</text>
@@ -338,9 +317,11 @@ OpenViking 的核心抽象是 `viking://` 虚拟文件系统。它位于 Agent �
         <text x="62" y="314" font-size="10.5" font-weight="600" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">memory_diff.json</text>
         <text x="62" y="334" font-size="10.5" fill="#424245" font-family="PingFang SC, sans-serif">审计日志：记录每次记忆的增（adds）、删（deletes）、改（updates）</text>
 
-        <text x="40" y="388" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">记忆是 Markdown 文件，可读、可编辑、可审计</text>
       </svg>
-    </ScrollStory>
+    <div slot="caption-1"><p>L0/L1 是目录级 sidecar，由 LLM 自动生成</p></div>
+    <div slot="caption-3"><p>benchmark 输入 token 降幅 34.3% – 91.0%</p></div>
+    <div slot="caption-4"><p>记忆是 Markdown 文件，可读、可编辑、可审计</p></div>
+  </MechanismSequence>
     <Prose tile>
 
 这个循环的关键在于"分层"和"提交"两个动作。分层让 Agent 不用一次性读完所有内容，提交让每次会话的经验不会随对话结束而丢失。OpenViking 把这两个动作做成了文件系统的原生操作：读目录读到的是摘要，不用翻原文；提交会话写下来的是文件，不会丢。

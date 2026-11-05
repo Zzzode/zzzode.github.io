@@ -1,6 +1,6 @@
 # Distilled article — pre-delivery visual checklist
 
-Run `npm run check`, `npm run build`, then `npm run preview` and screenshot at **1280 / 1680 / 768 / 390**, plus mid-story viewport states and one pass with `prefers-reduced-motion: reduce` emulated.
+Run `npm run check`, `npm run build`, then `npm run preview` and screenshot at **1280 / 1680 / 768 / 390**, plus middle sequence rows and one pass with `prefers-reduced-motion: reduce` emulated.
 
 ## Depth doctrine (fails the whole piece if missing)
 
@@ -15,7 +15,7 @@ Run `npm run check`, `npm run build`, then `npm run preview` and screenshot at *
 - [ ] Check both overlay and visible classic scrollbars. In Playwright Chromium, omit the default `--hide-scrollbars` argument for the classic pass. Compare document/body `scrollWidth` with their `clientWidth`, inspect full-bleed bounds, and include 1180×757 alongside the standard widths; `innerWidth` alone can hide scrollbar-width overflow.
 - [ ] Banner is the first block; kicker is gray uppercase provenance (never blue); title matches the file's `title`; pills are hairline with optional 7px dots.
 - [ ] No literal `**` / broken Markdown in rendered output; inline code has the neutral paper chip and no decorative backticks.
-- [ ] Grayscale-first: blue appears only in links, the insight kicker, the progress bar, active/done ScrollStory nodes, and subject-A dots; orange only on subject-B dots.
+- [ ] Grayscale-first: blue appears only in links, the insight kicker, the progress bar, and subject-A dots; orange only on subject-B dots.
 - [ ] No shadows, gradients, emoji-as-icons, raster diagrams, or external asset hosts.
 - [ ] Sources at the end are numbered, link out (every URL returns 200), and match front matter; caliber note present for vendor/benchmark numbers.
 - [ ] Language toggle on the article is disabled (no counterpart) for a single-language run; the other-locale posts list does not contain the article.
@@ -26,12 +26,14 @@ Run `npm run check`, `npm run build`, then `npm run preview` and screenshot at *
 - [ ] Hero entrance staggers in once (kicker → title → lead → pills, visual alongside); reveal blocks fade/rise with the long Apple easing; progress bar tracks scroll.
 - [ ] Count-up stats reach and settle on the exact server-rendered value.
 
-## ScrollStory (when used)
+## MechanismSequence (when used)
 
-- [ ] At ≥900px the large illustration stage pins while panels march; scroll to each step: its frame is visible (crossfade/scale), its panel is full-opacity while others recede, and frame/panel sit in the same viewport band with no dead whitespace beside them.
-- [ ] Below 900px every frame is relocated inside its own panel (illustration then text, interleaved), all visible without interaction; no leftover empty pinned column.
-- [ ] Frames follow the contract: one standalone 460×460 `svg.ss-frame[data-ss-node="i"]` per step with paper card, eyebrow/title/counter, mechanism schematic, token colors; no TS annotations in MDX expressions.
-- [ ] Reduced-motion: frames switch instantly (no transform/opacity transition), state still reflected.
+- [ ] Every step has exactly one matching zero-based `frame-i` slot; optional `caption-i` notes stay with the correct diagram. The linked overview visits the corresponding row without hiding another stage.
+- [ ] At ≥900px explanation and diagram share a compact row. All rows remain fully readable when scrolling stops anywhere; no pinned stage, viewport-height spacer, overlapping copy, or faded reading state.
+- [ ] Below 900px rows stack copy then diagram. All stages render in order without JavaScript, with no relocated slots or empty desktop column.
+- [ ] Diagrams show relationships, boundaries, data flow, state changes, or comparisons. Labels are readable at their rendered size; the viewBox has no large decorative margins, duplicated title/counter, or empty stage area.
+- [ ] Responsive SVGs fit the diagram column. Dense numeric-width SVGs pan only inside their focusable diagram region, expose the localized mobile hint, and support touch/keyboard access; the page itself never overflows horizontally.
+- [ ] SVG colors use tokens. Reduced-motion and JavaScript-disabled states retain every diagram, explanation, and caption at full readability; no frame activation is required.
 
 ## 1680 wide
 
@@ -45,11 +47,11 @@ Run `npm run check`, `npm run build`, then `npm run preview` and screenshot at *
 ## prefers-reduced-motion: reduce
 
 - [ ] All content renders immediately at full opacity; no hero/parallax/reveal/count-up/marching-dash animation.
-- [ ] ScrollStory labels all visible; node colors still reflect current state (information), with no transform/transition.
+- [ ] Every mechanism overview, diagram, label, and explanation stays visible without transforms or opacity changes.
 - [ ] Stats show final values; reading progress bar and (at wide width) TOC still work.
 
 ## Bundle & regression
 
 - [ ] Framework pages (home, section lists, CV, 404) still emit zero script tags.
-- [ ] The article ships only the one inline enhancement script (report its gzip size; ~1.6 KB as of the ScrollStory/count-up additions).
+- [ ] The article ships only the one inline enhancement script (report the current gzip size); mechanism sequences add no script.
 - [ ] Shared components changed (Steps, Stat, Timeline, CompareTable, CoverBanner, …) regression-checked on the other distilled article(s).

@@ -31,7 +31,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Summary,
 } from '@/components/article';
@@ -103,10 +103,10 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
     index="02"
     kicker="接口契约"
     title="接口契约：一个状态，一组问题，一组带概率的答案"
-    lead="随页面滚动，左侧舞台展示一次 Jev 调用从构造状态到代码消费答案的全过程（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示一次 Jev 调用从构造状态到代码消费答案的全过程。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 状态",
@@ -135,38 +135,31 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · STATE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一个局面打成一个包</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="439" slot="frame-0" class="sequence-frame" viewBox="38 137 384 248">
+
       <rect x="50" y="150" width="360" height="180" rx="14" fill="#1d1d1f" />
       <text x="72" y="186" font-size="11" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">{"{ \"ticket\": { … },"}</text>
       <text x="72" y="212" font-size="11" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">{" \"order\": { \"charges\": [ … ] },"}</text>
       <text x="72" y="238" font-size="11" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">{" \"refund_policy\": \"…\" }"}</text>
       <text x="230" y="290" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">string · object · array｜仅文本</text>
-      <text x="230" y="370" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">非文本（画面/声音）先由程序转成文本</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · QUESTIONS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">同一份状态，多道独立题</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="370" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">非文本（画面/声音）先由程序转成文本</text>
+</svg>
+
+    <svg width="339" slot="frame-1" class="sequence-frame" viewBox="68 147 324 239">
+
       {["要求退款？","重复扣款？","政策支持？"].map((s,i)=>(
         <g>
           <rect x="80" y={160+i*62} width="300" height="46" rx="10" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
           <text x="230" y={189+i*62} font-size="12" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Q{i+1} · {s}</text>
         </g>
       ))}
-      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">独立评估 · 并行执行 · 一次扇出</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · PRIMITIVES</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">三种封闭的问题原语</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">独立评估 · 并行执行 · 一次扇出</text>
+</svg>
+
+    <svg width="461" slot="frame-2" class="sequence-frame" viewBox="38 137 384 229">
+
       {[["CHOICE","封闭候选里选一个","billing / technical / sales"],["SCORE","沿锚点连续打分","0 平静 → 2 暴怒，可回 1.4"],["NOUL","命名布尔的概率","退款？ → 0.95"]].map((r,i)=>(
         <g>
           <rect x="50" y={150+i*72} width="360" height="60" rx="12" fill={i===2?"#1d1d1f":"#fff"} stroke={i===2?"#1d1d1f":"#dedee3"} />
@@ -176,32 +169,27 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       ))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · CALIBRATION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">概率是给程序用的闸门</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="324" slot="frame-3" class="sequence-frame" viewBox="68 137 324 206">
+
       {[["0.2 → 约 20% 发生",170],["0.8 → 约 80% 发生",240],["1.0 → 100%",310]].map((r,i)=>(
         <g>
           <rect x="80" y={r[1]-20} width="300" height="42" rx="9" fill="#fff" stroke="#dedee3" />
           <text x="230" y={r[1]+6} font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
         </g>
       ))}
-      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">群体统计性质，非单次保证 · confidence 决定执行或上报</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · CONSUME</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">答案即数据，代码直接用</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="437" slot="frame-4" class="sequence-frame" viewBox="48 148 364 175">
+
       <rect x="60" y="160" width="340" height="60" rx="12" fill="#eaf2fb" stroke="#0066cc" />
       <text x="230" y="188" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"{ \"choice\": \"billing\", \"confidence\": … }"}</text>
       <text x="230" y="208" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">无需解析 · 无法越界</text>
       <rect x="60" y="250" width="340" height="60" rx="12" fill="#1d1d1f" />
       <text x="230" y="286" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /v1/systemone</text>
     </svg>
-  </ScrollStory>
+    <div slot="caption-3"><p>群体统计性质，非单次保证 · confidence 决定执行或上报</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="rlcd">
@@ -242,7 +230,7 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
     lead="开源项目 MineLog 把这套分工写得最直白：GPT-6 Astra 规划，Jev 决策，代码拥有每一个 tick。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 观察",
@@ -271,11 +259,8 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 01 · OBSERVE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">世界先变成文本</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="421" slot="frame-0" class="sequence-frame" viewBox="44 157 368 194">
+
       {[["hp","hunger"],["inventory","hostiles"],["light","blocks"]].map((r,i)=>(
         <g>
           <rect x={56+i*120} y="170" width="104" height="80" rx="12" fill="#fff" stroke="#dedee3" />
@@ -288,11 +273,8 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       <text x="230" y="323" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">JSON state</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 02 · REFLEX</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">确定性危险，代码先拦</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="437" slot="frame-1" class="sequence-frame" viewBox="48 138 364 220">
+
       {["岩浆","溺水","苦力怕贴脸","刚死亡"].map((s,i)=>(
         <g>
           <rect x="60" y={150+i*52} width="340" height="40" rx="9" fill="#fff" stroke="#e8710a" stroke-width="1.5" />
@@ -302,11 +284,8 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       ))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 03 · PLAN</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">军师在后台，前线不等它</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="461" slot="frame-2" class="sequence-frame" viewBox="38 143 384 144">
+
       <rect x="50" y="156" width="160" height="120" rx="14" fill="#1d1d1f" />
       <text x="130" y="200" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">Astra 规划</text>
       <text x="130" y="226" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">慢 · 后台异步</text>
@@ -318,11 +297,8 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       <path d="M210 216 L246 216 M238 208 L246 216 M238 224" stroke="#86868b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 4" />
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 04 · DECIDE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">封闭目录里选一步</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="441" slot="frame-3" class="sequence-frame" viewBox="28 149 404 196">
+
       {["move","collect","bed-attack","wait"].map((s,i)=>(
         <g>
           <rect x={40+(i%2)*200} y={162+Math.floor(i/2)*70} width="180" height="52" rx="10" fill={i===2?"#0066cc":"#fff"} stroke={i===2?"#0066cc":"#dedee3"} />
@@ -332,18 +308,17 @@ TypeSafe（做 Akka、Play 框架的那家公司）在官方 AI primer 里把判
       <text x="230" y="330" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">+ safety noul · + urgency score · 无散文</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 05 · GATE &amp; ACT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">代码复核，然后动手</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="359" slot="frame-4" class="sequence-frame" viewBox="58 147 344 144">
+
       <rect x="70" y="160" width="320" height="120" rx="14" fill="#fff" stroke="#dedee3" />
       <text x="92" y="196" font-size="11.5" fill="#1d1d1f" font-family="PingFang SC, sans-serif">动作非法？</text>
       <text x="92" y="224" font-size="11.5" fill="#1d1d1f" font-family="PingFang SC, sans-serif">置信度过低？ safety noul 报警？</text>
       <text x="92" y="256" font-size="11.5" fill="#e8710a" font-family="PingFang SC, sans-serif">→ 等待 / 逃跑；通过 → 玩家协议执行</text>
-      <text x="230" y="340" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">Code owns the tick. Models are guests.</text>
+
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-4"><p>Code owns the tick. Models are guests.</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="judge">

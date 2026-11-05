@@ -39,7 +39,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   CompareTable,
   Summary,
@@ -105,10 +105,10 @@ import {
     index="02"
     kicker="核心机制"
     title="核心机制：把「加噪去噪」从像素搬进词表"
-    lead="随页面滚动，左侧舞台展示图像扩散与文本扩散如何共享同一个数学骨架（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示图像扩散与文本扩散如何共享同一个数学骨架。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 图像扩散",
@@ -137,25 +137,20 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · IMAGE DDPM</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">连续噪声的进退</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="428" slot="frame-0" class="sequence-frame" viewBox="34 137 392 270">
+
       {[["清晰照片",0.05,"#1d1d1f"],["轻噪",0.36,"#6e6e73"],["重噪",0.67,"#b8b8bf"],["纯噪声",0.95,"#dedee3"]].map((r,i)=>(
         <g>
           <rect x="46" y={150+i*56} width="368" height="42" rx="9" fill={r[2]} />
           <text x="66" y={177+i*56} font-size="12" fill={i>1?"#1d1d1f":"#f5f5f7"} font-family="PingFang SC, sans-serif">{r[0]} · t = {r[1]}</text>
         </g>
       ))}
-      <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">前向叠噪 → 反向逐步去噪</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · DISCRETE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">离散符号怎么加噪</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">前向叠噪 → 反向逐步去噪</text>
+</svg>
+
+    <svg width="472" slot="frame-1" class="sequence-frame" viewBox="33 145 393 199">
+
       <rect x="46" y="158" width="368" height="76" rx="12" fill="#fff" stroke="#dedee3" />
       <text x="230" y="190" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">像素 0.0–1.0 连续 → 高斯噪声 ✓</text>
       <text x="230" y="216" font-size="12" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">词表离散符号 → ？</text>
@@ -167,11 +162,8 @@ import {
       <text x="325" y="310" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">LLaDA 选择的路线</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · FORWARD / REVERSE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">盖住，再并行揭开</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="390" slot="frame-2" class="sequence-frame" viewBox="68 119 325 226">
+
       {[["猫 在 坐 垫 上",150],["猫 M 坐 M M",196],["M M 坐 M M",242],["M M M M M",288]].map((r,i)=>(
         <g>
           <rect x="80" y={r[1]-18} width="300" height="36" rx="8" fill={i===3?"#1d1d1f":"#fff"} stroke={i===3?"#1d1d1f":"#dedee3"} />
@@ -183,11 +175,8 @@ import {
       <text x="136" y="330" font-size="10" fill="#0066cc" font-family="PingFang SC, sans-serif">反向生成 ↓</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · vs BERT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">15% 固定 vs 0–100% 随机</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="428" slot="frame-3" class="sequence-frame" viewBox="34 137 392 212">
+
       <rect x="46" y="150" width="368" height="80" rx="12" fill="#fff" stroke="#dedee3" />
       <text x="230" y="182" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">BERT MLM：固定盖住约 15%</text>
       <text x="230" y="208" font-size="11" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">单步去噪 → 只会理解，不会从头生成</text>
@@ -196,11 +185,8 @@ import {
       <text x="230" y="306" font-size="11" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">任意噪声程度都会填 → 从全空可生成整句</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · THE BILL</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">双向注意力的账单</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="448" slot="frame-4" class="sequence-frame" viewBox="34 143 392 208">
+
       <rect x="46" y="156" width="368" height="76" rx="12" fill="#eaf2fb" stroke="#0066cc" />
       <text x="230" y="188" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">任意顺序 · 并行填槽 · 天生支持填空</text>
       <text x="230" y="212" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">每步同时预测所有 [MASK]</text>
@@ -208,7 +194,7 @@ import {
       <text x="230" y="282" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">KV cache 不兼容</text>
       <text x="230" y="308" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">每轮全序列重新前向 · 质量靠步数换</text>
     </svg>
-  </ScrollStory>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="lineage">

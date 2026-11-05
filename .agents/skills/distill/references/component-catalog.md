@@ -5,7 +5,7 @@ All components live in `src/components/article/` and are exported from its barre
 ```mdx
 import {
   Prose, CoverBanner, Section, SectionHead, CardGrid, InfoCard,
-  DualCompare, BlockTitle, Steps, Timeline, Pipeline, CompareTable,
+  DualCompare, BlockTitle, Steps, Timeline, Pipeline, MechanismSequence, CompareTable,
   Callout, StatGrid, Stat, Summary, Sources,
 } from '@/components/article';
 ```
@@ -118,28 +118,34 @@ Props: `aTitle`, `bTitle`, `aLabel?`, `bLabel?` (default A/B). Slots `a` / `b` c
 
 `stages: { title, body? }[]`. Stacks vertically with arrows on narrow screens.
 
-## ScrollStory — the large-scale scroll-driven moment
+## MechanismSequence — process overview and compact details
 
-Use when the piece teaches a **process or lifecycle** (one is expected in a deep distillation; skip only when the content genuinely has no sequence). Layout: a **large visual stage** pins on the left (≥900px) while compact text panels march past on the right; the stage crossfades/scales between one authored illustration per step (completed steps leave, the active step shows), and inactive panels recede to 28% opacity so whitespace reads as focus staging. Below 900px the script relocates every illustration into its own panel (interleaved, static, all visible); without JS all illustrations render statically. Reduced-motion switches instantly with no transform/opacity transition.
+Use when a process or lifecycle needs a separate diagram for each stage. A linked overview precedes normal-flow explanation/diagram rows. At widths of at least 900px, copy and diagram share a row; below 900px, copy comes before its diagram. Every stage stays visible without JavaScript or scrolling to an activation point. The component already provides a white tile, separators, numbered overview links, and stable per-sequence anchors; do not wrap it in another tile.
 
-Props: `steps: { tag, title, body }[]` (4–6). The `visual` slot contains **one `<svg class="ss-frame" data-ss-node="i">` per step, in the same order**. Frame contract:
+Props: `steps: { tag, title, body }[]` (at least one). For each zero-based index `i`, provide **one named `frame-i` slot**. A missing frame or an empty `steps` array fails the build. Optional `caption-i` slots hold legends, source/caliber notes, or a short interpretation immediately below the corresponding diagram. There are no `visual`, `aspect`, `frameMax`, or scroll-state props.
 
-- each frame is a standalone `viewBox="0 0 460 460"` SVG — a full illustration, not a dot (the stage is large; this is the piece's main visual moment);
-- draw a rounded paper card (`<rect x=10 y=30 width=440 height=400 rx=24 fill="#f5f5f7">`), an uppercase eyebrow + step title + `NN / NN` counter, and a token-only schematic that *shows the mechanism* (histogram, grid, checklist, dot matrix, axis — geometric, labeled);
-- blue only for the meaningful active element; everything else neutral. The script only toggles `.is-active`/`.is-done` — authored colors stay static inside each frame;
-- never use TS type annotations inside MDX `{…}` expressions (oxc parser); for mixed arrays map over objects (`{label, ok}[]`), not tuples.
-- inside SVG `<text>…</text>`, any literal `{` `}` or `…` is parsed as a JSX expression and breaks the build; wrap such text as `{"{ code: 1 }"}` (and use `&lt;`/`&gt;` for angle brackets).
+- Each diagram must explain a data path, state change, boundary, or comparison; repeat labels only where they help identify the drawn objects. Keep headings and explanatory prose in `steps`.
+- Prefer a tightly cropped, responsive `viewBox` SVG (`width="100%"`) with token variables. Use neutral labels and connectors, with accent only as allowed by the design guide.
+- For an existing dense SVG that cannot fit legibly, a numeric `width` may establish a readability floor. Overflow stays inside the focusable diagram region, with a localized pan hint on narrow screens. Check label size and local scrolling at 390px; never allow the whole page to overflow.
+- Keep the overview and all rows in ordinary document flow. No viewport-height steps, pinned stages, scroll-driven whole-frame crossfades, opacity-based reading states, or JavaScript slot relocation.
+- Never use TS type annotations inside MDX `{…}` expressions. Inside SVG text, wrap literal braces in an expression such as `{"{ value: 1 }"}` and escape angle brackets as `&lt;` / `&gt;`.
 
 ```mdx
-<ScrollStory steps={[{ tag: "01 · 出题", title: "…", body: "…" }]}>
-  <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-    <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-    {/* eyebrow, title, counter, schematic */}
+<MechanismSequence
+  steps={[{ tag: "01 · Input", title: "Accept the example input", body: "Teaching schematic only; replace with sourced article content." }]}
+>
+  <svg slot="frame-0" width="100%" viewBox="0 0 460 160" role="img" aria-label="Example input and receiving stage">
+    <rect x="16" y="40" width="160" height="80" rx="12" fill="var(--color-paper)" />
+    <path d="M176 80 H284 m-8 -6 8 6 -8 6" fill="none" stroke="var(--color-muted)" />
+    <rect x="284" y="40" width="160" height="80" rx="12" fill="var(--color-paper)" />
+    <g fill="var(--color-ink)" font-size="18" text-anchor="middle">
+      <text x="96" y="86">Input</text>
+      <text x="364" y="86">Stage</text>
+    </g>
   </svg>
-</ScrollStory>
+  <p slot="caption-0">Illustrative labels only; no product behavior or measured values are asserted.</p>
+</MechanismSequence>
 ```
-
-Beat heights (56vh middle, 28vh first, 42vh last; stage 58vh) keep the rhythm tight — tune downward if panels look marooned in whitespace; the center 10% IntersectionObserver band drives the switch.
 
 ## CompareTable
 
@@ -181,13 +187,13 @@ Props: `eyebrow?`, `tone?: 'neutral'|'insight'` (insight shows a blue uppercase 
 
 - Dark global nav, footer.
 - Choreographed hero entrance (staggered rise of kicker/title/lead/pills/visual; add `data-hero-dash` to an authored SVG line for slow marching dashes), long eased `.reveal` scroll reveals for Section/Summary roots (`.article-prose` and images too), headline stat count-ups, subtle hero parallax.
-- `ScrollStory` pinned-visual state machine (see above) and the wide-screen TOC from section `id`s.
+- The wide-screen TOC from section `id`s. `MechanismSequence` provides its own static overview links and rows without an additional script.
 - `<Sources>` from front matter, untranslated notice when no counterpart exists.
 - Near-monochrome Shiki for fenced code.
 - Every motion behavior exists only under `.motion-ok` and is fully neutral under `prefers-reduced-motion: reduce`.
 
 ## Diagram rules (inline SVG)
 
-- `viewBox`-based, no width/height 100%; use token hex only (`#1d1d1f #424245 #6e6e73 #86868b #f5f5f7 #dedee3 #ececf0`, blue `#0066cc`, compare `#e8710a`).
+- `viewBox`-based, with CSS token variables for colors. Responsive sequence frames use `width="100%"`; numeric widths are allowed only as an intentional readability floor with local horizontal scrolling. Do not set a fixed height that distorts the viewBox ratio.
 - Blue/orange only on node dots / header dots / thin affiliation lines.
 - Arrows via `<marker>`; labels in neutral ink. No bitmaps, no emoji, no external refs.

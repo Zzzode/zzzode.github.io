@@ -21,7 +21,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   Summary,
@@ -85,10 +85,10 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
     index="02"
     kicker="核心设计"
     title="核心设计：副作用是被类型系统追踪的一等事实"
-    lead="随页面滚动，左侧舞台展示「一次证明」如何派生三种能力（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示「一次证明」如何派生三种能力。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 追踪",
@@ -117,11 +117,8 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · TRACK</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">副作用的两个维度</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="448" slot="frame-0" class="sequence-frame" viewBox="34 147 392 154">
+
       <rect x="46" y="160" width="180" height="130" rx="14" fill="#fff" stroke="#dedee3" />
       <text x="136" y="200" font-size="13" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">值可变性</text>
       <text x="136" y="230" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">函数能否碰到</text>
@@ -132,22 +129,16 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
       <text x="324" y="250" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">vs 可通知失效</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · PROVE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">在函数边界发证</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="359" slot="frame-1" class="sequence-frame" viewBox="58 147 344 199">
+
       <rect x="70" y="160" width="320" height="120" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.8" />
       <text x="230" y="206" font-size="13" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"fun f(x): T { … }"}</text>
       <text x="230" y="244" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">类型系统在此证明：无副作用</text>
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">不强制全纯，但纯的边界严格可证</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · MEMOIZE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">反应式缓存失效</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="376" slot="frame-2" class="sequence-frame" viewBox="58 143 344 193">
+
       <rect x="70" y="156" width="130" height="52" rx="10" fill="#1d1d1f" />
       <text x="135" y="187" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">底层数据</text>
       <rect x="260" y="156" width="130" height="52" rx="10" fill="#0066cc" />
@@ -158,11 +149,8 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
       <text x="230" y="320" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">缓存正确性靠类型证明，不靠人盯</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · PARALLEL</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">类型层面禁止数据竞争</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="491" slot="frame-3" class="sequence-frame" viewBox="48 168 368 178">
+
       {[0,1,2].map(i=>(
         <g>
           <rect x={60+i*120} y="180" width="104" height="90" rx="12" fill={i===1?"#0066cc":"#fff"} stroke={i===1?"#0066cc":"#dedee3"} />
@@ -173,11 +161,8 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">独立续体可真并行 · 无锁无竞态</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · GC + LLVM</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">可预测 GC，原生输出</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="398" slot="frame-4" class="sequence-frame" viewBox="48 143 364 200">
+
       <rect x="60" y="156" width="340" height="80" rx="12" fill="#fff" stroke="#dedee3" />
       <text x="230" y="190" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">GC 只扫描计算根可达内存</text>
       <text x="230" y="216" font-size="11" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">传统 GC + bump 线性分配</text>
@@ -185,7 +170,8 @@ UI 编程把这个痛苦放大到极致：界面是数据的函数（View = f(St
       <rect x="120" y="288" width="220" height="44" rx="10" fill="#1d1d1f" />
       <text x="230" y="315" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">LLVM AOT → 原生可执行文件</text>
     </svg>
-  </ScrollStory>
+
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="language">

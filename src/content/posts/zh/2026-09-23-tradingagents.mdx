@@ -27,7 +27,7 @@ import {
   InfoCard,
   BlockTitle,
   Steps,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   StatGrid,
@@ -102,10 +102,10 @@ import {
     index="02"
     kicker="决策流水线"
     title="一笔交易决策的流水线"
-    lead="随页面滚动，左侧舞台展示决策如何逐层上行（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示决策如何逐层上行。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 分析师团队",
@@ -134,11 +134,8 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · ANALYSTS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">四路信号，分头尽调</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="460" slot="frame-0" class="sequence-frame" viewBox="28 137 402 219">
+
       {[["基本面","财报 · 内在价值"],["情绪","StockTwits · Reddit"],["新闻","全球 · 宏观"],["技术","MACD · RSI"]].map((r,i)=>(
         <g>
           <rect x={40+(i%2)*196} y={150+Math.floor(i/2)*76} width="182" height="60" rx="12" fill="#fff" stroke="#dedee3" />
@@ -147,14 +144,12 @@ import {
           <text x={84+(i%2)*196} y={196+Math.floor(i/2)*76} font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">{r[1]}</text>
         </g>
       ))}
-      <text x="230" y="340" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">异构信息各走一路，产出独立报告</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · DEBATE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">多空辩论，多轮对抗</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="340" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">异构信息各走一路，产出独立报告</text>
+</svg>
+
+    <svg width="416" slot="frame-1" class="sequence-frame" viewBox="48 157 364 189">
+
       <rect x="60" y="170" width="140" height="110" rx="14" fill="#0066cc" />
       <text x="130" y="214" font-size="14" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">看多研究员</text>
       <text x="130" y="240" font-size="10.5" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">收益论据</text>
@@ -165,23 +160,17 @@ import {
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">max_debate_rounds 可配；分歧显式保留到下游</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · TRADER</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">交易员：时点与规模</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="359" slot="frame-2" class="sequence-frame" viewBox="58 147 344 154">
+
       <rect x="70" y="160" width="320" height="130" rx="14" fill="#fff" stroke="#dedee3" />
       <text x="94" y="200" font-size="13" fill="#1d1d1f" font-family="PingFang SC, sans-serif">提案 = 方向 + 时点 timing</text>
       <text x="94" y="232" font-size="13" fill="#1d1d1f" font-family="PingFang SC, sans-serif">　　　　 + 规模 magnitude</text>
       <text x="94" y="264" font-size="11.5" fill="#0066cc" font-family="PingFang SC, sans-serif">v0.4+：price grounding 价格锚定</text>
-      <text x="230" y="340" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">不是买/卖标签，而是可被风控质询的具体提案</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · RISK</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">风控：可以打回提案</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="318" slot="frame-3" class="sequence-frame" viewBox="78 145 304 227">
+
       {["市场波动率","流动性","组合集中度"].map((s,i)=>(
         <g>
           <rect x="90" y={158+i*48} width="280" height="36" rx="18" fill="#fff" stroke="#dedee3" />
@@ -189,14 +178,12 @@ import {
         </g>
       ))}
       <path d="M230 306 L230 330 M222 322 L230 330 L238 322" fill="none" stroke="#e8710a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="230" y="356" font-size="11.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">评估并可否决 / 要求修改</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · PM</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">组合经理：最终否决权</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <text x="230" y="356" font-size="11.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">评估并可否决 / 要求修改</text>
+</svg>
+
+    <svg width="344" slot="frame-4" class="sequence-frame" viewBox="78 147 329 181">
+
       <rect x="90" y="160" width="280" height="60" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
       <text x="230" y="196" font-size="13" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">批准？</text>
       <path d="M170 236 L130 286 M142 278 L130 286 L150 286" stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
@@ -204,7 +191,8 @@ import {
       <text x="100" y="312" font-size="11.5" fill="#86868b" font-family="PingFang SC, sans-serif">打回</text>
       <text x="312" y="312" font-size="11.5" fill="#0066cc" font-family="PingFang SC, sans-serif">模拟交易所成交</text>
     </svg>
-  </ScrollStory>
+    <div slot="caption-2"><p>不是买/卖标签，而是可被风控质询的具体提案</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="pit">

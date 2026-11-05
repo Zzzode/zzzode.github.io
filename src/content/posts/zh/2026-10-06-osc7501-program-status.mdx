@@ -29,7 +29,7 @@ import {
   ArticleCanvas,
   Section,
   SectionHead,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   CompareTable,
   Callout,
@@ -157,7 +157,7 @@ rsync -a ~/Photos backup:/photos && status done "Photos synced" || status error 
 
 <Section canvas id="journey">
   <SectionHead index="03" kicker="旅程" title="一条报告进了终端之后" lead="跟着 brew 的三条报告，看终端内部发生了什么。" />
-  <ScrollStory
+  <MechanismSequence
     steps={[
       { tag: "01 · 发出", title: "brew 写下第一条报告", body: "brew 开始升级，往 stdout 写了一条 working 报告。序列混在普通输出里，终端认得 7501 这个编号，把它截下来，不显示在屏幕上。msg 解码出来是「Installing updates」。" },
       { tag: "02 · 解析", title: "三对键值，组成一条记录", body: "终端按冒号拆成三对：state、app、msg。msg 做 base64 解码。没有等号的对直接跳过，不认识的键直接忽略——协议靠这条规则向前扩展，将来加新键老终端不受影响。拆完组成一条记录，存在终端里。" },
@@ -166,11 +166,7 @@ rsync -a ~/Photos backup:/photos && status done "Photos synced" || status error 
       { tag: "05 · 呈现", title: "怎么显示，终端自己定", body: "协议只管状态，不管呈现。标签页对勾、桌面通知、会话选择器，都行。程序想先问终端支不支持，可以发 OSC 7501 ; ? ，支持的终端原样回一个问号。不探测直接发也安全：守规矩的终端本来就会忽略不认识的 OSC。" },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">EMIT · 发出</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">brew 写下第一条报告</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="462" slot="frame-0" class="sequence-frame" viewBox="28 127 404 273">
 
       <rect x="40" y="140" width="380" height="120" rx="14" fill="#ffffff" stroke="#dedee3" stroke-width="1.2" />
       <g font-family="SF Mono, Menlo, monospace" font-size="12" fill="#86868b">
@@ -193,11 +189,7 @@ rsync -a ~/Photos backup:/photos && status done "Photos synced" || status error 
       </g>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">PARSE · 解析</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">三对键值，组成一条记录</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="462" slot="frame-1" class="sequence-frame" viewBox="28 129 404 236">
 
       <g font-family="SF Mono, Menlo, monospace" font-size="12">
         <rect x="40" y="142" width="252" height="30" rx="7" fill="#ffffff" stroke="#dedee3" stroke-width="1.2" />
@@ -222,14 +214,9 @@ rsync -a ~/Photos backup:/photos && status done "Photos synced" || status error 
         <text x="60" y="346">msg: Installing updates</text>
       </g>
 
-      <text x="40" y="384" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">坏的对跳过，不认识的键忽略；整条报告只有超限或解码失败才丢弃。</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">REPLACE · 替换</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">blocked 报告整条替换</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="450" slot="frame-2" class="sequence-frame" viewBox="28 133 412 267">
 
       <rect x="40" y="146" width="176" height="86" rx="12" fill="#ffffff" stroke="#dedee3" stroke-width="1.2" opacity="0.6" />
       <text x="56" y="172" font-size="11" fill="#86868b" font-family="PingFang SC, sans-serif">旧记录</text>
@@ -257,11 +244,7 @@ rsync -a ~/Photos backup:/photos && status done "Photos synced" || status error 
       </g>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LIFETIME · 生命周期</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">done 活过进程退出</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="496" slot="frame-3" class="sequence-frame" viewBox="28 118 434 276">
 
       <line x1="56" y1="180" x2="420" y2="180" stroke="#c7c7cc" stroke-width="1.4" />
       <polygon points="420,180 412,176 412,184" fill="#c7c7cc" />
@@ -289,11 +272,7 @@ rsync -a ~/Photos backup:/photos && status done "Photos synced" || status error 
       </g>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">PRESENT · 呈现</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">怎么显示，终端自己定</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="398" slot="frame-4" class="sequence-frame" viewBox="48 127 364 244">
 
       <rect x="150" y="140" width="160" height="64" rx="12" fill="#ffffff" stroke="#0066cc" stroke-width="1.4" />
       <text x="230" y="166" font-size="11.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="SF Mono, Menlo, monospace">state=done</text>
@@ -318,9 +297,11 @@ rsync -a ~/Photos backup:/photos && status done "Photos synced" || status error 
         <text x="264" y="349" fill="#0066cc">终端: OSC 7501 ; ?</text>
       </g>
 
-      <text x="40" y="396" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">支持的终端原样回一个问号；不回就是不支持。探测是可选的。</text>
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-1"><p>坏的对跳过，不认识的键忽略；整条报告只有超限或解码失败才丢弃。</p></div>
+    <div slot="caption-4"><p>支持的终端原样回一个问号；不回就是不支持。探测是可选的。</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="design">

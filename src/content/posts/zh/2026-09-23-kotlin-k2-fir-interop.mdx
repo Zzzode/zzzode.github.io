@@ -25,7 +25,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   StatGrid,
@@ -99,7 +99,7 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
     lead="官方文档对它的定义非常精确：non-denotable（不可指名）的类型。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 不可指名",
@@ -128,23 +128,17 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 01 · NON-DENOTABLE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">柔性类型只活在边界</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="376" slot="frame-0" class="sequence-frame" viewBox="58 143 344 174">
+
       <rect x="70" y="156" width="320" height="150" rx="14" fill="#1d1d1f" />
       <text x="92" y="200" font-size="12.5" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">val x: String! = javaApi.get()  // 非法</text>
       <text x="92" y="240" font-size="12" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">T! 只存在于 IDE 提示/报错中</text>
       <text x="92" y="272" font-size="11" fill="#a1a1a6" font-family="PingFang SC, sans-serif">纯 Kotlin 代码里永远只有 T 或 T?</text>
-      <text x="230" y="346" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">不可指名（non-denotable）防止柔性蔓延</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 02 · CHOICE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">同一个值，两种赌注</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="416" slot="frame-1" class="sequence-frame" viewBox="48 147 364 199">
+
       <rect x="60" y="160" width="150" height="120" rx="12" fill="#0066cc" />
       <text x="135" y="200" font-size="11.5" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">String? = item</text>
       <text x="135" y="232" font-size="10.5" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">永远安全</text>
@@ -156,11 +150,8 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">灵活性给你，风险归属也给你</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 03 · ASSERTION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">边界处插断言 · NPE 立即失败</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="435" slot="frame-2" class="sequence-frame" viewBox="58 178 344 178">
+
       <line x1="70" y1="190" x2="390" y2="190" stroke="#dedee3" stroke-width="2" />
       <rect x="80" y="230" width="120" height="48" rx="10" fill="#1d1d1f" />
       <text x="140" y="259" font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">Java 返回值</text>
@@ -168,14 +159,12 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
       <rect x="260" y="220" width="120" height="68" rx="10" fill="#eaf2fb" stroke="#0066cc" />
       <text x="320" y="250" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">编译器插断言</text>
       <text x="320" y="270" font-size="9.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">null → 立即失败</text>
-      <text x="230" y="340" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">NPE 在边界爆，不向程序深处传播</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 04 · ANNOTATIONS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">注解把柔性变回精确</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <text x="230" y="340" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">NPE 在边界爆，不向程序深处传播</text>
+</svg>
+
+    <svg width="474" slot="frame-3" class="sequence-frame" viewBox="34 157 414 189">
+
       {["JetBrains","JSpecify","JSR-305","FindBugs","Eclipse","Lombok","Android","RxJava 3"].map((s,i)=>(
         <g>
           <rect x={46+(i%4)*100} y={170+Math.floor(i/4)*64} width="90" height="46" rx="23" fill="#fff" stroke="#0066cc" />
@@ -185,18 +174,18 @@ Kotlin 设计师的答案不是二选一，而是在类型系统边界引入第�
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">@Nullable / @NotNull → String? / String</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 05 · COLLECTIONS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">柔性同样作用于集合</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="401" slot="frame-4" class="sequence-frame" viewBox="38 147 384 163">
+
       <rect x="50" y="160" width="360" height="56" rx="10" fill="#1d1d1f" />
       <text x="230" y="194" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"(Mutable)Collection<T>!"}</text>
       <text x="230" y="262" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">可空性 + 只读/可变 双重模糊</text>
       <text x="230" y="296" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{"Array<(out) T>! · 协变 + 可空"}</text>
-      <text x="230" y="346" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">泛型场景无法完全消除风险——兼容性的固有代价</text>
+
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-0"><p>不可指名（non-denotable）防止柔性蔓延</p></div>
+    <div slot="caption-4"><p>泛型场景无法完全消除风险——兼容性的固有代价</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="k2">

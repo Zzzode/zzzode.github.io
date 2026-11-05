@@ -35,7 +35,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   Steps,
   CompareTable,
@@ -163,7 +163,7 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
     title="五个领域：从修复缺陷到生成音乐"
     lead="跟着滚动逐个看五个配置。任务量为数据集接口的精确行数，报告 Table 5 用的是约数（3k/2k/1k）。"
   />
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · code · 2,698 行",
@@ -192,11 +192,7 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">CONFIG · CODE</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">冻结仓库 + 真实 issue</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="486" slot="frame-0" class="sequence-frame" viewBox="28 113 405 307">
 
       <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="154" font-size="10.5" fill="#6e6e73" font-family="ui-monospace, Menlo, monospace">format-code-task-001457</text>
@@ -210,7 +206,6 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
         <rect x="40" y="294" width="380" height="30" rx="8" fill="#1d1d1f" />
         <text x="230" y="313" font-size="11" fill="#f5f5f7" text-anchor="middle">长程工程任务：跨组件改动 + 多步行为测试</text>
       </g>
-      <text x="40" y="372" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">五条合成来源（报告 §4.2.1）· 2,698 行</text>
 
       <line x1="83" y1="396" x2="123" y2="396" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="396" x2="189" y2="396" stroke="#dedee3" stroke-width="2" />
@@ -221,11 +216,7 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
       {[136,202,268,334,400].map((cx)=>(<circle cx={cx} cy="396" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">CONFIG · CYBER · ARVO</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">匹配漏洞类型与位置</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="486" slot="frame-1" class="sequence-frame" viewBox="28 113 405 307">
 
       <rect x="40" y="126" width="380" height="104" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="154" font-size="10.5" fill="#6e6e73" font-family="ui-monospace, Menlo, monospace">arvo_35858</text>
@@ -243,8 +234,6 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
       <text x="329" y="300" font-size="10.5" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">栈顶项目帧一致</text>
       <text x="329" y="318" font-size="10" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">字符串匹配 · 确定</text>
 
-      <text x="40" y="372" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">实例源自 OSS-Fuzz 万级人工确认漏洞 · 1,000 行</text>
-
       <line x1="83" y1="396" x2="123" y2="396" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="396" x2="189" y2="396" stroke="#0066cc" stroke-width="2" />
       <line x1="215" y1="396" x2="255" y2="396" stroke="#dedee3" stroke-width="2" />
@@ -254,11 +243,7 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
       {[202,268,334,400].map((cx)=>(<circle cx={cx} cy="396" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">CONFIG · GENERAL</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">989 个假办公室</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="486" slot="frame-2" class="sequence-frame" viewBox="28 114 405 306">
 
       <rect x="40" y="126" width="380" height="58" rx="12" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="152" font-size="11" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">general_agent 925 行 · 仿造企业系统</text>
@@ -276,7 +261,6 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
 
       <rect x="40" y="306" width="380" height="40" rx="10" fill="#1d1d1f" />
       <text x="230" y="331" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">示例任务：718 万美元交易的交割就绪复核</text>
-      <text x="40" y="372" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">SQL 状态 + 文件证据，rubric 逐项核对</text>
 
       <line x1="83" y1="396" x2="123" y2="396" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="396" x2="189" y2="396" stroke="#0066cc" stroke-width="2" />
@@ -287,11 +271,7 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
       {[268,334,400].map((cx)=>(<circle cx={cx} cy="396" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">CONFIG · WEBDEV</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">代码之外，还要被看</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="511" slot="frame-3" class="sequence-frame" viewBox="27 114 404 307">
 
       <rect x="40" y="126" width="380" height="84" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="154" font-size="10.5" fill="#6e6e73" font-family="ui-monospace, Menlo, monospace">dasyn_260638_00014</text>
@@ -309,7 +289,6 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
         <text x="329" y="301" font-size="10.5" font-weight="600" fill="#1d1d1f" text-anchor="middle">评测：视觉模型七维</text>
         <text x="329" y="317" font-size="9.5" fill="#6e6e73" text-anchor="middle">webdev_eval_v1</text>
       </g>
-      <text x="40" y="372" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">浏览器真实渲染后打分 · 2,093 行</text>
 
       <line x1="83" y1="396" x2="123" y2="396" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="396" x2="189" y2="396" stroke="#0066cc" stroke-width="2" />
@@ -320,11 +299,7 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
       {[334,400].map((cx)=>(<circle cx={cx} cy="396" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="5" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">CONFIG · MUSIC</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">ABC 记谱 vs 人类分布</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="486" slot="frame-4" class="sequence-frame" viewBox="28 114 405 307">
 
       <rect x="40" y="126" width="380" height="84" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="154" font-size="10.5" fill="#6e6e73" font-family="ui-monospace, Menlo, monospace">gK-0768 · lang zh</text>
@@ -340,7 +315,6 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
         <rect x="136" y="322" width="188" height="28" rx="8" fill="#f5f5f7" />
         <text x="230" y="340" font-size="10" fill="#424245" text-anchor="middle">音区 .16 · 结构 .12</text>
       </g>
-      <text x="40" y="372" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">中英约各半 · abc2midi 转 MIDI 后分析</text>
 
       <line x1="83" y1="396" x2="123" y2="396" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="396" x2="189" y2="396" stroke="#0066cc" stroke-width="2" />
@@ -350,7 +324,13 @@ SFT 语料的标准答案是文字，这里的标准答案是一次可重复的�
       {[70,136,202,268,334].map((cx)=>(<circle cx={cx} cy="396" r="12" fill="#0066cc" />))}
       <circle cx="400" cy="396" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-0"><p>五条合成来源（报告 §4.2.1）· 2,698 行</p></div>
+    <div slot="caption-1"><p>实例源自 OSS-Fuzz 万级人工确认漏洞 · 1,000 行</p></div>
+    <div slot="caption-2"><p>SQL 状态 + 文件证据，rubric 逐项核对</p></div>
+    <div slot="caption-3"><p>浏览器真实渲染后打分 · 2,093 行</p></div>
+    <div slot="caption-4"><p>中英约各半 · abc2midi 转 MIDI 后分析</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="graders">

@@ -25,7 +25,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Summary,
 } from '@/components/article';
@@ -85,10 +85,10 @@ import {
     index="02"
     kicker="查询系统"
     title="机制一：编译器变成一张按需求值的查询图"
-    lead="随页面滚动，左侧舞台展示一次查询从发起到落缓存的完整生命周期（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示一次查询从发起到落缓存的完整生命周期。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 查询",
@@ -117,22 +117,16 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · QUERY</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">信息即查询</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="419" slot="frame-0" class="sequence-frame" viewBox="38 157 384 189">
+
       <rect x="50" y="170" width="360" height="100" rx="14" fill="#1d1d1f" />
       <text x="72" y="212" font-size="12.5" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">tcx.type_of(def_id)</text>
       <text x="72" y="244" font-size="11" fill="#a1a1a6" font-family="PingFang SC, sans-serif">输入：DefId · 输出：类型</text>
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">数百个查询：类型 / HIR / MIR / trait 求解……</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · MEMOIZE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一次计算，反复命中</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="437" slot="frame-1" class="sequence-frame" viewBox="48 148 364 159">
+
       <rect x="60" y="160" width="150" height="64" rx="12" fill="#0066cc" />
       <text x="135" y="190" font-size="11.5" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">首次调用</text>
       <text x="135" y="210" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">真正计算</text>
@@ -143,11 +137,8 @@ import {
       <text x="230" y="290" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">返回值宜廉价克隆，必要时包 Rc</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · PROVIDER</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">不命中就查函数指针表</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="413" slot="frame-2" class="sequence-frame" viewBox="58 143 344 220">
+
       {["type_of","fn sig","mir_fn","…"].map((s,i)=>(
         <g>
           <rect x="70" y={156+i*52} width="320" height="40" rx="8" fill="#fff" stroke="#dedee3" />
@@ -155,14 +146,11 @@ import {
           <text x="370" y={182+i*52} font-size="10" fill="#86868b" text-anchor="end" font-family="ui-monospace, Menlo, monospace">{"fn(tcx, key) -> result"}</text>
         </g>
       ))}
-      <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">Providers：宏生成的函数字段结构体，本地/外部各一张</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · DEMAND</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">从终点向后要输入</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="352" slot="frame-3" class="sequence-frame" viewBox="76 132 308 214">
+
       {[["codegen units",150,160],["modules",310,200],["HIR",150,240],["parse / AST",310,280],["tokens",150,320]].map((n,i)=>(
         <g>
           <rect x={n[1]-62} y={n[2]-15} width="124" height="30" rx="15" fill={i===0?"#1d1d1f":"#fff"} stroke={i===0?"#1d1d1f":"#0066cc"} stroke-width={i===0?0:1.4} />
@@ -172,11 +160,8 @@ import {
       <path d="M214 172 L246 192 M238 184 L246 192 L236 198 M246 208 L214 228 M224 220 L214 228 M214 248 L246 268 M238 260 L246 268 L236 274 M246 284 L214 304 M224 296 L214 304" stroke="#86868b" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · DEP DAG</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">运行时记录读取关系</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="280" slot="frame-4" class="sequence-frame" viewBox="102 131 256 196">
+
       {[["Q",230,170],["R1",140,260],["R2",230,290],["R3",320,260]].map((n,i)=>(
         <g>
           <circle cx={n[1]} cy={n[2]} r="26" fill={i===0?"#0066cc":"#fff"} stroke={i===0?"#0066cc":"#b8b8bf"} stroke-width="1.5" />
@@ -184,9 +169,12 @@ import {
         </g>
       ))}
       <path d="M212 192 L156 240 M230 196 L230 262 M248 192 L304 240" stroke="#b8b8bf" stroke-width="1.5" fill="none" />
-      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">执行插桩自动建图 · 无环 · 依赖不需手写</text>
+
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-2"><p>Providers：宏生成的函数字段结构体，本地/外部各一张</p></div>
+    <div slot="caption-4"><p>执行插桩自动建图 · 无环 · 依赖不需手写</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="pipeline">
@@ -210,10 +198,10 @@ import {
     index="04"
     kicker="红绿算法"
     title="机制二：二次编译，是一张图上的染色题"
-    lead="手册原话：增量编译方案本质上是查询系统一个「出奇简单的扩展」。随滚动看 try-mark-green 如何逐格判色。"
+    lead="手册原话：增量编译方案本质上是查询系统一个「出奇简单的扩展」。下面按执行顺序解释 try-mark-green 如何逐格判色。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 存什么",
@@ -242,25 +230,20 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · PERSIST</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">编译结束落盘两样东西</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="439" slot="frame-0" class="sequence-frame" viewBox="38 147 384 238">
+
       <rect x="50" y="160" width="360" height="70" rx="12" fill="#fff" stroke="#dedee3" />
       <text x="230" y="192" font-size="12.5" font-weight="600" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">查询结果</text>
       <text x="230" y="216" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">「某查询 + 某参数指纹」对应的值 / 哈希</text>
       <rect x="50" y="248" width="360" height="70" rx="12" fill="#1d1d1f" />
       <text x="230" y="280" font-size="12.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">查询 DAG（含读取顺序）</text>
       <text x="230" y="304" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">边 Q1 → Q2：算 Q1 需要 Q2</text>
-      <text x="230" y="370" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">染色单位 = 查询的一次具体调用</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · TWO INSIGHTS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">红绿的两条洞见</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="370" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">染色单位 = 查询的一次具体调用</text>
+</svg>
+
+    <svg width="439" slot="frame-1" class="sequence-frame" viewBox="38 145 384 224">
+
       <rect x="50" y="158" width="360" height="92" rx="12" fill="#fff" stroke="#34c759" stroke-width="1.6" />
       <text x="72" y="190" font-size="12" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">输入全绿 → 必绿，无需执行</text>
       <text x="72" y="218" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">前提：编译器确定性</text>
@@ -269,11 +252,8 @@ import {
       <text x="72" y="326" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">变化可在传播途中被吸收</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · TRY-MARK-GREEN</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">沿 reads 清单递归判色</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="384" slot="frame-2" class="sequence-frame" viewBox="44 137 368 239">
+
       <rect x="170" y="150" width="120" height="44" rx="10" fill="#0066cc" />
       <text x="230" y="178" font-size="12" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Q ?</text>
       {["R1","R2","R3"].map((s,i)=>(
@@ -283,14 +263,12 @@ import {
           <path d={`M${176+i*14} 194 L${108+i*120} 246`} stroke="#b8b8bf" stroke-width="1.3" fill="none" />
         </g>
       ))}
-      <text x="230" y="360" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">按原始顺序递归 · 全绿则不碰磁盘旧值</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · RECOMPARE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">重算之后，哈希还它清白</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <text x="230" y="360" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">按原始顺序递归 · 全绿则不碰磁盘旧值</text>
+</svg>
+
+    <svg width="416" slot="frame-3" class="sequence-frame" viewBox="48 147 364 200">
+
       <rect x="60" y="160" width="140" height="70" rx="12" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
       <text x="130" y="190" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">输入有红</text>
       <text x="130" y="212" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">重算 Q</text>
@@ -302,11 +280,8 @@ import {
       <text x="230" y="314" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">相同 → 仍标绿，下游全部得救</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · ORDERING</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">依赖必须按原顺序走访</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="439" slot="frame-4" class="sequence-frame" viewBox="38 137 384 204">
+
       <rect x="50" y="150" width="360" height="80" rx="12" fill="#1d1d1f" />
       <text x="70" y="182" font-size="11" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">{"if subq1() { subq2() } else { subq3() }"}</text>
       <text x="70" y="210" font-size="10.5" fill="#a1a1a6" font-family="PingFang SC, sans-serif">分支翻转后，旧路径上的查询本不该存在</text>
@@ -314,7 +289,7 @@ import {
       <text x="230" y="282" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">乱序访问 → 幽灵计算 / ICE</text>
       <text x="230" y="306" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">DAG 记录顺序，是 soundness 的一部分</text>
     </svg>
-  </ScrollStory>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="refinements">

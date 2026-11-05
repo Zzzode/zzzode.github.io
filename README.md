@@ -27,7 +27,7 @@ This repository is the site itself — content, components, design tokens, and t
 
 ## Highlights
 
-- **Static by default.** Astro 7 outputs static HTML; no `client:*` islands are used anywhere. The only first-party script is `src/scripts/article.ts`, loaded solely on post pages for the choreographed hero entrance, scroll reveals, count-up stats, the pinned `ScrollStory`, reading progress, and the TOC — all of it neutral under `prefers-reduced-motion: reduce`.
+- **Static by default.** Astro 7 outputs static HTML; no `client:*` islands are used anywhere. The only first-party script is `src/scripts/article.ts`, loaded solely on post pages for the choreographed hero entrance, scroll reveals, count-up stats, reading progress, and the TOC — all of it neutral under `prefers-reduced-motion: reduce`.
 - **Apple-style design tokens.** Colors, radii, and type scales are declared once in the `@theme` block of `src/styles/global.css` (mirrored to CSS custom properties). Components and hand-written SVG inside articles may only reference tokens; the blue accent is singular, orange exists only for subject-B comparisons.
 - **Type-safe bilingual content.** Astro Content Collections + zod validate front matter at build time. Every entry is a same-named `zh/` + `en/` pair; an entry missing its counterpart is hidden from the other-locale list and renders a disabled language toggle.
 - **Long-form MDX engine.** `kind: 'distilled'` posts compose a dedicated component library — cover banners, scrollytelling stages, timelines, comparison tables, stat grids, callouts, and summaries — with diagrams hand-authored as inline SVG.

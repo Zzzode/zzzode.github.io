@@ -23,7 +23,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   CompareTable,
   Summary,
@@ -88,10 +88,10 @@ import {
     index="02"
     kicker="五道闸门"
     title="放行不是开关，是一道五道闸门的许可"
-    lead="随页面滚动，左侧舞台逐条拆解 BIS 终稿的许可条件与技术门槛（宽屏下停驻在屏幕中央）。"
+    lead="逐条拆解 BIS 终稿的许可条件与技术门槛。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 技术门槛",
@@ -120,38 +120,31 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 01 · SPECS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">放行的精确技术边界</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="461" slot="frame-0" class="sequence-frame" viewBox="38 144 384 222">
+
       <rect x="50" y="156" width="360" height="66" rx="12" fill="#1d1d1f" />
       <text x="230" y="186" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">TPP &lt; 21,000</text>
       <text x="230" y="208" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">处理性能（EAR 3A090 定义）</text>
       <rect x="50" y="238" width="360" height="66" rx="12" fill="#0066cc" />
       <text x="230" y="268" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">DRAM 带宽 &lt; 6,500 GB/s</text>
       <text x="230" y="290" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">点名 H200 / AMD MI325X</text>
-      <text x="230" y="350" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">次旗舰可谈，更强产品免谈</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 02 · US SUPPLY FIRST</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">不得挤占美国订单</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="350" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">次旗舰可谈，更强产品免谈</text>
+</svg>
+
+    <svg width="359" slot="frame-1" class="sequence-frame" viewBox="58 147 344 224">
+
       <rect x="70" y="160" width="320" height="56" rx="10" fill="#fff" stroke="#dedee3" />
       <text x="230" y="194" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">本土已商业在售 · 申报在美出货量</text>
       <rect x="70" y="232" width="320" height="56" rx="10" fill="#fff" stroke="#dedee3" />
       <text x="230" y="266" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">不延误美国客户订单（含正常交期）</text>
       <rect x="70" y="304" width="320" height="56" rx="10" fill="#1d1d1f" />
-      <text x="230" y="338" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">全球晶圆产能不得为此分流</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 03 · 50% CAP</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">对华出货的法定天花板</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <text x="230" y="338" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">全球晶圆产能不得为此分流</text>
+</svg>
+
+    <svg width="339" slot="frame-2" class="sequence-frame" viewBox="68 157 324 175">
+
       <rect x="80" y="170" width="300" height="40" rx="8" fill="#0066cc" />
       <text x="230" y="196" font-size="12" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">中国 + 澳门 ≤ 50%</text>
       <rect x="80" y="170" width="150" height="40" rx="8" fill="#1d1d1f" opacity="0" />
@@ -160,11 +153,8 @@ import {
       <text x="230" y="316" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">同产品合计对华/澳门出货不得超过在美总量一半</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 04 · KYC</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">防的是「货给 A、算力给 B 用」</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="447" slot="frame-3" class="sequence-frame" viewBox="44 148 372 160">
+
       <rect x="56" y="160" width="348" height="60" rx="10" fill="#fff" stroke="#dedee3" />
       <text x="230" y="186" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">最终收货人严格 KYC</text>
       <text x="230" y="206" font-size="10" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">筛查并阻止清单实体的未授权远程访问</text>
@@ -173,20 +163,18 @@ import {
       <text x="230" y="282" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">含远程用户及其母公司总部所在地</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GATE 05 · TESTED</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">出口前在美第三方验规格</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="447" slot="frame-4" class="sequence-frame" viewBox="44 150 372 212">
+
       <rect x="56" y="162" width="348" height="58" rx="10" fill="#eaf2fb" stroke="#0066cc" stroke-width="1.5" />
       <text x="230" y="188" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">合格第三方实验室逐批抽检</text>
       <text x="230" y="208" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">独立于制造商 · 可抽样不必逐颗</text>
       <rect x="56" y="236" width="348" height="58" rx="10" fill="#1d1d1f" />
       <text x="230" y="262" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">再出口 / D:5 总部实体</text>
       <text x="230" y="282" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">仍维持推定拒绝（presumption of denial）</text>
-      <text x="230" y="346" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">放行 = 只走美国本土直供的合规链路</text>
-    </svg>
-  </ScrollStory>
+
+    <text x="230" y="346" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">放行 = 只走美国本土直供的合规链路</text>
+</svg>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="nvidia">

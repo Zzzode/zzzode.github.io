@@ -38,7 +38,7 @@ import {
   Steps,
   Timeline,
   Pipeline,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   StatGrid,
@@ -177,16 +177,16 @@ import {
     index="03"
     kicker="主循环"
     title="一轮训练：从出题到更新的五步循环"
-    lead="随页面滚动，流程图会逐步点亮当前阶段（宽屏下左侧流程会停驻在屏幕中央）。"
+    lead="先看训练流程总览，再逐步解释任务采样、环境调度、判分与策略更新。"
   />
 
   <Prose tile>
 
-背景交代完，进入机制。先给一句最朴素的定义：RLVR 是让模型在环境里完成任务，用「测试过没过、任务成没成」这种可以自动判定的客观结果当奖励；当任务是写代码、操作浏览器、跑命令这类需要一连串动作的智能体任务时，它就叫 Agentic RLVR。看板上几乎所有指标，都是在描述「出题—真跑—判分—比较—更新」这个循环某一环节的健康度。下面用一个会跟着滚动变换的图示，把五步逐个讲透。
+背景交代完，进入机制。先给一句最朴素的定义：RLVR 是让模型在环境里完成任务，用「测试过没过、任务成没成」这种可以自动判定的客观结果当奖励；当任务是写代码、操作浏览器、跑命令这类需要一连串动作的智能体任务时，它就叫 Agentic RLVR。看板上几乎所有指标，都是在描述「出题—真跑—判分—比较—更新」这个循环某一环节的健康度。下面先看五步总览，再对照图解逐个讲透。
 
   </Prose>
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 出题",
@@ -215,26 +215,20 @@ import {
       },
     ]}
   >
-  <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460" role="img" aria-label="动态采样按通过率分层，优先选取偶尔能成的题">
-    <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-    <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">DYNAMIC SAMPLER</text>
-    <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">挑「偶尔能成」的题</text>
-    <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+  <svg width="424" slot="frame-0" class="sequence-frame" viewBox="36 171 388 210" role="img" aria-label="动态采样按通过率分层，优先选取偶尔能成的题">
+
     {[44, 74, 110, 140, 156, 140, 110, 74, 44].map((h, i) => (
       <rect x={56 + i * 39} y={340 - h} width="26" height={h} rx="5" fill={i >= 2 && i <= 6 ? "#0066cc" : "#c9c9d0"} />
     ))}
     <line x1="48" y1="340" x2="412" y2="340" stroke="#dedee3" stroke-width="1.5" />
-    <text x="60" y="366" font-size="11" fill="#86868b" font-family="PingFang SC, sans-serif">全失败</text>
-    <text x="230" y="366" font-size="11" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">偶尔能成 · 学习收益最大</text>
-    <text x="400" y="366" font-size="11" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">全成功</text>
-    <text x="40" y="404" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">25 个数据源 · 7k+ 任务环境 · 按当前通过率动态分层</text>
-  </svg>
 
-  <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460" role="img" aria-label="数万个一次性沙箱容器并发执行任务">
-    <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-    <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SANDBOXES</text>
-    <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">数万一次性环境并发</text>
-    <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+  <text x="60" y="366" font-size="11" fill="#86868b" font-family="PingFang SC, sans-serif">全失败</text>
+<text x="230" y="366" font-size="11" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">偶尔能成 · 学习收益最大</text>
+<text x="400" y="366" font-size="11" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">全成功</text>
+</svg>
+
+  <svg width="374" slot="frame-1" class="sequence-frame" viewBox="40 137 374 224" role="img" aria-label="数万个一次性沙箱容器并发执行任务">
+
     {[0, 1, 2].map((r) =>
       [0, 1, 2, 3].map((c) => {
         const active = (r === 0 && c === 1) || (r === 1 && c === 3) || (r === 2 && c === 0);
@@ -254,14 +248,11 @@ import {
         );
       })
     )}
-    <text x="40" y="404" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">2 万–4 万容器并发 · 预热池常备 256 个 · 用完即弃</text>
+
   </svg>
 
-  <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460" role="img" aria-label="grader 用客观信号判分，废卷丢弃补采">
-    <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-    <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GRADER</text>
-    <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">只认可验证的客观结果</text>
-    <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+  <svg width="373" slot="frame-2" class="sequence-frame" viewBox="28 137 404 242" role="img" aria-label="grader 用客观信号判分，废卷丢弃补采">
+
     {[
       { label: "仓库测试通过", ok: true },
       { label: "任务完成状态", ok: true },
@@ -284,14 +275,11 @@ import {
         <text x="88" y={177 + i * 58} font-size="13" fill={row.ok ? "#1d1d1f" : "#86868b"} font-family="PingFang SC, sans-serif">{row.label}</text>
       </g>
     ))}
-    <text x="40" y="404" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">判分不需要人，也不需要偏好模型；废卷不算模型成绩</text>
+
   </svg>
 
-  <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460" role="img" aria-label="同一题采样 16 次，组内相对比较得到优势">
-    <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-    <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">GROUP RELATIVE · n=16</text>
-    <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">同题 16 次，好坏互相对照</text>
-    <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+  <svg width="321" slot="frame-3" class="sequence-frame" viewBox="84 151 321 204" role="img" aria-label="同一题采样 16 次，组内相对比较得到优势">
+
     {[0, 1, 2, 3].map((r) =>
       [0, 1, 2, 3].map((c) => {
         const idx = r * 4 + c;
@@ -303,14 +291,11 @@ import {
     <path d="M330 206 L345 216 L360 206" fill="none" stroke="#0066cc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
     <text x="356" y="252" font-size="12" fill="#0066cc" font-family="PingFang SC, sans-serif">减均值</text>
     <text x="356" y="272" font-size="12" fill="#0066cc" font-family="PingFang SC, sans-serif">得优势</text>
-    <text x="40" y="404" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">全成 / 全败的题没有区分度，优势为 0，直接丢弃</text>
+
   </svg>
 
-  <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460" role="img" aria-label="PPO 把每步更新限制在 0.20 到 0.27 的裁剪窗口内">
-    <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-    <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">PPO UPDATE</text>
-    <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">每步只走裁剪窗口内一小步</text>
-    <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+  <svg width="395" slot="frame-4" class="sequence-frame" viewBox="44 161 378 148" role="img" aria-label="PPO 把每步更新限制在 0.20 到 0.27 的裁剪窗口内">
+
     <line x1="56" y1="252" x2="404" y2="252" stroke="#dedee3" stroke-width="1.5" stroke-linecap="round" />
     <path d="M398 246 L410 252 L398 258" fill="none" stroke="#dedee3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     <line x1="152" y1="200" x2="152" y2="244" stroke="#b8b8bf" stroke-width="1.2" stroke-dasharray="3 4" />
@@ -322,9 +307,15 @@ import {
     <circle cx="312" cy="252" r="9" fill="#0066cc" />
     <text x="152" y="292" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">旧策略样本</text>
     <text x="312" y="292" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">更新后</text>
-    <text x="40" y="404" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">裁剪触发率全程 ≈ 0 · 学习率恒定 3e-6 · 共 30 步</text>
+
   </svg>
-  </ScrollStory>
+
+    <div slot="caption-0"><p>25 个数据源 · 7k+ 任务环境 · 按当前通过率动态分层</p></div>
+    <div slot="caption-1"><p>2 万–4 万容器并发 · 预热池常备 256 个 · 用完即弃</p></div>
+    <div slot="caption-2"><p>判分不需要人，也不需要偏好模型；废卷不算模型成绩</p></div>
+    <div slot="caption-3"><p>全成 / 全败的题没有区分度，优势为 0，直接丢弃</p></div>
+    <div slot="caption-4"><p>裁剪触发率全程 ≈ 0 · 学习率恒定 3e-6 · 共 30 步</p></div>
+  </MechanismSequence>
 
   <div class="mt-6">
     <Callout tone="insight" eyebrow="WHY AVG@N">

@@ -45,7 +45,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   Steps,
   CompareTable,
@@ -348,7 +348,7 @@ lake build
     title="证明吐出反例的六块代码"
     lead="下面逐个走一遍六台状态机：每台要证明的性质是什么，证明找到了什么。数字是各模型的定理数和真实 trace 接受数，全部来自录屏里 1:07 的六模型报告。"
   />
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · claude.ts stream",
@@ -382,11 +382,7 @@ lake build
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 01 · STREAM</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">claude.ts 流解析</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 06</text>
+    <svg width="486" slot="frame-0" class="sequence-frame" viewBox="27 113 405 291">
 
       <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：流只产出闭合的消息块</text>
@@ -418,11 +414,7 @@ lake build
       <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 02 · RETRY</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">withRetry 退避</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 06</text>
+    <svg width="486" slot="frame-1" class="sequence-frame" viewBox="27 113 405 290">
 
       <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：重试有界，等待受预算约束</text>
@@ -449,11 +441,7 @@ lake build
       <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 03 · TURN LOOP</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">query.ts 主循环</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 06</text>
+    <svg width="486" slot="frame-2" class="sequence-frame" viewBox="27 113 405 291">
 
       <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：turn 数有界，max-turns 必须生效</text>
@@ -469,7 +457,6 @@ lake build
       <path d="M198 264 h52 m-8 -6 l8 6 -8 6" fill="none" stroke="#e8710a" stroke-width="1.6" />
       <path d="M262 288 h-52 m8 6 l-8 -6 8 -6" fill="none" stroke="#e8710a" stroke-width="1.6" />
       <rect x="90" y="318" width="280" height="34" rx="8" fill="#1d1d1f" />
-      <text x="230" y="339" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">交替输出 → 无限循环，--max-turns 1 失效</text>
 
       <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="380" x2="189" y2="380" stroke="#0066cc" stroke-width="2" />
@@ -484,11 +471,7 @@ lake build
       <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 04 · ENGINE</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">turn 引擎</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 06</text>
+    <svg width="512" slot="frame-3" class="sequence-frame" viewBox="28 114 405 291">
 
       <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：初始化先于结果；取消必达；每 turn 一个结果</text>
@@ -502,7 +485,6 @@ lake build
           <text x="404" y={b[2] + 19} font-size="9.5" fill="#e8710a" text-anchor="end" font-family="PingFang SC, sans-serif">{b[1]}</text>
         </g>
       ))}
-      <text x="230" y="364" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">修复 PR #72162：8 个新测试，7 个先失败、全部转绿</text>
 
       <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="380" x2="189" y2="380" stroke="#0066cc" stroke-width="2" />
@@ -517,11 +499,7 @@ lake build
       <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 05 · SESSION</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">会话阶段</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 06</text>
+    <svg width="512" slot="frame-4" class="sequence-frame" viewBox="28 114 405 290">
 
       <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：所有待决问题答复后，会话必须离开等待态</text>
@@ -537,7 +515,6 @@ lake build
       <path d="M206 277 h40 m-8 -6 l8 6 -8 6" fill="none" stroke="#e8710a" stroke-width="1.5" />
       <path d="M254 277 h-40 m8 6 l-8 -6 8 -6" fill="none" stroke="#e8710a" stroke-width="1.5" />
       <rect x="90" y="320" width="280" height="34" rx="8" fill="#1d1d1f" />
-      <text x="230" y="341" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">两个都答完 → 仍卡在 requires_action</text>
 
       <line x1="83" y1="380" x2="123" y2="380" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="380" x2="189" y2="380" stroke="#0066cc" stroke-width="2" />
@@ -552,11 +529,7 @@ lake build
       <circle cx="400" cy="380" r="12" fill="#fff" stroke="#86868b" stroke-width="1.5" />
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="5" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MODEL 06 · SDK CONTROL</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">SDK 控制协议</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">06 / 06</text>
+    <svg width="512" slot="frame-5" class="sequence-frame" viewBox="28 114 405 302">
 
       <rect x="40" y="126" width="380" height="96" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="60" y="156" font-size="11" fill="#6e6e73" font-family="PingFang SC, sans-serif">性质：每个 handler 可取消；关闭必须唤醒所有等待者</text>
@@ -572,7 +545,6 @@ lake build
 
       <rect x="56" y="302" width="348" height="52" rx="10" fill="#1d1d1f" />
       <text x="230" y="324" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">transport close 抛异常 → 每个 awaiter 永久挂起</text>
-      <text x="230" y="342" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">修复后：一个写入点 · 一个取消 helper（PR #72518）</text>
 
       <line x1="83" y1="392" x2="123" y2="392" stroke="#0066cc" stroke-width="2" />
       <line x1="149" y1="392" x2="189" y2="392" stroke="#0066cc" stroke-width="2" />
@@ -586,7 +558,12 @@ lake build
       <circle cx="334" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
       <circle cx="400" cy="392" r="12" fill="#0066cc" stroke="#0066cc" stroke-width="1.5" />
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-2"><p>交替输出 → 无限循环，--max-turns 1 失效</p></div>
+    <div slot="caption-3"><p>修复 PR #72162：8 个新测试，7 个先失败、全部转绿</p></div>
+    <div slot="caption-4"><p>两个都答完 → 仍卡在 requires_action</p></div>
+    <div slot="caption-5"><p>修复后：一个写入点 · 一个取消 helper（PR #72518）</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="bugs">

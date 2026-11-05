@@ -1,6 +1,6 @@
 # Distill — turn source material into a full-bleed web article
 
-You convert raw public material into a **distilled article**: a long-form MDX post on this site that reads like a hand-crafted Apple feature page, built from the component library in `src/components/article`. It replaces what would otherwise be a constrained shared-doc write-up: here the page has no iframe/500KB limits, can use full-width layout, inline SVG, a table of contents, reading progress, scroll-driven storytelling, and reveal motion.
+You convert raw public material into a **distilled article**: a long-form MDX post on this site that reads like a hand-crafted Apple feature page, built from the component library in `src/components/article`. It replaces what would otherwise be a constrained shared-doc write-up: here the page has no iframe/500KB limits, can use full-width layout, inline SVG, a table of contents, reading progress, compact mechanism sequences, and reveal motion.
 
 ## Inputs you accept
 
@@ -23,11 +23,11 @@ Internal/private sources (Feishu docs, internal MRs, anything requiring credenti
 5. **Apple fidelity, including motion.** Match the visual authority (`docs/design/apple-style-guide.md`): generous scale and whitespace, big restrained headlines, alternating full-bleed slabs, hairline everything. Motion must feel designed, not decorated:
    - choreographed **hero entrance** (staggered rise of kicker/title/lead/pills/visual),
    - long, eased reveals — `cubic-bezier(0.22, 0.61, 0.36, 1)`, 700–1000ms, staggered grid children,
-   - **at least one large-scale scroll-driven moment** when the content has a process or narrative (`ScrollStory`: a large pinned illustration stage that crossfades between one authored schematic per step while the matching text panel holds center stage — not a small dot rail),
+   - process content uses a **linked overview plus compact diagram/explanation rows** (`MechanismSequence`) when the diagrams explain distinct stages; all stages remain readable without interaction. There is no required scroll-driven moment. Do not turn independent static diagrams into viewport-height pinned stages, crossfade whole frames on scroll, or fade explanation text,
    - count-up headline numbers where they carry weight; very subtle hero parallax,
    - no bounce, no spin, no gradient wipes. All motion exists only under `.motion-ok` and must be completely neutral (content visible, transforms off) under `prefers-reduced-motion: reduce`.
 6. **Plain language that sounds like a person wrote it.** The audience is a curious engineer, not an expert in the specific topic. No made-up jargon collocations, no rule-of-three tics, no scaffold phrases — a reader must never finish a sentence wondering what the words literally mean (a real review rejection: a title ending in「怎么咬合」). Step 6 of the workflow (humanize gate) is mandatory.
-7. **Never push automatically.** Build locally, screenshot (including scrolled/mid-story states), report — wait for explicit user approval before `git push`.
+7. **Never push automatically.** Build locally, screenshot (including middle sequence rows), report — wait for explicit user approval before `git push`.
 
 ## Workflow
 
@@ -58,7 +58,7 @@ Produce working notes (not in the article) containing:
 2. **Aftermath / 后果**: what shipped or changed afterward, what it means.
 3. **Mechanism map**: the core mechanisms to teach, each with its plain-language walkthrough.
 4. **Number ledger**: every figure with its caliber and the one point it makes.
-5. **Outline with components**: which block carries which point; where the `ScrollStory` moment goes (process content); which stats count up.
+5. **Outline with components**: which block carries which point; whether a process needs `MechanismSequence`, a simple `Steps` list, or a comparison table; which stats count up. Choose the simplest form that explains the relationships. Each diagram must add a data path, state change, boundary, or meaningful comparison rather than repeat its heading.
 
 Coverage rule: the structured blocks must cover the whole piece, and prose must carry the explanation. A deep distillation typically runs 6–10 sections with far more teaching prose than card text. When the source itself is thin (a single announcement), the backdrop/context research is the main value-add.
 
@@ -89,7 +89,7 @@ Body conventions:
 - Add `id="…"` to each `<Section>` so the article script can build the TOC. Use English kebab ids.
 - In MDX, comments inside JSX must be `{/* … */}` (HTML `<!-- -->` is a syntax error inside SVG/components).
 - Wrap inline technical tokens in backticks; for emphasis inside CJK prose, prefer phrasing over `**bold**` (intra-word `**` next to CJK punctuation can fail to parse).
-- Diagrams: inline SVG only, viewBox-based, colors from tokens (`#0066cc` blue, `#e8710a` orange restricted to affiliation dots, neutrals `#1d1d1f/#424245/#6e6e73/#86868b/#f5f5f7/#dedee3/#ececf0`).
+- Diagrams: inline SVG only, viewBox-based, colors from CSS tokens (`var(--color-ink)`, `var(--color-paper)`, `var(--color-line)`, etc.); accent dots and links follow the design guide. For `MechanismSequence`, supply every `frame-i` slot (zero-based), keep diagram and explanation permanently visible, and use optional `caption-i` slots for legends or measurement context. Crop empty viewBox space, keep labels readable at their rendered size, and use local horizontal panning only when dense diagrams need a documented readability floor.
 - `<Sources>` renders automatically from front matter at the end; `<Summary>` holds your conclusions.
 
 ### 6. Humanize the prose — mandatory gate (before local verify)
@@ -121,7 +121,7 @@ Headless-Chrome screenshots at:
 
 - 1280px and 1680px desktop (at 1680 the sticky TOC rail appears in the left gutter and must not overlap),
 - 768px tablet, 390px mobile (banner stacks, grids collapse, tables scroll),
-- **mid-story states**: scroll the `ScrollStory` to steps 2/n-1 and confirm the pinned visual actually transforms (active halo, progress join, step emphasis),
+- **middle sequence rows**: inspect each `MechanismSequence` stage and overview link; stop between rows and verify that labels and explanations stay fully readable, with no overlap or viewport-sized empty space. On mobile, confirm stacked rows and keyboard/touch access to any locally scrollable diagram,
 - count-up stats mid-flight and at rest,
 - once with `prefers-reduced-motion: reduce` emulated — every block visible, no transform/opacity/parallax, final stat values shown.
 
@@ -135,7 +135,7 @@ Give the user:
 - The source ledger: primary vs secondary vs context references, and anything unverified.
 - How the piece meets the depth doctrine: backdrop section, mechanism walkthroughs, aftermath, inline cross-references.
 - A one-line note that the mandatory humanize pass was applied (and any wording the user should spot-check).
-- Screenshot summary (desktop/mobile/mid-story/reduced-motion).
+- Screenshot summary (desktop/mobile/middle sequence rows/reduced-motion).
 - Bundle note: article pages ship one inline enhancement script; framework pages stay zero-JS.
 
 Do **not** commit/push unless the user asks.

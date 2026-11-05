@@ -40,7 +40,7 @@ import {
   CardGrid,
   InfoCard,
   Timeline,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   Summary,
@@ -116,10 +116,10 @@ import {
     index="02"
     kicker="流水线"
     title="沿编译流水线看：AI 分别接管了什么"
-    lead="随页面滚动，左侧舞台展示每个编译环节的学习化做法（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示每个编译环节的学习化做法。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 前端 / 类型",
@@ -148,11 +148,8 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 01 · TYPING</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">程序图上的类型推断</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="292" slot="frame-0" class="sequence-frame" viewBox="94 135 231 231">
+
       {[[120,180],[200,160],[300,190],[170,260],[280,270]].map((p,i)=>(
         <g>
           <circle cx={p[0]} cy={p[1]} r="13" fill={i===1?"#0066cc":"#fff"} stroke={i===1?"#0066cc":"#b8b8bf"} stroke-width="1.5" />
@@ -161,14 +158,12 @@ import {
       ))}
       <path d="M133 184 L187 164 M213 164 L287 186 M132 192 L158 250 M183 266 L267 270 M213 172 L273 258" stroke="#b8b8bf" stroke-width="1.4" fill="none" />
       <rect x="150" y="320" width="160" height="34" rx="17" fill="#eaf2fb" />
-      <text x="230" y="342" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">GNN → P(类型 | 程序图)</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 02 · OPTIMIZER</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">RL 策略替代手写启发式</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="342" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">GNN → P(类型 | 程序图)</text>
+</svg>
+
+    <svg width="398" slot="frame-1" class="sequence-frame" viewBox="48 137 364 200">
+
       <rect x="60" y="150" width="340" height="70" rx="12" fill="#1d1d1f" />
       <text x="230" y="182" font-size="12" fill="#7fd3ff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">IR + 函数特征</text>
       <text x="230" y="204" font-size="11" fill="#a1a1a6" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">→ policy network → inline / regalloc</text>
@@ -177,11 +172,8 @@ import {
       <text x="230" y="304" font-size="12.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">奖励：真实运行时性能</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 03 · ENVIRONMENT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">编译器版强化学习环境</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="324" slot="frame-2" class="sequence-frame" viewBox="68 145 324 194">
+
       {[["状态","IR / 程序"],["动作","编译 pass"],["奖励","性能 / 体积"]].map((r,i)=>(
         <g>
           <rect x="80" y={158+i*62} width="300" height="46" rx="10" fill="#fff" stroke="#dedee3" />
@@ -189,14 +181,11 @@ import {
           <text x="260" y={187+i*62} font-size="12" fill="#424245" font-family="ui-monospace, Menlo, monospace">{r[1]}</text>
         </g>
       ))}
-      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">CompilerGym：把编译/插桩/测量包成标准 Gym 接口</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 04 · REPRESENTATION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先学会「读」代码</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="514" slot="frame-3" class="sequence-frame" viewBox="27 158 428 189">
+
       {[["CodeBERT","代码 × 自然语言"],["CodeT5","标识符感知"],["CodeT5+","开放代码 LLM"]].map((r,i)=>(
         <g>
           <rect x={40+i*140} y="170" width="124" height="110" rx="12" fill={i===2?"#1d1d1f":"#fff"} stroke={i===2?"#1d1d1f":"#dedee3"} />
@@ -207,11 +196,8 @@ import {
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">统一表征 → 缺陷检测 / 检索 / 修复 / 生成的公共底座</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 05 · RLVR</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">可验证奖励的代码推理</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="413" slot="frame-4" class="sequence-frame" viewBox="58 147 344 181">
+
       <rect x="70" y="160" width="130" height="80" rx="12" fill="#0066cc" />
       <text x="135" y="196" font-size="11.5" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">生成代码</text>
       <text x="135" y="216" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">采样 N 份</text>
@@ -221,9 +207,11 @@ import {
       <text x="325" y="216" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">客观判分</text>
       <path d="M325 248 L325 280 M317 272 L325 280 L333 272" stroke="#0066cc" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
       <text x="230" y="312" font-size="11.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">奖励回传 → 强化策略</text>
-      <text x="230" y="346" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">AlphaCode · CodeRL · SWE-RL · DeepSeek-R1</text>
+
     </svg>
-  </ScrollStory>
+    <div slot="caption-2"><p>CompilerGym：把编译/插桩/测量包成标准 Gym 接口</p></div>
+    <div slot="caption-4"><p>AlphaCode · CodeRL · SWE-RL · DeepSeek-R1</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="js">

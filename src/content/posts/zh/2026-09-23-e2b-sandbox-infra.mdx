@@ -34,7 +34,7 @@ import {
   CardGrid,
   InfoCard,
   BlockTitle,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   StatGrid,
@@ -128,10 +128,10 @@ import {
     index="03"
     kicker="沙箱一生"
     title="一台沙箱的一生：创建、运行、暂停、快照、分叉"
-    lead="随页面滚动，左侧舞台展示沙箱的状态流转（宽屏下停驻在屏幕中央）。"
+    lead="从总览定位环节，再逐步看清创建、暂停与分叉之间的状态关系。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 创建",
@@ -160,11 +160,8 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · CREATE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">创建 = 恢复快照</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="462" slot="frame-0" class="sequence-frame" viewBox="28 137 404 174">
+
       <rect x="40" y="150" width="180" height="150" rx="14" fill="#fff" stroke="#dedee3" />
       <text x="130" y="182" font-size="12" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">对象存储中的模板</text>
       <rect x="64" y="200" width="132" height="14" rx="7" fill="#ececf0" />
@@ -175,14 +172,11 @@ import {
       <rect x="266" y="170" width="154" height="110" rx="14" fill="#1d1d1f" />
       <text x="343" y="214" font-size="12.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">运行中的 VM</text>
       <text x="343" y="240" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">不引导内核，直接恢复</text>
-      <text x="40" y="356" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">模板由 Docker 镜像 + 构建步骤分层烤出，层按哈希缓存</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · RUN</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">VM 里的 envd API</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="545" slot="frame-1" class="sequence-frame" viewBox="-9 127 454 269">
+
       <rect x="120" y="140" width="220" height="120" rx="14" fill="#1d1d1f" />
       <text x="230" y="176" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">envd</text>
       {["进程 / PTY","文件系统","端口转发","目录监听"].map((s,i)=>(
@@ -195,14 +189,12 @@ import {
       <text x="60" y="330" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Connect RPC / REST</text>
       <path d="M340 200 L400 200 M400 200 L400 310 M340 310 L400 310" fill="none" stroke="#0066cc" stroke-width="1.6" />
       <text x="400" y="330" font-size="10.5" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">任意端口出网</text>
-      <text x="230" y="380" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">支持热升级，工作负载不断</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · PAUSE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">只传增量的休眠</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <text x="230" y="380" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">支持热升级，工作负载不断</text>
+</svg>
+
+    <svg width="485" slot="frame-2" class="sequence-frame" viewBox="28 148 404 186">
+
       <rect x="40" y="160" width="150" height="100" rx="14" fill="#1d1d1f" />
       <text x="115" y="202" font-size="12" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">运行 VM</text>
       <text x="115" y="226" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">内存 + 磁盘</text>
@@ -213,14 +205,11 @@ import {
       <text x="341" y="226" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">仅增量页</text>
       <path d="M341 262 L341 296 M333 288 L341 296 L349 288" stroke="#86868b" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
       <text x="341" y="318" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">流量到来，优先在缓存节点唤醒</text>
-      <text x="40" y="356" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">暂停态无限期保留，只有显式 kill 才删除</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · SNAPSHOT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一对多的检查点</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="416" slot="frame-3" class="sequence-frame" viewBox="68 126 364 220">
+
       <circle cx="110" cy="230" r="30" fill="#1d1d1f" />
       <text x="110" y="235" font-size="11" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">原 VM</text>
       <path d="M150 214 C 240 160, 260 160, 310 180" fill="none" stroke="#0066cc" stroke-width="1.8" />
@@ -236,11 +225,8 @@ import {
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">捕获瞬间连接全部断开，需要客户端重连</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · FORK</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一次调用，N 个平行宇宙</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="451" slot="frame-4" class="sequence-frame" viewBox="48 112 357 290">
+
       <circle cx="86" cy="230" r="26" fill="#0066cc" />
       <text x="86" y="235" font-size="10" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">fork()</text>
       {[150,230,310].map((y)=>(
@@ -253,9 +239,13 @@ import {
           <text x="332" y={y+14} font-size="9.5" fill="#a1a1a6" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">id · timeout</text>
         </g>
       ))}
-      <text x="230" y="386" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">只快照一次；写得越多，原地停顿越久</text>
-    </svg>
-  </ScrollStory>
+
+    <text x="230" y="386" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">只快照一次；写得越多，原地停顿越久</text>
+</svg>
+
+    <div slot="caption-0"><p>模板由 Docker 镜像 + 构建步骤分层烤出，层按哈希缓存</p></div>
+    <div slot="caption-2"><p>暂停态无限期保留，只有显式 kill 才删除</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="speed">

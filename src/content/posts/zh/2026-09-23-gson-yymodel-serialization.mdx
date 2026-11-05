@@ -21,7 +21,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Summary,
 } from '@/components/article';
@@ -92,10 +92,10 @@ import {
     index="02"
     kicker="五个机制"
     title="五个机制，并排看两种运行时哲学"
-    lead="随页面滚动，左侧舞台逐机制对比 Gson（蓝）与 YYModel（黑）的做法（宽屏下停驻在屏幕中央）。"
+    lead="逐机制对比 Gson（蓝）与 YYModel（黑）的做法。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 元数据从哪来",
@@ -124,25 +124,20 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 01 · METADATA</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">运行时自省，各取所需</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="448" slot="frame-0" class="sequence-frame" viewBox="34 137 392 270">
+
       <rect x="46" y="150" width="368" height="92" rx="12" fill="#fff" stroke="#0066cc" />
       <text x="66" y="182" font-size="12" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">Gson · Class.getDeclaredFields()</text>
       <text x="66" y="210" font-size="11" fill="#424245" font-family="ui-monospace, Menlo, monospace">Field[] → getName/getType, setAccessible</text>
       <rect x="46" y="258" width="368" height="92" rx="12" fill="#1d1d1f" />
       <text x="66" y="290" font-size="12" font-weight="600" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">YYModel · class_copyPropertyList()</text>
       <text x="66" y="318" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">property_getAttributes → "@16@0:8" 式类型编码</text>
-      <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">解析一次，缓存复用</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 02 · GENERICS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">元素类型丢失了怎么办</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">解析一次，缓存复用</text>
+</svg>
+
+    <svg width="448" slot="frame-1" class="sequence-frame" viewBox="34 137 392 224">
+
       <rect x="46" y="150" width="368" height="92" rx="12" fill="#fff" stroke="#0066cc" />
       <text x="66" y="182" font-size="11" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">new TypeToken&lt;List&lt;User&gt;&gt;(){}</text>
       <text x="66" y="210" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">匿名子类保留参数化类型签名（对抗擦除）</text>
@@ -151,11 +146,8 @@ import {
       <text x="66" y="318" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">{"{ \"shadows\": [Shadow class] }"} · 协议显式声明</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 03 · COERCION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">脏 JSON 的宽容转换</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="448" slot="frame-2" class="sequence-frame" viewBox="34 137 392 220">
+
       {[["NSString","NSNumber / C 数值"],["日期字符串","NSDate（5 种格式）"],["NSNull","nil / 0"],["\"yes\"/\"no\"","@(YES)/@(NO)"]].map((r,i)=>(
         <g>
           <rect x="46" y={150+i*52} width="150" height="40" rx="8" fill="#fff" stroke="#dedee3" />
@@ -165,28 +157,22 @@ import {
           <text x="330" y={175+i*52} font-size="10.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">{r[1]}</text>
         </g>
       ))}
-      <text x="230" y="392" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">Gson 同样默认宽容：缺失字段给 null/0/false</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 04 · KEY MAPPING</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">字段名对不上的两种声明法</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="448" slot="frame-3" class="sequence-frame" viewBox="34 137 392 230">
+
       <rect x="46" y="150" width="368" height="86" rx="12" fill="#fff" stroke="#0066cc" />
       <text x="66" y="182" font-size="11" font-weight="600" fill="#0066cc" font-family="ui-monospace, Menlo, monospace">{"@SerializedName(value, alternate={...})"}</text>
       <text x="66" y="210" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">+ FieldNamingPolicy 全局命名策略</text>
       <rect x="46" y="252" width="368" height="104" rx="12" fill="#1d1d1f" />
       <text x="66" y="284" font-size="11" font-weight="600" fill="#f5f5f7" font-family="ui-monospace, Menlo, monospace">modelCustomPropertyMapper</text>
       <text x="66" y="312" font-size="10.5" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">"desc": "ext.desc"（键路径直达嵌套）</text>
-      <text x="66" y="336" font-size="10.5" fill="#7fd3ff" font-family="ui-monospace, Menlo, monospace">"bookID": ["id","ID","book_id"]（候选回退）</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">MECHANISM 05 · INSTANTIATION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">造对象与赋值的性能差</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="448" slot="frame-4" class="sequence-frame" viewBox="34 137 392 240">
+
       <rect x="46" y="150" width="368" height="100" rx="12" fill="#fff" stroke="#0066cc" />
       <text x="66" y="182" font-size="11.5" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">Gson</text>
       <text x="66" y="208" font-size="10.5" fill="#424245" font-family="ui-monospace, Menlo, monospace">无参构造器 → 否则 Unsafe 分配 / InstanceCreator</text>
@@ -194,9 +180,12 @@ import {
       <rect x="46" y="266" width="368" height="100" rx="12" fill="#1d1d1f" />
       <text x="66" y="298" font-size="11.5" font-weight="600" fill="#f5f5f7" font-family="PingFang SC, sans-serif">YYModel</text>
       <text x="66" y="324" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">alloc/init 消息造对象</text>
-      <text x="66" y="346" font-size="10.5" fill="#a1a1a6" font-family="ui-monospace, Menlo, monospace">缓存 setter，objc_msgSend 写入 · 接近手写</text>
+
     </svg>
-  </ScrollStory>
+    <div slot="caption-2"><p>Gson 同样默认宽容：缺失字段给 null/0/false</p></div>
+    <div slot="caption-3"><p>"bookID": ["id","ID","book_id"]（候选回退）</p></div>
+    <div slot="caption-4"><p>缓存 setter，objc_msgSend 写入 · 接近手写</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="compare">

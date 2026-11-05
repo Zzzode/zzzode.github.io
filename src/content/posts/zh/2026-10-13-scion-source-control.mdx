@@ -28,7 +28,7 @@ sources:
     url: "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control"
 ---
 
-import { CoverBanner, ArticleCanvas, Section, SectionHead, Prose, CardGrid, InfoCard, ScrollStory, CompareTable, StatGrid, Stat, Summary } from '@/components/article';
+import { CoverBanner, ArticleCanvas, Section, SectionHead, Prose, CardGrid, InfoCard, MechanismSequence, CompareTable, StatGrid, Stat, Summary } from '@/components/article';
 import CoverGraph from '@/assets/scion/cover.svg';
 import ArchitectureGraph from '@/assets/scion/architecture.svg';
 import ChangesetGraph from '@/assets/scion/changeset.svg';
@@ -155,39 +155,20 @@ Git 里常说的 push 是推送：把本地已经创建的提交再分享给服�
 回到 Scion，沿五步流程追踪一次变更。这里暂不加入并行的样式修改 C，只看从 A 开始的文案变更 B。保存它和决定采用它，仍然是两个动作。
 
   </Prose>
-  <ScrollStory steps={[
+  <MechanismSequence steps={[
     { tag: "01 · 准备范围", title: "从版本 A，准备首页相关文件", body: "任务要处理 site/。客户端取得这个目录，以及真正需要的配置和依赖。示例中的 docs/、assets/ 暂时不参与，因此不必先把它们全部准备到磁盘上。" },
     { tag: "02 · 取得内容", title: "已有的原始文件，直接从缓存复用", body: "假设同一节点之前的任务已经读取过版本 A 的首页和样式，本次就复用那些对象。节点没有的内容才向区域缓存请求；区域也没有，再向权威服务获取。" },
     { tag: "03 · 修改文件", title: "在自己的目录里，把“欢迎”改为“你好”", body: "你或 Agent 编辑 site/home.md，然后进行必要的检查。此时是这份工作目录中的内容变了；共享缓存里的旧内容不会被覆盖，其他任务的目录也不会跟着改变。" },
     { tag: "04 · 保存版本", title: "服务器保存一份变更记录 B", body: "记录说明：以版本 A 为基础，site/home.md 有了新内容。Scion 把这次变更叫作 changeset。版本在服务器创建，无须再做一次单独的 push；但主线仍然可以是 A。" },
     { tag: "05 · 合入主线", title: "经过审查与合入，团队才采用新文案", body: "配套流程决定是否接受这次修改。审查通过并合入后，主线采用这次变更。新任务取最新主线时，才能取得“你好”；要让线上网站变化，还需要后续发布流程。" },
   ]}>
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460" role="img" aria-label="教学示例第一步：选择首页相关目录，暂不准备无关目录">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="30" y="67" fill="var(--color-muted)" font-size="16">01 / 05 · 准备范围</text>
-      <SelectGraph x="30" y="88" width="400" height="320" />
-    </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460" role="img" aria-label="教学示例第二步：复用缓存中首页和样式的原内容">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="30" y="67" fill="var(--color-muted)" font-size="16">02 / 05 · 取得内容</text>
-      <RequestGraph x="30" y="88" width="400" height="320" />
-    </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460" role="img" aria-label="教学示例第三步：site/home.md 的文案由欢迎改成你好">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="30" y="67" fill="var(--color-muted)" font-size="16">03 / 05 · 修改文件</text>
-      <EditGraph x="30" y="88" width="400" height="320" />
-    </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460" role="img" aria-label="教学示例第四步：changeset B 记录基础版本、变更文件和内容标识">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="30" y="67" fill="var(--color-muted)" font-size="16">04 / 05 · 保存版本</text>
-      <ChangesetGraph x="30" y="88" width="400" height="320" />
-    </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460" role="img" aria-label="教学示例第五步：刚保存变更时主线仍是欢迎，审查并合入以后主线才采用你好">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="30" y="67" fill="var(--color-muted)" font-size="16">05 / 05 · 合入主线</text>
-      <MaterializeGraph x="30" y="88" width="400" height="320" />
-    </svg>
-  </ScrollStory>
+    <SelectGraph slot="frame-0" width="400" role="img" aria-label="教学示例第一步：选择首页相关目录，暂不准备无关目录" />
+    <RequestGraph slot="frame-1" width="400" role="img" aria-label="教学示例第二步：复用缓存中首页和样式的原内容" />
+    <EditGraph slot="frame-2" width="400" role="img" aria-label="教学示例第三步：site/home.md 的文案由欢迎改成你好" />
+    <ChangesetGraph slot="frame-3" width="400" role="img" aria-label="教学示例第四步：changeset B 记录基础版本、变更文件和内容标识" />
+    <MaterializeGraph slot="frame-4" width="400" role="img" aria-label="教学示例第五步：刚保存变更时主线仍是欢迎，审查并合入以后主线才采用你好" />
+
+  </MechanismSequence>
   <Prose tile>
 
 这个例子最需要分清的是两个时点：保存变更，保护的是你的工作；合入主线，改变的是团队共同使用的版本。Scion 在服务端创建版本，只省掉了单独推送这一步，没有省掉审查或正确性检查。

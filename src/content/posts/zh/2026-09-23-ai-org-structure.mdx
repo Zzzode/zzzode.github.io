@@ -29,7 +29,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Summary,
 } from '@/components/article';
@@ -95,10 +95,10 @@ import {
     index="02"
     kicker="因果链"
     title="核心论证：组织低效如何一步步进入技术路线"
-    lead="随页面滚动，左侧舞台展示随笔的五环论证链（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示随笔的五环论证链。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 拆不开",
@@ -127,11 +127,8 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 01 · INDIVISIBLE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">问题拆不开</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="446" slot="frame-0" class="sequence-frame" viewBox="22 157 390 182">
+
       {[["模型结构",70],["通信模式",160],["并行策略",250],["显存/效率",340]].map((n,i)=>(
         <g>
           <rect x={n[1]-36} y="170" width="72" height="40" rx="9" fill="#fff" stroke="#0066cc" stroke-width="1.4" />
@@ -144,11 +141,8 @@ import {
       <text x="230" y="308" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">先共同定义问题，才有分工</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 02 · LOCAL OPTIMA</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">报表都合格，实验依然慢</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="359" slot="frame-1" class="sequence-frame" viewBox="58 127 344 204">
+
       {[["GPU 利用率 ✓",160],["带宽/丢包 ✓",212],["存储吞吐 ✓",264]].map((n)=>(
         <g>
           <rect x="70" y={n[1]-20} width="320" height="40" rx="9" fill="#fff" stroke="#34c759" stroke-width="1.5" />
@@ -156,14 +150,11 @@ import {
         </g>
       ))}
       <path d="M230 292 L230 320 M222 312 L230 320 M238 312" stroke="#e8710a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="230" y="352" font-size="11.5" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">墙钟时间 ✗ 问题在交界处：尾延迟 / 小文件 / 搬运</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 03 · KNOWLEDGE WALL</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">过去的是结论，不是假设</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="486" slot="frame-2" class="sequence-frame" viewBox="38 138 384 208">
+
       <rect x="50" y="158" width="150" height="120" rx="12" fill="#eaf2fb" />
       <text x="125" y="200" font-size="12" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">算法</text>
       <text x="125" y="230" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">「需要更大 batch」</text>
@@ -176,34 +167,32 @@ import {
       <text x="230" y="330" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">知识边界比部门边界更顽固</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 04 · SELECTION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">激励筛掉跨边界方向</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="461" slot="frame-3" class="sequence-frame" viewBox="37 143 384 219">
+
       <rect x="50" y="156" width="360" height="60" rx="10" fill="#fff" stroke="#34c759" stroke-width="1.6" />
       <text x="230" y="182" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">本部门小段代码</text>
       <text x="230" y="204" font-size="10" fill="#34c759" text-anchor="middle" font-family="PingFang SC, sans-serif">易拿资源 · 易交付 · 易归属</text>
       <rect x="50" y="240" width="360" height="60" rx="10" fill="#fff" stroke="#e8710a" stroke-width="1.6" />
       <text x="230" y="266" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">跨三团队的高价值想法</text>
       <text x="230" y="288" font-size="10" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">等不到第一次实验</text>
-      <text x="230" y="346" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">组织结构 → 进入技术路线本身</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LINK 05 · TASTE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">判断力变成资源安排</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <text x="230" y="346" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">组织结构 → 进入技术路线本身</text>
+</svg>
+
+    <svg width="359" slot="frame-4" class="sequence-frame" viewBox="58 137 344 178">
+
       {["继续调参？","再加一道校正？","回去查梯度假设？"].map((s,i)=>(
         <g>
           <rect x="70" y={150+i*56} width="320" height="42" rx="9" fill={i===2?"#0066cc":"#fff"} stroke={i===2?"#0066cc":"#dedee3"} />
           <text x="230" y={177+i*56} font-size="11.5" fill={i===2?"#fff":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
         </g>
       ))}
-      <text x="230" y="362" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">taste = 经实践校准的判断力 → 预算与方向；允许被反例改变</text>
+
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-1"><p>墙钟时间 ✗ 问题在交界处：尾延迟 / 小文件 / 搬运</p></div>
+    <div slot="caption-4"><p>taste = 经实践校准的判断力 → 预算与方向；允许被反例改变</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="frameworks">

@@ -29,7 +29,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Summary,
 } from '@/components/article';
@@ -100,10 +100,10 @@ import {
     index="02"
     kicker="运作机制"
     title="机制：每个选项一个 [MASK]，一次前向全部答完"
-    lead="随页面滚动，左侧舞台展示一次 Laya 调用从拼装输入到输出校准概率的全过程（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示一次 Laya 调用从拼装输入到输出校准概率的全过程。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 拼装",
@@ -132,11 +132,8 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · ASSEMBLE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">状态与选项拼成一段</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="448" slot="frame-0" class="sequence-frame" viewBox="34 137 392 242">
+
       <rect x="46" y="150" width="368" height="52" rx="10" fill="#fff" stroke="#dedee3" />
       <text x="66" y="182" font-size="11" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">state: 工单 / 邮件 / JSON 文本</text>
       {["[M] billing","[M] technical","[M] sales","[M] other"].map((s,i)=>(
@@ -147,23 +144,17 @@ import {
       ))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · ENCODE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">双向注意力一次读完</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="380" slot="frame-1" class="sequence-frame" viewBox="40 137 380 240">
+
       {[0,1,2,3,4,5,6].map(i=>(
         <rect x="52" y={150+i*32} width="356" height="24" rx="6" fill={i%2?"#fff":"#e9e9ed"} stroke="#dedee3" />
       ))}
       <path d="M90 230 L90 162 M370 230 L370 162 M90 196 L370 196 M90 230 L370 162 M370 230 L90 162" stroke="#0066cc" stroke-width="1" fill="none" opacity="0.55" />
-      <text x="230" y="370" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">ModernBERT-large 395M · 每个位置可见全部上下文</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · SCORE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">标记位评分，题内归一化</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="423" slot="frame-2" class="sequence-frame" viewBox="44 151 370 190">
+
       {[["billing",0.72,259],["technical",0.08,29],["sales",0.15,54],["other",0.05,18]].map((r,i)=>(
         <g>
           <text x="56" y={178+i*48} font-size="11" fill="#1d1d1f" font-family="ui-monospace, Menlo, monospace">{r[0]}</text>
@@ -172,14 +163,11 @@ import {
           <text x="376" y={180+i*48} font-size="10.5" fill="#424245" font-family="ui-monospace, Menlo, monospace">{r[1].toFixed(2)}</text>
         </g>
       ))}
-      <text x="230" y="386" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">决策头：2 个 transformer 层 + 标记评分器 + act/escalate</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · RUNTIME LABELS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">标签在请求里，不在权重里</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="401" slot="frame-3" class="sequence-frame" viewBox="38 143 384 200">
+
       <rect x="50" y="156" width="360" height="80" rx="12" fill="#fff" stroke="#dedee3" />
       <text x="230" y="190" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">今天：billing / technical / sales</text>
       <text x="230" y="216" font-size="11.5" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">明天：P0 / P1 / P2 / P3（不重训）</text>
@@ -188,20 +176,21 @@ import {
       <text x="230" y="314" font-size="11.5" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">同一份权重，答案空间随请求变化</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · TYPED OUT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">类型化答案直供闸门</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="359" slot="frame-4" class="sequence-frame" viewBox="58 147 344 200">
+
       {[["choice","billing @ 0.94"],["score","1.84 / 2.0"],["noul","0.892"]].map((r,i)=>(
         <g>
           <rect x="70" y={160+i*64} width="320" height="48" rx="10" fill={i===2?"#1d1d1f":"#eaf2fb"} stroke={i===2?"#1d1d1f":"#0066cc"} />
           <text x="92" y={190+i*64} font-size="11.5" fill={i===2?"#7fd3ff":"#0066cc"} font-family="ui-monospace, Menlo, monospace">{r[0]}: {r[1]}</text>
         </g>
       ))}
-      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">+ act / escalate · 一次前向批量回答</text>
+
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-1"><p>ModernBERT-large 395M · 每个位置可见全部上下文</p></div>
+    <div slot="caption-2"><p>决策头：2 个 transformer 层 + 标记评分器 + act/escalate</p></div>
+    <div slot="caption-4"><p>+ act / escalate · 一次前向批量回答</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="rlcd">

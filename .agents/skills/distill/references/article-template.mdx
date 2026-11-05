@@ -20,7 +20,7 @@ import {
   InfoCard,
   Steps,
   Timeline,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   StatGrid,
@@ -42,8 +42,8 @@ import {
 >
   {/* lines that should march on load take data-hero-dash */}
   <svg slot="visual" viewBox="0 0 460 320" role="img" aria-label="一句话描述图意">
-    {/* token hex only: #1d1d1f #424245 #6e6e73 #86868b #f5f5f7 #dedee3 #ececf0 #0066cc #e8710a */}
-    <rect x="40" y="40" width="380" height="240" rx="20" fill="#f5f5f7" />
+    {/* Use CSS token variables; the diagram is a teaching placeholder. */}
+    <rect x="40" y="40" width="380" height="240" rx="20" fill="var(--color-paper)" />
   </svg>
 </CoverBanner>
 
@@ -92,29 +92,56 @@ import {
   </div>
 </Section>
 
-{/* 03 机制 — the ScrollStory moment for any process. Each panel teaches:
-   what happens, why, and which metric/anomaly it explains. */}
+{/* 03 Mechanism: linked overview followed by compact explanation/diagram rows.
+   The three frames below are teaching placeholders, not product facts.
+   Replace every label and explanation with verified content before publishing. */}
 <Section id="mechanism">
-  <SectionHead kicker="03 · THE LOOP" title="机制：逐步拆解" lead="随页面滚动，流程图会逐步点亮当前阶段。" />
-  <ScrollStory
+  <SectionHead kicker="03 · THE PROCESS" title="机制：逐步拆解" lead="先看流程，再逐步核对每个阶段的输入、处理和输出。" />
+  <MechanismSequence
     steps={[
-      { tag: "01 · 第一步", title: "动词开头的阶段名", body: "白话讲解：发生了什么、为什么这样设计。" },
-      { tag: "02 · 第二步", title: "……", body: "……" },
-      { tag: "03 · 第三步", title: "……", body: "……" },
+      { tag: "01 · 接收", title: "接收示例输入", body: "教学占位：先标明输入来自哪里、由谁接收。此处不代表任何产品的实际行为。" },
+      { tag: "02 · 处理", title: "检查后选择路径", body: "教学占位：画出处理步骤与两条分支，并在文章中解释各自的触发条件。" },
+      { tag: "03 · 返回", title: "返回示例结果", body: "教学占位：区分返回给调用方的结果与单独保留的记录。发布前替换为已核实的机制。" },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      {/* one standalone frame per step: paper card + eyebrow + title +
-          NN/NN counter + a token-only schematic showing the mechanism */}
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP NAME</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">示意图标题</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 03</text>
+    <svg slot="frame-0" width="100%" viewBox="0 0 460 180" role="img" aria-label="教学示意：输入流向接收端">
+      <rect x="16" y="45" width="160" height="80" rx="12" fill="var(--color-paper)" />
+      <path d="M176 85 H284 m-8 -6 8 6 -8 6" fill="none" stroke="var(--color-muted)" />
+      <rect x="284" y="45" width="160" height="80" rx="12" fill="var(--color-paper)" />
+      <g fill="var(--color-ink)" font-size="18" text-anchor="middle">
+        <text x="96" y="92">示例输入</text>
+        <text x="364" y="92">接收端</text>
+      </g>
     </svg>
-  </ScrollStory>
+    <p slot="caption-0">教学示意，无测量数据；用箭头标明传递方向。</p>
+    <svg slot="frame-1" width="100%" viewBox="0 0 460 220" role="img" aria-label="教学示意：检查后进入路径 A 或路径 B">
+      <rect x="16" y="70" width="160" height="80" rx="12" fill="var(--color-paper)" />
+      <path d="M176 110 H230 V50 H284 m-8 -6 8 6 -8 6 M230 110 V170 H284 m-8 -6 8 6 -8 6" fill="none" stroke="var(--color-muted)" />
+      <rect x="284" y="18" width="160" height="64" rx="12" fill="var(--color-paper)" />
+      <rect x="284" y="138" width="160" height="64" rx="12" fill="var(--color-paper)" />
+      <g fill="var(--color-ink)" font-size="18" text-anchor="middle">
+        <text x="96" y="117">检查</text>
+        <text x="364" y="57">路径 A</text>
+        <text x="364" y="177">路径 B</text>
+      </g>
+    </svg>
+    <p slot="caption-1">教学示意；分支条件应在真实文章中明确标注。</p>
+    <svg slot="frame-2" width="100%" viewBox="0 0 460 220" role="img" aria-label="教学示意：处理端返回结果并保留记录">
+      <rect x="16" y="70" width="160" height="80" rx="12" fill="var(--color-paper)" />
+      <path d="M176 110 H230 V50 H284 m-8 -6 8 6 -8 6 M230 110 V170 H284 m-8 -6 8 6 -8 6" fill="none" stroke="var(--color-muted)" />
+      <rect x="284" y="18" width="160" height="64" rx="12" fill="var(--color-paper)" />
+      <rect x="284" y="138" width="160" height="64" rx="12" fill="var(--color-paper)" />
+      <g fill="var(--color-ink)" font-size="18" text-anchor="middle">
+        <text x="96" y="117">处理端</text>
+        <text x="364" y="57">返回结果</text>
+        <text x="364" y="177">保留记录</text>
+      </g>
+    </svg>
+    <p slot="caption-2">教学示意；两个输出的接收方与用途应分别说明。</p>
+  </MechanismSequence>
   <Prose>
 
-故事讲完后，用白话把背后的原理再讲透一层（数学直觉 / 设计取舍），并呼应后面的指标。
+逐步讲完后，用白话把背后的原理再讲透一层（数学直觉 / 设计取舍），并呼应后面的指标。
 
   </Prose>
 </Section>

@@ -45,7 +45,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   CompareTable,
   StatGrid,
@@ -176,9 +176,9 @@ TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师�
     index="03"
     kicker="机制"
     title="一个算子从 Python 到昇腾硬件"
-    lead="随页面滚动，左侧舞台逐步拆解这条编译与执行链路（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解拆解这条编译与执行链路。"
   />
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 写算子",
@@ -207,11 +207,8 @@ TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师�
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · WRITE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先描述 tile 怎么流动</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="462" slot="frame-0" class="sequence-frame" viewBox="38 137 385 293">
+
       <text x="50" y="160" font-size="10" fill="#6e6e73" font-family="PingFang SC, sans-serif">global memory（DRAM）</text>
       <rect x="50" y="170" width="360" height="84" rx="10" fill="#fff" stroke="#dedee3" />
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
@@ -224,14 +221,12 @@ TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师�
       <rect x="120" y="330" width="220" height="56" rx="10" fill="#eaf2fb" stroke="#0066cc" />
       <rect x="136" y="346" width="88" height="24" rx="5" fill="#0066cc" />
       <rect x="236" y="346" width="88" height="24" rx="5" fill="#bcd6f2" />
-      <text x="230" y="414" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">人写数据流，编译器管调度</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · COMPILE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一份源码，多个后端</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="230" y="414" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">人写数据流，编译器管调度</text>
+</svg>
+
+    <svg width="448" slot="frame-1" class="sequence-frame" viewBox="44 137 373 292">
+
       <rect x="56" y="150" width="348" height="52" rx="10" fill="#fff" stroke="#dedee3" />
       <text x="230" y="182" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">TileLang 源码（Python 语法）</text>
       <line x1="230" y1="206" x2="230" y2="236" stroke="#b8b8bf" stroke-width="1.5" />
@@ -241,20 +236,18 @@ TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师�
       <line x1="230" y1="296" x2="230" y2="322" stroke="#b8b8bf" stroke-width="1.5" />
       <path d="M230 322 l-4 -8 h8 z" fill="#b8b8bf" />
       <rect x="56" y="326" width="348" height="52" rx="10" fill="#fff" stroke="#dedee3" />
-      <text x="230" y="358" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">后端代码生成</text>
+
       {["CUDA", "ROCm", "Metal", "昇腾"].map((t, i) => (
         <rect x={56 + i * 89} y="392" width="76" height="26" rx="13" fill={t === "昇腾" ? "#0066cc" : "#ececf0"} />
       ))}
       {["CUDA", "ROCm", "Metal", "昇腾"].map((t, i) => (
         <text x={94 + i * 89} y="409" font-size="10" fill={t === "昇腾" ? "#fff" : "#424245"} text-anchor="middle" font-family="PingFang SC, sans-serif">{t}</text>
       ))}
-    </svg>
+    <text x="230" y="358" font-size="12" fill="#1d1d1f" text-anchor="middle" font-family="PingFang SC, sans-serif">后端代码生成</text>
+</svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · MAP</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">两套存储层级对上号</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="487" slot="frame-2" class="sequence-frame" viewBox="37 127 385 239">
+
       <text x="120" y="150" font-size="10" font-weight="600" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">GPU</text>
       <text x="340" y="150" font-size="10" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">昇腾 NPU</text>
       {[
@@ -270,14 +263,11 @@ TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师�
           <text x="335" y={row.y + 27} font-size="9.5" fill={row.y === 240 ? "#0066cc" : "#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{row.a}</text>
         </g>
       ))}
-      <text x="230" y="392" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">cube 核算矩阵乘 · vector 核算向量 · 编译器自动插同步</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · JIT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">首次调用时现场编译</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="339" slot="frame-3" class="sequence-frame" viewBox="68 137 324 262">
+
       {[
         { t: "算子首次调用", y: 150, hot: false },
         { t: "DeepJIT 运行时编译", y: 214, hot: true },
@@ -290,14 +280,11 @@ TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师�
           {i < 3 && <line x1="230" y1={b.y + 50} x2="230" y2={b.y + 62} stroke="#b8b8bf" stroke-width="1.5" />}
         </g>
       ))}
-      <text x="230" y="416" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">安装时不编译设备内核 · 产物缓存在 ~/.dj</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · PEAK</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">跑到硬件上限的几成</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="472" slot="frame-4" class="sequence-frame" viewBox="58 128 354 265">
+
       <line x1="70" y1="160" x2="70" y2="360" stroke="#dedee3" stroke-width="1" />
       <line x1="70" y1="176" x2="400" y2="176" stroke="#b8b8bf" stroke-width="1" stroke-dasharray="4 4" />
       <text x="70" y="150" font-size="9.5" fill="#86868b" font-family="PingFang SC, sans-serif">硬件上限 100%</text>
@@ -313,9 +300,12 @@ TileLang 由北京大学团队发起（核心人物王磊、董宇骐，导师�
           <text x={126 + i * 76} y="378" font-size="9" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">{b.t}</text>
         </g>
       ))}
-      <text x="230" y="414" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">官方自测 · 昇腾 950DT · 口径见各仓库 README</text>
+
     </svg>
-  </ScrollStory>
+    <div slot="caption-2"><p>cube 核算矩阵乘 · vector 核算向量 · 编译器自动插同步</p></div>
+    <div slot="caption-3"><p>安装时不编译设备内核 · 产物缓存在 ~/.dj</p></div>
+    <div slot="caption-4"><p>官方自测 · 昇腾 950DT · 口径见各仓库 README</p></div>
+  </MechanismSequence>
   <Prose tile>
 
 这五步里真正的护城河在第二步和第三步。第二步决定一门语言能覆盖多少硬件。TileLang 的后端列表里，CUDA 是主后端，ROCm、昇腾 950、Metal 在主线内，昇腾 A2/A3、沐曦、摩尔线程、海光等走独立适配仓库。第三步决定性能能不能打平——昇腾的 cube/vector 双核结构与 GPU 的 SM 差异很大，存储层级映射做不对，上层语法再优雅也跑不满。

@@ -45,7 +45,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   Steps,
   Pipeline,
@@ -178,7 +178,7 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
     title="滚动走一遍：14 个阶段，五段路"
     lead="调研把全流程分成基础、后训练、合流、验收、交付五段，共 14 个有名字的阶段。跟着滚动逐个看。"
   />
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 基础",
@@ -212,11 +212,7 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 01 · 基础</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">基座：两块地基</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 06</text>
+    <svg width="462" slot="frame-0" class="sequence-frame" viewBox="28 119 404 276">
 
       <rect x="40" y="132" width="380" height="92" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="62" y="162" font-size="13" font-weight="600" fill="#0066cc" font-family="PingFang SC, sans-serif">Pre-training</text>
@@ -228,14 +224,10 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
       <text x="62" y="294" font-size="11" fill="#424245" font-family="PingFang SC, sans-serif">垂直知识 + 专项能力 + 初步对齐</text>
       <text x="62" y="316" font-size="10.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">调研口径：不计入正式后训练</text>
 
-      <text x="40" y="380" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">起点质量决定后面能调到哪一步</text>
-    </svg>
+    <text x="40" y="380" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">起点质量决定后面能调到哪一步</text>
+</svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 02 · SFT</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">三轮监督微调</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 06</text>
+    <svg width="485" slot="frame-1" class="sequence-frame" viewBox="27 115 404 265">
 
       {[["ROUND 1","通用指令","指令跟随 · 输出格式",128],["ROUND 2","专项能力","推理 · 代码 · 工具轨迹",212],["ROUND 3","安全对齐","拒答边界 · 压住过度拒答",296]].map((r) => (
         <g>
@@ -246,14 +238,10 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
       ))}
 
       <path d="M230 200 v8 M230 284 v8" fill="none" stroke="#86868b" stroke-width="1.4" />
-      <text x="40" y="400" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">过关后：热启动 RM、初始化策略、产偏好数据</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 03 · REWARD</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一个主干，五个奖励头</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 06</text>
+    <svg width="439" slot="frame-2" class="sequence-frame" viewBox="20 115 384 252">
 
       <rect x="110" y="128" width="240" height="64" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.6" />
       <text x="230" y="156" font-size="12.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Shared Backbone</text>
@@ -271,15 +259,11 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
 
       <path d="M230 288 v18 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.5" />
       <rect x="120" y="312" width="220" height="44" rx="22" fill="#1d1d1f" />
-      <text x="230" y="339" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">归一化 + 加权 − 安全扣分</text>
-      <text x="40" y="392" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">最后一个 token 的隐状态代表整条回答</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 04 · RL ×3</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">三段强化学习接力</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 06</text>
+    <text x="230" y="339" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">归一化 + 加权 − 安全扣分</text>
+</svg>
+
+    <svg width="462" slot="frame-3" class="sequence-frame" viewBox="28 117 404 298">
 
       {[["PPO-PTX","主循环：整体对齐 + 能力",130,true],["DPO","离线精修残余偏好矛盾",224,false],["GRPO","Agent 多步工具调用校准",318,false]].map((c) => (
         <g>
@@ -289,14 +273,11 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
         </g>
       ))}
       <path d="M230 204 v16 M230 298 v16" fill="none" stroke="#86868b" stroke-width="1.5" />
-      <text x="40" y="400" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">分工为调研口径；三种算法均有公开论文</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 05 · 合流</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">分支合入主干，再稳化</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 06</text>
+    <text x="40" y="400" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">分工为调研口径；三种算法均有公开论文</text>
+</svg>
+
+    <svg width="389" slot="frame-4" class="sequence-frame" viewBox="44 127 372 224">
 
       <rect x="56" y="140" width="120" height="46" rx="12" fill="#fff" stroke="#dedee3" />
       <text x="116" y="168" font-size="11.5" text-anchor="middle" font-family="PingFang SC, sans-serif">专项分支 A</text>
@@ -309,14 +290,10 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
       <path d="M230 276 v14 m-5 -6 l5 6 5 -6" fill="none" stroke="#86868b" stroke-width="1.5" />
       <rect x="130" y="296" width="200" height="44" rx="22" fill="#1d1d1f" />
       <text x="230" y="323" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">小规模再训练稳化</text>
-      <text x="40" y="386" font-size="10.5" fill="#86868b" font-family="PingFang SC, sans-serif">公开参照：Model Soups 的权重平均</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="5" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="72" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">SEGMENT 06 · 交付</text>
-      <text x="40" y="104" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">验收三层，灰度放量</text>
-      <text x="420" y="72" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">06 / 06</text>
+    <svg width="462" slot="frame-5" class="sequence-frame" viewBox="28 115 404 304">
 
       {[["红队 + 安全对抗","越狱 · 工具滥用 · Agent 越权",128],["全量离线评测","能力 / 安全 / 关键项不退化",208],["RC 冻结","过门槛候选进入发布验证",288]].map((g) => (
         <g>
@@ -326,9 +303,13 @@ Astra 是这条技术路线在 2026 年的产品。按官方帮助页和发布�
         </g>
       ))}
       <rect x="40" y="368" width="380" height="40" rx="20" fill="#0066cc" />
-      <text x="230" y="393" font-size="12" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">推理安全层 → A/B 灰度 → 全量</text>
-    </svg>
-  </ScrollStory>
+
+    <text x="230" y="393" font-size="12" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">推理安全层 → A/B 灰度 → 全量</text>
+</svg>
+    <div slot="caption-1"><p>过关后：热启动 RM、初始化策略、产偏好数据</p></div>
+    <div slot="caption-2"><p>最后一个 token 的隐状态代表整条回答</p></div>
+    <div slot="caption-4"><p>公开参照：Model Soups 的权重平均</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="map">

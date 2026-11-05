@@ -25,7 +25,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Summary,
 } from '@/components/article';
@@ -100,10 +100,10 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
     index="02"
     kicker="五个不变量"
     title="五个机制不变量，并排看两种选择"
-    lead="随页面滚动，左侧舞台逐组对照 V8（蓝）与 JVM（黑）的契约（宽屏下停驻在屏幕中央）。"
+    lead="逐组对照 V8（蓝）与 JVM（黑）的契约。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 两个正交轴",
@@ -132,11 +132,8 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">AXIS 01 · ORTHOGONAL</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">实例数 × 线程并发</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="374" slot="frame-0" class="sequence-frame" viewBox="45 132 327 213">
+
       <line x1="120" y1="300" x2="360" y2="300" stroke="#86868b" stroke-width="1.5" />
       <line x1="120" y1="300" x2="120" y2="150" stroke="#86868b" stroke-width="1.5" />
       <text x="240" y="330" font-size="10.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">实例数量 →</text>
@@ -147,11 +144,8 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
       <text x="186" y="156" font-size="11" fill="#0066cc" text-anchor="end" font-family="PingFang SC, sans-serif">V8：多实例 / 实例内互斥</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">V8 02 · ISOLATE / CONTEXT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">实例内还有 JS 世界一层</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="416" slot="frame-1" class="sequence-frame" viewBox="48 133 364 186">
+
       <rect x="60" y="146" width="340" height="86" rx="12" fill="#0066cc" />
       <text x="230" y="178" font-size="12.5" font-weight="600" fill="#fff" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Isolate = VM 实例 + 独立 heap</text>
       <text x="230" y="204" font-size="10.5" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">GC / 编译器状态 / 句柄栈各自独立 · Locker 串行进入</text>
@@ -159,14 +153,11 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
       <text x="150" y="285" font-size="11" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Context A</text>
       <rect x="240" y="252" width="140" height="56" rx="10" fill="#fff" stroke="#0066cc" stroke-width="1.4" />
       <text x="310" y="285" font-size="11" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">Context B</text>
-      <text x="230" y="350" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">多 Isolate 可并行（worker_threads）· 对象不跨 Isolate 共享</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">JVM 03 · JavaVM / JNIEnv</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">一台 VM，每线程一个 env</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="448" slot="frame-2" class="sequence-frame" viewBox="43 133 373 237">
+
       <rect x="80" y="146" width="300" height="80" rx="12" fill="#1d1d1f" />
       <text x="230" y="182" font-size="12.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">JavaVM* （进程级，唯一）</text>
       <text x="230" y="206" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">共享 heap / 类元数据 / 运行时服务</text>
@@ -179,11 +170,8 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
       ))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">04 · GC ROOTS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">引用登记了才是根</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="462" slot="frame-3" class="sequence-frame" viewBox="37 138 385 223">
+
       {[["local / HandleScope","本次调用 / 作用域内","自动释放"],["global / Persistent","跨线程跨调用","显式删除"],["weak global","不保证活","用前提升检查"]].map((r,i)=>(
         <g>
           <rect x="50" y={150+i*70} width="360" height="58" rx="10" fill={i===2?"#1d1d1f":"#fff"} stroke={i===2?"#1d1d1f":"#dedee3"} />
@@ -191,14 +179,11 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
           <text x="70" y={195+i*70} font-size="10" fill={i===2?"#a1a1a6":"#86868b"} font-family="PingFang SC, sans-serif">{r[1]} · {r[2]}</text>
         </g>
       ))}
-      <text x="230" y="384" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">GC 不盲扫宿主内存：私藏地址 = 不被保活</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">05 · DESTRUCTION</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">GC 不管宿主手里的钥匙</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="471" slot="frame-4" class="sequence-frame" viewBox="33 139 392 201">
+
       <rect x="46" y="152" width="368" height="80" rx="12" fill="#eaf2fb" stroke="#0066cc" />
       <text x="230" y="184" font-size="11.5" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">V8：先确认无线程 entered，再 Dispose</text>
       <text x="230" y="208" font-size="10" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">旧指针即刻悬垂，地址可能被复用</text>
@@ -206,7 +191,10 @@ Chrome、Node.js 把 V8 当 C++ 库链接进自己的进程；JVM 从第一天�
       <text x="230" y="280" font-size="11.5" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">JVM：等到只剩当前非守护线程再卸载</text>
       <text x="230" y="304" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">单向 best-effort · 销毁后通常不能再建第二台</text>
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-1"><p>多 Isolate 可并行（worker_threads）· 对象不跨 Isolate 共享</p></div>
+    <div slot="caption-3"><p>GC 不盲扫宿主内存：私藏地址 = 不被保活</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="references">

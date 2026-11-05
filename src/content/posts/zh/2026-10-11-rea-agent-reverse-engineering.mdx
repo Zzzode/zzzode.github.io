@@ -58,7 +58,7 @@ sources:
     url: "https://rea.tools/examples/notes-example.zip"
 ---
 
-import { CoverBanner, ArticleCanvas, Section, SectionHead, Prose, ScrollStory, CompareTable, StatGrid, Stat, Summary } from '@/components/article';
+import { CoverBanner, ArticleCanvas, Section, SectionHead, Prose, MechanismSequence, CompareTable, StatGrid, Stat, Summary } from '@/components/article';
 import ArchitectureGraph from '@/assets/rea/architecture.svg';
 import CoverGraph from '@/assets/rea/cover.svg';
 import ScopeGraph from '@/assets/rea/scope.svg';
@@ -251,33 +251,18 @@ npx -y rea-agents@6.4.0 analyze-javascript-application \
 一次有用的任务要有明确目标和验收条件。官方 [Electron 指南](https://rea.tools/guides/javascript/)研究的是 CSV 导出：页面调用哪个 API，跨进程消息发到哪里，谁把内容写进文件。下面是依据该示例整理的调查顺序；最后的测试是验证建议，不表示本次已经启动 Electron 完成导出。
 
   </Prose>
-  <ScrollStory steps={[
+  <MechanismSequence steps={[
     { tag: "01 · 限定", title: "选定目标与要解释的行为", body: "给出应用目录或 app.asar 的绝对路径，把问题限定为导出功能。记录当前文件版本，说明哪些操作允许执行，避免把调查范围扩展到无关目录或已登录的浏览器。" },
     { tag: "02 · 查看", title: "读取入口和模块关系", body: "REA 静态读取文件，识别页面代码、preload 和主进程中的 IPC 调用。先取得结构，再查看导出相关位置，不需要把整个应用的分析结果全部塞给模型。" },
     { tag: "03 · 追踪", title: "沿着通道走到文件写入", body: "从 exportCsv 追到 notes:export，再检查对应处理器和 CSV 格式化代码。每个关系都有来源；由静态代码推得的路径，仍须与真实执行区分。" },
     { tag: "04 · 验证", title: "把解释转成能失败的测试", body: "在自己控制的环境检查生成文件，并测试空数据、特殊字符和写入失败。若结果不吻合，回到相关模块继续调查。测试通过的结论只覆盖实际检查的输入和行为。" },
   ]}>
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460" role="img" aria-label="限定导出问题与应用目标">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="34" y="64" fill="var(--color-muted)" font-size="12">01 / 04 · 限定调查</text>
-      <ScopeGraph x="30" y="88" width="400" height="320" />
-    </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460" role="img" aria-label="静态分析页面、preload 与 IPC 处理器">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="34" y="64" fill="var(--color-muted)" font-size="12">02 / 04 · 查看结构</text>
-      <InspectGraph x="30" y="88" width="400" height="320" />
-    </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460" role="img" aria-label="从页面 API 追踪至 CSV 写入代码">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="34" y="64" fill="var(--color-muted)" font-size="12">03 / 04 · 追踪功能</text>
-      <TraceGraph x="30" y="88" width="400" height="320" />
-    </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460" role="img" aria-label="测试重建实现并保留差异">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="var(--color-paper)" />
-      <text x="34" y="64" fill="var(--color-muted)" font-size="12">04 / 04 · 检查结果</text>
-      <VerifyGraph x="30" y="88" width="400" height="320" />
-    </svg>
-  </ScrollStory>
+    <ScopeGraph slot="frame-0" width="244" role="img" aria-label="限定导出问题与应用目标" />
+    <InspectGraph slot="frame-1" width="427" role="img" aria-label="静态分析页面、preload 与 IPC 处理器" />
+    <TraceGraph slot="frame-2" width="247" role="img" aria-label="从页面 API 追踪至 CSV 写入代码" />
+    <VerifyGraph slot="frame-3" width="392" role="img" aria-label="测试重建实现并保留差异" />
+
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="native-case">

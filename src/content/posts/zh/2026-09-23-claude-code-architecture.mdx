@@ -38,7 +38,7 @@ import {
   BlockTitle,
   Steps,
   Timeline,
-  ScrollStory,
+  MechanismSequence,
   CompareTable,
   Callout,
   StatGrid,
@@ -150,10 +150,10 @@ import {
     index="03"
     kicker="主循环"
     title="一步都不少：智能体循环逐帧拆解"
-    lead="随页面滚动，左侧舞台会逐步展示循环的每个阶段（宽屏下停驻在屏幕中央）。"
+    lead="逐步图解展示循环的每个阶段。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 接任务",
@@ -182,11 +182,8 @@ import {
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 01 · INTAKE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">自然语言就是入口</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="422" slot="frame-0" class="sequence-frame" viewBox="28 137 404 231">
+
       <rect x="40" y="150" width="380" height="62" rx="12" fill="#fff" stroke="#dedee3" />
       <text x="60" y="188" font-size="14" fill="#1d1d1f" font-family="PingFang SC, sans-serif">修复失败的测试</text>
       <text x="40" y="252" font-size="12.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">入会话即可见：</text>
@@ -198,14 +195,12 @@ import {
         <rect x="288" y="270" width="112" height="34" rx="17" fill="#fff" stroke="#dedee3" />
         <text x="344" y="292" font-size="11.5" fill="#424245" text-anchor="middle">提交历史</text>
       </g>
-      <text x="40" y="352" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">人可以随时打断、转向、补上下文</text>
-    </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 02 · GATHER</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">先验证，再读代码</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <text x="40" y="352" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">人可以随时打断、转向、补上下文</text>
+</svg>
+
+    <svg width="360" slot="frame-1" class="sequence-frame" viewBox="28 154 404 250">
+
       {[
         { t: "运行测试套件，拿到红色输出", on: true },
         { t: "读报错堆栈，定位第一个失败点", on: true },
@@ -219,14 +214,11 @@ import {
         </g>
       ))}
       <rect x="40" y="392" width="380" height="0" />
-      <text x="40" y="404" font-size="11.5" fill="#6e6e73" font-family="PingFang SC, sans-serif">Explore / Plan 子智能体跳过 CLAUDE.md，专门干脏活</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 03 · ACT</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">五类工具，五种代理权</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="462" slot="frame-2" class="sequence-frame" viewBox="28 133 404 242">
+
       {[
         { t: "文件操作", s: "读 / 写 / 改名 / 重组" },
         { t: "搜索", s: "glob 与正则内容检索" },
@@ -243,11 +235,8 @@ import {
       ))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 04 · OBSERVE</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">结果喂回循环</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="462" slot="frame-3" class="sequence-frame" viewBox="28 133 404 212">
+
       <rect x="40" y="146" width="170" height="72" rx="12" fill="#0066cc" />
       <text x="125" y="178" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">工具调用</text>
       <text x="125" y="199" font-size="10.5" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">run / edit / search</text>
@@ -261,11 +250,8 @@ import {
       <text x="230" y="320" font-size="10.5" fill="#86868b" text-anchor="middle" font-family="PingFang SC, sans-serif">行动产生信息，信息改变决策</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STEP 05 · VERIFY</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">验证，绿了才停</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="302" slot="frame-4" class="sequence-frame" viewBox="104 137 276 220">
+
       <rect x="130" y="150" width="200" height="96" rx="16" fill="#fff" stroke="#dedee3" />
       <circle cx="176" cy="198" r="20" fill="#0066cc" />
       <path d="M166 198 L173 205 L187 189" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
@@ -273,9 +259,11 @@ import {
       <text x="266" y="216" font-size="11" fill="#86868b" font-family="PingFang SC, sans-serif">否则带证据回到收集</text>
       <path d="M230 290 C 120 300, 120 340, 230 346" fill="none" stroke="#86868b" stroke-width="1.8" stroke-dasharray="3 5" />
       <path d="M124 316 L116 338 L138 332" fill="none" stroke="#86868b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="230" y="378" font-size="11.5" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">文件快照可回退 · JSONL 会话可 resume / fork</text>
+
     </svg>
-  </ScrollStory>
+    <div slot="caption-1"><p>Explore / Plan 子智能体跳过 CLAUDE.md，专门干脏活</p></div>
+    <div slot="caption-4"><p>文件快照可回退 · JSONL 会话可 resume / fork</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="context">

@@ -89,7 +89,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   Steps,
   CompareTable,
@@ -587,7 +587,7 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
     title="盈利引擎：一美元 AI 资本开支怎么转一圈回来"
     lead="杠杆和信用之所以没有立刻出事，是因为基本面暂时接得住。这是机器上唯一一股向上的力量，也是多空分歧的核心。"
   />
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 订单",
@@ -616,11 +616,8 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 01 · ORDERS</text>
-      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">云厂商签单</text>
-      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="452" slot="frame-0" class="sequence-frame" viewBox="44 117 376 270">
+
       <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="230" y="178" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">≈ 1.7 万亿美元</text>
       <text x="230" y="206" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">头部云厂在手订单 / 剩余履约义务</text>
@@ -636,11 +633,8 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
         </g>
       ))}
     </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 02 · CHIPS</text>
-      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">芯片与存储</text>
-      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="452" slot="frame-1" class="sequence-frame" viewBox="44 117 376 270">
+
       <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="230" y="178" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">+58%–63%</text>
       <text x="230" y="206" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">2026Q2 DRAM 合约价环比，近十五年最大</text>
@@ -656,11 +650,8 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
         </g>
       ))}
     </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 03 · INFRA</text>
-      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">基建与中国制造</text>
-      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="452" slot="frame-2" class="sequence-frame" viewBox="44 117 376 270">
+
       <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="230" y="172" font-size="16" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="PingFang SC, sans-serif">光模块 · PCB · 服务器 · 液冷</text>
       <text x="230" y="200" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">A 股供应链直接进入全球云厂采购单</text>
@@ -676,11 +667,8 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
         </g>
       ))}
     </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 04 · AGENTS</text>
-      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">智能体消耗算力</text>
-      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="452" slot="frame-3" class="sequence-frame" viewBox="44 117 376 270">
+
       <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="230" y="178" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">73 万次</text>
       <text x="230" y="206" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">Meta Muse 上线约五天下载量，登顶美区</text>
@@ -696,11 +684,8 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
         </g>
       ))}
     </svg>
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="74" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">STAGE 05 · REVENUE</text>
-      <text x="40" y="106" font-size="18" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">云收入回流</text>
-      <text x="420" y="74" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="452" slot="frame-4" class="sequence-frame" viewBox="44 117 376 270">
+
       <rect x="56" y="130" width="348" height="118" rx="14" fill="#fff" stroke="#0066cc" stroke-width="1.5" />
       <text x="230" y="176" font-size="26" font-weight="600" fill="#0066cc" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Azure +43%</text>
       <text x="230" y="202" font-size="11" fill="#424245" text-anchor="middle" font-family="PingFang SC, sans-serif">微软 FY26Q4 增速；Azure 全年首破千亿美元</text>
@@ -716,7 +701,8 @@ CDS（信用违约互换）说白了就是一份公司债的违约保险。你�
         </g>
       ))}
     </svg>
-  </ScrollStory>
+
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="thermometers">

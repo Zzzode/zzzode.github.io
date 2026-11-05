@@ -29,7 +29,7 @@ import {
   SectionHead,
   CardGrid,
   InfoCard,
-  ScrollStory,
+  MechanismSequence,
   Timeline,
   CompareTable,
   StatGrid,
@@ -95,10 +95,10 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
     index="02"
     kicker="产业链"
     title="产业链五层：钱、风险与壁垒各落在哪里"
-    lead="随页面滚动，左侧舞台自上而下游走这条价值链（宽屏下停驻在屏幕中央）。"
+    lead="沿价值链逐层解释各环节的作用。"
   />
 
-  <ScrollStory
+  <MechanismSequence
     steps={[
       {
         tag: "01 · 入口层",
@@ -127,25 +127,19 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
       },
     ]}
   >
-    <svg slot="visual" class="ss-frame" data-ss-node="0" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 01 · ENTRY</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">品牌与模型入口</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">01 / 05</text>
+    <svg width="398" slot="frame-0" class="sequence-frame" viewBox="48 133 364 234">
+
       {["Meta + Ray-Ban","字节 · 豆包","阿里 · 夸克","百度 · 小米 · 理想","Rokid（带屏）"].map((s,i)=>(
         <g>
           <rect x="60" y={146+i*44} width="340" height="34" rx="9" fill={i===0?"#0066cc":"#fff"} stroke={i===0?"#0066cc":"#dedee3"} />
           <text x="230" y={168+i*44} font-size="11" fill={i===0?"#fff":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
         </g>
       ))}
-      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">壁垒：模型体验 · 账号体系 · 分发触点</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="1" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 02 · SILICON</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">低功耗 AR 芯片</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">02 / 05</text>
+    <svg width="414" slot="frame-1" class="sequence-frame" viewBox="57 157 345 181">
+
       <rect x="70" y="170" width="320" height="80" rx="14" fill="#1d1d1f" />
       <text x="230" y="204" font-size="13" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Snapdragon AR1 Gen 1</text>
       <text x="230" y="230" font-size="10.5" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">2023-09 与 Meta 联合发布 · Ray-Ban Meta 首发</text>
@@ -154,25 +148,19 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
       <text x="230" y="314" font-size="10" fill="#e8710a" text-anchor="middle" font-family="PingFang SC, sans-serif">供应链传闻互相矛盾，字节已整体否认</text>
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="2" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 03 · ODM</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">不自建产线的大厂</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">03 / 05</text>
+    <svg width="426" slot="frame-2" class="sequence-frame" viewBox="44 147 372 196">
+
       {["龙旗（惠州研发 / 南昌量产，传闻）","立讯 · 歌尔 等成熟代工底座","ODM 负责底层 UI · 品牌方主导上层 App"].map((s,i)=>(
         <g>
           <rect x="56" y={160+i*62} width="348" height="48" rx="10" fill={i===2?"#1d1d1f":"#fff"} stroke="#dedee3" />
           <text x="230" y={190+i*62} font-size="10.5" fill={i===2?"#f5f5f7":"#1d1d1f"} text-anchor="middle" font-family="PingFang SC, sans-serif">{s}</text>
         </g>
       ))}
-      <text x="230" y="380" font-size="11" fill="#6e6e73" text-anchor="middle" font-family="PingFang SC, sans-serif">价值 = 快速试错的产能 · 良率 · 交付速度</text>
+
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="3" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 04 · COMPONENTS</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">50 克以内的物理战争</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">04 / 05</text>
+    <svg width="497" slot="frame-3" class="sequence-frame" viewBox="33 138 393 230">
+
       {[["摄像头模组","无屏机型核心输入"],["声学","开放扬声器 + 麦阵"],["电池/结构","小电池 · 镁/钛 · <50g"],["显示光学（带屏）","波导 · Micro-OLED · 小基数"]].map((r,i)=>(
         <g>
           <rect x="46" y={150+i*54} width="368" height="44" rx="9" fill="#fff" stroke="#dedee3" />
@@ -182,11 +170,8 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
       ))}
     </svg>
 
-    <svg slot="visual" class="ss-frame" data-ss-node="4" viewBox="0 0 460 460">
-      <rect x="10" y="30" width="440" height="400" rx="24" fill="#f5f5f7" />
-      <text x="40" y="80" font-size="11" font-weight="600" letter-spacing="1.4" fill="#86868b" font-family="PingFang SC, sans-serif">LAYER 05 · CHANNEL</text>
-      <text x="40" y="112" font-size="19" font-weight="600" fill="#1d1d1f" font-family="PingFang SC, sans-serif">两种货架逻辑</text>
-      <text x="420" y="80" font-size="11" font-weight="600" fill="#86868b" text-anchor="end" font-family="PingFang SC, sans-serif">05 / 05</text>
+    <svg width="461" slot="frame-4" class="sequence-frame" viewBox="38 143 384 204">
+
       <rect x="50" y="156" width="360" height="82" rx="12" fill="#0066cc" />
       <text x="230" y="188" font-size="12" font-weight="600" fill="#fff" text-anchor="middle" font-family="PingFang SC, sans-serif">西方：EssilorLuxottica 配镜零售网</text>
       <text x="230" y="214" font-size="10" fill="#dbe9f7" text-anchor="middle" font-family="PingFang SC, sans-serif">眼镜店货架 · 品牌信任 · 难复制</text>
@@ -194,7 +179,10 @@ IDC 的判断是眼镜形态设备「不再是小众，就是市场本身」：�
       <text x="230" y="286" font-size="12" font-weight="600" fill="#f5f5f7" text-anchor="middle" font-family="PingFang SC, sans-serif">中国：电商爆单 + 手机/车机生态</text>
       <text x="230" y="312" font-size="10" fill="#a1a1a6" text-anchor="middle" font-family="PingFang SC, sans-serif">夸克发货排 45 天 · 试戴/售后待补</text>
     </svg>
-  </ScrollStory>
+
+    <div slot="caption-0"><p>壁垒：模型体验 · 账号体系 · 分发触点</p></div>
+    <div slot="caption-2"><p>价值 = 快速试错的产能 · 良率 · 交付速度</p></div>
+  </MechanismSequence>
 </Section>
 
 <Section canvas id="shares">
