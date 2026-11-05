@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -32,6 +33,31 @@ const zhPath = lang === 'zh' ? pathname : altPath;
 const enPath = lang === 'en' ? pathname : altPath;
 const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
 const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim();
+const prefix = lang === 'en' ? '/en' : '';
+
+const commandConfig = {
+  locale: lang,
+  pagefindBase: '/pagefind/',
+  strings: {
+    placeholder: t(lang, 'cmd.placeholder'),
+    commands: t(lang, 'cmd.commands'),
+    results: t(lang, 'cmd.results'),
+    empty: t(lang, 'cmd.empty'),
+    loading: t(lang, 'cmd.loading'),
+    unavailable: t(lang, 'cmd.unavailable'),
+  },
+  commands: [
+    { title: t(lang, 'nav.posts'), href: `${prefix}/posts/` },
+    { title: t(lang, 'nav.daily'), href: `${prefix}/daily/` },
+    { title: t(lang, 'nav.projects'), href: `${prefix}/projects/` },
+    { title: t(lang, 'nav.talks'), href: `${prefix}/talks/` },
+    { title: t(lang, 'nav.teaching'), href: `${prefix}/teaching/` },
+    { title: t(lang, 'nav.publications'), href: `${prefix}/publications/` },
+    { title: t(lang, 'nav.cv'), href: `${prefix}/cv/` },
+    { title: t(lang, 'nav.about'), href: `${prefix}/about/` },
+    { title: t(lang, 'nav.search'), href: `${prefix}/search/` },
+  ],
+};
 ---
 
 <!doctype html>
@@ -83,10 +109,21 @@ const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim();
     )}
   </head>
   <body class="flex min-h-screen flex-col">
+    <script
+      type="application/json"
+      data-command-config
+      data-pagefind-ignore
+      set:html={JSON.stringify(commandConfig)}
+    />
     <Nav lang={lang} alternatePath={altPath} activePath={Astro.props.navPath} />
     <main class:list={['flex-1', bare ? '' : 'container-page py-10 sm:py-14']}>
       <slot />
     </main>
     <Footer lang={lang} />
+    <ClientRouter />
+    <script>
+      import '../scripts/choreography';
+      import '../scripts/command-palette';
+    </script>
   </body>
 </html>

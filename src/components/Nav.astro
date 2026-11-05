@@ -76,6 +76,7 @@ const toggleTitle = lang === 'zh' ? '本文暂无英文版' : 'No Chinese versio
       }
       <a
         href={hrefFor('/search/')}
+        data-command-open
         aria-label={t(lang, 'nav.search')}
         title={t(lang, 'nav.search')}
         class="inline-flex min-h-11 min-w-11 items-center justify-center text-[rgba(245,245,247,0.8)] transition-colors hover:text-[#f5f5f7]"
@@ -115,6 +116,7 @@ const toggleTitle = lang === 'zh' ? '本文暂无英文版' : 'No Chinese versio
     <div class="flex items-center gap-3 md:hidden">
       <a
         href={hrefFor('/search/')}
+        data-command-open
         aria-label={t(lang, 'nav.search')}
         class="flex h-11 w-11 items-center justify-center text-[#f5f5f7]"
       >

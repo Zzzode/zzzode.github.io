@@ -7,15 +7,22 @@ interface Props {
   largeTargets?: boolean;
   /** when set, tag pills link to `<tagHref>/<tag>/` (post lists only) */
   tagHref?: string;
+  /** when set, the <ul> carries the post-filter list hook */
+  filterList?: boolean;
+  /** optional topic key per entry (post filter) */
+  topicOf?: (entry: Entry) => string | undefined;
 }
 
-const { entries, tagHref, largeTargets = false } = Astro.props;
+const { entries, tagHref, largeTargets = false, filterList = false, topicOf } = Astro.props;
 ---
 
-<ul>
+<ul data-filter-list={filterList || undefined}>
   {
     entries.map((entry) => (
-      <li class="border-b border-line-soft py-5 first:pt-7 last:border-b-0">
+      <li
+        class="border-b border-line-soft py-5 first:pt-7 last:border-b-0"
+        data-topic={topicOf ? (topicOf(entry) ?? '') : undefined}
+      >
         {entry.href ? (
           <a
             href={entry.href}

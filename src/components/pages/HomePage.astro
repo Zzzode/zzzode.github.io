@@ -7,6 +7,7 @@ import { type Lang, t } from '../../i18n/ui';
 import { getLocalized } from '../../lib/content';
 import { isDaily, dailyNewestFirst } from '../../lib/post-policy';
 import { formatDate } from '../../lib/format';
+import { TOPICS } from '../../lib/topics';
 import type { Entry } from '../../lib/entries';
 
 interface Props {
@@ -68,68 +69,18 @@ for (const item of latestItems) {
   else latestGroups.push({ label, items: [item] });
 }
 
-interface Topic {
-  key: 'agents' | 'models' | 'languages' | 'industry';
-  slugs: string[];
-}
-const topics: Topic[] = [
-  {
-    key: 'agents',
-    slugs: [
-      '2026-10-16-deepseek-dsec-sandbox',
-      '2026-10-06-osc7501-program-status',
-      '2026-09-27-mimo-v26-rl-oss-environments',
-      '2026-09-22-opus-lean-agent-sdk',
-      '2026-09-23-claude-code-architecture',
-      '2026-09-23-e2b-sandbox-infra',
-      '2026-09-23-flue-agent-harness',
-      '2026-09-23-nanoclaw-agent',
-      '2026-09-23-grokbot-openclaw-agent-forms',
-      '2026-09-23-tradingagents',
-      '2026-09-22-mimo-v26-open-rl',
-    ],
-  },
-  {
-    key: 'models',
-    slugs: [
-      '2026-09-23-jev-system1',
-      '2026-09-23-laya-decision-model',
-      '2026-09-23-bert-diffusion-llada',
-    ],
-  },
-  {
-    key: 'languages',
-    slugs: [
-      '2026-09-23-ai-and-compilers-survey',
-      '2026-09-23-kotlin-k2-fir-interop',
-      '2026-09-23-skip-language',
-      '2026-09-23-gson-yymodel-serialization',
-      '2026-09-23-rustc-query-incremental',
-      '2026-09-23-v8-jvm-instance-models',
-      '2026-09-23-edgejs-inprocess-dotnet',
-    ],
-  },
-  {
-    key: 'industry',
-    slugs: [
-      '2026-09-24-nasdaq-record-a-share-linkage',
-      '2026-09-23-ai-glasses-industry-chain',
-      '2026-09-23-nvidia-h200-china-verification',
-      '2026-09-23-ai-org-structure',
-    ],
-  },
-];
+const topics = TOPICS;
 const topicCards = topics.map((topic, i) => {
   const entries = topic.slugs.map((s) => bySlug.get(s)).filter(Boolean) as Entry[];
   return { ...topic, index: String(i + 1).padStart(2, '0'), entries };
 });
 
-const colophon = [
-  `${posts.length} ${t(lang, 'home.meta.words')}`,
-  `${topics.length} ${t(lang, 'home.meta.threads')}`,
-  `${totalSources} ${t(lang, 'home.meta.sources')}`,
-  t(lang, 'home.meta.private'),
-].join('  ·  ');
+const archiveStats = [
+  { value: String(posts.length), label: t(lang, 'home.meta.words') },
+  { value: String(topics.length), label: t(lang, 'home.meta.threads') },
+  { value: String(totalSources), label: t(lang, 'home.meta.sources') },
+];
+const privacyNote = t(lang, 'home.meta.private');
 ---
 
 <BaseLayout lang={lang} bare title={t(lang, 'home.title')}>
@@ -153,6 +104,7 @@ const colophon = [
             <div class="container-page">
               <a
                 href={feature.href}
+                data-reveal
                 class="group relative block overflow-hidden border-t border-line py-10 sm:py-14"
               >
                 <span class="issue-numeral" aria-hidden="true">{issueNo}</span>
@@ -197,6 +149,7 @@ const colophon = [
         <section class="bg-paper">
           <div class="container-page py-14 sm:py-16">
             <h2
+              data-reveal
               class="flex items-baseline gap-3 text-[clamp(21px,2.5vw,26px)] font-semibold tracking-[-0.022em] text-ink"
             >
               <StarMark class="h-3 w-3 shrink-0 translate-y-[-2px] text-muted-2" />
@@ -204,17 +157,17 @@ const colophon = [
               {t(lang, 'home.picks')}
             </h2>
 
-            <div class="mt-4 border-t border-line">
+            <div data-reveal-stagger class="mt-4 border-t border-line">
               {
                 pickItems.map(({ post, num, lead }, i) => (
                   <a
                     href={post.href}
                     class:list={[
-                      'group grid items-baseline gap-x-7 gap-y-2 py-6 sm:py-7 lg:grid-cols-[40px_1fr_auto]',
+                      'group hover-lift grid items-baseline gap-x-7 gap-y-2 py-6 sm:py-7 lg:grid-cols-[40px_1fr_auto]',
                       i === pickItems.length - 1 ? '' : 'border-b border-line',
                     ]}
                   >
-                    <span class="hidden font-mono text-[12px] tabular-nums text-muted-2 lg:block">
+                    <span class="hidden font-mono text-[12px] tabular-nums text-muted-2 transition-colors group-hover:text-blue lg:block">
                       {num}
                     </span>
                     <div>
@@ -253,7 +206,7 @@ const colophon = [
         {/* Latest — strictly chronological feed, grouped by calendar day */}
         <section class="bg-white">
           <div class="container-page py-14 sm:py-16">
-            <div class="flex items-baseline justify-between gap-4">
+            <div data-reveal class="flex items-baseline justify-between gap-4">
               <h2
                 class="flex items-baseline gap-3 text-[clamp(21px,2.5vw,26px)] font-semibold tracking-[-0.022em] text-ink"
               >
@@ -272,15 +225,15 @@ const colophon = [
 
             {
               latestGroups.map((group) => (
-                <div>
+                <div data-reveal>
                   <p class="mt-9 pb-1 text-[12px] font-semibold text-muted-2">
                     {group.label}
                   </p>
                   <ol class="grid md:grid-cols-2">
                     {group.items.map(({ post, num }) => (
                       <li class="md:[&:nth-child(even)]:pl-6 md:[&:nth-child(odd)]:pr-6">
-                        <a href={post.href} class="group flex items-baseline gap-4 border-t border-line py-3.5">
-                          <span class="w-6 shrink-0 font-mono text-[11.5px] tabular-nums text-muted-2">
+                        <a href={post.href} class="group hover-lift flex items-baseline gap-4 border-t border-line py-3.5">
+                          <span class="w-6 shrink-0 font-mono text-[11.5px] tabular-nums text-muted-2 transition-colors group-hover:text-blue">
                             {num}
                           </span>
                           <span class="min-w-0 flex-1 text-[14.5px] font-medium leading-snug tracking-[-0.008em] text-ink transition-colors duration-200 group-hover:text-blue">
@@ -300,15 +253,16 @@ const colophon = [
         <section class="bg-white">
           <div class="container-page py-14 sm:py-16">
             <h2
+              data-reveal
               class="flex items-baseline gap-3 text-[clamp(21px,2.5vw,26px)] font-semibold tracking-[-0.022em] text-ink"
             >
               <StarMark class="h-3 w-3 shrink-0 translate-y-[-2px] text-muted-2" />
               <span class="font-mono text-[12.5px] tabular-nums tracking-[0.1em] text-muted-2">03</span>
               {t(lang, 'home.topics')}
             </h2>
-            <p class="mt-2 text-[14px] text-muted">{t(lang, 'home.topics.sub')}</p>
+            <p data-reveal class="mt-2 text-[14px] text-muted">{t(lang, 'home.topics.sub')}</p>
 
-            <div class="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-0">
+            <div data-reveal-stagger class="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-0">
               {
                 topicCards.map((topic) => (
                   <a
@@ -345,17 +299,40 @@ const colophon = [
           </div>
         </section>
 
-        {/* Colophon — one quiet meta line, no dark stat slab */}
+        {/* Colophon — large build-time archive figures, then a quiet meta row */}
         <section class="bg-paper">
-          <div class="container-page py-12 sm:py-14">
-            <div class="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+          <div class="container-page py-14 sm:py-16">
+            <dl data-reveal class="grid grid-cols-3 gap-x-6 border-t border-line pt-10">
+              {
+                archiveStats.map((stat, i) => (
+                  <div
+                    class:list={[
+                      'flex min-w-0 flex-col',
+                      i > 0 ? 'border-l border-line-soft pl-5 sm:pl-8' : '',
+                    ]}
+                  >
+                    <dd
+                      data-count={stat.value}
+                      class="order-1 text-[clamp(32px,4.2vw,54px)] font-semibold leading-none tracking-[-0.035em] text-ink tabular-nums"
+                    >
+                      {stat.value}
+                    </dd>
+                    <dt class="order-2 mt-2.5 text-[11.5px] leading-snug text-muted-2 sm:text-[12.5px]">
+                      {stat.label}
+                    </dt>
+                  </div>
+                ))
+              }
+            </dl>
+
+            <div data-reveal class="mt-12 flex flex-col gap-7 border-t border-line-soft pt-7 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <p class="flex items-center gap-2">
                   <StarMark class="h-3 w-3 shrink-0 text-muted-2" />
                   <span class="font-mono text-[11.5px] tabular-nums tracking-[0.1em] text-muted-2">04</span>
                   <span class="eyebrow">{t(lang, 'home.meta.eyebrow')}</span>
                 </p>
-                <p class="mt-3 text-[14px] leading-relaxed text-muted">{colophon}</p>
+                <p class="mt-3 text-[13px] leading-relaxed text-muted-2">{privacyNote}</p>
               </div>
               <div class="flex shrink-0 items-center gap-7">
                 <a

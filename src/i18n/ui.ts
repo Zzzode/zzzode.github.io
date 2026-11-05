@@ -181,6 +181,15 @@ const dict = {
     'search.unavailable': '搜索索引暂不可用，请先运行 npm run build 与 pagefind 索引。',
     'search.archive': '浏览全部文章',
 
+    'cmd.placeholder': '搜索文章…',
+    'cmd.commands': '导航',
+    'cmd.results': '文章',
+    'cmd.empty': '没有匹配的文章',
+    'cmd.loading': '搜索中…',
+    'cmd.unavailable': '搜索索引暂不可用，请使用搜索页。',
+    'cmd.unit': '篇',
+    'filter.all': '全部',
+
     'about.eyebrow': 'IDENTITY',
     'about.title': '关于',
     'about.statement': '用编译器的纪律，做语言、虚拟机，和智能体的运行时。',
@@ -377,6 +386,15 @@ const dict = {
     'search.loading': 'Loading the search index…',
     'search.unavailable': 'The search index is unavailable. Build the site and run the pagefind index step first.',
     'search.archive': 'Browse all posts',
+
+    'cmd.placeholder': 'Search articles…',
+    'cmd.commands': 'Navigation',
+    'cmd.results': 'Articles',
+    'cmd.empty': 'No matching articles',
+    'cmd.loading': 'Searching…',
+    'cmd.unavailable': 'Search index unavailable — please use the search page.',
+    'cmd.unit': '',
+    'filter.all': 'All',
 
     'about.eyebrow': 'IDENTITY',
     'about.title': 'About',

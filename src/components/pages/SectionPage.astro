@@ -5,6 +5,7 @@ import EntryList from '../EntryList.astro';
 import EmptyState from '../EmptyState.astro';
 import { type Lang, t } from '../../i18n/ui';
 import { getEntries, type SectionName } from '../../lib/content';
+import { TOPICS, topicOfHref } from '../../lib/topics';
 
 interface Props {
   lang: Lang;
@@ -13,6 +14,17 @@ interface Props {
 
 const { lang, name } = Astro.props;
 const entries = await getEntries(name, lang);
+const prefix = lang === 'en' ? '/en' : '';
+
+// Only render segments for threads that actually have entries in this locale.
+const filterTopics =
+  name === 'posts'
+    ? TOPICS.map((topic) => ({
+        key: topic.key,
+        label: t(lang, `topic.${topic.key}`),
+        count: entries.filter((e) => topicOfHref(e.href) === topic.key).length,
+      })).filter((topic) => topic.count > 0)
+    : [];
 ---
 
 <BaseLayout lang={lang} title={t(lang, `section.${name}`)}>
@@ -23,17 +35,44 @@ const entries = await getEntries(name, lang);
   />
   {
     name === 'posts' && (
-      <p class="mb-2 mt-6 flex flex-wrap gap-5">
-        <a
-          href={`${lang === 'en' ? '/en' : ''}/posts/tags/`}
-          class="text-[13.5px] text-muted-2 transition-colors hover:text-blue"
-        >
-          {t(lang, 'tags.browse')} ›
-        </a>
-        <a href={`${lang === 'en' ? '/en' : ''}/daily/`} class="text-[13.5px] text-blue">
-          {t(lang, 'daily.archive')} ›
-        </a>
-      </p>
+      <>
+        <p class="mb-2 mt-6 flex flex-wrap gap-5">
+          <a
+            href={`${prefix}/posts/tags/`}
+            class="text-[13.5px] text-muted-2 transition-colors hover:text-blue"
+          >
+            {t(lang, 'tags.browse')} ›
+          </a>
+          <a href={`${prefix}/daily/`} class="text-[13.5px] text-blue">
+            {t(lang, 'daily.archive')} ›
+          </a>
+        </p>
+        {
+          filterTopics.length > 0 && (
+            <div class="filter-bar" data-post-filter hidden>
+              <div class="filter-track" data-filter-track role="tablist" aria-label={t(lang, 'home.topics')}>
+                <span class="filter-indicator" data-filter-indicator hidden aria-hidden="true"></span>
+                <button type="button" class="filter-btn" data-filter-key="all" aria-pressed="true">
+                  {t(lang, 'filter.all')}
+                </button>
+                {filterTopics.map((topic) => (
+                  <button
+                    type="button"
+                    class="filter-btn"
+                    data-filter-key={topic.key}
+                    aria-pressed="false"
+                  >
+                    {topic.label}
+                  </button>
+                ))}
+              </div>
+              <p class="filter-meta" data-filter-count data-unit={t(lang, 'cmd.unit')}>
+                {entries.length} {t(lang, 'cmd.unit')}
+              </p>
+            </div>
+          )
+        }
+      </>
     )
   }
   {
@@ -42,8 +81,17 @@ const entries = await getEntries(name, lang);
     ) : (
       <EntryList
         entries={entries}
-        tagHref={name === 'posts' ? `${lang === 'en' ? '/en' : ''}/posts/tags` : undefined}
+        tagHref={name === 'posts' ? `${prefix}/posts/tags` : undefined}
+        filterList={name === 'posts'}
+        topicOf={name === 'posts' ? (e) => topicOfHref(e.href) : undefined}
       />
+    )
+  }
+  {
+    name === 'posts' && (
+      <script>
+        import '../../scripts/post-filter';
+      </script>
     )
   }
 </BaseLayout>
