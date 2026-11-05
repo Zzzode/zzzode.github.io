@@ -38,6 +38,16 @@ const index = ordered.findIndex((e) => e.id === post.id);
 const newer = index > 0 ? ordered[index - 1] : undefined;
 const older = index >= 0 && index < ordered.length - 1 ? ordered[index + 1] : undefined;
 const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id)}/`;
+
+// Build-time index for in-article hover preview cards.
+const linkIndex: Record<string, { title: string; date: string; excerpt: string }> = {};
+for (const entry of await getLocalized('posts', lang)) {
+  linkIndex[hrefOf(entry)] = {
+    title: entry.data.title,
+    date: formatDate(entry.data.date, lang),
+    excerpt: entry.data.excerpt ?? '',
+  };
+}
 ---
 
 <BaseLayout
@@ -49,6 +59,13 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
 >
   <!-- TOC rail populated by the article script at wide widths -->
   <div data-toc aria-hidden="false"></div>
+  <script
+    is:inline
+    type="application/json"
+    data-link-index
+    data-pagefind-ignore
+    set:html={JSON.stringify(linkIndex)}
+  ></script>
 
   <!-- Liquid-glass refraction: soft noise lens applied to the TOC's backdrop
        in Chromium; other browsers fall back to a light blur. -->
@@ -209,5 +226,8 @@ const hrefOf = (e: CollectionEntry<'posts'>) => `${prefix}/posts/${slugOfId(e.id
   <script>
     import '../../scripts/article';
     import '../../scripts/code-copy';
+    import '../../scripts/figure-lightbox';
+    import '../../scripts/selection-quote';
+    import '../../scripts/link-preview';
   </script>
 </BaseLayout>

@@ -1448,3 +1448,161 @@ pre.astro-code:hover .code-copy,
     opacity: 1;
   }
 }
+
+/* Figure lightbox (post diagrams). */
+.lb-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: var(--glass-scrim);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.lb-scrim.is-in {
+  opacity: 1;
+}
+.lb-panel {
+  width: min(760px, 94vw);
+  max-width: min(1100px, 94vw);
+  max-height: 88vh;
+  overflow: auto;
+  border-radius: var(--radius-card);
+  background: var(--glass-panel);
+  border: 1px solid var(--glass-rim-soft);
+  box-shadow:
+    inset 0 1px 0 var(--glass-rim),
+    0 18px 60px rgba(10, 18, 30, 0.22);
+  padding: 24px;
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.lb-scrim.is-in .lb-panel {
+  opacity: 1;
+  transform: scale(1);
+}
+.lb-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(88vh - 48px);
+  margin: 0 auto;
+}
+img.lb-figure {
+  object-fit: contain;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js-lightbox [data-article] svg {
+    cursor: zoom-in;
+  }
+  html.js-lightbox [data-article] .prose img,
+  html.js-lightbox [data-article] .article-prose img {
+    cursor: zoom-in;
+  }
+}
+
+/* Selection quote pill. */
+.quote-pop {
+  position: fixed;
+  z-index: 72;
+  border: 1px solid var(--glass-rim-soft);
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: #f5f5f7;
+  padding: 7px 15px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(10, 18, 30, 0.22);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease,
+    background-color 0.16s ease;
+}
+.quote-pop.is-in {
+  opacity: 1;
+  transform: none;
+}
+.quote-pop:hover {
+  background: #000;
+}
+.quote-pop.is-done {
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+}
+
+/* Internal link hover preview card. */
+.lp-card {
+  position: fixed;
+  z-index: 60;
+  width: min(320px, calc(100vw - 24px));
+  display: block;
+  text-decoration: none;
+  border-radius: 14px;
+  background: var(--glass-panel);
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  border: 1px solid var(--glass-rim-soft);
+  box-shadow:
+    inset 0 1px 0 var(--glass-rim),
+    0 12px 40px rgba(10, 18, 30, 0.18);
+  padding: 13px 15px;
+  opacity: 0;
+  transform: translateY(5px);
+  transition:
+    opacity 0.18s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.lp-card.is-in {
+  opacity: 1;
+  transform: none;
+}
+.lp-date {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: var(--color-muted-2);
+}
+.lp-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+.lp-excerpt {
+  margin: 5px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--color-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb-scrim,
+  .lb-panel,
+  .quote-pop,
+  .lp-card {
+    transition: none !important;
+  }
+  .lb-panel,
+  .quote-pop.is-in,
+  .lp-card.is-in {
+    transform: none;
+  }
+}
