@@ -33,7 +33,13 @@ function initPostFilter(): void {
   root.hidden = false;
 
   const total = items.length;
+  const keys = new Set(buttons.map((b) => b.dataset.filterKey ?? ''));
   let current = 'all';
+
+  const topicFromUrl = (): string => {
+    const value = new URLSearchParams(window.location.search).get('topic');
+    return value && keys.has(value) ? value : 'all';
+  };
 
   const formatCount = (n: number): string => {
     const unit = count?.dataset.unit ?? '';
@@ -73,10 +79,26 @@ function initPostFilter(): void {
     if (count) count.textContent = formatCount(key === 'all' ? total : visible);
   };
 
+  const choose = (key: string, push: boolean): void => {
+    if (!keys.has(key) || key === current) return;
+    apply(key, true);
+    if (!push) return;
+    const url = key === 'all'
+      ? window.location.pathname + window.location.hash
+      : `${window.location.pathname}?topic=${encodeURIComponent(key)}${window.location.hash}`;
+    window.history.pushState(window.history.state, '', url);
+  };
+
   track.addEventListener('click', (event) => {
     const button = (event.target as Element | null)?.closest<HTMLButtonElement>('[data-filter-key]');
-    if (!button || button.dataset.filterKey === current) return;
-    apply(button.dataset.filterKey ?? 'all', true);
+    if (!button) return;
+    choose(button.dataset.filterKey ?? 'all', true);
+  });
+
+  // Back/forward restores the segment from the URL.
+  window.addEventListener('popstate', () => {
+    const key = topicFromUrl();
+    if (key !== current) apply(key, true);
   });
 
   // Keep the indicator aligned across fonts loading, resize, and View
@@ -88,7 +110,7 @@ function initPostFilter(): void {
   ro.observe(track);
   if (document.fonts) void document.fonts.ready.then(() => moveIndicator(activeButton()));
 
-  apply('all', false);
+  apply(topicFromUrl(), false);
   if (reduceMotion) indicator.style.transition = 'none';
 }
 

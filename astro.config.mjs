@@ -51,6 +51,12 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  // ClientRouter defaults already prefetch on hover; state it explicitly so
+  // the instant-navigation intent survives Astro version upgrades.
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
   integrations: [sitemap(), mdx()],
   vite: {
     plugins: [tailwindcss()],

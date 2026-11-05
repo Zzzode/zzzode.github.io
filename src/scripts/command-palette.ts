@@ -20,6 +20,7 @@ interface PaletteStrings {
   empty: string;
   loading: string;
   unavailable: string;
+  hint: string;
   toSearch: string;
 }
 
@@ -34,13 +35,14 @@ interface PaletteConfig {
   pagefindBase: string;
   strings: PaletteStrings;
   commands: PaletteCommand[];
+  recent: PaletteCommand[];
 }
 
 interface PaletteItem {
   title: string;
   href: string;
   excerpt?: string;
-  kind: 'command' | 'result';
+  kind: 'command' | 'result' | 'recent';
 }
 
 interface PagefindResult {
@@ -91,6 +93,7 @@ class CommandPalette {
   private input: HTMLInputElement;
   private list: HTMLElement;
   private status: HTMLElement;
+  private hint: HTMLElement;
 
   private isOpen = false;
   private items: PaletteItem[] = [];
@@ -144,12 +147,23 @@ class CommandPalette {
     this.status = document.createElement('p');
     this.status.className = 'cmdk-status';
 
+    this.hint = document.createElement('p');
+    this.hint.className = 'cmdk-hint';
+    this.hint.setAttribute('aria-hidden', 'true');
+    const nav = navigator as Navigator & {
+      userAgentData?: { platform?: string };
+      platform?: string;
+    };
+    const platform = nav.userAgentData?.platform ?? nav.platform ?? navigator.userAgent;
+    const mod = /mac|iphone|ipad/i.test(platform) ? '⌘' : 'Ctrl';
+    this.hint.textContent = cfg.strings.hint.replace('{mod}', mod);
+
     this.list = document.createElement('div');
     this.list.className = 'cmdk-list';
     this.list.id = 'cmdk-list';
     this.list.setAttribute('role', 'listbox');
 
-    this.panel.append(field, this.status, this.list);
+    this.panel.append(field, this.status, this.list, this.hint);
     document.body.append(this.scrim, this.panel);
   }
 
@@ -207,8 +221,9 @@ class CommandPalette {
         const url = `${this.cfg.pagefindBase}pagefind.js`;
         import(/* @vite-ignore */ url)
           .then(async (mod: { default?: Pagefind } & Partial<Pagefind>) => {
-            const pagefind = mod.default ?? (mod as unknown as Pagefind);
-            if (pagefind?.search) {
+            const candidate: Partial<Pagefind> | undefined = mod.default ?? mod;
+            if (candidate && typeof candidate.search === 'function') {
+              const pagefind = candidate as Pagefind;
               await pagefind.init({ path: this.cfg.pagefindBase });
               this.pagefind = pagefind;
               resolve(pagefind);
@@ -291,7 +306,11 @@ class CommandPalette {
   /* ---------- rendering ---------- */
 
   private renderCommands(): void {
-    this.items = this.cfg.commands.map((c) => ({ ...c, kind: 'command' as const }));
+    const items: PaletteItem[] = [
+      ...this.cfg.recent.map((c) => ({ ...c, kind: 'recent' as const })),
+      ...this.cfg.commands.map((c) => ({ ...c, kind: 'command' as const })),
+    ];
+    this.items = items;
     this.render(this.items, '');
   }
 
@@ -302,12 +321,19 @@ class CommandPalette {
 
     if (items.length > 0) {
       const groups: Array<{ kind: PaletteItem['kind']; label: string }> = [
+        { kind: 'recent', label: this.cfg.strings.results },
         { kind: 'command', label: this.cfg.strings.commands },
         { kind: 'result', label: this.cfg.strings.results },
       ];
+      const seenLabels = new Set<string>();
       for (const group of groups) {
         const groupItems = items.filter((i) => i.kind === group.kind);
         if (groupItems.length === 0) continue;
+        // recent and result share the "Articles" heading; render it once.
+        if (group.kind !== 'command') {
+          if (seenLabels.has(group.label)) continue;
+          seenLabels.add(group.label);
+        }
         const heading = document.createElement('p');
         heading.className = 'cmdk-group';
         heading.textContent = group.label;

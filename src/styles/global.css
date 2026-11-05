@@ -1289,10 +1289,35 @@ html:has(.article-canvas-wrap) {
   font-size: 13px;
   color: var(--color-muted);
 }
+.cmdk-hint {
+  margin: 0;
+  padding: 9px 18px 11px;
+  border-top: 1px solid var(--glass-edge-soft);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-muted-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 480px) {
+  .cmdk-hint {
+    display: none;
+  }
+}
 
-/* /posts topic filter */
+/* /posts topic filter. Sticks under the 44px global nav while the long
+   entry list scrolls; the white band occludes rows sliding underneath. */
 .filter-bar {
+  position: sticky;
+  top: 2.75rem;
+  z-index: 15;
   margin: 4px 0 10px;
+  padding: 10px 0 8px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  border-bottom: 1px solid var(--color-line-soft);
 }
 .filter-track {
   position: relative;
@@ -1376,5 +1401,50 @@ html.js-filter [data-filter-list] li[data-state='hide'] {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
+  }
+}
+
+/* Copy-to-clipboard chip on Shiki code blocks (post pages). */
+pre.astro-code {
+  position: relative;
+}
+.code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 3px 11px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+pre.astro-code:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+.code-copy:hover {
+  color: var(--color-ink);
+  border-color: var(--color-muted-2);
+}
+.code-copy.is-done {
+  color: var(--color-blue);
+  border-color: var(--color-blue);
+  opacity: 1;
+}
+/* Touch: no hover affordance exists, keep the chip reachable. */
+@media (hover: none) {
+  .code-copy {
+    opacity: 1;
   }
 }

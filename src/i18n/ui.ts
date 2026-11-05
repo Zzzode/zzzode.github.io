@@ -188,6 +188,7 @@ const dict = {
     'cmd.loading': '搜索中…',
     'cmd.unavailable': '搜索索引暂不可用，请使用搜索页。',
     'cmd.unit': '篇',
+    'cmd.hint': '{mod}K 打开 · ↑↓ 选择 · ↵ 前往 · Esc 关闭',
     'filter.all': '全部',
 
     'about.eyebrow': 'IDENTITY',
@@ -394,6 +395,7 @@ const dict = {
     'cmd.loading': 'Searching…',
     'cmd.unavailable': 'Search index unavailable — please use the search page.',
     'cmd.unit': '',
+    'cmd.hint': '{mod}K to open · ↑↓ select · ↵ go · Esc close',
     'filter.all': 'All',
 
     'about.eyebrow': 'IDENTITY',

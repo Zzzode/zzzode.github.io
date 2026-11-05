@@ -4,6 +4,8 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import { type Lang, defaultLang, switchLocalePath, t } from '../i18n/ui';
+import { getLocalized } from '../lib/content';
+import { isDaily } from '../lib/post-policy';
 
 interface Props {
   lang?: Lang;
@@ -35,6 +37,16 @@ const rssHref = lang === 'en' ? '/en/rss.xml' : '/rss.xml';
 const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID?.trim();
 const prefix = lang === 'en' ? '/en' : '';
 
+// Recent long-form posts for the palette's empty state (build-time only).
+const recentPosts = (await getLocalized('posts', lang))
+  .filter((post) => !isDaily(post))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5)
+  .map((post) => ({
+    title: post.data.title,
+    href: `${prefix}/posts/${post.id.replace(/^(zh|en)\//, '')}/`,
+  }));
+
 const commandConfig = {
   locale: lang,
   pagefindBase: '/pagefind/',
@@ -45,6 +57,7 @@ const commandConfig = {
     empty: t(lang, 'cmd.empty'),
     loading: t(lang, 'cmd.loading'),
     unavailable: t(lang, 'cmd.unavailable'),
+    hint: t(lang, 'cmd.hint'),
   },
   commands: [
     { title: t(lang, 'nav.posts'), href: `${prefix}/posts/` },
@@ -57,6 +70,7 @@ const commandConfig = {
     { title: t(lang, 'nav.about'), href: `${prefix}/about/` },
     { title: t(lang, 'nav.search'), href: `${prefix}/search/` },
   ],
+  recent: recentPosts,
 };
 ---
 
