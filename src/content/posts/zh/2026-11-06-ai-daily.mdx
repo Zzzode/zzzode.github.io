@@ -2,6 +2,7 @@
 {
   "title": "AI 日报 · 2026-11-06｜Agent 数据基础设施与安全评估",
   "date": "2026-11-06T02:40:52Z",
+  "updated": "2026-11-06T02:50:11Z",
   "excerpt": "Dropbox 和 Five9 披露拟议交易；多项模型与研究公告仍需核实是否落在截稿窗口。",
   "tags": [
     "AI",
@@ -435,6 +436,7 @@
     }
   ],
   "daily": {
+    "correction": "更新说明：修复数据基础设施示意图的卡片边界与文字显示。",
     "issueDate": "2026-11-06",
     "timeZone": "Asia/Shanghai",
     "windowStart": "2026-11-05T10:00:00+08:00",
@@ -935,13 +937,13 @@ import { Section, SectionHead, Prose } from '@/components/article';
     <svg viewBox="0 0 360 275" role="img" aria-labelledby="data-flow-title data-flow-desc" class="mx-auto w-full max-w-[480px]">
       <title id="data-flow-title">Agent 应用中的两类数据工作</title>
       <desc id="data-flow-desc">Dropbox 公告描述兼容 S3 的对象存储；Five9 公告描述客服对话应用。示意图不表示两家公司产品互相连接。</desc>
-      <g fill="var(--color-ink)" fontFamily="sans-serif" fontSize="20">
+      <g fill="var(--color-ink)" font-family="var(--font-sans)" font-size="20">
         <text x="16" y="30">文件与模型资产</text>
-        <rect x="12" y="45" width="336" height="72" rx="12" fill="var(--color-paper)" />
-        <text x="28" y="75">DBX Agent Cloud</text><text x="28" y="101" fontSize="19">从兼容 S3 的对象存储起步</text>
+        <rect x="12" y="45" width="336" height="72" rx="12" fill="var(--color-paper)" stroke="var(--color-muted-2)" stroke-width="1.5" />
+        <text x="28" y="75">DBX Agent Cloud</text><text x="28" y="101" font-size="19">从兼容 S3 的对象存储起步</text>
         <text x="16" y="158">客户对话</text>
-        <rect x="12" y="173" width="336" height="72" rx="12" fill="var(--color-paper)" />
-        <text x="28" y="203">Five9 与 Level AI</text><text x="28" y="229" fontSize="19">计划扩充客服应用</text>
+        <rect x="12" y="173" width="336" height="72" rx="12" fill="var(--color-paper)" stroke="var(--color-muted-2)" stroke-width="1.5" />
+        <text x="28" y="203">Five9 与 Level AI</text><text x="28" y="229" font-size="19">计划扩充客服应用</text>
       </g>
     </svg>
   </div>

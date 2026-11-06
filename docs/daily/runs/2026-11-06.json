@@ -6,7 +6,7 @@
   "windowStart": "2026-11-05T10:00:00+08:00",
   "cutoff": "2026-11-06T10:00:00+08:00",
   "startedAt": "2026-11-06T02:03:55Z",
-  "completedAt": "2026-11-06T02:44:13Z",
+  "completedAt": "2026-11-06T02:52:32Z",
   "queries": [
     {
       "id": "q-open",
@@ -5956,7 +5956,7 @@
   },
   "review": {
     "reviewer": "reviewer",
-    "reviewedAt": "2026-11-06T02:43:49Z",
+    "reviewedAt": "2026-11-06T02:51:56Z",
     "candidateIds": [
       "c-drop",
       "c-five",
@@ -6098,6 +6098,11 @@
         "detail": "Boundary dates and source timezones, inaccessible full texts and Xinhua app shell, unreplicated research, unresolved identities and incomplete Chinese industrial finance, policy and non-English research coverage.",
         "severity": "note",
         "resolution": "disclosed"
+      },
+      {
+        "detail": "Online visual review found card outlines absent and SVG font attributes ineffective; corrected and independently reviewed in local Chromium.",
+        "severity": "note",
+        "resolution": "fixed"
       }
     ]
   },
@@ -6133,6 +6138,7 @@
       "late-reflection"
     ],
     "limitations": "Date-only events straddle cutoff; inaccessible sources and paper publication dates remain unresolved; unreplicated research, incomplete non-English discovery and JEV/Laya/OSC identities are disclosed in the article and review.",
-    "sha256": "68661da07900140c5c40349173b8f460453ff2d8d20daec3b98ab528fb241d8c"
+    "sha256": "ca13c69258a5b18afdfb3a75af06824930e769ca176d552c433dd46acf1bd4a9",
+    "originalDate": "2026-11-06T02:40:52Z"
   }
 }
