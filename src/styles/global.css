@@ -1152,6 +1152,15 @@ html:has(.article-canvas-wrap) {
     transform: none;
   }
 
+  /* Grow bars — width animates from 0 to the authored --grow value. */
+  html.js-reveal [data-grow] {
+    width: 0;
+    transition: width 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.1s;
+  }
+  html.js-reveal [data-grow].is-in {
+    width: var(--grow, 100%);
+  }
+
   /* Row tactility — a few pixels of travel gives the hairline lists
      their press feel. Hover pointers with motion enabled only. */
   @media (hover: hover) {

@@ -8,6 +8,7 @@
  * Markup contract:
  *   [data-reveal]            one block that fades/rises into view
  *   [data-reveal-stagger]    direct children cascade inside one parent
+ *   [data-grow]              bar that grows width to its --grow value
  *   [data-count]             integer text content counted up on enter
  *                            (server-rendered final value stays the fallback)
  */
@@ -43,6 +44,23 @@ function initChoreography(): void {
       { rootMargin: '0px 0px -8% 0px', threshold: 0 }
     );
     revealTargets.forEach((el) => io.observe(el));
+
+    /* ---------- grow bars (e.g. daily overview distribution) ---------- */
+    const bars = Array.from(document.querySelectorAll<HTMLElement>('[data-grow]'));
+    if (bars.length > 0) {
+      const barIO = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              barIO.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.5 }
+      );
+      bars.forEach((bar) => barIO.observe(bar));
+    }
   }
 
   /* ---------- count-up figures ---------- */
