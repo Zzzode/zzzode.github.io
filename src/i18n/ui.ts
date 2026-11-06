@@ -189,6 +189,10 @@ const dict = {
     'cmd.unavailable': '搜索索引暂不可用，请使用搜索页。',
     'cmd.unit': '篇',
     'cmd.hint': '{mod}K 打开 · ↑↓ 选择 · ↵ 前往 · Esc 关闭',
+    'cmd.action': '动作',
+    'cmd.action.top': '回到顶部',
+    'cmd.action.copyLink': '复制本页链接',
+    'cmd.action.copied': '链接已复制',
     'filter.all': '全部',
 
     'about.eyebrow': 'IDENTITY',
@@ -396,6 +400,10 @@ const dict = {
     'cmd.unavailable': 'Search index unavailable — please use the search page.',
     'cmd.unit': '',
     'cmd.hint': '{mod}K to open · ↑↓ select · ↵ go · Esc close',
+    'cmd.action': 'Actions',
+    'cmd.action.top': 'Back to top',
+    'cmd.action.copyLink': 'Copy this page link',
+    'cmd.action.copied': 'Link copied',
     'filter.all': 'All',
 
     'about.eyebrow': 'IDENTITY',

@@ -28,6 +28,7 @@ const { entries, tagHref, largeTargets = false, filterList = false, topicOf } = 
             href={entry.href}
             rel={entry.external ? 'noopener noreferrer' : undefined}
             target={entry.external ? '_blank' : undefined}
+            transition:name={entry.external ? undefined : `post-title-${entry.href.split('/').filter(Boolean).pop()}`}
             class:list={[
               'text-[16.5px] font-semibold tracking-[-0.01em] text-ink transition-colors hover:text-blue',
               largeTargets && 'inline-flex min-h-11 items-center',

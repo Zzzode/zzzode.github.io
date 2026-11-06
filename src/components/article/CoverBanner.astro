@@ -17,9 +17,11 @@ interface Props {
   title: string;
   lead?: string;
   pills?: Pill[];
+  /** Stable View Transition name shared with the list/teaser title linking here. */
+  titleTransitionName?: string;
 }
 
-const { kicker, title, lead, pills = [] } = Astro.props;
+const { kicker, title, lead, pills = [], titleTransitionName } = Astro.props;
 ---
 
 <section
@@ -29,6 +31,8 @@ const { kicker, title, lead, pills = [] } = Astro.props;
   <div data-hero-main>
     <p class="eyebrow">{kicker}</p>
     <h1
+      data-title-morph
+      transition:name={titleTransitionName}
       class="mt-4 text-[clamp(30px,4.6vw,52px)] font-semibold leading-[1.08] tracking-[-0.032em] text-ink"
     >
       {title}

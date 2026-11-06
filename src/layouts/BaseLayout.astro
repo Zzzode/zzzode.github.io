@@ -58,6 +58,8 @@ const commandConfig = {
     loading: t(lang, 'cmd.loading'),
     unavailable: t(lang, 'cmd.unavailable'),
     hint: t(lang, 'cmd.hint'),
+    action: t(lang, 'cmd.action'),
+    actionCopied: t(lang, 'cmd.action.copied'),
   },
   commands: [
     { title: t(lang, 'nav.posts'), href: `${prefix}/posts/` },
@@ -71,6 +73,12 @@ const commandConfig = {
     { title: t(lang, 'nav.search'), href: `${prefix}/search/` },
   ],
   recent: recentPosts,
+  actions: {
+    top: t(lang, 'cmd.action.top'),
+    copyLink: t(lang, 'cmd.action.copyLink'),
+    switchLang: lang === 'zh' ? 'English' : '中文',
+  },
+  switchLangHref: altPath === undefined ? (lang === 'zh' ? '/en/' : '/') : altPath ?? null,
 };
 ---
 

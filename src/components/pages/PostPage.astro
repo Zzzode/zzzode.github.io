@@ -59,6 +59,12 @@ for (const entry of await getLocalized('posts', lang)) {
 >
   <!-- TOC rail populated by the article script at wide widths -->
   <div data-toc aria-hidden="false"></div>
+  {/* Shared-element transition: the list title morphs into this post's H1.
+      Slugs are date-prefixed kebab names, safe inside a CSS ident value. */}
+  <style
+    is:inline
+    set:html={`[data-article] [data-title-morph]{view-transition-name:post-title-${slugOfId(post.id)}}`}
+  ></style>
   <script
     is:inline
     type="application/json"
@@ -112,6 +118,7 @@ for (const entry of await getLocalized('posts', lang)) {
         <header class="reveal mb-8">
           <p class="eyebrow">WRITING</p>
           <h1
+            data-title-morph
             class="mt-3 text-[clamp(28px,4vw,38px)] font-semibold leading-[1.12] tracking-[-0.025em] text-ink"
           >
             {post.data.title}
@@ -229,5 +236,6 @@ for (const entry of await getLocalized('posts', lang)) {
     import '../../scripts/figure-lightbox';
     import '../../scripts/selection-quote';
     import '../../scripts/link-preview';
+    import '../../scripts/reading-resume';
   </script>
 </BaseLayout>

@@ -21,8 +21,12 @@ interface PaletteStrings {
   loading: string;
   unavailable: string;
   hint: string;
+  action: string;
+  actionCopied: string;
   toSearch: string;
 }
+
+type ActionKind = 'top' | 'copyLink' | 'switchLang';
 
 interface PaletteCommand {
   title: string;
@@ -36,13 +40,16 @@ interface PaletteConfig {
   strings: PaletteStrings;
   commands: PaletteCommand[];
   recent: PaletteCommand[];
+  actions: { top: string; copyLink: string; switchLang: string };
+  switchLangHref: string | null;
 }
 
 interface PaletteItem {
   title: string;
   href: string;
   excerpt?: string;
-  kind: 'command' | 'result' | 'recent';
+  kind: 'command' | 'result' | 'recent' | 'action';
+  action?: ActionKind;
 }
 
 interface PagefindResult {
@@ -204,11 +211,31 @@ class CommandPalette {
 
   /* ---------- data ---------- */
 
+  private actionItems(): PaletteItem[] {
+    const a = this.cfg.actions;
+    const items: PaletteItem[] = [
+      { title: a.top, href: '#', kind: 'action', action: 'top' },
+      { title: a.copyLink, href: '#', kind: 'action', action: 'copyLink' },
+    ];
+    if (this.cfg.switchLangHref) {
+      items.push({
+        title: a.switchLang,
+        href: this.cfg.switchLangHref,
+        kind: 'action',
+        action: 'switchLang',
+      });
+    }
+    return items;
+  }
+
   private matchingCommands(query: string): PaletteItem[] {
     const q = query.trim().toLowerCase();
-    return this.cfg.commands
-      .filter((c) => !q || c.title.toLowerCase().includes(q))
+    const matches = (s: string) => !q || s.toLowerCase().includes(q);
+    const nav: PaletteItem[] = this.cfg.commands
+      .filter((c) => matches(c.title))
       .map((c) => ({ ...c, kind: 'command' as const }));
+    const acts = this.actionItems().filter((c) => matches(c.title));
+    return [...nav, ...acts];
   }
 
   private async loadPagefind(): Promise<Pagefind | null> {
@@ -309,6 +336,7 @@ class CommandPalette {
     const items: PaletteItem[] = [
       ...this.cfg.recent.map((c) => ({ ...c, kind: 'recent' as const })),
       ...this.cfg.commands.map((c) => ({ ...c, kind: 'command' as const })),
+      ...this.actionItems(),
     ];
     this.items = items;
     this.render(this.items, '');
@@ -318,19 +346,21 @@ class CommandPalette {
     this.items = items;
     this.active = 0;
     this.list.replaceChildren();
+    this.query = this.input.value;
 
     if (items.length > 0) {
       const groups: Array<{ kind: PaletteItem['kind']; label: string }> = [
         { kind: 'recent', label: this.cfg.strings.results },
-        { kind: 'command', label: this.cfg.strings.commands },
         { kind: 'result', label: this.cfg.strings.results },
+        { kind: 'command', label: this.cfg.strings.commands },
+        { kind: 'action', label: this.cfg.strings.action },
       ];
       const seenLabels = new Set<string>();
       for (const group of groups) {
         const groupItems = items.filter((i) => i.kind === group.kind);
         if (groupItems.length === 0) continue;
         // recent and result share the "Articles" heading; render it once.
-        if (group.kind !== 'command') {
+        if (group.kind === 'recent' || group.kind === 'result') {
           if (seenLabels.has(group.label)) continue;
           seenLabels.add(group.label);
         }
@@ -349,6 +379,29 @@ class CommandPalette {
     this.syncActive();
   }
 
+  private highlight(text: string): DocumentFragment {
+    const fragment = document.createDocumentFragment();
+    const q = this.query.trim();
+    if (!q) {
+      fragment.textContent = text;
+      return fragment;
+    }
+    const index = text.toLowerCase().indexOf(q.toLowerCase());
+    if (index === -1) {
+      fragment.textContent = text;
+      return fragment;
+    }
+    fragment.append(
+      document.createTextNode(text.slice(0, index)),
+      Object.assign(document.createElement('mark'), {
+        className: 'cmdk-mark',
+        textContent: text.slice(index, index + q.length),
+      }),
+      document.createTextNode(text.slice(index + q.length))
+    );
+    return fragment;
+  }
+
   private optionNode(item: PaletteItem): HTMLElement {
     const row = document.createElement('a');
     row.className = `cmdk-option cmdk-option--${item.kind}`;
@@ -359,7 +412,7 @@ class CommandPalette {
 
     const title = document.createElement('span');
     title.className = 'cmdk-title';
-    title.textContent = item.title;
+    title.appendChild(this.highlight(item.title));
     row.appendChild(title);
 
     if (item.excerpt) {
@@ -376,7 +429,45 @@ class CommandPalette {
         this.syncActive();
       }
     });
+    if (item.kind === 'action') {
+      row.addEventListener('click', (event) => {
+        event.preventDefault();
+        void this.runAction(item);
+      });
+    }
     return row;
+  }
+
+  private async choose(item: PaletteItem): Promise<void> {
+    if (item.kind === 'action') {
+      await this.runAction(item);
+      return;
+    }
+    window.location.assign(item.href);
+  }
+
+  private async runAction(item: PaletteItem): Promise<void> {
+    switch (item.action) {
+      case 'top':
+        this.close();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        break;
+      case 'copyLink': {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          this.status.textContent = this.cfg.strings.actionCopied;
+          this.status.hidden = false;
+          window.setTimeout(() => this.close(), 600);
+        } catch {
+          /* clipboard blocked — just close */
+          this.close();
+        }
+        break;
+      }
+      case 'switchLang':
+        if (item.href) window.location.assign(item.href);
+        break;
+    }
   }
 
   private syncActive(): void {
@@ -424,7 +515,7 @@ class CommandPalette {
       case 'Enter': {
         event.preventDefault();
         const item = this.items[this.active];
-        if (item) window.location.assign(item.href);
+        if (item) void this.choose(item);
         break;
       }
       case 'Tab':

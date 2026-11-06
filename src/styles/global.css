@@ -1405,10 +1405,10 @@ html.js-filter [data-filter-list] li[data-state='hide'] {
     animation: none;
   }
   /* Kill the UA default view-transition crossfade too — reduced users
-     swap pages instantly. */
-  ::view-transition-group(root),
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
+     swap pages instantly, including shared-element morphs. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
     animation: none !important;
   }
 }
@@ -1614,4 +1614,79 @@ img.lb-figure {
   .lp-card.is-in {
     transform: none;
   }
+}
+
+/* Reading-resume capsule (post pages). */
+.resume-capsule {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  z-index: 50;
+  transform: translate(-50%, 12px);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 5px 4px 14px;
+  border-radius: 999px;
+  background: var(--glass-panel);
+  backdrop-filter: blur(24px) saturate(1.7);
+  -webkit-backdrop-filter: blur(24px) saturate(1.7);
+  border: 1px solid var(--glass-rim-soft);
+  box-shadow:
+    inset 0 1px 0 var(--glass-rim),
+    0 10px 34px rgba(10, 18, 30, 0.18);
+  opacity: 0;
+  transition:
+    opacity 0.24s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.resume-capsule.is-in {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.resume-go {
+  border: 0;
+  background: transparent;
+  padding: 7px 8px 7px 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.resume-go:hover {
+  color: var(--color-blue);
+}
+.resume-x {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--color-muted-2);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+.resume-x:hover {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .resume-capsule {
+    transition: none;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Command palette query-match highlight. */
+.cmdk-mark {
+  background: transparent;
+  color: var(--color-blue);
+  font-weight: 700;
 }
