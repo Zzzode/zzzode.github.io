@@ -1,0 +1,4658 @@
+{
+  "version": 2,
+  "runId": "2026-11-07",
+  "author": "author",
+  "issueDate": "2026-11-07",
+  "windowStart": "2026-11-06T10:00:00+08:00",
+  "cutoff": "2026-11-07T10:00:00+08:00",
+  "startedAt": "2026-11-07T02:02:55Z",
+  "queries": [
+    {
+      "id": "q-open",
+      "actor": "author",
+      "query": "Open Physicl announcement, Clutch report, Peppermint announcement, MIIT notice, BioBasicsBench, Reuters policy and funding, Glean release notes",
+      "executedAt": "2026-11-07T02:05:16Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents"
+      ],
+      "language": "en,zh",
+      "resultUrls": [
+        "https://rss.globenewswire.com/news-release/2026/11/06/3397485/0/en/physicl-raises-10-million-to-solve-physical-ai-s-edge-case-gap.html",
+        "https://techcrunch.com/2026/11/05/palo-alto-networks-in-talks-to-buy-ai-agent-security-startup-clutch-for-500m/",
+        "https://www.peppermintrobotics.com/europe/blog/pre-series-b",
+        "https://www.miit.gov.cn/jgsj/xgj/gzdt/art/2026/art_210e15c2c8184bee9d3240f8a13b7401.html",
+        "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/",
+        "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/",
+        "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/",
+        "https://docs.glean.com/release-notes/releases/2026-11-06-november-release"
+      ],
+      "notes": "Batch source reads. WIP: candidate inventory and source-time verification are not complete."
+    },
+    {
+      "id": "q-batch-1",
+      "actor": "author",
+      "query": "AI artificial intelligence news November 6 2026 model launches funding research",
+      "executedAt": "2026-11-07T02:05:35Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/",
+        "https://www.reuters.com/legal/litigation/ro-launches-healthcare-research-unit-plans-offer-data-drugmakers-2026-11-06/",
+        "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/",
+        "https://apnews.com/article/63b33be8884d867d3ac831040d683a2c",
+        "https://apnews.com/article/b4f3f9f368697bb37416bcb4fabdd67c",
+        "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking",
+        "https://www.wsj.com/pro/venture-capital/vcs-are-enamored-of-ai-but-are-they-getting-nervous-8593dfcc",
+        "https://www.anthropic.com/news",
+        "https://digestai.news/daily/2026-11-06",
+        "https://tandiuai.cn/funding",
+        "https://www.un.org/digital-emerging-technologies/content/barbados-and-united-nations-co-host-special-summit-ai-safety-23-november"
+      ],
+      "notes": "Pooled relevant URLs from the batch; not attributed to individual queries. The raw trace is stored outside the repository."
+    },
+    {
+      "id": "q-batch-2",
+      "actor": "author",
+      "query": "人工智能 2026年11月6日 大模型 融资 智能体",
+      "executedAt": "2026-11-07T02:05:35Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/",
+        "https://www.reuters.com/legal/litigation/ro-launches-healthcare-research-unit-plans-offer-data-drugmakers-2026-11-06/",
+        "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/",
+        "https://apnews.com/article/63b33be8884d867d3ac831040d683a2c",
+        "https://apnews.com/article/b4f3f9f368697bb37416bcb4fabdd67c",
+        "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking",
+        "https://www.wsj.com/pro/venture-capital/vcs-are-enamored-of-ai-but-are-they-getting-nervous-8593dfcc",
+        "https://www.anthropic.com/news",
+        "https://digestai.news/daily/2026-11-06",
+        "https://tandiuai.cn/funding",
+        "https://www.un.org/digital-emerging-technologies/content/barbados-and-united-nations-co-host-special-summit-ai-safety-23-november"
+      ],
+      "notes": "Pooled relevant URLs from the batch; not attributed to individual queries. The raw trace is stored outside the repository."
+    },
+    {
+      "id": "q-batch-3",
+      "actor": "author",
+      "query": "AI safety data governance November 6 2026 artificial intelligence",
+      "executedAt": "2026-11-07T02:05:35Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/",
+        "https://www.reuters.com/legal/litigation/ro-launches-healthcare-research-unit-plans-offer-data-drugmakers-2026-11-06/",
+        "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/",
+        "https://apnews.com/article/63b33be8884d867d3ac831040d683a2c",
+        "https://apnews.com/article/b4f3f9f368697bb37416bcb4fabdd67c",
+        "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking",
+        "https://www.wsj.com/pro/venture-capital/vcs-are-enamored-of-ai-but-are-they-getting-nervous-8593dfcc",
+        "https://www.anthropic.com/news",
+        "https://digestai.news/daily/2026-11-06",
+        "https://tandiuai.cn/funding",
+        "https://www.un.org/digital-emerging-technologies/content/barbados-and-united-nations-co-host-special-summit-ai-safety-23-november"
+      ],
+      "notes": "Pooled relevant URLs from the batch; not attributed to individual queries. The raw trace is stored outside the repository."
+    },
+    {
+      "id": "q-batch-4",
+      "actor": "author",
+      "query": "November 6 2026 AI agents model research announcement",
+      "executedAt": "2026-11-07T02:05:35Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/",
+        "https://www.reuters.com/legal/litigation/ro-launches-healthcare-research-unit-plans-offer-data-drugmakers-2026-11-06/",
+        "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/",
+        "https://apnews.com/article/63b33be8884d867d3ac831040d683a2c",
+        "https://apnews.com/article/b4f3f9f368697bb37416bcb4fabdd67c",
+        "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking",
+        "https://www.wsj.com/pro/venture-capital/vcs-are-enamored-of-ai-but-are-they-getting-nervous-8593dfcc",
+        "https://www.anthropic.com/news",
+        "https://digestai.news/daily/2026-11-06",
+        "https://tandiuai.cn/funding",
+        "https://www.un.org/digital-emerging-technologies/content/barbados-and-united-nations-co-host-special-summit-ai-safety-23-november"
+      ],
+      "notes": "Pooled relevant URLs from the batch; not attributed to individual queries. The raw trace is stored outside the repository."
+    },
+    {
+      "id": "q-digest",
+      "actor": "author",
+      "query": "Open AI news for Friday, 6 November 2026 — Digest AI",
+      "executedAt": "2026-11-07T02:08:32Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digestai.news/daily/2026-11-06"
+      ],
+      "notes": "Inventory of 49 listed leads. The aggregate is discovery evidence only, not confirmation of original event timing or claims."
+    },
+    {
+      "id": "q-c-wired",
+      "actor": "author",
+      "query": "Open https://www.wired.com/story/ai-companies-really-really-want-to-buy-your-work-files-and-emails/",
+      "executedAt": "2026-11-07T02:09:33Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.wired.com/story/ai-companies-really-really-want-to-buy-your-work-files-and-emails/"
+      ],
+      "notes": "Original source opened for verification."
+    },
+    {
+      "id": "q-c-aws",
+      "actor": "author",
+      "query": "Open https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/",
+      "executedAt": "2026-11-07T02:09:42Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/"
+      ],
+      "notes": "Original source opened for verification."
+    },
+    {
+      "id": "rq-china",
+      "actor": "coverage-reviewer",
+      "query": "\"2026年11月6日\" \"具身智能\" 融资 机器人",
+      "executedAt": "2026-11-07T02:08:24Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://www.jushenhome.com/newsflash.php",
+        "https://robot.ofweek.com/tag-D%E8%BD%AE%E8%9E%8D%E8%B5%84.HTM"
+      ],
+      "notes": "Reviewer search, not evidence of source access."
+    },
+    {
+      "id": "rq-qingtian",
+      "actor": "coverage-reviewer",
+      "query": "\"擎天智能\" \"数千万元\" 融资 2026 11",
+      "executedAt": "2026-11-07T02:08:27Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://www.shangdaovc.cn/col.jsp?id=181",
+        "https://news.pedaily.cn/202611/571452.shtml",
+        "https://svtr.ai/orgs/qingtianzhineng"
+      ],
+      "notes": "Reviewer search, not evidence of source access."
+    },
+    {
+      "id": "rq-miit",
+      "actor": "coverage-reviewer",
+      "query": "\"工信厅信管〔2026〕42号\" \"11月6日\" 智能体终端",
+      "executedAt": "2026-11-07T02:08:31Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [],
+      "notes": "Reviewer search, not evidence of source access."
+    },
+    {
+      "id": "rq-phys",
+      "actor": "coverage-reviewer",
+      "query": "\"Physicl\" robotics funding November 6 2026",
+      "executedAt": "2026-11-07T02:08:33Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://rss.globenewswire.com/news-release/2026/11/06/3397485/0/en/physicl-raises-10-million-to-solve-physical-ai-s-edge-case-gap.html",
+        "https://techcrunch.com/2026/11/06/physicl-raises-10m-to-make-the-digital-world-real-enough-for-robots/",
+        "https://roundos.ai/funding/companies/physicl",
+        "https://newsroom.seaprwire.com/press-releases/technologies/physicl-raises-10m-to-sell-robot-builders-a-more-faithful-kind-of-fake-room/"
+      ],
+      "notes": "Reviewer search, not evidence of source access."
+    },
+    {
+      "id": "q-china-open",
+      "actor": "author",
+      "query": "Open independent reviewer Chinese robotics and Japanese government source leads",
+      "executedAt": "2026-11-07T02:11:17Z",
+      "method": "open",
+      "focus": [
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh,ja,en",
+      "resultUrls": [
+        "https://news.pedaily.cn/202611/571452.shtml",
+        "https://dealroom.co/news/170164-strive-robotics-raises-3m-pre-seed-to-automate-high-mix-factories/",
+        "https://www.thelec.net/news/articleView.html?idxno=15369",
+        "https://www.digital.go.jp/policies/genai/agent-safety-standard",
+        "https://www.sohu.com/a/1097623156_122054251",
+        "https://www.digital.go.jp/speech/minister-261020-01"
+      ],
+      "notes": "Sohu failed; other sources fetched. Existence of dates does not establish timezone or novelty."
+    },
+    {
+      "id": "q-target-1",
+      "actor": "author",
+      "query": "\"ToyBlocks\" Ai2 \"2026\"  robot  November 6",
+      "executedAt": "2026-11-07T02:11:59Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "agents",
+        "products",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.businessinsider.com/anthropic-quantum-computing-breakthrough-aaronson-ambainis-math-physics-psi-2026-11",
+        "https://allenai.org/research",
+        "https://www.ciol.com/tech/cashfree-webmcp-checkout-for-agents-ai-payments-12788980",
+        "https://devblogs.microsoft.com/foundry/foundry-local-agentic-coding-qwen3-8-27b/"
+      ],
+      "notes": "Pooled relevant URLs from a batch response; individual query-to-result association is not established."
+    },
+    {
+      "id": "q-target-2",
+      "actor": "author",
+      "query": "\"AI\" \"PSI\" Aaronson Ambainis conjecture Anthropic November 2026",
+      "executedAt": "2026-11-07T02:11:59Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "agents",
+        "products",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.businessinsider.com/anthropic-quantum-computing-breakthrough-aaronson-ambainis-math-physics-psi-2026-11",
+        "https://allenai.org/research",
+        "https://www.ciol.com/tech/cashfree-webmcp-checkout-for-agents-ai-payments-12788980",
+        "https://devblogs.microsoft.com/foundry/foundry-local-agentic-coding-qwen3-8-27b/"
+      ],
+      "notes": "Pooled relevant URLs from a batch response; individual query-to-result association is not established."
+    },
+    {
+      "id": "q-target-3",
+      "actor": "author",
+      "query": "\"Cashfree\" \"WebMCP\" November 6 2026",
+      "executedAt": "2026-11-07T02:11:59Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "agents",
+        "products",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.businessinsider.com/anthropic-quantum-computing-breakthrough-aaronson-ambainis-math-physics-psi-2026-11",
+        "https://allenai.org/research",
+        "https://www.ciol.com/tech/cashfree-webmcp-checkout-for-agents-ai-payments-12788980",
+        "https://devblogs.microsoft.com/foundry/foundry-local-agentic-coding-qwen3-8-27b/"
+      ],
+      "notes": "Pooled relevant URLs from a batch response; individual query-to-result association is not established."
+    },
+    {
+      "id": "q-target-4",
+      "actor": "author",
+      "query": "\"Foundry Local\" \"Qwen3.8\" 0.13.0 November 2026",
+      "executedAt": "2026-11-07T02:11:59Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "agents",
+        "products",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.businessinsider.com/anthropic-quantum-computing-breakthrough-aaronson-ambainis-math-physics-psi-2026-11",
+        "https://allenai.org/research",
+        "https://www.ciol.com/tech/cashfree-webmcp-checkout-for-agents-ai-payments-12788980",
+        "https://devblogs.microsoft.com/foundry/foundry-local-agentic-coding-qwen3-8-27b/"
+      ],
+      "notes": "Pooled relevant URLs from a batch response; individual query-to-result association is not established."
+    },
+    {
+      "id": "rq-prior-source",
+      "actor": "coverage-reviewer",
+      "query": "Follow November 6 Digest AI entries 5, 7, 10, 12, 16–19 and 21–24 to original sources",
+      "executedAt": "2026-11-07T02:15:17Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.cybersecuritydive.com/news/congress-cybersecurity-democrats-agenda-cisa-ai/873883/",
+        "https://aws.amazon.com/blogs/machine-learning/how-greenlight-financial-built-an-autonomous-soc-solution-on-amazon-bedrock-agentcore/",
+        "https://blogs.nvidia.com/blog/telco-open-source-tools-research-6g-networks/",
+        "https://aws.amazon.com/blogs/machine-learning/taxbit-assist-a-grounded-role-aware-ai-agent-on-amazon-bedrock-agentcore/",
+        "https://arstechnica.com/gaming/2026/11/could-potential-ai-clones-of-gta-vi-force-a-quicker-official-port/",
+        "https://www.theverge.com/ai-artificial-intelligence/1028609/ai-dating-feelings-doomers-singularity",
+        "https://arxiv.org/abs/2611.07048",
+        "https://arxiv.org/abs/2611.07051",
+        "https://arxiv.org/abs/2611.06962",
+        "https://arxiv.org/abs/2611.06977",
+        "https://arxiv.org/abs/2611.06989"
+      ],
+      "notes": "Independent reviewer source reads; arXiv submission dates are not public timestamps."
+    },
+    {
+      "id": "rq-discovery-follow",
+      "actor": "coverage-reviewer",
+      "query": "Follow digest leads 1, 2, 3, 6, 9, 13 and 25 to original reporting",
+      "executedAt": "2026-11-07T02:15:54Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.propublica.org/article/burgum-public-land-data-centers-investments",
+        "https://apnews.com/article/b4f3f9f368697bb37416bcb4fabdd67c",
+        "https://blog.hubspot.com/marketing/marketing-automation-challenges",
+        "https://martech.org/better-prompts-start-before-the-prompt",
+        "https://blog.hubspot.com/marketing/scrunch-vs-ahrefs",
+        "https://www.theinformation.com/articles/tsmc-weighs-making-advanced-memory-chips-capture-ai-spending",
+        "https://bloomberg.com/news/articles/2026-11-06/nvidia-boosts-chip-tracking-in-southeast-asia-to-fight-smuggling"
+      ],
+      "notes": "Independent reviewer fetched accessible originals; 404, 429 and subscription restrictions are explicitly recorded."
+    },
+    {
+      "id": "q-promote",
+      "actor": "author",
+      "query": "Read WIRED article publication metadata and PSI official post syndication JSON",
+      "executedAt": "2026-11-07T02:18:20Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.wired.com/story/ai-companies-really-really-want-to-buy-your-work-files-and-emails/",
+        "https://cdn.syndication.twimg.com/tweet-result?id=2118706269506949152&token=a"
+      ],
+      "notes": "Fresh curl reads; PSI post time applies to the post, not the linked site."
+    },
+    {
+      "id": "q-toy-metadata",
+      "actor": "author",
+      "query": "Read Ai2 ToyBlocks Hugging Face publication metadata",
+      "executedAt": "2026-11-07T02:18:39Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/blog/allenai/toyblocks"
+      ],
+      "notes": "Publisher JSON-LD datePublished; announcement event rather than inferred first availability."
+    },
+    {
+      "id": "q-tsmc-reuters",
+      "actor": "author",
+      "query": "\"tsmc\" \"considers making advanced memory chips\" Reuters Nov 6 2026 3D",
+      "executedAt": "2026-11-07T02:19:55Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "products",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.reuters.com/world/asia-pacific/tsmc-considers-making-advanced-memory-chips-information-reports-2026-11-06/",
+        "https://www.investing.com/news/stock-market-news/tsmc-considers-making-advanced-memory-chips-the-information-reports-5008786"
+      ],
+      "notes": "Reuters full report read in search and syndicated full text; direct Reuters URL returned access error. Original Information publisher is paywalled; both Reuters copies share one original."
+    },
+    {
+      "id": "q-prior-retro",
+      "actor": "author",
+      "query": "Open prior issue Nemi, CloudBolt, Google Gemini Omni, Sierra Anon and Potential Sciences sources",
+      "executedAt": "2026-11-07T02:20:29Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "agents",
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.globenewswire.com/news-release/2026/11/5/3396481/0/en/physical-ai-and-manufacturing-company-nemi-to-go-public-at-a-400-million-pre-money-equity-value-through-business-combination-with-bhav-acquisition-corp.html",
+        "https://www.globenewswire.com/news-release/2026/11/05/3396501/0/en/cloudbolt-adds-new-ai-agent-governance-capabilities-to-its-cloud-management-platform.html",
+        "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+        "https://sierra.ai/blog/sierra-acquires-anon",
+        "https://www.wired.com/story/finding-new-drugs-is-laborious-this-ai-startup-is-skipping-the-lab-work/"
+      ],
+      "notes": "Revisited prior issue material as explicit retrospective, not current issue counts. Publisher metadata was independently checked."
+    },
+    {
+      "id": "q-humble-retro",
+      "actor": "prior-reviewer",
+      "query": "\"Humble Robotics\" \"$51 million\" November 5 2026 Business Insider",
+      "executedAt": "2026-11-07T02:15:43Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.businessinsider.com/humble-robotics-raises-51-million-for-cabless-self-driving-trucks-2026-11"
+      ],
+      "notes": "Independent prior issue review; company discussed financing, closing instant unproven."
+    },
+    {
+      "id": "q-tail-open",
+      "actor": "author",
+      "query": "Open digest candidate 27, 28, 30, 31, 33, 34, 38–40, 42–44, 46 and 47 original sources",
+      "executedAt": "2026-11-07T02:19:37Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "business",
+        "agents",
+        "governance",
+        "products",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arxiv.org/abs/2611.07066",
+        "https://arxiv.org/abs/2611.06996",
+        "https://arxiv.org/abs/2611.07073",
+        "https://arxiv.org/abs/2611.06984",
+        "https://arxiv.org/abs/2611.07088",
+        "https://arxiv.org/abs/2611.07247",
+        "https://arxiv.org/abs/2611.06972",
+        "https://arxiv.org/abs/2611.07123",
+        "https://zapier.com/blog/what-we-learned-watching-claude-read-zapier/",
+        "https://huggingface.co/blog/open-asr-leaderboard-liva",
+        "https://www.nature.com/articles/s41591-026-04724-9",
+        "https://dealroom.co/news/133866-airbnb-gets-option-to-invest-in-cheskys-self-funded-ai-lab-after-7-1m-ip/",
+        "https://www.theguardian.com/technology/2026/nov/06/teachers-and-parents-what-are-your-experiences-of-ai-generated-emails",
+        "https://www.macworld.com/article/3278037/use-gpt-claude-and-gemini-on-your-mac-for-life-for-69-97.html"
+      ],
+      "notes": "Paper abstract/version checks are not full independent reproductions; Nature direct access failed."
+    },
+    {
+      "id": "q-tail-final",
+      "actor": "author",
+      "query": "Open remaining digest leads 22, 26, 32, 35, 37, 41, 45 and 48",
+      "executedAt": "2026-11-07T02:21:40Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.prada.com/ww/en/pradasphere/campaigns/2026/holiday.html",
+        "https://www.theinformation.com/articles/nvidia-talks-provide-billions-credit-support-cloud-providers-45-billion-anthropic-deal",
+        "https://en.sedaily.com/finance/2026/11/07/nvidia-elite-partner-xiilab-raises-10-billion-won-via",
+        "https://abcnews.com/Technology/san-francisco-company-offers-cleaning-service-humanoid-robots/story?id=135258956",
+        "https://www.squarepeg.vc/blog/investment-notes-future-secure-ai",
+        "https://devblogs.microsoft.com/foundry/foundry-local-agentic-coding-qwen3-8-27b/",
+        "https://www.theverge.com/podcast/1028731/2026-midterms-tech-ai-vergecast",
+        "https://www.stocktitan.net/news/NVDA/nvidia-sets-conference-call-for-third-quarter-financial-rgdf7hquxgar.html"
+      ],
+      "notes": "Some original pages remain access-restricted; do not infer absence from failure."
+    },
+    {
+      "id": "q-vals",
+      "actor": "author",
+      "query": "Open WIRED cyber model investigation, Vals methodology and publisher date metadata",
+      "executedAt": "2026-11-07T02:22:42Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/",
+        "https://www.vals.ai/benchmarks/cyber_offense"
+      ],
+      "notes": "WIRED article reports an existing benchmark; measurements apply only to specified isolated simulations."
+    },
+    {
+      "id": "rq-chip",
+      "actor": "research-reviewer",
+      "query": "Nvidia tracks AI chips southeast Asia Cloud Partner November 2026 Bloomberg",
+      "executedAt": "2026-11-07T02:16:36Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "business",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://finance.yahoo.com/technology/ai/articles/nvidia-boosts-chip-tracking-southeast-100319244.html",
+        "https://theedgemalaysia.com/node/824907"
+      ],
+      "notes": "Independent reviewer read Yahoo Bloomberg syndication; author direct Yahoo fetch returned 429; Edge reproduction also read. Both share Bloomberg original."
+    },
+    {
+      "id": "q-remaining-1",
+      "actor": "author",
+      "query": "\"Ro launches healthcare research unit\" November 6 2026 Reuters",
+      "executedAt": "2026-11-07T02:23:19Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.reuters.com/legal/litigation/ro-launches-healthcare-research-unit-plans-offer-data-drugmakers-2026-11-06/"
+      ],
+      "notes": "Discovery query; direct open was unavailable or partial; no timing claim inferred from snippet."
+    },
+    {
+      "id": "q-remaining-2",
+      "actor": "author",
+      "query": "\"AI data centers took a beating\" November 6 2026 AP",
+      "executedAt": "2026-11-07T02:23:19Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://apnews.com/article/63b33be8884d867d3ac831040d683a2c"
+      ],
+      "notes": "Discovery query; direct open was unavailable or partial; no timing claim inferred from snippet."
+    },
+    {
+      "id": "q-remaining-3",
+      "actor": "author",
+      "query": "\"VCs Are Enamored of AI\" November 6 2026 WSJ",
+      "executedAt": "2026-11-07T02:23:19Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.wsj.com/pro/venture-capital/vcs-are-enamored-of-ai-but-are-they-getting-nervous-8593dfcc"
+      ],
+      "notes": "Discovery query; direct open was unavailable or partial; no timing claim inferred from snippet."
+    },
+    {
+      "id": "q-remaining-4",
+      "actor": "author",
+      "query": "\"Barbados\" \"United Nations\" AI safety November 23 2026 announcement date",
+      "executedAt": "2026-11-07T02:23:19Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.un.org/digital-emerging-technologies/content/barbados-and-united-nations-co-host-special-summit-ai-safety-23-november"
+      ],
+      "notes": "Discovery query; direct open was unavailable or partial; no timing claim inferred from snippet."
+    },
+    {
+      "id": "q-identity-jev",
+      "actor": "author",
+      "query": "Read candidate identity source JEV identity",
+      "executedAt": "2026-11-07T02:22:14Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://typesafe.ai/blog/introducing-system-one-models-and-jev"
+      ],
+      "notes": "Identity remains unresolved; no association is asserted for OSC."
+    },
+    {
+      "id": "q-identity-laya",
+      "actor": "author",
+      "query": "Read candidate identity source Laya identity",
+      "executedAt": "2026-11-07T02:22:14Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/NandhaKishorM/laya"
+      ],
+      "notes": "Identity remains unresolved; no association is asserted for OSC."
+    },
+    {
+      "id": "q-identity-osc",
+      "actor": "author",
+      "query": "Read prior issue unresolved identity OSC",
+      "executedAt": "2026-11-07T02:23:55Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/Zzzode/zzzode.github.io/04c1f476679df344064b5d62146c603827c0f64c/docs/daily/runs/2026-11-06.json"
+      ],
+      "notes": "Prior ledger states that OSC identity remains unresolved."
+    },
+    {
+      "id": "q-retro-sina",
+      "actor": "prior-reviewer",
+      "query": "Inspect Linggan Robotics financing report original publication metadata",
+      "executedAt": "2026-11-07T02:20:16Z",
+      "method": "metadata",
+      "focus": [
+        "business",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://finance.sina.com.cn/tech/roll/2026-11-05/doc-inixrcqq9853061.shtml"
+      ],
+      "notes": "Report metadata timestamps have +08:00 offset; reporting event is not financing close."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s-1",
+      "title": "路透社：OpenAI 已取得 110 亿美元新融资",
+      "url": "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:05:16Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-06T21:12:00Z",
+        "latest": "2026-11-06T21:12:59Z",
+        "basis": "Reuters syndication displays 4:12 PM EST at minute precision; this represents the Reuters report, not the financing close.",
+        "sourceUrls": [
+          "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/"
+        ]
+      },
+      "evidence": "Source was read; detailed significance, date precision and limitations require final independent audit."
+    },
+    {
+      "id": "s-2",
+      "title": "Physicl 融资 1000 万美元，面向机器人合成训练数据",
+      "url": "https://rss.globenewswire.com/news-release/2026/11/06/3397485/0/en/physicl-raises-10-million-to-solve-physical-ai-s-edge-case-gap.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:05:16Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-06T13:00:00Z",
+        "latest": "2026-11-06T13:00:59Z",
+        "basis": "Company press release displays 08:00 ET at minute precision.",
+        "sourceUrls": [
+          "https://rss.globenewswire.com/news-release/2026/11/06/3397485/0/en/physicl-raises-10-million-to-solve-physical-ai-s-edge-case-gap.html"
+        ]
+      },
+      "evidence": "Source was read; detailed significance, date precision and limitations require final independent audit."
+    },
+    {
+      "id": "s-3",
+      "title": "Palo Alto Networks 与 Clutch 的收购谈判",
+      "url": "https://techcrunch.com/2026/11/05/palo-alto-networks-in-talks-to-buy-ai-agent-security-startup-clutch-for-500m/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:05:16Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-06T06:28:00Z",
+        "latest": "2026-11-06T06:28:59Z",
+        "basis": "TechCrunch displays November 5 10:28 PM PST at minute precision.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/05/palo-alto-networks-in-talks-to-buy-ai-agent-security-startup-clutch-for-500m/"
+        ]
+      },
+      "evidence": "Source was read; detailed significance, date precision and limitations require final independent audit."
+    },
+    {
+      "id": "s-4",
+      "title": "美国议员拟推动 AI 安全评估及责任立法",
+      "url": "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:05:16Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-06T11:05:00Z",
+        "latest": "2026-11-06T11:05:59Z",
+        "basis": "Reuters shows 11:05 UTC and a contemporaneous syndication corroborates this minute.",
+        "sourceUrls": [
+          "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/"
+        ]
+      },
+      "evidence": "Source was read; detailed significance, date precision and limitations require final independent audit."
+    },
+    {
+      "id": "s-5",
+      "title": "BioBasicsBench 测试湿实验数据解读",
+      "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:05:16Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source gives the calendar date without an evidenced timezone.",
+        "sourceUrls": [
+          "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/"
+        ]
+      },
+      "evidence": "Source was read; detailed significance, date precision and limitations require final independent audit."
+    },
+    {
+      "id": "s-6",
+      "title": "Glean 更新 Agent 服务凭证",
+      "url": "https://docs.glean.com/release-notes/releases/2026-11-06-november-release",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:05:16Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source gives the calendar date without an evidenced timezone.",
+        "sourceUrls": [
+          "https://docs.glean.com/release-notes/releases/2026-11-06-november-release"
+        ]
+      },
+      "evidence": "Source was read; detailed significance, date precision and limitations require final independent audit."
+    },
+    {
+      "id": "s-7",
+      "title": "工信部：加强智能体终端设备进网管理",
+      "url": "https://www.miit.gov.cn/jgsj/xgj/gzdt/art/2026/art_210e15c2c8184bee9d3240f8a13b7401.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:05:16Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source gives the calendar date without an evidenced timezone.",
+        "sourceUrls": [
+          "https://www.miit.gov.cn/jgsj/xgj/gzdt/art/2026/art_210e15c2c8184bee9d3240f8a13b7401.html"
+        ]
+      },
+      "evidence": "Source was read; detailed significance, date precision and limitations require final independent audit."
+    },
+    {
+      "id": "s-digest",
+      "title": "Digest AI 6 November inventory",
+      "url": "https://digestai.news/daily/2026-11-06",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:08:32Z",
+      "evidence": "Discovery list of 49 leads; its claims and dates are not treated as verified primary evidence."
+    },
+    {
+      "id": "s-c-wired",
+      "title": "WIRED inquiry on work records and AI data",
+      "url": "https://www.wired.com/story/ai-companies-really-really-want-to-buy-your-work-files-and-emails/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:09:33Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T16:00:00Z",
+        "basis": "Publisher article:published_time and datePublished metadata agree.",
+        "sourceUrls": [
+          "https://www.wired.com/story/ai-companies-really-really-want-to-buy-your-work-files-and-emails/"
+        ]
+      },
+      "evidence": "Read source; precise first publication instant and timezone remain unresolved."
+    },
+    {
+      "id": "s-c-aws",
+      "title": "AWS remote Claude Code AgentCore example",
+      "url": "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:09:42Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source gives November 6 without established timezone.",
+        "sourceUrls": [
+          "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/"
+        ]
+      },
+      "evidence": "Read source; precise first publication instant and timezone remain unresolved."
+    },
+    {
+      "id": "s-qingtian",
+      "title": "擎天智能 Pre-A",
+      "url": "https://news.pedaily.cn/202611/571452.shtml",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:11:17Z",
+      "evidence": "11/6 reporting, time zone and earlier announcement unresolved.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Investment report displays November 6 14:18 without an established timezone; use date precision.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571452.shtml"
+        ]
+      }
+    },
+    {
+      "id": "s-strive",
+      "title": "Strive Robotics pre-seed",
+      "url": "https://dealroom.co/news/170164-strive-robotics-raises-3m-pre-seed-to-automate-high-mix-factories/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:11:17Z",
+      "evidence": "11/5 20:59 UTC report before current window; earlier issue possible omission."
+    },
+    {
+      "id": "s-xiilab",
+      "title": "XIIlab convertible bond",
+      "url": "https://www.thelec.net/news/articleView.html?idxno=15369",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:11:17Z",
+      "evidence": "Board approved proposed convertible bond; report timestamp precision and regulator filing need verification."
+    },
+    {
+      "id": "s-japan",
+      "title": "Japan government AI Agent standard",
+      "url": "https://www.digital.go.jp/policies/genai/agent-safety-standard",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:11:17Z",
+      "evidence": "November 6 is page update, October 20 press conference already disclosed core program; look for material new changes."
+    },
+    {
+      "id": "s-tensor",
+      "title": "TensorWorld financing",
+      "url": "https://www.sohu.com/a/1097623156_122054251",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:11:17Z",
+      "evidence": "Access failed to author; reviewer found prior report November 5 and original social post needs verification."
+    },
+    {
+      "id": "s-target-1",
+      "title": "PSI reported AI-assisted Aaronson–Ambainis proof",
+      "url": "https://www.businessinsider.com/anthropic-quantum-computing-breakthrough-aaronson-ambainis-math-physics-psi-2026-11",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:11:59Z",
+      "evidence": "Important mathematical claim; read primary manuscript and determine evidence for public date. Reported proof must not be represented as independently verified."
+    },
+    {
+      "id": "s-target-2",
+      "title": "Ai2 ToyBlocks simulation",
+      "url": "https://allenai.org/research",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:11:59Z",
+      "evidence": "Ai2 index dates the work Nov 6; original work, evaluation and window boundary need verification."
+    },
+    {
+      "id": "s-target-3",
+      "title": "Cashfree agent checkout",
+      "url": "https://www.ciol.com/tech/cashfree-webmcp-checkout-for-agents-ai-payments-12788980",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:40Z",
+      "evidence": "Co-founder describes live transactions from Nov 6; confirm distinction between product and announcement and original timing.",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-06T08:54:00Z",
+        "latest": "2026-11-06T08:54:59Z",
+        "basis": "CiOL displays 14:24 IST at minute precision; this is the interview report, not a verified transaction launch instant.",
+        "sourceUrls": [
+          "https://www.ciol.com/tech/cashfree-webmcp-checkout-for-agents-ai-payments-12788980"
+        ]
+      }
+    },
+    {
+      "id": "s-target-4",
+      "title": "Microsoft Foundry Local Qwen coding",
+      "url": "https://devblogs.microsoft.com/foundry/foundry-local-agentic-coding-qwen3-8-27b/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:11:59Z",
+      "evidence": "Microsoft original is dated Nov 5; investigate earlier issue boundary and avoid recycling."
+    },
+    {
+      "id": "sr-digest-05",
+      "title": "Independent source for digest-05",
+      "url": "https://www.cybersecuritydive.com/news/congress-cybersecurity-democrats-agenda-cisa-ai/873883/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "November 5 source date only; prior issue boundary and actual novelty remain unresolved."
+    },
+    {
+      "id": "sr-digest-07",
+      "title": "Independent source for digest-07",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-greenlight-financial-built-an-autonomous-soc-solution-on-amazon-bedrock-agentcore/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "November 6 AWS customer case; not itself a new product release; verify original timing and significance."
+    },
+    {
+      "id": "sr-digest-10",
+      "title": "Independent source for digest-10",
+      "url": "https://blogs.nvidia.com/blog/telco-open-source-tools-research-6g-networks/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "November 6 retrospective; Aerial already open sourced one year ago, not a new open-source launch."
+    },
+    {
+      "id": "sr-digest-12",
+      "title": "Independent source for digest-12",
+      "url": "https://aws.amazon.com/blogs/machine-learning/taxbit-assist-a-grounded-role-aware-ai-agent-on-amazon-bedrock-agentcore/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "November 6 customer case; first deployment timing not established."
+    },
+    {
+      "id": "sr-digest-16",
+      "title": "Independent source for digest-16",
+      "url": "https://arstechnica.com/gaming/2026/11/could-potential-ai-clones-of-gta-vi-force-a-quicker-official-port/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "Former employee speculation, not an announced GTA port; lower technical significance for this issue."
+    },
+    {
+      "id": "sr-digest-17",
+      "title": "Independent source for digest-17",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1028609/ai-dating-feelings-doomers-singularity",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "November 6 report on dating; lower significance for this issue’s engineering and technical business readers."
+    },
+    {
+      "id": "sr-digest-18",
+      "title": "Independent source for digest-18",
+      "url": "https://arxiv.org/abs/2611.07048",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "v1 submitted November 4 19:08:46 UTC; submission is not public availability and original paper needs assessment."
+    },
+    {
+      "id": "sr-digest-19",
+      "title": "Independent source for digest-19",
+      "url": "https://arxiv.org/abs/2611.07051",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "v1 submitted November 4 19:11:47 UTC; submission is not proof of public availability."
+    },
+    {
+      "id": "sr-digest-21",
+      "title": "Independent source for digest-21",
+      "url": "https://arxiv.org/abs/2611.06962",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "v1 submitted November 4 08:30:31 UTC; source identity and public availability require further checking."
+    },
+    {
+      "id": "sr-digest-23",
+      "title": "Independent source for digest-23",
+      "url": "https://arxiv.org/abs/2611.06977",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "BlockLock v1 submitted November 4 13:40:05 UTC; public release timing is not established."
+    },
+    {
+      "id": "sr-digest-24",
+      "title": "Independent source for digest-24",
+      "url": "https://arxiv.org/abs/2611.06989",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:17Z",
+      "evidence": "v1 submitted November 4 17:04:04 UTC; publication timing remains unresolved."
+    },
+    {
+      "id": "sr-digest-01",
+      "title": "Independent source for digest-01",
+      "url": "https://www.propublica.org/article/burgum-public-land-data-centers-investments",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:54Z",
+      "evidence": "Potential conflicts relating to officials and AI investments: investigation, no established wrongdoing; source date/time zone and prioritization unresolved."
+    },
+    {
+      "id": "sr-digest-02",
+      "title": "Independent source for digest-02",
+      "url": "https://apnews.com/article/b4f3f9f368697bb37416bcb4fabdd67c",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:54Z",
+      "evidence": "Amsterdam data-center construction protest, reported Nov 6; relative importance and event time require editorial assessment."
+    },
+    {
+      "id": "sr-digest-03",
+      "title": "Independent source for digest-03",
+      "url": "https://blog.hubspot.com/marketing/marketing-automation-challenges",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:15:54Z",
+      "evidence": "Independent reviewer received 404; discovery remains unresolved."
+    },
+    {
+      "id": "sr-digest-06",
+      "title": "Independent source for digest-06",
+      "url": "https://martech.org/better-prompts-start-before-the-prompt",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:15:54Z",
+      "evidence": "Independent reviewer received HTTP 429; discovery remains unresolved."
+    },
+    {
+      "id": "sr-digest-09",
+      "title": "Independent source for digest-09",
+      "url": "https://blog.hubspot.com/marketing/scrunch-vs-ahrefs",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:15:54Z",
+      "evidence": "Independent reviewer received 404; discovery remains unresolved."
+    },
+    {
+      "id": "sr-digest-13",
+      "title": "Independent source for digest-13",
+      "url": "https://www.theinformation.com/articles/tsmc-weighs-making-advanced-memory-chips-capture-ai-spending",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:15:54Z",
+      "evidence": "Publisher has subscription wall; report on possible TSMC 3D DRAM attributed to two sources must be corroborated via accessible reporting, not treated as company plan."
+    },
+    {
+      "id": "sr-digest-25",
+      "title": "Independent source for digest-25",
+      "url": "https://bloomberg.com/news/articles/2026-11-06/nvidia-boosts-chip-tracking-in-southeast-asia-to-fight-smuggling",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:15:54Z",
+      "evidence": "Bloomberg original restricted; authorised republication says regional cloud partner applicants enroll in chip location tracking, overall program voluntary. Need time verification."
+    },
+    {
+      "id": "s-psi",
+      "title": "PSI conjecture announcement",
+      "url": "https://psi.inc/research/aaronson-ambainis/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:40Z",
+      "evidence": "Nov 6 date only; PSI claims formal proof and outside mathematicians report reading, not completed peer review.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source displays a date without establishing publication timezone.",
+        "sourceUrls": [
+          "https://psi.inc/research/aaronson-ambainis/"
+        ]
+      }
+    },
+    {
+      "id": "s-toy",
+      "title": "Ai2 ToyBlocks",
+      "url": "https://allenai.org/blog/toyblocks",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:40Z",
+      "evidence": "Nov 6 date only; open controlled robot learning simulation, code and evaluation; no precise publication time.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source displays a date without establishing publication timezone.",
+        "sourceUrls": [
+          "https://allenai.org/blog/toyblocks"
+        ]
+      }
+    },
+    {
+      "id": "s-ifeng",
+      "title": "TensorWorld funding report",
+      "url": "https://tech.ifeng.com/c/8xo9Tx7WTAw",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:16:35Z",
+      "evidence": "Signed original reporter via Phoenix, Nov 5 time without explicit timezone; single-source retrospective, original social post inaccessible.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-05",
+        "basis": "Reported date shown without an explicitly evidenced timezone.",
+        "sourceUrls": [
+          "https://tech.ifeng.com/c/8xo9Tx7WTAw"
+        ]
+      }
+    },
+    {
+      "id": "s-edge",
+      "title": "Bloomberg Nvidia chip tracking via Edge",
+      "url": "https://theedgemalaysia.com/node/824907",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:16:35Z",
+      "evidence": "Bloomberg syndicated report; NCP participation condition, broader tracking program described as voluntary.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Bloomberg syndicated article displays November 6 without explicit timezone.",
+        "sourceUrls": [
+          "https://theedgemalaysia.com/node/824907"
+        ]
+      }
+    },
+    {
+      "id": "s-psi-post",
+      "title": "PSI official post via syndication",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2118706269506949152&token=a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:18:20Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T14:05:12Z",
+        "basis": "PSI official account announcement created_at in X syndication JSON; this event is the post, not the website publication time.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118706269506949152&token=a"
+        ]
+      },
+      "evidence": "Verified psipbc account and created_at; official post announces the claimed proof."
+    },
+    {
+      "id": "s-toy-hf",
+      "title": "Ai2 ToyBlocks on Hugging Face",
+      "url": "https://huggingface.co/blog/allenai/toyblocks",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:18:39Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T14:00:48.059Z",
+        "basis": "Ai2 Hugging Face article JSON-LD datePublished; this identifies the public article event, not necessarily first availability.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/allenai/toyblocks"
+        ]
+      },
+      "evidence": "Ai2 authored publication and its timestamp; controlled simulation and limited real tests."
+    },
+    {
+      "id": "s-tsmc-reuters",
+      "title": "路透转述：台积电考虑先进存储芯片",
+      "url": "https://www.reuters.com/world/asia-pacific/tsmc-considers-making-advanced-memory-chips-information-reports-2026-11-06/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:20:19Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T15:45:40Z",
+        "basis": "Reuters 15:45:40 UTC version as surfaced by search; a 15:39 UTC syndication exists, so this is not asserted as first publication. Reuters attributes the underlying report to The Information.",
+        "sourceUrls": [
+          "https://www.reuters.com/world/asia-pacific/tsmc-considers-making-advanced-memory-chips-information-reports-2026-11-06/"
+        ]
+      },
+      "evidence": "Reuters report reproduces The Information reporting, which cites two people; no confirmed decision or production schedule."
+    },
+    {
+      "id": "s-retro-1",
+      "title": "Nemi 拟与 BHAV 合并",
+      "url": "https://www.globenewswire.com/news-release/2026/11/5/3396481/0/en/physical-ai-and-manufacturing-company-nemi-to-go-public-at-a-400-million-pre-money-equity-value-through-business-combination-with-bhav-acquisition-corp.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:20:29Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-05T13:45:00Z",
+        "latest": "2026-11-05T13:45:59Z",
+        "basis": "BHAV release 08:45 ET at minute precision.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/5/3396481/0/en/physical-ai-and-manufacturing-company-nemi-to-go-public-at-a-400-million-pre-money-equity-value-through-business-combination-with-bhav-acquisition-corp.html"
+        ]
+      },
+      "evidence": "Prior issue disclosure: BHAV release 08:45 ET at minute precision."
+    },
+    {
+      "id": "s-retro-2",
+      "title": "CloudBolt Agent 治理公告",
+      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396501/0/en/cloudbolt-adds-new-ai-agent-governance-capabilities-to-its-cloud-management-platform.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:20:29Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-05T14:00:00Z",
+        "latest": "2026-11-05T14:00:59Z",
+        "basis": "Publisher release 09:00 ET at minute precision.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/05/3396501/0/en/cloudbolt-adds-new-ai-agent-governance-capabilities-to-its-cloud-management-platform.html"
+        ]
+      },
+      "evidence": "Prior issue disclosure: Publisher release 09:00 ET at minute precision."
+    },
+    {
+      "id": "s-retro-3",
+      "title": "Gemini Omni 1.2 Flash 公告",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:20:29Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-05T17:00:00Z",
+        "latest": "2026-11-05T17:00:00Z",
+        "basis": "Publisher datePublished metadata.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/"
+        ]
+      },
+      "evidence": "Prior issue disclosure: Publisher datePublished metadata."
+    },
+    {
+      "id": "s-retro-4",
+      "title": "Sierra 与 Anon 公告",
+      "url": "https://sierra.ai/blog/sierra-acquires-anon",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:20:29Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-05T16:00:00Z",
+        "latest": "2026-11-05T16:00:00Z",
+        "basis": "Publisher datePublished metadata.",
+        "sourceUrls": [
+          "https://sierra.ai/blog/sierra-acquires-anon"
+        ]
+      },
+      "evidence": "Prior issue disclosure: Publisher datePublished metadata."
+    },
+    {
+      "id": "s-retro-5",
+      "title": "Potential Sciences 融资报道",
+      "url": "https://www.wired.com/story/finding-new-drugs-is-laborious-this-ai-startup-is-skipping-the-lab-work/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:20:29Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-05T13:00:00Z",
+        "latest": "2026-11-05T13:00:00Z",
+        "basis": "WIRED datePublished and article published time metadata agree.",
+        "sourceUrls": [
+          "https://www.wired.com/story/finding-new-drugs-is-laborious-this-ai-startup-is-skipping-the-lab-work/"
+        ]
+      },
+      "evidence": "Prior issue disclosure: WIRED datePublished and article published time metadata agree."
+    },
+    {
+      "id": "s-retro-humble",
+      "title": "Humble Robotics funding interview",
+      "url": "https://www.businessinsider.com/humble-robotics-raises-51-million-for-cabless-self-driving-trucks-2026-11",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:15:43Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-05T14:00:01Z",
+        "basis": "Publisher timestamp for interview reporting.",
+        "sourceUrls": [
+          "https://www.businessinsider.com/humble-robotics-raises-51-million-for-cabless-self-driving-trucks-2026-11"
+        ]
+      },
+      "evidence": "Company founder interview; the report time is not the funding closing time."
+    },
+    {
+      "id": "s-tail-27",
+      "title": "Source for digest-27",
+      "url": "https://arxiv.org/abs/2611.07066",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Cooperative multi-agent constrained exploration; NeurIPS noted; submitted Nov 4 and listed Nov 6, first public time not established."
+    },
+    {
+      "id": "s-tail-30",
+      "title": "Source for digest-30",
+      "url": "https://arxiv.org/abs/2611.06996",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "TRAP runtime authorization studied with Monte Carlo simulations; submission is not publication, no deployed safety inference."
+    },
+    {
+      "id": "s-tail-31",
+      "title": "Source for digest-31",
+      "url": "https://arxiv.org/abs/2611.07073",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Dafny cross-agent formalization preprint; formal verification is not independent semantic agreement; public time unresolved."
+    },
+    {
+      "id": "s-tail-33",
+      "title": "Source for digest-33",
+      "url": "https://arxiv.org/abs/2611.06984",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "FlexFloor MoE reinforcement post-training preprint; efficiency results are authors’ tests; precise release time unresolved."
+    },
+    {
+      "id": "s-tail-39",
+      "title": "Source for digest-39",
+      "url": "https://arxiv.org/abs/2611.07088",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Symbolic model synthesis for reasoning, preprint not causal proof; submitted Nov 4 and listed Nov 6, exact public time unresolved."
+    },
+    {
+      "id": "s-tail-40",
+      "title": "Source for digest-40",
+      "url": "https://arxiv.org/abs/2611.07247",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Formal human and agent power model; theoretical/simulated outcomes, not real deployment; first public time unresolved."
+    },
+    {
+      "id": "s-tail-42",
+      "title": "Source for digest-42",
+      "url": "https://arxiv.org/abs/2611.06972",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Knowledge/data dual skill optimization preprint; author-reported tasks do not establish legal approval or reliability."
+    },
+    {
+      "id": "s-tail-44",
+      "title": "Source for digest-44",
+      "url": "https://arxiv.org/abs/2611.07123",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "PromptOps iterative judge calibration preprint; results are controlled and context-dependent; exact public time unresolved."
+    },
+    {
+      "id": "s-tail-34",
+      "title": "Source for digest-34",
+      "url": "https://zapier.com/blog/what-we-learned-watching-claude-read-zapier/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Zapier reports one Claude reading experiment on Nov 6, time zone unresolved; observed behavior is not universal."
+    },
+    {
+      "id": "s-tail-43",
+      "title": "Source for digest-43",
+      "url": "https://huggingface.co/blog/open-asr-leaderboard-liva",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Egyptian and Nigerian English evaluation datasets added; original article only date, exact event time unresolved."
+    },
+    {
+      "id": "s-tail-46",
+      "title": "Source for digest-46",
+      "url": "https://www.nature.com/articles/s41591-026-04724-9",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "Direct Nature access redirected to authentication; search record describes observational gait research, not validated clinical use."
+    },
+    {
+      "id": "s-tail-28",
+      "title": "Source for digest-28",
+      "url": "https://dealroom.co/news/133866-airbnb-gets-option-to-invest-in-cheskys-self-funded-ai-lab-after-7-1m-ip/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "November 5 16:09 UTC already reported the investment option and IP agreement; do not recycle as a current new disclosure."
+    },
+    {
+      "id": "s-tail-38",
+      "title": "Source for digest-38",
+      "url": "https://www.theguardian.com/technology/2026/nov/06/teachers-and-parents-what-are-your-experiences-of-ai-generated-emails",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "A call for reader experiences, not results of a completed survey; low editorial relevance."
+    },
+    {
+      "id": "s-tail-47",
+      "title": "Source for digest-47",
+      "url": "https://www.macworld.com/article/3278037/use-gpt-claude-and-gemini-on-your-mac-for-life-for-69-97.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:19:37Z",
+      "evidence": "A sponsored discount rather than a consequential product announcement."
+    },
+    {
+      "id": "s-tail-22",
+      "title": "Source for digest-22",
+      "url": "https://www.prada.com/ww/en/pradasphere/campaigns/2026/holiday.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "Hand-drawn brand campaign, not a material new AI technology or product."
+    },
+    {
+      "id": "s-tail-26",
+      "title": "Source for digest-26",
+      "url": "https://www.theinformation.com/articles/nvidia-talks-provide-billions-credit-support-cloud-providers-45-billion-anthropic-deal",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "The Information original subscription-restricted; later BI discusses a reported Nscale guarantee, apparently preceded by October reporting; first disclosure and new facts require review."
+    },
+    {
+      "id": "s-tail-32",
+      "title": "Source for digest-32",
+      "url": "https://en.sedaily.com/finance/2026/11/07/nvidia-elite-partner-xiilab-raises-10-billion-won-via",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "Direct article access failed; separate The Elec source reports board approval of proposed 10bn won bond, with payment still planned."
+    },
+    {
+      "id": "s-tail-35",
+      "title": "Source for digest-35",
+      "url": "https://abcnews.com/Technology/san-francisco-company-offers-cleaning-service-humanoid-robots/story?id=135258956",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "ABC interviewed CEO in July about existing teleoperated cleaning; no demonstrated material new November development."
+    },
+    {
+      "id": "s-tail-37",
+      "title": "Source for digest-37",
+      "url": "https://www.squarepeg.vc/blog/investment-notes-future-secure-ai",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "Investor confirms investment but date and amount absent; press accounts disagree on dates and AFR original was inaccessible."
+    },
+    {
+      "id": "s-tail-41",
+      "title": "Source for digest-41",
+      "url": "https://devblogs.microsoft.com/foundry/foundry-local-agentic-coding-qwen3-8-27b/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "Microsoft original dated Nov 5, not a Nov 6 release; its old issue boundary and precise timing remain unresolved."
+    },
+    {
+      "id": "s-tail-45",
+      "title": "Source for digest-45",
+      "url": "https://www.theverge.com/podcast/1028731/2026-midterms-tech-ai-vergecast",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "Opinion podcast analyzing election and technology, no material new technical event identified."
+    },
+    {
+      "id": "s-tail-48",
+      "title": "Source for digest-48",
+      "url": "https://www.stocktitan.net/news/NVDA/nvidia-sets-conference-call-for-third-quarter-financial-rgdf7hquxgar.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:21:40Z",
+      "evidence": "Nvidia scheduled the earnings call in October; this is not a new November announcement."
+    },
+    {
+      "id": "s-vals-wired",
+      "title": "WIRED on Vals cybersecurity tests",
+      "url": "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:22:42Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T18:43:43.052Z",
+        "basis": "WIRED datePublished metadata; reporting event, not first benchmark publication.",
+        "sourceUrls": [
+          "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/"
+        ]
+      },
+      "evidence": "Article reports independent evaluator Vals and interviews on cyber model tests."
+    },
+    {
+      "id": "s-vals-primary",
+      "title": "Vals CyberOffense",
+      "url": "https://www.vals.ai/benchmarks/cyber_offense",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:22:21Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-23",
+        "basis": "Benchmark page labels itself updated October 23; precision and update scope are limited.",
+        "sourceUrls": [
+          "https://www.vals.ai/benchmarks/cyber_offense"
+        ]
+      },
+      "evidence": "Benchmark describes two isolated ranges, model configuration and sampling; page update timestamp does not prove first release."
+    },
+    {
+      "id": "s-chip-yahoo",
+      "title": "Bloomberg on Nvidia tracking via Yahoo",
+      "url": "https://finance.yahoo.com/technology/ai/articles/nvidia-boosts-chip-tracking-southeast-100319244.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:16:36Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-06T10:03:00Z",
+        "latest": "2026-11-06T10:03:59Z",
+        "basis": "Bloomberg syndication displays 05:03 EST to minute; this is the reporting event.",
+        "sourceUrls": [
+          "https://finance.yahoo.com/technology/ai/articles/nvidia-boosts-chip-tracking-southeast-100319244.html"
+        ]
+      },
+      "evidence": "Independent reviewer read syndicated report with minute timestamp; author direct Yahoo access was rate limited."
+    },
+    {
+      "id": "s-remaining-ro",
+      "title": "Reuters healthcare data research unit",
+      "url": "https://www.reuters.com/legal/litigation/ro-launches-healthcare-research-unit-plans-offer-data-drugmakers-2026-11-06/",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-07T02:23:19Z",
+      "evidence": "Search result reports health-data plans; direct source access failed on repeat; scope, original reporting and publication instant require further verification."
+    },
+    {
+      "id": "s-remaining-ap-election",
+      "title": "AP data-center election coverage",
+      "url": "https://apnews.com/article/63b33be8884d867d3ac831040d683a2c",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-07T02:23:19Z",
+      "evidence": "Search result describes election and data-center policy; direct AP open failed; relevance and time remain unresolved."
+    },
+    {
+      "id": "s-remaining-wsj-roundup",
+      "title": "WSJ venture capital briefing",
+      "url": "https://www.wsj.com/pro/venture-capital/vcs-are-enamored-of-ai-but-are-they-getting-nervous-8593dfcc",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-07T02:23:19Z",
+      "evidence": "Newsletter partial subscription access; individual events require their own sources and dates, not treated as independent confirmation."
+    },
+    {
+      "id": "s-remaining-un-summit",
+      "title": "UN Barbados safety summit",
+      "url": "https://www.un.org/digital-emerging-technologies/content/barbados-and-united-nations-co-host-special-summit-ai-safety-23-november",
+      "publisherKind": "primary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-07T02:23:19Z",
+      "evidence": "Search shows upcoming summit but direct page returned 403; announcement publication date and newness unresolved."
+    },
+    {
+      "id": "s-identity-jev",
+      "title": "JEV identity candidate source",
+      "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:22:14Z",
+      "evidence": "A candidate identity, not user confirmation."
+    },
+    {
+      "id": "s-identity-laya",
+      "title": "Laya identity candidate source",
+      "url": "https://github.com/NandhaKishorM/laya",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:22:14Z",
+      "evidence": "A candidate identity, not user confirmation."
+    },
+    {
+      "id": "s-identity-osc",
+      "title": "Prior issue ledger identity OSC",
+      "url": "https://raw.githubusercontent.com/Zzzode/zzzode.github.io/04c1f476679df344064b5d62146c603827c0f64c/docs/daily/runs/2026-11-06.json",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:23:55Z",
+      "evidence": "Previous issue records OSC as unresolved; no match asserted."
+    },
+    {
+      "id": "s-retro-sina",
+      "title": "Linggan Robotics report via Sina",
+      "url": "https://finance.sina.com.cn/tech/roll/2026-11-05/doc-inixrcqq9853061.shtml",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-07T02:20:16Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-04T16:38:00Z",
+        "latest": "2026-11-04T16:43:51Z",
+        "basis": "Sina metadata shows bytedance publication 00:38 and article publication 00:43:51 with explicit +08:00; represent conservative interval.",
+        "sourceUrls": [
+          "https://finance.sina.com.cn/tech/roll/2026-11-05/doc-inixrcqq9853061.shtml"
+        ]
+      },
+      "evidence": "Leiphone-origin financing report, via Sina; exact financing close not inferred."
+    }
+  ],
+  "checks": [
+    {
+      "id": "check-products",
+      "target": "Microsoft Foundry Local product and developer tooling",
+      "category": "products",
+      "status": "candidate",
+      "checkedAt": "2026-11-07T02:24:16Z",
+      "queryIds": [
+        "q-batch-2"
+      ],
+      "sourceIds": [
+        "s-tail-41"
+      ],
+      "candidateIds": [
+        "digest-41"
+      ],
+      "notes": "Original Microsoft product tutorial fetched; prior-window timing remains unresolved."
+    },
+    {
+      "id": "check-business",
+      "target": "Open discovery and source assessment for business",
+      "category": "business",
+      "status": "candidate",
+      "checkedAt": "2026-11-07T02:24:16Z",
+      "queryIds": [
+        "q-batch-1"
+      ],
+      "sourceIds": [
+        "s-2"
+      ],
+      "candidateIds": [
+        "c-physicl"
+      ],
+      "notes": "Evidence recorded; remaining pending leads, access failures and boundary uncertainty are disclosed for independent assessment."
+    },
+    {
+      "id": "check-research",
+      "target": "Open discovery and source assessment for research",
+      "category": "research",
+      "status": "candidate",
+      "checkedAt": "2026-11-07T02:24:16Z",
+      "queryIds": [
+        "q-batch-4"
+      ],
+      "sourceIds": [
+        "s-psi"
+      ],
+      "candidateIds": [
+        "c-target-1"
+      ],
+      "notes": "Evidence recorded; remaining pending leads, access failures and boundary uncertainty are disclosed for independent assessment."
+    },
+    {
+      "id": "check-governance",
+      "target": "Open discovery and source assessment for governance",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-07T02:24:16Z",
+      "queryIds": [
+        "q-batch-3"
+      ],
+      "sourceIds": [
+        "s-7"
+      ],
+      "candidateIds": [
+        "c-miit"
+      ],
+      "notes": "Evidence recorded; remaining pending leads, access failures and boundary uncertainty are disclosed for independent assessment."
+    },
+    {
+      "id": "check-agents",
+      "target": "Open discovery and source assessment for agents",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-07T02:24:16Z",
+      "queryIds": [
+        "q-batch-4"
+      ],
+      "sourceIds": [
+        "s-6"
+      ],
+      "candidateIds": [
+        "c-glean"
+      ],
+      "notes": "Evidence recorded; remaining pending leads, access failures and boundary uncertainty are disclosed for independent assessment."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "c-funding",
+      "title": "路透社：OpenAI 已取得 110 亿美元新融资",
+      "category": "business",
+      "entity": "路透社：OpenAI 已取得 110 亿美元新融资",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-open"
+      ],
+      "sourceIds": [
+        "s-1"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-06T21:12:00Z",
+        "latest": "2026-11-06T21:12:59Z",
+        "basis": "Reuters syndication displays 4:12 PM EST at minute precision; this represents the Reuters report, not the financing close.",
+        "sourceUrls": [
+          "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Source-supported reporting or announcement in window; awaiting independent review.",
+      "importance": "Initial editorial selection; ordering and coverage remain under review.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-1"
+        ],
+        "attribution": "Attributed reporting by Reuters or TechCrunch; trace prior reporting before release.",
+        "limitations": "The reported transaction or proposal and its timing require careful attribution; sources may be anonymous."
+      }
+    },
+    {
+      "id": "c-physicl",
+      "title": "Physicl 融资 1000 万美元，面向机器人合成训练数据",
+      "category": "business",
+      "entity": "Physicl 融资 1000 万美元，面向机器人合成训练数据",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q-open"
+      ],
+      "sourceIds": [
+        "s-2"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-06T13:00:00Z",
+        "latest": "2026-11-06T13:00:59Z",
+        "basis": "Company press release displays 08:00 ET at minute precision.",
+        "sourceUrls": [
+          "https://rss.globenewswire.com/news-release/2026/11/06/3397485/0/en/physicl-raises-10-million-to-solve-physical-ai-s-edge-case-gap.html"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Source-supported reporting or announcement in window; awaiting independent review.",
+      "importance": "Initial editorial selection; ordering and coverage remain under review."
+    },
+    {
+      "id": "c-clutch",
+      "title": "Palo Alto Networks 与 Clutch 的收购谈判",
+      "category": "agents",
+      "entity": "Palo Alto Networks 与 Clutch 的收购谈判",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-open"
+      ],
+      "sourceIds": [
+        "s-3"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-06T06:28:00Z",
+        "latest": "2026-11-06T06:28:59Z",
+        "basis": "TechCrunch displays November 5 10:28 PM PST at minute precision.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/05/palo-alto-networks-in-talks-to-buy-ai-agent-security-startup-clutch-for-500m/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Source-supported reporting or announcement in window; awaiting independent review.",
+      "importance": "Initial editorial selection; ordering and coverage remain under review.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-3"
+        ],
+        "attribution": "Attributed reporting by Reuters or TechCrunch; trace prior reporting before release.",
+        "limitations": "The reported transaction or proposal and its timing require careful attribution; sources may be anonymous."
+      }
+    },
+    {
+      "id": "c-policy",
+      "title": "美国议员拟推动 AI 安全评估及责任立法",
+      "category": "governance",
+      "entity": "美国议员拟推动 AI 安全评估及责任立法",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-open"
+      ],
+      "sourceIds": [
+        "s-4"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-06T11:05:00Z",
+        "latest": "2026-11-06T11:05:59Z",
+        "basis": "Reuters shows 11:05 UTC and a contemporaneous syndication corroborates this minute.",
+        "sourceUrls": [
+          "https://www.reuters.com/business/media-telecom/democrats-planning-flood-ai-bills-when-they-take-control-congress-2026-11-06/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Source-supported reporting or announcement in window; awaiting independent review.",
+      "importance": "Initial editorial selection; ordering and coverage remain under review.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-4"
+        ],
+        "attribution": "Attributed reporting by Reuters or TechCrunch; trace prior reporting before release.",
+        "limitations": "The reported transaction or proposal and its timing require careful attribution; sources may be anonymous."
+      }
+    },
+    {
+      "id": "c-target-3",
+      "title": "Cashfree 接入 WebMCP 辅助支付流程",
+      "entity": "Cashfree agent checkout",
+      "category": "agents",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-target-3"
+      ],
+      "sourceIds": [
+        "s-target-3"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "CiOL interview reporting is dated within the window; actual launch time remains a company plan.",
+      "importance": "Potentially consequential independent research or agent payment workflow.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Co-founder describes live transactions from Nov 6; confirm distinction between product and announcement and original timing.",
+          "queryIds": [
+            "q-target-3"
+          ],
+          "sourceIds": [
+            "s-target-3"
+          ],
+          "snapshotAt": "2026-11-07T02:17:45Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-06T08:54:00Z",
+        "latest": "2026-11-06T08:54:59Z",
+        "basis": "CiOL displays 14:24 IST at minute precision; this is the interview report, not a verified transaction launch instant.",
+        "sourceUrls": [
+          "https://www.ciol.com/tech/cashfree-webmcp-checkout-for-agents-ai-payments-12788980"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-target-3"
+        ],
+        "attribution": "CiOL interviewed Cashfree co-founder on planned live transaction handling.",
+        "limitations": "Company performance claims unverified; announcement does not prove actual launch instant."
+      }
+    },
+    {
+      "id": "c-wired",
+      "title": "WIRED inquiry on work records and AI data",
+      "category": "governance",
+      "entity": "WIRED inquiry on work records and AI data",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-c-wired",
+        "q-promote"
+      ],
+      "sourceIds": [
+        "s-c-wired"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T16:00:00Z",
+        "basis": "Publisher article:published_time and datePublished metadata agree.",
+        "sourceUrls": [
+          "https://www.wired.com/story/ai-companies-really-really-want-to-buy-your-work-files-and-emails/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Newly retrieved metadata establishes the reporting/announcement event inside the window, not the time of underlying work.",
+      "importance": "Consequential data governance reporting or developer tooling.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-c-wired"
+        ],
+        "attribution": "WIRED reporter interviewed data brokers and privacy experts.",
+        "limitations": "Industry market size estimate is explicitly unverified; reporting is single origin."
+      },
+      "priorAssessments": [
+        {
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "Publication date crosses a boundary under unknown timezone; corroboration remains necessary.",
+          "queryIds": [
+            "q-c-wired",
+            "q-promote"
+          ],
+          "sourceIds": [
+            "s-c-wired"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-06",
+            "basis": "Source gives November 6 without established timezone.",
+            "sourceUrls": [
+              "https://www.wired.com/story/ai-companies-really-really-want-to-buy-your-work-files-and-emails/"
+            ]
+          },
+          "snapshotAt": "2026-11-07T02:18:20Z"
+        }
+      ]
+    },
+    {
+      "id": "c-target-1",
+      "title": "PSI 称 AI 辅助证明量子计算猜想",
+      "entity": "PSI reported AI-assisted Aaronson–Ambainis proof",
+      "category": "research",
+      "releaseStatus": "research",
+      "queryIds": [
+        "q-target-1",
+        "q-promote"
+      ],
+      "sourceIds": [
+        "s-target-1",
+        "s-psi",
+        "s-psi-post"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Newly retrieved metadata establishes the reporting/announcement event inside the window, not the time of underlying work.",
+      "importance": "Potentially consequential independent research or agent payment workflow.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Important mathematical claim; read primary manuscript and determine evidence for public date. Reported proof must not be represented as independently verified. See additional source evidence.",
+          "queryIds": [
+            "q-target-1"
+          ],
+          "sourceIds": [
+            "s-target-1",
+            "s-psi"
+          ],
+          "snapshotAt": "2026-11-07T02:17:45Z"
+        },
+        {
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "原文只有 11 月 6 日，公开时刻和时区尚未证实；需进一步核对。",
+          "queryIds": [
+            "q-target-1",
+            "q-promote"
+          ],
+          "sourceIds": [
+            "s-target-1",
+            "s-psi",
+            "s-psi-post"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-06",
+            "basis": "Source displays a date without establishing publication timezone.",
+            "sourceUrls": [
+              "https://psi.inc/research/aaronson-ambainis/"
+            ]
+          },
+          "snapshotAt": "2026-11-07T02:18:20Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T14:05:12Z",
+        "basis": "PSI official account announcement created_at in X syndication JSON; this event is the post, not the website publication time.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118706269506949152&token=a"
+        ]
+      }
+    },
+    {
+      "id": "c-target-2",
+      "title": "Ai2 发布 ToyBlocks 机器人学习模拟环境",
+      "entity": "Ai2 ToyBlocks simulation",
+      "category": "research",
+      "releaseStatus": "research",
+      "queryIds": [
+        "q-target-2",
+        "q-toy-metadata"
+      ],
+      "sourceIds": [
+        "s-target-2",
+        "s-toy",
+        "s-toy-hf"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "New Ai2-authored article was published within the window according to its metadata; not a claim of first project availability.",
+      "importance": "Potentially consequential independent research or agent payment workflow.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Ai2 index dates the work Nov 6; original work, evaluation and window boundary need verification. See additional source evidence.",
+          "queryIds": [
+            "q-target-2"
+          ],
+          "sourceIds": [
+            "s-target-2",
+            "s-toy"
+          ],
+          "snapshotAt": "2026-11-07T02:17:45Z"
+        },
+        {
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "原文只有 11 月 6 日，可能跨越窗口边界，需核实首次公开时刻。",
+          "queryIds": [
+            "q-target-2",
+            "q-toy-metadata"
+          ],
+          "sourceIds": [
+            "s-target-2",
+            "s-toy",
+            "s-toy-hf"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-06",
+            "basis": "Source displays a date without establishing publication timezone.",
+            "sourceUrls": [
+              "https://allenai.org/blog/toyblocks"
+            ]
+          },
+          "snapshotAt": "2026-11-07T02:18:39Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T14:00:48.059Z",
+        "basis": "Ai2 Hugging Face article JSON-LD datePublished; this identifies the public article event, not necessarily first availability.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/allenai/toyblocks"
+        ]
+      }
+    },
+    {
+      "id": "digest-13",
+      "title": "路透转述：台积电考虑先进存储芯片",
+      "category": "business",
+      "entity": "TSMC may enter 3D DRAM production on Nvidia’s request amid AI-driven shortages",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-digest",
+        "rq-discovery-follow",
+        "q-tsmc-reuters"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-13",
+        "s-tsmc-reuters"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Reuters 15:45:40 version is in window; an earlier 15:39 UTC syndicated Reuters version exists. The underlying single-origin Information report remains subscription-restricted.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-13"
+          ],
+          "snapshotAt": "2026-11-07T02:16:59Z"
+        },
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Publisher has subscription wall; report on possible TSMC 3D DRAM attributed to two sources must be corroborated via accessible reporting, not treated as company plan.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow",
+            "q-tsmc-reuters"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-13",
+            "s-tsmc-reuters"
+          ],
+          "snapshotAt": "2026-11-07T02:20:19Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T15:45:40Z",
+        "basis": "Reuters 15:45:40 UTC version as surfaced by search; a 15:39 UTC syndication exists, so this is not asserted as first publication. Reuters attributes the underlying report to The Information.",
+        "sourceUrls": [
+          "https://www.reuters.com/world/asia-pacific/tsmc-considers-making-advanced-memory-chips-information-reports-2026-11-06/"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-tsmc-reuters"
+        ],
+        "attribution": "Reuters attributes the claim to The Information and its two unnamed sources.",
+        "limitations": "Single original report; source article subscription-restricted. The companies did not confirm and plans are not completion."
+      }
+    },
+    {
+      "id": "c-vals",
+      "title": "WIRED reports Vals simulated cyber tests",
+      "category": "research",
+      "entity": "Vals CyberOffense",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-vals"
+      ],
+      "sourceIds": [
+        "s-vals-wired",
+        "s-vals-primary"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T18:43:43.052Z",
+        "basis": "WIRED datePublished metadata; reporting event, not first benchmark publication.",
+        "sourceUrls": [
+          "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "New attributed WIRED reporting event is in window; underlying benchmark is older.",
+      "importance": "Evidence about safety and model access in cybersecurity, bounded to two simulated networks.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-vals-wired"
+        ],
+        "attribution": "WIRED interviews Vals and reports its benchmark; methodology page is evaluator primary source.",
+        "limitations": "Small simulated ranges and evaluator measurements are not real-world attack rates."
+      }
+    },
+    {
+      "id": "digest-25",
+      "title": "Bloomberg on Nvidia regional chip tracking",
+      "category": "governance",
+      "entity": "Nvidia tracks AI chips in Southeast Asia for Cloud Partner status",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-digest",
+        "rq-discovery-follow",
+        "rq-chip"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-25",
+        "s-edge",
+        "s-chip-yahoo"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Bloomberg reporting event within window; NCP applicants face a condition while the broader program remains voluntary.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-25",
+            "s-edge"
+          ],
+          "snapshotAt": "2026-11-07T02:16:59Z"
+        },
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Bloomberg original restricted; authorised republication says regional cloud partner applicants enroll in chip location tracking, overall program voluntary. Need time verification. See additional source evidence.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow",
+            "rq-chip"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-25",
+            "s-edge",
+            "s-chip-yahoo"
+          ],
+          "snapshotAt": "2026-11-07T02:23:13Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-06T10:03:00Z",
+        "latest": "2026-11-06T10:03:59Z",
+        "basis": "Bloomberg syndication displays 05:03 EST to minute; this is the reporting event.",
+        "sourceUrls": [
+          "https://finance.yahoo.com/technology/ai/articles/nvidia-boosts-chip-tracking-southeast-100319244.html"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-chip-yahoo",
+          "s-edge"
+        ],
+        "attribution": "Bloomberg reports anonymous people familiar with a confidential measure; Yahoo and Edge are syndicated copies of the same origin.",
+        "limitations": "Single-origin anonymous reporting; no independent confirmation of all details."
+      }
+    },
+    {
+      "id": "c-bio",
+      "title": "BioBasicsBench 测试湿实验数据解读",
+      "category": "research",
+      "entity": "BioBasicsBench 测试湿实验数据解读",
+      "releaseStatus": "research",
+      "queryIds": [
+        "q-open"
+      ],
+      "sourceIds": [
+        "s-5"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source gives the calendar date without an evidenced timezone.",
+        "sourceUrls": [
+          "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "原文只有 11 月 6 日，未标明时区和时刻，可能跨越本期窗口边界；需核查首次公开时间。",
+      "importance": "Initial editorial selection; ordering and coverage remain under review."
+    },
+    {
+      "id": "c-glean",
+      "title": "Glean 更新 Agent 服务凭证",
+      "category": "agents",
+      "entity": "Glean 更新 Agent 服务凭证",
+      "releaseStatus": "released",
+      "queryIds": [
+        "q-open"
+      ],
+      "sourceIds": [
+        "s-6"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source gives the calendar date without an evidenced timezone.",
+        "sourceUrls": [
+          "https://docs.glean.com/release-notes/releases/2026-11-06-november-release"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "更新说明仅标 11 月 6 日，未明确时区或发布时间；实际公开时间仍需核查。",
+      "importance": "Initial editorial selection; ordering and coverage remain under review."
+    },
+    {
+      "id": "c-aws",
+      "title": "AWS remote Claude Code AgentCore example",
+      "category": "agents",
+      "entity": "AWS remote Claude Code AgentCore example",
+      "releaseStatus": "released",
+      "queryIds": [
+        "q-c-aws"
+      ],
+      "sourceIds": [
+        "s-c-aws"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Source gives November 6 without established timezone.",
+        "sourceUrls": [
+          "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Publication date crosses a boundary under unknown timezone; corroboration remains necessary.",
+      "importance": "Consequential data governance reporting or developer tooling."
+    },
+    {
+      "id": "c-qingtian",
+      "title": "擎天智能 Pre-A 轮融资报道",
+      "entity": "擎天智能 Pre-A",
+      "category": "business",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-china-open",
+        "rq-qingtian"
+      ],
+      "sourceIds": [
+        "s-qingtian"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Original reporting is dated Nov 6 but timezone and first disclosure time are not established.",
+      "importance": "Independent reviewer found a potentially relevant event or retrospective lead; not a confirmed current selection.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "11/6 reporting, time zone and earlier announcement unresolved.",
+          "queryIds": [
+            "q-china-open",
+            "rq-qingtian"
+          ],
+          "sourceIds": [
+            "s-qingtian"
+          ],
+          "snapshotAt": "2026-11-07T02:25:43Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-06",
+        "basis": "Investment report displays November 6 14:18 without an established timezone; use date precision.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571452.shtml"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-qingtian"
+        ],
+        "attribution": "Investment portal reports the funding, citing company information.",
+        "limitations": "Origin and first disclosure time are not independently confirmed; unnamed lead investor."
+      }
+    },
+    {
+      "id": "c-miit",
+      "title": "MIIT agent terminal notice — retrospective boundary",
+      "category": "governance",
+      "entity": "MIIT agent terminal notice",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q-open"
+      ],
+      "sourceIds": [
+        "s-7"
+      ],
+      "decision": "pending",
+      "reasonCode": "time_uncertain",
+      "reason": "Official page displays November 6 09:15 but no timezone; may belong to preceding issue. Prior issue correction or explicitly labelled retrospective requires review.",
+      "importance": "Important Chinese terminal and agent governance; never count as a confirmed current-window event."
+    },
+    {
+      "id": "digest-01",
+      "title": "Trump administration official holds $18M–$64M in AI investments while pushing federal data center plans",
+      "category": "business",
+      "entity": "Trump administration official holds $18M–$64M in AI investments while pushing federal data center plans",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-discovery-follow"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-01"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Reported potential conflict, not a finding of illegality; lower direct priority for this technical issue.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-01"
+          ],
+          "snapshotAt": "2026-11-07T02:16:59Z"
+        },
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Potential conflicts relating to officials and AI investments: investigation, no established wrongdoing; source date/time zone and prioritization unresolved.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-01"
+          ],
+          "snapshotAt": "2026-11-07T02:23:13Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T11:00:00Z",
+        "basis": "Source publication metadata checked by independent reviewer; report event.",
+        "sourceUrls": [
+          "https://www.propublica.org/article/burgum-public-land-data-centers-investments"
+        ]
+      }
+    },
+    {
+      "id": "digest-02",
+      "title": "Protesters breach Microsoft data center construction site in Amsterdam",
+      "category": "products",
+      "entity": "Protesters breach Microsoft data center construction site in Amsterdam",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-discovery-follow"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-02"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Data-center protest is relevant context, but lower priority than selected technical, safety and governance developments.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-02"
+          ],
+          "snapshotAt": "2026-11-07T02:16:59Z"
+        },
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Amsterdam data-center construction protest, reported Nov 6; relative importance and event time require editorial assessment.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-02"
+          ],
+          "snapshotAt": "2026-11-07T02:23:13Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T15:56:02Z",
+        "basis": "Source publication metadata checked by independent reviewer; report event.",
+        "sourceUrls": [
+          "https://apnews.com/article/b4f3f9f368697bb37416bcb4fabdd67c"
+        ]
+      }
+    },
+    {
+      "id": "digest-03",
+      "title": "HubSpot report: 86.4% of teams use AI, but strategy gaps persist",
+      "category": "products",
+      "entity": "HubSpot report: 86.4% of teams use AI, but strategy gaps persist",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-discovery-follow"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-03"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Independent reviewer received 404; discovery remains unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-03"
+          ],
+          "snapshotAt": "2026-11-07T02:16:59Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-04",
+      "title": "Thinking Machines Lab releases Inkling 2 Small with 594B parameters and 17B active parameters",
+      "category": "products",
+      "entity": "Thinking Machines Lab releases Inkling 2 Small with 594B parameters and 17B active parameters",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Inkling 2 Small already appears as a boundary-uncertain candidate in the 2026-11-06 issue.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim."
+    },
+    {
+      "id": "digest-05",
+      "title": "Democrats to scrutinize CISA, AI security, and DOGE probes in new Congress",
+      "category": "governance",
+      "entity": "Democrats to scrutinize CISA, AI security, and DOGE probes in new Congress",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-05"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "November 5 source date only; prior issue boundary and actual novelty remain unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-05"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-06",
+      "title": "Defining requirements before prompting improves AI output",
+      "category": "products",
+      "entity": "Defining requirements before prompting improves AI output",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-discovery-follow"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-06"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Independent reviewer received HTTP 429; discovery remains unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-06"
+          ],
+          "snapshotAt": "2026-11-07T02:16:59Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-07",
+      "title": "Greenlight Financial resolves 90% of security cases with autonomous SOC on Amazon Bedrock AgentCore",
+      "category": "governance",
+      "entity": "Greenlight Financial resolves 90% of security cases with autonomous SOC on Amazon Bedrock AgentCore",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-07"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "November 6 AWS customer case; not itself a new product release; verify original timing and significance.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-07"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-08",
+      "title": "Thinking Machines Lab is raising $5B led by Accel at a $40B valuation, sources say",
+      "category": "business",
+      "entity": "Thinking Machines Lab is raising $5B led by Accel at a $40B valuation, sources say",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Thinking Machines fundraising was already included in the 2026-11-06 issue; Business Insider report timestamp precedes current start.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim."
+    },
+    {
+      "id": "digest-09",
+      "title": "Scrunch vs Ahrefs Brand Radar: AI visibility tracking comparison",
+      "category": "products",
+      "entity": "Scrunch vs Ahrefs Brand Radar: AI visibility tracking comparison",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-discovery-follow"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-09"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Independent reviewer received 404; discovery remains unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-discovery-follow"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-09"
+          ],
+          "snapshotAt": "2026-11-07T02:16:59Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-10",
+      "title": "Nvidia open source AI Aerial and Sionna tools accelerate 6G research",
+      "category": "research",
+      "entity": "Nvidia open source AI Aerial and Sionna tools accelerate 6G research",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-10"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "November 6 retrospective; Aerial already open sourced one year ago, not a new open-source launch.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-10"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-11",
+      "title": "Amazon adds remote Claude Code support on Bedrock AgentCore with security controls",
+      "category": "governance",
+      "entity": "Amazon adds remote Claude Code support on Bedrock AgentCore with security controls",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "Same event followed through original source in a distinct candidate.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "duplicateOf": "c-aws"
+    },
+    {
+      "id": "digest-12",
+      "title": "Taxbit launches role-aware AI assistant on Amazon Bedrock AgentCore",
+      "category": "agents",
+      "entity": "Taxbit launches role-aware AI assistant on Amazon Bedrock AgentCore",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-12"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "November 6 customer case; first deployment timing not established.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-12"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-14",
+      "title": "ToyBlocks: A controlled world for robot learning and evaluation",
+      "category": "research",
+      "entity": "ToyBlocks: A controlled world for robot learning and evaluation",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "Same event as c-target-2; evaluate through that candidate.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest"
+          ],
+          "sourceIds": [
+            "s-digest"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ],
+      "duplicateOf": "c-target-2"
+    },
+    {
+      "id": "digest-15",
+      "title": "Physicl raises $10M seed to build realistic 3D sims for robot training",
+      "category": "business",
+      "entity": "Physicl raises $10M seed to build realistic 3D sims for robot training",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "Same Physicl financing and Studio announcement as selected candidate.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "duplicateOf": "c-physicl"
+    },
+    {
+      "id": "digest-16",
+      "title": "AI decompilation may speed up GTA VI PC port, former Rockstar tech director says",
+      "category": "products",
+      "entity": "AI decompilation may speed up GTA VI PC port, former Rockstar tech director says",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-16"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Former employee speculation, not an announced GTA port; lower technical significance for this issue.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-16"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-17",
+      "title": "AI is dating dealbreaker in tech hub",
+      "category": "products",
+      "entity": "AI is dating dealbreaker in tech hub",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-17"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "November 6 report on dating; lower significance for this issue’s engineering and technical business readers.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-17"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-18",
+      "title": "Researchers propose framework for AI-directed evolution and safety risks",
+      "category": "research",
+      "entity": "Researchers propose framework for AI-directed evolution and safety risks",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-18"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "v1 submitted November 4 19:08:46 UTC; submission is not public availability and original paper needs assessment.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-18"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-19",
+      "title": "Researchers propose closed-loop agent evaluation method for deployed AI systems",
+      "category": "research",
+      "entity": "Researchers propose closed-loop agent evaluation method for deployed AI systems",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-19"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "v1 submitted November 4 19:11:47 UTC; submission is not proof of public availability.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-19"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-20",
+      "title": "AI companies may buy work files and emails, Wired reports",
+      "category": "governance",
+      "entity": "AI companies may buy work files and emails, Wired reports",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "Same event followed through original source in a distinct candidate.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "duplicateOf": "c-wired"
+    },
+    {
+      "id": "digest-21",
+      "title": "Researchers autoformalize linear regularization theory in Lean with AI agents",
+      "category": "research",
+      "entity": "Researchers autoformalize linear regularization theory in Lean with AI agents",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-21"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "v1 submitted November 4 08:30:31 UTC; source identity and public availability require further checking.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-21"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-22",
+      "title": "Luxury Brands lean into handcrafted art, artists say",
+      "category": "research",
+      "entity": "Luxury Brands lean into handcrafted art, artists say",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-22"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Hand-drawn brand campaign, not a material new AI technology or product.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-22"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-23",
+      "title": "BlockLock fixes LLM inference batching for reproducible outputs",
+      "category": "research",
+      "entity": "BlockLock fixes LLM inference batching for reproducible outputs",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-23"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "BlockLock v1 submitted November 4 13:40:05 UTC; public release timing is not established.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-23"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-24",
+      "title": "Researchers propose Two-Ledger Model for tracking AI costs in enterprise transactions",
+      "category": "research",
+      "entity": "Researchers propose Two-Ledger Model for tracking AI costs in enterprise transactions",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "rq-prior-source"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "sr-digest-24"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "v1 submitted November 4 17:04:04 UTC; publication timing remains unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "rq-prior-source"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "sr-digest-24"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-26",
+      "title": "Nvidia in talks to guarantee financing for Nscale data center serving Anthropic",
+      "category": "business",
+      "entity": "Nvidia in talks to guarantee financing for Nscale data center serving Anthropic",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-26"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "The Information original subscription-restricted; later BI discusses a reported Nscale guarantee, apparently preceded by October reporting; first disclosure and new facts require review.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-26"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-27",
+      "title": "Researchers introduce efxplorer for Cooperative Multi-Agent reinforcement learning",
+      "category": "research",
+      "entity": "Researchers introduce efxplorer for Cooperative Multi-Agent reinforcement learning",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-27"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Cooperative multi-agent constrained exploration; NeurIPS noted; submitted Nov 4 and listed Nov 6, first public time not established.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-27"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-28",
+      "title": "Airbnb discloses option to invest in Brian Chesky's stealth AI lab",
+      "category": "business",
+      "entity": "Airbnb discloses option to invest in Brian Chesky's stealth AI lab",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-28"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "November 5 16:09 UTC already reported the investment option and IP agreement; do not recycle as a current new disclosure.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-28"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-05T16:09:00Z",
+        "basis": "Dealroom news record displays 16:09 UTC to minute; this is a contemporaneous prior report, not filing time.",
+        "sourceUrls": [
+          "https://dealroom.co/news/133866-airbnb-gets-option-to-invest-in-cheskys-self-funded-ai-lab-after-7-1m-ip/"
+        ]
+      }
+    },
+    {
+      "id": "digest-29",
+      "title": "Cashfree adds WebMCP tools to Hosted Checkout for AI agents",
+      "category": "agents",
+      "entity": "Cashfree adds WebMCP tools to Hosted Checkout for AI agents",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "Same event as c-target-3; evaluate through that candidate.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest"
+          ],
+          "sourceIds": [
+            "s-digest"
+          ],
+          "snapshotAt": "2026-11-07T02:16:20Z"
+        }
+      ],
+      "duplicateOf": "c-target-3"
+    },
+    {
+      "id": "digest-30",
+      "title": "Researchers propose TRAP policy for AI agent authorization",
+      "category": "research",
+      "entity": "Researchers propose TRAP policy for AI agent authorization",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-30"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "TRAP runtime authorization studied with Monte Carlo simulations; submission is not publication, no deployed safety inference.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-30"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-31",
+      "title": "Researchers test Cross-Agent formalization for clinical trial criteria",
+      "category": "research",
+      "entity": "Researchers test Cross-Agent formalization for clinical trial criteria",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-31"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Dafny cross-agent formalization preprint; formal verification is not independent semantic agreement; public time unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-31"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-32",
+      "title": "XIIlab approves KRW 10B convertible bond for ai data center",
+      "category": "business",
+      "entity": "XIIlab approves KRW 10B convertible bond for ai data center",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-32"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Direct article access failed; separate The Elec source reports board approval of proposed 10bn won bond, with payment still planned.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-32"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-33",
+      "title": "FlexFloor improves reinforcement learning post‑training efficiency for LLMs",
+      "category": "research",
+      "entity": "FlexFloor improves reinforcement learning post‑training efficiency for LLMs",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-33"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "FlexFloor MoE reinforcement post-training preprint; efficiency results are authors’ tests; precise release time unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-33"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-34",
+      "title": "Zapier finds Claude Code uses Markdown mirrors and hidden Haiku 4.5 model",
+      "category": "research",
+      "entity": "Zapier finds Claude Code uses Markdown mirrors and hidden Haiku 4.5 model",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-34"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Zapier reports one Claude reading experiment on Nov 6, time zone unresolved; observed behavior is not universal.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-34"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-35",
+      "title": "Tau Robotics offers humanoid robot cleaning service in San Francisco",
+      "category": "research",
+      "entity": "Tau Robotics offers humanoid robot cleaning service in San Francisco",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-35"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "ABC interviewed CEO in July about existing teleoperated cleaning; no demonstrated material new November development.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-35"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-36",
+      "title": "RunSybil finds CPython flaw enabling code execution via chat templates",
+      "category": "governance",
+      "entity": "RunSybil finds CPython flaw enabling code execution via chat templates",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "RunSybil original disclosure is dated November 3 and needs review against its original issue, not automatic recycling.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim."
+    },
+    {
+      "id": "digest-37",
+      "title": "Square Peg backs Future Secure AI to build enterprise AI co-workers",
+      "category": "products",
+      "entity": "Square Peg backs Future Secure AI to build enterprise AI co-workers",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-37"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Investor confirms investment but date and amount absent; press accounts disagree on dates and AFR original was inaccessible.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-37"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-38",
+      "title": "Teachers and parents: what are your experiences of AI-generated emails?",
+      "category": "products",
+      "entity": "Teachers and parents: what are your experiences of AI-generated emails?",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-38"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "A call for reader experiences, not results of a completed survey; low editorial relevance.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-38"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-39",
+      "title": "Researchers introduce BCSS to scale symbolic models of reasoning",
+      "category": "research",
+      "entity": "Researchers introduce BCSS to scale symbolic models of reasoning",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-39"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Symbolic model synthesis for reasoning, preprint not causal proof; submitted Nov 4 and listed Nov 6, exact public time unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-39"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-40",
+      "title": "Researchers link AI agent power to human Goal attainment in formal models",
+      "category": "research",
+      "entity": "Researchers link AI agent power to human Goal attainment in formal models",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-40"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Formal human and agent power model; theoretical/simulated outcomes, not real deployment; first public time unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-40"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-41",
+      "title": "Microsoft Foundry Local runs Qwen3.8-27B locally with GitHub Copilot on Nvidia GPUs",
+      "category": "products",
+      "entity": "Microsoft Foundry Local runs Qwen3.8-27B locally with GitHub Copilot on Nvidia GPUs",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-41"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Microsoft original dated Nov 5, not a Nov 6 release; its old issue boundary and precise timing remain unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-41"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-42",
+      "title": "Researchers propose KDASO for automated liability adjudication",
+      "category": "research",
+      "entity": "Researchers propose KDASO for automated liability adjudication",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-42"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Knowledge/data dual skill optimization preprint; author-reported tasks do not establish legal approval or reliability.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-42"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-43",
+      "title": "Open ASR Leaderboard adds Egyptian and Nigerian English accents",
+      "category": "research",
+      "entity": "Open ASR Leaderboard adds Egyptian and Nigerian English accents",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-43"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Egyptian and Nigerian English evaluation datasets added; original article only date, exact event time unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-43"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-44",
+      "title": "PromptOps framework proposed for iterative LLM judge optimization",
+      "category": "research",
+      "entity": "PromptOps framework proposed for iterative LLM judge optimization",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-44"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "PromptOps iterative judge calibration preprint; results are controlled and context-dependent; exact public time unresolved.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-44"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-45",
+      "title": "Vergecast discusses 2026 midterms and AI business challenges",
+      "category": "products",
+      "entity": "Vergecast discusses 2026 midterms and AI business challenges",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-45"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Opinion podcast analyzing election and technology, no material new technical event identified.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-45"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-46",
+      "title": "Researchers develop gait foundation model to predict 3,210 health phenotypes",
+      "category": "research",
+      "entity": "Researchers develop gait foundation model to predict 3,210 health phenotypes",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-46"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Direct Nature access redirected to authentication; search record describes observational gait research, not validated clinical use.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-46"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-47",
+      "title": "1min.AI lifetime subscription drops to $69.97 for Mac users",
+      "category": "products",
+      "entity": "1min.AI lifetime subscription drops to $69.97 for Mac users",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-open"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-47"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "A sponsored discount rather than a consequential product announcement.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-open"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-47"
+          ],
+          "snapshotAt": "2026-11-07T02:21:27Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-48",
+      "title": "Nvidia fiscal Q3 2027 earnings due Nov 17; stock fell after 8 of last 13 reports",
+      "category": "products",
+      "entity": "Nvidia fiscal Q3 2027 earnings due Nov 17; stock fell after 8 of last 13 reports",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest",
+        "q-tail-final"
+      ],
+      "sourceIds": [
+        "s-digest",
+        "s-tail-48"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Nvidia scheduled the earnings call in October; this is not a new November announcement.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim.",
+      "priorAssessments": [
+        {
+          "decision": "pending",
+          "reasonCode": "insufficient_evidence",
+          "reason": "Discovery inventory only; original source, significance, deduplication and time are not yet independently assessed.",
+          "queryIds": [
+            "q-digest",
+            "q-tail-final"
+          ],
+          "sourceIds": [
+            "s-digest",
+            "s-tail-48"
+          ],
+          "snapshotAt": "2026-11-07T02:22:04Z"
+        }
+      ]
+    },
+    {
+      "id": "digest-49",
+      "title": "OpenAI posts 700 AI-generated math manuscripts, prompting community backlash",
+      "category": "products",
+      "entity": "OpenAI posts 700 AI-generated math manuscripts, prompting community backlash",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-digest"
+      ],
+      "sourceIds": [
+        "s-digest"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "The work was disclosed in early October; investigate whether this article contains material new reporting before considering it new.",
+      "importance": "Potentially relevant lead found in a source inventory; not a publication claim."
+    },
+    {
+      "id": "c-strive",
+      "title": "Strive Robotics pre-seed",
+      "entity": "Strive Robotics pre-seed",
+      "category": "business",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-china-open",
+        "rq-china"
+      ],
+      "sourceIds": [
+        "s-strive"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "11/5 20:59 UTC report before current window; earlier issue possible omission.",
+      "importance": "Independent reviewer found a potentially relevant event or retrospective lead; not a confirmed current selection."
+    },
+    {
+      "id": "c-xiilab",
+      "title": "XIIlab convertible bond",
+      "entity": "XIIlab convertible bond",
+      "category": "business",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-china-open",
+        "rq-china"
+      ],
+      "sourceIds": [
+        "s-xiilab"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Board approved proposed convertible bond; report timestamp precision and regulator filing need verification.",
+      "importance": "Independent reviewer found a potentially relevant event or retrospective lead; not a confirmed current selection."
+    },
+    {
+      "id": "c-japan",
+      "title": "Japan government AI Agent standard",
+      "entity": "Japan government AI Agent standard",
+      "category": "governance",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-china-open",
+        "rq-miit"
+      ],
+      "sourceIds": [
+        "s-japan"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "November 6 is page update, October 20 press conference already disclosed core program; look for material new changes.",
+      "importance": "Independent reviewer found a potentially relevant event or retrospective lead; not a confirmed current selection."
+    },
+    {
+      "id": "c-tensor",
+      "title": "TensorWorld financing",
+      "entity": "TensorWorld financing",
+      "category": "business",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-china-open",
+        "rq-china"
+      ],
+      "sourceIds": [
+        "s-tensor",
+        "s-ifeng"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Access failed to author; reviewer found prior report November 5 and original social post needs verification. See additional source evidence.",
+      "importance": "Independent reviewer found a potentially relevant event or retrospective lead; not a confirmed current selection."
+    },
+    {
+      "id": "c-target-4",
+      "title": "Microsoft Foundry Local Qwen coding",
+      "entity": "Microsoft Foundry Local Qwen coding",
+      "category": "products",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-target-4"
+      ],
+      "sourceIds": [
+        "s-target-4"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Microsoft original is dated Nov 5; investigate earlier issue boundary and avoid recycling.",
+      "importance": "Potentially consequential reviewer-gap discovery; not yet qualified for selection."
+    },
+    {
+      "id": "retro-1",
+      "title": "Nemi 拟与 BHAV 合并",
+      "category": "business",
+      "entity": "Nemi 拟与 BHAV 合并",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-prior-retro"
+      ],
+      "sourceIds": [
+        "s-retro-1"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-05T13:45:00Z",
+        "latest": "2026-11-05T13:45:59Z",
+        "basis": "BHAV release 08:45 ET at minute precision.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/5/3396481/0/en/physical-ai-and-manufacturing-company-nemi-to-go-public-at-a-400-million-pre-money-equity-value-through-business-combination-with-bhav-acquisition-corp.html"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Prior issue event shown only as a clearly labelled retrospective; not part of current confirmed count.",
+      "importance": "Important preceding issue follow-up; previous assessments remain in the original ledger."
+    },
+    {
+      "id": "retro-2",
+      "title": "CloudBolt Agent 治理公告",
+      "category": "agents",
+      "entity": "CloudBolt Agent 治理公告",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-prior-retro"
+      ],
+      "sourceIds": [
+        "s-retro-2"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-05T14:00:00Z",
+        "latest": "2026-11-05T14:00:59Z",
+        "basis": "Publisher release 09:00 ET at minute precision.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/05/3396501/0/en/cloudbolt-adds-new-ai-agent-governance-capabilities-to-its-cloud-management-platform.html"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Prior issue event shown only as a clearly labelled retrospective; not part of current confirmed count.",
+      "importance": "Important preceding issue follow-up; previous assessments remain in the original ledger."
+    },
+    {
+      "id": "retro-3",
+      "title": "Gemini Omni 1.2 Flash 公告",
+      "category": "products",
+      "entity": "Gemini Omni 1.2 Flash 公告",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-prior-retro"
+      ],
+      "sourceIds": [
+        "s-retro-3"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-05T17:00:00Z",
+        "latest": "2026-11-05T17:00:00Z",
+        "basis": "Publisher datePublished metadata.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Prior issue event shown only as a clearly labelled retrospective; not part of current confirmed count.",
+      "importance": "Important preceding issue follow-up; previous assessments remain in the original ledger."
+    },
+    {
+      "id": "retro-4",
+      "title": "Sierra 与 Anon 公告",
+      "category": "agents",
+      "entity": "Sierra 与 Anon 公告",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-prior-retro"
+      ],
+      "sourceIds": [
+        "s-retro-4"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-05T16:00:00Z",
+        "latest": "2026-11-05T16:00:00Z",
+        "basis": "Publisher datePublished metadata.",
+        "sourceUrls": [
+          "https://sierra.ai/blog/sierra-acquires-anon"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Prior issue event shown only as a clearly labelled retrospective; not part of current confirmed count.",
+      "importance": "Important preceding issue follow-up; previous assessments remain in the original ledger."
+    },
+    {
+      "id": "retro-5",
+      "title": "Potential Sciences 融资报道",
+      "category": "business",
+      "entity": "Potential Sciences 融资报道",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-prior-retro"
+      ],
+      "sourceIds": [
+        "s-retro-5"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-05T13:00:00Z",
+        "latest": "2026-11-05T13:00:00Z",
+        "basis": "WIRED datePublished and article published time metadata agree.",
+        "sourceUrls": [
+          "https://www.wired.com/story/finding-new-drugs-is-laborious-this-ai-startup-is-skipping-the-lab-work/"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Prior issue event shown only as a clearly labelled retrospective; not part of current confirmed count.",
+      "importance": "Important preceding issue follow-up; previous assessments remain in the original ledger."
+    },
+    {
+      "id": "retro-humble",
+      "title": "Humble Robotics prior interview",
+      "category": "business",
+      "entity": "Humble Robotics",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-humble-retro"
+      ],
+      "sourceIds": [
+        "s-retro-humble"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-05T14:00:01Z",
+        "basis": "Publisher timestamp for interview reporting.",
+        "sourceUrls": [
+          "https://www.businessinsider.com/humble-robotics-raises-51-million-for-cabless-self-driving-trucks-2026-11"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "A preceding issue reporting event; shown only in labelled retrospective.",
+      "importance": "Prior issue boundary clarification."
+    },
+    {
+      "id": "c-ro",
+      "title": "Reuters healthcare data research unit",
+      "category": "governance",
+      "entity": "Reuters healthcare data research unit",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-remaining-1"
+      ],
+      "sourceIds": [
+        "s-remaining-ro"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Search result reports health-data plans; direct source access failed on repeat; scope, original reporting and publication instant require further verification.",
+      "importance": "Potentially relevant open-discovery lead; source limitations prevent publication."
+    },
+    {
+      "id": "c-ap-election",
+      "title": "AP data-center election coverage",
+      "category": "governance",
+      "entity": "AP data-center election coverage",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-remaining-2"
+      ],
+      "sourceIds": [
+        "s-remaining-ap-election"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Search result describes election and data-center policy; direct AP open failed; relevance and time remain unresolved.",
+      "importance": "Potentially relevant open-discovery lead; source limitations prevent publication."
+    },
+    {
+      "id": "c-wsj-roundup",
+      "title": "WSJ venture capital briefing",
+      "category": "business",
+      "entity": "WSJ venture capital briefing",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-remaining-3"
+      ],
+      "sourceIds": [
+        "s-remaining-wsj-roundup"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Newsletter partial subscription access; individual events require their own sources and dates, not treated as independent confirmation.",
+      "importance": "Potentially relevant open-discovery lead; source limitations prevent publication."
+    },
+    {
+      "id": "c-un-summit",
+      "title": "UN Barbados safety summit",
+      "category": "governance",
+      "entity": "UN Barbados safety summit",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-remaining-4"
+      ],
+      "sourceIds": [
+        "s-remaining-un-summit"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Search shows upcoming summit but direct page returned 403; announcement publication date and newness unresolved.",
+      "importance": "Potentially relevant open-discovery lead; source limitations prevent publication."
+    },
+    {
+      "id": "identity-jev",
+      "title": "JEV identity",
+      "category": "agents",
+      "entity": "JEV identity",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-identity-jev"
+      ],
+      "sourceIds": [
+        "s-identity-jev"
+      ],
+      "decision": "pending",
+      "reasonCode": "unresolved_identity",
+      "reason": "Identity remains unconfirmed; do not infer a match or current event.",
+      "importance": "Carry unresolved seed identity forward without claiming news."
+    },
+    {
+      "id": "identity-laya",
+      "title": "Laya identity",
+      "category": "agents",
+      "entity": "Laya identity",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-identity-laya"
+      ],
+      "sourceIds": [
+        "s-identity-laya"
+      ],
+      "decision": "pending",
+      "reasonCode": "unresolved_identity",
+      "reason": "Identity remains unconfirmed; do not infer a match or current event.",
+      "importance": "Carry unresolved seed identity forward without claiming news."
+    },
+    {
+      "id": "identity-osc",
+      "title": "OSC identity",
+      "category": "agents",
+      "entity": "OSC identity",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q-identity-osc"
+      ],
+      "sourceIds": [
+        "s-identity-osc"
+      ],
+      "decision": "pending",
+      "reasonCode": "unresolved_identity",
+      "reason": "Identity remains unconfirmed; do not infer a match or current event.",
+      "importance": "Carry unresolved seed identity forward without claiming news."
+    },
+    {
+      "id": "retro-linggan",
+      "title": "灵感机器人融资报道（前期追溯）",
+      "category": "business",
+      "entity": "Linggan Robotics",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-retro-sina"
+      ],
+      "sourceIds": [
+        "s-retro-sina"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-04T16:38:00Z",
+        "latest": "2026-11-04T16:43:51Z",
+        "basis": "Sina metadata shows bytedance publication 00:38 and article publication 00:43:51 with explicit +08:00; represent conservative interval.",
+        "sourceUrls": [
+          "https://finance.sina.com.cn/tech/roll/2026-11-05/doc-inixrcqq9853061.shtml"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Earlier Nov 5 issue window; possible omission needs a labelled retrospective, not counted in this issue.",
+      "importance": "Chinese embodied robotics financing prior-issue follow-up."
+    }
+  ],
+  "coverage": [
+    {
+      "category": "products",
+      "status": "partial",
+      "queryIds": [
+        "q-batch-2"
+      ],
+      "checkIds": [
+        "check-products"
+      ],
+      "assessment": "Open searches in English, Chinese and Japanese and Microsoft, Ai2 and Glean source reads; several products have only date-level disclosure, and prior issue leads remain unresolved."
+    },
+    {
+      "category": "business",
+      "status": "partial",
+      "queryIds": [
+        "q-batch-1"
+      ],
+      "checkIds": [
+        "check-business"
+      ],
+      "assessment": "Financing and M&A reporting across Reuters, TechCrunch, Chinese robotics finance, Dealroom and regional specialist reporting; some original reports are subscription-restricted or their timing uncertain."
+    },
+    {
+      "category": "research",
+      "status": "partial",
+      "queryIds": [
+        "q-batch-4"
+      ],
+      "checkIds": [
+        "check-research"
+      ],
+      "assessment": "Primary research papers, PSI and Ai2 sources and benchmark methodology were examined; multiple arXiv abstracts lack proved first-public times, and the manuscripts were not independently reproduced."
+    },
+    {
+      "category": "governance",
+      "status": "partial",
+      "queryIds": [
+        "q-batch-3"
+      ],
+      "checkIds": [
+        "check-governance"
+      ],
+      "assessment": "Searches included US and Chinese policy, data and cybersecurity reporting, plus regional chip tracking; MIIT timezone and some inaccessible primary pages remain unresolved."
+    },
+    {
+      "category": "agents",
+      "status": "partial",
+      "queryIds": [
+        "q-batch-4"
+      ],
+      "checkIds": [
+        "check-agents"
+      ],
+      "assessment": "Open discovery included coding agents, payment workflows, AWS and enterprise tools; source dates and access limits remain for some releases; JEV, Laya and OSC identities remain unresolved."
+    }
+  ],
+  "discovery": {
+    "queryIds": [
+      "q-batch-1",
+      "q-batch-2",
+      "q-batch-3",
+      "q-batch-4"
+    ],
+    "assessment": "Multilingual open searches and specialist Chinese, Japanese, financing and Agent routes executed. Some originals are inaccessible and multiple research publication boundaries remain unresolved; no claim of global completeness."
+  },
+  "article": {
+    "slug": "2026-11-07-ai-daily",
+    "includedCandidateIds": [
+      "c-funding",
+      "c-physicl",
+      "c-clutch",
+      "c-policy",
+      "c-target-3",
+      "c-wired",
+      "c-target-1",
+      "c-target-2",
+      "digest-13",
+      "c-vals",
+      "digest-25"
+    ],
+    "watchCandidateIds": [
+      "c-bio",
+      "c-glean",
+      "c-aws",
+      "c-qingtian"
+    ],
+    "limitations": "Some media and research originals remain access-restricted; selected research is not independently reproduced. Several prior and current event times, regional financing leads, and JEV/Laya/OSC identities remain unresolved. No claim of global exhaustiveness.",
+    "sha256": "6a7331990ab69b25a04d4fd09a0117f010b4d73f9426a38b68d967408689fa81"
+  },
+  "completedAt": "2026-11-07T02:26:38Z",
+  "review": {
+    "reviewer": "coverage-reviewer",
+    "reviewedAt": "2026-11-07T02:26:38Z",
+    "candidateIds": [
+      "c-funding",
+      "c-physicl",
+      "c-clutch",
+      "c-policy",
+      "c-target-3",
+      "c-wired",
+      "c-target-1",
+      "c-target-2",
+      "digest-13",
+      "c-vals",
+      "digest-25",
+      "c-bio",
+      "c-glean",
+      "c-aws",
+      "c-qingtian",
+      "c-miit",
+      "digest-01",
+      "digest-02",
+      "digest-03",
+      "digest-04",
+      "digest-05",
+      "digest-06",
+      "digest-07",
+      "digest-08",
+      "digest-09",
+      "digest-10",
+      "digest-11",
+      "digest-12",
+      "digest-14",
+      "digest-15",
+      "digest-16",
+      "digest-17",
+      "digest-18",
+      "digest-19",
+      "digest-20",
+      "digest-21",
+      "digest-22",
+      "digest-23",
+      "digest-24",
+      "digest-26",
+      "digest-27",
+      "digest-28",
+      "digest-29",
+      "digest-30",
+      "digest-31",
+      "digest-32",
+      "digest-33",
+      "digest-34",
+      "digest-35",
+      "digest-36",
+      "digest-37",
+      "digest-38",
+      "digest-39",
+      "digest-40",
+      "digest-41",
+      "digest-42",
+      "digest-43",
+      "digest-44",
+      "digest-45",
+      "digest-46",
+      "digest-47",
+      "digest-48",
+      "digest-49",
+      "c-strive",
+      "c-xiilab",
+      "c-japan",
+      "c-tensor",
+      "c-target-4",
+      "retro-1",
+      "retro-2",
+      "retro-3",
+      "retro-4",
+      "retro-5",
+      "retro-humble",
+      "c-ro",
+      "c-ap-election",
+      "c-wsj-roundup",
+      "c-un-summit",
+      "identity-jev",
+      "identity-laya",
+      "identity-osc",
+      "retro-linggan"
+    ],
+    "queryIds": [
+      "rq-china",
+      "rq-qingtian",
+      "rq-miit",
+      "rq-phys"
+    ],
+    "verdict": "pass_with_limits",
+    "report": "docs/daily/reviews/2026-11-07.md",
+    "findings": [
+      {
+        "detail": "Product topic check initially pointed to an unrelated data-center protest.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Pooled batch results, Reuters version timing and Qingtian uncertainty needed explicit attribution.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Some originals are restricted, several papers were abstract-only, regional financing timing and three seed identities remain uncertain.",
+        "severity": "note",
+        "resolution": "disclosed"
+      }
+    ]
+  }
+}

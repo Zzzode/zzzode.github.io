@@ -16,7 +16,7 @@ const itemShape = {
   eventTime: timestamp.optional(), eventEvidence: timeEvidenceSchema.optional(),
   sourceUrls: z.array(z.url()).min(1),
   candidateId: z.string().min(1).optional(),
-  releaseStatus: z.enum(['released', 'preview', 'beta', 'announced', 'research']).optional(),
+  releaseStatus: z.enum(['released', 'preview', 'beta', 'announced', 'reported', 'research']).optional(),
 };
 const dailySchema = z.object({
   issueDate,

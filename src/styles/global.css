@@ -1124,6 +1124,11 @@ html:has(.article-canvas-wrap) {
   }
 }
 
+/* Bars show their authored value without JavaScript and with reduced motion. */
+[data-grow] {
+  width: var(--grow, 100%);
+}
+
 /* Scroll reveals — blur/rise/fade driven by choreography.ts. */
 @media (prefers-reduced-motion: no-preference) {
   html.js-reveal [data-reveal],

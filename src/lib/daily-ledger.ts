@@ -20,7 +20,7 @@ const querySchema = z.object({
 });
 const candidateSchema = z.object({
   id: text, title: text, category, entity: text,
-  releaseStatus: z.enum(['released', 'preview', 'beta', 'announced', 'research', 'unknown']),
+  releaseStatus: z.enum(['released', 'preview', 'beta', 'announced', 'reported', 'research', 'unknown']),
   queryIds: ids.min(1), sourceIds: ids.min(1), eventTime: timeEvidenceSchema.optional(),
   decision,
   reasonCode,

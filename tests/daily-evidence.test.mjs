@@ -112,6 +112,23 @@ test('attributed fetched media reporting can publish without an official announc
   assert.equal(dailyLedgerSchema.safeParse(run).success, false);
 });
 
+test('reported status stays consistent between article and evidence ledger', () => {
+  const { run, post } = evidenceFixture();
+  run.sources[0].publisherKind = 'secondary';
+  run.candidates[0].reportedEvidence = { sourceIds: ['s'], attribution: 'TEST FIXTURE reporting', limitations: 'TEST FIXTURE single origin' };
+  run.candidates[0].releaseStatus = 'reported';
+  post.daily.items[0].releaseStatus = 'reported';
+  assert.equal(dailyLedgerSchema.safeParse(run).success, true);
+  assert.equal(postSchema.safeParse(post).success, true);
+  let content = fixtureMdx(post);
+  run.article.sha256 = createHash('sha256').update(content).digest('hex');
+  assert.doesNotThrow(() => validatePublication(run, content));
+  post.daily.items[0].releaseStatus = 'announced';
+  content = fixtureMdx(post);
+  run.article.sha256 = createHash('sha256').update(content).digest('hex');
+  assert.throws(() => validatePublication(run, content), /release status/);
+});
+
 test('media path rejects snippets, community repetition and uncited reporting', () => {
   for (const change of ['snippet', 'community', 'uncited', 'undated', 'after-cutoff']) {
     const { run } = evidenceFixture();

@@ -1,5 +1,5 @@
 /** Build explicit fixtures in an isolated checkout. Never write fixtures into src/content here. */
-import { cp, mkdtemp, readFile, writeFile, symlink, stat, readdir, unlink } from 'node:fs/promises';
+import { cp, mkdtemp, readFile, writeFile, stat, readdir, unlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,7 +9,9 @@ import { dailyFixture, fixtureMdx } from '../tests/fixtures/daily.mjs';
 const source = fileURLToPath(new URL('../', import.meta.url));
 const root = await mkdtemp(path.join(tmpdir(), 'ai-daily-review-'));
 await cp(source, root, {recursive:true, filter: file => !['.git','node_modules','dist','.astro'].includes(path.relative(source, file).split(path.sep)[0])});
-await symlink(path.join(source, 'node_modules'), path.join(root, 'node_modules'), 'dir');
+// A private dependency copy avoids Astro resolving virtual-module metadata through
+// a symlink back to the source checkout.
+await cp(path.join(source, 'node_modules'), path.join(root, 'node_modules'), {recursive:true});
 const zh = path.join(root, 'src/content/posts/zh');
 const en = path.join(root, 'src/content/posts/en');
 // Model a controlled calendar: real daily issues must not change the fixture's latest/page counts.
@@ -95,6 +97,26 @@ for (const route of ['posts/private-fixture/index.html','posts/future-fixture/in
   await assert.rejects(stat(path.join(root,'dist',route)));
 }
 assert.doesNotMatch(await read('en/daily/index.html'), /2000-01-16-ai-daily/);
-for (const route of ['index.html','daily/index.html','daily/page/2/index.html','en/daily/index.html']) assert.doesNotMatch(await read(route), /<script/);
+// Main now ships Astro navigation and the shared command palette. Keep their
+// script surface explicit rather than accepting arbitrary executable scripts.
+for (const route of ['index.html','daily/index.html','daily/page/2/index.html','en/daily/index.html']) {
+  const html = await read(route);
+  const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)];
+  const config = scripts.filter(([, attrs]) => /type="application\/json"/.test(attrs) && /data-command-config/.test(attrs));
+  const modules = scripts.filter(([, attrs]) => /type="module"/.test(attrs));
+  assert.equal(config.length, 1, `${route}: one command configuration`);
+  assert.equal(modules.length, 3, `${route}: exactly three modules`);
+  assert.equal(scripts.length, 4, `${route}: no other scripts`);
+  const paths = modules.map(([, attrs, content]) => {
+    assert.equal(content.trim(), '', `${route}: no inline executable script`);
+    const src = attrs.match(/\bsrc="([^"]+)"/)?.[1];
+    assert.ok(src?.startsWith('/_astro/'), `${route}: local build asset`);
+    return src;
+  });
+  for (const pattern of [/\/page\.[^.]+\.js$/, /\/ClientRouter\.astro_astro_type_script_index_0_lang\.[^.]+\.js$/, /\/BaseLayout\.astro_astro_type_script_index_0_lang\.[^.]+\.js$/]) {
+    assert.equal(paths.filter(src => pattern.test(src)).length, 1, `${route}: expected module ${pattern}`);
+  }
+  for (const src of paths) assert.ok((await stat(path.join(root, 'dist', src.slice(1)))).isFile());
+}
 console.log(`Daily integration assertions passed. Isolated preview checkout: ${root}`);
 await writeFile('/tmp/ai-daily-review-root', root);
