@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test tests/*.test.mjs",
-    "test:daily:integration": "node scripts/daily-integration.mjs"
+    "test:daily:integration": "node scripts/daily-integration.mjs",
+    "test:search": "node scripts/test-search-index.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
@@ -27,7 +28,7 @@
     "@astrojs/markdown-remark": "^7.3.0",
     "@tailwindcss/typography": "^0.5.20",
     "katex": "^0.18.9",
-    "pagefind": "^1.5.2",
+    "pagefind": "^1.6.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "typescript": "^5.9.3"
