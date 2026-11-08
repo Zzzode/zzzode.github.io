@@ -743,6 +743,187 @@
         "https://finance.sina.com.cn/tech/roll/2026-11-05/doc-inixrcqq9853061.shtml"
       ],
       "notes": "Report metadata timestamps have +08:00 offset; reporting event is not financing close."
+    },
+    {
+      "id": "q-20261108-bio-open",
+      "actor": "primary",
+      "query": "https://cdn.syndication.twimg.com/tweet-result?id=2118782708767965238&token=a",
+      "executedAt": "2026-11-08T02:04:13Z",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cdn.syndication.twimg.com/tweet-result?id=2118782708767965238&token=a"
+      ],
+      "notes": "Read the official OpenAI post through X syndication metadata; original content and created_at were inspected."
+    },
+    {
+      "id": "q-20261108-aws-open",
+      "actor": "primary",
+      "query": "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/",
+      "executedAt": "2026-11-08T02:05:10Z",
+      "method": "open",
+      "focus": [
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/"
+      ],
+      "notes": "Fetched original HTML and inspected article:published_time and datePublished."
+    },
+    {
+      "id": "q-retro-meta-model",
+      "actor": "primary",
+      "query": "https://cdn.syndication.twimg.com/tweet-result?id=2118776727912755478&token=a",
+      "executedAt": "2026-11-08T02:08:29Z",
+      "method": "open",
+      "focus": [
+        "products"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cdn.syndication.twimg.com/tweet-result?id=2118776727912755478&token=a"
+      ],
+      "notes": "Recovered during November 8 independent discovery, not assessed during original issue."
+    },
+    {
+      "id": "q-retro-meta-spaces",
+      "actor": "primary",
+      "query": "https://www.theverge.com/tech/1028871/meta-muse-ai-spaces",
+      "executedAt": "2026-11-08T02:11:55Z",
+      "method": "open",
+      "focus": [
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.theverge.com/tech/1028871/meta-muse-ai-spaces"
+      ],
+      "notes": "Recovered during November 8 independent discovery, not assessed during original issue."
+    },
+    {
+      "id": "q-retro-antigravity",
+      "actor": "primary",
+      "query": "https://9to5google.com/2026/11/06/google-antigravity-remote-agents-voice-mode/",
+      "executedAt": "2026-11-08T02:12:42Z",
+      "method": "open",
+      "focus": [
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://9to5google.com/2026/11/06/google-antigravity-remote-agents-voice-mode/"
+      ],
+      "notes": "New reviewer discovery on November 8, not assessed in original run."
+    },
+    {
+      "id": "q-retro-harness",
+      "actor": "primary",
+      "query": "https://huggingface.co/blog/harness-hub/harness-adapters",
+      "executedAt": "2026-11-08T02:15:38Z",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/blog/harness-hub/harness-adapters"
+      ],
+      "notes": "New reviewer discovery, not assessed in original issue."
+    },
+    {
+      "id": "q-retro-duet",
+      "actor": "primary",
+      "query": "https://cdn.syndication.twimg.com/tweet-result?id=2118785613436698719&token=a",
+      "executedAt": "2026-11-08T02:19:55Z",
+      "method": "open",
+      "focus": [
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cdn.syndication.twimg.com/tweet-result?id=2118785613436698719&token=a"
+      ],
+      "notes": "Recovered on November 8 via product lead post."
+    },
+    {
+      "id": "q-retro-notion",
+      "actor": "primary",
+      "query": "https://cdn.syndication.twimg.com/tweet-result?id=2118753617637409000&token=a",
+      "executedAt": "2026-11-08T02:22:04Z",
+      "method": "open",
+      "focus": [
+        "products"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cdn.syndication.twimg.com/tweet-result?id=2118753617637409000&token=a"
+      ],
+      "notes": "Newly recovered November 8; original issue had not assessed it."
+    },
+    {
+      "id": "q-retro-claude-cloud",
+      "actor": "primary",
+      "query": "https://cdn.syndication.twimg.com/tweet-result?id=2118795192090386454&token=a",
+      "executedAt": "2026-11-08T02:22:04Z",
+      "method": "open",
+      "focus": [
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cdn.syndication.twimg.com/tweet-result?id=2118795192090386454&token=a"
+      ],
+      "notes": "Newly recovered November 8; original issue had not assessed it."
+    },
+    {
+      "id": "q-retro-atomarine",
+      "actor": "primary",
+      "query": "https://cdn.syndication.twimg.com/tweet-result?id=2118825867740885459&token=a",
+      "executedAt": "2026-11-08T02:24:30Z",
+      "method": "open",
+      "focus": [
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cdn.syndication.twimg.com/tweet-result?id=2118825867740885459&token=a"
+      ],
+      "notes": "Recovered by independent reviewer during November 8 research."
+    },
+    {
+      "id": "q-retro-trae",
+      "actor": "primary",
+      "query": "https://aicronaca.it/en/news/bytedance-unifica-gli-account-trae-con-l-ecosistema-doubao-feishu-dal-18.html",
+      "executedAt": "2026-11-08T02:29:37Z",
+      "method": "open",
+      "focus": [
+        "products"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aicronaca.it/en/news/bytedance-unifica-gli-account-trae-con-l-ecosistema-doubao-feishu-dal-18.html"
+      ],
+      "notes": "Recovered November 8; report is attributed to earlier IT Home coverage."
+    },
+    {
+      "id": "rq-nov08-retro",
+      "actor": "independent-reviewer",
+      "query": "TRAE November 18 account CN",
+      "executedAt": "2026-11-08T02:29:10Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aicronaca.it/en/news/bytedance-unifica-gli-account-trae-con-l-ecosistema-doubao-feishu-dal-18.html"
+      ],
+      "notes": "Supplementary independent discovery of prior-window TRAE report."
     }
   ],
   "sources": [
@@ -1728,6 +1909,193 @@
         ]
       },
       "evidence": "Leiphone-origin financing report, via Sina; exact financing close not inferred."
+    },
+    {
+      "id": "s-20261108-bio-post",
+      "title": "OpenAI BioBasicsBench announcement post",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2118782708767965238&token=a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:04:13Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T19:08:57Z",
+        "basis": "OpenAI official account post creation time from X syndication metadata. This timestamps the announcement post, not first publication of the website.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118782708767965238&token=a"
+        ]
+      },
+      "evidence": "OpenAI account announces BioBasicsBench and its collaboration with Ligo; created_at is 2026-11-06 19:08:57 UTC."
+    },
+    {
+      "id": "s-20261108-aws",
+      "title": "AWS AgentCore remote Claude Code example, publication metadata",
+      "url": "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:05:10Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T08:45:58-08:00",
+        "basis": "AWS HTML article:published_time and datePublished metadata timestamp this article.",
+        "sourceUrls": [
+          "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/"
+        ]
+      },
+      "evidence": "The AWS article carries matching published_time and datePublished timestamps, and describes an example deployment."
+    },
+    {
+      "id": "s-retro-meta-model",
+      "title": "Meta 为 Muse 和 Meta AI 推出专用模型",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2118776727912755478&token=a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:08:29Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T18:45:11Z",
+        "basis": "Official account post creation metadata.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118776727912755478&token=a"
+        ]
+      },
+      "evidence": "Meta 负责人称正在推出由 Muse Wonder 训练的专用模型，用于记忆和持续处理任务；实际效果为公司主张，推广尚在进行。"
+    },
+    {
+      "id": "s-retro-meta-spaces",
+      "title": "Meta Muse 推出 Spaces",
+      "url": "https://www.theverge.com/tech/1028871/meta-muse-ai-spaces",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:11:55Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T18:10:10Z",
+        "basis": "The Verge article publication metadata; reporting event.",
+        "sourceUrls": [
+          "https://www.theverge.com/tech/1028871/meta-muse-ai-spaces"
+        ]
+      },
+      "evidence": "The Verge 报道 Muse Spaces 可创建持久的互动工作空间；这是新报道时间，不等同于所有用户获得该功能的时间。"
+    },
+    {
+      "id": "s-retro-antigravity",
+      "title": "Google Antigravity 更新远程 Agent 与语音模式",
+      "url": "https://9to5google.com/2026/11/06/google-antigravity-remote-agents-voice-mode/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:12:42Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T15:01:00Z",
+        "basis": "9to5Google article publication metadata; reporting event, not first availability of each feature.",
+        "sourceUrls": [
+          "https://9to5google.com/2026/11/06/google-antigravity-remote-agents-voice-mode/"
+        ]
+      },
+      "evidence": "9to5Google 报道 Antigravity 更新界面并逐步推出远程 Agent 和语音模式；各功能的实际开放时间可能不同。"
+    },
+    {
+      "id": "s-retro-harness",
+      "title": "Harness Adapters 探索 Agent 训练",
+      "url": "https://huggingface.co/blog/harness-hub/harness-adapters",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:15:38Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T14:13:59.511Z",
+        "basis": "Author article datePublished metadata.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/harness-hub/harness-adapters"
+        ]
+      },
+      "evidence": "研究者介绍针对 Agent 工作流训练 LoRA 适配器和抑制奖励投机的方法；验证仍以有限测试为主。"
+    },
+    {
+      "id": "s-retro-duet",
+      "title": "Claude Duet 接入 Claude Code 会话",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2118785613436698719&token=a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:19:55Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T19:20:30Z",
+        "basis": "Product lead David Sutton announcement post creation timestamp.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118785613436698719&token=a"
+        ]
+      },
+      "evidence": "产品负责人称，Duet 用户可在手机查看、批准和跟进本地或云端 Claude Code 会话；Duet 仍处研究预览。"
+    },
+    {
+      "id": "s-retro-notion",
+      "title": "Notion 插件将编辑器带入 ChatGPT",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2118753617637409000&token=a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:22:04Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T17:13:21Z",
+        "basis": "Official account announcement post creation metadata.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118753617637409000&token=a"
+        ]
+      },
+      "evidence": "Notion 官方称其插件可在对话内创建并编辑页面，实际可用范围和权限取决于配置。"
+    },
+    {
+      "id": "s-retro-claude-cloud",
+      "title": "Claude Code 云环境配置更新",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2118795192090386454&token=a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:22:04Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T19:58:33Z",
+        "basis": "Official account announcement post creation metadata.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118795192090386454&token=a"
+        ]
+      },
+      "evidence": "Claude 开发者账号称 Pro、Max 与 Ultra 云会话可自动配置依赖、网络及 API 密钥；安全机制为厂商描述。"
+    },
+    {
+      "id": "s-retro-atomarine",
+      "title": "Atomarine 创始人宣布种子融资",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2118825867740885459&token=a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:24:30Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T22:00:27Z",
+        "basis": "Founder announcement post creation metadata; not transaction close time.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118825867740885459&token=a"
+        ]
+      },
+      "evidence": "Atomarine 创始人称已获 1900 万美元种子融资，用于海上 AI 算力基础设施；金额尚未独立核实。"
+    },
+    {
+      "id": "s-retro-trae",
+      "title": "TRAE 计划升级中国版个人账号体系",
+      "url": "https://aicronaca.it/en/news/bytedance-unifica-gli-account-trae-con-l-ecosistema-doubao-feishu-dal-18.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-08T02:29:37Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-06T15:31:08+01:00",
+        "basis": "Publisher datePublished metadata; reporting time, not the migration date or first official disclosure.",
+        "sourceUrls": [
+          "https://aicronaca.it/en/news/bytedance-unifica-gli-account-trae-con-l-ecosistema-doubao-feishu-dal-18.html"
+        ]
+      },
+      "evidence": "报道转述 TRAE 公告：11 月 18 日起升级 CN 个人账号，原数据和权益按公告保留；这是一项计划中的账号迁移。"
     }
   ],
   "checks": [
@@ -2359,23 +2727,47 @@
       "entity": "BioBasicsBench 测试湿实验数据解读",
       "releaseStatus": "research",
       "queryIds": [
-        "q-open"
+        "q-open",
+        "q-20261108-bio-open"
       ],
       "sourceIds": [
-        "s-5"
+        "s-5",
+        "s-20261108-bio-post"
       ],
       "eventTime": {
-        "precision": "date",
-        "value": "2026-11-06",
-        "basis": "Source gives the calendar date without an evidenced timezone.",
+        "precision": "instant",
+        "value": "2026-11-06T19:08:57Z",
+        "basis": "OpenAI official account post creation time from X syndication metadata. This timestamps the announcement post, not first publication of the website.",
         "sourceUrls": [
-          "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/"
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118782708767965238&token=a"
         ]
       },
-      "decision": "watch",
-      "reasonCode": "time_uncertain",
-      "reason": "原文只有 11 月 6 日，未标明时区和时刻，可能跨越本期窗口边界；需核查首次公开时间。",
-      "importance": "Initial editorial selection; ordering and coverage remain under review."
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Official announcement post is within the original issue window; the website first-publication time is not established.",
+      "importance": "Initial editorial selection; ordering and coverage remain under review.",
+      "priorAssessments": [
+        {
+          "snapshotAt": "2026-11-08T02:05:04Z",
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "原文只有 11 月 6 日，未标明时区和时刻，可能跨越本期窗口边界；需核查首次公开时间。",
+          "queryIds": [
+            "q-open"
+          ],
+          "sourceIds": [
+            "s-5"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-06",
+            "basis": "Source gives the calendar date without an evidenced timezone.",
+            "sourceUrls": [
+              "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "c-glean",
@@ -2409,23 +2801,47 @@
       "entity": "AWS remote Claude Code AgentCore example",
       "releaseStatus": "released",
       "queryIds": [
-        "q-c-aws"
+        "q-c-aws",
+        "q-20261108-aws-open"
       ],
       "sourceIds": [
-        "s-c-aws"
+        "s-c-aws",
+        "s-20261108-aws"
       ],
       "eventTime": {
-        "precision": "date",
-        "value": "2026-11-06",
-        "basis": "Source gives November 6 without established timezone.",
+        "precision": "instant",
+        "value": "2026-11-06T08:45:58-08:00",
+        "basis": "AWS HTML article:published_time and datePublished metadata timestamp this article.",
         "sourceUrls": [
           "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/"
         ]
       },
-      "decision": "watch",
-      "reasonCode": "time_uncertain",
-      "reason": "Publication date crosses a boundary under unknown timezone; corroboration remains necessary.",
-      "importance": "Consequential data governance reporting or developer tooling."
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Article publication metadata establishes a date within the original issue window; this is a deployment example, not a general product release.",
+      "importance": "Consequential data governance reporting or developer tooling.",
+      "priorAssessments": [
+        {
+          "snapshotAt": "2026-11-08T02:05:37Z",
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "Publication date crosses a boundary under unknown timezone; corroboration remains necessary.",
+          "queryIds": [
+            "q-c-aws"
+          ],
+          "sourceIds": [
+            "s-c-aws"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-06",
+            "basis": "Source gives November 6 without established timezone.",
+            "sourceUrls": [
+              "https://aws.amazon.com/blogs/machine-learning/extend-claude-code-to-remote-sessions-on-amazon-bedrock-agentcore-with-security-controls/"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "c-qingtian",
@@ -4449,6 +4865,252 @@
       "reasonCode": "outside_window",
       "reason": "Earlier Nov 5 issue window; possible omission needs a labelled retrospective, not counted in this issue.",
       "importance": "Chinese embodied robotics financing prior-issue follow-up."
+    },
+    {
+      "id": "retro-meta-model",
+      "title": "Meta 为 Muse 和 Meta AI 推出专用模型",
+      "category": "products",
+      "entity": "Meta",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q-retro-meta-model"
+      ],
+      "sourceIds": [
+        "s-retro-meta-model"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T18:45:11Z",
+        "basis": "Official account post creation metadata.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118776727912755478&token=a"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Retrospective recovery: original announcement/report falls inside this issue window.",
+      "importance": "Persistent agent interfaces and model behavior are consequential product changes."
+    },
+    {
+      "id": "retro-meta-spaces",
+      "title": "Meta Muse 推出 Spaces",
+      "category": "agents",
+      "entity": "Meta",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-retro-meta-spaces"
+      ],
+      "sourceIds": [
+        "s-retro-meta-spaces"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T18:10:10Z",
+        "basis": "The Verge article publication metadata; reporting event.",
+        "sourceUrls": [
+          "https://www.theverge.com/tech/1028871/meta-muse-ai-spaces"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Retrospective recovery: original announcement/report falls inside this issue window.",
+      "importance": "Persistent agent interfaces and model behavior are consequential product changes.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-retro-meta-spaces"
+        ],
+        "attribution": "The Verge reports Meta product launch.",
+        "limitations": "Availability and rollout scope can change; publication time is the reporting event."
+      }
+    },
+    {
+      "id": "retro-antigravity",
+      "title": "Google Antigravity 更新远程 Agent 与语音模式",
+      "category": "agents",
+      "entity": "Google Antigravity",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-retro-antigravity"
+      ],
+      "sourceIds": [
+        "s-retro-antigravity"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T15:01:00Z",
+        "basis": "9to5Google article publication metadata; reporting event, not first availability of each feature.",
+        "sourceUrls": [
+          "https://9to5google.com/2026/11/06/google-antigravity-remote-agents-voice-mode/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered November 8: reporting event falls in original issue window.",
+      "importance": "Meaningful changes to coding-agent remote execution and interaction.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-retro-antigravity"
+        ],
+        "attribution": "9to5Google product reporting.",
+        "limitations": "This timestamp belongs to reporting; availability and rollout may differ."
+      }
+    },
+    {
+      "id": "retro-harness",
+      "title": "Harness Adapters 探索 Agent 训练",
+      "category": "research",
+      "entity": "Harness Hub",
+      "releaseStatus": "research",
+      "queryIds": [
+        "q-retro-harness"
+      ],
+      "sourceIds": [
+        "s-retro-harness"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T14:13:59.511Z",
+        "basis": "Author article datePublished metadata.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/harness-hub/harness-adapters"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered November 8; author publication metadata places it in original issue window.",
+      "importance": "A technical approach to improving agent workflows, with limited early evaluation."
+    },
+    {
+      "id": "retro-duet",
+      "title": "Claude Duet 接入 Claude Code 会话",
+      "category": "agents",
+      "entity": "Claude Duet",
+      "releaseStatus": "preview",
+      "queryIds": [
+        "q-retro-duet"
+      ],
+      "sourceIds": [
+        "s-retro-duet"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T19:20:30Z",
+        "basis": "Product lead David Sutton announcement post creation timestamp.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118785613436698719&token=a"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered product lead announcement lies in original issue window.",
+      "importance": "Mobile oversight of local or cloud coding-agent sessions; access remains limited."
+    },
+    {
+      "id": "retro-notion",
+      "title": "Notion 插件将编辑器带入 ChatGPT",
+      "category": "products",
+      "entity": "Notion 插件将编辑器带入 ChatGPT",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q-retro-notion"
+      ],
+      "sourceIds": [
+        "s-retro-notion"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T17:13:21Z",
+        "basis": "Official account announcement post creation metadata.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118753617637409000&token=a"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Official announcement is in original issue window; recovered November 8.",
+      "importance": "Developer and knowledge-work integration with consequential access scope."
+    },
+    {
+      "id": "retro-claude-cloud",
+      "title": "Claude Code 云环境配置更新",
+      "category": "agents",
+      "entity": "Claude Code 云环境配置更新",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q-retro-claude-cloud"
+      ],
+      "sourceIds": [
+        "s-retro-claude-cloud"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T19:58:33Z",
+        "basis": "Official account announcement post creation metadata.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118795192090386454&token=a"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Official announcement is in original issue window; recovered November 8.",
+      "importance": "Developer and knowledge-work integration with consequential access scope."
+    },
+    {
+      "id": "retro-atomarine",
+      "title": "Atomarine 创始人宣布种子融资",
+      "category": "business",
+      "entity": "Atomarine",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q-retro-atomarine"
+      ],
+      "sourceIds": [
+        "s-retro-atomarine"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T22:00:27Z",
+        "basis": "Founder announcement post creation metadata; not transaction close time.",
+        "sourceUrls": [
+          "https://cdn.syndication.twimg.com/tweet-result?id=2118825867740885459&token=a"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Founder announcement is within original issue window; amount not independently verified.",
+      "importance": "New AI infrastructure financing and plan; deployment and financing independently unverified."
+    },
+    {
+      "id": "retro-trae",
+      "title": "TRAE 计划升级中国版个人账号体系",
+      "category": "products",
+      "entity": "TRAE CN",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q-retro-trae"
+      ],
+      "sourceIds": [
+        "s-retro-trae"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-06T15:31:08+01:00",
+        "basis": "Publisher datePublished metadata; reporting time, not the migration date or first official disclosure.",
+        "sourceUrls": [
+          "https://aicronaca.it/en/news/bytedance-unifica-gli-account-trae-con-l-ecosistema-doubao-feishu-dal-18.html"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered dated reporting belongs to original issue; migration remains future.",
+      "importance": "Account and data migration affects users of a coding tool.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s-retro-trae"
+        ],
+        "attribution": "AICronaca reports a notice, citing IT Home.",
+        "limitations": "Reporting is not independent confirmation and does not establish first official publication time."
+      }
     }
   ],
   "coverage": [
@@ -4530,21 +5192,30 @@
       "c-target-2",
       "digest-13",
       "c-vals",
-      "digest-25"
+      "digest-25",
+      "c-bio",
+      "c-aws",
+      "retro-meta-model",
+      "retro-meta-spaces",
+      "retro-antigravity",
+      "retro-harness",
+      "retro-duet",
+      "retro-notion",
+      "retro-claude-cloud",
+      "retro-atomarine",
+      "retro-trae"
     ],
     "watchCandidateIds": [
-      "c-bio",
       "c-glean",
-      "c-aws",
       "c-qingtian"
     ],
     "limitations": "Some media and research originals remain access-restricted; selected research is not independently reproduced. Several prior and current event times, regional financing leads, and JEV/Laya/OSC identities remain unresolved. No claim of global exhaustiveness.",
-    "sha256": "6a7331990ab69b25a04d4fd09a0117f010b4d73f9426a38b68d967408689fa81"
+    "sha256": "72457147223ddea8d5e92256fce3c672d50f2d96f7c3866ef035f534eac2efed"
   },
-  "completedAt": "2026-11-07T02:26:38Z",
+  "completedAt": "2026-11-08T02:31:08Z",
   "review": {
-    "reviewer": "coverage-reviewer",
-    "reviewedAt": "2026-11-07T02:26:38Z",
+    "reviewer": "independent-reviewer",
+    "reviewedAt": "2026-11-08T02:30:34Z",
     "candidateIds": [
       "c-funding",
       "c-physicl",
@@ -4627,29 +5298,30 @@
       "identity-jev",
       "identity-laya",
       "identity-osc",
-      "retro-linggan"
+      "retro-linggan",
+      "retro-meta-model",
+      "retro-meta-spaces",
+      "retro-antigravity",
+      "retro-harness",
+      "retro-duet",
+      "retro-notion",
+      "retro-claude-cloud",
+      "retro-atomarine",
+      "retro-trae"
     ],
     "queryIds": [
-      "rq-china",
-      "rq-qingtian",
-      "rq-miit",
-      "rq-phys"
+      "rq-nov08-retro"
     ],
     "verdict": "pass_with_limits",
     "report": "docs/daily/reviews/2026-11-07.md",
     "findings": [
       {
-        "detail": "Product topic check initially pointed to an unrelated data-center protest.",
+        "detail": "Newly recovered retrospective items and prior assessments were separately verified and corrected.",
         "severity": "blocking",
         "resolution": "fixed"
       },
       {
-        "detail": "Pooled batch results, Reuters version timing and Qingtian uncertainty needed explicit attribution.",
-        "severity": "blocking",
-        "resolution": "fixed"
-      },
-      {
-        "detail": "Some originals are restricted, several papers were abstract-only, regional financing timing and three seed identities remain uncertain.",
+        "detail": "Some originals remain unavailable, papers were abstract-only, regional financing timing and JEV/Laya/OSC identities unresolved.",
         "severity": "note",
         "resolution": "disclosed"
       }
