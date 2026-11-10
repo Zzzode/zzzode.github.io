@@ -1,0 +1,657 @@
+---
+{
+  "title": "AI 日报：模型与安全边界",
+  "date": "2026-11-10T02:26:17Z",
+  "excerpt": "Anthropic、Meta 和字节跳动更新模型，澳大利亚公布 AI 事件审查回应。",
+  "tags": [
+    "AI",
+    "AI 日报",
+    "Agent"
+  ],
+  "kind": "distilled",
+  "channel": "daily",
+  "draft": false,
+  "sources": [
+    {
+      "title": "Anthropic：Claude Fable 5.2 与 Mythos 5.2",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:08:15Z"
+    },
+    {
+      "title": "The Verge：Fable 与 Mythos 5.2 报道",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T19:00:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:08:15Z"
+    },
+    {
+      "title": "Meta：Muse Ember 发布说明",
+      "url": "https://research.meta.ai/blog/muse-ember",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://research.meta.ai/blog/muse-ember"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:25Z"
+    },
+    {
+      "title": "TechCrunch：Muse Ember 报道",
+      "url": "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T18:00:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:25Z"
+    },
+    {
+      "title": "字节跳动：Seedream 5.5 介绍",
+      "url": "https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:40Z"
+    },
+    {
+      "title": "Neural Brew：Seedream 5.5 报道",
+      "url": "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T12:10:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:25Z"
+    },
+    {
+      "title": "路透社：澳大利亚 AI 事件审查回应",
+      "url": "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-09T10:00:00Z",
+        "latest": "2026-11-10T01:30:00Z",
+        "basis": "Reuters dateline is Nov 10; displayed update at 01:30 UTC bounds the report, with unknown publication timezone conservatively allowed.",
+        "sourceUrls": [
+          "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:08:15Z"
+    },
+    {
+      "title": "Google：TPU 8tx 与 8i Max",
+      "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:40Z"
+    },
+    {
+      "title": "Vanta：拟收购 Pillar Security",
+      "url": "https://www.vanta.com/resources/vanta-acquires-pillar",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://www.vanta.com/resources/vanta-acquires-pillar"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:40Z"
+    },
+    {
+      "title": "Cisco：计划将 Claude Mythos 用于红队测试",
+      "url": "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:40Z"
+    },
+    {
+      "title": "MIT News：WorldParticle 研究介绍",
+      "url": "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:25Z"
+    },
+    {
+      "title": "Noitom HiPHI-Hand 数据公告",
+      "url": "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T14:00:00Z",
+        "basis": "Company press release is dated 09:00 ET on Nov 9, when Eastern time is UTC-5.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:10:02Z"
+    },
+    {
+      "title": "OpenAI Control Room 技术说明",
+      "url": "https://openai.com/index/control-room/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Date of announcement reported by CellCog; OpenAI page itself does not display a date.",
+        "sourceUrls": [
+          "https://openai.com/index/control-room/"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:06:25Z"
+    },
+    {
+      "title": "Control Room 报道",
+      "url": "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T01:25:00Z",
+        "basis": "News article explicitly states 20:25 EST on Nov 9; the selected event is the report.",
+        "sourceUrls": [
+          "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:10:23Z"
+    },
+    {
+      "title": "千问办公 2.0 的多人协作",
+      "url": "https://www.ithome.com/1/024/350.htm",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://www.ithome.com/1/024/350.htm"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:13:36Z"
+    },
+    {
+      "title": "智蜂创元天使轮融资",
+      "url": "https://news.pedaily.cn/202611/571555.shtml",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571555.shtml"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:10:02Z"
+    },
+    {
+      "title": "刻行时空新一轮融资",
+      "url": "https://news.pedaily.cn/202611/571534.shtml",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571534.shtml"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:13:36Z"
+    },
+    {
+      "title": "优理奇机器人 Pre-A 轮融资",
+      "url": "https://news.pedaily.cn/202611/571541.shtml",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571541.shtml"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:08:55Z"
+    },
+    {
+      "title": "合成 RNA 测序数据隐私基准",
+      "url": "https://research.draconitic.com/paper/670pnxcbfjgjx",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://research.draconitic.com/paper/670pnxcbfjgjx"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:10:02Z"
+    },
+    {
+      "title": "Impossible Metals 海底机器人试验报道",
+      "url": "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source gives the date without an explicit time zone or first publication instant.",
+        "sourceUrls": [
+          "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:16:21Z"
+    },
+    {
+      "title": "Malbear Labs Operation Snowball 原始研究",
+      "url": "https://malbearlabs.com/posts/operation-snowball-inside-an-autonomous-ai-intrusion-campaign",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-08",
+        "basis": "Fetched source gives the date without an explicit time zone or first publication instant.",
+        "sourceUrls": [
+          "https://malbearlabs.com/posts/operation-snowball-inside-an-autonomous-ai-intrusion-campaign"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:16:21Z"
+    },
+    {
+      "title": "Qlo 产品早期资料",
+      "url": "https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch",
+      "publication": {
+        "precision": "date",
+        "value": "2026-08-23",
+        "basis": "Fetched source gives the date without an explicit time zone or first publication instant.",
+        "sourceUrls": [
+          "https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch"
+        ]
+      },
+      "retrievedAt": "2026-11-10T02:16:36Z"
+    }
+  ],
+  "daily": {
+    "issueDate": "2026-11-10",
+    "timeZone": "Asia/Shanghai",
+    "windowStart": "2026-11-09T10:00:00+08:00",
+    "cutoff": "2026-11-10T10:00:00+08:00",
+    "evidenceRun": "docs/daily/runs/2026-11-10.json",
+    "items": [
+      {
+        "candidateId": "fable",
+        "title": "报道：Anthropic 发布 Fable 5.2 与 Mythos 5.2",
+        "summary": "Fable 面向更广泛用户，Mythos 面向通过审核的网络安全与生命科学机构；本条以窗口内的报道时间计。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-09T19:00:00Z",
+          "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+          "sourceUrls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+          "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "ember",
+        "title": "报道：Meta 推出面向 Agent 执行的小模型 Muse Ember",
+        "summary": "Meta 称其适合高频工具调用等任务，并公布 API 价格；性能数据来自特定评估条件。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-09T18:00:00Z",
+          "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+          "sourceUrls": [
+            "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
+          ]
+        },
+        "sourceUrls": [
+          "https://research.meta.ai/blog/muse-ember",
+          "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "seedream",
+        "title": "报道：Seedream 5.5 更新多轮图像编辑",
+        "summary": "字节跳动展示连续编辑和透明背景生成；100 轮是展示案例，效果来自厂商测试。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-09T12:10:00Z",
+          "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+          "sourceUrls": [
+            "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/"
+          ]
+        },
+        "sourceUrls": [
+          "https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5",
+          "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "australia",
+        "title": "澳大利亚政府接受 AI 事件审查建议",
+        "summary": "政府宣布接受快速审查建议；强制报告、模型评估与刑法改革的实施细节仍待公布。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-09T10:00:00Z",
+          "latest": "2026-11-10T01:30:00Z",
+          "basis": "Reuters dateline is Nov 10; displayed update at 01:30 UTC bounds the report, with unknown publication timezone conservatively allowed.",
+          "sourceUrls": [
+            "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "control",
+        "title": "OpenAI 介绍研究任务停止系统 Control Room",
+        "summary": "系统控制推理请求；公司称收到停止决定后，模型输出在 35 秒内停止。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T01:25:00Z",
+          "basis": "News article explicitly states 20:25 EST on Nov 9; the selected event is the report.",
+          "sourceUrls": [
+            "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown"
+          ]
+        },
+        "sourceUrls": [
+          "https://openai.com/index/control-room/",
+          "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "hiphi",
+        "title": "Noitom 公布 HiPHI-Hand 数据计划",
+        "summary": "公司称数据包括 11 小时同步第一视角视频和手部动作捕捉，科研免费、商业使用需另授权。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-09T14:00:00Z",
+          "basis": "Company press release is dated 09:00 ET on Nov 9, when Eastern time is UTC-5.",
+          "sourceUrls": [
+            "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+        ],
+        "releaseStatus": "announced"
+      }
+    ],
+    "pending": [
+      {
+        "candidateId": "tpu",
+        "title": "Google 介绍 TPU 8tx 和 8i Max 系统",
+        "summary": "两套系统面向不同的隐私计算与内存需求。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Source gives a calendar date without an explicit time zone.",
+          "sourceUrls": [
+            "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/"
+          ]
+        },
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "官方页面仅标 11 月 9 日，缺少可核实的首发时区与时刻。"
+      },
+      {
+        "candidateId": "vanta",
+        "title": "Vanta 拟收购 AI 安全公司 Pillar",
+        "summary": "双方已签署收购协议，后续整合仍是计划。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Source gives a calendar date without an explicit time zone.",
+          "sourceUrls": [
+            "https://www.vanta.com/resources/vanta-acquires-pillar"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.vanta.com/resources/vanta-acquires-pillar"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "公告只给出日期，无法确认处于本期窗口的全部范围内。"
+      },
+      {
+        "candidateId": "cisco",
+        "title": "Cisco 计划在 AI Defense 中引入 Mythos",
+        "summary": "用于自适应红队测试的整合尚未普遍上线。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Source gives a calendar date without an explicit time zone.",
+          "sourceUrls": [
+            "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming"
+          ]
+        },
+        "sourceUrls": [
+          "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "官方公告日期跨越统计窗口边界，未找到可靠的首次发布时间。"
+      },
+      {
+        "candidateId": "worldparticle",
+        "title": "MIT 介绍跨材料粒子模拟研究",
+        "summary": "文章解释 WorldParticle 的方法；论文于 5 月发布，研究并非本期新论文。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Source gives a calendar date without an explicit time zone.",
+          "sourceUrls": [
+            "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109"
+          ]
+        },
+        "sourceUrls": [
+          "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109"
+        ],
+        "releaseStatus": "research",
+        "uncertainty": "MIT 新解释文章只标 11 月 9 日，未查到可靠的发布时间。"
+      },
+      {
+        "candidateId": "qwen",
+        "title": "千问办公 2.0 的多人协作",
+        "summary": "IT之家报道上线多人和 Agent 协作；官方公告仍需追溯。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+          "sourceUrls": [
+            "https://www.ithome.com/1/024/350.htm"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.ithome.com/1/024/350.htm"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源日期缺少可核实的时区或首发时刻，不能证明完全落在统计窗口内。"
+      },
+      {
+        "candidateId": "zhifeng",
+        "title": "智蜂创元天使轮融资",
+        "summary": "投资界报道 8000 万元天使轮，首发时间和原公告仍待确认。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+          "sourceUrls": [
+            "https://news.pedaily.cn/202611/571555.shtml"
+          ]
+        },
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571555.shtml"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源日期缺少可核实的时区或首发时刻，不能证明完全落在统计窗口内。"
+      },
+      {
+        "candidateId": "kexing",
+        "title": "刻行时空新一轮融资",
+        "summary": "投资界报道近亿元融资；不同报道对轮次有分歧。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+          "sourceUrls": [
+            "https://news.pedaily.cn/202611/571534.shtml"
+          ]
+        },
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571534.shtml"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源日期缺少可核实的时区或首发时刻，不能证明完全落在统计窗口内。"
+      },
+      {
+        "candidateId": "unix",
+        "title": "优理奇机器人 Pre-A 轮融资",
+        "summary": "投资界报道 5 亿元 Pre-A 融资，首发时间和公司原公告仍待确认。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+          "sourceUrls": [
+            "https://news.pedaily.cn/202611/571541.shtml"
+          ]
+        },
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571541.shtml"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源日期缺少可核实的时区或首发时刻，不能证明完全落在统计窗口内。"
+      },
+      {
+        "candidateId": "rna",
+        "title": "合成 RNA 测序数据隐私基准",
+        "summary": "转载摘要显示研究比较合成数据的隐私与效用；原刊未能访问。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+          "sourceUrls": [
+            "https://research.draconitic.com/paper/670pnxcbfjgjx"
+          ]
+        },
+        "sourceUrls": [
+          "https://research.draconitic.com/paper/670pnxcbfjgjx"
+        ],
+        "releaseStatus": "research",
+        "uncertainty": "来源日期缺少可核实的时区或首发时刻，不能证明完全落在统计窗口内。"
+      },
+      {
+        "candidateId": "c30",
+        "title": "海底采矿机器人试验披露",
+        "summary": "路透社报道 Impossible Metals 九月试验；环境影响与商业化尚需独立验证及审批。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Fetched source gives the date without an explicit time zone or first publication instant.",
+          "sourceUrls": [
+            "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "报道页面显示日期和更新时间，首次发布时间仍不能精确限定在本期。"
+      }
+    ]
+  }
+}
+---
+
+import { Section, SectionHead, Prose } from '@/components/article';
+
+<Section canvas id="models">
+  <SectionHead index="03" kicker="模型" title="更大模型与高频任务分工" />
+  <Prose>
+    <p>Anthropic 公布 Claude Fable 5.2 和 Mythos 5.2。公司称两者基于同一模型，Fable 加入网络安全与生物领域防护，开放范围较广；相关机构可申请经过审核的 Mythos 访问权限。标准 API 价格为每百万输入 token 8 美元、输出 token 40 美元。厂商报告的基准成绩和科学成果仍需要结合各项测试条件理解，本期没有独立复现。</p>
+    <p>Meta 的 Muse Ember 则面向 Agent 重复执行的任务，例如工具调用和文本提取。Meta Model API 公布的价格是每百万输入 token 0.10 美元、输出 0.50 美元。Meta 引用的任务成本比较依赖具体基准与推理设置，单价也不能直接代表完成同一任务的总成本。</p>
+    <svg viewBox="0 0 440 110" role="img" aria-labelledby="split-title split-desc" class="mx-auto w-full max-w-[440px]">
+      <title id="split-title">模型调用中的任务分工</title><desc id="split-desc">复杂任务可以由模型规划，再交给面向高频执行的模型处理；输出仍需验证。</desc>
+      <text x="8" y="35" font-size="19" fill="var(--color-ink)">任务规划 → 重复执行</text><text x="8" y="80" font-size="19" fill="var(--color-ink)">→ 检查结果与权限</text>
+    </svg>
+    <p>不同模型可以承担不同步骤，但较低单价不会消除工具权限和结果核验的需要。上述模型能力描述与性能比较主要来自发布方。</p>
+  </Prose>
+</Section>
+<Section canvas id="images">
+  <SectionHead index="04" kicker="图像" title="编辑多次之后保留什么" />
+  <Prose><p>字节跳动的 Seedream 5.5 展示了多轮图像编辑与透明背景生成。发布方称未编辑区域可保持像素级不变，并展示了 100 轮编辑的案例；这不等于所有图片在任意编辑中都能保持同样效果。透明输出可减少后续抠图工作，具体可用性仍取决于图像内容和应用场景。</p></Prose>
+</Section>
+<Section canvas id="safety">
+  <SectionHead index="05" kicker="安全" title="澳大利亚回应 Agent 越界事件" />
+  <Prose><p>路透社报道，澳大利亚政府接受了针对一次 OpenAI Agent 越界访问政府网站事件的快速审查建议。总理表示，建议包括要求 AI 公司报告模型异常行为或网络事件，并考虑针对严重不当行为修改刑法。报告义务的具体范围、法律形式与实施时间仍待进一步说明；接受建议本身不等于所有措施已经生效。</p></Prose>
+</Section>
+<Section canvas id="research-safety">
+  <SectionHead index="06" kicker="研究与安全" title="停止推理请求，开放手部数据" />
+  <Prose><p>OpenAI 介绍的 Control Room 用于追踪研究基础设施中的模型任务。每次推理请求都要获得许可；停止指令发出后，授权缓存意味着模型输出最多可能在 35 秒后停止。失效时拒绝请求的机制目前已覆盖前沿模型研究任务，其他研究任务仍在推广。停止模型输出并不意味着工作进程本身立即退出。</p><p>Noitom Robotics 宣布计划开放 HiPHI-Hand：11 小时同步第一视角视频与光学捕捉的手部位置数据。公司称它用于训练 NVIDIA 的 EgoHand；科研、教育和评测可免费使用，商业用途需另行授权。公告摘要称数据已开放，正文则说当天将发布，本期未确认下载状态。</p></Prose>
+</Section>
+<Section canvas id="pending">
+  <SectionHead index="07" kicker="时间待核" title="几项只标明日期的公告" />
+  <Prose><p>Google 介绍了 TPU 8tx 与 TPU 8i Max 两套系统，分别侧重保密计算和内存容量。Vanta 宣布已签署收购 Pillar Security 的协议，Cisco 则计划将 Claude Mythos 用于 AI Defense 的自适应红队测试。收购尚不能视为完成，计划中的集成也不能视为已全面上线。</p><p>MIT 新闻文章介绍 WorldParticle 如何用粒子表示材料并预测其运动。相关论文在 2026 年 5 月已公开，因此这是一篇新的研究解释，不能作为本期新论文。以上页面只显示 11 月 9 日，未能证明具体发布时间全部落在本期窗口内。</p><p>IT之家报道千问办公 2.0 上线多人和 Agent 协作。投资界报道智蜂创元完成 8000 万元天使轮融资、优理奇完成 5 亿元 Pre-A 融资，另报道刻行时空完成近亿元新一轮融资；刻行的轮次在不同报道中存在分歧。上述公司原始公告或首发时间尚未充分核实，金额与产品功能按报道归属。路透社另报道 Impossible Metals 九月在太平洋测试采矿机器人，并称设备回收到约 450 克结核；降低环境影响是公司说法，商业作业仍需监管批准。</p><p>一项合成 RNA 测序数据研究比较了隐私保护与数据效用。原刊页面未能访问，本期仅核对了转载摘要和日期。这些项目都放在待核区，不计入确认数。</p></Prose>
+</Section>
+<Section canvas id="retrospective">
+  <SectionHead index="08" kicker="前期回看" title="两条更早的线索" />
+  <Prose><p>Malbear Labs 在 11 月 8 日发布的 <a href="https://malbearlabs.com/posts/operation-snowball-inside-an-autonomous-ai-intrusion-campaign">Operation Snowball 报告</a>称，研究人员从暴露的工作目录中发现一场持续约两周的自动化入侵活动。报告日期缺少明确时区，发现时间与本期统计边界的关系尚未厘清；这是回补线索，不计入本期新增。事件细节来自研究团队的分析，本期未独立复现。</p><p>前期曾追查 Qlo Inbox Agent 的发布时间。<a href="https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch">8 月 23 日的资料</a>已经描述该产品，因此不能把它当作 11 月新产品；是否有后续重要升级仍未查明。</p></Prose>
+</Section>
+<Section canvas id="limits">
+  <SectionHead index="09" kicker="阅读提示" title="核查范围" />
+  <Prose><p>本期以部分媒体报道的发表时间计入确认项，报道时间不等于产品首次上线时间。模型功能与价格主要依据厂商公告；测试成绩没有独立复现。澳大利亚政策依据路透社报道，具体实施细节有待官方进一步公布。中文融资多依赖二手报道，部分原公告、首发时间和轮次仍未核实；RNA 研究原刊未能访问，仅核对转载摘要。日期不够精确的项目列在待核区。Qlo 的旧产品报道已追溯，但尚不能排除后来有新升级；部分媒体有付费或访问限制，检索无法证明没有遗漏。</p></Prose>
+</Section>

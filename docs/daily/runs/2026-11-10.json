@@ -1,0 +1,3879 @@
+{
+  "version": 2,
+  "runId": "2026-11-10-in-progress",
+  "author": "primary",
+  "issueDate": "2026-11-10",
+  "windowStart": "2026-11-09T10:00:00+08:00",
+  "cutoff": "2026-11-10T10:00:00+08:00",
+  "startedAt": "2026-11-10T02:05:00Z",
+  "completedAt": "2026-11-10T02:28:14Z",
+  "queries": [
+    {
+      "id": "q1",
+      "actor": "primary",
+      "query": "November 9 2026 AI product model research financing agents safety governance",
+      "executedAt": "2026-11-10T02:05:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/",
+        "https://www.wsj.com/cio-journal/enterprises-say-ai-regulation-wont-stop-corporate-innovation-3be10b7c",
+        "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-a6a9d766",
+        "https://www.theaustralian.com.au/business/tech-journal/ais-returns-are-becoming-clearer-and-they-go-beyond-productivity/news-story/0e0b07484aa69e2b8ffc1e65d70db391",
+        "https://www.theguardian.com/business/live/2026/nov/09/nvidia-jensen-huang-scandal-investigation-ai-industry-tech-stocks-recovery-slump-latest-news-updates",
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://emergent.sh/news/ai-safety-groups-outline-plans-new-washington",
+        "https://www.donews.com/news/detail/4/6769142.html",
+        "https://openai.com/index/building-standards-next-phase-ai/",
+        "https://www.actuia.com/veille/2026-11-03/",
+        "https://www.kslaw.com/insights/articles/the-occ-issues-examiner-framework-for-bank-use-of-ai",
+        "https://m.36kr.com/p/4053311588553865",
+        "https://libnanews.com/securite-internationale-de-lia-lappel-de-paris/",
+        "https://www.anthropic.com/",
+        "https://zhuanlan.zhihu.com/p/2065846707254977354",
+        "https://www.vie-publique.fr/discours/305294-anne-le-henanff-04112026-intelligence-artificielle-et-numerique",
+        "https://www.oanda.jp/lab-education/market_news/kn_2026040701000588/",
+        "https://aiagentstore.ai/ai-agent-news/this-week",
+        "https://tech.ifeng.com/c/8xh5Ykfpwj0",
+        "https://presse.economie.gouv.fr/?p=170759",
+        "https://www.nazumi-office.com/post/%E3%80%90%E8%A1%8C%E6%94%BF%E6%83%85%E5%A0%B1%E3%80%91%E7%9F%A5%E7%9A%84%E8%B2%A1%E7%94%A3%E6%8E%A8%E9%80%B2%E8%A8%88%E7%94%BB%EF%BC%92%EF%BC%90%EF%BC%92%EF%BC%96%E3%81%8C%E5%85%AC%E8%A1%A8-ai%E6%99%82%E4%BB%A3%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%80%8C%E5%89%B5%E9%80%A0%E3%83%BB%E4%BF%9D%E8%AD%B7%E3%83%BB%E6%B4%BB%E7%94%A8%E3%80%8D%E3%81%A8%E6%97%A5%E6%9C%AC%E3%81%AE%E6%88%90%E9%95%B7%E6%88%A6%E7%95%A5",
+        "https://www.edtechinnovationhub.com/news/anthropic-publishes-public-benefit-report-detailing-ai-progress-and-gaps-in-measuring-impact",
+        "https://acpr.banque-france.fr/fr/actualites/intelligence-artificielle-les-nouvelles-frontieres-du-risque",
+        "https://yorozuipsc.com/uploads/1/3/2/5/132566344/33d0b474e1dada6febab.pdf",
+        "https://qaike.com/ai-governance-watch-november-2026/",
+        "https://www.zabala.fr/actualites/appel-projets-intelligence-artificielle-bpifrance/",
+        "https://www.pressnet.or.jp/news/headline/251223_16073.html",
+        "https://www.superblocks.com/blog/ai-safety-policy-and-governance"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q2",
+      "actor": "primary",
+      "query": "2026年11月9日 人工智能 融资 收购 模型 具身 智能体 数据安全",
+      "executedAt": "2026-11-10T02:05:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/",
+        "https://www.wsj.com/cio-journal/enterprises-say-ai-regulation-wont-stop-corporate-innovation-3be10b7c",
+        "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-a6a9d766",
+        "https://www.theaustralian.com.au/business/tech-journal/ais-returns-are-becoming-clearer-and-they-go-beyond-productivity/news-story/0e0b07484aa69e2b8ffc1e65d70db391",
+        "https://www.theguardian.com/business/live/2026/nov/09/nvidia-jensen-huang-scandal-investigation-ai-industry-tech-stocks-recovery-slump-latest-news-updates",
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://emergent.sh/news/ai-safety-groups-outline-plans-new-washington",
+        "https://www.donews.com/news/detail/4/6769142.html",
+        "https://openai.com/index/building-standards-next-phase-ai/",
+        "https://www.actuia.com/veille/2026-11-03/",
+        "https://www.kslaw.com/insights/articles/the-occ-issues-examiner-framework-for-bank-use-of-ai",
+        "https://m.36kr.com/p/4053311588553865",
+        "https://libnanews.com/securite-internationale-de-lia-lappel-de-paris/",
+        "https://www.anthropic.com/",
+        "https://zhuanlan.zhihu.com/p/2065846707254977354",
+        "https://www.vie-publique.fr/discours/305294-anne-le-henanff-04112026-intelligence-artificielle-et-numerique",
+        "https://www.oanda.jp/lab-education/market_news/kn_2026040701000588/",
+        "https://aiagentstore.ai/ai-agent-news/this-week",
+        "https://tech.ifeng.com/c/8xh5Ykfpwj0",
+        "https://presse.economie.gouv.fr/?p=170759",
+        "https://www.nazumi-office.com/post/%E3%80%90%E8%A1%8C%E6%94%BF%E6%83%85%E5%A0%B1%E3%80%91%E7%9F%A5%E7%9A%84%E8%B2%A1%E7%94%A3%E6%8E%A8%E9%80%B2%E8%A8%88%E7%94%BB%EF%BC%92%EF%BC%90%EF%BC%92%EF%BC%96%E3%81%8C%E5%85%AC%E8%A1%A8-ai%E6%99%82%E4%BB%A3%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%80%8C%E5%89%B5%E9%80%A0%E3%83%BB%E4%BF%9D%E8%AD%B7%E3%83%BB%E6%B4%BB%E7%94%A8%E3%80%8D%E3%81%A8%E6%97%A5%E6%9C%AC%E3%81%AE%E6%88%90%E9%95%B7%E6%88%A6%E7%95%A5",
+        "https://www.edtechinnovationhub.com/news/anthropic-publishes-public-benefit-report-detailing-ai-progress-and-gaps-in-measuring-impact",
+        "https://acpr.banque-france.fr/fr/actualites/intelligence-artificielle-les-nouvelles-frontieres-du-risque",
+        "https://yorozuipsc.com/uploads/1/3/2/5/132566344/33d0b474e1dada6febab.pdf",
+        "https://qaike.com/ai-governance-watch-november-2026/",
+        "https://www.zabala.fr/actualites/appel-projets-intelligence-artificielle-bpifrance/",
+        "https://www.pressnet.or.jp/news/headline/251223_16073.html",
+        "https://www.superblocks.com/blog/ai-safety-policy-and-governance"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q3",
+      "actor": "primary",
+      "query": "9 novembre 2026 intelligence artificielle recherche modèle financement sécurité",
+      "executedAt": "2026-11-10T02:05:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/",
+        "https://www.wsj.com/cio-journal/enterprises-say-ai-regulation-wont-stop-corporate-innovation-3be10b7c",
+        "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-a6a9d766",
+        "https://www.theaustralian.com.au/business/tech-journal/ais-returns-are-becoming-clearer-and-they-go-beyond-productivity/news-story/0e0b07484aa69e2b8ffc1e65d70db391",
+        "https://www.theguardian.com/business/live/2026/nov/09/nvidia-jensen-huang-scandal-investigation-ai-industry-tech-stocks-recovery-slump-latest-news-updates",
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://emergent.sh/news/ai-safety-groups-outline-plans-new-washington",
+        "https://www.donews.com/news/detail/4/6769142.html",
+        "https://openai.com/index/building-standards-next-phase-ai/",
+        "https://www.actuia.com/veille/2026-11-03/",
+        "https://www.kslaw.com/insights/articles/the-occ-issues-examiner-framework-for-bank-use-of-ai",
+        "https://m.36kr.com/p/4053311588553865",
+        "https://libnanews.com/securite-internationale-de-lia-lappel-de-paris/",
+        "https://www.anthropic.com/",
+        "https://zhuanlan.zhihu.com/p/2065846707254977354",
+        "https://www.vie-publique.fr/discours/305294-anne-le-henanff-04112026-intelligence-artificielle-et-numerique",
+        "https://www.oanda.jp/lab-education/market_news/kn_2026040701000588/",
+        "https://aiagentstore.ai/ai-agent-news/this-week",
+        "https://tech.ifeng.com/c/8xh5Ykfpwj0",
+        "https://presse.economie.gouv.fr/?p=170759",
+        "https://www.nazumi-office.com/post/%E3%80%90%E8%A1%8C%E6%94%BF%E6%83%85%E5%A0%B1%E3%80%91%E7%9F%A5%E7%9A%84%E8%B2%A1%E7%94%A3%E6%8E%A8%E9%80%B2%E8%A8%88%E7%94%BB%EF%BC%92%EF%BC%90%EF%BC%92%EF%BC%96%E3%81%8C%E5%85%AC%E8%A1%A8-ai%E6%99%82%E4%BB%A3%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%80%8C%E5%89%B5%E9%80%A0%E3%83%BB%E4%BF%9D%E8%AD%B7%E3%83%BB%E6%B4%BB%E7%94%A8%E3%80%8D%E3%81%A8%E6%97%A5%E6%9C%AC%E3%81%AE%E6%88%90%E9%95%B7%E6%88%A6%E7%95%A5",
+        "https://www.edtechinnovationhub.com/news/anthropic-publishes-public-benefit-report-detailing-ai-progress-and-gaps-in-measuring-impact",
+        "https://acpr.banque-france.fr/fr/actualites/intelligence-artificielle-les-nouvelles-frontieres-du-risque",
+        "https://yorozuipsc.com/uploads/1/3/2/5/132566344/33d0b474e1dada6febab.pdf",
+        "https://qaike.com/ai-governance-watch-november-2026/",
+        "https://www.zabala.fr/actualites/appel-projets-intelligence-artificielle-bpifrance/",
+        "https://www.pressnet.or.jp/news/headline/251223_16073.html",
+        "https://www.superblocks.com/blog/ai-safety-policy-and-governance"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q4",
+      "actor": "primary",
+      "query": "2026年11月9日 人工知能 新モデル 研究 規制 投資",
+      "executedAt": "2026-11-10T02:05:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/",
+        "https://www.wsj.com/cio-journal/enterprises-say-ai-regulation-wont-stop-corporate-innovation-3be10b7c",
+        "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-a6a9d766",
+        "https://www.theaustralian.com.au/business/tech-journal/ais-returns-are-becoming-clearer-and-they-go-beyond-productivity/news-story/0e0b07484aa69e2b8ffc1e65d70db391",
+        "https://www.theguardian.com/business/live/2026/nov/09/nvidia-jensen-huang-scandal-investigation-ai-industry-tech-stocks-recovery-slump-latest-news-updates",
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://emergent.sh/news/ai-safety-groups-outline-plans-new-washington",
+        "https://www.donews.com/news/detail/4/6769142.html",
+        "https://openai.com/index/building-standards-next-phase-ai/",
+        "https://www.actuia.com/veille/2026-11-03/",
+        "https://www.kslaw.com/insights/articles/the-occ-issues-examiner-framework-for-bank-use-of-ai",
+        "https://m.36kr.com/p/4053311588553865",
+        "https://libnanews.com/securite-internationale-de-lia-lappel-de-paris/",
+        "https://www.anthropic.com/",
+        "https://zhuanlan.zhihu.com/p/2065846707254977354",
+        "https://www.vie-publique.fr/discours/305294-anne-le-henanff-04112026-intelligence-artificielle-et-numerique",
+        "https://www.oanda.jp/lab-education/market_news/kn_2026040701000588/",
+        "https://aiagentstore.ai/ai-agent-news/this-week",
+        "https://tech.ifeng.com/c/8xh5Ykfpwj0",
+        "https://presse.economie.gouv.fr/?p=170759",
+        "https://www.nazumi-office.com/post/%E3%80%90%E8%A1%8C%E6%94%BF%E6%83%85%E5%A0%B1%E3%80%91%E7%9F%A5%E7%9A%84%E8%B2%A1%E7%94%A3%E6%8E%A8%E9%80%B2%E8%A8%88%E7%94%BB%EF%BC%92%EF%BC%90%EF%BC%92%EF%BC%96%E3%81%8C%E5%85%AC%E8%A1%A8-ai%E6%99%82%E4%BB%A3%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%80%8C%E5%89%B5%E9%80%A0%E3%83%BB%E4%BF%9D%E8%AD%B7%E3%83%BB%E6%B4%BB%E7%94%A8%E3%80%8D%E3%81%A8%E6%97%A5%E6%9C%AC%E3%81%AE%E6%88%90%E9%95%B7%E6%88%A6%E7%95%A5",
+        "https://www.edtechinnovationhub.com/news/anthropic-publishes-public-benefit-report-detailing-ai-progress-and-gaps-in-measuring-impact",
+        "https://acpr.banque-france.fr/fr/actualites/intelligence-artificielle-les-nouvelles-frontieres-du-risque",
+        "https://yorozuipsc.com/uploads/1/3/2/5/132566344/33d0b474e1dada6febab.pdf",
+        "https://qaike.com/ai-governance-watch-november-2026/",
+        "https://www.zabala.fr/actualites/appel-projets-intelligence-artificielle-bpifrance/",
+        "https://www.pressnet.or.jp/news/headline/251223_16073.html",
+        "https://www.superblocks.com/blog/ai-safety-policy-and-governance"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q5",
+      "actor": "primary",
+      "query": "November 9 2026 AI artificial intelligence research new paper laboratory discovery model 2026",
+      "executedAt": "2026-11-10T02:05:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.news.com.au/technology/online/significant-penalties-labor-unveils-ai-guardrails/news-story/d87b5785f51cfe7e0e9f91b97b07dd4e",
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.barrons.com/articles/google-ai-tpu-systems-nvidia-8d354665",
+        "https://www.axios.com/2026/11/09/eric-schmidt-caltech-ai-interview",
+        "https://phys.org/news/2026-09-ai-scientist-autonomously-generates-validates.html",
+        "https://zhuanlan.zhihu.com/p/2034207020283335013",
+        "https://mind.io/blog/upcoming-ai-security-regulations-you-need-to-be-aware-of",
+        "https://www.stateof.ai/",
+        "https://zhuanlan.zhihu.com/p/2023093175435142213",
+        "https://www.joneswalker.com/en/insights/blogs/ai-law-blog/data-privacy-day-2026-privacy-as-the-foundation-of-responsible-ai-governance.html",
+        "https://hai.stanford.edu/ai-index/2026-ai-index-report",
+        "https://news.qq.com/rain/a/20261021A0CXTZ00",
+        "https://regulations.ai/regulations/RAI-US-NA-SUMMARY-2026",
+        "https://releasemonitor.org/?filter=all&latest=0&q=ai-agents&sort=score_desc"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q6",
+      "actor": "primary",
+      "query": "2026年11月9日 人工智能 创业 融资 具身 智能 数据 机器人",
+      "executedAt": "2026-11-10T02:05:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.news.com.au/technology/online/significant-penalties-labor-unveils-ai-guardrails/news-story/d87b5785f51cfe7e0e9f91b97b07dd4e",
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.barrons.com/articles/google-ai-tpu-systems-nvidia-8d354665",
+        "https://www.axios.com/2026/11/09/eric-schmidt-caltech-ai-interview",
+        "https://phys.org/news/2026-09-ai-scientist-autonomously-generates-validates.html",
+        "https://zhuanlan.zhihu.com/p/2034207020283335013",
+        "https://mind.io/blog/upcoming-ai-security-regulations-you-need-to-be-aware-of",
+        "https://www.stateof.ai/",
+        "https://zhuanlan.zhihu.com/p/2023093175435142213",
+        "https://www.joneswalker.com/en/insights/blogs/ai-law-blog/data-privacy-day-2026-privacy-as-the-foundation-of-responsible-ai-governance.html",
+        "https://hai.stanford.edu/ai-index/2026-ai-index-report",
+        "https://news.qq.com/rain/a/20261021A0CXTZ00",
+        "https://regulations.ai/regulations/RAI-US-NA-SUMMARY-2026",
+        "https://releasemonitor.org/?filter=all&latest=0&q=ai-agents&sort=score_desc"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q7",
+      "actor": "primary",
+      "query": "AI agent tools releases November 9 2026 github AI agent open source",
+      "executedAt": "2026-11-10T02:05:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.news.com.au/technology/online/significant-penalties-labor-unveils-ai-guardrails/news-story/d87b5785f51cfe7e0e9f91b97b07dd4e",
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.barrons.com/articles/google-ai-tpu-systems-nvidia-8d354665",
+        "https://www.axios.com/2026/11/09/eric-schmidt-caltech-ai-interview",
+        "https://phys.org/news/2026-09-ai-scientist-autonomously-generates-validates.html",
+        "https://zhuanlan.zhihu.com/p/2034207020283335013",
+        "https://mind.io/blog/upcoming-ai-security-regulations-you-need-to-be-aware-of",
+        "https://www.stateof.ai/",
+        "https://zhuanlan.zhihu.com/p/2023093175435142213",
+        "https://www.joneswalker.com/en/insights/blogs/ai-law-blog/data-privacy-day-2026-privacy-as-the-foundation-of-responsible-ai-governance.html",
+        "https://hai.stanford.edu/ai-index/2026-ai-index-report",
+        "https://news.qq.com/rain/a/20261021A0CXTZ00",
+        "https://regulations.ai/regulations/RAI-US-NA-SUMMARY-2026",
+        "https://releasemonitor.org/?filter=all&latest=0&q=ai-agents&sort=score_desc"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q8",
+      "actor": "primary",
+      "query": "November 9 2026 artificial intelligence safety standards privacy governance regulation agency",
+      "executedAt": "2026-11-10T02:05:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.news.com.au/technology/online/significant-penalties-labor-unveils-ai-guardrails/news-story/d87b5785f51cfe7e0e9f91b97b07dd4e",
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.barrons.com/articles/google-ai-tpu-systems-nvidia-8d354665",
+        "https://www.axios.com/2026/11/09/eric-schmidt-caltech-ai-interview",
+        "https://phys.org/news/2026-09-ai-scientist-autonomously-generates-validates.html",
+        "https://zhuanlan.zhihu.com/p/2034207020283335013",
+        "https://mind.io/blog/upcoming-ai-security-regulations-you-need-to-be-aware-of",
+        "https://www.stateof.ai/",
+        "https://zhuanlan.zhihu.com/p/2023093175435142213",
+        "https://www.joneswalker.com/en/insights/blogs/ai-law-blog/data-privacy-day-2026-privacy-as-the-foundation-of-responsible-ai-governance.html",
+        "https://hai.stanford.edu/ai-index/2026-ai-index-report",
+        "https://news.qq.com/rain/a/20261021A0CXTZ00",
+        "https://regulations.ai/regulations/RAI-US-NA-SUMMARY-2026",
+        "https://releasemonitor.org/?filter=all&latest=0&q=ai-agents&sort=score_desc"
+      ],
+      "notes": "Batch result inventory; individual query attribution not determined."
+    },
+    {
+      "id": "q9",
+      "actor": "primary",
+      "query": "\"November 9, 2026\" \"AI\" \"agents\" cybersecurity models launch",
+      "executedAt": "2026-11-10T02:06:01Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.meta.ai/blog/muse-ember",
+        "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+        "https://www.pymnts.com/news/artificial-intelligence/2026/meta-and-anthropic-push-ai-models-into-more-complex-work/",
+        "https://emergent.sh/news/meta-releases-muse-ember-agent-execution",
+        "https://www.vals.ai/models/meta_muse-ember",
+        "https://andrew.ooo/reference/open-source-ai-tools/",
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://news.mit.edu/index.php/2026/single-ai-model-simulates-many-substances-behavior-1109"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q10",
+      "actor": "primary",
+      "query": "\"November 9, 2026\" \"Meta\" \"Muse Ember\" AI model",
+      "executedAt": "2026-11-10T02:06:01Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.meta.ai/blog/muse-ember",
+        "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+        "https://www.pymnts.com/news/artificial-intelligence/2026/meta-and-anthropic-push-ai-models-into-more-complex-work/",
+        "https://emergent.sh/news/meta-releases-muse-ember-agent-execution",
+        "https://www.vals.ai/models/meta_muse-ember",
+        "https://andrew.ooo/reference/open-source-ai-tools/",
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://news.mit.edu/index.php/2026/single-ai-model-simulates-many-substances-behavior-1109"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q11",
+      "actor": "primary",
+      "query": "\"November 9, 2026\" AI open source agent model release github",
+      "executedAt": "2026-11-10T02:06:01Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.meta.ai/blog/muse-ember",
+        "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+        "https://www.pymnts.com/news/artificial-intelligence/2026/meta-and-anthropic-push-ai-models-into-more-complex-work/",
+        "https://emergent.sh/news/meta-releases-muse-ember-agent-execution",
+        "https://www.vals.ai/models/meta_muse-ember",
+        "https://andrew.ooo/reference/open-source-ai-tools/",
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://news.mit.edu/index.php/2026/single-ai-model-simulates-many-substances-behavior-1109"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q12",
+      "actor": "primary",
+      "query": "\"November 9, 2026\" AI research paper scientific discovery robotics",
+      "executedAt": "2026-11-10T02:06:01Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.meta.ai/blog/muse-ember",
+        "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+        "https://www.pymnts.com/news/artificial-intelligence/2026/meta-and-anthropic-push-ai-models-into-more-complex-work/",
+        "https://emergent.sh/news/meta-releases-muse-ember-agent-execution",
+        "https://www.vals.ai/models/meta_muse-ember",
+        "https://andrew.ooo/reference/open-source-ai-tools/",
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://news.mit.edu/index.php/2026/single-ai-model-simulates-many-substances-behavior-1109"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q13",
+      "actor": "primary",
+      "query": "\"Qwen Office 2.0\" 11月9日 2026 发布 钉钉",
+      "executedAt": "2026-11-10T02:10:02Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.cac.gov.cn/2026-05/08/c_1779979789523320.htm?utm_source=chatgpt.com",
+        "https://github.com/ikaijua/Awesome-AITools/discussions/1064",
+        "https://www.linkedin.com/posts/noitomrobotics_corl2026-physicalai-embodiedai-activity-7523993741154582528-t1YJ",
+        "https://www.zhengyuansz.com/blog/p-docs-2549/",
+        "https://github.com/duanyytop/agents-radar/issues/1004",
+        "https://www.linkedin.com/posts/noitomrobotics_noitomroboticshiphi-datasets-at-hugging-activity-7504053829470941184-KaI0",
+        "https://www.sohu.com/a/1088202998_121218495?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334",
+        "https://github.com/duanyytop/agents-radar/issues/3523",
+        "https://arxiv.org/html/2608.16222v1",
+        "https://github.com/duanyytop/agents-radar/issues/1640",
+        "https://huggingface.co/datasets/noitomrobotics/HiPHI",
+        "https://www.dehenglaw.com/cn/newscontent/0008/036755/2.aspx?MID=0902",
+        "https://github.com/aliyun/ai-agent-handbook/blob/main/03-run/%E7%AC%AC%2009%20%E7%AB%A0%20%20AI%20%E7%BD%91%E5%85%B3%E4%B8%8E%E7%BB%9F%E4%B8%80%E6%B5%81%E9%87%8F%E6%B2%BB%E7%90%86.md",
+        "https://zhuanlan.zhihu.com/p/2047261674588075559",
+        "https://github.com/echoVic/blade-agent-sdk/blob/main/CHANGELOG.zh-CN.md",
+        "https://www.techtimes.com/articles/324935/20260819/noitom-releases-humanoid-robot-training-data-free-hiphi-opens-wrc-2026-today.htm",
+        "https://www.zhiding.cn/ai-applications/2026/1015/3202265.shtml",
+        "https://github.com/VILA-Lab/Dive-into-Claude-Code/blob/main/docs/agent-design-space-source-notes_zh.md",
+        "https://www.nvidia.com/en-us/events/corl/",
+        "https://time.com/5007542/%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E5%87%86%E5%A4%87%E5%A5%BD%E8%B5%A2%E5%BE%97%E6%9C%AA%E6%9D%A5/",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html",
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://news.pedaily.cn/202611/571555.shtml",
+        "https://research.draconitic.com/paper/670pnxcbfjgjx"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q14",
+      "actor": "primary",
+      "query": "2026 November 9 Noitom HiPHI-Hand dataset NVIDIA 11 hours CoRL dataset",
+      "executedAt": "2026-11-10T02:10:02Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.cac.gov.cn/2026-05/08/c_1779979789523320.htm?utm_source=chatgpt.com",
+        "https://github.com/ikaijua/Awesome-AITools/discussions/1064",
+        "https://www.linkedin.com/posts/noitomrobotics_corl2026-physicalai-embodiedai-activity-7523993741154582528-t1YJ",
+        "https://www.zhengyuansz.com/blog/p-docs-2549/",
+        "https://github.com/duanyytop/agents-radar/issues/1004",
+        "https://www.linkedin.com/posts/noitomrobotics_noitomroboticshiphi-datasets-at-hugging-activity-7504053829470941184-KaI0",
+        "https://www.sohu.com/a/1088202998_121218495?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334",
+        "https://github.com/duanyytop/agents-radar/issues/3523",
+        "https://arxiv.org/html/2608.16222v1",
+        "https://github.com/duanyytop/agents-radar/issues/1640",
+        "https://huggingface.co/datasets/noitomrobotics/HiPHI",
+        "https://www.dehenglaw.com/cn/newscontent/0008/036755/2.aspx?MID=0902",
+        "https://github.com/aliyun/ai-agent-handbook/blob/main/03-run/%E7%AC%AC%2009%20%E7%AB%A0%20%20AI%20%E7%BD%91%E5%85%B3%E4%B8%8E%E7%BB%9F%E4%B8%80%E6%B5%81%E9%87%8F%E6%B2%BB%E7%90%86.md",
+        "https://zhuanlan.zhihu.com/p/2047261674588075559",
+        "https://github.com/echoVic/blade-agent-sdk/blob/main/CHANGELOG.zh-CN.md",
+        "https://www.techtimes.com/articles/324935/20260819/noitom-releases-humanoid-robot-training-data-free-hiphi-opens-wrc-2026-today.htm",
+        "https://www.zhiding.cn/ai-applications/2026/1015/3202265.shtml",
+        "https://github.com/VILA-Lab/Dive-into-Claude-Code/blob/main/docs/agent-design-space-source-notes_zh.md",
+        "https://www.nvidia.com/en-us/events/corl/",
+        "https://time.com/5007542/%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E5%87%86%E5%A4%87%E5%A5%BD%E8%B5%A2%E5%BE%97%E6%9C%AA%E6%9D%A5/",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html",
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://news.pedaily.cn/202611/571555.shtml",
+        "https://research.draconitic.com/paper/670pnxcbfjgjx"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q15",
+      "actor": "primary",
+      "query": "AI 开发 智能体 数据 隐私 11月9日 2026 规则",
+      "executedAt": "2026-11-10T02:10:02Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.cac.gov.cn/2026-05/08/c_1779979789523320.htm?utm_source=chatgpt.com",
+        "https://github.com/ikaijua/Awesome-AITools/discussions/1064",
+        "https://www.linkedin.com/posts/noitomrobotics_corl2026-physicalai-embodiedai-activity-7523993741154582528-t1YJ",
+        "https://www.zhengyuansz.com/blog/p-docs-2549/",
+        "https://github.com/duanyytop/agents-radar/issues/1004",
+        "https://www.linkedin.com/posts/noitomrobotics_noitomroboticshiphi-datasets-at-hugging-activity-7504053829470941184-KaI0",
+        "https://www.sohu.com/a/1088202998_121218495?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334",
+        "https://github.com/duanyytop/agents-radar/issues/3523",
+        "https://arxiv.org/html/2608.16222v1",
+        "https://github.com/duanyytop/agents-radar/issues/1640",
+        "https://huggingface.co/datasets/noitomrobotics/HiPHI",
+        "https://www.dehenglaw.com/cn/newscontent/0008/036755/2.aspx?MID=0902",
+        "https://github.com/aliyun/ai-agent-handbook/blob/main/03-run/%E7%AC%AC%2009%20%E7%AB%A0%20%20AI%20%E7%BD%91%E5%85%B3%E4%B8%8E%E7%BB%9F%E4%B8%80%E6%B5%81%E9%87%8F%E6%B2%BB%E7%90%86.md",
+        "https://zhuanlan.zhihu.com/p/2047261674588075559",
+        "https://github.com/echoVic/blade-agent-sdk/blob/main/CHANGELOG.zh-CN.md",
+        "https://www.techtimes.com/articles/324935/20260819/noitom-releases-humanoid-robot-training-data-free-hiphi-opens-wrc-2026-today.htm",
+        "https://www.zhiding.cn/ai-applications/2026/1015/3202265.shtml",
+        "https://github.com/VILA-Lab/Dive-into-Claude-Code/blob/main/docs/agent-design-space-source-notes_zh.md",
+        "https://www.nvidia.com/en-us/events/corl/",
+        "https://time.com/5007542/%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E5%87%86%E5%A4%87%E5%A5%BD%E8%B5%A2%E5%BE%97%E6%9C%AA%E6%9D%A5/",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html",
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://news.pedaily.cn/202611/571555.shtml",
+        "https://research.draconitic.com/paper/670pnxcbfjgjx"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q16",
+      "actor": "primary",
+      "query": "2026 11月9日 site:github.com AI agent 发布 版本",
+      "executedAt": "2026-11-10T02:10:02Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.cac.gov.cn/2026-05/08/c_1779979789523320.htm?utm_source=chatgpt.com",
+        "https://github.com/ikaijua/Awesome-AITools/discussions/1064",
+        "https://www.linkedin.com/posts/noitomrobotics_corl2026-physicalai-embodiedai-activity-7523993741154582528-t1YJ",
+        "https://www.zhengyuansz.com/blog/p-docs-2549/",
+        "https://github.com/duanyytop/agents-radar/issues/1004",
+        "https://www.linkedin.com/posts/noitomrobotics_noitomroboticshiphi-datasets-at-hugging-activity-7504053829470941184-KaI0",
+        "https://www.sohu.com/a/1088202998_121218495?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334",
+        "https://github.com/duanyytop/agents-radar/issues/3523",
+        "https://arxiv.org/html/2608.16222v1",
+        "https://github.com/duanyytop/agents-radar/issues/1640",
+        "https://huggingface.co/datasets/noitomrobotics/HiPHI",
+        "https://www.dehenglaw.com/cn/newscontent/0008/036755/2.aspx?MID=0902",
+        "https://github.com/aliyun/ai-agent-handbook/blob/main/03-run/%E7%AC%AC%2009%20%E7%AB%A0%20%20AI%20%E7%BD%91%E5%85%B3%E4%B8%8E%E7%BB%9F%E4%B8%80%E6%B5%81%E9%87%8F%E6%B2%BB%E7%90%86.md",
+        "https://zhuanlan.zhihu.com/p/2047261674588075559",
+        "https://github.com/echoVic/blade-agent-sdk/blob/main/CHANGELOG.zh-CN.md",
+        "https://www.techtimes.com/articles/324935/20260819/noitom-releases-humanoid-robot-training-data-free-hiphi-opens-wrc-2026-today.htm",
+        "https://www.zhiding.cn/ai-applications/2026/1015/3202265.shtml",
+        "https://github.com/VILA-Lab/Dive-into-Claude-Code/blob/main/docs/agent-design-space-source-notes_zh.md",
+        "https://www.nvidia.com/en-us/events/corl/",
+        "https://time.com/5007542/%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E5%87%86%E5%A4%87%E5%A5%BD%E8%B5%A2%E5%BE%97%E6%9C%AA%E6%9D%A5/",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html",
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://news.pedaily.cn/202611/571555.shtml",
+        "https://research.draconitic.com/paper/670pnxcbfjgjx"
+      ],
+      "notes": "Batch results; individual query attribution not established. Raw response retained outside public repository."
+    },
+    {
+      "id": "q17",
+      "actor": "independent-reviewer",
+      "query": "\"November 9, 2026\" \"AI\" \"privacy\" \"data\" research",
+      "executedAt": "2026-11-10T02:07:35Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://hci.top/en/daily/2026-11-09",
+        "https://scienmag.com/benchmark-reveals-privacy-trade-offs-in-synthetic-rna-seq-models/",
+        "https://publicknowledge.org/why-ai-inputs-training-and-outputs-demand-different-legal-rules/",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q18",
+      "actor": "independent-reviewer",
+      "query": "\"November 9, 2026\" \"AI\" copyright training data regulation",
+      "executedAt": "2026-11-10T02:07:35Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://hci.top/en/daily/2026-11-09",
+        "https://scienmag.com/benchmark-reveals-privacy-trade-offs-in-synthetic-rna-seq-models/",
+        "https://publicknowledge.org/why-ai-inputs-training-and-outputs-demand-different-legal-rules/",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q19",
+      "actor": "independent-reviewer",
+      "query": "\"November 9, 2026\" AI safety new research model alignment evaluation paper",
+      "executedAt": "2026-11-10T02:07:35Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://hci.top/en/daily/2026-11-09",
+        "https://scienmag.com/benchmark-reveals-privacy-trade-offs-in-synthetic-rna-seq-models/",
+        "https://publicknowledge.org/why-ai-inputs-training-and-outputs-demand-different-legal-rules/",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q20",
+      "actor": "independent-reviewer",
+      "query": "\"2026-11-09\" machine learning research model agents arxiv",
+      "executedAt": "2026-11-10T02:07:35Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://hci.top/en/daily/2026-11-09",
+        "https://scienmag.com/benchmark-reveals-privacy-trade-offs-in-synthetic-rna-seq-models/",
+        "https://publicknowledge.org/why-ai-inputs-training-and-outputs-demand-different-legal-rules/",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q21",
+      "actor": "independent-reviewer",
+      "query": "AI artificial intelligence news November 9 2026 model launch agent",
+      "executedAt": "2026-11-10T02:08:16Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.pedaily.cn/weeklyinvest/",
+        "https://daily.rclabs.in/trackers/funding",
+        "https://www.artificialintelligence-news.com/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q22",
+      "actor": "independent-reviewer",
+      "query": "November 9 2026 AI funding startup research artificial intelligence",
+      "executedAt": "2026-11-10T02:08:16Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.pedaily.cn/weeklyinvest/",
+        "https://daily.rclabs.in/trackers/funding",
+        "https://www.artificialintelligence-news.com/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q23",
+      "actor": "independent-reviewer",
+      "query": "2026年11月9日 人工智能 大模型 融资 机器人",
+      "executedAt": "2026-11-10T02:08:16Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.pedaily.cn/weeklyinvest/",
+        "https://daily.rclabs.in/trackers/funding",
+        "https://www.artificialintelligence-news.com/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q24",
+      "actor": "independent-reviewer",
+      "query": "9 novembre 2026 intelligence artificielle recherche",
+      "executedAt": "2026-11-10T02:08:16Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.pedaily.cn/weeklyinvest/",
+        "https://daily.rclabs.in/trackers/funding",
+        "https://www.artificialintelligence-news.com/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q25",
+      "actor": "independent-reviewer",
+      "query": "\"November 9, 2026\" \"AI\" \"agents\" cybersecurity",
+      "executedAt": "2026-11-10T02:08:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://aisengtech.com/series/ai-security-risk/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q26",
+      "actor": "independent-reviewer",
+      "query": "\"9 November 2026\" AI safety research model data security agents",
+      "executedAt": "2026-11-10T02:08:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://aisengtech.com/series/ai-security-risk/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q27",
+      "actor": "independent-reviewer",
+      "query": "2026年11月9日 人工智能 政策 数据 安全 大模型",
+      "executedAt": "2026-11-10T02:08:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://aisengtech.com/series/ai-security-risk/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q28",
+      "actor": "independent-reviewer",
+      "query": "2026年11月9日 AI 新模型 开源 Agent 发布",
+      "executedAt": "2026-11-10T02:08:22Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://aisengtech.com/series/ai-security-risk/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q29",
+      "actor": "independent-reviewer",
+      "query": "\"Community benchmarking\" \"synthetic bulk RNA-seq\" 2026",
+      "executedAt": "2026-11-10T02:09:05Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.draconitic.com/paper/670pnxcbfjgjx",
+        "https://link.springer.com/article/10.1186/s13059-026-04326-1",
+        "https://e-acc.ai/story/cba49bfe-2fca-49cd-add5-e0fabf2e016c",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q30",
+      "actor": "independent-reviewer",
+      "query": "\"s13059-026-04326-1\" publication",
+      "executedAt": "2026-11-10T02:09:05Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.draconitic.com/paper/670pnxcbfjgjx",
+        "https://link.springer.com/article/10.1186/s13059-026-04326-1",
+        "https://e-acc.ai/story/cba49bfe-2fca-49cd-add5-e0fabf2e016c",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q31",
+      "actor": "independent-reviewer",
+      "query": "\"Qwen Office 2.0\" 2026 11 9 群聊 AI",
+      "executedAt": "2026-11-10T02:09:05Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.draconitic.com/paper/670pnxcbfjgjx",
+        "https://link.springer.com/article/10.1186/s13059-026-04326-1",
+        "https://e-acc.ai/story/cba49bfe-2fca-49cd-add5-e0fabf2e016c",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q32",
+      "actor": "independent-reviewer",
+      "query": "\"HiPHI-Hand\" \"November 9\" 2026 Noitom",
+      "executedAt": "2026-11-10T02:09:05Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.draconitic.com/paper/670pnxcbfjgjx",
+        "https://link.springer.com/article/10.1186/s13059-026-04326-1",
+        "https://e-acc.ai/story/cba49bfe-2fca-49cd-add5-e0fabf2e016c",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q33",
+      "actor": "independent-reviewer",
+      "query": "\"Hickory\" compliance platform AI November 2026 October 2",
+      "executedAt": "2026-11-10T02:09:30Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch",
+        "https://www.fractionalcsweet.com/briefs/ai-in-the-news-2026-10-12",
+        "https://feng.ifeng.com/c/8xuYmBRbQt3",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q34",
+      "actor": "independent-reviewer",
+      "query": "\"Qlo\" insurance \"Inbox Agent\" launch 2026",
+      "executedAt": "2026-11-10T02:09:30Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch",
+        "https://www.fractionalcsweet.com/briefs/ai-in-the-news-2026-10-12",
+        "https://feng.ifeng.com/c/8xuYmBRbQt3",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q35",
+      "actor": "independent-reviewer",
+      "query": "\"WorkBuddy\" 会员 折扣 退还 2026 11月9",
+      "executedAt": "2026-11-10T02:09:30Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch",
+        "https://www.fractionalcsweet.com/briefs/ai-in-the-news-2026-10-12",
+        "https://feng.ifeng.com/c/8xuYmBRbQt3",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q36",
+      "actor": "independent-reviewer",
+      "query": "\"万象智维\" \"新鸿福\" \"天景资本\" 11月 融资",
+      "executedAt": "2026-11-10T02:09:30Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch",
+        "https://www.fractionalcsweet.com/briefs/ai-in-the-news-2026-10-12",
+        "https://feng.ifeng.com/c/8xuYmBRbQt3",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "qopen1",
+      "actor": "primary",
+      "query": "Open source pages: https://research.meta.ai/blog/muse-ember, https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/, https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109, https://openai.com/index/control-room/, https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/",
+      "executedAt": "2026-11-10T02:06:25Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://research.meta.ai/blog/muse-ember",
+        "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+        "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109",
+        "https://openai.com/index/control-room/",
+        "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/"
+      ],
+      "notes": "Observed actual page reads; redirect for MIT retained as canonical URL."
+    },
+    {
+      "id": "qopen2",
+      "actor": "primary",
+      "query": "Open source pages: https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5, https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming, https://www.vanta.com/resources/vanta-acquires-pillar",
+      "executedAt": "2026-11-10T02:06:40Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5",
+        "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+        "https://www.vanta.com/resources/vanta-acquires-pillar"
+      ],
+      "notes": "Observed actual page reads; redirect for MIT retained as canonical URL."
+    },
+    {
+      "id": "qopen3",
+      "actor": "primary",
+      "query": "Open source pages: https://www.anthropic.com/claude-fable-and-mythos-5-2, https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2, https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/, https://www.jushenhome.com/newsflash_d.php?id=375, https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+      "executedAt": "2026-11-10T02:08:15Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+        "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+        "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/"
+      ],
+      "notes": "Observed actual page reads; redirect for MIT retained as canonical URL."
+    },
+    {
+      "id": "qopen4",
+      "actor": "primary",
+      "query": "Open source pages: https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html, https://news.pedaily.cn/202611/571555.shtml, https://research.draconitic.com/paper/670pnxcbfjgjx",
+      "executedAt": "2026-11-10T02:10:02Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html",
+        "https://news.pedaily.cn/202611/571555.shtml",
+        "https://research.draconitic.com/paper/670pnxcbfjgjx"
+      ],
+      "notes": "Observed actual page reads; redirect for MIT retained as canonical URL."
+    },
+    {
+      "id": "qopen5",
+      "actor": "primary",
+      "query": "Open source pages: https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown",
+      "executedAt": "2026-11-10T02:10:23Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown"
+      ],
+      "notes": "Observed actual page reads; redirect for MIT retained as canonical URL."
+    },
+    {
+      "id": "qopen6",
+      "actor": "primary",
+      "query": "Open source pages: https://www.ithome.com/1/024/350.htm, https://news.pedaily.cn/202611/571534.shtml, https://research.draconitic.com/paper/670pnxcbfjgjx, https://arxiv.org/abs/2611.09418",
+      "executedAt": "2026-11-10T02:13:36Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.ithome.com/1/024/350.htm",
+        "https://news.pedaily.cn/202611/571534.shtml",
+        "https://research.draconitic.com/paper/670pnxcbfjgjx",
+        "https://arxiv.org/abs/2611.09418"
+      ],
+      "notes": "Observed actual page reads; redirect for MIT retained as canonical URL."
+    },
+    {
+      "id": "q43",
+      "actor": "independent-reviewer",
+      "query": "\"万象智维\" \"新鸿福\" \"天景\" 融资",
+      "executedAt": "2026-11-10T02:07:09Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749",
+        "https://bsky.app/profile/oldaily.bsky.social/post/3mzobbonczo2i",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q44",
+      "actor": "independent-reviewer",
+      "query": "\"原方智能\" \"金雨茂物\" 2026 8月 融资",
+      "executedAt": "2026-11-10T02:07:09Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749",
+        "https://bsky.app/profile/oldaily.bsky.social/post/3mzobbonczo2i",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q45",
+      "actor": "independent-reviewer",
+      "query": "\"Towards responsible AI-augmented evidence synthesis\"",
+      "executedAt": "2026-11-10T02:07:09Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749",
+        "https://bsky.app/profile/oldaily.bsky.social/post/3mzobbonczo2i",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q46",
+      "actor": "independent-reviewer",
+      "query": "\"2026年11月9日\" 人工智能 论文 隐私 训练数据 安全",
+      "executedAt": "2026-11-10T02:07:09Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://www.jushenhome.com/newsflash_d.php?id=375",
+        "https://olj.onlinelearningconsortium.org/index.php/olj/article/view/6749",
+        "https://bsky.app/profile/oldaily.bsky.social/post/3mzobbonczo2i",
+        "https://i.ifeng.com/c/8vV0CNr2NwS"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q47",
+      "actor": "independent-reviewer",
+      "query": "\"Staff at the US center for AI safety\" \"White House\" 2026",
+      "executedAt": "2026-11-10T02:11:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://www.chalmers.se/en/current/news/ai-scientist-autonomously-generates-and-validates-new-biological-discoveries/",
+        "https://www.infosecurity-magazine.com/news/operation-snowball-ai-telecom/",
+        "https://mallory.ai/stories/01a1ba9e-01a4-7ad8-b68b-6baae6f35434",
+        "https://openai.com/index/building-standards-next-phase-ai/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q48",
+      "actor": "independent-reviewer",
+      "query": "\"AI scientist autonomously generates and validates\" November 2026",
+      "executedAt": "2026-11-10T02:11:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://www.chalmers.se/en/current/news/ai-scientist-autonomously-generates-and-validates-new-biological-discoveries/",
+        "https://www.infosecurity-magazine.com/news/operation-snowball-ai-telecom/",
+        "https://mallory.ai/stories/01a1ba9e-01a4-7ad8-b68b-6baae6f35434",
+        "https://openai.com/index/building-standards-next-phase-ai/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q49",
+      "actor": "independent-reviewer",
+      "query": "\"autonomous\" \"two-week\" telecom intrusion AI agent November 9 2026",
+      "executedAt": "2026-11-10T02:11:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://www.chalmers.se/en/current/news/ai-scientist-autonomously-generates-and-validates-new-biological-discoveries/",
+        "https://www.infosecurity-magazine.com/news/operation-snowball-ai-telecom/",
+        "https://mallory.ai/stories/01a1ba9e-01a4-7ad8-b68b-6baae6f35434",
+        "https://openai.com/index/building-standards-next-phase-ai/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    },
+    {
+      "id": "q50",
+      "actor": "independent-reviewer",
+      "query": "\"Building standards for the next phase of AI\" November 2026",
+      "executedAt": "2026-11-10T02:11:00Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "mixed",
+      "resultUrls": [
+        "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+        "https://www.chalmers.se/en/current/news/ai-scientist-autonomously-generates-and-validates-new-biological-discoveries/",
+        "https://www.infosecurity-magazine.com/news/operation-snowball-ai-telecom/",
+        "https://mallory.ai/stories/01a1ba9e-01a4-7ad8-b68b-6baae6f35434",
+        "https://openai.com/index/building-standards-next-phase-ai/"
+      ],
+      "notes": "Shared batch inventory from reviewer; individual query attribution is not established."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Banks, investors grow wary of AI debt, spooked by market selloff",
+      "url": "https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:36Z",
+      "evidence": "Reuters full text read; Nov 9 11:02 UTC is labelled updated, so first publication remains uncertain; article concerns AI infrastructure financing conditions."
+    },
+    {
+      "id": "s2",
+      "title": "Enterprises Say AI Regulation Won't Stop Corporate Innovation",
+      "url": "https://www.wsj.com/cio-journal/enterprises-say-ai-regulation-wont-stop-corporate-innovation-3be10b7c",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "WSJ page opened to a title wall; the full report could not be read. No claim of no update."
+    },
+    {
+      "id": "s3",
+      "title": "Tech, Media & Telecom Roundup: Market Talk",
+      "url": "https://www.wsj.com/business/tech-media-telecom-roundup-market-talk-a6a9d766",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "WSJ roundup read; the relevant Muse Ember release is independently assessed as ember, not an additional event."
+    },
+    {
+      "id": "s4",
+      "title": "AI's returns are becoming clearer, and they go beyond productivity",
+      "url": "https://www.theaustralian.com.au/business/tech-journal/ais-returns-are-becoming-clearer-and-they-go-beyond-productivity/news-story/0e0b07484aa69e2b8ffc1e65d70db391",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "The Australian page could not be fetched; Deloitte analysis is not independently checked."
+    },
+    {
+      "id": "s5",
+      "title": "Nvidia's value tumbles by $330bn after 'honeytrap' investigation launched, as China denies spying claims - as it happened",
+      "url": "https://www.theguardian.com/business/live/2026/nov/09/nvidia-jensen-huang-scandal-investigation-ai-industry-tech-stocks-recovery-slump-latest-news-updates",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Guardian live blog fetched; coverage concerns corporate governance and allegations, not a distinct AI model or research development. Allegations are not established facts."
+    },
+    {
+      "id": "s6",
+      "title": "Staff at the US center for AI safety are reporting to the White House, raising independence concerns",
+      "url": "https://apnews.com/article/d3318eb2cf011df53e9ddb3e03d25f13",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:00Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s7",
+      "title": "AI Safety Groups Outline Plans for New Washington Era",
+      "url": "https://emergent.sh/news/ai-safety-groups-outline-plans-new-washington",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:12:53Z",
+      "evidence": "Fetched article gives no named organizations, original documents or traceable quotations for its assertion."
+    },
+    {
+      "id": "s8",
+      "title": "简智机器人DAS 2.0将于11月9日在CoRL亮相",
+      "url": "https://www.donews.com/news/detail/4/6769142.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "DoNews fetched: announcement was Nov 7, with Nov 9 demonstration planned; no separate new disclosure verified."
+    },
+    {
+      "id": "s9",
+      "title": "Building standards for the next phase of AI",
+      "url": "https://openai.com/index/building-standards-next-phase-ai/",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:00Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s10",
+      "title": "Veille IA du mardi 3 novembre 2026",
+      "url": "https://www.actuia.com/veille/2026-11-03/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Fetched Nov 3 French digest is prior background."
+    },
+    {
+      "id": "s11",
+      "title": "The OCC Issues Examiner Framework for Bank Use of AI",
+      "url": "https://www.kslaw.com/insights/articles/the-occ-issues-examiner-framework-for-bank-use-of-ai",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:12:53Z",
+      "evidence": "Law firm analysis was fetched; it discusses an OCC framework issued Nov 4, not a newly issued rule."
+    },
+    {
+      "id": "s12",
+      "title": "具身机器人即将进入资本整合期：谁来接盘？",
+      "url": "https://m.36kr.com/p/4053311588553865",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "36Kr returned only an access barrier; the date and article cannot be reliably reviewed."
+    },
+    {
+      "id": "s13",
+      "title": "Sécurité internationale de l'IA : l'appel de Paris - Libnanews",
+      "url": "https://libnanews.com/securite-internationale-de-lia-lappel-de-paris/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:12:53Z",
+      "evidence": "Article fetched but claimed Paris initiative and participants lack corroborated primary sources; do not assert an official agreement."
+    },
+    {
+      "id": "s14",
+      "title": "Home \\ Anthropic",
+      "url": "https://www.anthropic.com/",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:00Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s15",
+      "title": "人工智能、大模型与AI应用收并购研究报告（2026）",
+      "url": "https://zhuanlan.zhihu.com/p/2065846707254977354",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Zhihu article fetch failed; search result indicates July 29 but its contents and originality remain unchecked."
+    },
+    {
+      "id": "s16",
+      "title": "Prononcé le 4 novembre 2026 - Anne Le Hénanff ...",
+      "url": "https://www.vie-publique.fr/discours/305294-anne-le-henanff-04112026-intelligence-artificielle-et-numerique",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Government speech is explicitly dated Nov 4; page body inaccessible on this attempt, no in-window new event shown."
+    },
+    {
+      "id": "s17",
+      "title": "AI開発、普及へ個人情報活用",
+      "url": "https://www.oanda.jp/lab-education/market_news/kn_2026040701000588/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Kyodo article fetched and dated April 7, 2026; not a new proposal in this window."
+    },
+    {
+      "id": "s18",
+      "title": "AI Agents News — Week of November 9, 2026",
+      "url": "https://aiagentstore.ai/ai-agent-news/this-week",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Weekly digest read; DeepSeek, Siri and credential findings are assessed separately rather than treating the digest as one event."
+    },
+    {
+      "id": "s19",
+      "title": "具身智能的钱，流向机器人的“皮肤”",
+      "url": "https://tech.ifeng.com/c/8xh5Ykfpwj0",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Feng article fetched; published Nov 1 on prior financing activity."
+    },
+    {
+      "id": "s20",
+      "title": "L'Institut national pour l'évaluation et la sécurité de l'IA ...",
+      "url": "https://presse.economie.gouv.fr/?p=170759",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "French ministry page fetched and dated February 12, 2026."
+    },
+    {
+      "id": "s21",
+      "title": "【行政情報】知的財産推進計画2026が公表～AI時代における ...",
+      "url": "https://www.nazumi-office.com/post/%E3%80%90%E8%A1%8C%E6%94%BF%E6%83%85%E5%A0%B1%E3%80%91%E7%9F%A5%E7%9A%84%E8%B2%A1%E7%94%A3%E6%8E%A8%E9%80%B2%E8%A8%88%E7%94%BB%EF%BC%92%EF%BC%90%EF%BC%92%EF%BC%96%E3%81%8C%E5%85%AC%E8%A1%A8-ai%E6%99%82%E4%BB%A3%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%80%8C%E5%89%B5%E9%80%A0%E3%83%BB%E4%BF%9D%E8%AD%B7%E3%83%BB%E6%B4%BB%E7%94%A8%E3%80%8D%E3%81%A8%E6%97%A5%E6%9C%AC%E3%81%AE%E6%88%90%E9%95%B7%E6%88%A6%E7%95%A5",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Japanese IP-plan explainer page fetched; exact first publication date and whether it includes a new current development remain uncertain."
+    },
+    {
+      "id": "s22",
+      "title": "Anthropic details AI progress and safety gaps in 2026 report",
+      "url": "https://www.edtechinnovationhub.com/news/anthropic-publishes-public-benefit-report-detailing-ai-progress-and-gaps-in-measuring-impact",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:12:53Z",
+      "evidence": "Read attempt during audit: page fetched; lead is assessed in candidate disposition."
+    },
+    {
+      "id": "s23",
+      "title": "Intelligence artificielle : les nouvelles frontières du risque",
+      "url": "https://acpr.banque-france.fr/fr/actualites/intelligence-artificielle-les-nouvelles-frontieres-du-risque",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "Read attempt during audit: page fetched; lead is assessed in candidate disposition."
+    },
+    {
+      "id": "s24",
+      "title": "知的財産推進計画 2026 と AI 基本計画素案における 生成 AI ...",
+      "url": "https://yorozuipsc.com/uploads/1/3/2/5/132566344/33d0b474e1dada6febab.pdf",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Japanese policy PDF was fetched but its exact initial publication date and relationship to a current announcement remain unresolved."
+    },
+    {
+      "id": "s25",
+      "title": "Who Audits the Agent? AI Governance Watch, November ...",
+      "url": "https://qaike.com/ai-governance-watch-november-2026/",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "AI governance roundup returned an access error; contents and timing cannot be checked."
+    },
+    {
+      "id": "s26",
+      "title": "Appel à projets intelligence artificielle – Bpifrance",
+      "url": "https://www.zabala.fr/actualites/appel-projets-intelligence-artificielle-bpifrance/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "Fetched Bpifrance project call describes application deadlines ending June 9, 2026, with earlier 2025 and March dates."
+    },
+    {
+      "id": "s27",
+      "title": "データ提供拒否規定 拡充を 政府知財計画に意見",
+      "url": "https://www.pressnet.or.jp/news/headline/251223_16073.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Japanese newspaper association statement is dated December 23, 2025, and addresses the 2026 plan."
+    },
+    {
+      "id": "s28",
+      "title": "What Is AI Safety Policy and Governance? A 2026 Guide",
+      "url": "https://www.superblocks.com/blog/ai-safety-policy-and-governance",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Fetched Superblocks explainer is dated September 29, 2026."
+    },
+    {
+      "id": "s29",
+      "title": "Australia tightens AI oversight rules after OpenAI agent breached government website",
+      "url": "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:08:15Z",
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations.",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-09T10:00:00Z",
+        "latest": "2026-11-10T01:30:00Z",
+        "basis": "Reuters dateline is Nov 10; displayed update at 01:30 UTC bounds the report, with unknown publication timezone conservatively allowed.",
+        "sourceUrls": [
+          "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/"
+        ]
+      }
+    },
+    {
+      "id": "s30",
+      "title": "Impossible Metals says it has successfully tested AI seabed mining robot",
+      "url": "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Reuters reports company-disclosed September test; impacts and regulatory approval are not independently established.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source gives the date without an explicit time zone or first publication instant.",
+        "sourceUrls": [
+          "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/"
+        ]
+      }
+    },
+    {
+      "id": "s31",
+      "title": "Google unveils new AI chip variants as cloud demand surges",
+      "url": "https://www.reuters.com/business/google-to-introduce-two-variants-its-in-house-chips-bloomberg-news-reports-2026-11-09/",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:22Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s32",
+      "title": "'Significant penalties': Labor unveils AI guardrails",
+      "url": "https://www.news.com.au/technology/online/significant-penalties-labor-unveils-ai-guardrails/news-story/d87b5785f51cfe7e0e9f91b97b07dd4e",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:22Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s33",
+      "title": "Anthropic launches new Claude Fable and Mythos 5.2 models",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:08:15Z",
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T19:00:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2"
+        ]
+      }
+    },
+    {
+      "id": "s34",
+      "title": "Google Pushes New AI Chips. Why There Could Be an Opening.",
+      "url": "https://www.barrons.com/articles/google-ai-tpu-systems-nvidia-8d354665",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:22Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s35",
+      "title": "Eric Schmidt on AI's promise and public distrust",
+      "url": "https://www.axios.com/2026/11/09/eric-schmidt-caltech-ai-interview",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "Axios interview fetched; Schmidt comments on public trust and AI, but a broad interview is lower priority than concrete product and safety developments."
+    },
+    {
+      "id": "s36",
+      "title": "AI scientist autonomously generates and validates new ...",
+      "url": "https://phys.org/news/2026-09-ai-scientist-autonomously-generates-validates.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "Read attempt during audit: page fetched; lead is assessed in candidate disposition."
+    },
+    {
+      "id": "s37",
+      "title": "2026年4月，国内具身智能机器人企业融资情况汇总",
+      "url": "https://zhuanlan.zhihu.com/p/2034207020283335013",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:22Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s38",
+      "title": "2026 AI Regulations - MIND.io",
+      "url": "https://mind.io/blog/upcoming-ai-security-regulations-you-need-to-be-aware-of",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Fetched MIND page is a general guide to 2026 regulation, not a dated new regulatory act."
+    },
+    {
+      "id": "s39",
+      "title": "State of AI Report 2026 | AI Research, Industry and Policy",
+      "url": "https://www.stateof.ai/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "The State of AI 2026 report describes an October 8 publication, before this reporting window."
+    },
+    {
+      "id": "s40",
+      "title": "2026年3月，国内具身智能机器人企业融资情况汇总",
+      "url": "https://zhuanlan.zhihu.com/p/2023093175435142213",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:05:22Z",
+      "evidence": "Search result only; relevance, originality and timing await review."
+    },
+    {
+      "id": "s41",
+      "title": "Privacy as the Foundation of Responsible AI Governance",
+      "url": "https://www.joneswalker.com/en/insights/blogs/ai-law-blog/data-privacy-day-2026-privacy-as-the-foundation-of-responsible-ai-governance.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Jones Walker article fetched and dated January 28, 2026."
+    },
+    {
+      "id": "s42",
+      "title": "The 2026 AI Index Report | Stanford HAI",
+      "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "Read attempt during audit: page fetched; lead is assessed in candidate disposition."
+    },
+    {
+      "id": "s43",
+      "title": "9天20笔，具身智能真的遇冷了吗？",
+      "url": "https://news.qq.com/rain/a/20261021A0CXTZ00",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-10T02:13:09Z",
+      "evidence": "Read attempt during audit: not accessible."
+    },
+    {
+      "id": "s44",
+      "title": "United States AI Regulation Overview",
+      "url": "https://regulations.ai/regulations/RAI-US-NA-SUMMARY-2026",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Fetched US regulation overview is a catalog of proposals and rules, not itself a newly enacted measure."
+    },
+    {
+      "id": "s45",
+      "title": "GitHub Release Tracker",
+      "url": "https://releasemonitor.org/?filter=all&latest=0&q=ai-agents&sort=score_desc",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:17:25Z",
+      "evidence": "Fetched page is a general GitHub release tracker; individual candidate releases require their own source and timing."
+    },
+    {
+      "id": "s46",
+      "title": "fable",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:08:15Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s47",
+      "title": "meta",
+      "url": "https://research.meta.ai/blog/muse-ember",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:25Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://research.meta.ai/blog/muse-ember"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s48",
+      "title": "meta-report",
+      "url": "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:25Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T18:00:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s49",
+      "title": "seed",
+      "url": "https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:40Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s50",
+      "title": "seed-report",
+      "url": "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:25Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T12:10:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s51",
+      "title": "google",
+      "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:40Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s52",
+      "title": "vanta",
+      "url": "https://www.vanta.com/resources/vanta-acquires-pillar",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:40Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://www.vanta.com/resources/vanta-acquires-pillar"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s53",
+      "title": "cisco",
+      "url": "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:40Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s54",
+      "title": "mit",
+      "url": "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:25Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s55",
+      "title": "Noitom HiPHI-Hand 数据公告",
+      "url": "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:10:02Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T14:00:00Z",
+        "basis": "Company press release is dated 09:00 ET on Nov 9, when Eastern time is UTC-5.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s56",
+      "title": "OpenAI Control Room 技术说明",
+      "url": "https://openai.com/index/control-room/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:06:25Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Date of announcement reported by CellCog; OpenAI page itself does not display a date.",
+        "sourceUrls": [
+          "https://openai.com/index/control-room/"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s57",
+      "title": "Control Room 报道",
+      "url": "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:10:23Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T01:25:00Z",
+        "basis": "News article explicitly states 20:25 EST on Nov 9; the selected event is the report.",
+        "sourceUrls": [
+          "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown"
+        ]
+      },
+      "evidence": "Fetched announcement or report; see article for the attributed claims and stated limitations."
+    },
+    {
+      "id": "s58",
+      "title": "原方智能融资已在 11 月 8 日报道",
+      "url": "https://www.jushenhome.com/newsflash_d.php?id=375",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:10:02Z",
+      "evidence": "Same investors and amount as the November 9 story. Do not count as a new round; earlier report time still has no explicit zone."
+    },
+    {
+      "id": "s59",
+      "title": "智蜂创元 8000 万元天使轮",
+      "url": "https://news.pedaily.cn/202611/571555.shtml",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:10:02Z",
+      "evidence": "投资界报道 8000 万元天使轮，首发时间和原公告仍待确认。",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571555.shtml"
+        ]
+      }
+    },
+    {
+      "id": "s60",
+      "title": "刻行时空近亿元融资",
+      "url": "https://news.pedaily.cn/202611/571534.shtml",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:36Z",
+      "evidence": "投资界报道近亿元融资；不同报道对轮次有分歧。",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571534.shtml"
+        ]
+      }
+    },
+    {
+      "id": "s61",
+      "title": "优理奇机器人 Pre-A 融资",
+      "url": "https://news.pedaily.cn/202611/571541.shtml",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:08:55Z",
+      "evidence": "投资界报道 5 亿元 Pre-A 融资，首发时间和公司原公告仍待确认。",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571541.shtml"
+        ]
+      }
+    },
+    {
+      "id": "s62",
+      "title": "西湖灵犀战略投资",
+      "url": "https://news.pedaily.cn/202611/571515.shtml",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:08:55Z",
+      "evidence": "Reviewer fetched; amount and original announcement need checking."
+    },
+    {
+      "id": "s63",
+      "title": "合成 RNA-seq 隐私与效用基准",
+      "url": "https://research.draconitic.com/paper/670pnxcbfjgjx",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:10:02Z",
+      "evidence": "转载摘要显示研究比较合成数据的隐私与效用；原刊未能访问。",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://research.draconitic.com/paper/670pnxcbfjgjx"
+        ]
+      }
+    },
+    {
+      "id": "s64",
+      "title": "Qlo Inbox Agent 前期未决线索",
+      "url": "https://www.gowalnut.com/insight/insurance-startups-ycombinator-summer-2026-batch",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:36Z",
+      "evidence": "Walnut article fetched, dated Aug 23, already describes Inbox Agent; this disproves a claim of a new product launch but a later distinct upgrade remains unverified."
+    },
+    {
+      "id": "s65",
+      "title": "WorkBuddy 折扣前期未决线索",
+      "url": "https://feng.ifeng.com/c/8xuYmBRbQt3",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:09:30Z",
+      "evidence": "Reviewer found prior reporting; original announcement still unavailable."
+    },
+    {
+      "id": "s66",
+      "title": "万象智维前期融资",
+      "url": "https://i.ifeng.com/c/8vV0CNr2NwS",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:07:09Z",
+      "evidence": "Prior August round has different investors; identity and timing of later round need more evidence."
+    },
+    {
+      "id": "s67",
+      "title": "千问办公 2.0 多人协作",
+      "url": "https://www.ithome.com/1/024/350.htm",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:36Z",
+      "evidence": "IT之家报道上线多人和 Agent 协作；官方公告仍需追溯。",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://www.ithome.com/1/024/350.htm"
+        ]
+      }
+    },
+    {
+      "id": "s68",
+      "title": "Malbear Operation Snowball 入侵研究",
+      "url": "https://malbearlabs.com/posts/operation-snowball-inside-an-autonomous-ai-intrusion-campaign",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:16:21Z",
+      "evidence": "Malbear original research report dated Nov 8; timing remains uncertain. Describes an observed agent intrusion from exposed logs."
+    },
+    {
+      "id": "s69",
+      "title": "DeepRadio 无线电开发 Agent 研究",
+      "url": "https://arxiv.org/abs/2611.09418",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-10T02:13:36Z",
+      "evidence": "Paper opened; version and public announcement time need checking."
+    },
+    {
+      "id": "s70",
+      "title": "Nov 8 digest on coding agent secrets",
+      "url": "https://theartofcto.com/daily-sync/2026-11-08-daily-sync",
+      "publisherKind": "secondary",
+      "access": "search_only",
+      "retrievedAt": "2026-11-10T02:17:02Z",
+      "evidence": "Search result cites AppOmni research; original report, attribution and first-publication time not verified."
+    }
+  ],
+  "checks": [
+    {
+      "id": "check-products",
+      "target": "Representative fetched source and lead for products",
+      "category": "products",
+      "status": "candidate",
+      "checkedAt": "2026-11-10T02:12:06Z",
+      "queryIds": [
+        "qopen3"
+      ],
+      "sourceIds": [
+        "s46",
+        "s33"
+      ],
+      "candidateIds": [
+        "fable"
+      ],
+      "notes": "Specific observed scope only; no claim of complete global coverage."
+    },
+    {
+      "id": "check-business",
+      "target": "Representative fetched source and lead for business",
+      "category": "business",
+      "status": "candidate",
+      "checkedAt": "2026-11-10T02:12:06Z",
+      "queryIds": [
+        "qopen4"
+      ],
+      "sourceIds": [
+        "s59"
+      ],
+      "candidateIds": [
+        "zhifeng"
+      ],
+      "notes": "Specific observed scope only; no claim of complete global coverage."
+    },
+    {
+      "id": "check-research",
+      "target": "Representative fetched source and lead for research",
+      "category": "research",
+      "status": "candidate",
+      "checkedAt": "2026-11-10T02:12:06Z",
+      "queryIds": [
+        "qopen4"
+      ],
+      "sourceIds": [
+        "s55"
+      ],
+      "candidateIds": [
+        "hiphi"
+      ],
+      "notes": "Specific observed scope only; no claim of complete global coverage."
+    },
+    {
+      "id": "check-governance",
+      "target": "Representative fetched source and lead for governance",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-10T02:12:06Z",
+      "queryIds": [
+        "qopen1"
+      ],
+      "sourceIds": [
+        "s56",
+        "s57"
+      ],
+      "candidateIds": [
+        "control"
+      ],
+      "notes": "Specific observed scope only; no claim of complete global coverage."
+    },
+    {
+      "id": "check-agents",
+      "target": "Representative fetched source and lead for agents",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-10T02:12:06Z",
+      "queryIds": [
+        "qopen2"
+      ],
+      "sourceIds": [
+        "s53"
+      ],
+      "candidateIds": [
+        "cisco"
+      ],
+      "notes": "Specific observed scope only; no claim of complete global coverage."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "c1",
+      "title": "Banks, investors grow wary of AI debt, spooked by market selloff",
+      "category": "business",
+      "entity": "Banks, investors grow wary of AI debt, spooked by market selloff",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s1"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Reuters full text read; Nov 9 11:02 UTC is labelled updated, so first publication remains uncertain; article concerns AI infrastructure financing conditions.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c2",
+      "title": "Enterprises Say AI Regulation Won't Stop Corporate Innovation",
+      "category": "governance",
+      "entity": "Enterprises Say AI Regulation Won't Stop Corporate Innovation",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "WSJ page opened to a title wall; the full report could not be read. No claim of no update.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c4",
+      "title": "AI's returns are becoming clearer, and they go beyond productivity",
+      "category": "business",
+      "entity": "AI's returns are becoming clearer, and they go beyond productivity",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s4"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "The Australian page could not be fetched; Deloitte analysis is not independently checked.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c5",
+      "title": "Nvidia's value tumbles by $330bn after 'honeytrap' investigation launched, as China denies spying claims - as it happened",
+      "category": "business",
+      "entity": "Nvidia's value tumbles by $330bn after 'honeytrap' investigation launched, as China denies spying claims - as it happened",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s5"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Guardian live blog fetched; coverage concerns corporate governance and allegations, not a distinct AI model or research development. Allegations are not established facts.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c6",
+      "title": "Staff at the US center for AI safety are reporting to the White House, raising independence concerns",
+      "category": "governance",
+      "entity": "Staff at the US center for AI safety are reporting to the White House, raising independence concerns",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s6"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Previously selected on November 9; AP report dated 8 November 08:06 UTC.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c7",
+      "title": "AI Safety Groups Outline Plans for New Washington Era",
+      "category": "governance",
+      "entity": "AI Safety Groups Outline Plans for New Washington Era",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s7"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Fetched article gives no named organizations, original documents or traceable quotations for its assertion.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c8",
+      "title": "简智机器人DAS 2.0将于11月9日在CoRL亮相",
+      "category": "products",
+      "entity": "简智机器人DAS 2.0将于11月9日在CoRL亮相",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s8"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "DoNews fetched: announcement was Nov 7, with Nov 9 demonstration planned; no separate new disclosure verified.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c11",
+      "title": "The OCC Issues Examiner Framework for Bank Use of AI",
+      "category": "governance",
+      "entity": "The OCC Issues Examiner Framework for Bank Use of AI",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s11"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Law firm analysis was fetched; it discusses an OCC framework issued Nov 4, not a newly issued rule.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c13",
+      "title": "Sécurité internationale de l'IA : l'appel de Paris - Libnanews",
+      "category": "products",
+      "entity": "Sécurité internationale de l'IA : l'appel de Paris - Libnanews",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s13"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Article fetched but claimed Paris initiative and participants lack corroborated primary sources; do not assert an official agreement.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c18",
+      "title": "AI Agents News — Week of November 9, 2026",
+      "category": "agents",
+      "entity": "AI Agents News — Week of November 9, 2026",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s18"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Weekly digest read; DeepSeek, Siri and credential findings are assessed separately rather than treating the digest as one event.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c22",
+      "title": "Anthropic details AI progress and safety gaps in 2026 report",
+      "category": "governance",
+      "entity": "Anthropic details AI progress and safety gaps in 2026 report",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s22"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Article discusses Anthropic public benefit report published 21 October; earlier than window.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c23",
+      "title": "Intelligence artificielle : les nouvelles frontières du risque",
+      "category": "governance",
+      "entity": "Intelligence artificielle : les nouvelles frontières du risque",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s23"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "French regulator page explicitly dated 9 September, updated 24 September.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c25",
+      "title": "Who Audits the Agent? AI Governance Watch, November ...",
+      "category": "governance",
+      "entity": "Who Audits the Agent? AI Governance Watch, November ...",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s25"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "AI governance roundup returned an access error; contents and timing cannot be checked.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c26",
+      "title": "Appel à projets intelligence artificielle – Bpifrance",
+      "category": "products",
+      "entity": "Appel à projets intelligence artificielle – Bpifrance",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s26"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Fetched Bpifrance project call describes application deadlines ending June 9, 2026, with earlier 2025 and March dates.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c29",
+      "title": "Australia tightens AI oversight rules after OpenAI agent breached government website",
+      "category": "governance",
+      "entity": "Australia tightens AI oversight rules after OpenAI agent breached government website",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "qopen3"
+      ],
+      "sourceIds": [
+        "s29"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "The same event is assessed under the linked candidate.",
+      "importance": "Potentially relevant lead; significance and originality still under review.",
+      "duplicateOf": "australia"
+    },
+    {
+      "id": "c30",
+      "title": "Impossible Metals says it has successfully tested AI seabed mining robot",
+      "category": "research",
+      "entity": "Impossible Metals says it has successfully tested AI seabed mining robot",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s30"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Date and displayed update overlap the window; first publication is not established.",
+      "importance": "Potentially relevant lead; significance and originality still under review.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source gives the date without an explicit time zone or first publication instant.",
+        "sourceUrls": [
+          "https://www.reuters.com/technology/impossible-metals-says-it-has-successfully-tested-ai-seabed-mining-robot-2026-11-09/"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s30"
+        ],
+        "attribution": "Reuters reports the company disclosure.",
+        "limitations": "Company environmental statements are unverified; actual test occurred in September."
+      }
+    },
+    {
+      "id": "c31",
+      "title": "Google unveils new AI chip variants as cloud demand surges",
+      "category": "products",
+      "entity": "Google unveils new AI chip variants as cloud demand surges",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "qopen3"
+      ],
+      "sourceIds": [
+        "s31"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "The same event is assessed under the linked candidate.",
+      "importance": "Potentially relevant lead; significance and originality still under review.",
+      "duplicateOf": "tpu"
+    },
+    {
+      "id": "c32",
+      "title": "'Significant penalties': Labor unveils AI guardrails",
+      "category": "governance",
+      "entity": "'Significant penalties': Labor unveils AI guardrails",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s32"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "The same event is assessed under the linked candidate.",
+      "importance": "Potentially relevant lead; significance and originality still under review.",
+      "duplicateOf": "australia"
+    },
+    {
+      "id": "c33",
+      "title": "Anthropic launches new Claude Fable and Mythos 5.2 models",
+      "category": "products",
+      "entity": "Anthropic launches new Claude Fable and Mythos 5.2 models",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "qopen3"
+      ],
+      "sourceIds": [
+        "s33"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "The same event is assessed under the linked candidate.",
+      "importance": "Potentially relevant lead; significance and originality still under review.",
+      "duplicateOf": "fable"
+    },
+    {
+      "id": "c34",
+      "title": "Google Pushes New AI Chips. Why There Could Be an Opening.",
+      "category": "products",
+      "entity": "Google Pushes New AI Chips. Why There Could Be an Opening.",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s34"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "The same event is assessed under the linked candidate.",
+      "importance": "Potentially relevant lead; significance and originality still under review.",
+      "duplicateOf": "tpu"
+    },
+    {
+      "id": "c35",
+      "title": "Eric Schmidt on AI's promise and public distrust",
+      "category": "products",
+      "entity": "Eric Schmidt on AI's promise and public distrust",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s35"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Axios interview fetched; Schmidt comments on public trust and AI, but a broad interview is lower priority than concrete product and safety developments.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c36",
+      "title": "AI scientist autonomously generates and validates new ...",
+      "category": "research",
+      "entity": "AI scientist autonomously generates and validates new ...",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s36"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Original Chalmers/Phys.org report dated September 30.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c39",
+      "title": "State of AI Report 2026 | AI Research, Industry and Policy",
+      "category": "research",
+      "entity": "State of AI Report 2026 | AI Research, Industry and Policy",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s39"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "The State of AI 2026 report describes an October 8 publication, before this reporting window.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c42",
+      "title": "The 2026 AI Index Report | Stanford HAI",
+      "category": "research",
+      "entity": "The 2026 AI Index Report | Stanford HAI",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s42"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Stanford 2026 index is historical annual background.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "c43",
+      "title": "9天20笔，具身智能真的遇冷了吗？",
+      "category": "products",
+      "entity": "9天20笔，具身智能真的遇冷了吗？",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s43"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "October 21 historical financing commentary.",
+      "importance": "Potentially relevant lead; significance and originality still under review."
+    },
+    {
+      "id": "fable",
+      "title": "Anthropic 发布 Fable 5.2 与 Mythos 5.2",
+      "category": "products",
+      "entity": "Anthropic 发布 Fable 5.2 与 Mythos 5.2",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen3"
+      ],
+      "sourceIds": [
+        "s46",
+        "s33"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-09T19:00:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Selected for significance; a dated announcement or reporting event falls within the window.",
+      "importance": "Fable 面向更广泛用户，Mythos 面向通过审核的网络安全与生命科学机构；本条以窗口内的报道时间计。"
+    },
+    {
+      "id": "ember",
+      "title": "Meta 推出面向 Agent 执行的小模型 Muse Ember",
+      "category": "products",
+      "entity": "Meta 推出面向 Agent 执行的小模型 Muse Ember",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen1"
+      ],
+      "sourceIds": [
+        "s47",
+        "s48"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-09T18:00:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Selected for significance; a dated announcement or reporting event falls within the window.",
+      "importance": "Meta 称其适合高频工具调用等任务，并公布 API 价格；性能数据来自特定评估条件。"
+    },
+    {
+      "id": "seedream",
+      "title": "Seedream 5.5 更新多轮图像编辑",
+      "category": "products",
+      "entity": "Seedream 5.5 更新多轮图像编辑",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen1"
+      ],
+      "sourceIds": [
+        "s49",
+        "s50"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-09T12:10:00Z",
+        "basis": "Explicit timestamp on the cited report; this is the reporting event.",
+        "sourceUrls": [
+          "https://neuralbrew.ai/en/articles/2026/11/seedream-5-5-bytedance-100-round-editing-transparent-images/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Selected for significance; a dated announcement or reporting event falls within the window.",
+      "importance": "字节跳动展示连续编辑和透明背景生成；100 轮是展示案例，效果来自厂商测试。"
+    },
+    {
+      "id": "australia",
+      "title": "澳大利亚政府接受 AI 事件审查建议",
+      "category": "governance",
+      "entity": "澳大利亚政府接受 AI 事件审查建议",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen3"
+      ],
+      "sourceIds": [
+        "s29"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-09T10:00:00Z",
+        "latest": "2026-11-10T01:30:00Z",
+        "basis": "Reuters dateline is Nov 10; displayed update at 01:30 UTC bounds the report, with unknown publication timezone conservatively allowed.",
+        "sourceUrls": [
+          "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Selected for significance; a dated announcement or reporting event falls within the window.",
+      "importance": "政府宣布接受快速审查建议；强制报告、模型评估与刑法改革的实施细节仍待公布。",
+      "reportedEvidence": {
+        "sourceIds": [
+          "s29"
+        ],
+        "attribution": "Reuters reports the Australian government response.",
+        "limitations": "Reuters timestamp is an update; announcement and legal implementation are distinct."
+      }
+    },
+    {
+      "id": "control",
+      "title": "OpenAI 介绍研究任务停止系统 Control Room",
+      "category": "governance",
+      "entity": "OpenAI 介绍研究任务停止系统 Control Room",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen1"
+      ],
+      "sourceIds": [
+        "s56",
+        "s57"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-10T01:25:00Z",
+        "basis": "News article explicitly states 20:25 EST on Nov 9; the selected event is the report.",
+        "sourceUrls": [
+          "https://interestingengineering.com/ai-robotics/openai-control-room-35-second-model-shutdown"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Selected for significance; a dated announcement or reporting event falls within the window.",
+      "importance": "系统控制推理请求；公司称收到停止决定后，模型输出在 35 秒内停止。"
+    },
+    {
+      "id": "hiphi",
+      "title": "Noitom 公布 HiPHI-Hand 数据计划",
+      "category": "research",
+      "entity": "Noitom 公布 HiPHI-Hand 数据计划",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "qopen4"
+      ],
+      "sourceIds": [
+        "s55"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-09T14:00:00Z",
+        "basis": "Company press release is dated 09:00 ET on Nov 9, when Eastern time is UTC-5.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/09/3398459/0/en/noitom-robotics-releases-hiphi-hand-precision-hand-capture-data-used-to-train-nvidia-egohand-and-demonstrates-real-time-hand-reconstruction-at-corl-2026.html"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Selected for significance; a dated announcement or reporting event falls within the window.",
+      "importance": "公司称数据包括 11 小时同步第一视角视频和手部动作捕捉，科研免费、商业使用需另授权。"
+    },
+    {
+      "id": "tpu",
+      "title": "Google 介绍 TPU 8tx 和 8i Max 系统",
+      "category": "products",
+      "entity": "Google 介绍 TPU 8tx 和 8i Max 系统",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q1",
+        "q9"
+      ],
+      "sourceIds": [
+        "s51"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "官方页面仅标 11 月 9 日，缺少可核实的首发时区与时刻。",
+      "importance": "两套系统面向不同的隐私计算与内存需求。"
+    },
+    {
+      "id": "vanta",
+      "title": "Vanta 拟收购 AI 安全公司 Pillar",
+      "category": "business",
+      "entity": "Vanta 拟收购 AI 安全公司 Pillar",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "qopen2"
+      ],
+      "sourceIds": [
+        "s52"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://www.vanta.com/resources/vanta-acquires-pillar"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "公告只给出日期，无法确认处于本期窗口的全部范围内。",
+      "importance": "双方已签署收购协议，后续整合仍是计划。"
+    },
+    {
+      "id": "cisco",
+      "title": "Cisco 计划在 AI Defense 中引入 Mythos",
+      "category": "agents",
+      "entity": "Cisco 计划在 AI Defense 中引入 Mythos",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "qopen2"
+      ],
+      "sourceIds": [
+        "s53"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://blogs.cisco.com/ai/cisco-ai-defense-to-add-anthropics-claude-mythos-for-ai-red-teaming"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "官方公告日期跨越统计窗口边界，未找到可靠的首次发布时间。",
+      "importance": "用于自适应红队测试的整合尚未普遍上线。"
+    },
+    {
+      "id": "worldparticle",
+      "title": "MIT 介绍跨材料粒子模拟研究",
+      "category": "research",
+      "entity": "MIT 介绍跨材料粒子模拟研究",
+      "releaseStatus": "research",
+      "queryIds": [
+        "qopen1"
+      ],
+      "sourceIds": [
+        "s54"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source gives a calendar date without an explicit time zone.",
+        "sourceUrls": [
+          "https://news.mit.edu/2026/single-ai-model-simulates-many-substances-behavior-1109"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "MIT 新解释文章只标 11 月 9 日，未查到可靠的发布时间。",
+      "importance": "文章解释 WorldParticle 的方法；论文于 5 月发布，研究并非本期新论文。"
+    },
+    {
+      "id": "yuanfang",
+      "title": "原方智能融资已在 11 月 8 日报道",
+      "category": "business",
+      "entity": "原方智能融资已在 11 月 8 日报道",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "qopen3"
+      ],
+      "sourceIds": [
+        "s58"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Fetched Nov 8 report names the same amount and investors as the Nov 9 report; no evidence of another round. Exact prior-window placement remains uncertain.",
+      "importance": "Potentially relevant funding, data, or previous-issue lead; not selected without adequate provenance."
+    },
+    {
+      "id": "zhifeng",
+      "title": "智蜂创元天使轮融资",
+      "category": "business",
+      "entity": "智蜂创元 8000 万元天使轮",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen4"
+      ],
+      "sourceIds": [
+        "s59"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Evidence supports a material report but date precision overlaps the window; details and provenance have limits.",
+      "importance": "投资界报道 8000 万元天使轮，首发时间和原公告仍待确认。",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571555.shtml"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s59"
+        ],
+        "attribution": "Fetched reporting or abstract as described in the issue.",
+        "limitations": "Original corporate notice or journal article not obtained; timezone and first publication remain uncertain."
+      }
+    },
+    {
+      "id": "kexing",
+      "title": "刻行时空新一轮融资",
+      "category": "business",
+      "entity": "刻行时空近亿元融资",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen6"
+      ],
+      "sourceIds": [
+        "s60"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Evidence supports a material report but date precision overlaps the window; details and provenance have limits.",
+      "importance": "投资界报道近亿元融资；不同报道对轮次有分歧。",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571534.shtml"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s60"
+        ],
+        "attribution": "Fetched reporting or abstract as described in the issue.",
+        "limitations": "Original corporate notice or journal article not obtained; timezone and first publication remain uncertain."
+      }
+    },
+    {
+      "id": "unix",
+      "title": "优理奇机器人 Pre-A 轮融资",
+      "category": "business",
+      "entity": "优理奇机器人 Pre-A 融资",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q23"
+      ],
+      "sourceIds": [
+        "s61"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Evidence supports a material report but date precision overlaps the window; details and provenance have limits.",
+      "importance": "投资界报道 5 亿元 Pre-A 融资，首发时间和公司原公告仍待确认。",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571541.shtml"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s61"
+        ],
+        "attribution": "Fetched reporting or abstract as described in the issue.",
+        "limitations": "Original corporate notice or journal article not obtained; timezone and first publication remain uncertain."
+      }
+    },
+    {
+      "id": "xihu",
+      "title": "西湖灵犀战略投资",
+      "category": "business",
+      "entity": "西湖灵犀战略投资",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q23"
+      ],
+      "sourceIds": [
+        "s62"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Investment report fetched by reviewer; no amount disclosed and timing/original announcement need confirmation.",
+      "importance": "Potentially relevant funding, data, or previous-issue lead; not selected without adequate provenance."
+    },
+    {
+      "id": "rna",
+      "title": "合成 RNA 测序数据隐私基准",
+      "category": "research",
+      "entity": "合成 RNA-seq 隐私与效用基准",
+      "releaseStatus": "research",
+      "queryIds": [
+        "qopen4"
+      ],
+      "sourceIds": [
+        "s63"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Evidence supports a material report but date precision overlaps the window; details and provenance have limits.",
+      "importance": "转载摘要显示研究比较合成数据的隐私与效用；原刊未能访问。",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://research.draconitic.com/paper/670pnxcbfjgjx"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s63"
+        ],
+        "attribution": "Fetched reporting or abstract as described in the issue.",
+        "limitations": "Original corporate notice or journal article not obtained; timezone and first publication remain uncertain."
+      }
+    },
+    {
+      "id": "qlo",
+      "title": "Qlo Inbox Agent 前期未决线索",
+      "category": "agents",
+      "entity": "Qlo Inbox Agent 前期未决线索",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q34"
+      ],
+      "sourceIds": [
+        "s64"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Walnut article fetched, dated Aug 23, already describes Inbox Agent; this disproves a claim of a new product launch but a later distinct upgrade remains unverified.",
+      "importance": "Potentially relevant funding, data, or previous-issue lead; not selected without adequate provenance."
+    },
+    {
+      "id": "workbuddy",
+      "title": "WorkBuddy 折扣前期未决线索",
+      "category": "products",
+      "entity": "WorkBuddy 折扣前期未决线索",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q35"
+      ],
+      "sourceIds": [
+        "s65"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "A Nov 8 report was identified by reviewer; original company notice remains inaccessible and refund timing requires further confirmation.",
+      "importance": "Potentially relevant funding, data, or previous-issue lead; not selected without adequate provenance."
+    },
+    {
+      "id": "wanxiang",
+      "title": "万象智维前期融资",
+      "category": "business",
+      "entity": "万象智维前期融资",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q36"
+      ],
+      "sourceIds": [
+        "s66"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Prior August round involved different investors; whether the later financing is a distinct round remains unresolved.",
+      "importance": "Potentially relevant funding, data, or previous-issue lead; not selected without adequate provenance."
+    },
+    {
+      "id": "c3",
+      "title": "Tech, Media & Telecom Roundup: Market Talk",
+      "category": "governance",
+      "entity": "Tech, Media & Telecom Roundup: Market Talk",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s3"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "WSJ roundup read; the relevant Muse Ember release is independently assessed as ember, not an additional event.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c9",
+      "title": "Building standards for the next phase of AI",
+      "category": "governance",
+      "entity": "Building standards for the next phase of AI",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s9"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "OpenAI original is dated 21 September; historical background.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c10",
+      "title": "Veille IA du mardi 3 novembre 2026",
+      "category": "governance",
+      "entity": "Veille IA du mardi 3 novembre 2026",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s10"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Fetched Nov 3 French digest is prior background.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c12",
+      "title": "具身机器人即将进入资本整合期：谁来接盘？",
+      "category": "governance",
+      "entity": "具身机器人即将进入资本整合期：谁来接盘？",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s12"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "36Kr returned only an access barrier; the date and article cannot be reliably reviewed.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c14",
+      "title": "Home \\ Anthropic",
+      "category": "governance",
+      "entity": "Home \\ Anthropic",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s14"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Anthropic homepage is a general index, not an independent dated event; Fable is recorded separately.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c15",
+      "title": "人工智能、大模型与AI应用收并购研究报告（2026）",
+      "category": "governance",
+      "entity": "人工智能、大模型与AI应用收并购研究报告（2026）",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s15"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Zhihu article fetch failed; search result indicates July 29 but its contents and originality remain unchecked.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c16",
+      "title": "Prononcé le 4 novembre 2026 - Anne Le Hénanff ...",
+      "category": "governance",
+      "entity": "Prononcé le 4 novembre 2026 - Anne Le Hénanff ...",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s16"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Government speech is explicitly dated Nov 4; page body inaccessible on this attempt, no in-window new event shown.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c17",
+      "title": "AI開発、普及へ個人情報活用",
+      "category": "governance",
+      "entity": "AI開発、普及へ個人情報活用",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s17"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Kyodo article fetched and dated April 7, 2026; not a new proposal in this window.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c19",
+      "title": "具身智能的钱，流向机器人的“皮肤”",
+      "category": "governance",
+      "entity": "具身智能的钱，流向机器人的“皮肤”",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s19"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Feng article fetched; published Nov 1 on prior financing activity.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c20",
+      "title": "L'Institut national pour l'évaluation et la sécurité de l'IA ...",
+      "category": "governance",
+      "entity": "L'Institut national pour l'évaluation et la sécurité de l'IA ...",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s20"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "French ministry page fetched and dated February 12, 2026.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c21",
+      "title": "【行政情報】知的財産推進計画2026が公表～AI時代における ...",
+      "category": "governance",
+      "entity": "【行政情報】知的財産推進計画2026が公表～AI時代における ...",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s21"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Japanese IP-plan explainer page fetched; exact first publication date and whether it includes a new current development remain uncertain.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c24",
+      "title": "知的財産推進計画 2026 と AI 基本計画素案における 生成 AI ...",
+      "category": "governance",
+      "entity": "知的財産推進計画 2026 と AI 基本計画素案における 生成 AI ...",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s24"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Japanese policy PDF was fetched but its exact initial publication date and relationship to a current announcement remain unresolved.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c27",
+      "title": "データ提供拒否規定 拡充を 政府知財計画に意見",
+      "category": "governance",
+      "entity": "データ提供拒否規定 拡充を 政府知財計画に意見",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s27"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Japanese newspaper association statement is dated December 23, 2025, and addresses the 2026 plan.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c28",
+      "title": "What Is AI Safety Policy and Governance? A 2026 Guide",
+      "category": "governance",
+      "entity": "What Is AI Safety Policy and Governance? A 2026 Guide",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "s28"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Fetched Superblocks explainer is dated September 29, 2026.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c37",
+      "title": "2026年4月，国内具身智能机器人企业融资情况汇总",
+      "category": "governance",
+      "entity": "2026年4月，国内具身智能机器人企业融资情况汇总",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s37"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "April historical financing list.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c38",
+      "title": "2026 AI Regulations - MIND.io",
+      "category": "governance",
+      "entity": "2026 AI Regulations - MIND.io",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s38"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Fetched MIND page is a general guide to 2026 regulation, not a dated new regulatory act.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c40",
+      "title": "2026年3月，国内具身智能机器人企业融资情况汇总",
+      "category": "governance",
+      "entity": "2026年3月，国内具身智能机器人企业融资情况汇总",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s40"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "March historical financing list.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c41",
+      "title": "Privacy as the Foundation of Responsible AI Governance",
+      "category": "governance",
+      "entity": "Privacy as the Foundation of Responsible AI Governance",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s41"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Jones Walker article fetched and dated January 28, 2026.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c44",
+      "title": "United States AI Regulation Overview",
+      "category": "governance",
+      "entity": "United States AI Regulation Overview",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s44"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Fetched US regulation overview is a catalog of proposals and rules, not itself a newly enacted measure.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "c45",
+      "title": "GitHub Release Tracker",
+      "category": "governance",
+      "entity": "GitHub Release Tracker",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s45"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Fetched page is a general GitHub release tracker; individual candidate releases require their own source and timing.",
+      "importance": "Unassessed search-result lead."
+    },
+    {
+      "id": "qwen",
+      "title": "千问办公 2.0 的多人协作",
+      "category": "agents",
+      "entity": "千问办公 2.0 多人协作",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "qopen6"
+      ],
+      "sourceIds": [
+        "s67"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Evidence supports a material report but date precision overlaps the window; details and provenance have limits.",
+      "importance": "IT之家报道上线多人和 Agent 协作；官方公告仍需追溯。",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Fetched source reports a November 9 calendar date without an explicit timezone.",
+        "sourceUrls": [
+          "https://www.ithome.com/1/024/350.htm"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s67"
+        ],
+        "attribution": "Fetched reporting or abstract as described in the issue.",
+        "limitations": "Original corporate notice or journal article not obtained; timezone and first publication remain uncertain."
+      }
+    },
+    {
+      "id": "snowball",
+      "title": "Malbear Operation Snowball 入侵研究",
+      "category": "governance",
+      "entity": "Malbear Operation Snowball 入侵研究",
+      "releaseStatus": "research",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s68"
+      ],
+      "decision": "pending",
+      "reasonCode": "time_uncertain",
+      "reason": "Important Nov 8 original, recovered retrospectively; uncertain boundary and not counted as a new event.",
+      "importance": "Relevant product, research or safety lead requiring verification."
+    },
+    {
+      "id": "deepradio",
+      "title": "DeepRadio 无线电开发 Agent 研究",
+      "category": "research",
+      "entity": "DeepRadio 无线电开发 Agent 研究",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "qopen6"
+      ],
+      "sourceIds": [
+        "s69"
+      ],
+      "decision": "pending",
+      "reasonCode": "time_uncertain",
+      "reason": "arXiv version submitted Nov 6; source gives no verified first public release instant and weekend batch timing was not resolved.",
+      "importance": "Relevant product, research or safety lead requiring verification."
+    },
+    {
+      "id": "apple-siri",
+      "title": "彭博 Siri 更自主计划线索",
+      "category": "agents",
+      "entity": "彭博 Siri 更自主计划线索",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s18"
+      ],
+      "decision": "pending",
+      "reasonCode": "time_uncertain",
+      "reason": "Digest attributes planned Siri work to Bloomberg; Nov 8 original identified, but inaccessible and timezone/novelty remain unverified.",
+      "importance": "Relevant product, research or safety lead requiring verification."
+    },
+    {
+      "id": "deepseek-dau",
+      "title": "DeepSeek 日活 154 万线索",
+      "category": "agents",
+      "entity": "DeepSeek 日活 154 万线索",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s18"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Prior secondary reporting dated Nov 8 21:27 UTC predates window; original Bloomberg and any newer disclosed metric were not independently read.",
+      "importance": "Relevant product, research or safety lead requiring verification."
+    },
+    {
+      "id": "agent-secrets",
+      "title": "Claude Code 凭据泄漏研究线索",
+      "category": "governance",
+      "entity": "AppOmni",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "s70"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Search result cites AppOmni research; original report, attribution and first-publication time not verified.",
+      "importance": "Potential security relevance; cannot infer causal claims from a digest."
+    }
+  ],
+  "coverage": [
+    {
+      "category": "products",
+      "status": "partial",
+      "queryIds": [
+        "q1",
+        "q9"
+      ],
+      "checkIds": [
+        "check-products"
+      ],
+      "assessment": "Open multilingual searches and a representative fetched lead; other sources and candidates remain under independent review."
+    },
+    {
+      "category": "business",
+      "status": "partial",
+      "queryIds": [
+        "q1",
+        "q9"
+      ],
+      "checkIds": [
+        "check-business"
+      ],
+      "assessment": "Open multilingual searches and a representative fetched lead; other sources and candidates remain under independent review."
+    },
+    {
+      "category": "research",
+      "status": "partial",
+      "queryIds": [
+        "q1",
+        "q9"
+      ],
+      "checkIds": [
+        "check-research"
+      ],
+      "assessment": "Open multilingual searches and a representative fetched lead; other sources and candidates remain under independent review."
+    },
+    {
+      "category": "governance",
+      "status": "partial",
+      "queryIds": [
+        "q1",
+        "q9"
+      ],
+      "checkIds": [
+        "check-governance"
+      ],
+      "assessment": "Open multilingual searches and a representative fetched lead; other sources and candidates remain under independent review."
+    },
+    {
+      "category": "agents",
+      "status": "partial",
+      "queryIds": [
+        "q1",
+        "q9"
+      ],
+      "checkIds": [
+        "check-agents"
+      ],
+      "assessment": "Open multilingual searches and a representative fetched lead; other sources and candidates remain under independent review."
+    }
+  ],
+  "discovery": {
+    "queryIds": [
+      "q1",
+      "q2",
+      "q9",
+      "q21"
+    ],
+    "assessment": "Open English, Chinese, French and Japanese search plus independent follow-up; candidate inventory remains subject to review."
+  },
+  "review": {
+    "reviewer": "independent-reviewer",
+    "reviewedAt": "2026-11-10T02:27:54Z",
+    "candidateIds": [
+      "c1",
+      "c2",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c8",
+      "c11",
+      "c13",
+      "c18",
+      "c22",
+      "c23",
+      "c25",
+      "c26",
+      "c29",
+      "c30",
+      "c31",
+      "c32",
+      "c33",
+      "c34",
+      "c35",
+      "c36",
+      "c39",
+      "c42",
+      "c43",
+      "fable",
+      "ember",
+      "seedream",
+      "australia",
+      "control",
+      "hiphi",
+      "tpu",
+      "vanta",
+      "cisco",
+      "worldparticle",
+      "yuanfang",
+      "zhifeng",
+      "kexing",
+      "unix",
+      "xihu",
+      "rna",
+      "qlo",
+      "workbuddy",
+      "wanxiang",
+      "c3",
+      "c9",
+      "c10",
+      "c12",
+      "c14",
+      "c15",
+      "c16",
+      "c17",
+      "c19",
+      "c20",
+      "c21",
+      "c24",
+      "c27",
+      "c28",
+      "c37",
+      "c38",
+      "c40",
+      "c41",
+      "c44",
+      "c45",
+      "qwen",
+      "snowball",
+      "deepradio",
+      "apple-siri",
+      "deepseek-dau",
+      "agent-secrets"
+    ],
+    "queryIds": [
+      "q17",
+      "q18",
+      "q19",
+      "q20",
+      "q21",
+      "q22",
+      "q23",
+      "q24",
+      "q25",
+      "q26",
+      "q27",
+      "q28",
+      "q29",
+      "q30",
+      "q31",
+      "q32",
+      "q33",
+      "q34",
+      "q35",
+      "q36",
+      "q43",
+      "q44",
+      "q45",
+      "q46",
+      "q47",
+      "q48",
+      "q49",
+      "q50"
+    ],
+    "verdict": "pass_with_limits",
+    "report": "docs/daily/reviews/2026-11-10.md",
+    "findings": [
+      {
+        "detail": "High-priority missing Chinese funding, Qwen Office, RNA-seq and original result inventory were restored, researched and resolved or disclosed.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Bloomberg and WSJ access, first publication precision, and some original journal and company sources remain bounded limits.",
+        "severity": "note",
+        "resolution": "disclosed"
+      }
+    ]
+  },
+  "article": {
+    "slug": "2026-11-10-ai-daily",
+    "includedCandidateIds": [
+      "fable",
+      "ember",
+      "seedream",
+      "australia",
+      "control",
+      "hiphi"
+    ],
+    "watchCandidateIds": [
+      "tpu",
+      "vanta",
+      "cisco",
+      "worldparticle",
+      "qwen",
+      "zhifeng",
+      "kexing",
+      "unix",
+      "rna",
+      "c30"
+    ],
+    "limitations": "Chinese financing often relies on reported evidence; original announcements, timing and one round remain uncertain. Bloomberg and WSJ full texts and RNA journal were inaccessible. Research results were not reproduced. Earlier Snowball and Qlo are identified as retrospective.",
+    "sha256": "261854f316ca65f1ed3cc87416e3de65d4e0859c705f5e88292c24077c1075f6"
+  }
+}
