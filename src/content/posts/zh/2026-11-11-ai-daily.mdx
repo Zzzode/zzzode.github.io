@@ -1,0 +1,952 @@
+---
+{
+  "title": "AI 日报：模型开放与验证边界",
+  "date": "2026-11-11T02:27:20Z",
+  "excerpt": "Google 扩大模型开放，研究团队验证 Signal 代码，产业继续投入 Agent 与评测。",
+  "tags": [
+    "AI",
+    "AI 日报",
+    "Agent"
+  ],
+  "kind": "distilled",
+  "channel": "daily",
+  "draft": false,
+  "sources": [
+    {
+      "title": "Gemini 4 Carbon public rollout",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1030787/google-gemini-4-carbon-public-rollout",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T16:00:00Z",
+        "basis": "Article explicitly displays 16:00 UTC; this is report publication, not launch time.",
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1030787/google-gemini-4-carbon-public-rollout"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:05:08Z"
+    },
+    {
+      "title": "Google：Gemini 4 Carbon 开放公告",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "The primary page displays the calendar date without a documented timezone.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:10:30Z"
+    },
+    {
+      "title": "TSMC board approval of Anthropic and OpenAI investments",
+      "url": "https://pr.tsmc.com/english/news/3352",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "TSMC board notice states date with no explicit timezone.",
+        "sourceUrls": [
+          "https://pr.tsmc.com/english/news/3352"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:05:08Z"
+    },
+    {
+      "title": "Bay Business Wire press release",
+      "url": "https://venturebeat.com/business/bay-emerges-from-stealth-with-50m-after-fortune-100-companies-used-its-platform-to-triple-autonomous-ai-agent-use",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T13:00:00Z",
+        "basis": "Business Wire release syndicated by VentureBeat displays 5:00 a.m. PT.",
+        "sourceUrls": [
+          "https://venturebeat.com/business/bay-emerges-from-stealth-with-50m-after-fortune-100-companies-used-its-platform-to-triple-autonomous-ai-agent-use"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:12:52Z"
+    },
+    {
+      "title": "Reuters Mercor funding report via AOL",
+      "url": "https://www.aol.com/articles/ai-training-startup-mercor-valued-153730000.html",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T15:37:00Z",
+        "basis": "Timestamp displayed by fetched report; reporting publication, not original underlying announcement.",
+        "sourceUrls": [
+          "https://www.aol.com/articles/ai-training-startup-mercor-valued-153730000.html"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:08:16Z"
+    },
+    {
+      "title": "Mercor：D 轮融资公告",
+      "url": "https://www.mercor.com/blog/series-d/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "The primary page displays the calendar date without a documented timezone.",
+        "sourceUrls": [
+          "https://www.mercor.com/blog/series-d/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:10:30Z"
+    },
+    {
+      "title": "Anthropic sets IPO price range",
+      "url": "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T14:01:00Z",
+        "basis": "TechCrunch publication 6:01 a.m. PST; this is reporting time, not completed offering.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:14:06Z"
+    },
+    {
+      "title": "Gemini Robotics 2.5 reporting",
+      "url": "https://interestingengineering.com/ai-robotics/google-gemini-robotics-2-5-humanoid-factory-trial",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T20:42:00Z",
+        "basis": "Dated report publication instant, not asserted launch or transaction time.",
+        "sourceUrls": [
+          "https://interestingengineering.com/ai-robotics/google-gemini-robotics-2-5-humanoid-factory-trial"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:07:13Z"
+    },
+    {
+      "title": "PAN 2 open world model reporting",
+      "url": "https://neuralbrew.ai/en/articles/2026/11/ifm-pan-2-open-world-model-action-simulation/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T18:09:00Z",
+        "basis": "Dated report publication instant, not asserted launch or transaction time.",
+        "sourceUrls": [
+          "https://neuralbrew.ai/en/articles/2026/11/ifm-pan-2-open-world-model-action-simulation/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:07:13Z"
+    },
+    {
+      "title": "AlphaProof Code formal verification of Signal protocol reporting",
+      "url": "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T05:01:00Z",
+        "basis": "Dated report publication instant, not asserted launch or transaction time.",
+        "sourceUrls": [
+          "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:07:13Z"
+    },
+    {
+      "title": "OpenAI and Odessia reporting",
+      "url": "https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T21:08:00Z",
+        "basis": "Dated report publication instant, not asserted launch or transaction time.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:07:13Z"
+    },
+    {
+      "title": "Agent Name Service Linux Foundation project",
+      "url": "https://www.linuxfoundation.org/press/linux-foundation-welcomes-agent-name-service-to-bring-verifiable-identity-and-discovery-to-ai-agents",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Official page states calendar date without specified timezone.",
+        "sourceUrls": [
+          "https://www.linuxfoundation.org/press/linux-foundation-welcomes-agent-name-service-to-bring-verifiable-identity-and-discovery-to-ai-agents"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:07:13Z"
+    },
+    {
+      "title": "清析智研融资",
+      "url": "https://news.pedaily.cn/202611/571607.shtml",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "投资界报道显示日期及更新时间但未明确首发时间和时区。",
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571607.shtml"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:07:13Z"
+    },
+    {
+      "title": "清析智研早期报道",
+      "url": "https://www.jushenhome.com/newsflash_d.php?id=382",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Earlier report dated Nov 9 15:08:54, timezone not explicitly established, so date precision only.",
+        "sourceUrls": [
+          "https://www.jushenhome.com/newsflash_d.php?id=382"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:17:05Z"
+    },
+    {
+      "title": "富唯智能完成数千万元Pre-A轮融资",
+      "url": "https://www.pedaily.cn/first/191303.shtml",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "投资界标示11月10日17:48，时区及初次发布时间未确定。",
+        "sourceUrls": [
+          "https://www.pedaily.cn/first/191303.shtml"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:05:44Z"
+    },
+    {
+      "title": "France expert report on generative AI vulnerabilities",
+      "url": "https://www.elysee.fr/emmanuel-macron/2026/11/10/remise-du-rapport-de-la-commission-dexperts-ia-generative-et-vulnerabilites",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Official page states calendar date without specified timezone.",
+        "sourceUrls": [
+          "https://www.elysee.fr/emmanuel-macron/2026/11/10/remise-du-rapport-de-la-commission-dexperts-ia-generative-et-vulnerabilites"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:07:13Z"
+    },
+    {
+      "title": "OpenShell CNCF report",
+      "url": "https://www.siliconreport.com/nvidia-contributes-openshell-agent-runtime-to-cncf",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T17:15:00Z",
+        "basis": "Timestamp displayed by fetched report; reporting publication, not original underlying announcement.",
+        "sourceUrls": [
+          "https://www.siliconreport.com/nvidia-contributes-openshell-agent-runtime-to-cncf"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:08:16Z"
+    },
+    {
+      "title": "NVIDIA、日本のエージェント型AI開発を支える2つの合成データセットを発表",
+      "url": "https://blogs.nvidia.co.jp/blog/nvidia-agentic-ai-day-japan-2026-two-japanese-dataset/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Official page displays date only; event took place in Tokyo but this does not establish precise publication instant.",
+        "sourceUrls": [
+          "https://blogs.nvidia.co.jp/blog/nvidia-agentic-ai-day-japan-2026-two-japanese-dataset/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:15:39Z"
+    },
+    {
+      "title": "TechCrunch：OpenAI Business Hub 报道",
+      "url": "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T18:49:00Z",
+        "basis": "TechCrunch timestamp 10:49 PST, reporting event.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:11:48Z"
+    },
+    {
+      "title": "Google：MKA 多模态 Agent 基准",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Google announcement page displays date only, with no explicit publication timezone.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:17:05Z"
+    },
+    {
+      "title": "Graphon Labs $35m Series A",
+      "url": "https://thenextweb.com/news/graphon-labs-35m-series-a-ai-agent-memory",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T18:01:00Z",
+        "basis": "The Next Web report displays 6:01 p.m. GMT.",
+        "sourceUrls": [
+          "https://thenextweb.com/news/graphon-labs-35m-series-a-ai-agent-memory"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:11:10Z"
+    },
+    {
+      "title": "TechCrunch：纽约 AI 登记门户报道",
+      "url": "https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law-takes-effect/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T20:52:00Z",
+        "basis": "TechCrunch displays 12:52 p.m. PST; reporting event.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law-takes-effect/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:11:48Z"
+    },
+    {
+      "title": "泛函数智能天使轮",
+      "url": "https://news.10jqka.com.cn/20261110/c681664323.shtml",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Retrieved news page date; timezone and initial publication time are not established.",
+        "sourceUrls": [
+          "https://news.10jqka.com.cn/20261110/c681664323.shtml"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:17:25Z"
+    },
+    {
+      "title": "万格智元一年三轮融资",
+      "url": "https://m.sohu.com/a/1099742459_115362",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Retrieved news page date; timezone and initial publication time are not established.",
+        "sourceUrls": [
+          "https://m.sohu.com/a/1099742459_115362"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:17:25Z"
+    },
+    {
+      "title": "路透社：Spirit 数据交易隐私保护",
+      "url": "https://www.reuters.com/business/aerospace-defense/google-agrees-addition-privacy-protections-spirit-airlines-data-sale-2026-11-10/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Reuters report calendar date; 16:45 UTC is an update not confirmed initial publication.",
+        "sourceUrls": [
+          "https://www.reuters.com/business/aerospace-defense/google-agrees-addition-privacy-protections-spirit-airlines-data-sale-2026-11-10/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:20:11Z"
+    },
+    {
+      "title": "Business Insider Japan：Adobe MAX 新功能",
+      "url": "https://www.businessinsider.jp/article/2611-adobe-max-2026-ai-agentic-tool/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "News article displays November 10 date; timezone not explicit.",
+        "sourceUrls": [
+          "https://www.businessinsider.jp/article/2611-adobe-max-2026-ai-agentic-tool/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:23:05Z"
+    },
+    {
+      "title": "Counsel Health：Oura 拟收购公告",
+      "url": "https://www.counselhealth.com/newsroom/oura-to-acquire-counsel-health-advancing-vision-for-more-connected-personalized-healthcare",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Company announcement date only, no explicit timezone.",
+        "sourceUrls": [
+          "https://www.counselhealth.com/newsroom/oura-to-acquire-counsel-health-advancing-vision-for-more-connected-personalized-healthcare"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:24:51Z"
+    },
+    {
+      "title": "TechCrunch：Claude 办公工具报道",
+      "url": "https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-10T17:30:00Z",
+        "basis": "TechCrunch displays Nov 10 9:30 AM PST; report publication time.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks/"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:25:42Z"
+    },
+    {
+      "title": "Adobe：MAX 创意工具公告",
+      "url": "https://news.adobe.com/news/2026/11/adobe-powers-new-era-of-creativity",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Official press release date and 9:00AM displayed without explicit timezone.",
+        "sourceUrls": [
+          "https://news.adobe.com/news/2026/11/adobe-powers-new-era-of-creativity"
+        ]
+      },
+      "retrievedAt": "2026-11-11T02:24:51Z"
+    }
+  ],
+  "daily": {
+    "issueDate": "2026-11-11",
+    "timeZone": "Asia/Shanghai",
+    "windowStart": "2026-11-10T02:00:00Z",
+    "cutoff": "2026-11-11T02:00:00Z",
+    "evidenceRun": "docs/daily/runs/2026-11-11.json",
+    "items": [
+      {
+        "candidateId": "carbon",
+        "title": "Google 扩大 Gemini 4 Carbon 的开发者开放范围",
+        "summary": "The Verge 报道面向付费开发者和企业开放，并介绍 Antigravity 的多 Agent 预览。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T16:00:00Z",
+          "basis": "Article explicitly displays 16:00 UTC; this is report publication, not launch time.",
+          "sourceUrls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1030787/google-gemini-4-carbon-public-rollout"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1030787/google-gemini-4-carbon-public-rollout",
+          "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/"
+        ],
+        "releaseStatus": "released"
+      },
+      {
+        "candidateId": "claude-office",
+        "title": "Claude 扩展表格、白板和数据工具",
+        "summary": "Sheets 与 Whiteboards 进入付费版 beta；Claude Data 正式开放，会议功能开放时间的说法仍不一致。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T17:30:00Z",
+          "basis": "TechCrunch displays Nov 10 9:30 AM PST; report publication time.",
+          "sourceUrls": [
+            "https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks/"
+          ]
+        },
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks/"
+        ],
+        "releaseStatus": "beta"
+      },
+      {
+        "candidateId": "robotics",
+        "title": "Gemini Robotics 2.5 进入机器人合作伙伴测试",
+        "summary": "Google 报告汽车零件分拣试验，结果限于特定任务。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T20:42:00Z",
+          "basis": "Dated report publication instant, not asserted launch or transaction time.",
+          "sourceUrls": [
+            "https://interestingengineering.com/ai-robotics/google-gemini-robotics-2-5-humanoid-factory-trial"
+          ]
+        },
+        "sourceUrls": [
+          "https://interestingengineering.com/ai-robotics/google-gemini-robotics-2-5-humanoid-factory-trial"
+        ],
+        "releaseStatus": "released"
+      },
+      {
+        "candidateId": "pan2",
+        "title": "PAN 2 用生成视频模拟动作后果",
+        "summary": "研究所开放模型与代码，模拟仍可能遗漏步骤或违反物理规律。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T18:09:00Z",
+          "basis": "Dated report publication instant, not asserted launch or transaction time.",
+          "sourceUrls": [
+            "https://neuralbrew.ai/en/articles/2026/11/ifm-pan-2-open-world-model-action-simulation/"
+          ]
+        },
+        "sourceUrls": [
+          "https://neuralbrew.ai/en/articles/2026/11/ifm-pan-2-open-world-model-action-simulation/"
+        ],
+        "releaseStatus": "released"
+      },
+      {
+        "candidateId": "alphaproof",
+        "title": "AlphaProof Code 协助形式化验证 Signal 代码",
+        "summary": "研究团队验证指定代码版本的安全属性，结果依赖规范与假设。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T05:01:00Z",
+          "basis": "Dated report publication instant, not asserted launch or transaction time.",
+          "sourceUrls": [
+            "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/"
+        ],
+        "releaseStatus": "research"
+      },
+      {
+        "candidateId": "openshell",
+        "title": "NVIDIA 向 CNCF 捐赠 OpenShell Agent 运行时",
+        "summary": "开源沙箱用于约束 Agent 运行环境，具体防护取决于部署配置。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T17:15:00Z",
+          "basis": "Timestamp displayed by fetched report; reporting publication, not original underlying announcement.",
+          "sourceUrls": [
+            "https://www.siliconreport.com/nvidia-contributes-openshell-agent-runtime-to-cncf"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.siliconreport.com/nvidia-contributes-openshell-agent-runtime-to-cncf"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "nyraise",
+        "title": "纽约州开放前沿 AI 开发者登记门户",
+        "summary": "大型开发者须在 2027 年 1 月 1 日前登记，州内安全研究网络也启动。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T20:52:00Z",
+          "basis": "TechCrunch displays 12:52 p.m. PST; reporting event.",
+          "sourceUrls": [
+            "https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law-takes-effect/"
+          ]
+        },
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law-takes-effect/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "bay",
+        "title": "Agent 安全公司 Bay 披露 5000 万美元累计融资",
+        "summary": "资金包括 3700 万美元 A 轮和此前 1300 万美元种子轮。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T13:00:00Z",
+          "basis": "Business Wire release syndicated by VentureBeat displays 5:00 a.m. PT.",
+          "sourceUrls": [
+            "https://venturebeat.com/business/bay-emerges-from-stealth-with-50m-after-fortune-100-companies-used-its-platform-to-triple-autonomous-ai-agent-use"
+          ]
+        },
+        "sourceUrls": [
+          "https://venturebeat.com/business/bay-emerges-from-stealth-with-50m-after-fortune-100-companies-used-its-platform-to-triple-autonomous-ai-agent-use"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "graphon",
+        "title": "Graphon Labs 宣布 3500 万美元 A 轮融资",
+        "summary": "公司开发基于图关系的 Agent 记忆系统。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T18:01:00Z",
+          "basis": "The Next Web report displays 6:01 p.m. GMT.",
+          "sourceUrls": [
+            "https://thenextweb.com/news/graphon-labs-35m-series-a-ai-agent-memory"
+          ]
+        },
+        "sourceUrls": [
+          "https://thenextweb.com/news/graphon-labs-35m-series-a-ai-agent-memory"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "mercor",
+        "title": "Mercor 宣布 7.5 亿美元 D 轮融资",
+        "summary": "公司称资金将用于模型评测与后训练业务。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T15:37:00Z",
+          "basis": "Timestamp displayed by fetched report; reporting publication, not original underlying announcement.",
+          "sourceUrls": [
+            "https://www.aol.com/articles/ai-training-startup-mercor-valued-153730000.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.aol.com/articles/ai-training-startup-mercor-valued-153730000.html",
+          "https://www.mercor.com/blog/series-d/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "ipo",
+        "title": "Anthropic 披露 IPO 拟发行价格区间",
+        "summary": "招股书修订稿所列每股 70 至 78 美元为估计区间，发行尚未完成。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T14:01:00Z",
+          "basis": "TechCrunch publication 6:01 a.m. PST; this is reporting time, not completed offering.",
+          "sourceUrls": [
+            "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/"
+          ]
+        },
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "odessia",
+        "title": "Odessia 创始人称公司被 OpenAI 收购",
+        "summary": "交易条款未披露；OpenAI 向媒体确认创始人加入。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T21:08:00Z",
+          "basis": "Dated report publication instant, not asserted launch or transaction time.",
+          "sourceUrls": [
+            "https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/"
+          ]
+        },
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "audit-lead-102",
+        "title": "OpenAI 推出 Business Hub 商家档案测试",
+        "summary": "企业可验证和更新档案，符合条件的商家可部署 Agent。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-10T18:49:00Z",
+          "basis": "TechCrunch timestamp 10:49 PST, reporting event.",
+          "sourceUrls": [
+            "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/"
+          ]
+        },
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/10/openai-rolls-out-new-business-profiles-making-chatgpt-just-a-little-bit-more-like-google/"
+        ],
+        "releaseStatus": "beta"
+      }
+    ],
+    "pending": [
+      {
+        "candidateId": "tsmc",
+        "title": "台积电董事会批准两项投资额度",
+        "summary": "对 Anthropic 和 OpenAI 各最高 5 亿美元，批准额度不代表交易完成。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "TSMC board notice states date with no explicit timezone.",
+          "sourceUrls": [
+            "https://pr.tsmc.com/english/news/3352"
+          ]
+        },
+        "sourceUrls": [
+          "https://pr.tsmc.com/english/news/3352"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "ans",
+        "title": "Agent Name Service 进入 Linux 基金会",
+        "summary": "项目使用 DNS、证书与透明日志支持 Agent 身份发现和验证。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Official page states calendar date without specified timezone.",
+          "sourceUrls": [
+            "https://www.linuxfoundation.org/press/linux-foundation-welcomes-agent-name-service-to-bring-verifiable-identity-and-discovery-to-ai-agents"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.linuxfoundation.org/press/linux-foundation-welcomes-agent-name-service-to-bring-verifiable-identity-and-discovery-to-ai-agents"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "france",
+        "title": "法国专家委员会提交生成式 AI 风险报告",
+        "summary": "报告提出保护脆弱用户及上市前评估等建议，尚非生效法规。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Official page states calendar date without specified timezone.",
+          "sourceUrls": [
+            "https://www.elysee.fr/emmanuel-macron/2026/11/10/remise-du-rapport-de-la-commission-dexperts-ia-generative-et-vulnerabilites"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.elysee.fr/emmanuel-macron/2026/11/10/remise-du-rapport-de-la-commission-dexperts-ia-generative-et-vulnerabilites"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "fuwei",
+        "title": "富唯智能 Pre-A 轮融资",
+        "summary": "投资界报道数千万元融资，原始公告与首发时间待核。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Fetched report date lacks explicit timezone.",
+          "sourceUrls": [
+            "https://www.pedaily.cn/first/191303.shtml"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.pedaily.cn/first/191303.shtml"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "qingxi",
+        "title": "清析智研天使轮融资",
+        "summary": "投资界报道近亿元融资，原始公告与首发时间待核。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-09",
+          "basis": "Earlier report dated Nov 9 15:08:54, timezone not explicitly established, so date precision only.",
+          "sourceUrls": [
+            "https://www.jushenhome.com/newsflash_d.php?id=382"
+          ]
+        },
+        "sourceUrls": [
+          "https://news.pedaily.cn/202611/571607.shtml",
+          "https://www.jushenhome.com/newsflash_d.php?id=382"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "lead-75",
+        "title": "NVIDIA 介绍两套日语合成数据集",
+        "summary": "面向金融用户模拟和个人信息检测，页面日期跨越窗口边界。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Official page displays date only; event took place in Tokyo but this does not establish precise publication instant.",
+          "sourceUrls": [
+            "https://blogs.nvidia.co.jp/blog/nvidia-agentic-ai-day-japan-2026-two-japanese-dataset/"
+          ]
+        },
+        "sourceUrls": [
+          "https://blogs.nvidia.co.jp/blog/nvidia-agentic-ai-day-japan-2026-two-japanese-dataset/"
+        ],
+        "releaseStatus": "released",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "inventory-142",
+        "title": "Google 与 Artificial Analysis 推出 MKA 基准",
+        "summary": "200 项任务测试 Agent 对复杂视觉文件的理解和交付物生成。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Google announcement page displays date only, with no explicit publication timezone.",
+          "sourceUrls": [
+            "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/"
+          ]
+        },
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/"
+        ],
+        "releaseStatus": "research",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "generalfunction",
+        "title": "泛函数智能获近亿元天使轮融资",
+        "summary": "媒体报道芯片设计 Agent 企业融资，首发时刻尚未核实。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Retrieved news page date; timezone and initial publication time are not established.",
+          "sourceUrls": [
+            "https://news.10jqka.com.cn/20261110/c681664323.shtml"
+          ]
+        },
+        "sourceUrls": [
+          "https://news.10jqka.com.cn/20261110/c681664323.shtml"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "wange",
+        "title": "万格智元一年内连续完成三轮融资",
+        "summary": "媒体报道公司聚焦端侧推理，三轮融资的完成时间和金额未说明。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Retrieved news page date; timezone and initial publication time are not established.",
+          "sourceUrls": [
+            "https://m.sohu.com/a/1099742459_115362"
+          ]
+        },
+        "sourceUrls": [
+          "https://m.sohu.com/a/1099742459_115362"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "来源只给出日期或无法确认首次发布时间，无法证明完全处于本期窗口。"
+      },
+      {
+        "candidateId": "audit-extra-161",
+        "title": "Google 拟购 Spirit 数据增加隐私保护",
+        "summary": "工会称新增去标识化及独立核查，交易仍待法院批准。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Reuters report calendar date; 16:45 UTC is an update not confirmed initial publication.",
+          "sourceUrls": [
+            "https://www.reuters.com/business/aerospace-defense/google-agrees-addition-privacy-protections-spirit-airlines-data-sale-2026-11-10/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.reuters.com/business/aerospace-defense/google-agrees-addition-privacy-protections-spirit-airlines-data-sale-2026-11-10/"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "路透社报道仅能确定日期，显示的更新时间不能证明首发时刻完全处于本期窗口。"
+      },
+      {
+        "candidateId": "lead-85",
+        "title": "Adobe 扩展创意 Agent 并预览本地 MCP",
+        "summary": "多款 Creative Cloud 应用的 AI 助手处于 beta，本地 MCP 连接仍在预览。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "News article displays November 10 date; timezone not explicit.",
+          "sourceUrls": [
+            "https://www.businessinsider.jp/article/2611-adobe-max-2026-ai-agentic-tool/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.businessinsider.jp/article/2611-adobe-max-2026-ai-agentic-tool/",
+          "https://news.adobe.com/news/2026/11/adobe-powers-new-era-of-creativity"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "报道给出日期和时间但没有明确时区，不能确认完整处于本期窗口。"
+      },
+      {
+        "candidateId": "oura",
+        "title": "Oura 拟收购医疗 AI 公司 Counsel Health",
+        "summary": "双方签署协议，交易预计年内完成，尚待交割。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-10",
+          "basis": "Company announcement date only, no explicit timezone.",
+          "sourceUrls": [
+            "https://www.counselhealth.com/newsroom/oura-to-acquire-counsel-health-advancing-vision-for-more-connected-personalized-healthcare"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.counselhealth.com/newsroom/oura-to-acquire-counsel-health-advancing-vision-for-more-connected-personalized-healthcare"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "公司公告只标明日期，未给出明确时区和首发时刻。"
+      }
+    ]
+  }
+}
+---
+
+import { Section, SectionHead, Prose } from '@/components/article';
+
+<Section canvas id="models">
+  <SectionHead index="03" kicker="模型" title="从有限开放到开发者可用" />
+  <Prose>
+    <p>Google 开始向付费开发者和企业开放 Gemini 4 Carbon。The Verge 的报道指出，Carbon 面向多步骤编码和开放式研究等复杂任务；Google 仍建议多数软件工程与知识工作使用 Argon。Carbon 也进入 AI Ultra 订阅层，免费用户和较低订阅层何时可用尚不明确。Antigravity 的多 Agent 协作功能仍处于预览阶段。</p>
+    <p><a href="https://claude.com/resources/articles/sheets-whiteboards-data">Anthropic 推出</a> Claude Sheets 和 Whiteboards，向付费用户提供 beta；Claude Data 正式开放，认证查询与实时共享仍为 beta。TechCrunch 称 Claude Meetings 已向 Team 和 Enterprise 推出 beta，Anthropic 的<a href="https://claude.com/resources/articles/more-ways-to-work-with-claude-sheets-whiteboards-and-interactive-connectors">另一份公告</a>则称该功能即将推出，实际开放状态有待确认。</p>
+    <p>OpenAI 的 Business Hub 开始测试商家档案，企业可核验和更新产品信息，符合条件的商家还可以创建回答顾客问题的专用 Agent；这并非对所有商家开放的功能。</p>
+    <p><a href="https://ai.google.dev/gemini-api/docs/pricing">Google 标准 API 定价页</a>给出的推广价是每百万输入 token 2 美元、输出 token 10 美元，11 月底后价格翻倍。单价可以用来估算调用，但完成一个任务还要看消耗的 token 和重试次数，不能单凭价格判断总成本。</p>
+  </Prose>
+</Section>
+<Section canvas id="robotics">
+  <SectionHead index="04" kicker="具身智能" title="让机器人执行，也让模型预演" />
+  <Prose>
+    <p>DeepMind 介绍 Gemini Robotics 2.5，结合视觉、语言和动作控制。Google 称在与 Apptronik、Mercedes-Benz 的试验中，Apollo 2 机器人在汽车生产线分拣零件的成功率达到 96%。这个数字来自合作方针对特定任务的测试，不能推及所有产线或动作。模型目前面向机器人合作伙伴开放。Google 同时发布开源 ASIMOV-Jailbreak 评测集，用数百条伪装的不安全请求测试机器人场景中的越狱风险；基准成绩只能说明测试条件下的表现，并不保证实际部署安全。</p>
+    <p>MBZUAI 的基础模型研究所发布 PAN 2。它先用语言模型描述未来场景，再由扩散模型生成最长 20 秒的视频，用于模拟文本动作的后果。研究所称代码和模型权重采用 Apache 2.0 协议，部分依赖须按各自许可获取。其自身报告也承认，模拟计划经常遗漏步骤，画面有时违反物理规律；因此生成的视频不能代替现实验证。</p>
+  </Prose>
+</Section>
+<Section canvas id="formal-verification">
+  <SectionHead index="05" kicker="研究" title="用 Agent 协助验证 Signal 代码" />
+  <Prose>
+    <p>Google DeepMind 的 AlphaProof Code 使用多个 AI Agent 协助形式化验证，研究团队以 Signal 协议实现为案例，让 Lean 检查对指定安全属性的证明。研究涉及编译后的 AArch64 代码，人类研究者参与制定和审查规范。论文报告约 650 万行机器检查的证明，另有约 2.6 万行受信规范及语义定义。</p>
+    <p>证明结论取决于规范与假设，覆盖指定版本和属性，不能推断整个 Signal 应用不存在漏洞。Google 表示将开放相关验证成果，研究本身仍需要社区检验。</p>
+  </Prose>
+</Section>
+<Section canvas id="agent-identity">
+  <SectionHead index="06" kicker="Agent" title="能找到 Agent，不等于应该信任它" />
+  <Prose>
+    <p>Linux 基金会宣布 Agent Name Service（ANS）成为旗下项目。方案利用域名系统发布身份发现信息，配合证书与透明日志帮助验证 Agent 身份。验证身份只是做权限判断的前一步：应用仍须决定该 Agent 被允许访问什么，也不能从一条身份记录推断它的每次行为都安全。</p>
+  <svg viewBox="0 0 540 112" role="img" aria-labelledby="ans-title ans-desc" class="mx-auto w-full max-w-[540px]">
+    <title id="ans-title">Agent 身份验证与授权</title><desc id="ans-desc">域名发现后核验身份，再由应用决定访问权限。</desc>
+    <text x="14" y="42" font-size="20" fill="var(--color-ink)">域名发现 → 身份核验</text><text x="14" y="86" font-size="20" fill="var(--color-ink)">→ 应用决定访问权限</text>
+  </svg>
+  <p>NVIDIA 将 OpenShell 交由云原生计算基金会（CNCF）托管。这个开源运行时提供沙箱及策略控制，用于限制 Agent 的访问；具体安全效果仍取决于配置和实际环境。</p>
+    <p>ANS 公告显示的日期跨越统计边界，因此暂列待核；公开的规范及具体部署仍需要结合其版本和实现评估。</p>
+  </Prose>
+</Section>
+<Section canvas id="business">
+  <SectionHead index="07" kicker="产业" title="融资押注评测与数据" />
+  <Prose>
+    <p>Anthropic 更新赴美上市招股书，将拟发行价格区间列为每股 70 至 78 美元，计划合计发售 8.25 亿股 A 类股。其中公司拟出售约 8.01 亿股，现有股东拟出售约 2365 万股；公司不会取得后者的出售所得。这仍是发行方案，价格和交易均未最终确定。</p>
+    <p><a href="https://www.mercor.com/blog/series-d/">Mercor 宣布</a>完成 7.5 亿美元 D 轮融资，估值 200 亿美元；公司称本轮包括员工出售股份，未披露具体比例。公司称资金将用于模型评测和后训练业务，帮助企业衡量 Agent 完成任务的可靠性与成本。融资反映投资人的预期，不能直接证明这些评测方法在所有行业都有效。</p>
+    <p>Agent 安全公司 Bay 披露累计融资 5000 万美元，其中 3700 万美元是 A 轮，另有此前未披露的 1300 万美元种子轮。公司称其产品会在 Agent 操作执行前评估行为；实际防护效果仍需结合部署条件验证。Graphon Labs 则宣布完成 3500 万美元 A 轮融资，由 RRE Ventures 领投，开发基于图关系的 Agent 记忆系统。两家公司的融资与产品能力信息分别来自公司公告和媒体报道。</p>
+    <p>Odessia 创始人 Francis Davidson 表示，OpenAI 已收购这家旅行 Agent 初创公司。TechCrunch 报道称交易条款未披露，Odessia 服务已关闭；OpenAI 发言人确认 Davidson 加入公司，但没有公布新的旅行产品计划。把创始人的收购说法与 OpenAI 自己确认的聘用消息分开看，更容易理解目前已知的范围。</p>
+  </Prose>
+</Section>
+<Section canvas id="new-york">
+  <SectionHead index="08" kicker="治理" title="纽约开放前沿模型开发者登记" />
+  <Prose>
+    <p>纽约州开放 RAISE Act 登记门户，要求大型前沿 AI 开发者在 2027 年 1 月 1 日前登记。州政府同时启动跨机构安全研究网络，以评估先进 AI 系统；所在的研究中心今年 1 月已经宣布设立。</p>
+    <p>州政府称，相关安全框架公开及事件报告义务从明年 1 月开始。登记门户开放是本次进展，不能将它等同于所有法定义务已经生效。</p>
+  </Prose>
+</Section>
+<Section canvas id="pending">
+  <SectionHead index="09" kicker="时间待核" title="公告时间仍需确认" />
+  <Prose>
+    <p>台积电董事会批准对 Anthropic 和 OpenAI 分别投资最高 5 亿美元。批准额度不代表交易已经完成；官方公告只显示 11 月 10 日，尚不能确定首次公布时刻完全处于本期统计窗口。</p>
+    <p>投资界报道，富唯智能完成数千万元人民币 Pre-A 轮融资，资金将用于工业具身智能相关研发与交付。原始公司公告和首次发布时间仍待核实。投资界还报道清析智研完成近亿元人民币天使轮融资；具身之家和财联社在 11 月 9 日已有同轮融资报道，原公告及首次披露时间仍待核查，可能属于上一期遗漏。</p>
+    <p>财联社报道，芯片设计 Agent 企业泛函数智能完成近亿元人民币天使轮融资；另报道端侧 AI 公司万格智元一年内完成三轮融资，未披露各轮金额。两则消息的原始公告和首发时间仍待核实，三轮融资也不意味着均发生在本期。</p>
+    <p>NVIDIA 日本介绍两套合成日语数据集：一套面向金融用户模拟，另一套为检测和遮盖个人身份信息提供标注文档。它们是数据集，不能直接等同于已部署的隐私保护模型；官方页面只显示日期，仍可能跨越窗口边界。</p>
+    <p>Google 和 Artificial Analysis 介绍 MKA 基准，使用 200 项任务考察 Agent 处理复杂视觉文件并产出工作成果的能力。评价范围和结果取决于任务集与评分方式；官方页面仅标注日期，暂不能确认首次发布时间是否完全处于本期窗口。</p>
+    <p>路透社援引工会消息称，Google 拟购买 Spirit Airlines 数据的交易增加了隐私保护，包括更严格的去标识化和独立核查，健康及医疗信息等员工数据将被排除。法院尚未批准该交易；报道的首次发布时间未能核实，暂列待核。</p>
+    <p><a href="https://news.adobe.com/news/2026/11/adobe-powers-new-era-of-creativity">Adobe 宣布</a>扩展 Creative Agent，多个 Creative Cloud 应用的 AI 助手处于 beta；让第三方 Agent 修改本地项目文件的 MCP 集成仍在预览，不能视为已全面开放。Adobe 在会上重提与 Disney 的多年合作，双方合作此前已于 11 月 9 日被路透社报道；此次待核事项是 MAX 上的新工具。报道时间缺少明确时区，暂列待核。</p>
+    <p>Counsel Health 公告称，Oura 已签署协议，拟以 6.25 亿美元现金收购这家医疗 AI 公司，交易预计在年底前完成，仍须满足交割条件。公告日期缺少明确时区，暂列待核。</p>
+    <p>法国专家委员会提交关于生成式 AI 和用户脆弱性的报告，提出 18 项建议，涉及未成年人保护与消费级系统上市前评估。这些是专家建议，并非已经生效的法规。爱丽舍宫页面只显示日期，首次公布时间仍待核实。</p>
+  </Prose>
+</Section>
+<Section canvas id="retrospective">
+  <SectionHead index="10" kicker="前期回看" title="开放权重与 AI 安全合作" />
+  <Prose>
+    <p>补充上一期遗漏：<a href="https://venturebeat.com/technology/meituan-releases-the-open-weights-of-its-longcat-2-5-llm-with-vision-under-a-permissive-mit-license">VentureBeat 在 11 月 9 日报道</a>，美团开放 LongCat 2.5 权重，模型支持图像理解和代码任务，权重采用 MIT 许可。报道时间为北京时间 11 月 10 日 7:04，属于上一期窗口，不计入本期新增；模型能力与基准数据仍需结合具体测试独立验证。</p>
+    <p>前期待核的巴黎 AI 安全呼吁现已找到<a href="https://www.elysee.fr/emmanuel-macron/2026/11/09/appel-de-paris-pour-la-securite-de-lintelligence-artificielle">法国总统府原文</a>和<a href="https://www.elysee.fr/emmanuel-macron/2026/11/09/communique-reunion-ia-et-securite">会议公报</a>。11 月 9 日的声明提出共同评估前沿模型风险、共享非敏感评估结果并加强事故通报。它是签署方的自愿合作声明，不等于已生效的法律；原文只标日期，时区和具体时刻未明确，因此与前一期窗口边界的关系仍待核查，不计入本期新增。</p>
+  </Prose>
+</Section>
+<Section canvas id="limits">
+  <SectionHead index="11" kicker="阅读提示" title="本期如何核对" />
+  <Prose>
+    <p>本期部分项目以媒体报道的时间计入，报道时刻不等于产品首次上线时刻。模型能力、机器人试验与世界模型评测主要依据发布方材料，未独立复现。来源只给出日期、且可能跨越截止边界的事项列入待核，不计入确认数。LongCat 2.5 是补录的上一期报道，不计入本期确认数。部分检索批次的原始结果清单未完整留存，不能逐条核对是否遗漏线索；部分融资原始公告、首发时间和媒体全文也未能核实。全球检索无法证明没有遗漏。</p>
+  </Prose>
+</Section>
