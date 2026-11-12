@@ -13,24 +13,52 @@ type TocItem = {
   index: string;
 };
 
-function init() {
+/**
+ * Progressive-enhancement layer for article pages only.
+ * Zero dependencies. Everything here is decorative — if JS does not run,
+ * all content is already visible. Users preferring reduced motion get the
+ * reading-progress bar, TOC scroll-spy but no entrance animation, parallax,
+ * or count-up.
+ *
+ * Re-entrant: ClientRouter swaps the document without reloading, and Astro
+ * dedupes this bundle across post pages, so init() is driven by
+ * astro:page-load and every registration is reverted by the returned
+ * teardown before the next page initializes.
+ */
+
+type Teardown = () => void;
+
+function init(): Teardown | undefined {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const article = document.querySelector<HTMLElement>('[data-article]');
-  if (!article) return;
+  if (!article) return undefined;
+
+  // Cleanup registry — every listener/observer/node created below is
+  // reverted here so a second post reached via View Transition starts clean.
+  const controller = new AbortController();
+  const { signal } = controller;
+  const observers: IntersectionObserver[] = [];
+  const appended: HTMLElement[] = [];
+  const addedClasses: [Element, string][] = [];
+  const addClass = (el: Element, cls: string): void => {
+    el.classList.add(cls);
+    addedClasses.push([el, cls]);
+  };
 
   /* ---------- reading progress bar ---------- */
   const bar = document.createElement('div');
   bar.setAttribute('data-progress', '');
   bar.setAttribute('aria-hidden', 'true');
   document.body.appendChild(bar);
+  appended.push(bar);
 
   const updateProgress = () => {
     const max = document.documentElement.scrollHeight - window.innerHeight;
     const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
     bar.style.transform = `scaleX(${progress})`;
   };
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  window.addEventListener('resize', updateProgress);
+  window.addEventListener('scroll', updateProgress, { passive: true, signal });
+  window.addEventListener('resize', updateProgress, { signal });
   updateProgress();
 
   /* ---------- hero entrance ---------- */
@@ -41,7 +69,7 @@ function init() {
 
   /* ---------- reveal on scroll (motion only) ---------- */
   if (!reduceMotion) {
-    document.documentElement.classList.add('motion-ok');
+    addClass(document.documentElement, 'motion-ok');
     const revealables = () =>
       article.querySelectorAll<HTMLElement>('.reveal, .article-prose, .prose img');
 
@@ -64,6 +92,7 @@ function init() {
       el.classList.add('reveal-pending');
       io.observe(el);
     });
+    observers.push(io);
   }
 
   /* ---------- headline stat count-up (motion only) ---------- */
@@ -108,6 +137,7 @@ function init() {
       { threshold: 0.6 }
     );
     counters.forEach((el) => cio.observe(el));
+    observers.push(cio);
   }
 
   /* ---------- hero parallax (motion only, rAF-throttled) ---------- */
@@ -127,12 +157,15 @@ function init() {
           requestAnimationFrame(apply);
         }
       },
-      { passive: true }
+      { passive: true, signal }
     );
   }
 
   /* ---------- table of contents with scroll-spy ---------- */
   const tocHost = document.querySelector<HTMLElement>('[data-toc]');
+  // Defensive: a same-document re-init (initial astro:page-load racing the
+  // module-eval boot) must never stack a second TOC into a persistent host.
+  tocHost?.replaceChildren();
   // The SVG lens is only applied on engines that accept url() in
   // backdrop-filter; elsewhere the CSS keeps the plain blur fallback.
   if (
@@ -140,7 +173,7 @@ function init() {
     typeof CSS.supports === 'function' &&
     CSS.supports('backdrop-filter', 'url(#article-liquid-glass)')
   ) {
-    document.documentElement.classList.add('supports-glass-lens');
+    addClass(document.documentElement, 'supports-glass-lens');
   }
   let chapter = 0;
   const headings = Array.from(
@@ -274,7 +307,7 @@ function init() {
       history.replaceState(null, '', `${location.pathname}${location.search}`);
       window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
       rearmAtTop();
-    });
+    }, { signal });
 
     const spy = new IntersectionObserver(
       (entries) => {
@@ -289,13 +322,14 @@ function init() {
       const el = document.getElementById(h.id);
       if (el) spy.observe(el);
     });
+    observers.push(spy);
 
     // A click (or keyboard Enter) jumps to a chapter that may already sit
     // inside the spy band, so the observer might not refire — mark now.
     nav.addEventListener('click', (e) => {
       const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[data-target]');
       if (a) mark(linkFor.get(a.dataset.target ?? ''));
-    });
+    }, { signal });
     // Back/forward fragment changes likewise.
     window.addEventListener('hashchange', () => {
       if (!location.hash) return;
@@ -306,13 +340,13 @@ function init() {
         // malformed percent escape — use the raw fragment
       }
       mark(linkFor.get(id));
-    });
+    }, { signal });
 
     // Re-clamp when Tab lands on a row the UA parked inside a fade band.
     nav.addEventListener('focusin', (e) => {
       const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a');
       if (a) revealInNav(a);
-    });
+    }, { signal });
 
     // When the rail appears at the wide breakpoint, re-reveal the active
     // row (rects were zero while display:none, so its clamp never ran).
@@ -321,7 +355,7 @@ function init() {
       if (!ev.matches) return;
       const current = nav.querySelector<HTMLAnchorElement>('a[aria-current="true"]');
       if (current) revealInNav(current);
-    });
+    }, { signal } as AddEventListenerOptions);
 
     // Deep links load with the active state and aria-current already set.
     if (location.hash) {
@@ -334,6 +368,26 @@ function init() {
       mark(linkFor.get(id));
     }
   }
+
+  return () => {
+    controller.abort();
+    observers.forEach((observer) => observer.disconnect());
+    appended.forEach((el) => el.remove());
+    addedClasses.forEach(([el, cls]) => el.classList.remove(cls));
+  };
 }
 
-init();
+/* ClientRouter keeps this module alive across page swaps but replaces the
+   DOM, so (re)initialize on every astro:page-load after tearing down the
+   previous article's listeners, observers, and injected nodes. */
+let teardown: Teardown | undefined;
+const boot = (): void => {
+  teardown?.();
+  teardown = init();
+};
+// Module-eval boot covers the initial document (the router's first
+// astro:page-load can already have dispatched by now); subsequent
+// events reinitialize after View Transition DOM swaps. boot() is
+// idempotent — every init() first runs the previous teardown.
+boot();
+document.addEventListener('astro:page-load', boot);
