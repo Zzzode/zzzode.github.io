@@ -1,0 +1,2211 @@
+{
+  "generatedAt": "2026-11-13T02:43:20Z",
+  "scope": "All 173 unique result URLs in 20 recorded searches. Headline items screened from returned titles and actual result text, not URL names alone. Unaccessed result excerpts are discovery evidence only, not verified facts. Duplicate refers to same event, not independent confirmation.",
+  "counts": {
+    "old_or_context": 76,
+    "background_or_irrelevant": 30,
+    "aggregate_followup": 25,
+    "duplicate_event": 30,
+    "candidate_needs_review": 5,
+    "candidate_supported": 2,
+    "needs_followup": 5
+  },
+  "known_limits": "Batch search excerpts vary in completeness; some underlying sources inaccessible, 56-item index receives separate title-and-summary screening, no claim of exhaustive research or definitive disposition for unresolved events.",
+  "inspected_urls": [
+    {
+      "url": "https://www.qbitai.com/2026/10/502741.html",
+      "title": "2026没过完，已有480亿美元投进了物理AI",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://tech.ifeng.com/c/8xh5Ykfpwj0",
+      "title": "具身智能的钱，流向机器人的“皮肤”",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.qbitai.com/meet/meet2026/",
+      "title": "量子位MEET2026智能未来大会丨共生无界智启未来",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zhuanlan.zhihu.com/p/2013591968958150300",
+      "title": "具身智能10天融了百亿，这家机器人公司拿到了国资“全明星 ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://m.36kr.com/p/4025612762763138",
+      "title": "智元创新启动新一轮融资，估值500亿，港股IPO暂缓 - 36氪",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://caifuhao.eastmoney.com/news/20260918182035762748250",
+      "title": "全球机器人公司第一梯队深度观察：2026 具身智能领军者盘点",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://finance.sina.com.cn/tech/digi/2024-11-20/doc-incwtmak2068373.shtml",
+      "title": "具身智能公司银河通用官宣再获5 亿战略轮",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.sohu.com/a/1032642225_702717",
+      "title": "银河通用、优艾智合领衔14家硬核企业，谁将领跑万亿新赛道",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E5%AE%87%E6%A0%91%E7%A7%91%E6%8A%80",
+      "title": "宇树科技",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/X_Square_Robot",
+      "title": "X Square Robot",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E4%BA%91%E6%B7%B1%E5%A4%84%E7%A7%91%E6%8A%80",
+      "title": "云深处科技",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E6%A2%85%E5%8D%A1%E6%9B%BC%E5%BE%B7%E6%9C%BA%E5%99%A8%E4%BA%BA",
+      "title": "梅卡曼德机器人",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/Anthropic",
+      "title": "Anthropic",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位",
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮",
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体",
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E6%A8%A1%E6%80%9D%E6%99%BA%E8%83%BD",
+      "title": "模思智能",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 具身智能 公司 融资 亿元 机器人 投资界 量子位"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.cac.gov.cn/2026-05/08/c_1779979789523320.htm?utm_source=chatgpt.com",
+      "title": "智能体规范应用与创新发展实施意见",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.shanghai.gov.cn/zhengce/detail?businessId=2c984a729eef30f0019f88d8454e5589&siteId=0019",
+      "title": "上海市市场监督管理局上海市经济和信息化委员会 ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://cn.weforum.org/stories/artificial-intelligence/ai-guardrails-adopt-ai-agents-safely",
+      "title": "如何在2026年安全地采用人工智能代理",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.lexology.com/library/detail.aspx?g=f45a091e-ec23-4d0f-8b97-c345920d16be",
+      "title": "2025年全球人工智能监管回顾",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.cernet.edu.cn/xxh/focus/zc/202605/t20260528_2738385.shtml",
+      "title": "国家为智能体立规矩，这5份文件必看丨建议收藏",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.legal500.com/intelligence/china/technology/%E4%BB%8E%E3%80%8A%E6%99%BA%E8%83%BD%E4%BD%93%E6%96%B0%E8%A7%84%E3%80%8B%E7%9C%8Bai%E6%99%BA%E8%83%BD%E4%BD%93%E7%9A%84%E9%A3%8E%E9%99%A9%E9%98%B2%E8%8C%83%E4%B8%8E%E5%90%88%E8%A7%84%E6%B2%BB%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89",
+      "title": "从《智能体新规》看AI智能体的风险防范与合规治理（上）",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://fddi.fudan.edu.cn/28/1a/c21253a796698/page.htm",
+      "title": "全球AI治理新闻No.50丨2026.10.12-2026.10.20 - 复旦发展研究院",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.dehenglaw.com/cn/newscontent/0008/036755/2.aspx?MID=0902",
+      "title": "智能体监管新规下的企业AI合规边界——从数据安全",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.nfra.gov.cn/cn/view/pages/governmentDetail.html?docId=1261784&generaltype=1&itemId=",
+      "title": "关于银行业保险业人工智能安全开发应用的指导意见",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%8B%9F%E4%BA%BA%E5%8C%96%E4%BA%92%E5%8A%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E6%9A%82%E8%A1%8C%E5%8A%9E%E6%B3%95",
+      "title": "人工智能拟人化互动服务管理暂行办法",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Interim_Measures_for_the_Management_of_Anthropomorphic_AI_Interactive_Services",
+      "title": "Interim Measures for the Management of Anthropomorphic AI Interactive Services",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E7%94%9F%E6%88%90%E5%BC%8F%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E6%9A%82%E8%A1%8C%E5%8A%9E%E6%B3%95",
+      "title": "生成式人工智能服务管理暂行办法",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/2026%E5%B9%B4OpenAI%E4%BB%A3%E7%90%86%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB",
+      "title": "2026年OpenAI代理网络攻击",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%A3%E7%90%86",
+      "title": "人工智能代理",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AE%89%E5%85%A8",
+      "title": "人工智能安全",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "2026年11月12日 人工智能 智能体 治理 安全 标准 发布 监管"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:35 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper",
+      "title": "Google - The Gemma 4 Developer Agent Paper Track | Kaggle",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"November 12, 2026\" artificial intelligence research model agent paper"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:41 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://nhip.verai.vn/en/papers/2026-11-12",
+      "title": "AI Research · Paper roundup for November 12, 2026 — NHỊP",
+      "disposition": "aggregate_followup",
+      "reason": "NHỊP summary contains seven papers already logged, plus Muse Ember, Scribe v3 and AVCC; old submission does not prove announcement date.",
+      "queries": [
+        "\"November 12, 2026\" artificial intelligence research model agent paper"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:41 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://buttondown.com/agent-k/archive/llm-daily-november-12-2026/",
+      "title": "LLM Daily: November 12, 2026 • Buttondown",
+      "disposition": "aggregate_followup",
+      "reason": "LLM Daily lists MiniMax H3-Image, browser-use v1.0.2, Contrastive Discovery and other works; trace exact release/version before disposition.",
+      "queries": [
+        "\"November 12, 2026\" artificial intelligence research model agent paper"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:41 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://code.tarasovweb.ru/en/news/2026-11-12/",
+      "title": "AI News — November 12, 2026 | Tarasov Code",
+      "disposition": "aggregate_followup",
+      "reason": "Tarasov index: 56 entries screened individually in /tmp/discovery-13-updated.json.",
+      "queries": [
+        "\"November 12, 2026\" AI agents funding autonomous tools new"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:43 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://kd-agentic.hashnode.dev/ai-daily-digest-november-12-2026-aws-emulator-written-entirely-by-ai-agents-google-scores-decisions-",
+      "title": "AI Daily Digest November 12, 2026: AWS Emulator Written Entirely by AI Agents, Google Scores Decisions in One Pass",
+      "disposition": "aggregate_followup",
+      "reason": "Digest revisits Google Decisions API and AWS Emulator, both preceding-issue items.",
+      "queries": [
+        "\"November 12, 2026\" AI agents funding autonomous tools new"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:43 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-12-2026",
+      "title": "AI Agents News Brief: November 12, 2026",
+      "disposition": "aggregate_followup",
+      "reason": "Agents index: Genie, AAIF, Kindo, Rox, ServiceNow, Neo4j Relate, UAEF, Jev; selected items need source date/novelty trace.",
+      "queries": [
+        "\"November 12, 2026\" AI agents funding autonomous tools new"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:43 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.shadow.inc/resources/company-product-launches-today",
+      "title": "Company and Product Launches Today — November 12, 2026 | Shadow",
+      "disposition": "aggregate_followup",
+      "reason": "Twelve source-linked announcements include UFORCE, Decisions API, AlphaGenome2 and Ranluspec; trace original and time.",
+      "queries": [
+        "\"November 12, 2026\" AI agents funding autonomous tools new"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:43 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.panasonic.com/jp/press/jn261105-1",
+      "title": "パナソニックHD、指先の触覚に即応して器用な両手作業を行うロボット操作AIを共同開発 | 技術・研究開発 | 技術・研究開発 | プレスリリース | Panasonic Newsroom Japan : パナソニック ニュースルーム ジャパン",
+      "disposition": "old_or_context",
+      "reason": "Panasonic primary release dated Nov 5; tactile T-Rex CoRL presentation and arXiv are prior work.",
+      "queries": [
+        "2026年11月12日 生成AI ロボット 研究 開発 ニュース"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:46 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://arxiv.org/abs/2606.17055",
+      "title": "Embedded outbound link",
+      "disposition": "old_or_context",
+      "reason": "T-Rex tactile project or paper linked from Nov5 Panasonic release; publication history must be consulted.",
+      "queries": [
+        "2026年11月12日 生成AI ロボット 研究 開発 ニュース"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://tactile-reactive-dexterous.github.io/",
+      "title": "Embedded outbound link",
+      "disposition": "old_or_context",
+      "reason": "T-Rex tactile project or paper linked from Nov5 Panasonic release; publication history must be consulted.",
+      "queries": [
+        "2026年11月12日 生成AI ロボット 研究 開発 ニュース"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://labmemo.com/ai-news-roundup-2026-11-12/",
+      "title": "AIニュースまとめ11月12日：疾病予測に反発、触覚モデル公開など",
+      "disposition": "aggregate_followup",
+      "reason": "Seven-item Japanese roundup: LingBot Touch Nov 9/10, AMD Halo Nov 9, DCAI Nov 10, PAN2, Bay Nov10, NEAR AI Nov9; prior-issue ledgers already assess several.",
+      "queries": [
+        "2026年11月12日 生成AI ロボット 研究 開発 ニュース"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:46 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://jp.wsj.com/articles/for-data-guzzling-ai-companies-the-internet-is-too-small-d7f52fc5",
+      "title": "生成AI企業にネットは小さすぎか 学習データ不足に懸念",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026年11月12日 生成AI ロボット 研究 開発 ニュース"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:46 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.unite.ai/fr/",
+      "title": "Unite.AI - Actualités, recherche et analyses sur l’intelligence artificielle",
+      "disposition": "aggregate_followup",
+      "reason": "French Unite.AI category page lists multiple changing recent articles; category date is not each event date.",
+      "queries": [
+        "12 novembre 2026 intelligence artificielle robotique financement agent"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:48 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://travail-emploi.gouv.fr/impulsion-ia-2027",
+      "title": "Impulsion IA : 12 mesures pour impulser, anticiper et dialoguer face à la transformation du monde du travail par l’intelligence artificielle | Travail-emploi.gouv.fr | Ministère du Travail et des Solidarités",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "12 novembre 2026 intelligence artificielle robotique financement agent"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:48 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.lemondefeminin.com/revue-presse-intelligence-artificielle-12/",
+      "title": "Revue presse intelligence artificielle essentielle du 12/11/2026",
+      "disposition": "aggregate_followup",
+      "reason": "French roundup: Gemini Robotics 2.5 Nov10, AlphaGenome2, Firefox compromise, Qwen4 preview, EU AI sandbox, Anthropic IPO; evaluate against earlier issue.",
+      "queries": [
+        "12 novembre 2026 intelligence artificielle robotique financement agent"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:48 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.vandestar.com/fr/evenementen/",
+      "title": "Événements liés à l'IA et à la robotique en 2026 | Mise à jour hebdomadaire",
+      "disposition": "old_or_context",
+      "reason": "Events listing for CoRL and other future/past conferences; listing date not research publication.",
+      "queries": [
+        "12 novembre 2026 intelligence artificielle robotique financement agent"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:48 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.lemonde.fr/economie/article/2024/12/08/humanoides-ia-la-nouvelle-ere-des-robots-est-arrivee_6437177_3234.html",
+      "title": "Humanoïdes, IA... La nouvelle ère des robots est arrivée",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "12 novembre 2026 intelligence artificielle robotique financement agent"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:48 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.irobotnews.com/news/articleView.html?idxno=49379",
+      "title": "[2026 로보월드] 피지컬 AI 시대 조망…'2026 ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://weekly.donga.com/economy/article/all/11/6029485/1",
+      "title": "2026년 美·中 휴머노이드 양산… '피지컬 AI' 시대 열린다",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.aitimes.kr/news/articleView.html?idxno=37875",
+      "title": "2026년, AI의 승자는 모델 아닌 '운영하는 자'...“확장·통합",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://note.com/npaka/n/necac1f3ebbb6?hl=ko",
+      "title": "VLA, 세계 모델, LLM 에이전트를 통한 로봇 AI의 진화｜npaka",
+      "disposition": "aggregate_followup",
+      "reason": "Korean auto-translation of Nov10 CoRL survey with π0.7, MolmoAct2, RoboTTT, DreamZero and others; old survey, individual paper dates need trace.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.hellot.net/news/article.html?no=109401",
+      "title": "중국 로봇업계, 2026년 협동로봇 성장과 가격 경쟁 본격화 전망",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://futurechosun.com/archives/153009",
+      "title": "2026년 대규모 투자 이어지는 '피지컬 AI'…로봇 분야가 47% ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://kr.investing.com/news/stock-market-news/article-93CH-2123691",
+      "title": "딥시크, 로봇 AI 스타트업 윈버스에 4억 달러 투자 주도 예상",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.g-enews.com/article/Global-Biz/2026/06/2026061223573581452bd56fbc3c_1",
+      "title": "2026년, 인간형 로봇 공장 첫 출근… 피지컬 AI 원년 선언",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "2026년 11월 12일 인공지능 로봇 투자 생성 AI 신모델"
+      ],
+      "first_query_executedAt": "2026-11-13 02:26:50 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.qq.com/rain/a/20261112A0929R00",
+      "title": "纬钛机器人完成A轮融资：视触觉从技术引领走向规模化交付",
+      "disposition": "duplicate_event",
+      "reason": "Weitai A round was reported Nov11 and Nov12; direct initial timestamp timezone unresolved.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://k.sina.com.cn/article_7857201856_1d45362c001908uhoi.html?from=tech",
+      "title": "新浪人工智能热点小时报丨2026年11月12日02时",
+      "disposition": "aggregate_followup",
+      "reason": "Nov12 02h Sina digest: Hydrogen internal test, Uliqi Nov9, Beijing policy, Honor robotics subsidiary, Beijing token report, an unrelated Serbian interview and solar subsidiary.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "http://k.sina.com.cn/article_5952915705_162d248f906703t43s.html",
+      "title": "Embedded outbound link",
+      "disposition": "aggregate_followup",
+      "reason": "Embedded original link from Sina hourly digest; see aggregate 54/57/63 and corresponding event disposition.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "http://finance.sina.com.cn/stock/estate/integration/2026-11-12/doc-iniykzmu8855296.shtml",
+      "title": "Embedded outbound link",
+      "disposition": "aggregate_followup",
+      "reason": "Embedded original link from Sina hourly digest; see aggregate 54/57/63 and corresponding event disposition.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "http://finance.sina.com.cn/jjxw/2026-11-12/doc-iniykvcx4295489.shtml",
+      "title": "Embedded outbound link",
+      "disposition": "aggregate_followup",
+      "reason": "Embedded original link from Sina hourly digest; see aggregate 54/57/63 and corresponding event disposition.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "http://finance.sina.com.cn/jjxw/2026-11-12/doc-iniykzmt2078118.shtml",
+      "title": "Embedded outbound link",
+      "disposition": "aggregate_followup",
+      "reason": "Embedded original link from Sina hourly digest; see aggregate 54/57/63 and corresponding event disposition.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "http://finance.sina.com.cn/cj/2026-11-12/doc-iniykvcr1640663.shtml",
+      "title": "Embedded outbound link",
+      "disposition": "aggregate_followup",
+      "reason": "Embedded original link from Sina hourly digest; see aggregate 54/57/63 and corresponding event disposition.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://caifuhao.eastmoney.com/news/20261112145743089011500",
+      "title": "通芯智能完成数亿元融资，云端产品对标英伟达B300系列_财富号",
+      "disposition": "duplicate_event",
+      "reason": "Tongxin seed+angel financing, same as 140–157; 36Kr original and timezone under review.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮",
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.facebook.com/greenprogroup/posts/sandai%E5%AE%8C%E6%88%902%E4%BA%BF%E7%BE%8E%E5%85%83a%E8%BD%AE%E8%9E%8D%E8%B5%84-%E8%B7%BB%E8%BA%AB%E7%8B%AC%E8%A7%92%E5%85%BD2026%E5%B9%B411%E6%9C%885%E6%97%A5%E8%A7%86%E9%A2%91%E7%94%9F%E6%88%90%E5%9F%BA%E7%A1%80%E6%A8%A1%E5%9E%8B%E5%85%AC%E5%8F%B8sandai%E4%B8%89%E5%91%86%E7%A7%91%E6%8A%80%E5%AE%A3%E5%B8%83%E5%AE%8C%E6%88%902%E4%BA%BF%E7%BE%8E%E5%85%83a%E8%BD%AE%E8%9E%8D%E8%B5%84%E8%BF%99%E6%98%AF%E8%AF%A5%E5%85%AC%E5%8F%B8%E4%BB%8A%E5%B9%B4%E5%B9%B4%E5%86%85%E5%AE%8C%E6%88%90%E7%9A%84%E7%AC%AC%E4%B8%89%E8%BD%AE%E8%9E%8D/1543313847859341/",
+      "title": "Sand.ai完成2亿美元A+轮融资跻身独角兽📊 2026年11月5日",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://k.sina.com.cn/article_7857201856_1d45362c001908ukwy.html?from=tech",
+      "title": "新浪人工智能热点小时报丨2026年11月12日19时",
+      "disposition": "aggregate_followup",
+      "reason": "Sina 19h digest; Tongxin, data-center infrastructure and other stories require source-specific checks.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮",
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体",
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://tw.tradingview.com/news/panews%3Adcf19d433acdf%3A0/",
+      "title": "OpenAI融资150亿美元，公司估值达到1.25万亿美元",
+      "disposition": "candidate_needs_review",
+      "reason": "PANews cites CNBC that OpenAI raised $15B at $1.25T; 11/12 06:55 GMT−8 displayed by search. Original CNBC and first-close relation need verification.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.hrtechchina.com/55943.html",
+      "title": "【纽约】劳动力智能分析公司Revelio Labs宣布获得1500万 ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E5%85%B0%E4%BA%AD%E9%9B%86%E5%8A%BF",
+      "title": "兰亭集势",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮",
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/Google_DeepMind",
+      "title": "Google DeepMind",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮",
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体",
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E6%85%A7%E8%88%87%E7%A7%91%E6%8A%80",
+      "title": "慧與科技",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 机器人 A轮"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:26 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://k.sina.com.cn/article_7857201856_1d45362c001908ukom.html?from=tech",
+      "title": "新浪人工智能热点小时报丨2026年11月12日18时",
+      "disposition": "aggregate_followup",
+      "reason": "Sina 18h digest includes Tongxin; source-specific verification required.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "http://news.sina.com.cn/o/2026-11-12/doc-iniynppc3794122.shtml",
+      "title": "Embedded outbound link",
+      "disposition": "aggregate_followup",
+      "reason": "Embedded original link from Sina hourly digest; see aggregate 54/57/63 and corresponding event disposition.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://news.qq.com/rain/a/20261112A0799C00",
+      "title": "通芯智能已完成数亿元融资，首款AGI芯片计划12月开展原型验证",
+      "disposition": "duplicate_event",
+      "reason": "Tongxin financing, original reporting via Jiemian; source chain duplicates 55/140–157.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://mezha.net/ch/news/mezha-edc9e887eff59d257eb33653_mount-thor-raises-45-million-to/",
+      "title": "Mount Thor筹集4500万美元，建设面向AI智能体的Mac数据 ...",
+      "disposition": "candidate_needs_review",
+      "reason": "Mount Thor reports $45M seed plus A for AI-agent Apple infrastructure; inspect original 9to5Mac and first announcement time.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://i.ifeng.com/c/8xz8ok7UvWb",
+      "title": "Anthropic IPO获数倍超额认购，承销商考虑上调发行价 ...",
+      "disposition": "aggregate_followup",
+      "reason": "Anthropic IPO subscription roundup includes CoreWeave loan and other headlines, some earlier; trace originals.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.dahecube.com/spiderdetail.html?spidid=885622%3Frecid%3D1",
+      "title": "OpenAI将融资目标下调100亿美元，估值1.25万亿美元",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.36kr.com/p/4067443683120000",
+      "title": "8点1氪丨英伟达宣布CEO黄仁勋辞职，特朗普：建议库克接任",
+      "disposition": "aggregate_followup",
+      "reason": "36Kr 8am roundup includes Nvidia CEO departure, Weitai, Xixuan, Agile, and more; individual events require separate dispositions.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.iqilu.com/shandong/shandonggedi/20261103/5958082.shtml",
+      "title": "山东谋划“人工智能+ 软件” 新发展行动计划公开征求社会意见",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/%E5%9B%BD%E5%8A%A1%E9%99%A2%E5%B8%B8%E5%8A%A1%E4%BC%9A%E8%AE%AE_%28%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%B1%8A%29",
+      "title": "国务院常务会议 (第十四届)",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" \"人工智能\" \"融资\" 智能体"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:30 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://finance.eastmoney.com/a/202611053923387712.html",
+      "title": "《智能体发展自律公约》乌镇发布，深演智能成为发起单位",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://cpc.people.com.cn/n1/2026/1106/c64387-40828828.html",
+      "title": "《智能体发展自律公约》发布 - 中国共产党新闻- 人民网",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zhuanlan.zhihu.com/p/2101355947000066935",
+      "title": "《智能体发展自律公约》发布，腾讯、阿里、抖音等机构共同起草",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.sohu.com/a/1097132935_120988533",
+      "title": "《智能体发展自律公约》在乌镇发布，着力健全智能体信任体系",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://mt.sohu.com/a/1097220385_120988576",
+      "title": "360参与发起《智能体发展自律公约》 助力构建可信智能体生态",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://jingxuan.douyin.com/m/video/7704386662293860563",
+      "title": "小米、奇安信、360等20家单位联合发布了《智能体发展自律公约 ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.saturn.pub/insights/31/article-1510.html",
+      "title": "中小企业怎么把“八条自律”落成可验收的本地化部署动作 - 环曜",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.mxtjet.com/product.php?%2FArTicle%2Fdetails%2F59723974.sHTML=",
+      "title": "华为、阿里、腾讯等20家单位联合发布《智能体发展自律公约》",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"智能体发展自律公约\" 2026 乌镇 11 月 什么时候 发布"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:34 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://apnews.com/article/314714d463cf578cbb0dbd49de903107",
+      "title": "What we know after Jensen Huang resigns as Nvidia's CEO",
+      "disposition": "duplicate_event",
+      "reason": "NVIDIA CEO departure; directly confirmed by company press release on Nov12 08:48 ET.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.investors.com/market-trend/stock-market-today/stock-market-today-nvidia-stock-nvda-jensen-huang/",
+      "title": "Stock Market Today: Nasdaq Drops; Nvidia Slumps After CEO's Exit With Earnings Report On Tap",
+      "disposition": "duplicate_event",
+      "reason": "Market response to NVIDIA CEO departure; subsequent stock prices not suitable before close without timestamp.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.townandcountrymag.com/society/money-and-power/a74411390/nvidia-ceo-jensen-huang-resigns/",
+      "title": "Nvidia CEO Jensen Huang Resigns Following Reports of Extramarital Affairs",
+      "disposition": "duplicate_event",
+      "reason": "NVIDIA CEO departure report; one event, multiple publications.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://nypost.com/2026/11/12/business/nvidias-stock-slides-11-in-after-ceo-jensen-huang-resigns-over-affairs/",
+      "title": "Nvidia's stock slides 11% in opening trades after CEO Jensen Huang resigns over affairs",
+      "disposition": "duplicate_event",
+      "reason": "Nvidia shares/CEO report follows same leadership event; timestamp and market scope needed.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-CEO-Transition/",
+      "title": "NVIDIA Corporation - NVIDIA Announces CEO Transition",
+      "disposition": "duplicate_event",
+      "reason": "Company primary CEO transition announcement; confirmed minute-precision via GlobeNewswire at 13:48Z.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://br.advfn.com/noticias/EDGAR2/2026/artigo/99692819",
+      "title": "Form 8-K - Current report",
+      "disposition": "duplicate_event",
+      "reason": "SEC filing / CEO transition; report metadata requires date check.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.stocktitan.net/sec-filings/NVDA/8-k-nvidia-corp-reports-material-event-7ee30e4de444.html",
+      "title": "NVIDIA CEO Jen-Hsun Huang resigns; Kress named interim | NVDA 8-K Filing",
+      "disposition": "duplicate_event",
+      "reason": "SEC filing / CEO transition; report metadata requires date check.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.lemonde.fr/en/economy/article/2026/11/12/the-fall-of-jensen-huang-iconic-nvidia-ceo-and-godfather-of-ai_6778841_19.html",
+      "title": "Jensen Huang, iconic Nvidia CEO and godfather of AI, resigns",
+      "disposition": "duplicate_event",
+      "reason": "NVIDIA CEO departure report from Le Monde; same event.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Jensen_Huang",
+      "title": "Jensen Huang",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.theguardian.com/technology/2026/nov/12/nvidia-ceo-jensen-huang-resigns",
+      "title": "Jensen Huang resigns as Nvidia CEO after alleged affairs | Jensen Huang | The Guardian",
+      "disposition": "duplicate_event",
+      "reason": "NVIDIA CEO departure report from Guardian; same event.",
+      "queries": [
+        "\"NVIDIA\" \"Jensen Huang\" \"resigns\" 12 November 2026 official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:38 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://castleplacement.com/autonomous-cars-capital-raises-and-investors-in-the-u-s-april-1st-may-31st-2026/",
+      "title": "Autonomous Cars Capital Raises and Investors in the U.S. - April 1st",
+      "disposition": "old_or_context",
+      "reason": "April–May financing list names Qvyon funding; independent BetaKit says round closed April. November 12 public launch is distinct.",
+      "queries": [
+        "\"Qvyon\" \"$8 million\" 2026 autonomous testing November 12"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:40 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://intelligence.cvca.ca/deal/34813",
+      "title": "Qvyon Technologies - VC - Seed - CVCA Intelligence",
+      "disposition": "old_or_context",
+      "reason": "Qvyon seed financing database listing crawled three weeks earlier; date of financing vs Nov12 launch remains separate.",
+      "queries": [
+        "\"Qvyon\" \"$8 million\" 2026 autonomous testing November 12"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:40 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://qvyon.com/",
+      "title": "Embedded outbound link",
+      "disposition": "candidate_needs_review",
+      "reason": "Qvyon company website from funding report; current page alone does not establish launch time.",
+      "queries": [
+        "\"Qvyon\" \"$8 million\" 2026 autonomous testing November 12"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://finance.people.com.cn/n1/2026/1112/c1004-40832771.html",
+      "title": "AI观察｜手机里预装的智能体，要“持证上岗”了 - 经济- 人民网",
+      "disposition": "aggregate_followup",
+      "reason": "People Daily analysis on mobile agent standards; underlying Nov6 risk warning is earlier; determine any new 11/12 proposal.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://careers.tencent.com/jobdesc.html?postId=2076490660172705792",
+      "title": "腾讯招聘- 岗位详情",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://learn.microsoft.com/zh-cn/microsoft-copilot-studio/authoring-select-agent-model",
+      "title": "为您的代理选择一个主要的AI模型- Microsoft Copilot Studio",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://podcasts.apple.com/fr/podcast/ai%E5%9C%88%E5%84%BF/id1872685556",
+      "title": "AI圈儿",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://origami.sa/zh/blog/fable-5-us-government-ban-return/",
+      "title": "遭美国政府叫停后，全球最强AI模型回归：Fable 5 的故事",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.threads.com/%40ericleung.hk/post/Dd5GwhpD-Mf/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B8%AD%E5%9C%8Bai-agent%E5%9C%A8%E6%A8%A1%E6%93%AC%E6%8A%95%E6%A8%99%E4%B8%AD%E9%80%BE%E5%85%AB%E6%88%90%E5%A0%B4%E6%AC%A1%E4%BD%9C%E5%87%BA%E8%99%9B%E5%81%87%E9%99%B3%E8%BF%B0%E9%87%8D%E8%A9%A6%E5%BE%8C%E6%AC%BA%E9%A8%99%E8%A1%8C%E7%82%BA%E5%86%8D%E5%A2%9E12%E8%87%B320%E5%80%8B%E7%99%BE%E5%88%86%E9%BB%9E%E4%B8%80%E9%A0%85%E4%BB%8A%E5%B9%B43%E6%9C%88%E7%9A%84%E7%A0%94%E7%A9%B6%E7%99%BC%E7%8F%BEalibaba-qwen3-max-pr/",
+      "title": "中國AI agent在模擬投標中逾八成場次作出虛假陳述",
+      "disposition": "old_or_context",
+      "reason": "Threads reports 84–88% deceptive bids; traced to Reuters controlled-study article September 29, 2026, not a new Nov12 event.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.qq.com/rain/a/20261112A08POS00",
+      "title": "智能体加速落地，“数字员工”走进千行百业 - 腾讯新闻",
+      "disposition": "old_or_context",
+      "reason": "Xinhua feature on agent adoption, not a particular product release in snippet.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/Kimi_%28%E8%81%8A%E5%A4%A9%E6%A9%9F%E5%99%A8%E4%BA%BA%29",
+      "title": "Kimi (聊天機器人)",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://zh.wikipedia.org/wiki/Claude_%28%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%29",
+      "title": "Claude (语言模型)",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"2026年11月12日\" 大模型 安全 风险 智能体 研究"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:42 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.globenewswire.com/news-release/2026/11/12/3401659/0/en/neoverse-autonomous-research-agents-uncover-critical-remote-code-execution-flaw-in-zoom.html",
+      "title": "Neoverse Autonomous Research Agents Uncover Critical Remote Code Execution Flaw in Zoom",
+      "disposition": "candidate_supported",
+      "reason": "Neo company press release Nov12 09:00 ET describes new disclosure of Zoom issue found Aug30, fixed September; report is not evidence of new vulnerability occurrence.",
+      "queries": [
+        "\"November 12, 2026\" AI research security study agent official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:45 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://unit42.paloaltonetworks.com/?search=Tas9er",
+      "title": "Unit 42",
+      "disposition": "candidate_supported",
+      "reason": "Unit42 Cairn report published Nov12 15:00:31Z verified from main article metadata; attack activity August–September, attribution moderate confidence.",
+      "queries": [
+        "\"November 12, 2026\" AI research security study agent official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:45 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.nist.gov/publications/summary-analysis-responses-request-information-regarding-security-considerations-ai",
+      "title": "Summary Analysis of Responses to the Request for Information Regarding Security Considerations for AI Agents",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"November 12, 2026\" AI research security study agent official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:45 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.securityrelay.com/",
+      "title": "Security::Relay",
+      "disposition": "aggregate_followup",
+      "reason": "SecurityRelay index includes multiple Microsoft and other research articles; source dates and individual events require inventory.",
+      "queries": [
+        "\"November 12, 2026\" AI research security study agent official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:45 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261112/",
+      "title": "CISO Daily Briefing – 2026-11-12 – Lab Space",
+      "disposition": "aggregate_followup",
+      "reason": "CISO digest lists GitHub wfx theft, AntiFox, Apache HTTP2, Fireworks/Notion and EU AI sandboxes; each source/date independently verify.",
+      "queries": [
+        "\"November 12, 2026\" AI research security study agent official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:45 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://blog.qualys.com/product-tech/2026/11/12/ai-didnt-create-a-new-kind-of-risk-it-removed-the-time-you-had-to-fix-the-old-one",
+      "title": "AI Didn’t Create a New Kind of Risk. It Removed the Time You Had to Fix the Old One. | Qualys",
+      "disposition": "old_or_context",
+      "reason": "Qualys blog is expert commentary on security risks; no specific novel paper or product in snippet.",
+      "queries": [
+        "\"November 12, 2026\" AI research security study agent official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:45 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://labs.cloudsecurityalliance.org/research/alt-ciso-briefing-2026-11-12/",
+      "title": "CISO Daily Briefing – November 12, 2026 – Lab Space",
+      "disposition": "aggregate_followup",
+      "reason": "Alternate copy of CISO digest, same event inventory as 104.",
+      "queries": [
+        "\"November 12, 2026\" AI research security study agent official"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:45 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.theatlantic.com/podcasts/2026/11/the-jensen-huang-crisis-for-ai/689392/?utm_source=openai",
+      "title": "The CEO, the Spy, and a Crisis for AI",
+      "disposition": "duplicate_event",
+      "reason": "Atlantic podcast on Nvidia CEO transition; taped before departure, updated intro; not a separate departure.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.cybersecuritydive.com/news/agentic-ai-cyberattacks-harnesses-crowdstrike/833714/",
+      "title": "Agentic AI helps hackers level up, even without detailed ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.facebook.com/DDNews/videos/ai-agents-are-autonomous-systems-that-perform-tasks-with-limited-human-intervent/1151480097450727/",
+      "title": "“AI agents are autonomous systems that perform tasks with ...",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.crowdstrike.com/en-us/blog/crowdstrike-uncovers-new-agentic-ai-campaigns/",
+      "title": "CrowdStrike Uncovers New Agentic AI Campaigns",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.opentrain.ai/jobs/cybersecurity-sepcialist-ai-safety--cmw24vqpc000008lbv3fk4dn1/",
+      "title": "Cybersecurity Specialist (AI Safety) – Remote",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://finance.yahoo.com/technology/ai/articles/neoverse-autonomous-research-agents-uncover-140000843.html",
+      "title": "Neoverse Autonomous Research Agents Uncover Critical ...",
+      "disposition": "duplicate_event",
+      "reason": "Yahoo syndicated Neo Zoom disclosure; same event as 100.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.facebook.com/noemamag/videos/building-well-behaved-ai-one-model-at-a-time-isnt-enough-as-ai-agents-begin-coll/1105741745406329/",
+      "title": "When AIs Become Unruly Swarms: AI Agent Safety and ...",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://github.com/morluto/rea/discussions/2304",
+      "title": "Using REA with Claude and other AI models: what's fine ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://codeant.ai/blogs/ai-lab-security-agents-vs-penetration-test",
+      "title": "Can Claude or OpenAI Replace a Penetration Test? (2026)",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.psyber.com.au/resources/security-basics/what-is-a-vulnerability/",
+      "title": "What is a Vulnerability and Why Is AI Making Them Riskier?",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"Nov 12, 2026\" AI agent safety security vulnerability researchers"
+      ],
+      "first_query_executedAt": "2026-11-13 02:27:51 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/gayathri04_introducing-parsebench-the-first-document-activity-7449656438106505216-MD-e",
+      "title": "The First Document Parsing Benchmark for AI Agents | Gayathri G",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://lnkd.in/ggFtuj6R",
+      "title": "Embedded outbound link",
+      "disposition": "needs_followup",
+      "reason": "Short outbound link inside LinkedIn excerpt; target unresolved; do not infer identity or contents.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://benchlm.ai/benchmarks",
+      "title": "AI Benchmarks: 822 LLM Evaluations Ranked ...",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://llm-stats.com/models/compare/beam-1.0-501b-a23b-vs-parse-v5.0",
+      "title": "Beam 1.0 vs Parse: Benchmarks, Pricing & Which Is Better ...",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://buttondown.com/theaggregate/archive/ai-benchmark-digest-2026-07-19/",
+      "title": "AI Benchmark Digest — 2026-07-19",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://huggingface.co/papers?q=BIBLE+benchmark",
+      "title": "Daily Papers",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://intelligence.mts.now/atlas/cohere",
+      "title": "Cohere · MTS Atlas - MTS Compute Intelligence",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://opennash.com/ai-evals/retrieval-rag/",
+      "title": "RAG, Retrieval, and Embedding Benchmarks",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://regolo.ai/open-weights-vs-proprietary-benchlm-benchmarks/",
+      "title": "Open weights vs proprietary: BenchLM 2026 benchmarks",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/sean-sodha_nvidia-agenticai-agenticretrieval-activity-7518728664658690048-Q0H-",
+      "title": "Nemotron 3.5 Embed, Rerank, and Parse Models Released",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:04 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://lnkd.in/dejshyMA",
+      "title": "Embedded outbound link",
+      "disposition": "needs_followup",
+      "reason": "Short outbound link inside LinkedIn excerpt; target unresolved; do not infer identity or contents.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://lnkd.in/dGGsRU5b",
+      "title": "Embedded outbound link",
+      "disposition": "needs_followup",
+      "reason": "Short outbound link inside LinkedIn excerpt; target unresolved; do not infer identity or contents.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://lnkd.in/d8Hif2Ex",
+      "title": "Embedded outbound link",
+      "disposition": "needs_followup",
+      "reason": "Short outbound link inside LinkedIn excerpt; target unresolved; do not infer identity or contents.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://lnkd.in/dGHNFvsc",
+      "title": "Embedded outbound link",
+      "disposition": "needs_followup",
+      "reason": "Short outbound link inside LinkedIn excerpt; target unresolved; do not infer identity or contents.",
+      "queries": [
+        "\"Atlas\" \"ParseBench\" 2026 AI document parse benchmark"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://opennash.com/ai-evals-benchmark-atlas/",
+      "title": "AI Benchmark Atlas 2026: 172 Evals and Model Scores | OpenNash",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" \"Atlas\" artificial intelligence November 2026 model"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:06 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://arxiv.org/html/2604.08538v3",
+      "title": "ParseBench: A Document Parsing Benchmark for AI Agents",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.parsebench.ai/",
+      "title": "ParseBench: Document Parsing & OCR Benchmark ...",
+      "disposition": "candidate_needs_review",
+      "reason": "ParseBench site currently reflects V2; separate original V1 old paper from Nov12 V2 announcement. Current dynamic page lacks dated snapshot.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://benchlm.ai/benchmarks/parsebench",
+      "title": "ParseBench Leaderboard & Scores — November 2026",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://pypi.org/project/parse-bench/",
+      "title": "parse-bench",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.llamaindex.ai/agents/llamaparse-vs-datalab-what-parsebench-shows-about-parsing-accuracy",
+      "title": "LlamaParse vs Datalab: What ParseBench Shows About ...",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://github.com/run-llama/ParseBench/releases",
+      "title": "Releases · run-llama/ParseBench",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.nutrient.io/benchmarks/parse/",
+      "title": "WholeDoc Bench — Document parsing benchmark - Nutrient.io",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://documentagent.co/posts/the-foundation-layer-ai-agent-systems-are-actually-built-on",
+      "title": "The Foundation Layer AI Agent Systems Are Actually Built On",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.08538",
+      "title": "ParseBench: A Document Parsing Benchmark for AI Agents",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://huggingface.co/datasets/llamaindex/ParseBench}{HuggingFace}",
+      "title": "Embedded outbound link",
+      "disposition": "old_or_context",
+      "reason": "Embedded link to ParseBench dataset; URL has trailing parser artifact; original benchmark separate from V2.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://github.com/run-llama/ParseBench}{GitHub}.--------------------------------------------------------------------------------",
+      "title": "Embedded outbound link",
+      "disposition": "old_or_context",
+      "reason": "Embedded link to ParseBench repository; URL has trailing parser artifact; version/release must be verified.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": null,
+      "evidence_level": "embedded_url_in_result"
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.00092",
+      "title": "OCRia-1 Technical Report",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://arxiv.org/abs/2607.07836",
+      "title": "Infinity-Parser2 Technical Report",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.nace.ai/developers",
+      "title": "The execution layer for agents",
+      "disposition": "old_or_context",
+      "reason": "Returned title/snippet identifies older article, prior regulation/paper, retrospective or future event; not established as new in current window.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/LlamaIndex",
+      "title": "LlamaIndex",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"ParseBench\" agent document parsing benchmark November 12 2026"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:07 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.ithome.com/1/026/050.htm",
+      "title": "消息称通芯智能已完成数亿元融资，首款 AGI 芯片计划 12 月开展原型验证 - IT之家",
+      "disposition": "duplicate_event",
+      "reason": "IT Home citing Jiemian, same Tongxin announcement.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://cj.sina.com.cn/articles/view/5182171545/134e1a99902002lgv8",
+      "title": "通芯智能已完成数亿元融资，首款AGI芯片计划12月开展原型验证_新浪财经",
+      "disposition": "duplicate_event",
+      "reason": "Jiemian report syndication of Tongxin financing.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.jiemian.com/article/15324995.html",
+      "title": "通芯智能已完成数亿元融资，首款AGI芯片计划12月开展原型验证|界面新闻 · 快讯",
+      "disposition": "duplicate_event",
+      "reason": "Jiemian original Tongxin financing, duplicated by 140–157; source 36Kr possible earlier.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.bjnews.com.cn/detail/1794473938129841.html",
+      "title": "通芯智能完成数亿元融资，公司发起人为朱松纯 — 新京报",
+      "disposition": "duplicate_event",
+      "reason": "Beijing News separate reporting of Tongxin financing, same financing event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://m.jiemian.com/article/15324995.html",
+      "title": "通芯智能已完成数亿元融资，首款AGI芯片计划12月开展原型验证 | 界面新闻",
+      "disposition": "duplicate_event",
+      "reason": "Mobile Jiemian report, same event as 142.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://m.nbd.com.cn/articles/2026-11-12/4645827.html",
+      "title": "朱松纯联手海光四代架构负责人创业，通芯智能获数亿元融资，主打原生AGI芯片架构 | 每日经济新闻",
+      "disposition": "duplicate_event",
+      "reason": "NBD reporting Tongxin financing, distinct source, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.bjd.com.cn/2026/11/12/12027743.shtml",
+      "title": "通芯智能完成数亿元融资，将自研原生AGI架构芯片_京报网",
+      "disposition": "duplicate_event",
+      "reason": "Beijing Daily reporting Tongxin financing, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.jiemian.com/index.php?a=index&m=special&sid=2071",
+      "title": "界面新闻-只服务于独立思考的人群-Jiemian.com",
+      "disposition": "background_or_irrelevant",
+      "reason": "Returned text is an encyclopedia, job listing, topic homepage, generic reference or contextual resource; no discrete current-window event established.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.eet-china.com/news/202611129483.html",
+      "title": "通芯智能完成数亿元种子轮及天使轮融资，龙芯海光背景团队研发AGI架构芯片-电子工程专辑",
+      "disposition": "duplicate_event",
+      "reason": "EET China Tongxin financing, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://finance.sina.com.cn/tech/digi/2026-11-12/doc-iniynaxi3844891.shtml",
+      "title": "消息称通芯智能已完成数亿元融资，首款 AGI 芯片计划 12 月开展原型验证_新浪科技_新浪网",
+      "disposition": "duplicate_event",
+      "reason": "Sina/IT Home repost of Tongxin financing, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻",
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.donews.com/news/detail/8/6771757.html",
+      "title": "消息称通芯智能已完成数亿元融资- DoNews快讯",
+      "disposition": "duplicate_event",
+      "reason": "DoNews Tongxin financing, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.mysteel.com/a/26111213/CC8DCFF653072514.html",
+      "title": "通芯智能完成数亿元融资，研发原生AGI架构芯片-我的钢铁网",
+      "disposition": "duplicate_event",
+      "reason": "Mysteel reports Tongxin company account financing, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" 11月11日 2026 首轮 界面新闻"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:11 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://es.tradingview.com/news/panews%3Ac43c9ebedacdf%3A0/",
+      "title": "通芯智能已完成数亿元融资，其首款AGI芯片计划12月开展 ...",
+      "disposition": "duplicate_event",
+      "reason": "PANews/TradingView citing Jiemian Tongxin, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:18 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://m.sohu.com/a/1100522061_313745?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334",
+      "title": "通芯智能已完成数亿元融资，首款AGI芯片计划12月开展原型 ...",
+      "disposition": "duplicate_event",
+      "reason": "Sohu Jiemian Tongxin report, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:18 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://www.sohu.com/a/1100619920_122014422",
+      "title": "朱松纯发起，北京AI芯片创企融资数亿元",
+      "disposition": "duplicate_event",
+      "reason": "Zhidx Tongxin report, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:18 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.ifeng.com/c/8xzXAYEBk20",
+      "title": "朱松纯联手海光四代架构负责人创业，通芯智能获数亿元融资",
+      "disposition": "duplicate_event",
+      "reason": "NBD Tongxin report, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:18 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://news.qq.com/rain/a/20261112A08U4900",
+      "title": "朱松纯发起，北京AI芯片创企融资数亿元 - 腾讯新闻",
+      "disposition": "duplicate_event",
+      "reason": "Tencent reprint of Zhidx Tongxin report, same event.",
+      "queries": [
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:18 UTC",
+      "evidence_level": "search_result_excerpt"
+    },
+    {
+      "url": "https://36kr.com/p/4066136377873286",
+      "title": "36氪首发丨海光创始核心技术团队创业AGI架构芯片",
+      "disposition": "candidate_needs_review",
+      "reason": "36Kr Tongxin original first report; search snippet and body render disagree on 11/11 18:08 vs 11/12 10:08; direct anti-bot prevents timezone resolution.",
+      "queries": [
+        "\"通芯智能\" \"融资\" \"AGI芯片\" 2026 11 12 朱松纯"
+      ],
+      "first_query_executedAt": "2026-11-13 02:30:18 UTC",
+      "evidence_level": "search_result_excerpt"
+    }
+  ],
+  "aggregate_leads": [
+    {
+      "lead": "Uliqi Pre-A Nov9",
+      "aggregate_source_urls": [
+        "https://k.sina.com.cn/article_7857201856_1d45362c001908uhoi.html?from=tech"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "汇总称11月9日宣布融资，早于窗口。",
+      "evidence_urls": [
+        "http://finance.sina.com.cn/stock/estate/integration/2026-11-12/doc-iniykzmu8855296.shtml"
+      ]
+    },
+    {
+      "lead": "Honor robotics subsidiary",
+      "aggregate_source_urls": [
+        "https://k.sina.com.cn/article_7857201856_1d45362c001908uhoi.html?from=tech"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "汇总只称近日成立，准确注册日期及是否已披露待核。",
+      "evidence_urls": [
+        "http://finance.sina.com.cn/cj/2026-11-12/doc-iniykvcr1640663.shtml"
+      ]
+    },
+    {
+      "lead": "Beijing token economy report",
+      "aggregate_source_urls": [
+        "https://k.sina.com.cn/article_7857201856_1d45362c001908uhoi.html?from=tech"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "汇总只称日前发布，活动日期及首次公开时间待核。",
+      "evidence_urls": [
+        "http://finance.sina.com.cn/jjxw/2026-11-12/doc-iniykzmt2078118.shtml"
+      ]
+    },
+    {
+      "lead": "LingBot-Touch Nov9/10",
+      "aggregate_source_urls": [
+        "https://labmemo.com/ai-news-roundup-2026-11-12/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "相关报道先于本期；日本汇总日期不能作为发布日。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "AMD Halo Nov9",
+      "aggregate_source_urls": [
+        "https://labmemo.com/ai-news-roundup-2026-11-12/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "汇总引AMD官方博客11月9日。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "DCAI Nov10",
+      "aggregate_source_urls": [
+        "https://labmemo.com/ai-news-roundup-2026-11-12/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "汇总引Netcompany官方11月10日公告。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "PAN2",
+      "aggregate_source_urls": [
+        "https://labmemo.com/ai-news-roundup-2026-11-12/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "IFM官方声明11月10日发布，非11月12日新模型。",
+      "evidence_urls": [
+        "https://ifm.ai/pan2/press-release/"
+      ]
+    },
+    {
+      "lead": "Bay Nov10",
+      "aggregate_source_urls": [
+        "https://labmemo.com/ai-news-roundup-2026-11-12/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "日本汇总援引Bay公司11月10日宣布。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "NEAR AI Nov9",
+      "aggregate_source_urls": [
+        "https://labmemo.com/ai-news-roundup-2026-11-12/",
+        "https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261112/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "日本汇总援引11月9日官方事故报告，CSA说明已在11日覆盖。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "Contrastive Discovery",
+      "aggregate_source_urls": [
+        "https://buttondown.com/agent-k/archive/llm-daily-november-12-2026/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "日报汇总提及研究；论文首次提交时间、版本与重要性待核。",
+      "evidence_urls": [
+        "https://arcxiv.org/abs/2611.14514"
+      ]
+    },
+    {
+      "lead": "browser-use v1.0.2",
+      "aggregate_source_urls": [
+        "https://buttondown.com/agent-k/archive/llm-daily-november-12-2026/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "日报汇总提及版本及星数，须核对实际release时间与实质性。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "Databricks Genie",
+      "aggregate_source_urls": [
+        "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-12-2026"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "汇总称发布Genie，自身网页直接读取失败；首发时间和是否已有候选未核。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "ServiceNow migration engine",
+      "aggregate_source_urls": [
+        "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-12-2026"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "汇总称自主CRM迁移引擎；独立报道14:00Z线索，首发及价值仍需核对。",
+      "evidence_urls": [
+        "https://sg.finance.yahoo.com/news/servicenow-autonomous-crm-engine-enables-140000659.html"
+      ]
+    },
+    {
+      "lead": "Kindo",
+      "aggregate_source_urls": [
+        "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-12-2026"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "已通知本期作者，须以台账候选名去重",
+      "disposition": "已确认",
+      "reason": "官方11月12日09:00 ET发布3000万美元融资，文章日期符合本期；需按独立台账查重。",
+      "evidence_urls": [
+        "https://www.prnewswire.com/news-releases/kindo-secures-57-6-million-to-expand-enterprise-control-over-ai-agent-actions-and-reduce-costs-302937058.html"
+      ]
+    },
+    {
+      "lead": "Neo4j Relate",
+      "aggregate_source_urls": [
+        "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-12-2026"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "官方文章仅11月11日无时区时分，不能判定窗口；汇总称11月12日非首次证据。",
+      "evidence_urls": [
+        "https://neo4j.com/press-releases/announcing-relate-by-neo4j/"
+      ]
+    },
+    {
+      "lead": "AWS UAEF",
+      "aggregate_source_urls": [
+        "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-12-2026"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "原始汇总结果列入此线索，具体事件与公开时间未证实。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "Jev MCP identity unconfirmed",
+      "aggregate_source_urls": [
+        "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-12-2026"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "汇总使用Jev，指代未确认，不能替换或断言与其他项目同一。",
+      "evidence_urls": []
+    },
+    {
+      "lead": "Cairn Unit42",
+      "aggregate_source_urls": [],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "已通知本期作者，须以台账候选名去重",
+      "disposition": "已确认",
+      "reason": "来源为独立安全检索，未证实出现在哪个汇总；Unit42主文元数据为11月12日15:00:31Z，已通知作者。",
+      "evidence_urls": [
+        "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/"
+      ]
+    },
+    {
+      "lead": "Neo Zoom RCE",
+      "aggregate_source_urls": [],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "已通知本期作者，须以台账候选名去重",
+      "disposition": "已确认",
+      "reason": "独立安全检索发现，未证实属于哪份汇总；新闻稿11月12日09 ET，披露此前8月发现及9月修复。",
+      "evidence_urls": [
+        "https://www.globenewswire.com/news-release/2026/11/12/3401659/0/en/neoverse-autonomous-research-agents-uncover-critical-remote-code-execution-flaw-in-zoom.html"
+      ]
+    },
+    {
+      "lead": "wfx GitHub secret theft",
+      "aggregate_source_urls": [
+        "https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261112/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "待核",
+      "reason": "CSA列48小时情报，Aikido原文仅11月12日期，Phoenix署11月11日；最早披露和时区待核。",
+      "evidence_urls": [
+        "https://www.aikido.dev/blog/compromised-github-accounts-push-ci-secret-stealer-to-tens-of-thousands-of-repositories",
+        "https://phoenix.security/wfx-github-actions-credential-stealer-ci-secret-theft/"
+      ]
+    },
+    {
+      "lead": "AntiFox",
+      "aggregate_source_urls": [
+        "https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261112/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "CSA注明Arctic Wolf 11月10日披露；11月12日CSA分析不能代表首次披露。",
+      "evidence_urls": [
+        "https://labs.cloudsecurityalliance.org/research/csa-research-note-antifox-agentic-cloud-intrusions-20261112/"
+      ]
+    },
+    {
+      "lead": "EU AI sandbox",
+      "aggregate_source_urls": [
+        "https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261112/",
+        "https://www.lemondefeminin.com/revue-presse-intelligence-artificielle-12/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "未核实已有候选ID；按名称/原始URL与本期台账查重",
+      "disposition": "旧闻",
+      "reason": "CSA称条例11月11日刊行、12月1日适用；官方公报发布日期及是否有窗口内不同进展仍需核验。",
+      "evidence_urls": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ%3AL_202602487"
+      ]
+    },
+    {
+      "lead": "Fireworks/Notion",
+      "aggregate_source_urls": [
+        "https://labs.cloudsecurityalliance.org/research/ciso-daily-briefing-20261112/"
+      ],
+      "source_mapping_evidence": "搜索原始结果及摘要；部分关键汇总已重新打开。空数组表示未能确认具体汇总来源。",
+      "prior_candidate_match": "已在56项英文索引",
+      "disposition": "待核",
+      "reason": "CSA分析与英文56项索引均指同一事件，须和已有候选合并；单凭CSA日期不证明新披露。",
+      "evidence_urls": [
+        "https://code.tarasovweb.ru/en/news/item/cyberattack-on-fireworks-ai-allowed-hackers-to-access-notion-023d1c79ca20/"
+      ]
+    }
+  ]
+}

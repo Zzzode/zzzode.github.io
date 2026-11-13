@@ -1,0 +1,927 @@
+---
+{
+  "title": "AI 日报：NVIDIA 管理层交接与 Agent 模型边界",
+  "date": "2026-11-13T02:50:37Z",
+  "excerpt": "NVIDIA 管理层交接，Google 与 IBM 更新模型工具，Agent 基础设施和安全治理受到关注。",
+  "tags": [
+    "AI",
+    "AI 日报",
+    "Agent"
+  ],
+  "kind": "distilled",
+  "channel": "daily",
+  "draft": false,
+  "sources": [
+    {
+      "title": "Google：Gemini 4 Hydrogen",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T18:00:00Z",
+        "basis": "Google page datePublished metadata; current page may have changed after first publication.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:10:21Z"
+    },
+    {
+      "title": "The Wall Street Journal：LangChain 融资报道",
+      "url": "https://www.wsj.com/cio-journal/ai-startup-langchain-more-than-doubles-its-valuation-to-3-billion-f83377ad",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T14:00:00Z",
+        "basis": "News extraction returns full original report with explicit publication time.",
+        "sourceUrls": [
+          "https://www.wsj.com/cio-journal/ai-startup-langchain-more-than-doubles-its-valuation-to-3-billion-f83377ad"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:13:42Z"
+    },
+    {
+      "title": "CBS News：AI 安全诉讼报道",
+      "url": "https://www.cbsnews.com/news/advocacy-groups-sue-ai-companies/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T17:12:48-05:00",
+        "basis": "CBS article publication metadata.",
+        "sourceUrls": [
+          "https://www.cbsnews.com/news/advocacy-groups-sue-ai-companies/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:10:22Z"
+    },
+    {
+      "title": "Anthropic：Claude for Manufacturing",
+      "url": "https://claude.com/resources/articles/claude-for-manufacturing",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source presents a calendar date without an evidenced timezone or first-publication instant.",
+        "sourceUrls": [
+          "https://claude.com/resources/articles/claude-for-manufacturing"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:10:22Z"
+    },
+    {
+      "title": "IBM：Agent 身份与 Vault",
+      "url": "https://newsroom.ibm.com/blog-ibm-advances-agent-identity-security-with-new-vault-capabilities",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source presents a calendar date without an evidenced timezone or first-publication instant.",
+        "sourceUrls": [
+          "https://newsroom.ibm.com/blog-ibm-advances-agent-identity-security-with-new-vault-capabilities"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:10:21Z"
+    },
+    {
+      "title": "OpenAI：儿童安全研究",
+      "url": "https://openai.com/index/children-first-declaration/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source presents a calendar date without an evidenced timezone or first-publication instant.",
+        "sourceUrls": [
+          "https://openai.com/index/children-first-declaration/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:14:48Z"
+    },
+    {
+      "title": "NVIDIA：CEO 交接公告",
+      "url": "https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html",
+      "retrievedAt": "2026-11-13T02:28:16Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-12T13:48:00Z",
+        "latest": "2026-11-12T13:48:59Z",
+        "basis": "GlobeNewswire displays 08:48 ET, minute precision; the announcement is distinct from resignation effective time.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html"
+        ]
+      }
+    },
+    {
+      "title": "IBM：Granite 4.1 LLMON 技术说明",
+      "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
+      "retrievedAt": "2026-11-13T02:13:06Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T19:07:35.672Z",
+        "basis": "IBM authors’ Hugging Face blog JSON-LD datePublished; this is the publication of the technical explanation.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite"
+        ]
+      }
+    },
+    {
+      "title": "9to5Mac：Mount Thor 融资报道",
+      "url": "https://9to5mac.com/2026/11/12/mount-thor-raises-45-million-to-build-mac-data-centers-for-ai-agents/",
+      "retrievedAt": "2026-11-13T02:28:17Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T14:00:00Z",
+        "basis": "9to5Mac original interview HTML article:published_time; reporting event, not financing close date.",
+        "sourceUrls": [
+          "https://9to5mac.com/2026/11/12/mount-thor-raises-45-million-to-build-mac-data-centers-for-ai-agents/"
+        ]
+      }
+    },
+    {
+      "title": "Nikkei Research：Notion 服务安全事件通告",
+      "url": "https://www.nikkei-r.co.jp/news/information/20261112",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T04:00:00Z",
+        "basis": "Company notice JSON-LD datePublished; notice is a subsequent disclosure about an earlier incident.",
+        "sourceUrls": [
+          "https://www.nikkei-r.co.jp/news/information/20261112"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:10:22Z"
+    },
+    {
+      "title": "World Labs Atlas 开放工具与 API",
+      "url": "https://worldlabs.ai/blog",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Official page shows November 12 without evidenced timezone or first-publication time.",
+        "sourceUrls": [
+          "https://worldlabs.ai/blog"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:30:55Z"
+    },
+    {
+      "title": "LlamaIndex ParseBench-2 与 OCRia 1.5",
+      "url": "https://www.llamaindex.ai/blog/introducing-parsebench-v2",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Official page shows November 12 without evidenced timezone or first-publication time.",
+        "sourceUrls": [
+          "https://www.llamaindex.ai/blog/introducing-parsebench-v2"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:30:55Z"
+    },
+    {
+      "title": "Google：Tabletop 博客",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-11T16:00:00Z",
+        "basis": "Official blog datePublished metadata.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:30:16Z"
+    },
+    {
+      "title": "Amazon：AWS Emulator 博客",
+      "url": "https://www.allthingsdistributed.com/2026/11/aws-emulator-and-the-engineers-job-when-agents-write-the-code.html",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-11T06:30:00Z",
+        "latest": "2026-11-11T14:30:00Z",
+        "basis": "Conflicting metadata presents 06:30 UTC and 06:30 Pacific; both possibilities fall in the previous issue.",
+        "sourceUrls": [
+          "https://www.allthingsdistributed.com/2026/11/aws-emulator-and-the-engineers-job-when-agents-write-the-code.html"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:30:17Z"
+    },
+    {
+      "title": "Zyphra：ZONOS3-Mini",
+      "url": "https://www.zyphra.com/our-work/zonos3-mini",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Company page displays date without evidenced timezone.",
+        "sourceUrls": [
+          "https://www.zyphra.com/our-work/zonos3-mini"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:30:17Z"
+    },
+    {
+      "title": "mlx-audio：ZONOS 接入讨论",
+      "url": "https://github.com/Neywa-Labs/mlx-audio/pull/1162",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T23:32:44Z",
+        "basis": "GitHub API reports pull request creation, providing a public availability upper bound.",
+        "sourceUrls": [
+          "https://github.com/Neywa-Labs/mlx-audio/pull/1162"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:30:19Z"
+    },
+    {
+      "title": "英国政府：Fractile 投资公告",
+      "url": "https://www.gov.uk/government/news/sovereign-ai-and-british-business-bank-invest-in-british-firm-developing-the-next-generation-of-ai-hardware",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-11T13:00:03Z",
+        "basis": "Original page datePublished metadata; announcement publication, not funding close time.",
+        "sourceUrls": [
+          "https://www.gov.uk/government/news/sovereign-ai-and-british-business-bank-invest-in-british-firm-developing-the-next-generation-of-ai-hardware"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:32:05Z"
+    },
+    {
+      "title": "WIRED：DeepMind 英国工会申请",
+      "url": "https://www.wired.com/story/google-deepmind-staff-escalate-their-union-fight",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T18:05:41Z",
+        "basis": "Original WIRED report and reporting timestamp returned in full via web news extraction; the report is the event being dated.",
+        "sourceUrls": [
+          "https://www.wired.com/story/google-deepmind-staff-escalate-their-union-fight"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:34:14Z"
+    },
+    {
+      "title": "The Verge：购物网站风险研究",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1032020/gemini-chatgpt-perplexity-shopping-test-risky-fake-websites-citations",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T17:00:00Z",
+        "basis": "Original The Verge report via full news extraction displays 12:00 EST; report publication is the timed event.",
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1032020/gemini-chatgpt-perplexity-shopping-test-risky-fake-websites-citations"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:34:52Z"
+    },
+    {
+      "title": "WIRED：Google 与 Samsung 智能眼镜",
+      "url": "https://www.wired.com/story/google-samsung-intelligent-eyewear-launch-warby-parker-gentle-monster-smart-glasses/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T14:00:00Z",
+        "basis": "WIRED article HTML datePublished; event is the new hands-on report on preorders.",
+        "sourceUrls": [
+          "https://www.wired.com/story/google-samsung-intelligent-eyewear-launch-warby-parker-gentle-monster-smart-glasses/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:35:21Z"
+    },
+    {
+      "title": "SiliconANGLE：Qvyon 公开亮相",
+      "url": "https://siliconangle.com/2026/11/12/qvyon-launches-with-8m-to-improve-safety-for-physical-ai-deployments/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T14:00:18Z",
+        "basis": "Original SiliconANGLE reporting datePublished metadata; public launch report, not funding close date.",
+        "sourceUrls": [
+          "https://siliconangle.com/2026/11/12/qvyon-launches-with-8m-to-improve-safety-for-physical-ai-deployments/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:37:23Z"
+    },
+    {
+      "title": "The Verge：AI 考古发现的核查",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1032125/ai-agents-maya-site-archeology-discovery",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T19:42:40Z",
+        "basis": "The Verge report publication time, not the date of the underlying research.",
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1032125/ai-agents-maya-site-archeology-discovery"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:38:56Z"
+    },
+    {
+      "title": "MIT Technology Review：芯片追踪采访",
+      "url": "https://www.technologyreview.com/2026/11/12/1148483/nvidia-chip-tracking/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T20:16:24Z",
+        "basis": "MIT Technology Review datePublished metadata; date of interview report, not the private discussion.",
+        "sourceUrls": [
+          "https://www.technologyreview.com/2026/11/12/1148483/nvidia-chip-tracking/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:40:21Z"
+    },
+    {
+      "title": "Unit 42：Cairn 攻击活动调查",
+      "url": "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T15:00:31Z",
+        "basis": "Unit 42 article:published_time and visible November 12 date; this is report publication, not attack dates.",
+        "sourceUrls": [
+          "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:41:34Z"
+    },
+    {
+      "title": "Dealroom：OpenAI 融资报道",
+      "url": "https://dealroom.co/news/172395-openai-raises-15b-at-a-1-25t-valuation-half-its-original-target-as-it-br/",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-12T15:06:00Z",
+        "latest": "2026-11-12T15:06:59Z",
+        "basis": "Dealroom report displays November 12 15:06 UTC with minute precision; report cites CNBC and anonymous sources.",
+        "sourceUrls": [
+          "https://dealroom.co/news/172395-openai-raises-15b-at-a-1-25t-valuation-half-its-original-target-as-it-br/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:42:37Z"
+    },
+    {
+      "title": "Neo：Zoom 组件漏洞调查",
+      "url": "https://www.globenewswire.com/news-release/2026/11/12/3401659/0/en/neoverse-autonomous-research-agents-uncover-critical-remote-code-execution-flaw-in-zoom.html",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T14:00:00Z",
+        "basis": "Company newswire datePublished; public research explanation rather than original discovery or patch date.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/12/3401659/0/en/neoverse-autonomous-research-agents-uncover-critical-remote-code-execution-flaw-in-zoom.html"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:43:53Z"
+    },
+    {
+      "title": "Ars Technica：学校 AI 抗议报道",
+      "url": "https://arstechnica.com/tech-policy/2026/11/families-fight-to-keep-googles-disturbing-ai-off-school-issued-chromebooks/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T18:57:45Z",
+        "basis": "Ars Technica article:published_time metadata; reporting event, not date of underlying protest.",
+        "sourceUrls": [
+          "https://arstechnica.com/tech-policy/2026/11/families-fight-to-keep-googles-disturbing-ai-off-school-issued-chromebooks/"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:40:21Z"
+    },
+    {
+      "title": "投资界：通芯智能融资报道",
+      "url": "https://m.sohu.com/a/1100545502_439726",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Chinese investment report date without explicit timezone; earlier report metadata conflict leaves initial disclosure uncertain.",
+        "sourceUrls": [
+          "https://m.sohu.com/a/1100545502_439726"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:36:30Z"
+    },
+    {
+      "title": "欧盟官方公报：AI 监管沙盒实施条例",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202602487",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Official Journal dated 11 November 2026; publication instant/timezone not given in the regulation.",
+        "sourceUrls": [
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202602487"
+        ]
+      },
+      "retrievedAt": "2026-11-13T02:48:40Z"
+    }
+  ],
+  "daily": {
+    "issueDate": "2026-11-13",
+    "timeZone": "Asia/Shanghai",
+    "windowStart": "2026-11-12T02:00:00Z",
+    "cutoff": "2026-11-13T02:00:00Z",
+    "evidenceRun": "docs/daily/runs/2026-11-13.json",
+    "items": [
+      {
+        "candidateId": "nvidia",
+        "title": "NVIDIA 宣布 CEO 交接",
+        "summary": "公司称黄仁勋辞去总裁、CEO 与董事职务，首席财务官 Colette Kress 暂代 CEO。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-12T13:48:00Z",
+          "latest": "2026-11-12T13:48:59Z",
+          "basis": "GlobeNewswire displays 08:48 ET, minute precision; the announcement is distinct from resignation effective time.",
+          "sourceUrls": [
+            "https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/12/3401635/0/en/nvidia-announces-ceo-transition.html"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "google",
+        "title": "Google 发布 Gemini 4 Hydrogen",
+        "summary": "新模型面向代码与 Agent 任务；Google 同时介绍在 Antigravity 内切换模型的编排方式。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T18:00:00Z",
+          "basis": "Google page datePublished metadata; current page may have changed after first publication.",
+          "sourceUrls": [
+            "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/"
+          ]
+        },
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/"
+        ],
+        "releaseStatus": "released"
+      },
+      {
+        "candidateId": "inventory-46",
+        "title": "Google 与 Samsung 智能眼镜开放预购",
+        "summary": "WIRED 实测报道，眼镜接入 Gemini，12 月 10 日开始销售；兼容手机型号有限。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T14:00:00Z",
+          "basis": "WIRED article HTML datePublished; event is the new hands-on report on preorders.",
+          "sourceUrls": [
+            "https://www.wired.com/story/google-samsung-intelligent-eyewear-launch-warby-parker-gentle-monster-smart-glasses/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.wired.com/story/google-samsung-intelligent-eyewear-launch-warby-parker-gentle-monster-smart-glasses/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "openai-round",
+        "title": "媒体报道 OpenAI 融资进展",
+        "summary": "Dealroom 引述 CNBC 称已筹集 150 亿美元，融资尚未正式完成；原始视频无法读取。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-12T15:06:00Z",
+          "latest": "2026-11-12T15:06:59Z",
+          "basis": "Dealroom report displays November 12 15:06 UTC with minute precision; report cites CNBC and anonymous sources.",
+          "sourceUrls": [
+            "https://dealroom.co/news/172395-openai-raises-15b-at-a-1-25t-valuation-half-its-original-target-as-it-br/"
+          ]
+        },
+        "sourceUrls": [
+          "https://dealroom.co/news/172395-openai-raises-15b-at-a-1-25t-valuation-half-its-original-target-as-it-br/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "llmon",
+        "title": "IBM 解释 Granite LLMON 的指令边界",
+        "summary": "IBM 介绍实验性模型如何标记可信指令和外部数据，以降低提示注入风险；测试结果来自团队。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T19:07:35.672Z",
+          "basis": "IBM authors’ Hugging Face blog JSON-LD datePublished; this is the publication of the technical explanation.",
+          "sourceUrls": [
+            "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite"
+          ]
+        },
+        "sourceUrls": [
+          "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite"
+        ],
+        "releaseStatus": "research"
+      },
+      {
+        "candidateId": "cbs",
+        "title": "安全组织起诉五家 AI 公司",
+        "summary": "CBS 报道，原告请求法院限制前沿模型开发；这是诉讼请求，而非法院判决。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T17:12:48-05:00",
+          "basis": "CBS article publication metadata.",
+          "sourceUrls": [
+            "https://www.cbsnews.com/news/advocacy-groups-sue-ai-companies/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.cbsnews.com/news/advocacy-groups-sue-ai-companies/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "langchain",
+        "title": "LangChain 获 3 亿美元融资",
+        "summary": "《华尔街日报》报道称 CapitalG 领投，公司拟扩展 Agent 开发与评估平台 LangSmith。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T14:00:00Z",
+          "basis": "News extraction returns full original report with explicit publication time.",
+          "sourceUrls": [
+            "https://www.wsj.com/cio-journal/ai-startup-langchain-more-than-doubles-its-valuation-to-3-billion-f83377ad"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.wsj.com/cio-journal/ai-startup-langchain-more-than-doubles-its-valuation-to-3-billion-f83377ad"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "cairn",
+        "title": "Unit 42 报告利用 Agent 框架的攻击活动",
+        "summary": "安全公司称观察到针对至少 19 个组织的 25 次行动；活动发生在 8 至 9 月，归因为中等信心。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T15:00:31Z",
+          "basis": "Unit 42 article:published_time and visible November 12 date; this is report publication, not attack dates.",
+          "sourceUrls": [
+            "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/"
+          ]
+        },
+        "sourceUrls": [
+          "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/"
+        ],
+        "releaseStatus": "research"
+      },
+      {
+        "candidateId": "nikkei",
+        "title": "日经 Research 披露 Notion AI 对话可能受影响",
+        "summary": "公司称员工对话可能在此前 Fireworks 事件中暴露，影响范围仍在调查。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T04:00:00Z",
+          "basis": "Company notice JSON-LD datePublished; notice is a subsequent disclosure about an earlier incident.",
+          "sourceUrls": [
+            "https://www.nikkei-r.co.jp/news/information/20261112"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.nikkei-r.co.jp/news/information/20261112"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "inventory-11",
+        "title": "议员称 NVIDIA 曾私下讨论芯片追踪可行性",
+        "summary": "MIT Technology Review 采访报道议员说法；NVIDIA 没有确认，相关法案仍在审议。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T20:16:24Z",
+          "basis": "MIT Technology Review datePublished metadata; date of interview report, not the private discussion.",
+          "sourceUrls": [
+            "https://www.technologyreview.com/2026/11/12/1148483/nvidia-chip-tracking/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.technologyreview.com/2026/11/12/1148483/nvidia-chip-tracking/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "inventory-26",
+        "title": "DeepMind 英国员工寻求推进工会投票",
+        "summary": "WIRED 报道，员工代表向英国机构申请确认投票条件；工会尚未因此获得承认。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T18:05:41Z",
+          "basis": "Original WIRED report and reporting timestamp returned in full via web news extraction; the report is the event being dated.",
+          "sourceUrls": [
+            "https://www.wired.com/story/google-deepmind-staff-escalate-their-union-fight"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.wired.com/story/google-deepmind-staff-escalate-their-union-fight"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "inventory-35",
+        "title": "研究测试 AI 购物回答中的风险网站",
+        "summary": "The Verge 报道 Podqi 对 151 个品牌的测试；风险分类包含仿冒、失效域名以及带警示的结果。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T17:00:00Z",
+          "basis": "Original The Verge report via full news extraction displays 12:00 EST; report publication is the timed event.",
+          "sourceUrls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1032020/gemini-chatgpt-perplexity-shopping-test-risky-fake-websites-citations"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1032020/gemini-chatgpt-perplexity-shopping-test-risky-fake-websites-citations"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "inventory-18",
+        "title": "考古学家指出 AI 所谓新发现已有记录",
+        "summary": "The Verge 报道，一处被 Agent 标记的玛雅遗址已见学术文献；研究者确认遗漏并更新署名。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T19:42:40Z",
+          "basis": "The Verge report publication time, not the date of the underlying research.",
+          "sourceUrls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1032125/ai-agents-maya-site-archeology-discovery"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.theverge.com/ai-artificial-intelligence/1032125/ai-agents-maya-site-archeology-discovery"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "inventory-55",
+        "title": "Qvyon 公开亮相并介绍实体 AI 测试工具",
+        "summary": "公司介绍机器人和自动驾驶系统的验证工具；此前所获资金不等于本期新完成融资。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T14:00:18Z",
+          "basis": "Original SiliconANGLE reporting datePublished metadata; public launch report, not funding close date.",
+          "sourceUrls": [
+            "https://siliconangle.com/2026/11/12/qvyon-launches-with-8m-to-improve-safety-for-physical-ai-deployments/"
+          ]
+        },
+        "sourceUrls": [
+          "https://siliconangle.com/2026/11/12/qvyon-launches-with-8m-to-improve-safety-for-physical-ai-deployments/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "mount-thor",
+        "title": "Mount Thor 披露两轮合计 4500 万美元融资",
+        "summary": "9to5Mac 报道，公司提供基于 Apple 芯片的云基础设施；金额合计种子轮与 A 轮。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T14:00:00Z",
+          "basis": "9to5Mac original interview HTML article:published_time; reporting event, not financing close date.",
+          "sourceUrls": [
+            "https://9to5mac.com/2026/11/12/mount-thor-raises-45-million-to-build-mac-data-centers-for-ai-agents/"
+          ]
+        },
+        "sourceUrls": [
+          "https://9to5mac.com/2026/11/12/mount-thor-raises-45-million-to-build-mac-data-centers-for-ai-agents/"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "neo",
+        "title": "Neo 介绍 Agent 辅助漏洞调查",
+        "summary": "公司称 Agent 帮助定位 Zoom 引入的旧组件漏洞，人工研究者验证；Zoom 已于 9 月修复。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T14:00:00Z",
+          "basis": "Company newswire datePublished; public research explanation rather than original discovery or patch date.",
+          "sourceUrls": [
+            "https://www.globenewswire.com/news-release/2026/11/12/3401659/0/en/neoverse-autonomous-research-agents-uncover-critical-remote-code-execution-flaw-in-zoom.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.globenewswire.com/news-release/2026/11/12/3401659/0/en/neoverse-autonomous-research-agents-uncover-critical-remote-code-execution-flaw-in-zoom.html"
+        ],
+        "releaseStatus": "research"
+      },
+      {
+        "candidateId": "inventory-21",
+        "title": "美国家长抗议学校设备中的 AI 设置",
+        "summary": "Ars Technica 报道多个城市的抗议；家长与学生要求更多选择，相关诉讼仍属指控。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-12T18:57:45Z",
+          "basis": "Ars Technica article:published_time metadata; reporting event, not date of underlying protest.",
+          "sourceUrls": [
+            "https://arstechnica.com/tech-policy/2026/11/families-fight-to-keep-googles-disturbing-ai-off-school-issued-chromebooks/"
+          ]
+        },
+        "sourceUrls": [
+          "https://arstechnica.com/tech-policy/2026/11/families-fight-to-keep-googles-disturbing-ai-off-school-issued-chromebooks/"
+        ],
+        "releaseStatus": "reported"
+      }
+    ],
+    "pending": [
+      {
+        "candidateId": "anthropic",
+        "title": "Claude for Manufacturing 面向制造流程",
+        "summary": "Anthropic 介绍制造业插件及连接器，由工作人员审阅生成结果。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Source presents a calendar date without an evidenced timezone or first-publication instant.",
+          "sourceUrls": [
+            "https://claude.com/resources/articles/claude-for-manufacturing"
+          ]
+        },
+        "sourceUrls": [
+          "https://claude.com/resources/articles/claude-for-manufacturing"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "官方页面只有 11 月 12 日日期，时区与首次公开时刻未确认。"
+      },
+      {
+        "candidateId": "ibm",
+        "title": "IBM 介绍 Agent 身份管理计划",
+        "summary": "IBM 称已收购 AuthMind，并计划与 Vault 的凭据管理能力结合。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Source presents a calendar date without an evidenced timezone or first-publication instant.",
+          "sourceUrls": [
+            "https://newsroom.ibm.com/blog-ibm-advances-agent-identity-security-with-new-vault-capabilities"
+          ]
+        },
+        "sourceUrls": [
+          "https://newsroom.ibm.com/blog-ibm-advances-agent-identity-security-with-new-vault-capabilities"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "IBM 页面只有 11 月 12 日日期，具体公告时刻未确认；后续集成仍需看交付。"
+      },
+      {
+        "candidateId": "openai-children",
+        "title": "OpenAI 宣布支持儿童安全研究",
+        "summary": "OpenAI 表示承诺向儿童与 AI 安全研究提供 200 万美元。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Source presents a calendar date without an evidenced timezone or first-publication instant.",
+          "sourceUrls": [
+            "https://openai.com/index/children-first-declaration/"
+          ]
+        },
+        "sourceUrls": [
+          "https://openai.com/index/children-first-declaration/"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "网页仅有 11 月 12 日日期；签署和承诺发生在本周更早时，首次披露时间仍需核实。"
+      },
+      {
+        "candidateId": "new-atlas",
+        "title": "World Labs Atlas 开放工具与 API",
+        "summary": "World Labs 介绍供创作者和开发者使用的世界模型工具及 API。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Official page shows November 12 without evidenced timezone or first-publication time.",
+          "sourceUrls": [
+            "https://worldlabs.ai/blog"
+          ]
+        },
+        "sourceUrls": [
+          "https://worldlabs.ai/blog"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "官方页面只给出 11 月 12 日，未能确定首次公开时刻；本次开放与早前研究介绍分开。"
+      },
+      {
+        "candidateId": "new-parsebench",
+        "title": "LlamaIndex ParseBench-2 与 OCRia 1.5",
+        "summary": "LlamaIndex 介绍新版文档解析基准与 OCRia 1.5；比较结果为团队自测。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Official page shows November 12 without evidenced timezone or first-publication time.",
+          "sourceUrls": [
+            "https://www.llamaindex.ai/blog/introducing-parsebench-v2"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.llamaindex.ai/blog/introducing-parsebench-v2"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "官方公告只给出 11 月 12 日，未能确定首次公开时刻；新版基准与旧论文分开。"
+      },
+      {
+        "candidateId": "tongxin",
+        "title": "通芯智能获数亿元早期融资报道",
+        "summary": "投资界报道种子轮与天使轮融资及芯片研发计划，首次披露日期仍需核实。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Chinese investment report date without explicit timezone; earlier report metadata conflict leaves initial disclosure uncertain.",
+          "sourceUrls": [
+            "https://m.sohu.com/a/1100545502_439726"
+          ]
+        },
+        "sourceUrls": [
+          "https://m.sohu.com/a/1100545502_439726"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "报道只给出 11 月 12 日、未标时区，其他检索结果的最初披露日期冲突；融资完成时点不能由报道时间推定。"
+      },
+      {
+        "candidateId": "aggregate-lead-22",
+        "title": "欧盟刊登 AI 监管沙盒实施条例",
+        "summary": "欧盟公报列出监管沙盒的设立和运行规则；条例将在刊登后第 20 天生效。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-11",
+          "basis": "Official Journal dated 11 November 2026; publication instant/timezone not given in the regulation.",
+          "sourceUrls": [
+            "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202602487"
+          ]
+        },
+        "sourceUrls": [
+          "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202602487"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "欧盟公报标注 11 月 11 日，未显示发表时区或具体时间；保守日期范围跨越上一期截止点。"
+      }
+    ]
+  }
+}
+---
+
+import { Section, SectionHead, Prose } from '@/components/article';
+
+<Section canvas id="nvidia">
+  <SectionHead index="03" kicker="行业" title="NVIDIA 宣布管理层交接" />
+  <Prose><p>NVIDIA 于 11 月 12 日公告，董事会表示黄仁勋辞去总裁、首席执行官和董事职务，即时生效。首席财务官 Colette Kress 暂代 CEO，董事会将从内部和外部寻找继任者，并任命 Harvey C. Jones 为董事会主席。</p><p>公司表示将继续履行客户承诺和产品路线。NVIDIA 是 AI 加速计算的重要供应商，交接的实际影响仍要看后续执行。</p></Prose>
+</Section>
+<Section canvas id="models">
+  <SectionHead index="04" kicker="模型与工具" title="把规划与执行分开" />
+  <Prose>
+    <p>Google 推出的 Gemini 4 Hydrogen 面向日常代码和 Agent 工作。Google 称，它既可以单独处理任务，也可以与 Carbon、Argon 等模型配合：较强模型负责规划，Hydrogen 负责执行和检查。公司同时介绍 Antigravity 的 Orchestrator，可在同一会话中切换模型。</p>
+    <p>WIRED 的上手报道还介绍了 Google 与 Samsung 合作的智能眼镜：产品已经开放预购，正式销售从 12 月 10 日开始。眼镜可通过 Gemini 处理语音和摄像头输入，兼容的手机型号有限；显示屏版本仍在路线图中。</p>
+    <p>按 Google 的 API 公告，Hydrogen 的输入和输出价格分别为每百万 token 1.50 美元和 7.50 美元。厂商报告的速度与评测结果取决于任务和配置，不能直接推断所有工作负载的收益。</p>
+    <svg viewBox="0 0 480 180" role="img" aria-labelledby="route-title route-desc" class="mx-auto w-full max-w-[480px]">
+      <title id="route-title">Google 描述的模型分工</title><desc id="route-desc">规划模型制定任务，执行模型完成工作并检查，结果返回规划模型。</desc>
+      <text x="20" y="38" font-size="22" fill="var(--color-ink)">规划模型：拆解任务</text>
+      <text x="20" y="88" font-size="22" fill="var(--color-ink)">↓ 委派工作</text>
+      <text x="20" y="138" font-size="22" fill="var(--color-ink)">执行模型：操作、检查并返回结果</text>
+    </svg>
+  </Prose>
+</Section>
+<Section canvas id="llmon">
+  <SectionHead index="05" kicker="研究" title="给外部数据划出信任边界" />
+  <Prose><p>IBM 在技术说明中介绍实验性 Granite 4.1 LLMON 模型。它使用标记区分系统指令、用户输入和工具返回的数据，帮助模型识别外部内容里试图改写任务的指令。3B 和 8B 模型处于预览阶段。</p><p>The Verge 独家报道品牌保护公司 Podqi 的购物测试：研究者针对 151 个品牌构造问题，收集 6795 条回答，检查 ChatGPT、Gemini 和 Perplexity 是否展示风险网站。风险范围包括仿冒网站、被重新注册的旧域名和失效域名，也包括模型附带警示的结果；这不是用户被骗率。样本由研究方设计，不能代表所有真实购物查询。</p>
+    <p>The Verge 采访考古学家后指出，一名研究者用 Agent 标记为可能未记录的玛雅遗址，实际上已在此前学术论文中出现。研究者承认遗漏并更新说明；专家提醒，未在某个数据库登记并不等于学界或当地社区不知道。这个案例说明，AI 找到候选位置后仍需要文献和领域专家核查。</p>
+    <p>安全公司 Neo 介绍其 Agent 辅助的软件漏洞调查：公司称系统发现 Zoom 引入的旧版组件仍可能触发已知漏洞，随后由研究人员验证。Neo 称已在 8 月向 Zoom 报告，Zoom 于 9 月发布修复；本期的新消息是调查说明，并非漏洞刚被发现或刚被修复。</p>
+    <p>提示注入发生在不可信材料试图改变 Agent 行为时。输入标记和专门训练可以帮助模型识别边界，但不能替代权限控制与人工检查；IBM 报告的测试结果仍有任务和模型条件限制。</p></Prose>
+</Section>
+<Section canvas id="agent-tools">
+  <SectionHead index="06" kicker="Agent 工具" title="资金投向开发和评估" />
+  <Prose>
+    <p>《华尔街日报》报道，LangChain 以 30 亿美元估值获得 3 亿美元融资，由 CapitalG 领投。公司首席执行官向该报表示，新资金将用于扩展 LangSmith，帮助企业监控、评估和部署 Agent。《华尔街日报》的原报道通过新闻检索读取，直接访问报社网站受限；其他转载不作为独立证实。</p>
+    <p>Dealroom 引述 CNBC 记者及知情人士报道称，OpenAI 在最新融资中已筹得 150 亿美元，对应估值 1.25 万亿美元；报道同时称该轮尚未正式完成。原始 CNBC 视频无法直接读取，相关转载均指向同一报道，不能算作多方独立确认。</p>
+    <p>9to5Mac 采访报道，Mount Thor 获得种子轮与 A 轮合计 4500 万美元资金，提供基于 Apple 芯片的云端计算资源。报道时间属于本期，两轮融资的完成时间不由此确定。报道所在栏目由 Mosyle 赞助。</p>
+    <p>SiliconANGLE 报道，Qvyon 公开亮相并介绍面向机器人和自动驾驶系统的验证工具，试图在部署前重建并测试危险或少见情景。公司此前已获得融资；公开亮相的时间不等于融资完成时间，工具的效果也仍需独立验证。</p>
+    <p>Agent 能否可靠完成任务，取决于模型之外的运行环境、工具权限和评估方式。融资说明投资者愿意押注这些需求，并不能单独证明产品效果。</p>
+  </Prose>
+</Section>
+<Section canvas id="governance">
+  <SectionHead index="07" kicker="安全与治理" title="限制前沿模型的请求进入法庭" />
+  <Prose>
+    <p>CBS 报道，四个倡议组织在旧金山提起诉讼，将 Anthropic、Google、Meta、OpenAI 和 SpaceX 的 AI 业务列为被告，请求阻止进一步开发模型。原告以潜在公共风险提出主张，这是诉讼请求而非法院判决。</p>
+    <p>安全公司 Unit 42 报告称，攻击者在 8 至 9 月使用 Cairn 框架与模型开展 25 次行动，针对至少 19 个组织，其中 10 个组织出现未经授权的访问或数据获取。公司对相关归因仅给出中等信心；这是其调查结论，报告发表于本期，攻击活动发生在更早时间。</p>
+    <p>日经 Research 发布新的公司通告，称员工使用 Notion 的 AI 对话可能在此前涉及 Fireworks AI 的事件中暴露，客户名称等信息可能涉及。公司仍在调查影响范围；发布通告不等于确认每项数据已经泄露，事件本身也早于通告。</p>
+    <p>MIT Technology Review 采访美国议员 Bill Foster 时，他称 NVIDIA 代表曾在私下技术讨论中表示，可以实现芯片位置追踪。NVIDIA 未确认这一说法，相关芯片安全法案仍在审议；报道发表时间不代表私下讨论发生的时间。</p>
+    <p>Ars Technica 报道，美国多个城市的家庭就学校设备中的 Google AI 设置举行抗议，希望学校能提供更多选择。报道涉及未成年人安全方面的诉讼和家长意见，这些主张不等于法院已经认定事实。</p>
+    <p>WIRED 报道，代表 DeepMind 英国员工的两个工会向英国中央仲裁委员会提出申请，请求确认是否满足启动工会投票的条件。报道援引工会和 Google 的不同回应；申请本身不意味着投票已经举行或工会已经获得承认。</p>
+    <p>诉讼反映了对模型风险如何由谁评估的争议。原告的指控、企业的回应和法院最终认定应分别看待。</p>
+  </Prose>
+</Section>
+<Section canvas id="uncertain">
+  <SectionHead index="08" kicker="时间待核" title="边界跨越截止时间的消息" />
+  <Prose>
+    <p>Anthropic 介绍 Claude for Manufacturing：它将制造业流程所需的技能和系统连接打包，帮助人员起草报价、分析质量问题，并由人审阅结果。页面只列出日期，首次公开时刻仍待核实。</p>
+    <p>IBM 表示已收购 AuthMind，计划把 Agent 使用凭据时的身份和活动信息与 Vault 结合。公告日期的时区未明确，后续集成也不能当作已全部交付。</p>
+    <p>World Labs 介绍 Atlas 的新一轮开放工具和开发者 API，允许用户生成和重建可用于自身工作流程的世界。Atlas 研究此前已公开；本次工具开放的官方页面只标日期，仍需核定具体时刻。</p>
+    <p>LlamaIndex 介绍 ParseBench-2 和 OCRia 1.5，前者用于比较文档解析错误，后者服务于 LlamaParse。其基准结果是团队自评；本次公告时间同样只有日期，新版基准不能与早先论文视作同一项新发布。</p>
+    <p>欧盟官方公报刊登 AI 监管沙盒实施条例，规定沙盒的设立、运行和监督安排。公报日期为 11 月 11 日，条例写明刊登后第 20 天生效，即 12 月 1 日；公报没有提供足以确定本期边界的具体发表时刻。</p>
+    <p>投资界报道，通芯智能获得合计数亿元人民币的种子轮和天使轮融资，并计划推进芯片验证。首次披露日期存在冲突，不能把后续报道日期当作融资完成时间；芯片验证仍属计划。</p>
+    <p>OpenAI 表示将为儿童与 AI 安全研究承诺 200 万美元。公司称签署相关宪章和作出承诺发生在本周更早时；网页标注 11 月 12 日，但没有足以确定本期边界的具体时间。这是资金承诺，不能写成已经支付。</p>
+  </Prose>
+</Section>
+<Section canvas id="retrospective">
+  <SectionHead index="09" kicker="前期回看" title="为上一期的日期补上证据" />
+  <Prose>
+    <p>上一期把 Google 的 <a href="https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop/">Tabletop</a> 放在时间待核区。现在查到官方页面的发布时间为 11 月 11 日 16:00 UTC，属于上一期窗口。它是群组规划实验，提供等候名单，并不代表所有用户都能使用。</p>
+    <p><a href="https://www.allthingsdistributed.com/2026/11/aws-emulator-and-the-engineers-job-when-agents-write-the-code.html">AWS Emulator 工程博客</a>的两处机器可读时间存在差异，但两种解释都落在上一期窗口；这只能确认博客公告日期，不能证明软件首次可用的时刻。它为开发者和编码 Agent 提供本地 AWS 模拟环境，兼容性仍要按具体服务验证。</p>
+    <p>英国政府对 <a href="https://www.gov.uk/government/news/sovereign-ai-and-british-business-bank-invest-in-british-firm-developing-the-next-generation-of-ai-hardware">Fractile 融资的公告</a>发表于 11 月 11 日 13:00 UTC，也属于上一期。政府称该轮 C 轮融资为 7.2 亿美元，资金将支持其 AI 推理芯片研发；融资公告不代表芯片已经交付。</p>
+    <p>补看此前未收录的 <a href="https://www.zyphra.com/our-work/zonos3-mini">ZONOS3-Mini</a>：Zyphra 将该开源语音模型的官网介绍标为 11 月 9 日，一个<a href="https://github.com/Neywa-Labs/mlx-audio/pull/1162">公开项目</a>在 11 月 9 日 23:32 UTC 已讨论其接入。首次公开时刻仍没有可靠下界，可能跨越两期边界；它不计入本期新增。模型的速度和对比结果为开发者自报。</p>
+  </Prose>
+</Section>
+<Section canvas id="outlook">
+  <SectionHead index="10" kicker="观察" title="更快执行仍需要可验证的结果" />
+  <Prose>
+    <p>本期确认消息中，产品 2 条、行业与融资 4 条、研究 4 条、安全治理 6 条、Agent 生态 1 条。时间待核的 7 条和前期回看均不计入图表。把大任务拆给不同模型可能减少执行成本，但工具调用仍需要明确权限与结果检查；厂商公布的性能数据和融资估值不能替代实际环境里的评估。</p>
+    <p>本期进行了中、英、法语等开放检索，并逐条初筛一个含 56 条内容的英文索引；论文汇总中的 7 篇查阅了原始摘要及版本记录，不能据此视为覆盖所有论文。上一期 130 条未决候选做了来源可达性筛查，其中 9 条的尝试来源均未直接访问成功；这并不等于逐条事实核验。20 次补充检索中的 173 个不同链接也按标题和摘要盘点；部分候选仍未取得原文或确认首次公开时间，中国融资的来源链也有待核处。部分原始报道和社交帖受限，报道时间与产品或融资发生时间分开记录。JEV、Laya、OSC 的具体指代仍未确认。</p>
+  </Prose>
+</Section>

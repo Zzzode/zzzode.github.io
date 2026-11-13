@@ -1,0 +1,1180 @@
+{
+  "scope": "Availability and metadata screen of prior issue watch/pending sources; not a factual review and not proof of no news. See prior issue ledger for previous candidate decisions.",
+  "previousLedger": "docs/daily/runs/2026-11-12.json",
+  "records": [
+    {
+      "url": "https://ernie.baidu.com/release/ernie-5-5-flash-preview",
+      "candidateIds": [
+        "ernie"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://jxj.beijing.gov.cn/zwgk/2024zcwj/202611/t20261111_4941527.html",
+      "candidateIds": [
+        "beijing"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.databricks.com/company/newsroom/press-releases/databricks-launches-new-always-genie-autonomous-ai-complex",
+      "candidateIds": [
+        "genie"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.torus.co/news/torus-launches-modular-ai-infrastructure-foundry",
+      "candidateIds": [
+        "torus"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.ithome.com/1/025/807.htm",
+      "candidateIds": [
+        "xixuan"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.helpnetsecurity.com/2026/11/11/obsidian-security-runtime-policy-decision-engine/",
+      "candidateIds": [
+        "obsidian"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.obsidiansecurity.com/news/context-aware-runtime-decision-engine",
+      "candidateIds": [
+        "obsidian"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.sbbit.jp/article/cont1/188311",
+      "candidateIds": [
+        "japan"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z"
+    },
+    {
+      "url": "https://aiunderstanding.org/news/openai-and-anthropic-sign-ai-safety-charter-for-children",
+      "candidateIds": [
+        "children"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.09418",
+      "candidateIds": [
+        "deepradio"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.getqlo.com/",
+      "candidateIds": [
+        "qlo"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://daily.rclabs.in/trackers/funding",
+      "candidateIds": [
+        "fundingtracker",
+        "applied",
+        "coreweave-loan"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.gov.uk/government/news/sovereign-ai-and-british-business-bank-invest-in-british-firm-developing-the-next-generation-of-ai-hardware",
+      "candidateIds": [
+        "fundingtracker"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-the-race-for-ai-chips/",
+      "candidateIds": [
+        "fundingtracker"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://feng.ifeng.com/c/8xy1ELk864L",
+      "candidateIds": [
+        "mxi"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.winzheng.com/article/fei-fei-li-atlas-corl-amd-world-labs-robotics-world-model",
+      "candidateIds": [
+        "atlas"
+      ],
+      "accessedAt": "2026-11-13T02:30:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://2026.corl.org/program/keynotes",
+      "candidateIds": [
+        "atlas"
+      ],
+      "accessedAt": "2026-11-13T02:30:15Z",
+      "status": 200
+    },
+    {
+      "url": "https://news.cctv.cn/2026/11/11/ARTIV6pqx7X6KZWVWZRyN68y261111.shtml",
+      "candidateIds": [
+        "15-plan"
+      ],
+      "accessedAt": "2026-11-13T02:30:15Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.itib.gov.hk/zh-cn/legislative_council_business/questions/2026/pr_20261111.html",
+      "candidateIds": [
+        "hk"
+      ],
+      "accessedAt": "2026-11-13T02:30:15Z",
+      "status": 200
+    },
+    {
+      "url": "https://developers.google.com/workspace/release-notes?hl=en",
+      "candidateIds": [
+        "mcp"
+      ],
+      "accessedAt": "2026-11-13T02:30:15Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.pk-sharma.com/briefing/claude-code-dont-ask-again-settings-local-json-secrets-on-github-what-apiiro-says",
+      "candidateIds": [
+        "appomni"
+      ],
+      "accessedAt": "2026-11-13T02:30:16Z",
+      "status": 200
+    },
+    {
+      "url": "https://m.sohu.com/a/1099876318_115035?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334",
+      "candidateIds": [
+        "bozhan"
+      ],
+      "accessedAt": "2026-11-13T02:30:16Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.pencilnews.cn/intel-pro-hub.html?financing_event_id=126976&tab=financing-events",
+      "candidateIds": [
+        "tensorworld"
+      ],
+      "accessedAt": "2026-11-13T02:30:16Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.13348",
+      "candidateIds": [
+        "proteus"
+      ],
+      "accessedAt": "2026-11-13T02:30:16Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.14492",
+      "candidateIds": [
+        "retrace"
+      ],
+      "accessedAt": "2026-11-13T02:30:19Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.producthunt.com/products/earlybird-5",
+      "candidateIds": [
+        "earlybird"
+      ],
+      "accessedAt": "2026-11-13T02:30:19Z"
+    },
+    {
+      "url": "https://www.producthunt.com/products/rigspark",
+      "candidateIds": [
+        "rigspark"
+      ],
+      "accessedAt": "2026-11-13T02:30:19Z"
+    },
+    {
+      "url": "https://fish.audio/blog/introducing-live-3/",
+      "candidateIds": [
+        "fishaudio"
+      ],
+      "accessedAt": "2026-11-13T02:30:19Z",
+      "status": 200
+    },
+    {
+      "url": "https://dev.runwayml.com/learn/connect-chatgpt",
+      "candidateIds": [
+        "runway"
+      ],
+      "accessedAt": "2026-11-13T02:30:19Z",
+      "status": 200
+    },
+    {
+      "url": "https://iireporter.com/stitchstudio-raises-8-million-to-expand-insurance-ai-workflows/",
+      "candidateIds": [
+        "stitch"
+      ],
+      "accessedAt": "2026-11-13T02:30:19Z",
+      "status": 200
+    },
+    {
+      "url": "https://bj.people.com.cn/n2/2026/1111/c14540-41747520.html",
+      "candidateIds": [
+        "cityagent"
+      ],
+      "accessedAt": "2026-11-13T02:30:21Z",
+      "status": 200
+    },
+    {
+      "url": "https://finance.sina.com.cn/tech/roll/2026-11-11/doc-iniykkpv1779722.shtml",
+      "candidateIds": [
+        "t-head"
+      ],
+      "accessedAt": "2026-11-13T02:30:22Z",
+      "status": 200
+    },
+    {
+      "url": "https://investors.cognizant.com/news-and-events/news/news-details/2026/Cognizant-dedicates-more-than-25000-professionals-to-Claude-delivery-introduces-managed-services-model-to-run-Claude-at-the-core-of-enterprise-operations/default.aspx",
+      "candidateIds": [
+        "cognizant"
+      ],
+      "accessedAt": "2026-11-13T02:30:22Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.channeldive.com/news/cognizant-splits-68000-staff-into-claude-openai-and-gemini-units/874419/",
+      "candidateIds": [
+        "cognizant"
+      ],
+      "accessedAt": "2026-11-13T02:30:22Z",
+      "status": 200
+    },
+    {
+      "url": "https://finance.sina.com.cn/roll/2026-11-11/doc-iniyixxz1873850.shtml",
+      "candidateIds": [
+        "token-sale"
+      ],
+      "accessedAt": "2026-11-13T02:30:24Z",
+      "status": 200
+    },
+    {
+      "url": "https://sflood.com/zh/daily/ai-2026-11-12",
+      "candidateIds": [
+        "cftc"
+      ],
+      "accessedAt": "2026-11-13T02:30:26Z",
+      "status": 200
+    },
+    {
+      "url": "https://finance.sina.cn/2026-11-11/detail-iniykefx1824138.d.html?vt=4",
+      "candidateIds": [
+        "cftc"
+      ],
+      "accessedAt": "2026-11-13T02:30:26Z",
+      "status": 200
+    },
+    {
+      "url": "https://aiagentsdirectory.com/news/ai-agents-news-brief-november-11-2026",
+      "candidateIds": [
+        "webguidance",
+        "agentcore"
+      ],
+      "accessedAt": "2026-11-13T02:30:26Z",
+      "status": 200
+    },
+    {
+      "url": "https://developer.chrome.com/blog/modern-web-guidance-v1",
+      "candidateIds": [
+        "webguidance"
+      ],
+      "accessedAt": "2026-11-13T02:30:28Z",
+      "status": 200
+    },
+    {
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/amazon-bedrock-agentcore-web-search-api/",
+      "candidateIds": [
+        "agentcore"
+      ],
+      "accessedAt": "2026-11-13T02:30:28Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.woshipm.com/news",
+      "candidateIds": [
+        "aicy",
+        "lenovo-token"
+      ],
+      "accessedAt": "2026-11-13T02:30:29Z",
+      "status": 200
+    },
+    {
+      "url": "https://sg.finance.yahoo.com/news/applied-intuition-talks-raise-1-173653699.html",
+      "candidateIds": [
+        "applied"
+      ],
+      "accessedAt": "2026-11-13T02:30:29Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.investing.com/news/stock-market-news/applied-intuition-in-talks-to-raise-15b-at-30b-valuation-bloomberg-reports-5019616",
+      "candidateIds": [
+        "applied"
+      ],
+      "accessedAt": "2026-11-13T02:30:29Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/applied-intuition-in-talks-to-raise-1-5-billion-at-30-billion-value",
+      "candidateIds": [
+        "applied"
+      ],
+      "accessedAt": "2026-11-13T02:30:31Z"
+    },
+    {
+      "url": "https://metalenz.com/metalenz-acquires-pxe-imaging-expanding-its-perception-platform-to-bring-new-insights-to-ai/",
+      "candidateIds": [
+        "metalenz"
+      ],
+      "accessedAt": "2026-11-13T02:30:31Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.linuxfoundation.org/press/linux-foundation-welcomes-agent-name-service-to-bring-verifiable-identity-and-discovery-to-ai-agents?hs_amp=true",
+      "candidateIds": [
+        "ans"
+      ],
+      "accessedAt": "2026-11-13T02:30:31Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.biocatch.com/press-release/biocatch-launches-agentic-ai-detection",
+      "candidateIds": [
+        "biocatch"
+      ],
+      "accessedAt": "2026-11-13T02:30:32Z",
+      "status": 200
+    },
+    {
+      "url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+      "candidateIds": [
+        "google-adobe"
+      ],
+      "accessedAt": "2026-11-13T02:30:32Z",
+      "status": 200
+    },
+    {
+      "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/",
+      "candidateIds": [
+        "google-health"
+      ],
+      "accessedAt": "2026-11-13T02:30:32Z",
+      "status": 200
+    },
+    {
+      "url": "https://tech.shaoqun.com/a/1468420.html",
+      "candidateIds": [
+        "natural"
+      ],
+      "accessedAt": "2026-11-13T02:30:32Z",
+      "status": 200
+    },
+    {
+      "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
+      "candidateIds": [
+        "jev"
+      ],
+      "accessedAt": "2026-11-13T02:30:32Z",
+      "status": 200
+    },
+    {
+      "url": "https://huggingface.co/convaiinnovations/laya",
+      "candidateIds": [
+        "laya"
+      ],
+      "accessedAt": "2026-11-13T02:30:33Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.aipulse.run/",
+      "candidateIds": [
+        "workflowarena",
+        "tcsexam",
+        "muse-watch",
+        "muse-email",
+        "qwen-go",
+        "thinkyoung"
+      ],
+      "accessedAt": "2026-11-13T02:30:33Z",
+      "status": 200
+    },
+    {
+      "url": "https://lab.einsia.ai/workflowarena/home.html",
+      "candidateIds": [
+        "workflowarena"
+      ],
+      "accessedAt": "2026-11-13T02:30:34Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.07962",
+      "candidateIds": [
+        "tcsexam"
+      ],
+      "accessedAt": "2026-11-13T02:30:35Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.macrumors.com/2026/11/09/meta-muse-apple-watch/",
+      "candidateIds": [
+        "muse-watch"
+      ],
+      "accessedAt": "2026-11-13T02:30:36Z",
+      "status": 200
+    },
+    {
+      "url": "https://techcrunch.com/2026/09/23/everything-new-coming-to-metas-ai-agent-muse/",
+      "candidateIds": [
+        "muse-email"
+      ],
+      "accessedAt": "2026-11-13T02:30:36Z",
+      "status": 200
+    },
+    {
+      "url": "https://openai.com/index/closing-ai-guidance-gap-education/",
+      "candidateIds": [
+        "thinkyoung"
+      ],
+      "accessedAt": "2026-11-13T02:30:37Z",
+      "status": 200
+    },
+    {
+      "url": "https://pr.tsmc.com/english/news/3352",
+      "candidateIds": [
+        "prior-tsmc"
+      ],
+      "accessedAt": "2026-11-13T02:30:37Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.reuters.com/world/china/tsmc-invest-up-1-billion-anthropic-openai-2026-11-10/",
+      "candidateIds": [
+        "prior-tsmc"
+      ],
+      "accessedAt": "2026-11-13T02:30:38Z"
+    },
+    {
+      "url": "https://www.master-ia.fr/veille-ia/2026-11-10",
+      "candidateIds": [
+        "prior-paris"
+      ],
+      "accessedAt": "2026-11-13T02:30:38Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.elysee.fr/emmanuel-macron/2026/11/09/appel-de-paris-pour-la-securite-de-lintelligence-artificielle",
+      "candidateIds": [
+        "prior-paris"
+      ],
+      "accessedAt": "2026-11-13T02:30:40Z",
+      "status": 200
+    },
+    {
+      "url": "https://news.pedaily.cn/202611/571607.shtml",
+      "candidateIds": [
+        "prior-qingxi"
+      ],
+      "accessedAt": "2026-11-13T02:30:40Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.jushenhome.com/newsflash_d.php?id=382",
+      "candidateIds": [
+        "prior-qingxi"
+      ],
+      "accessedAt": "2026-11-13T02:30:41Z",
+      "status": 200
+    },
+    {
+      "url": "https://news.pedaily.cn/202611/571637.shtml",
+      "candidateIds": [
+        "prior-fuwei"
+      ],
+      "accessedAt": "2026-11-13T02:30:41Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.pedaily.cn/first/191303.shtml",
+      "candidateIds": [
+        "prior-fuwei"
+      ],
+      "accessedAt": "2026-11-13T02:30:41Z",
+      "status": 200
+    },
+    {
+      "url": "https://m.sohu.com/a/1099412075_313745?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334",
+      "candidateIds": [
+        "prior-lead-34"
+      ],
+      "accessedAt": "2026-11-13T02:30:42Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.cb.com.cn/index/show/zj/cv/cv135402451265",
+      "candidateIds": [
+        "prior-lead-42"
+      ],
+      "accessedAt": "2026-11-13T02:30:42Z"
+    },
+    {
+      "url": "https://www.sohu.com/a/1099568423_655634?scm=10004.46857_15-300008.0.0-0-0-0-0.1101.topic%3A46857%3A5.0.9.a2_3X3365",
+      "candidateIds": [
+        "prior-lead-48"
+      ],
+      "accessedAt": "2026-11-13T02:30:42Z",
+      "status": 200
+    },
+    {
+      "url": "https://k.sina.com.cn/article_7857201856_1d45362c001908ud0c.html?from=tech",
+      "candidateIds": [
+        "prior-lead-65"
+      ],
+      "accessedAt": "2026-11-13T02:30:43Z",
+      "status": 200
+    },
+    {
+      "url": "https://ilaituan.com/293.html",
+      "candidateIds": [
+        "prior-lead-66"
+      ],
+      "accessedAt": "2026-11-13T02:30:44Z",
+      "status": 200
+    },
+    {
+      "url": "https://x.com/Austen/status/2120129279157547303",
+      "candidateIds": [
+        "prior-lead-67"
+      ],
+      "accessedAt": "2026-11-13T02:30:45Z",
+      "status": 200
+    },
+    {
+      "url": "https://blogs.nvidia.co.jp/blog/nvidia-agentic-ai-day-japan-2026-two-japanese-dataset/",
+      "candidateIds": [
+        "prior-lead-75"
+      ],
+      "accessedAt": "2026-11-13T02:30:45Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.businessinsider.jp/article/2611-adobe-max-2026-ai-agentic-tool/",
+      "candidateIds": [
+        "prior-lead-85"
+      ],
+      "accessedAt": "2026-11-13T02:30:47Z",
+      "status": 200
+    },
+    {
+      "url": "https://news.adobe.com/news/2026/11/adobe-powers-new-era-of-creativity",
+      "candidateIds": [
+        "prior-lead-85"
+      ],
+      "accessedAt": "2026-11-13T02:30:47Z",
+      "status": 200
+    },
+    {
+      "url": "https://news.qq.com/rain/a/20261110A06W5M00",
+      "candidateIds": [
+        "prior-audit-lead-90"
+      ],
+      "accessedAt": "2026-11-13T02:30:47Z",
+      "status": 200
+    },
+    {
+      "url": "https://devpress.csdn.net/aibjcy/6af26f8d40858c2d88198bad.html",
+      "candidateIds": [
+        "prior-audit-lead-105"
+      ],
+      "accessedAt": "2026-11-13T02:30:47Z",
+      "status": 200
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.10771",
+      "candidateIds": [
+        "prior-audit-lead-109"
+      ],
+      "accessedAt": "2026-11-13T02:30:48Z",
+      "status": 200
+    },
+    {
+      "url": "https://k.sina.com.cn/article_7857201856_1d45362c001908uchq.html?from=finance",
+      "candidateIds": [
+        "prior-inventory-134"
+      ],
+      "accessedAt": "2026-11-13T02:30:48Z",
+      "status": 200
+    },
+    {
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/",
+      "candidateIds": [
+        "prior-inventory-142"
+      ],
+      "accessedAt": "2026-11-13T02:30:49Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.reuters.com/business/aerospace-defense/google-agrees-addition-privacy-protections-spirit-airlines-data-sale-2026-11-10/",
+      "candidateIds": [
+        "prior-audit-extra-161",
+        "prior-audit-extra-161"
+      ],
+      "accessedAt": "2026-11-13T02:30:49Z"
+    },
+    {
+      "url": "https://api3.cls.cn/share/subject/1527?app=stib&os=android&selected=&source=&sv=233",
+      "candidateIds": [
+        "prior-generalfunction",
+        "prior-wange"
+      ],
+      "accessedAt": "2026-11-13T02:30:49Z",
+      "status": 200
+    },
+    {
+      "url": "https://news.10jqka.com.cn/20261110/c681664323.shtml",
+      "candidateIds": [
+        "prior-generalfunction"
+      ],
+      "accessedAt": "2026-11-13T02:30:49Z",
+      "status": 200
+    },
+    {
+      "url": "https://m.sohu.com/a/1099742459_115362",
+      "candidateIds": [
+        "prior-wange"
+      ],
+      "accessedAt": "2026-11-13T02:30:51Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.counselhealth.com/newsroom/oura-to-acquire-counsel-health-advancing-vision-for-more-connected-personalized-healthcare",
+      "candidateIds": [
+        "prior-oura"
+      ],
+      "accessedAt": "2026-11-13T02:30:51Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.reuters.com/legal/transactional/smart-ring-maker-oura-acquire-counsel-health-625-million-2026-11-10/",
+      "candidateIds": [
+        "prior-oura"
+      ],
+      "accessedAt": "2026-11-13T02:30:52Z"
+    },
+    {
+      "url": "https://workspaceupdates.googleblog.com/2026/11/expanding-gemini-in-gmail-to-more-Google-Workspace-users.html",
+      "candidateIds": [
+        "gmail"
+      ],
+      "accessedAt": "2026-11-13T02:30:52Z",
+      "status": 200
+    },
+    {
+      "url": "https://ir.lumen.com/news/news-details/2026/Latest-Lumen-Report-Cyber-Threats-Are-Moving-Faster-Bouncing-Back-Stronger/default.aspx",
+      "candidateIds": [
+        "lumen"
+      ],
+      "accessedAt": "2026-11-13T02:30:52Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+      "candidateIds": [
+        "lazarus"
+      ],
+      "accessedAt": "2026-11-13T02:30:52Z"
+    },
+    {
+      "url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop/",
+      "candidateIds": [
+        "tabletop"
+      ],
+      "accessedAt": "2026-11-13T02:30:54Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.businessinsider.com/google-hydrogen-test-new-gemini-4-flash-model-ai-2026-11",
+      "candidateIds": [
+        "hydrogen"
+      ],
+      "accessedAt": "2026-11-13T02:30:54Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.searchengineworld.com/yahoo-scout-exits-beta-after-3-billion-ai-answers-promises-more-traffic-to-publishers",
+      "candidateIds": [
+        "yahoo-scout"
+      ],
+      "accessedAt": "2026-11-13T02:30:54Z",
+      "status": 200
+    },
+    {
+      "url": "https://unified.www.yahooinc.com/press/after-delivering-more-than-3-billion-answers-yahoo-scout-exits-beta-to-underpin-all-of-yahoo-search",
+      "candidateIds": [
+        "yahoo-scout"
+      ],
+      "accessedAt": "2026-11-13T02:30:55Z",
+      "status": 200
+    },
+    {
+      "url": "https://stock.stockstar.com/IG2026111200007220.shtml",
+      "candidateIds": [
+        "hangzhou-gpu"
+      ],
+      "accessedAt": "2026-11-13T02:30:55Z",
+      "status": 200
+    },
+    {
+      "url": "https://helsing.ai/newsroom/helsing-unveils-clarity-a-sovereign-software-platform-for-military-intelligence",
+      "candidateIds": [
+        "clarity"
+      ],
+      "accessedAt": "2026-11-13T02:30:55Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.officeforstudents.org.uk/publications/making-ai-work-for-students-reflections-on-institutional-practice/",
+      "candidateIds": [
+        "ofs-report"
+      ],
+      "accessedAt": "2026-11-13T02:30:55Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.pm.gov.au/media/new-australian-ai-safety-and-security-protections",
+      "candidateIds": [
+        "australia-safety"
+      ],
+      "accessedAt": "2026-11-13T02:30:56Z",
+      "status": 200
+    },
+    {
+      "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/",
+      "candidateIds": [
+        "coreweave-earnings"
+      ],
+      "accessedAt": "2026-11-13T02:30:56Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.sanctity.ai/signal/softbank-sb7-equipment-writeoff-e085",
+      "candidateIds": [
+        "softbank-loss"
+      ],
+      "accessedAt": "2026-11-13T02:30:56Z",
+      "status": 200
+    },
+    {
+      "url": "https://elevenlabs.io/blog/nyc-summit",
+      "candidateIds": [
+        "eleven-summit"
+      ],
+      "accessedAt": "2026-11-13T02:30:57Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.calcalistech.com/ctechnews/article/rk9dvkfrmx",
+      "candidateIds": [
+        "edelbyte"
+      ],
+      "accessedAt": "2026-11-13T02:30:57Z",
+      "status": 200
+    },
+    {
+      "url": "https://decagon.ai/blog/introducing-alto",
+      "candidateIds": [
+        "decagon-alto"
+      ],
+      "accessedAt": "2026-11-13T02:30:57Z"
+    },
+    {
+      "url": "https://www.bastillepost.com/global/article/6350397-introducing-openevidence-access-intelligence-bringing-affordability-and-access-to-the-point-of-care",
+      "candidateIds": [
+        "openevidence-access"
+      ],
+      "accessedAt": "2026-11-13T02:30:57Z",
+      "status": 200
+    },
+    {
+      "url": "https://group.ntt/en/newsrelease/2026/11/11/261111b.html",
+      "candidateIds": [
+        "ntt-world"
+      ],
+      "accessedAt": "2026-11-13T02:30:58Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
+      "candidateIds": [
+        "united-agent"
+      ],
+      "accessedAt": "2026-11-13T02:31:00Z",
+      "status": 200
+    },
+    {
+      "url": "https://adbsafegate.com/news-events/press-releases/adb-safegate-acquires-synaptic-aviation/",
+      "candidateIds": [
+        "adb-synaptic"
+      ],
+      "accessedAt": "2026-11-13T02:31:01Z",
+      "status": 200
+    },
+    {
+      "url": "https://cowbell.insure/news-events/pr/cowbell-launches-standalone-ai-liability-insurance-for-u-s-smes/",
+      "candidateIds": [
+        "cowbell-liability"
+      ],
+      "accessedAt": "2026-11-13T02:31:01Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.path-robotics.com/news/path-robotics-announces-300-million-series-e-led-by-georgian",
+      "candidateIds": [
+        "path-robotics"
+      ],
+      "accessedAt": "2026-11-13T02:31:01Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.sleep.ai/news/sleep-ai-raises-5-3-million-as-real-world-sleep-data-surpasses-1-1-billion-hours/",
+      "candidateIds": [
+        "sleep-funding"
+      ],
+      "accessedAt": "2026-11-13T02:31:03Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.allthingsdistributed.com/2026/11/aws-emulator-and-the-engineers-job-when-agents-write-the-code.html",
+      "candidateIds": [
+        "aws-emulator"
+      ],
+      "accessedAt": "2026-11-13T02:31:03Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.redhat.com/en/blog/introducing-red-hat-enterprise-linux-103-and-99",
+      "candidateIds": [
+        "rhel-mcp"
+      ],
+      "accessedAt": "2026-11-13T02:31:03Z",
+      "status": 200
+    },
+    {
+      "url": "https://sambanova.ai/blog/glm-5.3-now-running-on-sambacloud",
+      "candidateIds": [
+        "sambanova-glm"
+      ],
+      "accessedAt": "2026-11-13T02:31:05Z",
+      "status": 200
+    },
+    {
+      "url": "https://lawvu.com/articles/lawvu-mcp-server-legal-ai-connections/",
+      "candidateIds": [
+        "lawvu-mcp"
+      ],
+      "accessedAt": "2026-11-13T02:31:05Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2607.28039",
+      "candidateIds": [
+        "paper-2607.28039"
+      ],
+      "accessedAt": "2026-11-13T02:31:06Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2610.13465",
+      "candidateIds": [
+        "paper-2610.13465"
+      ],
+      "accessedAt": "2026-11-13T02:31:06Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.07238",
+      "candidateIds": [
+        "paper-2611.07238"
+      ],
+      "accessedAt": "2026-11-13T02:31:07Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.00822",
+      "candidateIds": [
+        "paper-2611.00822"
+      ],
+      "accessedAt": "2026-11-13T02:31:07Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.00884",
+      "candidateIds": [
+        "paper-2611.00884"
+      ],
+      "accessedAt": "2026-11-13T02:31:07Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2610.30026",
+      "candidateIds": [
+        "paper-2610.30026"
+      ],
+      "accessedAt": "2026-11-13T02:31:09Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2610.34449",
+      "candidateIds": [
+        "paper-2610.34449"
+      ],
+      "accessedAt": "2026-11-13T02:31:10Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2610.35254",
+      "candidateIds": [
+        "paper-2610.35254"
+      ],
+      "accessedAt": "2026-11-13T02:31:10Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2610.29162",
+      "candidateIds": [
+        "paper-2610.29162"
+      ],
+      "accessedAt": "2026-11-13T02:31:10Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2610.28934",
+      "candidateIds": [
+        "paper-2610.28934"
+      ],
+      "accessedAt": "2026-11-13T02:31:11Z",
+      "status": 200
+    },
+    {
+      "url": "https://news.sap.com/2026/11/sap-and-vf-corporation-open-intelligent-fashion-store/",
+      "candidateIds": [
+        "sap-vf"
+      ],
+      "accessedAt": "2026-11-13T02:31:11Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.harvey.ai/blog/harvey-adds-danish-legislation-and-its-preparatory-works-through-partnership-with-djof-forlag",
+      "candidateIds": [
+        "harvey-danish"
+      ],
+      "accessedAt": "2026-11-13T02:31:12Z",
+      "status": 200
+    },
+    {
+      "url": "https://tier4.co.jp/en/updates/press-release/20261111-tieriv-and-tum-bring-autoware-based-research-to-autonomous-city-bus-development-in-munich",
+      "candidateIds": [
+        "tieriv-bus"
+      ],
+      "accessedAt": "2026-11-13T02:31:12Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.ascend.vc/blog/announcing-our-17m-fund-iii",
+      "candidateIds": [
+        "ascend-fund"
+      ],
+      "accessedAt": "2026-11-13T02:31:12Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.munters.com/de-at/news-media/press-releases/2026/munters-announces-investments-to-strengthen-data-center-supply-chain-and-capacity/",
+      "candidateIds": [
+        "munters-cooling"
+      ],
+      "accessedAt": "2026-11-13T02:31:12Z",
+      "status": 200
+    },
+    {
+      "url": "https://pressmob.cz/rekord-pro-cesky-medtech-startup-kardi-ai-ziskal-investici-130-milionu-korun-na-globalni-expanzi-a-vyvoj-prediktivnich-modelu/",
+      "candidateIds": [
+        "kardi-ai"
+      ],
+      "accessedAt": "2026-11-13T02:31:12Z"
+    },
+    {
+      "url": "https://www.todaysstartupnews.com/startups/kardi-ai-raises-5-3m-series-a-callisto-health-predictive-heart-monitoring",
+      "candidateIds": [
+        "kardi-ai"
+      ],
+      "accessedAt": "2026-11-13T02:31:13Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.abb.com/global/en/news/140328/prsrl-abb-robotics-is-supplying-more-than-1-700-robots-for-the-production-of-a-new-generation-of-vehicles",
+      "candidateIds": [
+        "abb-bmw"
+      ],
+      "accessedAt": "2026-11-13T02:31:13Z",
+      "status": 200
+    },
+    {
+      "url": "https://roboticsandautomationnews.com/2026/11/11/abb-to-supply-bmw-with-more-than-1700-robots-for-the-production-of-a-new-generation-of-vehicles/106954/",
+      "candidateIds": [
+        "abb-bmw"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.fincantieri.com/en/newsroom/press-releases/2026/Fincantieri-joins-forces-with-Poste-Italiane-and-TIM-to-build-Italy-s-national-physical-AI-value-chain-and-transform-its-manufacturing-expertise",
+      "candidateIds": [
+        "fincantieri"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.12934",
+      "candidateIds": [
+        "paper-2611.12934"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.12955",
+      "candidateIds": [
+        "paper-2611.12955"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.13548",
+      "candidateIds": [
+        "paper-2611.13548"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.13560",
+      "candidateIds": [
+        "paper-2611.13560"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.13572",
+      "candidateIds": [
+        "paper-2611.13572"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.13594",
+      "candidateIds": [
+        "paper-2611.13594"
+      ],
+      "accessedAt": "2026-11-13T02:31:14Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.14033",
+      "candidateIds": [
+        "paper-2611.14033"
+      ],
+      "accessedAt": "2026-11-13T02:31:16Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.14210",
+      "candidateIds": [
+        "paper-2611.14210"
+      ],
+      "accessedAt": "2026-11-13T02:31:16Z",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2611.14309",
+      "candidateIds": [
+        "paper-2611.14309"
+      ],
+      "accessedAt": "2026-11-13T02:31:17Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.businesswire.com/news/home/20261110351923/en/EdgeRunner-AI-and-HP-Advance-Sovereign-AI-for-the-Military-Federal-Agencies-and-Critical-Industries",
+      "candidateIds": [
+        "edgerunner-hp"
+      ],
+      "accessedAt": "2026-11-13T02:31:17Z"
+    },
+    {
+      "url": "https://www.businesswire.com/news/home/20261111924315/en/Imprint-Raises-%24130-Million-to-Help-Brands-Build-Customer-Loyalty-as-AI-Reshapes-Commerce",
+      "candidateIds": [
+        "imprint-funding"
+      ],
+      "accessedAt": "2026-11-13T02:31:17Z",
+      "status": 200
+    },
+    {
+      "url": "https://techcrunch.com/2026/11/11/openais-quarterly-revenue-reportedly-crosses-10b-for-the-first-time/",
+      "candidateIds": [
+        "openai-q3"
+      ],
+      "accessedAt": "2026-11-13T02:31:17Z",
+      "status": 200
+    },
+    {
+      "url": "https://am.gs.com/en-gb/advisors/news/press-release/2026/daylight-series-b-investment-goldman-sachs-alternatives",
+      "candidateIds": [
+        "daylight"
+      ],
+      "accessedAt": "2026-11-13T02:31:18Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.businesswire.com/news/home/20261110709159/en/PuppyGraph-Raises-%2410M-Series-A-to-Help-Enterprises-Build-AI-Agents-That-Query-3000-Tables-in-Subseconds",
+      "candidateIds": [
+        "puppygraph"
+      ],
+      "accessedAt": "2026-11-13T02:31:18Z"
+    }
+  ]
+}
