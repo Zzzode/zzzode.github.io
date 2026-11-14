@@ -1,0 +1,501 @@
+---
+{
+  "title": "AI 日报：llama.cpp 进入 1.0，Agent 协议推进",
+  "date": "2026-11-14T02:41:45Z",
+  "excerpt": "llama.cpp 发布 1.0，Sierra 介绍个人 Agent 协议，Reuters 报道购物数据与安全讨论。",
+  "tags": [
+    "AI",
+    "AI 日报",
+    "Agent"
+  ],
+  "kind": "distilled",
+  "channel": "daily",
+  "draft": false,
+  "sources": [
+    {
+      "title": "llama.cpp：v1.0.0 发布说明",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T10:20:19Z",
+        "basis": "GitHub release API published_at; release updated 14:08:10Z, both before cutoff.",
+        "sourceUrls": [
+          "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:18:07Z"
+    },
+    {
+      "title": "Sierra：Personal Agent Protocol 1.0",
+      "url": "https://sierra.ai/blog/releasing-poppy",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T17:00:00Z",
+        "basis": "Sierra article metadata datePublished; modified 22:20Z before cutoff. Earlier announcement date reported by TNW remains disputed.",
+        "sourceUrls": [
+          "https://sierra.ai/blog/releasing-poppy"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:07:31Z"
+    },
+    {
+      "title": "Reuters：Amazon 商品数据计划报道",
+      "url": "https://www.investing.com/news/stock-market-news/exclusiveamazons-plan-to-own-the-worlds-product-data-and-fight-ai-shopping-agents-5024784",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Investing.com reprint displays November 13, but page timezone is not evidenced.",
+        "sourceUrls": [
+          "https://www.investing.com/news/stock-market-news/exclusiveamazons-plan-to-own-the-worlds-product-data-and-fight-ai-shopping-agents-5024784"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:12:41Z"
+    },
+    {
+      "title": "Reuters：AI 工作组网络安全讨论",
+      "url": "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-13T02:46:00Z",
+        "latest": "2026-11-13T02:46:59Z",
+        "basis": "MarketScreener displays 21:46 EST Nov 12 for its Reuters reprint; this records reprint availability, not original first publication.",
+        "sourceUrls": [
+          "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:12:41Z"
+    },
+    {
+      "title": "OpenAI：ChatGPT Wallet",
+      "url": "https://openai.com/index/introducing-chatgpt-wallet/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official date only, no evidenced timezone; first disclosure bound unresolved.",
+        "sourceUrls": [
+          "https://openai.com/index/introducing-chatgpt-wallet/"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:07:31Z"
+    },
+    {
+      "title": "Mirendil：A 轮融资公告",
+      "url": "https://mirendil.com/news/series-a/",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-12T17:00:00Z",
+        "latest": "2026-11-12T17:00:59Z",
+        "basis": "Official 09:00 PT; minute precision.",
+        "sourceUrls": [
+          "https://mirendil.com/news/series-a/"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:07:31Z"
+    },
+    {
+      "title": "百度：百度世界发布说明",
+      "url": "https://www.prnewswire.com/news-releases/baidu-unveils-latest-ernie-models-amid-broader-full-stack-ai-lineup-and-debuts-token-exchange-to-power-intelligent-organizations-302937959.html",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-12T14:08:00Z",
+        "latest": "2026-11-12T14:08:59Z",
+        "basis": "Company press release at 09:08 ET; minute precision.",
+        "sourceUrls": [
+          "https://www.prnewswire.com/news-releases/baidu-unveils-latest-ernie-models-amid-broader-full-stack-ai-lineup-and-debuts-token-exchange-to-power-intelligent-organizations-302937959.html"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:12:12Z"
+    },
+    {
+      "title": "Personal Agent Protocol：规范说明",
+      "url": "https://personalagentprotocol.org/docs/introduction",
+      "retrievedAt": "2026-11-14T02:16:29Z"
+    },
+    {
+      "title": "ggml-org：v1.0 发布与版本规则",
+      "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
+      "retrievedAt": "2026-11-14T02:18:07Z"
+    },
+    {
+      "title": "Anthropic：多用户多 Agent 协作研究",
+      "url": "https://alignment.anthropic.com/2026/worse-together",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Official research blog date; timezone not stated.",
+        "sourceUrls": [
+          "https://alignment.anthropic.com/2026/worse-together"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:22:12Z"
+    },
+    {
+      "title": "Google：Gemini 连接 Google Wallet",
+      "url": "https://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T17:00:00Z",
+        "basis": "Google JSON-LD datePublished. Blog modified 17:02:50Z before cutoff; TNW says announcement Thursday, so this identifies the blog publication only.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:17:08Z"
+    },
+    {
+      "title": "9to5Google：此前的渐进开放",
+      "url": "https://9to5google.com/2026/09/28/google-wallet-gemini-app/",
+      "retrievedAt": "2026-11-14T02:21:38Z"
+    },
+    {
+      "title": "Anthropic：Claude Platform 发行说明",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Official release notes display November 12 without evidenced timezone; full-service self-hosted release, not older sandbox-only deployment.",
+        "sourceUrls": [
+          "https://platform.claude.com/docs/en/release-notes/overview"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:26:58Z"
+    },
+    {
+      "title": "Anthropic：自托管 Managed Agents 私测",
+      "url": "https://claude.com/de/resources/articles/self-hosted-claude-managed-agents",
+      "retrievedAt": "2026-11-14T02:29:15Z"
+    },
+    {
+      "title": "Google：连接应用与 Gemini 数据使用说明",
+      "url": "https://support.google.com/gemini/answer/16836988",
+      "retrievedAt": "2026-11-14T02:29:15Z"
+    },
+    {
+      "title": "Reuters：World Product Graph 报道转载",
+      "url": "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-13T11:02:00Z",
+        "latest": "2026-11-13T11:02:59Z",
+        "basis": "Yahoo Finance Canada full Reuters reprint displays November 13 06:02 EST; it is reprint availability, not proof of first publication. Search extraction returned complete text; direct open later returned 429.",
+        "sourceUrls": [
+          "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:11:15Z"
+    },
+    {
+      "title": "Reuters：中国 AI 算力项目调查转载",
+      "url": "https://ca.marketscreener.com/news/huang-exit-and-us-scrutiny-imperil-3-billion-in-chinese-ai-projects-reliant-on-nvidia-ce785ed9dd8aff26",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-13T08:29:00Z",
+        "latest": "2026-11-13T08:29:59Z",
+        "basis": "MarketScreener Reuters reprint displays Nov 13 03:29 EST, minute precision; its reprint publication is distinct from Reuters original and project dates.",
+        "sourceUrls": [
+          "https://ca.marketscreener.com/news/huang-exit-and-us-scrutiny-imperil-3-billion-in-chinese-ai-projects-reliant-on-nvidia-ce785ed9dd8aff26"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:33:30Z"
+    },
+    {
+      "title": "AWS：下一代 AgentCore runtime",
+      "url": "https://aws.amazon.com/blogs/machine-learning/run-agents-securely-and-efficiently-with-the-next-generation-agentcore-runtime/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-12T17:59:59Z",
+        "basis": "Official page publication metadata checked through HTTPS at 02:36:37Z; blog publication, not initial deployment.",
+        "sourceUrls": [
+          "https://aws.amazon.com/blogs/machine-learning/run-agents-securely-and-efficiently-with-the-next-generation-agentcore-runtime/"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:36:29Z"
+    },
+    {
+      "title": "Thinking Machines：Inkling 2 Small",
+      "url": "https://thinkingmachines.ai/news/inkling-2-small/",
+      "retrievedAt": "2026-11-14T02:36:29Z"
+    },
+    {
+      "title": "CellCog：Inkling 权重可用性记录",
+      "url": "https://cellcog.ai/blog/inkling-2-small/",
+      "retrievedAt": "2026-11-14T02:37:17Z"
+    },
+    {
+      "title": "AWS：新建 AgentCore runtime 默认版本",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/11/new-agentcore-runtime-default/",
+      "retrievedAt": "2026-11-14T02:37:17Z"
+    },
+    {
+      "title": "Replit：Agent 商务功能",
+      "url": "https://ld.replit.com/blog/replit-agent-ads-commerce",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Replit official article displays Nov 12 without evidenced timezone. Full body returned in search extraction; direct open inaccessible.",
+        "sourceUrls": [
+          "https://ld.replit.com/blog/replit-agent-ads-commerce"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:37:09Z"
+    },
+    {
+      "title": "Reuters：Anthropic 上市需求报道",
+      "url": "https://www.reuters.com/business/finance/investors-flock-anthropic-ipo-question-durability-ai-lead-2026-11-13/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Reuters reporting dated Nov 13 without evidenced publication timezone; displayed 22:03Z update does not establish first publication.",
+        "sourceUrls": [
+          "https://www.reuters.com/business/finance/investors-flock-anthropic-ipo-question-durability-ai-lead-2026-11-13/"
+        ]
+      },
+      "retrievedAt": "2026-11-14T02:37:09Z"
+    }
+  ],
+  "daily": {
+    "issueDate": "2026-11-14",
+    "timeZone": "Asia/Shanghai",
+    "windowStart": "2026-11-13T02:00:00Z",
+    "cutoff": "2026-11-14T02:00:00Z",
+    "evidenceRun": "docs/daily/runs/2026-11-14.json",
+    "items": [
+      {
+        "candidateId": "llama-v1",
+        "title": "llama.cpp 发布 v1.0.0",
+        "summary": "本地推理库发布 1.0；项目说明公共接口版本规则，升级者需检查弃用接口的移除。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-13T10:20:19Z",
+          "basis": "GitHub release API published_at; release updated 14:08:10Z, both before cutoff.",
+          "sourceUrls": [
+            "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0"
+          ]
+        },
+        "sourceUrls": [
+          "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0"
+        ],
+        "releaseStatus": "released"
+      },
+      {
+        "candidateId": "poppy",
+        "title": "Sierra 博文披露 Poppy 1.0 与平台接入",
+        "summary": "Sierra 称 Shopify 店铺会发布协议文件，Meta 的 Muse 会优先寻找该协议；规范仍有兼容性风险。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-13T17:00:00Z",
+          "basis": "Sierra article metadata datePublished; modified 22:20Z before cutoff. Earlier announcement date reported by TNW remains disputed.",
+          "sourceUrls": [
+            "https://sierra.ai/blog/releasing-poppy"
+          ]
+        },
+        "sourceUrls": [
+          "https://sierra.ai/blog/releasing-poppy"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "google-wallet",
+        "title": "Google 称 Wallet 连接向美国 Gemini 用户扩大推出",
+        "summary": "此前已渐进开放的只读连接正向美国 Gemini 应用用户扩大；用户须主动连接，可选 Plaid 关联金融账户。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-13T17:00:00Z",
+          "basis": "Google JSON-LD datePublished. Blog modified 17:02:50Z before cutoff; TNW says announcement Thursday, so this identifies the blog publication only.",
+          "sourceUrls": [
+            "https://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/"
+          ]
+        },
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "world-product-graph",
+        "title": "Reuters 披露 Amazon 商品数据计划",
+        "summary": "Reuters 引述内部文件和知情人士；Amazon 称文件过时，计划是否实施尚不确定。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-13T11:02:00Z",
+          "latest": "2026-11-13T11:02:59Z",
+          "basis": "Yahoo Finance Canada full Reuters reprint displays November 13 06:02 EST; it is reprint availability, not proof of first publication. Search extraction returned complete text; direct open later returned 429.",
+          "sourceUrls": [
+            "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html",
+          "https://www.investing.com/news/stock-market-news/exclusiveamazons-plan-to-own-the-worlds-product-data-and-fight-ai-shopping-agents-5024784"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "ai-task-force",
+        "title": "美国 AI 工作组讨论安全事件信息共享",
+        "summary": "Reuters 引述政府发言人称，工作组讨论关键基础设施报告网络攻击和漏洞的方式。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-13T02:46:00Z",
+          "latest": "2026-11-13T02:46:59Z",
+          "basis": "MarketScreener displays 21:46 EST Nov 12 for its Reuters reprint; this records reprint availability, not original first publication.",
+          "sourceUrls": [
+            "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
+        ],
+        "releaseStatus": "reported"
+      }
+    ],
+    "pending": [
+      {
+        "candidateId": "wallet",
+        "title": "OpenAI 介绍 ChatGPT Wallet",
+        "summary": "美国部分成年 Pro 用户可通过 dots 使用；每笔购买需要用户核对并通过安全检查。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Official date only, no evidenced timezone; first disclosure bound unresolved.",
+          "sourceUrls": [
+            "https://openai.com/index/introducing-chatgpt-wallet/"
+          ]
+        },
+        "sourceUrls": [
+          "https://openai.com/index/introducing-chatgpt-wallet/"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "官方页面只标 11 月 13 日，首次披露时刻和时区尚未确认，可能跨越本期起点。"
+      },
+      {
+        "candidateId": "claude-managed",
+        "title": "Claude Managed Agents 提供自托管服务",
+        "summary": "私测用户可在自有设施运行完整服务并保存会话，模型请求仍发往选择的供应商；访问须联系客户团队。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Official release notes display November 12 without evidenced timezone; full-service self-hosted release, not older sandbox-only deployment.",
+          "sourceUrls": [
+            "https://platform.claude.com/docs/en/release-notes/overview"
+          ]
+        },
+        "sourceUrls": [
+          "https://platform.claude.com/docs/en/release-notes/overview"
+        ],
+        "releaseStatus": "beta",
+        "uncertainty": "发行说明仅标 11 月 12 日，未注明时区或首次公开时刻，可能跨越本期起点。"
+      },
+      {
+        "candidateId": "china-nvidia-projects",
+        "title": "Reuters 调查中国算力项目中的 NVIDIA 处理器",
+        "summary": "Reuters 查阅 150 多份采购与项目文件；项目及设备协议总额包括计划与基础设施，不能等同芯片采购额。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-12T10:00:00Z",
+          "latest": "2026-11-13T08:29:59Z",
+          "basis": "Reuters dateline Nov 13 without established timezone gives conservative earliest UTC+14 bound; a full reprint was published by 03:29 EST Nov 13. First public time is unknown; bounds are not claimed instants.",
+          "sourceUrls": [
+            "https://ca.marketscreener.com/news/huang-exit-and-us-scrutiny-imperil-3-billion-in-chinese-ai-projects-reliant-on-nvidia-ce785ed9dd8aff26"
+          ]
+        },
+        "sourceUrls": [
+          "https://ca.marketscreener.com/news/huang-exit-and-us-scrutiny-imperil-3-billion-in-chinese-ai-projects-reliant-on-nvidia-ce785ed9dd8aff26"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "报道日期与 08:29 UTC 的转载提供时间范围，原报道的首次公开时刻仍未确认，范围跨越本期起点。"
+      },
+      {
+        "candidateId": "replit-buy",
+        "title": "Replit Agent 增加购物与广告工具",
+        "summary": "Replit 称美国符合条件的用户可授权 Agent 购买物品，每次购买需要用户确认；广告能力适用范围不同。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-12",
+          "basis": "Replit official article displays Nov 12 without evidenced timezone. Full body returned in search extraction; direct open inaccessible.",
+          "sourceUrls": [
+            "https://ld.replit.com/blog/replit-agent-ads-commerce"
+          ]
+        },
+        "sourceUrls": [
+          "https://ld.replit.com/blog/replit-agent-ads-commerce"
+        ],
+        "releaseStatus": "announced",
+        "uncertainty": "官方文章仅标 11 月 12 日，首次公开时刻及其时区未知，可能跨越本期起点。"
+      },
+      {
+        "candidateId": "anthropic-demand",
+        "title": "Reuters 报道 Anthropic 上市订单需求",
+        "summary": "Reuters 引述知情人士称订单需求较强；报价和最终发行仍可能变化。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Reuters reporting dated Nov 13 without evidenced publication timezone; displayed 22:03Z update does not establish first publication.",
+          "sourceUrls": [
+            "https://www.reuters.com/business/finance/investors-flock-anthropic-ipo-question-durability-ai-lead-2026-11-13/"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.reuters.com/business/finance/investors-flock-anthropic-ipo-question-durability-ai-lead-2026-11-13/"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "报道标 11 月 13 日，页面显示的是更新时间而非可证的首次发表时刻；可能跨越本期起点。"
+      }
+    ]
+  }
+}
+---
+
+import { Section, SectionHead, Prose } from '@/components/article';
+
+
+<Section canvas id="llama">
+  <SectionHead index="03" kicker="开发工具" title="llama.cpp 进入 1.0" />
+  <Prose><p>本地模型推理项目 llama.cpp 发布 v1.0.0，并同步推出 ggml v1.0。维护者说明，今后公共 C 接口或 ABI 出现不兼容变化时将使用主版本号标示；兼容的功能、后端或模型支持增加使用次版本号，修复使用补丁号。</p><p>这次版本移除了包括 35 个弃用函数在内的旧接口，并将 NextN 推测式生成接口移入 <code>llama.h</code>。依赖旧接口的项目需要检查迁移。发布说明还列出 FP8 KV 缓存、主机内存 MoE 专家缓存及服务器安全修复；部分能力此前已在开发版本中出现，发布说明本身不是性能或安全实测。</p></Prose>
+</Section>
+<Section canvas id="poppy">
+  <SectionHead index="04" kicker="Agent 协议" title="让个人 Agent 与商家协商权限" />
+  <Prose>
+    <p>Sierra 在 11 月 13 日的博文中介绍 Personal Agent Protocol（简称 Poppy）1.0。它让商家声明可供个人 Agent 使用的网站和接口，再通过 OAuth 等已有机制处理用户授权。Sierra 称 Shopify 店铺会自动发布协议文件，Meta 的 Muse 访问网站时会优先查找该文件。</p>
+    <p>协议负责发现与授权，购物流程可以交给 UCP 等现有协议。Sierra 称 Mercury 的支付请求仍经过账户自己的审批规则；土耳其航空在对话中完成购买的能力仍在开发。<a href="https://personalagentprotocol.org/docs/introduction">规范文档</a>目前标为 Draft 1.0，兼容性可能变化；这些厂商陈述也不能证明所有接入都安全或互通。另一篇报道将公告说成周四，早于 Sierra 博文元数据所示日期；这里记录的是 11 月 13 日博文的披露。</p>
+    <svg viewBox="0 0 480 180" role="img" aria-labelledby="poppy-title poppy-desc" class="mx-auto w-full max-w-[480px]">
+      <title id="poppy-title">个人 Agent 与商家协商的路径</title><desc id="poppy-desc">Agent 查找商家协议文件，用户授权后，商家的系统按权限处理请求。</desc>
+      <text x="20" y="38" font-size="22" fill="var(--color-ink)">个人 Agent：查找协议文件</text><text x="20" y="88" font-size="22" fill="var(--color-ink)">↓ 用户授权</text><text x="20" y="138" font-size="22" fill="var(--color-ink)">商家接口：按权限处理请求</text>
+    </svg>
+  </Prose>
+</Section>
+
+<Section canvas id="google-wallet">
+  <SectionHead index="05" kicker="产品" title="从部分用户走向更广泛的开放" />
+  <Prose><p>Google 在 11 月 13 日的博文中称，Gemini 的 Google Wallet 连接正向所有美国应用用户推出。用户自行选择是否连接，也可以选择通过 Plaid 关联银行或信用卡账户，用于查看支出和规划预算。Google 称 Gemini 对账户信息只有读取权限，不能转移、管理或投资资金。</p><p><a href="https://9to5google.com/2026/09/28/google-wallet-gemini-app/">9to5Google 早在 9 月</a>已报道这项连接和 Plaid 支出分析当时正渐进开放；本次重点是 Google 描述的扩大推出，并非首次引入功能。另一篇报道将公告称为周四，与官方博文日期不一致；这里按博文发布时间记录，不推断更早公告的确切时刻。</p><p>按目前访问到的 <a href="https://support.google.com/gemini/answer/16836988">Google 帮助说明</a>，开启 Keep Activity 时，交易相关的摘要、摘录和推断可能用于模型训练，部分内容也可能经人工审核；帮助页未注明历史版本日期，不能确定截止时措辞完全相同。</p></Prose>
+</Section>
+<Section canvas id="amazon">
+  <SectionHead index="06" kicker="商业" title="商品数据争夺仍在计划阶段" />
+  <Prose><p>Reuters 查阅的内部文件描述了 Amazon 的 World Product Graph：把品牌提供的数据与零售网站的信息结合，帮助用户了解商品之间的关系。报道说，项目也意在应对可能把流量带往其他网站的购物 Agent。</p><p>Amazon 回应称文件已经过时，未必反映现有计划。Reuters 无法确认项目是否或何时推出；文件中的未来日期是设想，不能视为发布承诺。报道依靠文件和知情人士；Reuters 原站未能直接读取，已阅读的转载共享同一报道来源，不能算独立证实。</p></Prose>
+</Section>
+<Section canvas id="security">
+  <SectionHead index="07" kicker="治理" title="讨论如何报告 AI 网络攻击" />
+  <Prose><p>Reuters 引述美国政府发言人称，AI 工作组讨论了如何鼓励关键基础设施运营者报告 AI 驱动的网络攻击和漏洞，以及开发者分享安全事件信息的标准进展。这是一次讨论，报道没有宣布新的法律或已经生效的义务。</p></Prose>
+</Section>
+<Section canvas id="uncertain">
+  <SectionHead index="08" kicker="时间待核" title="跨越窗口边界的消息" />
+  <Prose><p>OpenAI 介绍 ChatGPT Wallet：用户添加合资格银行卡后，先核对商品、总额和所选卡，再用安全检查批准购买。支付网络提供代替真实卡资料的令牌。初期通过 dots 面向美国年满 18 岁、持合资格美国发行卡的 Pro 用户开放。按类别或金额预先授权由 Agent 自主购买仍是未来计划。</p><p>官方页面标注 11 月 13 日，尚未确认首次公开的时区与时间，因此这条消息暂不计入确认数量。</p><p>Anthropic 的发行说明还介绍完整服务自托管的 Claude Managed Agents 私测：Agent、会话与历史由客户在自己的设施保存，但模型请求仍发往选定的供应商，访问需联系客户团队。说明仅标 11 月 12 日，首次公开时刻和时区未确认；它与此前只自托管沙盒的方案不同。</p><p>Reuters 根据 150 多份中国采购、投资和建设文件，统计了使用 NVIDIA 受限处理器的算力项目与设备协议。报道中的 230 多亿元人民币包含计划、在建或已完成的项目及建筑、电力等设施，不能当作芯片采购总额，也未证明设备来源或违规。已有转载在 11 月 13 日 08:29 UTC 公开，但报道首次公开的下界尚未确认，因而暂不计入本期确认数量。</p><p>Replit 称其 Agent 可以为符合条件的美国用户购买业务用品，每笔购买都须等待用户批准；Google Ads 工具的使用范围不同。官方文章仅标 11 月 12 日，时区和首次公开时刻未知。搜索提取返回了官方正文，但之后直接打开页面失败，因此仍列待核。</p><p>Reuters 引述知情人士称，Anthropic 拟议上市在路演期间获得较强订单需求，投资者也在评估竞争和高估值风险。订单与发行条款可能变化，不能当作上市已经完成；原始报道标注 11 月 13 日，但页面所示更新时间不能确定首次发表时刻。</p></Prose>
+</Section>
+<Section canvas id="retrospective">
+  <SectionHead index="09" kicker="前期回看" title="补看融资与模型公告" />
+  <Prose><p>上一期遗漏了 <a href="https://mirendil.com/news/series-a/">Mirendil 的融资公告</a>：公司于 11 月 12 日 17:00 UTC 宣布获得 10 亿美元 A 轮融资，由 Kleiner Perkins 与 Clearlake Capital 领投。公司称一名研究员借助 Agent 在三个月半内、以不到 1000 万美元计算成本训练编码模型；这是公司自报，Lor 平台仍处于私测。这条回看不计入本期新增。</p><p>同样补看 <a href="https://www.prnewswire.com/news-releases/baidu-unveils-latest-ernie-models-amid-broader-full-stack-ai-lineup-and-debuts-token-exchange-to-power-intelligent-organizations-302937959.html">百度 11 月 12 日的大会说明</a>：公司介绍 ERNIE 模型、Agent 更新和 Token Exchange。公告日期不能用来推断所有产品首次可用的时间；厂商公布的性能和使用数据需要按测试范围理解。</p><p>Anthropic 11 月 11 日的<a href="https://alignment.anthropic.com/2026/worse-together">研究说明</a>比较了多用户各自的 Agent 和统一协调者在共享环境中的表现，并公布 MAMUBench 的部分环境。研究结果来自特定模型和模拟任务，不代表所有 Agent 团队；博文属于本期之前，作为回看不计入本期数量。</p><p>AWS 在 <a href="https://aws.amazon.com/blogs/machine-learning/run-agents-securely-and-efficiently-with-the-next-generation-agentcore-runtime/">11 月 12 日的博客</a>介绍下一代 AgentCore runtime；<a href="https://aws.amazon.com/about-aws/whats-new/2026/11/new-agentcore-runtime-default/">AWS 另称</a>，新建 runtime 在所列区域使用新版默认配置，既有实例不会自动迁移。速度与效率数字是 AWS 自报。Thinking Machines 的 <a href="https://thinkingmachines.ai/news/inkling-2-small/">Inkling 2 Small</a> 最初在 11 月 5 日推出；<a href="https://cellcog.ai/blog/inkling-2-small/">CellCog 记录</a>称，公司 11 月 12 日 20:50 UTC 的社交帖宣布开放权重，21:38 UTC 时其已可读取权重仓库。原帖未直接核验，首次开放的精确时刻仍未独立确认，两项回看均不计入本期新增。</p></Prose>
+</Section>
+<Section canvas id="outlook">
+  <SectionHead index="10" kicker="观察" title="Agent 行动仍要经过授权" />
+  <Prose><p>本期确认消息中，产品 2 条、商业 1 条、治理 1 条、Agent 生态 1 条；研究类没有纳入确认条目。时间待核的 5 条与前期回看不计入图表。协议可以帮助系统发现允许的动作，但权限、商家接入和用户核对仍决定实际体验。</p><p>本期检索覆盖中、英、法、日、西语渠道，但法、日、西语是少量定向查询。研究部分盘点两个论文汇总并查阅 29 篇原始摘要及部分版本，论文提交时间不代表公开时间；这不是全部论文的普查。中文融资的部分原公众号和商业数据库未能读取；CESA 标准全文及欧盟公报原 PDF 未取得，部分 Reuters 原站和社交帖访问受限，转载不能算独立来源。JEV、Laya、OSC 的具体指代仍未确认。</p></Prose>
+</Section>
