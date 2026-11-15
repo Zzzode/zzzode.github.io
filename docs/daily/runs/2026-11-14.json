@@ -6,7 +6,7 @@
   "windowStart": "2026-11-13T02:00:00Z",
   "cutoff": "2026-11-14T02:00:00Z",
   "startedAt": "2026-11-14T02:06:09Z",
-  "completedAt": "2026-11-15T02:14:39Z",
+  "completedAt": "2026-11-15T02:36:32Z",
   "queries": [
     {
       "id": "q1",
@@ -1421,6 +1421,86 @@
         "https://compliance.wiscai.com/"
       ],
       "notes": "Independent supplemental batch; URLs are combined results, not attributed individually."
+    },
+    {
+      "id": "correction-godel",
+      "actor": "author",
+      "query": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
+      "executedAt": "2026-11-15T02:30:40Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths"
+      ],
+      "notes": "Retrospective recovery; Guardian original fetched after original issue."
+    },
+    {
+      "id": "correction-cursor",
+      "actor": "author",
+      "query": "https://cursor.com/blog/security-incident-update",
+      "executedAt": "2026-11-15T02:32:23Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cursor.com/blog/security-incident-update"
+      ],
+      "notes": "Original incident update recovered after prior issue publication."
+    },
+    {
+      "id": "correction-codex-0169",
+      "actor": "author",
+      "query": "GitHub release API https://github.com/openai/codex/releases/tag/rust-v0.169.0",
+      "executedAt": "2026-11-15T02:33:02Z",
+      "method": "metadata",
+      "focus": [
+        "products",
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/openai/codex/releases/tag/rust-v0.169.0"
+      ],
+      "notes": "Release metadata and notes read on Nov 15."
+    },
+    {
+      "id": "correction-claude-21325",
+      "actor": "author",
+      "query": "GitHub release API https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+      "executedAt": "2026-11-15T02:33:02Z",
+      "method": "metadata",
+      "focus": [
+        "products",
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/anthropics/claude-code/releases/tag/v2.1.325"
+      ],
+      "notes": "Release metadata and notes read on Nov 15."
+    },
+    {
+      "id": "correction-deepseek-api",
+      "actor": "author",
+      "query": "https://api-docs.deepseek.com/news/news261113/",
+      "executedAt": "2026-11-15T02:06:00Z",
+      "method": "open",
+      "focus": [
+        "products"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api-docs.deepseek.com/news/news261113/"
+      ],
+      "notes": "Directly fetched Nov 15; retrospectively recovered for the prior issue."
     }
   ],
   "sources": [
@@ -2897,6 +2977,91 @@
         ]
       },
       "evidence": "Authors compare six monitors on 1,313 tasks with one model in simulated and real environments; report a -1 percentage point difference with a 95% interval of -3 to +1."
+    },
+    {
+      "id": "godel-interview",
+      "title": "Guardian: Gödel notebooks interview",
+      "url": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:30:40Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T16:38:27Z",
+        "basis": "Guardian article datePublished metadata; this is the publication of the interview, not the date of the underlying research.",
+        "sourceUrls": [
+          "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths"
+        ]
+      },
+      "evidence": "Original interview with Jan von Plato about Claude analysis of human transcriptions and expert verification."
+    },
+    {
+      "id": "cursor-investigation",
+      "title": "Cursor security incident update",
+      "url": "https://cursor.com/blog/security-incident-update",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:32:23Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T12:00:00Z",
+        "basis": "Cursor article datePublished and time element metadata; publication of investigation update, not attack date.",
+        "sourceUrls": [
+          "https://cursor.com/blog/security-incident-update"
+        ]
+      },
+      "evidence": "Cursor describes the vendor key exposure, historical traces and later malicious extension copies; counts are company estimates."
+    },
+    {
+      "id": "codex-0169",
+      "title": "Codex CLI v0.169.0",
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:33:02Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T08:37:05Z",
+        "basis": "GitHub release API published_at for this version.",
+        "sourceUrls": [
+          "https://github.com/openai/codex/releases/tag/rust-v0.169.0"
+        ]
+      },
+      "evidence": "不受信任目录中，非交互 exec 不加载项目配置与 MCP；显式信任后才可启用。"
+    },
+    {
+      "id": "claude-21325",
+      "title": "Claude Code v2.1.325",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:33:02Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T20:40:01Z",
+        "basis": "GitHub release API published_at for this version.",
+        "sourceUrls": [
+          "https://github.com/anthropics/claude-code/releases/tag/v2.1.325"
+        ]
+      },
+      "evidence": "沙箱 Bash 默认经过正常权限流程；计划任务运行带权限或钩子的 skill 时也需确认。"
+    },
+    {
+      "id": "deepseek-app-api",
+      "title": "DeepSeek Full-Suite App API",
+      "url": "https://api-docs.deepseek.com/news/news261113/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:06:00Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official announcement date without evidenced timezone or first-publication instant.",
+        "sourceUrls": [
+          "https://api-docs.deepseek.com/news/news261113/"
+        ]
+      },
+      "evidence": "Official announcement describes built-in search, files, URL reading and safety, with separate Search, Fetch, OCR, ASR and TTS APIs."
     }
   ],
   "checks": [
@@ -6952,6 +7117,138 @@
       "reasonCode": "selected",
       "reason": "New public explanation is timestamped in this issue; not a claim that underlying experiments were new on that date.",
       "importance": "Provides an empirical but narrow test of whether simulated monitoring reflects real tasks."
+    },
+    {
+      "id": "godel-interview",
+      "title": "Guardian 采访 Gödel 手稿研究负责人",
+      "category": "research",
+      "entity": "Jan von Plato",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "correction-godel"
+      ],
+      "sourceIds": [
+        "godel-interview"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-13T16:38:27Z",
+        "basis": "Guardian article datePublished metadata; this is the publication of the interview, not the date of the underlying research.",
+        "sourceUrls": [
+          "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "New original interview published in this issue; recovered only on Nov 15.",
+      "importance": "A research application combining AI analysis with expert transcription and formal proof verification.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "godel-interview"
+        ],
+        "attribution": "Guardian original interview with project leader Jan von Plato.",
+        "limitations": "Project leader reports figures; independent replication and peer review not established. The model worked on human transcriptions, not raw shorthand."
+      }
+    },
+    {
+      "id": "cursor-investigation",
+      "title": "Cursor 披露安全事件调查更新",
+      "category": "governance",
+      "entity": "Cursor",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "correction-cursor"
+      ],
+      "sourceIds": [
+        "cursor-investigation"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-13T12:00:00Z",
+        "basis": "Cursor article datePublished and time element metadata; publication of investigation update, not attack date.",
+        "sourceUrls": [
+          "https://cursor.com/blog/security-incident-update"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "A newly recovered investigation update published inside the original window, distinct from the October incident itself.",
+      "importance": "Material developer security and supply-chain disclosure; company account and affected population estimates are attributed."
+    },
+    {
+      "id": "codex-0169",
+      "title": "Codex CLI v0.169.0",
+      "category": "agents",
+      "entity": "Codex CLI v0.169.0",
+      "releaseStatus": "released",
+      "queryIds": [
+        "correction-codex-0169"
+      ],
+      "sourceIds": [
+        "codex-0169"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-13T08:37:05Z",
+        "basis": "GitHub release API published_at for this version.",
+        "sourceUrls": [
+          "https://github.com/openai/codex/releases/tag/rust-v0.169.0"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Developer security behavior in a version published in the original window; discovered during retrospective review.",
+      "importance": "Affects trust or approval behavior in widely used coding agents."
+    },
+    {
+      "id": "claude-21325",
+      "title": "Claude Code v2.1.325",
+      "category": "agents",
+      "entity": "Claude Code v2.1.325",
+      "releaseStatus": "released",
+      "queryIds": [
+        "correction-claude-21325"
+      ],
+      "sourceIds": [
+        "claude-21325"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-13T20:40:01Z",
+        "basis": "GitHub release API published_at for this version.",
+        "sourceUrls": [
+          "https://github.com/anthropics/claude-code/releases/tag/v2.1.325"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Developer security behavior in a version published in the original window; discovered during retrospective review.",
+      "importance": "Affects trust or approval behavior in widely used coding agents."
+    },
+    {
+      "id": "deepseek-app-api",
+      "title": "DeepSeek 全套应用 API",
+      "category": "products",
+      "entity": "DeepSeek",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "correction-deepseek-api"
+      ],
+      "sourceIds": [
+        "deepseek-app-api"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official announcement date without evidenced timezone or first-publication instant.",
+        "sourceUrls": [
+          "https://api-docs.deepseek.com/news/news261113/"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Newly recovered after publication; official dated Nov 13 without evidenced timezone, potentially crossing the prior issue start.",
+      "importance": "Major developer-facing expansion of app capabilities into APIs."
     }
   ],
   "coverage": [
@@ -7030,7 +7327,7 @@
   },
   "review": {
     "reviewer": "independent-reviewer",
-    "reviewedAt": "2026-11-15T02:14:39Z",
+    "reviewedAt": "2026-11-15T02:36:32Z",
     "candidateIds": [
       "wallet",
       "poppy",
@@ -7142,7 +7439,12 @@
       "claude-duet",
       "epoch-incident",
       "anthropic-safety-evals",
-      "redwood-probe-simulation"
+      "redwood-probe-simulation",
+      "godel-interview",
+      "cursor-investigation",
+      "codex-0169",
+      "claude-21325",
+      "deepseek-app-api"
     ],
     "queryIds": [
       "review-q4",
@@ -7170,6 +7472,16 @@
         "detail": "On Nov 15 the independent reviewer read all 111 candidate decisions, rationale, timing and references, verified the Wallet feed and new Redwood explanation, and checked the correction draft. Original source texts for every historical candidate were not fetched anew. Reuters original-publication bounds were corrected.",
         "severity": "note",
         "resolution": "disclosed"
+      },
+      {
+        "detail": "The reviewer examined the complete 115-candidate set and checked the recovered Cursor, Gödel and two coding-agent releases, their source times, category counts and the article order on Nov 15. Earlier candidates were reviewed from the ledger, not all source pages re-fetched.",
+        "severity": "note",
+        "resolution": "disclosed"
+      },
+      {
+        "detail": "Reviewer independently checked recovered DeepSeek official announcement against the 116-candidate ledger and article; official date lacks evidenced timezone, so it is pending.",
+        "severity": "note",
+        "resolution": "disclosed"
       }
     ]
   },
@@ -7177,7 +7489,11 @@
     "slug": "2026-11-14-ai-daily",
     "includedCandidateIds": [
       "llama-v1",
+      "cursor-investigation",
       "wallet",
+      "godel-interview",
+      "codex-0169",
+      "claude-21325",
       "redwood-probe-simulation",
       "poppy",
       "google-wallet"
@@ -7190,10 +7506,11 @@
       "world-product-graph",
       "ai-task-force",
       "epoch-incident",
-      "anthropic-safety-evals"
+      "anthropic-safety-evals",
+      "deepseek-app-api"
     ],
     "limitations": "Bounded multilingual and research samples; inaccessible Chinese financing originals, standard and EU PDF, Reuters and social originals; uncertain first-publication times. See independent review.",
-    "sha256": "cb95840032ebb0e839bb97bc9b7690fe2982073abb26847a454a682722ecd3d2",
+    "sha256": "aa3d4af33cc6a908d2be8b57024c22c341e7436c5c7772f8aeec3a53c2c77630",
     "originalDate": "2026-11-14T02:41:45Z"
   }
 }
