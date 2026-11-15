@@ -1,0 +1,643 @@
+---
+{
+  "title": "AI 日报：推理框架修复与模型安全",
+  "date": "2026-11-15T03:11:37Z",
+  "excerpt": "SGLang、vLLM 与 llama.cpp 合并推理基础设施变更；新研究观察模型开放对话。",
+  "tags": [
+    "AI",
+    "AI 日报",
+    "智能体",
+    "研究"
+  ],
+  "kind": "distilled",
+  "channel": "daily",
+  "draft": false,
+  "sources": [
+    {
+      "title": "The Verge：Helen Toner 访谈",
+      "url": "https://www.theverge.com/podcast/1032907/helen-toner-openai-cset-ai-safety-policy-interview",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T15:00:00Z",
+        "basis": "Original interview publication metadata.",
+        "sourceUrls": [
+          "https://www.theverge.com/podcast/1032907/helen-toner-openai-cset-ai-safety-policy-interview"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:10:19Z"
+    },
+    {
+      "title": "菲律宾通讯社：AI 治理委员会",
+      "url": "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T08:39:07Z",
+        "basis": "PNA article publication metadata.",
+        "sourceUrls": [
+          "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:10:14Z"
+    },
+    {
+      "title": "中国经营报：具身智能融资观察",
+      "url": "https://finance.eastmoney.com/a/202611143931301968.html",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-14",
+        "basis": "Article gives date and clock time without an evidenced timezone; possible range crosses issue boundaries.",
+        "sourceUrls": [
+          "https://finance.eastmoney.com/a/202611143931301968.html"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:08:41Z"
+    },
+    {
+      "title": "Ai2：XYBench 研究说明",
+      "url": "https://allenai.org/blog/xybench",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Dated November 13; publication timezone and earliest disclosure not established.",
+        "sourceUrls": [
+          "https://allenai.org/blog/xybench"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:10:16Z"
+    },
+    {
+      "title": "openEuler：面向 Agent 的基础设施",
+      "url": "https://www.ithome.com/1/026/911.htm",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Dated November 13; publication timezone and earliest disclosure not established.",
+        "sourceUrls": [
+          "https://www.ithome.com/1/026/911.htm"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:19:25Z"
+    },
+    {
+      "title": "NVIDIA：CoRL 机器人技术公告",
+      "url": "https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-09T14:00:01Z",
+        "basis": "NVIDIA blog datePublished metadata; announcement of GR00T 2, not model weight availability.",
+        "sourceUrls": [
+          "https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl/"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:40:00Z"
+    },
+    {
+      "title": "日建设计：Notion AI 事件说明",
+      "url": "https://www.nikken.jp/ja/news/news/20261113j.html",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Victim disclosure date only, no verified timezone or first-publication time.",
+        "sourceUrls": [
+          "https://www.nikken.jp/ja/news/news/20261113j.html"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:45:29Z"
+    },
+    {
+      "title": "Thinking Machines：4 位训练说明",
+      "url": "https://thinkingmachines.ai/blog/end-to-end-4-bit-training/",
+      "retrievedAt": "2026-11-15T02:43:33Z"
+    },
+    {
+      "title": "Cognition：Devin Apps",
+      "url": "https://devin.ai/blog/devin-apps",
+      "retrievedAt": "2026-11-15T02:43:33Z"
+    },
+    {
+      "title": "Deepnote：Agent Initiative Benchmark",
+      "url": "https://deepnote.com/research/benchmark",
+      "retrievedAt": "2026-11-15T02:43:33Z"
+    },
+    {
+      "title": "Matthew Korpman：141 个模型的开放对话研究",
+      "url": "https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T02:02:48.833Z",
+        "basis": "Original forum post postedAt and HTML time metadata.",
+        "sourceUrls": [
+          "https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:49:25Z"
+    },
+    {
+      "title": "InclusionAI：Duo v1 音视频交互预览",
+      "url": "https://github.com/inclusionAI/Duo",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official date only; timezone and initial public disclosure unverified.",
+        "sourceUrls": [
+          "https://github.com/inclusionAI/Duo"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:52:23Z"
+    },
+    {
+      "title": "Google Cloud：面向高性能计算的 Agent 技能",
+      "url": "https://cloud.google.com/blog/topics/hpc/whats-new-in-hpc-and-ai-at-sc26",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official date only; timezone and initial public disclosure unverified.",
+        "sourceUrls": [
+          "https://cloud.google.com/blog/topics/hpc/whats-new-in-hpc-and-ai-at-sc26"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:52:23Z"
+    },
+    {
+      "title": "Startrise：模型发布索引",
+      "url": "https://www.startrise.io/models",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-15T01:30:00Z",
+        "basis": "Tracker identifies latest update at 01:30 UTC November 15; listing date attributed to tracker, not primary announcement.",
+        "sourceUrls": [
+          "https://www.startrise.io/models"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:52:23Z"
+    },
+    {
+      "title": "HeyGen：Decision 模型文档",
+      "url": "https://developers.heygen.com/docs/models/heygen-decision",
+      "retrievedAt": "2026-11-15T02:53:18Z"
+    },
+    {
+      "title": "MIT HAN Lab：PEAR 项目",
+      "url": "https://mit-han-lab.github.io/pear-blog",
+      "retrievedAt": "2026-11-15T02:56:46Z"
+    },
+    {
+      "title": "美联储：金融稳定报告",
+      "url": "https://www.federalreserve.gov/publications/files/financial-stability-report-20261113.pdf",
+      "retrievedAt": "2026-11-15T02:56:14Z"
+    },
+    {
+      "title": "参议员 Murray：致 OpenAI 信函",
+      "url": "https://www.murray.senate.gov/murray-demands-answers-on-chatgpts-irresponsible-and-dangerous-medical-advice-resulting-in-death-of-seattle-resident/",
+      "retrievedAt": "2026-11-15T02:50:58Z"
+    },
+    {
+      "title": "美联储：近期发布列表",
+      "url": "https://www.federalreserve.gov/recentpostings.htm",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official recent postings date the report November 13; time zone and precise first-publication time remain unverified.",
+        "sourceUrls": [
+          "https://www.federalreserve.gov/recentpostings.htm"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:52:23Z"
+    },
+    {
+      "title": "Google Research：Antigravity /teamwork 科研说明",
+      "url": "https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Google Research post date only; first-public time and timezone unverified.",
+        "sourceUrls": [
+          "https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:58:17Z"
+    },
+    {
+      "title": "cubic：加入 Cohere",
+      "url": "https://www.cubic.dev/blog/cubic-joins-cohere",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Cubic announcement date only; midnight metadata may be a date placeholder, timezone and first-public time unverified.",
+        "sourceUrls": [
+          "https://www.cubic.dev/blog/cubic-joins-cohere"
+        ]
+      },
+      "retrievedAt": "2026-11-15T03:05:57Z"
+    },
+    {
+      "title": "SGLang 路由认证级别修复",
+      "url": "https://github.com/sgl-project/sglang/pull/49895",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T06:03:39Z",
+        "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+        "sourceUrls": [
+          "https://github.com/sgl-project/sglang/pull/49895"
+        ]
+      },
+      "retrievedAt": "2026-11-15T03:06:58Z"
+    },
+    {
+      "title": "SGLang 隔离不同 KV 缓存类型",
+      "url": "https://github.com/sgl-project/sglang/pull/38362",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T05:22:18Z",
+        "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+        "sourceUrls": [
+          "https://github.com/sgl-project/sglang/pull/38362"
+        ]
+      },
+      "retrievedAt": "2026-11-15T03:06:58Z"
+    },
+    {
+      "title": "vLLM 减少 MoE 路由填充开销",
+      "url": "https://github.com/vllm-project/vllm/pull/66799",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T02:18:28Z",
+        "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+        "sourceUrls": [
+          "https://github.com/vllm-project/vllm/pull/66799"
+        ]
+      },
+      "retrievedAt": "2026-11-15T03:06:58Z"
+    },
+    {
+      "title": "llama.cpp 扩展 Hexagon 量化支持",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/31954",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T04:57:06Z",
+        "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+        "sourceUrls": [
+          "https://github.com/ggml-org/llama.cpp/pull/31954"
+        ]
+      },
+      "retrievedAt": "2026-11-15T03:06:58Z"
+    }
+  ],
+  "daily": {
+    "issueDate": "2026-11-15",
+    "timeZone": "Asia/Shanghai",
+    "windowStart": "2026-11-14T02:00:00Z",
+    "cutoff": "2026-11-15T02:00:00Z",
+    "evidenceRun": "docs/daily/runs/2026-11-15.json",
+    "items": [
+      {
+        "candidateId": "sglang-websocket-auth",
+        "title": "SGLang 路由认证级别修复",
+        "summary": "修复嵌套路由的认证级别解析并增加回归测试；不据此推断所有部署受影响。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-14T06:03:39Z",
+          "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+          "sourceUrls": [
+            "https://github.com/sgl-project/sglang/pull/49895"
+          ]
+        },
+        "sourceUrls": [
+          "https://github.com/sgl-project/sglang/pull/49895"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "sglang-hicache-dtype",
+        "title": "SGLang 隔离不同 KV 缓存类型",
+        "summary": "部分共享存储的缓存键加入逻辑数据类型，避免不同类型读取同名缓存对象；旧键将冷启动重建。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-14T05:22:18Z",
+          "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+          "sourceUrls": [
+            "https://github.com/sgl-project/sglang/pull/38362"
+          ]
+        },
+        "sourceUrls": [
+          "https://github.com/sgl-project/sglang/pull/38362"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "vllm-moe-padding",
+        "title": "vLLM 减少 MoE 路由填充开销",
+        "summary": "分组 top-k 路由默认跳过填充行；作者在特定 GLM 配置报告吞吐增加，结果并非独立测评。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-14T02:18:28Z",
+          "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+          "sourceUrls": [
+            "https://github.com/vllm-project/vllm/pull/66799"
+          ]
+        },
+        "sourceUrls": [
+          "https://github.com/vllm-project/vllm/pull/66799"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "llamacpp-hexagon",
+        "title": "llama.cpp 扩展 Hexagon 量化支持",
+        "summary": "Hexagon 后端合并 IQ2_XXS 与 NVFP4 权重支持；设备与速度数字受测试配置限制。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-14T04:57:06Z",
+          "basis": "GitHub pull request merged_at metadata; event is merge to main, not a stable release.",
+          "sourceUrls": [
+            "https://github.com/ggml-org/llama.cpp/pull/31954"
+          ]
+        },
+        "sourceUrls": [
+          "https://github.com/ggml-org/llama.cpp/pull/31954"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "toner-interview",
+        "title": "Helen Toner 谈前沿 AI 的安全责任",
+        "summary": "前 OpenAI 董事在新访谈中主张更高的训练与部署安全门槛，并指出治理不能只依靠领导者个人。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-14T15:00:00Z",
+          "basis": "Original interview publication metadata.",
+          "sourceUrls": [
+            "https://www.theverge.com/podcast/1032907/helen-toner-openai-cset-ai-safety-policy-interview"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.theverge.com/podcast/1032907/helen-toner-openai-cset-ai-safety-policy-interview"
+        ],
+        "releaseStatus": "reported"
+      },
+      {
+        "candidateId": "spiritual-models",
+        "title": "研究者比较 141 个模型的开放对话",
+        "summary": "研究者让各模型的两个实例进行无任务对话，分析其中的宗教与精神性语言；结果依赖模型评分器，不足以证明意识或体验。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-14T02:02:48.833Z",
+          "basis": "Original forum post postedAt and HTML time metadata.",
+          "sourceUrls": [
+            "https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large"
+        ],
+        "releaseStatus": "research"
+      }
+    ],
+    "pending": [
+      {
+        "candidateId": "philippines-ai-council",
+        "title": "菲律宾总统府宣布 AI 治理委员会",
+        "summary": "菲律宾通讯社称总统于 11 月 12 日签署行政令，发言人周六宣布设立跨部门委员会。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-14",
+          "timeZone": "Asia/Manila",
+          "basis": "Spokesperson announced the order on Saturday in the Philippines, according to PNA; exact briefing time unknown.",
+          "sourceUrls": [
+            "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "周六在菲律宾当地的起点早于本期起点；记者会的具体时间和首次公开时刻尚未确认。"
+      },
+      {
+        "candidateId": "china-financing-report",
+        "title": "中国具身智能融资观察",
+        "summary": "中国经营报引用 IT 桔子数据和受访者观点，讨论 9 月与 10 月融资变化。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-14",
+          "basis": "Article gives date and clock time without an evidenced timezone; possible range crosses issue boundaries.",
+          "sourceUrls": [
+            "https://finance.eastmoney.com/a/202611143931301968.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://finance.eastmoney.com/a/202611143931301968.html"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "转载标 11 月 14 日，未证实其时区与原报道首次发表时刻；统计是历史样本。"
+      },
+      {
+        "candidateId": "xybench",
+        "title": "Ai2：XYBench 研究说明",
+        "summary": "Ai2 介绍一个测量助手能否识别用户错误假设的评测，包含 8,115 条问题；研究主要针对英文单轮问答。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Dated November 13; publication timezone and earliest disclosure not established.",
+          "sourceUrls": [
+            "https://allenai.org/blog/xybench"
+          ]
+        },
+        "sourceUrls": [
+          "https://allenai.org/blog/xybench"
+        ],
+        "releaseStatus": "research",
+        "uncertainty": "原文标 11 月 13 日，首次公开时区与时刻未证实；可能属于上一窗口，本次回看不计确认数。"
+      },
+      {
+        "candidateId": "open-euler",
+        "title": "openEuler：面向 Agent 的基础设施",
+        "summary": "IT之家报道 openEuler 在峰会介绍面向智能体的系统，沙箱和安全能力与落地范围为报道所引介绍。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Dated November 13; publication timezone and earliest disclosure not established.",
+          "sourceUrls": [
+            "https://www.ithome.com/1/026/911.htm"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.ithome.com/1/026/911.htm"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "原文标 11 月 13 日，首次公开时区与时刻未证实；可能属于上一窗口，本次回看不计确认数。"
+      },
+      {
+        "candidateId": "safety-index-16",
+        "title": "日建设计披露 Notion AI 数据受影响",
+        "summary": "日建设计表示，Fireworks 事件影响部分 Notion AI 输入与回复；公司获悉通知后展开调查。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Victim disclosure date only, no verified timezone or first-publication time.",
+          "sourceUrls": [
+            "https://www.nikken.jp/ja/news/news/20261113j.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.nikken.jp/ja/news/news/20261113j.html"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "受影响方说明标 11 月 13 日；首次公开时区和时刻未确认，不能确定是否处于本期窗口。"
+      },
+      {
+        "candidateId": "inclusion-duo",
+        "title": "InclusionAI：Duo v1 音视频交互预览",
+        "summary": "研究团队发布音视频全双工交互模型预览、部分权重及推理流程；后续视觉交互能力仍在计划中。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Official date only; timezone and initial public disclosure unverified.",
+          "sourceUrls": [
+            "https://github.com/inclusionAI/Duo"
+          ]
+        },
+        "sourceUrls": [
+          "https://github.com/inclusionAI/Duo"
+        ],
+        "releaseStatus": "preview",
+        "uncertainty": "一手材料标 11 月 13 日，首次公开时区与时刻尚待核实，可能属于上一窗口。"
+      },
+      {
+        "candidateId": "google-agentic-hpc",
+        "title": "Google Cloud：面向高性能计算的 Agent 技能",
+        "summary": "Google Cloud 介绍用于高性能计算配置与科学工作流的 Agent 技能，并计划在 SC26 演示。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Official date only; timezone and initial public disclosure unverified.",
+          "sourceUrls": [
+            "https://cloud.google.com/blog/topics/hpc/whats-new-in-hpc-and-ai-at-sc26"
+          ]
+        },
+        "sourceUrls": [
+          "https://cloud.google.com/blog/topics/hpc/whats-new-in-hpc-and-ai-at-sc26"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "一手材料标 11 月 13 日，首次公开时区与时刻尚待核实，可能属于上一窗口。"
+      },
+      {
+        "candidateId": "heygen-decision",
+        "title": "HeyGen Decision：多模态结构化判断",
+        "summary": "官方文档介绍对文本、图片与视频输出选择、是非概率或评分的模型；Turbo 仍处预览。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Tracker lists November 13; timezone and initial availability unverified; official documentation is undated.",
+          "sourceUrls": [
+            "https://www.startrise.io/models"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.startrise.io/models"
+        ],
+        "releaseStatus": "preview",
+        "uncertainty": "模型索引标 11 月 13 日，时区和首次公开时刻未证实；官方文档没有明确发布日期。"
+      },
+      {
+        "candidateId": "fed-ai-stability",
+        "title": "美联储报告关注数据中心融资风险",
+        "summary": "金融稳定报告讨论数据中心建设的融资、杠杆和潜在关联风险，信息主要截至 10 月 28 日。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Official recent postings date the report November 13; time zone and precise first-publication time remain unverified.",
+          "sourceUrls": [
+            "https://www.federalreserve.gov/recentpostings.htm"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.federalreserve.gov/recentpostings.htm"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "美联储列表标 11 月 13 日，首次公开时刻及其时区未证实；相关报道直接访问返回 429。"
+      },
+      {
+        "candidateId": "google-teamwork",
+        "title": "Google Research 介绍 /teamwork 科研协作",
+        "summary": "Google 介绍多智能体拆分、验证以及与研究人员合作的案例；部分功能已开放，更多外部功能仍计划陆续提供。",
+        "category": "agents",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Google Research post date only; first-public time and timezone unverified.",
+          "sourceUrls": [
+            "https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/"
+          ]
+        },
+        "sourceUrls": [
+          "https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/"
+        ],
+        "releaseStatus": "released",
+        "uncertainty": "研究说明标 11 月 13 日，首次公开时刻和时区尚未证实；示例结果来自 Google 与合作者。"
+      },
+      {
+        "candidateId": "cohere-cubic",
+        "title": "Cohere 收购代码审查公司 cubic",
+        "summary": "双方宣布 cubic 加入 Cohere；cubic 表示现有产品继续运营，交易金额未披露。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Cubic announcement date only; midnight metadata may be a date placeholder, timezone and first-public time unverified.",
+          "sourceUrls": [
+            "https://www.cubic.dev/blog/cubic-joins-cohere"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.cubic.dev/blog/cubic-joins-cohere"
+        ],
+        "releaseStatus": "released",
+        "uncertainty": "cubic 公告标 11 月 13 日，时区与首次公开时刻尚未确认；午夜元数据不能作为精确时间。"
+      }
+    ]
+  }
+}
+---
+
+import { Section, SectionHead, Prose } from '@/components/article';
+
+<Section canvas id="inference">
+  <SectionHead index="03" kicker="推理基础设施" title="路由、缓存与设备支持" />
+  <Prose><p>SGLang 合并两项修复：一项让嵌套注册的路由按其端点声明解析认证级别，并用测试固定路由配置；另一项在部分共享存储缓存键中加入逻辑 KV 数据类型，避免同名模型的不同类型读取不兼容的数据。缓存修复会让旧键变冷并重新填充，未使用这一命名空间的后端仍需另行处理，其他布局差异也需单独区分。</p><p>vLLM 为分组 top-k 路由默认跳过填充行。作者在特定 GLM 配置的测试中报告约 5% 至 21% 的吞吐提升，其他模型和并发条件结果不同，不能当成普遍收益。llama.cpp 则为 Hexagon 后端增加 IQ2_XXS 和 NVFP4 权重支持；性能受设备、模型与量化方式影响。</p><p>四项都是本期合并到项目主干的变更；是否进入各自稳定版本，仍需查看后续发布说明。</p></Prose>
+</Section>
+<Section canvas id="accountability">
+  <SectionHead index="04" kicker="安全治理" title="谁为安全决策负责" />
+  <Prose><p>The Verge 于 11 月 14 日发表对 Helen Toner 的访谈。她曾任 OpenAI 董事，如今在乔治敦大学安全与新兴技术中心工作。她认为，前沿模型的安全不能只寄托于某位公司领导者的判断；透明度、外部问责和更广泛的参与都很重要。</p><p>她支持在训练与部署前设置更高的安全标准，为评估争取时间。这是受访者的政策主张，访谈并未证明某项法规已经出台。她也区分了人利用模型造成伤害和系统脱离人类意图的风险，两类问题需要不同的应对方式。</p><svg viewBox="0 0 480 150" role="img" aria-labelledby="governance-title governance-desc" class="mx-auto w-full max-w-[480px]"><title id="governance-title">Toner 讨论的安全决策路径</title><desc id="governance-desc">在训练与部署之前设定安全标准，并让安全决策接受问责。</desc><text x="20" y="35" font-size="20" fill="var(--color-ink)">训练与部署前：安全标准</text><text x="20" y="80" font-size="20" fill="var(--color-ink)">↓ 评估与公开说明</text><text x="20" y="125" font-size="20" fill="var(--color-ink)">外部参与与问责</text></svg></Prose>
+</Section>
+<Section canvas id="model-dialogues">
+  <SectionHead index="05" kicker="模型研究" title="开放对话中的语言模式" />
+  <Prose><p>研究者 Matthew Korpman 让 141 个模型的两个实例在没有外部任务的条件下对话，记录 28,798 次对话，以复现并扩展早期 Claude 实验。作者按语言出现、自我采用和共同表达等不同维度分类，发现相关语言并不限于单一模型家族。</p><p>这些结果来自特定提示、对话长度与模型评分器，尚需独立复现。它们描述的是生成文本的模式，不能证明模型具有意识、信念或主观体验。</p></Prose>
+</Section>
+<Section canvas id="pending">
+  <SectionHead index="06" kicker="时间待核" title="政策、模型与收购线索" />
+  <Prose><p>菲律宾通讯社报道，总统于 11 月 12 日签署行政令，采用国家 AI 治理框架并设立委员会，由多个政府部门参与。总统府发言人是在菲律宾当地周六宣布这一消息；具体时刻尚未确定，也未取得行政令原文来核定生效条件。</p><p>中国经营报援引 IT 桔子统计，10 月具身智能融资为 33 起、101.05 亿元，9 月分别为 60 起、110.28 亿元。统计范围取决于数据库口径，受访者对投资变化的解释属于观点。转载日期未标明时区，原报道首次发表时刻仍需核对。</p><p>回看 11 月 13 日的两项线索：Ai2 的 XYBench 使用 8,115 条问题，其中大量题目由 WikiHow 指南生成，测试主要限于英文单轮；评测能否识别提问背后的真实目标。IT之家报道 openEuler 在峰会介绍面向 Agent 的系统，沙箱和行业落地是报道所引介绍。两者首次公开的时区与时刻仍未证实，可能属于上一窗口，不计入本期确认数。</p><p>日建设计的<a href="https://www.nikken.jp/ja/news/news/20261113j.html">事件说明</a>称，Fireworks 的安全事件影响了部分 Notion AI 输入和回复；页面、数据库及附件本身不在该说明列出的泄露范围内。受影响方说明标 11 月 13 日，首次公开的时区和时刻仍待确认，因此暂不计入本期确认数。</p><p>InclusionAI 的 <a href="https://github.com/inclusionAI/Duo">Duo v1</a> 是全双工音视频交互研究预览，仓库称已提供部分权重与流式推理流程；更完整的视觉交互仍在计划中。Google Cloud 介绍了面向高性能计算的 <a href="https://cloud.google.com/blog/topics/hpc/whats-new-in-hpc-and-ai-at-sc26">Agent 技能和演示</a>。两份材料均标 11 月 13 日，首次公开时刻及其归属仍待确认。HeyGen 的 <a href="https://developers.heygen.com/docs/models/heygen-decision">Decision 模型文档</a>介绍多模态结构化判断，Turbo 仍在预览；模型索引标 11 月 13 日，但其时区和首次公开时刻同样待核。</p><p>美联储的<a href="https://www.federalreserve.gov/publications/files/financial-stability-report-20261113.pdf">金融稳定报告</a>讨论了数据中心融资与杠杆的潜在风险，主要使用截至 10 月 28 日的信息；报告标 11 月 13 日，首次公开时刻尚未核实，暂不计入本期。Google Research 另行介绍 <a href="https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/">/teamwork 的科研协作</a>，部分功能已开放，更多外部功能仍计划提供。Cohere 已收购代码审查公司 <a href="https://www.cubic.dev/blog/cubic-joins-cohere">cubic</a>，交易金额未披露。两项公告均标 11 月 13 日，时区和首次公开时刻仍需核对。</p></Prose>
+</Section>
+<Section canvas id="retrospective">
+  <SectionHead index="07" kicker="前期回看" title="补看机器人与 Agent 技术" />
+  <Prose><p>NVIDIA 在 <a href="https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl/">11 月 9 日的公告</a>中介绍 GR00T 2，这条此前未纳入日报。它将未来视觉与机器人动作结合，用于研究跨机器人本体的操作技能。NVIDIA 报告的 50 项任务结果属于厂商测试，不代表所有环境的表现。</p><p>这是一项前期公告，未计入今日新增。代码与模型的具体可用时间仍需按研究页核对。</p><p>另外，Thinking Machines 的 <a href="https://thinkingmachines.ai/blog/end-to-end-4-bit-training/">11 月 13 日技术说明</a>解释了 Inkling 2 Small 的 4 位正向训练和 8 位反向计算；其加速数字来自实验室自身测试。Cognition 同日介绍 <a href="https://devin.ai/blog/devin-apps">Devin Apps</a>，用于在 Devin 云计算机上分享需要登录的内部应用。Deepnote 的 <a href="https://deepnote.com/research/benchmark">Agent Initiative Benchmark</a>评估模型何时主动帮助或保持沉默，覆盖 50 个模拟工作场景。公开索引显示三者在本期窗口开始前已有披露；这些补看均不计入今日确认数。</p><p>MIT 研究团队此前介绍 <a href="https://mit-han-lab.github.io/pear-blog">PEAR</a>，用模拟训练语言模型控制机器人；作者报告的真实机器人实验仅有 30 次，不能据此推断通用成功率。11 月 13 日的公开索引复述了作者当日的发布帖。</p><p>美国参议员 Patty Murray 在 <a href="https://www.murray.senate.gov/murray-demands-answers-on-chatgpts-irresponsible-and-dangerous-medical-advice-resulting-in-death-of-seattle-resident/">11 月 13 日的信函</a>中就此前一起死亡事件及 ChatGPT 医疗建议向 OpenAI 问询，信中的具体指控应归于信函及其援引的报道。参议员的信函属于前期，不计入本期确认数。</p></Prose>
+</Section>
+<Section canvas id="outlook">
+  <SectionHead index="08" kicker="观察" title="安全标准要经得起检验" />
+  <Prose><p>本期的确认动态横跨推理框架、安全治理与模型研究。访谈提出的责任问题与政策通报值得并读：一个是研究者对评估门槛的主张，一个是国家协调机构的制度安排。它们的实施效果都不能从公告或观点中直接推定。</p><p>推理框架的主干变更说明，性能和安全都依赖细小的工程边界：路由规则、缓存类型与硬件后端都需要单独验证。部分产品、融资和研究的首次公开时间仍未确认，已单列待核。部分社交平台和付费报道未能直接读取，中文融资及其他语言来源的覆盖有限；JEV、Laya、OSC 的具体指代尚未确认。</p></Prose>
+</Section>

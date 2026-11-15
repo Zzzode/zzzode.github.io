@@ -6,7 +6,7 @@
   "windowStart": "2026-11-13T02:00:00Z",
   "cutoff": "2026-11-14T02:00:00Z",
   "startedAt": "2026-11-14T02:06:09Z",
-  "completedAt": "2026-11-15T02:36:32Z",
+  "completedAt": "2026-11-15T03:15:45Z",
   "queries": [
     {
       "id": "q1",
@@ -3229,8 +3229,8 @@
       ],
       "decision": "include",
       "reasonCode": "selected",
-      "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
-      "importance": "Potentially consequential for agent commerce or security; final rank pending review.",
+      "reason": "Sierra published its Poppy protocol announcement in the prior issue window; independent review passed with documented source-access limits.",
+      "importance": "A commerce-facing agent protocol with developer ecosystem implications; the version and access claims are attributed to Sierra.",
       "priorAssessments": [
         {
           "decision": "pending",
@@ -3243,6 +3243,26 @@
             "poppy"
           ],
           "snapshotAt": "2026-11-14T02:15:55Z"
+        },
+        {
+          "decision": "include",
+          "reasonCode": "selected",
+          "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
+          "queryIds": [
+            "open-sources"
+          ],
+          "sourceIds": [
+            "poppy"
+          ],
+          "snapshotAt": "2026-11-15T03:10:11Z",
+          "eventTime": {
+            "precision": "instant",
+            "value": "2026-11-13T17:00:00Z",
+            "basis": "Sierra article metadata datePublished; modified 22:20Z before cutoff. Earlier announcement date reported by TNW remains disputed.",
+            "sourceUrls": [
+              "https://sierra.ai/blog/releasing-poppy"
+            ]
+          }
         }
       ],
       "eventTime": {
@@ -5744,7 +5764,7 @@
       },
       "decision": "include",
       "reasonCode": "selected",
-      "reason": "Tentative selection: separately fact-reviewed; final coverage and real-render review remain blocked.",
+      "reason": "The llama.cpp v1.0.0 release was selected within the issue window; subsequent independent coverage and browser reviews passed with documented source limits.",
       "importance": "Local inference library and downstream integrations; 1.0 public API/version policy matters.",
       "priorAssessments": [
         {
@@ -5766,6 +5786,26 @@
             ]
           },
           "snapshotAt": "2026-11-14T02:19:03Z"
+        },
+        {
+          "decision": "include",
+          "reasonCode": "selected",
+          "reason": "Tentative selection: separately fact-reviewed; final coverage and real-render review remain blocked.",
+          "queryIds": [
+            "open-llama"
+          ],
+          "sourceIds": [
+            "llama-release"
+          ],
+          "snapshotAt": "2026-11-15T03:15:45Z",
+          "eventTime": {
+            "precision": "instant",
+            "value": "2026-11-13T10:20:19Z",
+            "basis": "GitHub release API published_at; release updated 14:08:10Z, both before cutoff.",
+            "sourceUrls": [
+              "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0"
+            ]
+          }
         }
       ]
     },
