@@ -6,7 +6,7 @@
   "windowStart": "2026-11-13T02:00:00Z",
   "cutoff": "2026-11-14T02:00:00Z",
   "startedAt": "2026-11-14T02:06:09Z",
-  "completedAt": "2026-11-14T02:44:40Z",
+  "completedAt": "2026-11-15T02:14:39Z",
   "queries": [
     {
       "id": "q1",
@@ -1341,6 +1341,86 @@
         "https://www.reuters.com/business/finance/investors-flock-anthropic-ipo-question-durability-ai-lead-2026-11-13/"
       ],
       "notes": "Reviewer obtained full Reuters report via news extraction; direct open later inaccessible."
+    },
+    {
+      "id": "correction-wallet-rss",
+      "actor": "author",
+      "query": "https://openai.com/news/rss.xml",
+      "executedAt": "2026-11-15T02:11:54Z",
+      "method": "open",
+      "focus": [
+        "products"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://openai.com/news/rss.xml"
+      ],
+      "notes": "Fetched official feed for the Wallet item and its pubDate."
+    },
+    {
+      "id": "correction-epoch-incident",
+      "actor": "author",
+      "query": "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website",
+      "executedAt": "2026-11-15T02:10:17Z",
+      "method": "open",
+      "focus": [
+        "governance"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website"
+      ],
+      "notes": "Retrospective recovery on Nov 15; not assessed in original run."
+    },
+    {
+      "id": "correction-anthropic-safety-evals",
+      "actor": "author",
+      "query": "\"Anthropic\" \"building strong safety evaluations\" November 13 2026",
+      "executedAt": "2026-11-15T02:11:59Z",
+      "method": "search",
+      "focus": [
+        "research"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.anthropic.com/research/building-strong-safety-evaluations"
+      ],
+      "notes": "Full article returned by search extraction on Nov 15; direct later GET returned 503."
+    },
+    {
+      "id": "open-redwood-explanation",
+      "actor": "author",
+      "query": "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2",
+      "executedAt": "2026-11-15T02:14:01Z",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2"
+      ],
+      "notes": "Fetched after independent reviewer recovered the new explanation; original research predates the article."
+    },
+    {
+      "id": "correction-independent-discovery",
+      "actor": "independent-reviewer",
+      "query": "\"November 14, 2026\" AI artificial intelligence model research product announcement",
+      "executedAt": "2026-11-15T02:08:04Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://blog.jiufeng.ai/releases",
+        "https://daily.rclabs.in/trackers/funding",
+        "https://sflood.com/zh/daily/ai-2026-11-14",
+        "https://compliance.wiscai.com/"
+      ],
+      "notes": "Independent supplemental batch; URLs are combined results, not attributed individually."
     }
   ],
   "sources": [
@@ -2749,6 +2829,74 @@
         ]
       },
       "evidence": "Reuters report describes investor demand and questions, attributed to people familiar with the matter; 22:03Z is an update, first publication not established."
+    },
+    {
+      "id": "wallet-rss",
+      "title": "OpenAI news RSS: Introducing ChatGPT Wallet",
+      "url": "https://openai.com/news/rss.xml",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:11:54Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T15:00:00Z",
+        "basis": "OpenAI news RSS item pubDate for the announcement; the feed provides a timestamp for publication.",
+        "sourceUrls": [
+          "https://openai.com/news/rss.xml"
+        ]
+      },
+      "evidence": "Feed item links to the official announcement and gives Fri, 13 Nov 2026 15:00:00 GMT."
+    },
+    {
+      "id": "epoch-incident",
+      "title": "Epoch AI 披露第三方评估中的网站访问事件",
+      "url": "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:10:17Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+        "sourceUrls": [
+          "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website"
+        ]
+      },
+      "evidence": "Epoch 报告 10 月的三次测试；首次未获事先同意，未发现私有信息被访问。"
+    },
+    {
+      "id": "anthropic-safety-evals",
+      "title": "Anthropic 介绍安全评估建议",
+      "url": "https://www.anthropic.com/research/building-strong-safety-evaluations",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:11:59Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+        "sourceUrls": [
+          "https://www.anthropic.com/research/building-strong-safety-evaluations"
+        ]
+      },
+      "evidence": "Anthropic 讨论评估设计和结果验证，并披露其测试经验；建议不等于监管要求。"
+    },
+    {
+      "id": "redwood-probe-simulation",
+      "title": "Redwood: probe monitors in simulated environments",
+      "url": "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-15T02:14:01Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T00:12:54.058Z",
+        "basis": "Author research explanation postedAt in LessWrong page metadata; publication of this explanation, not the underlying experiments.",
+        "sourceUrls": [
+          "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2"
+        ]
+      },
+      "evidence": "Authors compare six monitors on 1,313 tasks with one model in simulated and real environments; report a -1 percentage point difference with a 95% interval of -3 to +1."
     }
   ],
   "checks": [
@@ -2846,15 +2994,17 @@
       "entity": "ChatGPT Wallet",
       "releaseStatus": "announced",
       "queryIds": [
-        "open-sources"
+        "open-sources",
+        "correction-wallet-rss"
       ],
       "sourceIds": [
-        "wallet"
+        "wallet",
+        "wallet-rss"
       ],
-      "decision": "watch",
-      "reasonCode": "time_uncertain",
-      "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
-      "importance": "Potentially consequential for agent commerce or security; final rank pending review.",
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Official RSS gives a publication instant inside the issue window; retain prior date-only assessment.",
+      "importance": "Payment capability for a major agent platform, initially restricted to eligible US Pro subscribers with per-purchase approval.",
       "priorAssessments": [
         {
           "decision": "pending",
@@ -2867,14 +3017,36 @@
             "wallet"
           ],
           "snapshotAt": "2026-11-14T02:15:55Z"
+        },
+        {
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
+          "queryIds": [
+            "open-sources",
+            "correction-wallet-rss"
+          ],
+          "sourceIds": [
+            "wallet",
+            "wallet-rss"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-13",
+            "basis": "Official date only, no evidenced timezone; first disclosure bound unresolved.",
+            "sourceUrls": [
+              "https://openai.com/index/introducing-chatgpt-wallet/"
+            ]
+          },
+          "snapshotAt": "2026-11-15T02:11:54Z"
         }
       ],
       "eventTime": {
-        "precision": "date",
-        "value": "2026-11-13",
-        "basis": "Official date only, no evidenced timezone; first disclosure bound unresolved.",
+        "precision": "instant",
+        "value": "2026-11-13T15:00:00Z",
+        "basis": "OpenAI news RSS item pubDate for the announcement; the feed provides a timestamp for publication.",
         "sourceUrls": [
-          "https://openai.com/index/introducing-chatgpt-wallet/"
+          "https://openai.com/news/rss.xml"
         ]
       }
     },
@@ -4630,9 +4802,9 @@
         "world-product-graph",
         "amazon-yahoo"
       ],
-      "decision": "include",
-      "reasonCode": "selected",
-      "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Reprint time is an upper bound, not proof of initial Reuters disclosure; range overlaps the issue start.",
       "importance": "Potentially consequential for agent commerce or security; final rank pending review.",
       "priorAssessments": [
         {
@@ -4669,13 +4841,36 @@
             ]
           },
           "snapshotAt": "2026-11-14T02:29:48Z"
+        },
+        {
+          "decision": "include",
+          "reasonCode": "selected",
+          "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
+          "queryIds": [
+            "open-reuters-reprints",
+            "reuters-yahoo-extraction"
+          ],
+          "sourceIds": [
+            "world-product-graph",
+            "amazon-yahoo"
+          ],
+          "eventTime": {
+            "precision": "interval",
+            "earliest": "2026-11-13T11:02:00Z",
+            "latest": "2026-11-13T11:02:59Z",
+            "basis": "Yahoo Finance Canada full Reuters reprint displays November 13 06:02 EST; it is reprint availability, not proof of first publication. Search extraction returned complete text; direct open later returned 429.",
+            "sourceUrls": [
+              "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html"
+            ]
+          },
+          "snapshotAt": "2026-11-15T02:13:10Z"
         }
       ],
       "eventTime": {
         "precision": "interval",
-        "earliest": "2026-11-13T11:02:00Z",
+        "earliest": "2026-11-12T10:00:00Z",
         "latest": "2026-11-13T11:02:59Z",
-        "basis": "Yahoo Finance Canada full Reuters reprint displays November 13 06:02 EST; it is reprint availability, not proof of first publication. Search extraction returned complete text; direct open later returned 429.",
+        "basis": "Reuters date Nov 13 with unknown zone gives conservative earliest bound; Yahoo reprint existed by 06:02 EST Nov 13.",
         "sourceUrls": [
           "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html"
         ]
@@ -4701,9 +4896,9 @@
       "sourceIds": [
         "ai-task-force"
       ],
-      "decision": "include",
-      "reasonCode": "selected",
-      "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Reprint time is an upper bound, not proof of initial Reuters disclosure; range overlaps the issue start.",
       "importance": "Potentially consequential for agent commerce or security; final rank pending review.",
       "priorAssessments": [
         {
@@ -4717,13 +4912,34 @@
             "ai-task-force"
           ],
           "snapshotAt": "2026-11-14T02:15:55Z"
+        },
+        {
+          "decision": "include",
+          "reasonCode": "selected",
+          "reason": "Tentative draft selection; independent final coverage and factual review remains blocked.",
+          "queryIds": [
+            "open-reuters-reprints"
+          ],
+          "sourceIds": [
+            "ai-task-force"
+          ],
+          "eventTime": {
+            "precision": "interval",
+            "earliest": "2026-11-13T02:46:00Z",
+            "latest": "2026-11-13T02:46:59Z",
+            "basis": "Reuters reprint shows 21:46 EST Nov 12; report publication, not meeting start.",
+            "sourceUrls": [
+              "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
+            ]
+          },
+          "snapshotAt": "2026-11-15T02:13:10Z"
         }
       ],
       "eventTime": {
         "precision": "interval",
-        "earliest": "2026-11-13T02:46:00Z",
+        "earliest": "2026-11-11T10:00:00Z",
         "latest": "2026-11-13T02:46:59Z",
-        "basis": "Reuters reprint shows 21:46 EST Nov 12; report publication, not meeting start.",
+        "basis": "Reuters reprint dateline Nov 12 with unknown zone and reprint by 21:46 EST Nov 12.",
         "sourceUrls": [
           "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
         ]
@@ -6661,6 +6877,81 @@
           "https://support.claude.com/en/articles/12138966-release-notes"
         ]
       }
+    },
+    {
+      "id": "epoch-incident",
+      "title": "Epoch AI 披露第三方评估中的网站访问事件",
+      "category": "governance",
+      "entity": "epoch-incident",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "correction-epoch-incident"
+      ],
+      "sourceIds": [
+        "epoch-incident"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+        "sourceUrls": [
+          "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Newly recovered on Nov 15; date without a known timezone overlaps the original issue boundary.",
+      "importance": "Consequential AI safety evaluation and disclosure practice."
+    },
+    {
+      "id": "anthropic-safety-evals",
+      "title": "Anthropic 介绍安全评估建议",
+      "category": "research",
+      "entity": "anthropic-safety-evals",
+      "releaseStatus": "research",
+      "queryIds": [
+        "correction-anthropic-safety-evals"
+      ],
+      "sourceIds": [
+        "anthropic-safety-evals"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+        "sourceUrls": [
+          "https://www.anthropic.com/research/building-strong-safety-evaluations"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Newly recovered on Nov 15; date without a known timezone overlaps the original issue boundary.",
+      "importance": "Consequential AI safety evaluation and disclosure practice."
+    },
+    {
+      "id": "redwood-probe-simulation",
+      "title": "Redwood 发布模拟环境中探针监测器研究说明",
+      "category": "research",
+      "entity": "Redwood Research",
+      "releaseStatus": "research",
+      "queryIds": [
+        "open-redwood-explanation"
+      ],
+      "sourceIds": [
+        "redwood-probe-simulation"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-14T00:12:54.058Z",
+        "basis": "Author research explanation postedAt in LessWrong page metadata; publication of this explanation, not the underlying experiments.",
+        "sourceUrls": [
+          "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "New public explanation is timestamped in this issue; not a claim that underlying experiments were new on that date.",
+      "importance": "Provides an empirical but narrow test of whether simulated monitoring reflects real tasks."
     }
   ],
   "coverage": [
@@ -6739,7 +7030,7 @@
   },
   "review": {
     "reviewer": "independent-reviewer",
-    "reviewedAt": "2026-11-14T02:43:31Z",
+    "reviewedAt": "2026-11-15T02:14:39Z",
     "candidateIds": [
       "wallet",
       "poppy",
@@ -6848,7 +7139,10 @@
       "directory-infiniterm",
       "anthropic-demand",
       "claude-meetings",
-      "claude-duet"
+      "claude-duet",
+      "epoch-incident",
+      "anthropic-safety-evals",
+      "redwood-probe-simulation"
     ],
     "queryIds": [
       "review-q4",
@@ -6856,7 +7150,8 @@
       "independent-b3-q2",
       "independent-b3-q3",
       "independent-b3-q4",
-      "review-france-body"
+      "review-france-body",
+      "correction-independent-discovery"
     ],
     "verdict": "pass_with_limits",
     "report": "docs/daily/reviews/2026-11-14.md",
@@ -6870,6 +7165,11 @@
         "detail": "Chinese financing originals, CESA standards text, EU original PDF, some Reuters originals and social posts were unavailable; multilingual discovery and 29 paper abstracts are bounded samples, and some first-publication times remain uncertain.",
         "severity": "note",
         "resolution": "disclosed"
+      },
+      {
+        "detail": "On Nov 15 the independent reviewer read all 111 candidate decisions, rationale, timing and references, verified the Wallet feed and new Redwood explanation, and checked the correction draft. Original source texts for every historical candidate were not fetched anew. Reuters original-publication bounds were corrected.",
+        "severity": "note",
+        "resolution": "disclosed"
       }
     ]
   },
@@ -6877,19 +7177,23 @@
     "slug": "2026-11-14-ai-daily",
     "includedCandidateIds": [
       "llama-v1",
+      "wallet",
+      "redwood-probe-simulation",
       "poppy",
-      "google-wallet",
-      "world-product-graph",
-      "ai-task-force"
+      "google-wallet"
     ],
     "watchCandidateIds": [
-      "wallet",
       "claude-managed",
       "china-nvidia-projects",
       "replit-buy",
-      "anthropic-demand"
+      "anthropic-demand",
+      "world-product-graph",
+      "ai-task-force",
+      "epoch-incident",
+      "anthropic-safety-evals"
     ],
     "limitations": "Bounded multilingual and research samples; inaccessible Chinese financing originals, standard and EU PDF, Reuters and social originals; uncertain first-publication times. See independent review.",
-    "sha256": "92abbcd54ca4e71611b68d437f6edf6e61f33e923dc8abae7552986d645ddfb1"
+    "sha256": "cb95840032ebb0e839bb97bc9b7690fe2982073abb26847a454a682722ecd3d2",
+    "originalDate": "2026-11-14T02:41:45Z"
   }
 }

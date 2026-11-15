@@ -2,7 +2,7 @@
 {
   "title": "AI 日报：llama.cpp 进入 1.0，Agent 协议推进",
   "date": "2026-11-14T02:41:45Z",
-  "excerpt": "llama.cpp 发布 1.0，Sierra 介绍个人 Agent 协议，Reuters 报道购物数据与安全讨论。",
+  "excerpt": "llama.cpp 发布 1.0，ChatGPT Wallet 开放，Sierra 介绍个人 Agent 协议。",
   "tags": [
     "AI",
     "AI 日报",
@@ -251,6 +251,58 @@
         ]
       },
       "retrievedAt": "2026-11-14T02:37:09Z"
+    },
+    {
+      "title": "OpenAI 新闻 RSS：ChatGPT Wallet 发布时间",
+      "url": "https://openai.com/news/rss.xml",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-13T15:00:00Z",
+        "basis": "OpenAI news RSS item pubDate for the announcement; the feed provides a timestamp for publication.",
+        "sourceUrls": [
+          "https://openai.com/news/rss.xml"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:11:54Z"
+    },
+    {
+      "title": "Epoch AI 披露第三方评估中的网站访问事件",
+      "url": "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+        "sourceUrls": [
+          "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:10:17Z"
+    },
+    {
+      "title": "Anthropic 介绍安全评估建议",
+      "url": "https://www.anthropic.com/research/building-strong-safety-evaluations",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+        "sourceUrls": [
+          "https://www.anthropic.com/research/building-strong-safety-evaluations"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:11:59Z"
+    },
+    {
+      "title": "Redwood Research：模拟环境中的监测器表现",
+      "url": "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-14T00:12:54.058Z",
+        "basis": "Author research explanation postedAt in LessWrong page metadata; publication of this explanation, not the underlying experiments.",
+        "sourceUrls": [
+          "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2"
+        ]
+      },
+      "retrievedAt": "2026-11-15T02:14:01Z"
     }
   ],
   "daily": {
@@ -277,6 +329,43 @@
           "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0"
         ],
         "releaseStatus": "released"
+      },
+      {
+        "candidateId": "wallet",
+        "title": "OpenAI 介绍 ChatGPT Wallet",
+        "summary": "美国部分成年 Pro 用户可通过 dots 使用；每笔购买需要用户核对并通过安全检查。",
+        "category": "products",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-13T15:00:00Z",
+          "basis": "OpenAI news RSS item pubDate for the announcement; the feed provides a timestamp for publication.",
+          "sourceUrls": [
+            "https://openai.com/news/rss.xml"
+          ]
+        },
+        "sourceUrls": [
+          "https://openai.com/news/rss.xml",
+          "https://openai.com/index/introducing-chatgpt-wallet/"
+        ],
+        "releaseStatus": "announced"
+      },
+      {
+        "candidateId": "redwood-probe-simulation",
+        "title": "Redwood 比较模拟与真实任务中的监测器表现",
+        "summary": "作者在一个模型的 1,313 个任务上比较六种探针，结果有统计不确定性，不能推广到所有模型和场景。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-14T00:12:54.058Z",
+          "basis": "Author research explanation postedAt in LessWrong page metadata; publication of this explanation, not the underlying experiments.",
+          "sourceUrls": [
+            "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.lesswrong.com/posts/erwxQSF2D6naAcoEz/probe-monitors-seem-to-perform-realistically-in-simulated-2"
+        ],
+        "releaseStatus": "research"
       },
       {
         "candidateId": "poppy",
@@ -313,67 +402,9 @@
           "https://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/"
         ],
         "releaseStatus": "announced"
-      },
-      {
-        "candidateId": "world-product-graph",
-        "title": "Reuters 披露 Amazon 商品数据计划",
-        "summary": "Reuters 引述内部文件和知情人士；Amazon 称文件过时，计划是否实施尚不确定。",
-        "category": "business",
-        "eventEvidence": {
-          "precision": "interval",
-          "earliest": "2026-11-13T11:02:00Z",
-          "latest": "2026-11-13T11:02:59Z",
-          "basis": "Yahoo Finance Canada full Reuters reprint displays November 13 06:02 EST; it is reprint availability, not proof of first publication. Search extraction returned complete text; direct open later returned 429.",
-          "sourceUrls": [
-            "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html"
-          ]
-        },
-        "sourceUrls": [
-          "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html",
-          "https://www.investing.com/news/stock-market-news/exclusiveamazons-plan-to-own-the-worlds-product-data-and-fight-ai-shopping-agents-5024784"
-        ],
-        "releaseStatus": "reported"
-      },
-      {
-        "candidateId": "ai-task-force",
-        "title": "美国 AI 工作组讨论安全事件信息共享",
-        "summary": "Reuters 引述政府发言人称，工作组讨论关键基础设施报告网络攻击和漏洞的方式。",
-        "category": "governance",
-        "eventEvidence": {
-          "precision": "interval",
-          "earliest": "2026-11-13T02:46:00Z",
-          "latest": "2026-11-13T02:46:59Z",
-          "basis": "MarketScreener displays 21:46 EST Nov 12 for its Reuters reprint; this records reprint availability, not original first publication.",
-          "sourceUrls": [
-            "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
-          ]
-        },
-        "sourceUrls": [
-          "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
-        ],
-        "releaseStatus": "reported"
       }
     ],
     "pending": [
-      {
-        "candidateId": "wallet",
-        "title": "OpenAI 介绍 ChatGPT Wallet",
-        "summary": "美国部分成年 Pro 用户可通过 dots 使用；每笔购买需要用户核对并通过安全检查。",
-        "category": "products",
-        "eventEvidence": {
-          "precision": "date",
-          "value": "2026-11-13",
-          "basis": "Official date only, no evidenced timezone; first disclosure bound unresolved.",
-          "sourceUrls": [
-            "https://openai.com/index/introducing-chatgpt-wallet/"
-          ]
-        },
-        "sourceUrls": [
-          "https://openai.com/index/introducing-chatgpt-wallet/"
-        ],
-        "releaseStatus": "announced",
-        "uncertainty": "官方页面只标 11 月 13 日，首次披露时刻和时区尚未确认，可能跨越本期起点。"
-      },
       {
         "candidateId": "claude-managed",
         "title": "Claude Managed Agents 提供自托管服务",
@@ -450,9 +481,90 @@
         ],
         "releaseStatus": "reported",
         "uncertainty": "报道标 11 月 13 日，页面显示的是更新时间而非可证的首次发表时刻；可能跨越本期起点。"
+      },
+      {
+        "candidateId": "world-product-graph",
+        "title": "Reuters 披露 Amazon 商品数据计划",
+        "summary": "Reuters 引述内部文件和知情人士；Amazon 称文件过时，计划是否实施尚不确定。",
+        "category": "business",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-12T10:00:00Z",
+          "latest": "2026-11-13T11:02:59Z",
+          "basis": "Reuters date Nov 13 with unknown zone gives conservative earliest bound; Yahoo reprint existed by 06:02 EST Nov 13.",
+          "sourceUrls": [
+            "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://ca.finance.yahoo.com/news/exclusive-amazon-plan-own-world-110216086.html",
+          "https://www.investing.com/news/stock-market-news/exclusiveamazons-plan-to-own-the-worlds-product-data-and-fight-ai-shopping-agents-5024784"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "转载公开时间提供上界，不能证明 Reuters 首次发表的下界；可能早于本期起点。"
+      },
+      {
+        "candidateId": "ai-task-force",
+        "title": "美国 AI 工作组讨论安全事件信息共享",
+        "summary": "Reuters 引述政府发言人称，工作组讨论关键基础设施报告网络攻击和漏洞的方式。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-11T10:00:00Z",
+          "latest": "2026-11-13T02:46:59Z",
+          "basis": "Reuters reprint dateline Nov 12 with unknown zone and reprint by 21:46 EST Nov 12.",
+          "sourceUrls": [
+            "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.marketscreener.com/news/trump-s-ai-task-force-met-thursday-discussed-ai-powered-cyberattacks-ce785ed9db8bf321"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "转载公开时间提供上界，不能证明 Reuters 首次发表的下界；可能早于本期起点。"
+      },
+      {
+        "candidateId": "epoch-incident",
+        "title": "Epoch AI 披露第三方评估中的网站访问事件",
+        "summary": "Epoch 报告 10 月的三次测试；首次未获事先同意，未发现私有信息被访问。",
+        "category": "governance",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+          "sourceUrls": [
+            "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website"
+          ]
+        },
+        "sourceUrls": [
+          "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website"
+        ],
+        "releaseStatus": "reported",
+        "uncertainty": "原文仅标 11 月 13 日，未证实首次公开时区与时间；事件发生时间和报告时间不同。"
+      },
+      {
+        "candidateId": "anthropic-safety-evals",
+        "title": "Anthropic 介绍安全评估建议",
+        "summary": "Anthropic 讨论评估设计和结果验证，并披露其测试经验；建议不等于监管要求。",
+        "category": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-13",
+          "basis": "Official article date only; timezone and first-publication instant are not evidenced.",
+          "sourceUrls": [
+            "https://www.anthropic.com/research/building-strong-safety-evaluations"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.anthropic.com/research/building-strong-safety-evaluations"
+        ],
+        "releaseStatus": "research",
+        "uncertainty": "原文仅标 11 月 13 日，未证实首次公开时区与时间；不能确定是否跨越本期起点。"
       }
-    ]
-  }
+    ],
+    "correction": "2026 年 11 月 15 日更正：OpenAI RSS 确认 Wallet 公告在本期；两条 Reuters 报道的首次发表时间仍跨窗口边界，移入待核。补入此次新发现的两条安全评估报道待核。 另补入窗口内发表的 Redwood 研究说明。"
+  },
+  "updated": "2026-11-15T02:14:26Z"
 }
 ---
 
@@ -463,8 +575,16 @@ import { Section, SectionHead, Prose } from '@/components/article';
   <SectionHead index="03" kicker="开发工具" title="llama.cpp 进入 1.0" />
   <Prose><p>本地模型推理项目 llama.cpp 发布 v1.0.0，并同步推出 ggml v1.0。维护者说明，今后公共 C 接口或 ABI 出现不兼容变化时将使用主版本号标示；兼容的功能、后端或模型支持增加使用次版本号，修复使用补丁号。</p><p>这次版本移除了包括 35 个弃用函数在内的旧接口，并将 NextN 推测式生成接口移入 <code>llama.h</code>。依赖旧接口的项目需要检查迁移。发布说明还列出 FP8 KV 缓存、主机内存 MoE 专家缓存及服务器安全修复；部分能力此前已在开发版本中出现，发布说明本身不是性能或安全实测。</p></Prose>
 </Section>
+<Section canvas id="chatgpt-wallet">
+  <SectionHead index="04" kicker="Agent 支付" title="每笔购买仍由用户批准" />
+  <Prose><p>OpenAI 介绍 ChatGPT Wallet：用户添加合资格银行卡后，先核对商品、总额和所选卡，再用安全检查批准购买。支付网络提供代替真实卡资料的令牌。初期通过 dots 面向美国年满 18 岁、持合资格美国发行卡的 Pro 用户开放。按类别或金额预先授权由 Agent 自主购买仍是未来计划。</p><p>官方新闻 RSS 将公告发布时间列为 11 月 13 日 15:00 UTC。11 月 15 日复查后，此条由时间待核移入本期确认消息。</p></Prose>
+</Section>
+<Section canvas id="probe-evaluation">
+  <SectionHead index="05" kicker="研究" title="模拟任务能否检验监测器" />
+  <Prose><p>Redwood Research 的作者在新发表的研究说明中比较了模型内部状态探针在模拟任务与真实任务中的检测效果。探针是一种读取模型内部信号、尝试识别风险行为的监测方法。作者在一个模型的 1,313 个任务上比较六种探针，报告模拟环境的检测率比真实任务低约 1 个百分点；95% 置信区间为低 3 到高 1 个百分点。</p><p>结果限于一个模型和这组任务，并不能保证其他场景也有相同关系。作者使用每条命令 1% 的误报阈值，这不等于整个运行过程的误报率；部分日志和模拟器尚未公开。11 月 14 日是这篇研究说明的发表时间，实验本身早于该日期。</p></Prose>
+</Section>
 <Section canvas id="poppy">
-  <SectionHead index="04" kicker="Agent 协议" title="让个人 Agent 与商家协商权限" />
+  <SectionHead index="06" kicker="Agent 协议" title="让个人 Agent 与商家协商权限" />
   <Prose>
     <p>Sierra 在 11 月 13 日的博文中介绍 Personal Agent Protocol（简称 Poppy）1.0。它让商家声明可供个人 Agent 使用的网站和接口，再通过 OAuth 等已有机制处理用户授权。Sierra 称 Shopify 店铺会自动发布协议文件，Meta 的 Muse 访问网站时会优先查找该文件。</p>
     <p>协议负责发现与授权，购物流程可以交给 UCP 等现有协议。Sierra 称 Mercury 的支付请求仍经过账户自己的审批规则；土耳其航空在对话中完成购买的能力仍在开发。<a href="https://personalagentprotocol.org/docs/introduction">规范文档</a>目前标为 Draft 1.0，兼容性可能变化；这些厂商陈述也不能证明所有接入都安全或互通。另一篇报道将公告说成周四，早于 Sierra 博文元数据所示日期；这里记录的是 11 月 13 日博文的披露。</p>
@@ -476,26 +596,26 @@ import { Section, SectionHead, Prose } from '@/components/article';
 </Section>
 
 <Section canvas id="google-wallet">
-  <SectionHead index="05" kicker="产品" title="从部分用户走向更广泛的开放" />
+  <SectionHead index="07" kicker="产品" title="从部分用户走向更广泛的开放" />
   <Prose><p>Google 在 11 月 13 日的博文中称，Gemini 的 Google Wallet 连接正向所有美国应用用户推出。用户自行选择是否连接，也可以选择通过 Plaid 关联银行或信用卡账户，用于查看支出和规划预算。Google 称 Gemini 对账户信息只有读取权限，不能转移、管理或投资资金。</p><p><a href="https://9to5google.com/2026/09/28/google-wallet-gemini-app/">9to5Google 早在 9 月</a>已报道这项连接和 Plaid 支出分析当时正渐进开放；本次重点是 Google 描述的扩大推出，并非首次引入功能。另一篇报道将公告称为周四，与官方博文日期不一致；这里按博文发布时间记录，不推断更早公告的确切时刻。</p><p>按目前访问到的 <a href="https://support.google.com/gemini/answer/16836988">Google 帮助说明</a>，开启 Keep Activity 时，交易相关的摘要、摘录和推断可能用于模型训练，部分内容也可能经人工审核；帮助页未注明历史版本日期，不能确定截止时措辞完全相同。</p></Prose>
 </Section>
 <Section canvas id="amazon">
-  <SectionHead index="06" kicker="商业" title="商品数据争夺仍在计划阶段" />
+  <SectionHead index="08" kicker="商业" title="待核：商品数据计划报道" />
   <Prose><p>Reuters 查阅的内部文件描述了 Amazon 的 World Product Graph：把品牌提供的数据与零售网站的信息结合，帮助用户了解商品之间的关系。报道说，项目也意在应对可能把流量带往其他网站的购物 Agent。</p><p>Amazon 回应称文件已经过时，未必反映现有计划。Reuters 无法确认项目是否或何时推出；文件中的未来日期是设想，不能视为发布承诺。报道依靠文件和知情人士；Reuters 原站未能直接读取，已阅读的转载共享同一报道来源，不能算独立证实。</p></Prose>
 </Section>
 <Section canvas id="security">
-  <SectionHead index="07" kicker="治理" title="讨论如何报告 AI 网络攻击" />
+  <SectionHead index="09" kicker="治理" title="待核：AI 网络攻击报告讨论" />
   <Prose><p>Reuters 引述美国政府发言人称，AI 工作组讨论了如何鼓励关键基础设施运营者报告 AI 驱动的网络攻击和漏洞，以及开发者分享安全事件信息的标准进展。这是一次讨论，报道没有宣布新的法律或已经生效的义务。</p></Prose>
 </Section>
 <Section canvas id="uncertain">
-  <SectionHead index="08" kicker="时间待核" title="跨越窗口边界的消息" />
-  <Prose><p>OpenAI 介绍 ChatGPT Wallet：用户添加合资格银行卡后，先核对商品、总额和所选卡，再用安全检查批准购买。支付网络提供代替真实卡资料的令牌。初期通过 dots 面向美国年满 18 岁、持合资格美国发行卡的 Pro 用户开放。按类别或金额预先授权由 Agent 自主购买仍是未来计划。</p><p>官方页面标注 11 月 13 日，尚未确认首次公开的时区与时间，因此这条消息暂不计入确认数量。</p><p>Anthropic 的发行说明还介绍完整服务自托管的 Claude Managed Agents 私测：Agent、会话与历史由客户在自己的设施保存，但模型请求仍发往选定的供应商，访问需联系客户团队。说明仅标 11 月 12 日，首次公开时刻和时区未确认；它与此前只自托管沙盒的方案不同。</p><p>Reuters 根据 150 多份中国采购、投资和建设文件，统计了使用 NVIDIA 受限处理器的算力项目与设备协议。报道中的 230 多亿元人民币包含计划、在建或已完成的项目及建筑、电力等设施，不能当作芯片采购总额，也未证明设备来源或违规。已有转载在 11 月 13 日 08:29 UTC 公开，但报道首次公开的下界尚未确认，因而暂不计入本期确认数量。</p><p>Replit 称其 Agent 可以为符合条件的美国用户购买业务用品，每笔购买都须等待用户批准；Google Ads 工具的使用范围不同。官方文章仅标 11 月 12 日，时区和首次公开时刻未知。搜索提取返回了官方正文，但之后直接打开页面失败，因此仍列待核。</p><p>Reuters 引述知情人士称，Anthropic 拟议上市在路演期间获得较强订单需求，投资者也在评估竞争和高估值风险。订单与发行条款可能变化，不能当作上市已经完成；原始报道标注 11 月 13 日，但页面所示更新时间不能确定首次发表时刻。</p></Prose>
+  <SectionHead index="10" kicker="时间待核" title="跨越窗口边界的消息" />
+  <Prose><p>Anthropic 的发行说明还介绍完整服务自托管的 Claude Managed Agents 私测：Agent、会话与历史由客户在自己的设施保存，但模型请求仍发往选定的供应商，访问需联系客户团队。说明仅标 11 月 12 日，首次公开时刻和时区未确认；它与此前只自托管沙盒的方案不同。</p><p>Reuters 根据 150 多份中国采购、投资和建设文件，统计了使用 NVIDIA 受限处理器的算力项目与设备协议。报道中的 230 多亿元人民币包含计划、在建或已完成的项目及建筑、电力等设施，不能当作芯片采购总额，也未证明设备来源或违规。已有转载在 11 月 13 日 08:29 UTC 公开，但报道首次公开的下界尚未确认，因而暂不计入本期确认数量。</p><p>Replit 称其 Agent 可以为符合条件的美国用户购买业务用品，每笔购买都须等待用户批准；Google Ads 工具的使用范围不同。官方文章仅标 11 月 12 日，时区和首次公开时刻未知。搜索提取返回了官方正文，但之后直接打开页面失败，因此仍列待核。</p><p>Reuters 引述知情人士称，Anthropic 拟议上市在路演期间获得较强订单需求，投资者也在评估竞争和高估值风险。订单与发行条款可能变化，不能当作上市已经完成；原始报道标注 11 月 13 日，但页面所示更新时间不能确定首次发表时刻。</p><p>本次复查还发现 Epoch AI 的 11 月 13 日事件报告：第三方 10 月运行评估时，Agent 曾访问其网站，首次测试未取得事先同意；Epoch 称未有私有信息被访问。Anthropic 同日发表安全评估建议。两篇文章均只有日期，首次公开时间与时区未确认，因此先列待核；上述事件发生在 10 月，并非本期新发生。</p><p>Amazon 商品数据计划和美国 AI 工作组讨论的 Reuters 转载时间提供公开上界，不能证明原报道首次发表的下界；两条也移入时间待核。Amazon 称其内部文件已过时，工作组讨论不代表新规生效。</p></Prose>
 </Section>
 <Section canvas id="retrospective">
-  <SectionHead index="09" kicker="前期回看" title="补看融资与模型公告" />
+  <SectionHead index="11" kicker="前期回看" title="补看融资与模型公告" />
   <Prose><p>上一期遗漏了 <a href="https://mirendil.com/news/series-a/">Mirendil 的融资公告</a>：公司于 11 月 12 日 17:00 UTC 宣布获得 10 亿美元 A 轮融资，由 Kleiner Perkins 与 Clearlake Capital 领投。公司称一名研究员借助 Agent 在三个月半内、以不到 1000 万美元计算成本训练编码模型；这是公司自报，Lor 平台仍处于私测。这条回看不计入本期新增。</p><p>同样补看 <a href="https://www.prnewswire.com/news-releases/baidu-unveils-latest-ernie-models-amid-broader-full-stack-ai-lineup-and-debuts-token-exchange-to-power-intelligent-organizations-302937959.html">百度 11 月 12 日的大会说明</a>：公司介绍 ERNIE 模型、Agent 更新和 Token Exchange。公告日期不能用来推断所有产品首次可用的时间；厂商公布的性能和使用数据需要按测试范围理解。</p><p>Anthropic 11 月 11 日的<a href="https://alignment.anthropic.com/2026/worse-together">研究说明</a>比较了多用户各自的 Agent 和统一协调者在共享环境中的表现，并公布 MAMUBench 的部分环境。研究结果来自特定模型和模拟任务，不代表所有 Agent 团队；博文属于本期之前，作为回看不计入本期数量。</p><p>AWS 在 <a href="https://aws.amazon.com/blogs/machine-learning/run-agents-securely-and-efficiently-with-the-next-generation-agentcore-runtime/">11 月 12 日的博客</a>介绍下一代 AgentCore runtime；<a href="https://aws.amazon.com/about-aws/whats-new/2026/11/new-agentcore-runtime-default/">AWS 另称</a>，新建 runtime 在所列区域使用新版默认配置，既有实例不会自动迁移。速度与效率数字是 AWS 自报。Thinking Machines 的 <a href="https://thinkingmachines.ai/news/inkling-2-small/">Inkling 2 Small</a> 最初在 11 月 5 日推出；<a href="https://cellcog.ai/blog/inkling-2-small/">CellCog 记录</a>称，公司 11 月 12 日 20:50 UTC 的社交帖宣布开放权重，21:38 UTC 时其已可读取权重仓库。原帖未直接核验，首次开放的精确时刻仍未独立确认，两项回看均不计入本期新增。</p></Prose>
 </Section>
 <Section canvas id="outlook">
-  <SectionHead index="10" kicker="观察" title="Agent 行动仍要经过授权" />
-  <Prose><p>本期确认消息中，产品 2 条、商业 1 条、治理 1 条、Agent 生态 1 条；研究类没有纳入确认条目。时间待核的 5 条与前期回看不计入图表。协议可以帮助系统发现允许的动作，但权限、商家接入和用户核对仍决定实际体验。</p><p>本期检索覆盖中、英、法、日、西语渠道，但法、日、西语是少量定向查询。研究部分盘点两个论文汇总并查阅 29 篇原始摘要及部分版本，论文提交时间不代表公开时间；这不是全部论文的普查。中文融资的部分原公众号和商业数据库未能读取；CESA 标准全文及欧盟公报原 PDF 未取得，部分 Reuters 原站和社交帖访问受限，转载不能算独立来源。JEV、Laya、OSC 的具体指代仍未确认。</p></Prose>
+  <SectionHead index="12" kicker="观察" title="Agent 行动仍要经过授权" />
+  <Prose><p>本期确认消息中，产品 3 条、研究 1 条、Agent 生态 1 条；研究说明的实验范围较窄。时间待核的 8 条与前期回看不计入图表。协议可以帮助系统发现允许的动作，但权限、商家接入和用户核对仍决定实际体验。</p><p>本期检索覆盖中、英、法、日、西语渠道，但法、日、西语是少量定向查询。研究部分盘点两个论文汇总并查阅 29 篇原始摘要及部分版本，论文提交时间不代表公开时间；这不是全部论文的普查。中文融资的部分原公众号和商业数据库未能读取；CESA 标准全文及欧盟公报原 PDF 未取得，部分 Reuters 原站和社交帖访问受限，转载不能算独立来源。JEV、Laya、OSC 的具体指代仍未确认。</p></Prose>
 </Section>
