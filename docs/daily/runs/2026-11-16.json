@@ -1,0 +1,5288 @@
+{
+  "version": 2,
+  "runId": "2026-11-16",
+  "author": "author",
+  "issueDate": "2026-11-16",
+  "windowStart": "2026-11-15T02:00:00Z",
+  "cutoff": "2026-11-16T02:00:00Z",
+  "startedAt": "2026-11-16T02:08:50Z",
+  "completedAt": "2026-11-16T02:27:24Z",
+  "queries": [
+    {
+      "id": "q1",
+      "actor": "author",
+      "query": "\"2026年11月15日\" AI 大模型 上线 融资 机器人 智能体",
+      "executedAt": "2026-11-16T02:08:50Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://ai.zhuriver.com/ai-progress",
+        "https://news.supwil.com/news/ai-tech/2026-11-15",
+        "https://ai-daily.muserquantity.cn/d/2026-11-15",
+        "https://ai6s.net/6af919bee5f4ca4eff9188f0.html"
+      ],
+      "notes": "Actual search result; inventory retains unresolved leads and source limitations."
+    },
+    {
+      "id": "q2",
+      "actor": "author",
+      "query": "\"November 15, 2026\" AI model agent launch research",
+      "executedAt": "2026-11-16T02:08:51Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "research",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aisengtech.com/ai-research-open-source-issue-november-15-2026-agents-move-into-production/",
+        "https://www.citrusaiworks.com/ai-news.html",
+        "https://superpowerdaily.com/signals/model-launches",
+        "https://benchlm.ai/model-updates",
+        "https://techjacksolutions.com/ai-news/technology/?tag=preprint"
+      ],
+      "notes": "Actual search result; inventory retains unresolved leads and source limitations."
+    },
+    {
+      "id": "q3",
+      "actor": "author",
+      "query": "\"November 15, 2026\" AI financing acquisition startup",
+      "executedAt": "2026-11-16T02:08:52Z",
+      "method": "search",
+      "focus": [
+        "business",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://daily.rclabs.in/trackers/funding",
+        "https://crosswalk.to/crosswalk/deals/today",
+        "https://i10x.ai/news/category/business/funding-ma",
+        "https://techjacksolutions.com/ai-news/markets/?tag=newsguild",
+        "https://en.wikipedia.org/wiki/Megaspeed"
+      ],
+      "notes": "Actual search result; inventory retains unresolved leads and source limitations."
+    },
+    {
+      "id": "q4",
+      "actor": "author",
+      "query": "\"November 15, 2026\" artificial intelligence safety policy standards",
+      "executedAt": "2026-11-16T02:08:53Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cisonews.ai/regulation",
+        "https://cisonews.ai/year/2026",
+        "https://www.aipolicydesk.com/regulations"
+      ],
+      "notes": "Actual search result; inventory retains unresolved leads and source limitations."
+    },
+    {
+      "id": "q5",
+      "actor": "author",
+      "query": "\"15 novembre 2026\" intelligence artificielle recherche lancement",
+      "executedAt": "2026-11-16T02:08:54Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "governance",
+        "open-discovery"
+      ],
+      "language": "fr",
+      "resultUrls": [
+        "https://fr.linkedin.com/posts/jean-yves-cointre-8158b471_lifeos-agentsia-intelligenceartificielle-activity-7526557537609949184-AwK1",
+        "https://creati.ai/fr/ai-news/2026-11-15/",
+        "https://www.senspo.fr/gouvernement/communiques",
+        "https://www.iascope.eu/news/",
+        "https://actu.quebec/2026-11-15"
+      ],
+      "notes": "Actual search result; inventory retains unresolved leads and source limitations."
+    },
+    {
+      "id": "o1",
+      "actor": "author",
+      "query": "https://www.ithome.com/1/027/450.htm",
+      "executedAt": "2026-11-16T02:09:15Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://www.ithome.com/1/027/450.htm"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o2",
+      "actor": "author",
+      "query": "https://support.huaweicloud.com/bulletin-maas/bulletin-maas-0001.html",
+      "executedAt": "2026-11-16T02:09:16Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://support.huaweicloud.com/bulletin-maas/bulletin-maas-0001.html"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o3",
+      "actor": "author",
+      "query": "https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.11.3",
+      "executedAt": "2026-11-16T02:09:17Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.11.3"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o4",
+      "actor": "author",
+      "query": "https://www.36kr.com/p/4070571639067782",
+      "executedAt": "2026-11-16T02:09:17Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://www.36kr.com/p/4070571639067782"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o5",
+      "actor": "author",
+      "query": "https://mekawire.com/zh/news/weibuild-weijian-plastering-robots-reported-over-rmb-100m-fifth-round-caitong-capital-20261115",
+      "executedAt": "2026-11-16T02:09:18Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://mekawire.com/zh/news/weibuild-weijian-plastering-robots-reported-over-rmb-100m-fifth-round-caitong-capital-20261115"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o6",
+      "actor": "author",
+      "query": "https://tether.io/news/tethers-800m-ai-agent-beats-models-2-5x-its-size-on-everyday-phone-tasks/",
+      "executedAt": "2026-11-16T02:09:19Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://tether.io/news/tethers-800m-ai-agent-beats-models-2-5x-its-size-on-everyday-phone-tasks/"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o7",
+      "actor": "author",
+      "query": "https://nidus.tech/news/seed-round",
+      "executedAt": "2026-11-16T02:09:19Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://nidus.tech/news/seed-round"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o8",
+      "actor": "author",
+      "query": "https://www.cas.cn/yx/202611/t20261111_5124028.shtml",
+      "executedAt": "2026-11-16T02:09:20Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://www.cas.cn/yx/202611/t20261111_5124028.shtml"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "o9",
+      "actor": "author",
+      "query": "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/",
+      "executedAt": "2026-11-16T02:09:20Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/"
+      ],
+      "notes": "Initial web tool open failed; later direct curl read succeeded as recorded by atrst-direct."
+    },
+    {
+      "id": "o10",
+      "actor": "author",
+      "query": "https://www.tenable.com/cve/CVE-2026-129356",
+      "executedAt": "2026-11-16T02:09:21Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.tenable.com/cve/CVE-2026-129356"
+      ],
+      "notes": "Original page read; consult saved raw access trace."
+    },
+    {
+      "id": "xq1",
+      "actor": "author",
+      "query": "\"PhysLoop\" \"Experience-Handoff\" RL AI 2026",
+      "executedAt": "2026-11-16T02:12:05Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://ai-daily.muserquantity.cn/d/2026-11-15",
+        "https://githubhelp.com/Fucheng1245/RSI-Observatory",
+        "https://paperswithcode.co/papers/recent",
+        "https://orangebot.ai/physical-ai?date=2026-11-13",
+        "https://wolfdigest.com/digests/2026-11-13",
+        "https://rt.http3.lol/index.php?q=aHR0cHM6Ly9hcnhpdi5vcmcvc2VhcmNoL2NzP3NlYXJjaHR5cGU9YXV0aG9yJnF1ZXJ5PVpoYW5nJTJDK0s",
+        "https://thegroundtruth.co.uk/research/papers",
+        "https://siren.watch/pillar/capability.html",
+        "https://arxiv-troller.com/?q=paper%3A+2610.02038",
+        "https://modellm.outhentica.com/updates",
+        "https://modellm.si/updates?source=hf-papers"
+      ],
+      "notes": "Supplementary author search; original-result leads retained."
+    },
+    {
+      "id": "xq2",
+      "actor": "author",
+      "query": "\"Open Vision Banana\" \"Perplexity Decider\" 2026 November",
+      "executedAt": "2026-11-16T02:12:08Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://nbot.ai/curator/w7uka5ej/preview"
+      ],
+      "notes": "Supplementary author search; original-result leads retained."
+    },
+    {
+      "id": "xq3",
+      "actor": "author",
+      "query": "\"SOV-Transcribe-1\" \"Praxis-1\" 2026",
+      "executedAt": "2026-11-16T02:12:10Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://isitsota.com/releases",
+        "https://superpowerdaily.com/research/open-model-momentum/versions/v90",
+        "https://www.startrise.io/models/",
+        "https://superpowerdaily.com/research/open-model-momentum/versions/v89",
+        "https://drop.aaaclabs.com/open-source",
+        "https://www.startrise.io/models",
+        "https://recentmodel.com/"
+      ],
+      "notes": "Supplementary author search; original-result leads retained."
+    },
+    {
+      "id": "xq4",
+      "actor": "author",
+      "query": "\"RoboSpoof\" Robocurve 2026 release research",
+      "executedAt": "2026-11-16T02:12:13Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://roboticaguide.com/robospoof-blurry-camera-robot-ai-unsafe-tasks/",
+        "https://robocurve.org/robospoof/"
+      ],
+      "notes": "Supplementary author search; original-result leads retained."
+    },
+    {
+      "id": "xq5",
+      "actor": "author",
+      "query": "\"Forescout\" AI TCP IP bugs November 2026",
+      "executedAt": "2026-11-16T02:12:16Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.itpro.com/security/openai-says-its-new-cyber-focused-ai-model-found-thousands-of-linux-kernel-vulnerabilities",
+        "https://www.mediocresecurity.com/wiki/forescout-ai-tcpip-bugs/",
+        "https://theinjection.dev/items/forescout-off-the-shelf-ai-tcp-ip-bugs/",
+        "https://tsnmedia.org/tcp-ip-flaws/",
+        "https://www.itpro.com/security/cyber-attacks/security-researchers-warn-of-ai-powered-plc-attacks-in-wake-of-siemens-advisories",
+        "https://www.itpro.com/security/brace-yourselves-for-a-vulnerability-explosion-forescout-warns",
+        "https://www.itpro.com/security/ai-is-now-a-standard-part-of-the-attacker-toolkit",
+        "https://i10x.ai/news/forescout-ai-harness-99-tcp-ip-stack-bugs-90-hours",
+        "https://www.itpro.com/security/nist-national-vulnerability-database-modernization-machine-speed-consumption"
+      ],
+      "notes": "Supplementary author search; original-result leads retained."
+    },
+    {
+      "id": "xq6",
+      "actor": "author",
+      "query": "\"EABOT\" \"Desible\" 2026 financing",
+      "executedAt": "2026-11-16T02:12:19Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Supplementary author search; original-result leads retained."
+    },
+    {
+      "id": "xo1",
+      "actor": "author",
+      "query": "https://huggingface.co/blog/salesforce-sovereign-intelligence/sov-transcribe-1",
+      "executedAt": "2026-11-16T02:12:31Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/blog/salesforce-sovereign-intelligence/sov-transcribe-1"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo2",
+      "actor": "author",
+      "query": "https://runway.com/news/company-news/praxis-1-is-now-available",
+      "executedAt": "2026-11-16T02:12:31Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://runway.com/news/company-news/praxis-1-is-now-available"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo3",
+      "actor": "author",
+      "query": "https://arxiv.org/abs/2611.15575",
+      "executedAt": "2026-11-16T02:12:32Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arxiv.org/abs/2611.15575"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo4",
+      "actor": "author",
+      "query": "https://news.qq.com/rain/a/20261113A0AEVS00",
+      "executedAt": "2026-11-16T02:12:32Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://news.qq.com/rain/a/20261113A0AEVS00"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo5",
+      "actor": "author",
+      "query": "https://teapaw.org/theworldlabs/status/2120942033401717108",
+      "executedAt": "2026-11-16T02:12:33Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://teapaw.org/theworldlabs/status/2120942033401717108"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo6",
+      "actor": "author",
+      "query": "https://nlp.elvissaravia.com/p/ai-agents-weekly-claude-fable-52",
+      "executedAt": "2026-11-16T02:12:33Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://nlp.elvissaravia.com/p/ai-agents-weekly-claude-fable-52"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo7",
+      "actor": "author",
+      "query": "https://docs.cloud.google.com/organization-policy/release-notes",
+      "executedAt": "2026-11-16T02:12:34Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://docs.cloud.google.com/organization-policy/release-notes"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo8",
+      "actor": "author",
+      "query": "https://roboticaguide.com/robospoof-blurry-camera-robot-ai-unsafe-tasks/",
+      "executedAt": "2026-11-16T02:12:34Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://roboticaguide.com/robospoof-blurry-camera-robot-ai-unsafe-tasks/"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo9",
+      "actor": "author",
+      "query": "https://www.thecapital.com.cn/news/detail/125555",
+      "executedAt": "2026-11-16T02:12:35Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.thecapital.com.cn/news/detail/125555"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "xo10",
+      "actor": "author",
+      "query": "https://entrackr.com/snippets/desibleai-raises-rs-32-cr-led-by-prime-venture-partners-12805523",
+      "executedAt": "2026-11-16T02:12:36Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://entrackr.com/snippets/desibleai-raises-rs-32-cr-led-by-prime-venture-partners-12805523"
+      ],
+      "notes": "Original source follow-up; failure recorded if inaccessible."
+    },
+    {
+      "id": "rq1",
+      "actor": "reviewer",
+      "query": "\"November 15, 2026\" AI research agent model release safety funding",
+      "executedAt": "2026-11-16T02:09:55Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ai.zhudong.net/"
+      ],
+      "notes": "Independent reviewer supplementary search; result URLs are cited leads, not an exhaustive result list."
+    },
+    {
+      "id": "rq2",
+      "actor": "reviewer",
+      "query": "\"2026年11月15日\" AI 大模型 发布 融资 监管 安全",
+      "executedAt": "2026-11-16T02:09:55Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://www.citrusaiworks.com/ai-news.html"
+      ],
+      "notes": "Independent reviewer supplementary search; result URLs are cited leads, not an exhaustive result list."
+    },
+    {
+      "id": "rq3",
+      "actor": "reviewer",
+      "query": "\"15 novembre 2026\" intelligence artificielle recherche gouvernance agent",
+      "executedAt": "2026-11-16T02:09:55Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "fr",
+      "resultUrls": [
+        "https://job-engage.org/programmes"
+      ],
+      "notes": "Independent reviewer supplementary search; result URLs are cited leads, not an exhaustive result list."
+    },
+    {
+      "id": "rq4",
+      "actor": "reviewer",
+      "query": "\"2026-11-15\" site:github.com AI agent release security",
+      "executedAt": "2026-11-16T02:09:55Z",
+      "method": "search",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/erson/awesome-agent-orchestrators/"
+      ],
+      "notes": "Independent reviewer supplementary search; result URLs are cited leads, not an exhaustive result list."
+    },
+    {
+      "id": "inv1",
+      "actor": "author",
+      "query": "https://ai-daily.muserquantity.cn/d/2026-11-15",
+      "executedAt": "2026-11-16T02:13:26Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ai-daily.muserquantity.cn/d/2026-11-15"
+      ],
+      "notes": "Direct roundup read; entries require original source and timing verification."
+    },
+    {
+      "id": "inv2",
+      "actor": "author",
+      "query": "https://creati.ai/fr/ai-news/2026-11-15/",
+      "executedAt": "2026-11-16T02:13:27Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "fr",
+      "resultUrls": [
+        "https://creati.ai/fr/ai-news/2026-11-15/"
+      ],
+      "notes": "Direct roundup read; entries require original source and timing verification."
+    },
+    {
+      "id": "inv3",
+      "actor": "author",
+      "query": "https://aisengtech.com/ai-research-open-source-issue-november-15-2026-agents-move-into-production/",
+      "executedAt": "2026-11-16T02:13:27Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aisengtech.com/ai-research-open-source-issue-november-15-2026-agents-move-into-production/"
+      ],
+      "notes": "Direct roundup read; entries require original source and timing verification."
+    },
+    {
+      "id": "inv4",
+      "actor": "author",
+      "query": "https://daily.rclabs.in/trackers/funding",
+      "executedAt": "2026-11-16T02:13:28Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://daily.rclabs.in/trackers/funding"
+      ],
+      "notes": "Direct roundup read; entries require original source and timing verification."
+    },
+    {
+      "id": "inv5",
+      "actor": "author",
+      "query": "https://cisonews.ai/regulation",
+      "executedAt": "2026-11-16T02:13:28Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "business",
+        "research",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://cisonews.ai/regulation"
+      ],
+      "notes": "Direct roundup read; entries require original source and timing verification."
+    },
+    {
+      "id": "atrst-direct",
+      "actor": "author",
+      "query": "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/",
+      "executedAt": "2026-11-16T02:13:54Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "fr",
+      "resultUrls": [
+        "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/"
+      ],
+      "notes": "Direct curl GET; saved HTML and WordPress metadata."
+    },
+    {
+      "id": "zq1",
+      "actor": "author",
+      "query": "\"PhysLoop\" video physics consistency paper project",
+      "executedAt": "2026-11-16T02:16:35Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/papers/2611.16748",
+        "https://ofia-docs.france-ioi.org/huggingface/papers/2611.16748",
+        "https://tensorjournal.com/en/research/physloop-llm-physics-video-generation",
+        "https://arxiv.org/abs/2611.16748",
+        "https://www.alphaxiv.org/abs/2611.16748"
+      ],
+      "notes": "Follow-up discovery; exact result output retained in local trace."
+    },
+    {
+      "id": "zq2",
+      "actor": "author",
+      "query": "\"Experience-Handoff\" RL agent playbook 2026 paper",
+      "executedAt": "2026-11-16T02:16:38Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ofia-docs.france-ioi.org/huggingface/papers/2611.16409",
+        "https://borowiecki.dev/abs/2611.16409",
+        "https://academy.dair.ai/papers/experience-handoff-reinforcement-learning-for-recursive-self-improvement-2611.16409",
+        "https://arxiv.org/abs/2611.16409",
+        "https://arxiv.org/abs/2610.14000",
+        "https://hub.valency.io/works/W_8mvue52p"
+      ],
+      "notes": "Follow-up discovery; exact result output retained in local trace."
+    },
+    {
+      "id": "zq3",
+      "actor": "author",
+      "query": "\"Open Vision Banana\" generative perception release",
+      "executedAt": "2026-11-16T02:16:41Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/OpenVisionBanana/OpenVisionBanana",
+        "https://openvisionbanana.github.io/"
+      ],
+      "notes": "Follow-up discovery; exact result output retained in local trace."
+    },
+    {
+      "id": "zq4",
+      "actor": "author",
+      "query": "\"LiveGeo\" benchmark agents geography 2026",
+      "executedAt": "2026-11-16T02:16:44Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arcxiv.org/abs/2611.17267",
+        "https://www.opentrain.ai/papers/livegeo-benchmarking-geographic-agents-in-continuously-evolving-worlds--arxiv-2611.17267/",
+        "https://casrai.org/news/livegeo-geoworld-benchmark-geographic-ai-agents-2026",
+        "https://arxiv.org/abs/2611.17267",
+        "https://www.alphaxiv.org/abs/2611.17267"
+      ],
+      "notes": "Follow-up discovery; exact result output retained in local trace."
+    },
+    {
+      "id": "zq5",
+      "actor": "author",
+      "query": "\"SG-LegalClarify\" benchmark IMDA Scale AI",
+      "executedAt": "2026-11-16T02:16:47Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://scale.com/blog/scale-imda-legal-reasoning-benchmark",
+        "https://ai.info/news/scale-ai-singapore-imda-legal-reasoning-benchmark",
+        "https://casrai.org/news/scale-imda-sg-legalclarify-benchmark-release-2026",
+        "https://creati.ai/ai-news/2026-11-15/scale-ai-and-singapores-imda-launch-sg-legalclarify-benchmark-for-legal-reasoning/"
+      ],
+      "notes": "Follow-up discovery; exact result output retained in local trace."
+    },
+    {
+      "id": "zq6",
+      "actor": "author",
+      "query": "\"openPangu-2.1-Pro\" Huawei Cloud launch 2026 11",
+      "executedAt": "2026-11-16T02:16:49Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.ithome.com/1/027/450.htm",
+        "https://www.ithome.com/1/022/974.htm",
+        "https://www.ithome.com/1/022/472.htm",
+        "https://aipingnews.com/en/news/2437-huawei-cloud-openpangu-21-pro-api-pricing",
+        "https://www.digit.cn/news/huawei-openpangu-2-1-pro-maas-2026/",
+        "https://ai123.com/newshub/18252"
+      ],
+      "notes": "Follow-up discovery; exact result output retained in local trace."
+    },
+    {
+      "id": "zq7",
+      "actor": "author",
+      "query": "\"Gemini\" \"MathArena\" \"2026\" \"85.4\"",
+      "executedAt": "2026-11-16T02:16:52Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://matharena.ai/models"
+      ],
+      "notes": "Follow-up discovery; exact result output retained in local trace."
+    },
+    {
+      "id": "raq1",
+      "actor": "author",
+      "query": "https://huggingface.co/papers/2611.16748",
+      "executedAt": "2026-11-16T02:17:04Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/papers/2611.16748"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "raq2",
+      "actor": "author",
+      "query": "https://ofia-docs.france-ioi.org/huggingface/papers/2611.16409",
+      "executedAt": "2026-11-16T02:17:04Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ofia-docs.france-ioi.org/huggingface/papers/2611.16409"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "raq3",
+      "actor": "author",
+      "query": "https://github.com/OpenVisionBanana/OpenVisionBanana",
+      "executedAt": "2026-11-16T02:17:05Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/OpenVisionBanana/OpenVisionBanana"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "raq4",
+      "actor": "author",
+      "query": "https://arxiv.org/abs/2611.17267",
+      "executedAt": "2026-11-16T02:17:05Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arxiv.org/abs/2611.17267"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "raq5",
+      "actor": "author",
+      "query": "https://scale.com/blog/scale-imda-legal-reasoning-benchmark",
+      "executedAt": "2026-11-16T02:17:06Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://scale.com/blog/scale-imda-legal-reasoning-benchmark"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "raq6",
+      "actor": "author",
+      "query": "https://matharena.ai/models",
+      "executedAt": "2026-11-16T02:17:06Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://matharena.ai/models"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq1",
+      "actor": "author",
+      "query": "https://openai.com/index/openai-to-acquire-orchestra-bio/",
+      "executedAt": "2026-11-16T02:17:20Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://openai.com/index/openai-to-acquire-orchestra-bio/"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq2",
+      "actor": "author",
+      "query": "https://bloomberg.com/news/articles/2026-10-08/ai-model-evaluator-arena-valued-at-over-3-billion-in-round",
+      "executedAt": "2026-11-16T02:17:20Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://bloomberg.com/news/articles/2026-10-08/ai-model-evaluator-arena-valued-at-over-3-billion-in-round"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq3",
+      "actor": "author",
+      "query": "https://presse.bpifrance.fr/mistral-leve-3-mdeur-pour-placer-lia-souveraine-et-ouverte-a-la-pointe-de-la-technologie/?lang=fra",
+      "executedAt": "2026-11-16T02:17:21Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://presse.bpifrance.fr/mistral-leve-3-mdeur-pour-placer-lia-souveraine-et-ouverte-a-la-pointe-de-la-technologie/?lang=fra"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq4",
+      "actor": "author",
+      "query": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+      "executedAt": "2026-11-16T02:17:22Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq5",
+      "actor": "author",
+      "query": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026066482/spaceexplorationtechnologi.htm",
+      "executedAt": "2026-11-16T02:17:22Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.sec.gov/Archives/edgar/data/1181412/000162828026066482/spaceexplorationtechnologi.htm"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq6",
+      "actor": "author",
+      "query": "https://www.nebuly.com/blog/nebuly-raises-21m-series-a",
+      "executedAt": "2026-11-16T02:17:23Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.nebuly.com/blog/nebuly-raises-21m-series-a"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq7",
+      "actor": "author",
+      "query": "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/",
+      "executedAt": "2026-11-16T02:17:23Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq8",
+      "actor": "author",
+      "query": "https://xilect.com/",
+      "executedAt": "2026-11-16T02:17:24Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://xilect.com/"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq9",
+      "actor": "author",
+      "query": "https://www.bjnews.com.cn/detail/1794118990129766.html",
+      "executedAt": "2026-11-16T02:17:25Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.bjnews.com.cn/detail/1794118990129766.html"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq10",
+      "actor": "author",
+      "query": "https://finance.sina.com.cn/jjxw/2026-11-10/doc-iniyfzhw2628282.shtml",
+      "executedAt": "2026-11-16T02:17:25Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://finance.sina.com.cn/jjxw/2026-11-10/doc-iniyfzhw2628282.shtml"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq11",
+      "actor": "author",
+      "query": "https://www.ithome.com/1/020/251.htm",
+      "executedAt": "2026-11-16T02:17:26Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.ithome.com/1/020/251.htm"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq12",
+      "actor": "author",
+      "query": "https://www.taiwannews.com.tw/news/6476115",
+      "executedAt": "2026-11-16T02:17:27Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.taiwannews.com.tw/news/6476115"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "baq13",
+      "actor": "author",
+      "query": "https://www.cubic.dev/blog/cubic-joins-cohere",
+      "executedAt": "2026-11-16T02:17:28Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.cubic.dev/blog/cubic-joins-cohere"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "bmq1",
+      "actor": "author",
+      "query": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
+      "executedAt": "2026-11-16T02:17:47Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "bmq2",
+      "actor": "author",
+      "query": "https://www.wsj.com/tech/chinas-moonshot-ai-restructures-to-pave-way-for-ipo-49f09abb",
+      "executedAt": "2026-11-16T02:17:48Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.wsj.com/tech/chinas-moonshot-ai-restructures-to-pave-way-for-ipo-49f09abb"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "bmq3",
+      "actor": "author",
+      "query": "https://ca.finance.yahoo.com/news/forescout-research-shows-ai-cut-130200181.html",
+      "executedAt": "2026-11-16T02:17:48Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ca.finance.yahoo.com/news/forescout-research-shows-ai-cut-130200181.html"
+      ],
+      "notes": "Follow-up source access."
+    },
+    {
+      "id": "paq1",
+      "actor": "author",
+      "query": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "executedAt": "2026-11-16T02:19:42Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq2",
+      "actor": "author",
+      "query": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "executedAt": "2026-11-16T02:19:43Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq3",
+      "actor": "author",
+      "query": "https://nitter.rdrama.net/hark_labs",
+      "executedAt": "2026-11-16T02:19:44Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://nitter.rdrama.net/hark_labs"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq4",
+      "actor": "author",
+      "query": "https://ernie.baidu.com/zh/",
+      "executedAt": "2026-11-16T02:19:45Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ernie.baidu.com/zh/"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq5",
+      "actor": "author",
+      "query": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+      "executedAt": "2026-11-16T02:19:45Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq6",
+      "actor": "author",
+      "query": "https://elevenlabs.io/docs/changelog/2026/11/9",
+      "executedAt": "2026-11-16T02:19:46Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://elevenlabs.io/docs/changelog/2026/11/9"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq7",
+      "actor": "author",
+      "query": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december/",
+      "executedAt": "2026-11-16T02:19:46Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december/"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq8",
+      "actor": "author",
+      "query": "https://ai-bio.cn/moss-live/",
+      "executedAt": "2026-11-16T02:19:47Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ai-bio.cn/moss-live/"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq9",
+      "actor": "author",
+      "query": "https://github.com/SkyworkAI/Matrix-Game",
+      "executedAt": "2026-11-16T02:19:48Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/SkyworkAI/Matrix-Game"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq10",
+      "actor": "author",
+      "query": "https://www.ncsti.gov.cn/kjdt/kjrd/rgzn_kjrd/202611/t20261113_263210.html",
+      "executedAt": "2026-11-16T02:19:48Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.ncsti.gov.cn/kjdt/kjrd/rgzn_kjrd/202611/t20261113_263210.html"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq11",
+      "actor": "author",
+      "query": "https://www.ithome.com/1/024/556.htm",
+      "executedAt": "2026-11-16T02:19:49Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.ithome.com/1/024/556.htm"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "paq12",
+      "actor": "author",
+      "query": "https://openai.com/products/release-notes/?category=chatgpt",
+      "executedAt": "2026-11-16T02:19:49Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://openai.com/products/release-notes/?category=chatgpt"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "rbq1",
+      "actor": "author",
+      "query": "https://huggingface.co/papers/2611.12304",
+      "executedAt": "2026-11-16T02:19:27Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/papers/2611.12304"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "rbq2",
+      "actor": "author",
+      "query": "https://arxiv.org/abs/2611.13412",
+      "executedAt": "2026-11-16T02:19:27Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arxiv.org/abs/2611.13412"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "rbq3",
+      "actor": "author",
+      "query": "https://ofia-docs.france-ioi.org/huggingface/papers/2611.15844",
+      "executedAt": "2026-11-16T02:19:28Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ofia-docs.france-ioi.org/huggingface/papers/2611.15844"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "rbq4",
+      "actor": "author",
+      "query": "https://developers.googleblog.com/en/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/",
+      "executedAt": "2026-11-16T02:19:29Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://developers.googleblog.com/en/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "rbq5",
+      "actor": "author",
+      "query": "https://www.euronews.com/2026/11/12/france-to-spearhead-new-ai-defence-resilience-centre-with-partner-nations",
+      "executedAt": "2026-11-16T02:19:29Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.euronews.com/2026/11/12/france-to-spearhead-new-ai-defence-resilience-centre-with-partner-nations"
+      ],
+      "notes": "Direct follow-up; inspect original for scope and publication."
+    },
+    {
+      "id": "zzq1",
+      "actor": "author",
+      "query": "\"Agent-Adaptive LLM Serving at Scale\" arxiv",
+      "executedAt": "2026-11-16T02:18:51Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/papers/2611.12304",
+        "https://arxiv.cnoctave.top/abs/2611.12304",
+        "https://arxiv-troller.com/paper/3378784/",
+        "https://arxiv.org/abs/2611.12304",
+        "https://kipquest.com/paper/2611.12304",
+        "https://www.opentrain.ai/papers/evolving-infra-agent-adaptive-llm-serving-at-scale--arxiv-2611.12304/"
+      ],
+      "notes": "Supplementary search; result is discovery unless source directly fetched."
+    },
+    {
+      "id": "zzq2",
+      "actor": "author",
+      "query": "\"Bursts That Outlast Themselves\" prefix cached",
+      "executedAt": "2026-11-16T02:18:53Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://learnaivisually.com/ai-explained/prefix-cache-metastable-collapse-session-suspension",
+        "https://arxivb.org/abs/2611.13412",
+        "https://www.paperpeel.com/paper/2611.13412"
+      ],
+      "notes": "Supplementary search; result is discovery unless source directly fetched."
+    },
+    {
+      "id": "zzq3",
+      "actor": "author",
+      "query": "\"Open Vision Banana\" 2611.15844 paper released",
+      "executedAt": "2026-11-16T02:18:57Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ofia-docs.france-ioi.org/huggingface/papers/2611.15844",
+        "https://openvisionbanana.github.io/",
+        "https://github.com/OpenVisionBanana/OpenVisionBanana"
+      ],
+      "notes": "Supplementary search; result is discovery unless source directly fetched."
+    },
+    {
+      "id": "zzq4",
+      "actor": "author",
+      "query": "\"LiveGeo\" 2611.17267 submitted Nov 2026",
+      "executedAt": "2026-11-16T02:18:59Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arxiv.org/abs/2611.17267"
+      ],
+      "notes": "Supplementary search; result is discovery unless source directly fetched."
+    },
+    {
+      "id": "zzq5",
+      "actor": "author",
+      "query": "\"SG-LegalClarify\" November 12 2026",
+      "executedAt": "2026-11-16T02:19:00Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://scale.com/blog/scale-imda-legal-reasoning-benchmark",
+        "https://theinference.org/article/scale-ai-just-published-the-benchmark-that-prices-its-own-qatar-contracts",
+        "https://casrai.org/news/scale-imda-sg-legalclarify-benchmark-release-2026",
+        "https://muckrack.com/sophie-denar/articles",
+        "https://aiincontext.com/articles/scale-ai-and-imda-launch-sg-legalclarify-benchmark-for-singapore-law"
+      ],
+      "notes": "Supplementary search; result is discovery unless source directly fetched."
+    },
+    {
+      "id": "zzq6",
+      "actor": "author",
+      "query": "\"AI Edge Gallery\" offline speech recognition 2026",
+      "executedAt": "2026-11-16T02:19:01Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://developers.googleblog.com/en/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/",
+        "https://developers.googleblog.com/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/",
+        "https://huggingface.co/blog/litert-community/on-device-speech-recognition-and-text-to-speech-in",
+        "https://www.tomsguide.com/ai/i-replaced-chatgpt-with-offline-ai-on-my-phone-heres-what-actually-happened"
+      ],
+      "notes": "Supplementary search; result is discovery unless source directly fetched."
+    },
+    {
+      "id": "zzq7",
+      "actor": "author",
+      "query": "\"AI\" \"France\" \"Rennes\" défense 15 novembre 2026",
+      "executedAt": "2026-11-16T02:19:04Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.euronews.com/2026/11/12/france-to-spearhead-new-ai-defence-resilience-centre-with-partner-nations",
+        "https://www.defense.gouv.fr/recherche?f%5B0%5D=type_de_contenu%3Ahomepage&f%5B1%5D=type_de_contenu%3Anews_article&page=0&search_api_fulltext=IA&sort_by=created",
+        "https://www.clubic.com/actualite-639046-la-france-lance-un-centre-international-de-l-ia-de-defense-a-rennes-et-veut-y-rallier-ses-allies.html",
+        "https://fr.linkedin.com/company/ministere-des-armees",
+        "https://www.lemonde.fr/sciences/article/2024/10/28/du-soin-a-la-surveillance-du-cerveau-sept-defis-pour-les-neurotechnologies_6363498_1650684.html",
+        "https://www.lemonde.fr/politique/article/2024/11/08/francois-ruffin-envisage-de-participer-a-l-election-presidentielle-2027-est-une-carte-qui-est-sur-la-table_6382726_823448.html"
+      ],
+      "notes": "Supplementary search; result is discovery unless source directly fetched."
+    },
+    {
+      "id": "fq1",
+      "actor": "author",
+      "query": "\"matharena.ai\" \"Gemini 4 Carbon\" \"November 2026\"",
+      "executedAt": "2026-11-16T02:21:33Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://tbb.ceo/ai/daily/2026-11-15",
+        "https://tgchannels.org/channel/turboproject?first=2929&lang=all&size=30&start=5464",
+        "https://www.edgewisely.com/best-llm-for-math/",
+        "https://letsdatascience.com/?mailpoet_page=captcha"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "fq2",
+      "actor": "author",
+      "query": "\"Google\" \"teamwork\" \"Weil\" 2026 Antigravity November 13",
+      "executedAt": "2026-11-16T02:21:35Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/",
+        "https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "fq3",
+      "actor": "author",
+      "query": "\"Philippines\" \"AI council\" November 14 2026 executive order",
+      "executedAt": "2026-11-16T02:21:36Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.theaustralian.com.au/nation/we-dont-have-time-penny-wong-urges-against-global-treaty-for-ai-regulation/news-story/33be9ab43e61b553c4f3acd32a030b88",
+        "https://aicouncil.bettergov.ph/"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "fq4",
+      "actor": "author",
+      "query": "\"CVE-2026-129356\" vllm vulnerability published November",
+      "executedAt": "2026-11-16T02:21:38Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.tenable.com/cve/CVE-2026-129356",
+        "https://vulnerability.circl.lu/vuln/CVE-2026-129356",
+        "https://www.openadvisories.org/vuln/CVE-2026-129356",
+        "https://dbu.gs/vulnerability/PT-2026-147444"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "fq5",
+      "actor": "author",
+      "query": "\"Perplexity Decider v1.3\" release Nov 2026",
+      "executedAt": "2026-11-16T02:21:39Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.perplexity.ai/en-GB/hub/blog/perplexity-decider"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "fq6",
+      "actor": "author",
+      "query": "\"FINAL-Bench\" \"weather\" Hugging Face November 2026",
+      "executedAt": "2026-11-16T02:21:40Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.blog/blog/final-bench-which-weather-model-is-most-accurate-we-score-them/",
+        "https://recentmodel.com/models/FINAL-Bench/Darwin-Prediction-Weather/",
+        "https://huggingface.co/posts",
+        "https://huggingface.blog/topics/models/",
+        "https://recentmodel.com/",
+        "https://huggingface.blog/archive/"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "fq7",
+      "actor": "author",
+      "query": "\"Protegrity\" \"open\" \"model\" sensitive data November 2026",
+      "executedAt": "2026-11-16T02:21:42Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.protegrity.com/news/protegrity-releases-open-weights-pii-detection-model-on-hugging-face-backed-by-new-benchmark-research",
+        "https://www.protegrity.com/news",
+        "https://www.protegrity.com/news_tag/press-release",
+        "https://www.protegrity.com/news/protegrity-brings-secure-context-to-enterprise-ai-with-a-unified-policy-engine-for-data-agents-and-inference",
+        "https://www.cybersecurity-insiders.com/protegrity-introduces-open-weights-model-to-improve-detection-of-sensitive-personal-data/"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "fq8",
+      "actor": "author",
+      "query": "\"AWS\" \"coding agent\" \"Managed Knowledge Base\" Bedrock November 2026",
+      "executedAt": "2026-11-16T02:21:43Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aws.amazon.com/blogs/machine-learning/migrate-to-amazon-bedrock-managed-knowledge-base-with-your-coding-agent/",
+        "https://aws.amazon.com/blogs/machine-learning/category/artificial-intelligence/amazon-machine-learning/amazon-bedrock/amazon-bedrock-knowledge-bases/",
+        "https://aws.amazon.com.cdn.amazon.com/blogs/machine-learning/category/post-types/technical-how-to/",
+        "https://aws.amazon.com/blogs/machine-learning/fine-grained-access-control-for-amazon-bedrock-managed-knowledge-base-tools/"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "yq1",
+      "actor": "author",
+      "query": "\"Agent-Adaptive LLM Serving at Scale\" arxiv",
+      "executedAt": "2026-11-16T02:18:51Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.co/papers/2611.12304",
+        "https://arxiv.cnoctave.top/abs/2611.12304",
+        "https://arxiv-troller.com/paper/3378784/",
+        "https://arxiv.org/abs/2611.12304",
+        "https://kipquest.com/paper/2611.12304",
+        "https://www.opentrain.ai/papers/evolving-infra-agent-adaptive-llm-serving-at-scale--arxiv-2611.12304/"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "yq2",
+      "actor": "author",
+      "query": "\"Bursts That Outlast Themselves\" prefix cached",
+      "executedAt": "2026-11-16T02:18:53Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://learnaivisually.com/ai-explained/prefix-cache-metastable-collapse-session-suspension",
+        "https://arxivb.org/abs/2611.13412",
+        "https://www.paperpeel.com/paper/2611.13412"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "yq3",
+      "actor": "author",
+      "query": "\"Open Vision Banana\" 2611.15844 paper released",
+      "executedAt": "2026-11-16T02:18:57Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ofia-docs.france-ioi.org/huggingface/papers/2611.15844",
+        "https://openvisionbanana.github.io/",
+        "https://github.com/OpenVisionBanana/OpenVisionBanana"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "yq4",
+      "actor": "author",
+      "query": "\"LiveGeo\" 2611.17267 submitted Nov 2026",
+      "executedAt": "2026-11-16T02:18:59Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arxiv.org/abs/2611.17267"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "yq5",
+      "actor": "author",
+      "query": "\"SG-LegalClarify\" November 12 2026",
+      "executedAt": "2026-11-16T02:19:00Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://scale.com/blog/scale-imda-legal-reasoning-benchmark",
+        "https://theinference.org/article/scale-ai-just-published-the-benchmark-that-prices-its-own-qatar-contracts",
+        "https://casrai.org/news/scale-imda-sg-legalclarify-benchmark-release-2026",
+        "https://muckrack.com/sophie-denar/articles",
+        "https://aiincontext.com/articles/scale-ai-and-imda-launch-sg-legalclarify-benchmark-for-singapore-law"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "yq6",
+      "actor": "author",
+      "query": "\"AI Edge Gallery\" offline speech recognition 2026",
+      "executedAt": "2026-11-16T02:19:01Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://developers.googleblog.com/en/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/",
+        "https://developers.googleblog.com/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/",
+        "https://huggingface.co/blog/litert-community/on-device-speech-recognition-and-text-to-speech-in",
+        "https://www.tomsguide.com/ai/i-replaced-chatgpt-with-offline-ai-on-my-phone-heres-what-actually-happened"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "yq7",
+      "actor": "author",
+      "query": "\"AI\" \"France\" \"Rennes\" défense 15 novembre 2026",
+      "executedAt": "2026-11-16T02:19:04Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.euronews.com/2026/11/12/france-to-spearhead-new-ai-defence-resilience-centre-with-partner-nations",
+        "https://www.defense.gouv.fr/recherche?f%5B0%5D=type_de_contenu%3Ahomepage&f%5B1%5D=type_de_contenu%3Anews_article&page=0&search_api_fulltext=IA&sort_by=created",
+        "https://www.clubic.com/actualite-639046-la-france-lance-un-centre-international-de-l-ia-de-defense-a-rennes-et-veut-y-rallier-ses-allies.html",
+        "https://fr.linkedin.com/company/ministere-des-armees",
+        "https://www.lemonde.fr/sciences/article/2024/10/28/du-soin-a-la-surveillance-du-cerveau-sept-defis-pour-les-neurotechnologies_6363498_1650684.html",
+        "https://www.lemonde.fr/politique/article/2024/11/08/francois-ruffin-envisage-de-participer-a-l-election-presidentielle-2027-est-une-carte-qui-est-sur-la-table_6382726_823448.html"
+      ],
+      "notes": "Supplementary search; raw result retained outside repository."
+    },
+    {
+      "id": "faq1",
+      "actor": "author",
+      "query": "https://www.research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/",
+      "executedAt": "2026-11-16T02:23:09Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/"
+      ],
+      "notes": "Direct source follow-up."
+    },
+    {
+      "id": "faq2",
+      "actor": "author",
+      "query": "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance",
+      "executedAt": "2026-11-16T02:23:09Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance"
+      ],
+      "notes": "Direct source follow-up."
+    },
+    {
+      "id": "faq3",
+      "actor": "author",
+      "query": "https://www.perplexity.ai/en-GB/hub/blog/perplexity-decider",
+      "executedAt": "2026-11-16T02:23:10Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.perplexity.ai/en-GB/hub/blog/perplexity-decider"
+      ],
+      "notes": "Direct source follow-up."
+    },
+    {
+      "id": "faq4",
+      "actor": "author",
+      "query": "https://huggingface.blog/blog/final-bench-which-weather-model-is-most-accurate-we-score-them/",
+      "executedAt": "2026-11-16T02:23:11Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://huggingface.blog/blog/final-bench-which-weather-model-is-most-accurate-we-score-them/"
+      ],
+      "notes": "Direct source follow-up."
+    },
+    {
+      "id": "faq5",
+      "actor": "author",
+      "query": "https://www.protegrity.com/news/protegrity-releases-open-weights-pii-detection-model-on-hugging-face-backed-by-new-benchmark-research",
+      "executedAt": "2026-11-16T02:23:11Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.protegrity.com/news/protegrity-releases-open-weights-pii-detection-model-on-hugging-face-backed-by-new-benchmark-research"
+      ],
+      "notes": "Direct source follow-up."
+    },
+    {
+      "id": "faq6",
+      "actor": "author",
+      "query": "https://aws.amazon.com/blogs/machine-learning/migrate-to-amazon-bedrock-managed-knowledge-base-with-your-coding-agent/",
+      "executedAt": "2026-11-16T02:23:12Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://aws.amazon.com/blogs/machine-learning/migrate-to-amazon-bedrock-managed-knowledge-base-with-your-coding-agent/"
+      ],
+      "notes": "Direct source follow-up."
+    },
+    {
+      "id": "faq7",
+      "actor": "author",
+      "query": "https://explainx.ai/blog/physloop-llm-physics-video-generation-byte-dance-pku-2026",
+      "executedAt": "2026-11-16T02:23:12Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "products",
+        "business",
+        "governance",
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://explainx.ai/blog/physloop-llm-physics-video-generation-byte-dance-pku-2026"
+      ],
+      "notes": "Direct source follow-up."
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "IT之家：openPangu 上线",
+      "url": "https://www.ithome.com/1/027/450.htm",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:15Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-15",
+        "basis": "Article date and time are shown, but timezone is not explicit.",
+        "sourceUrls": [
+          "https://www.ithome.com/1/027/450.htm"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s2",
+      "title": "华为云 MaaS 更新",
+      "url": "https://support.huaweicloud.com/bulletin-maas/bulletin-maas-0001.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:16Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-15",
+        "basis": "Official MaaS page says updated 2026-11-15 GMT+08:00.",
+        "sourceUrls": [
+          "https://support.huaweicloud.com/bulletin-maas/bulletin-maas-0001.html"
+        ],
+        "timeZone": "Asia/Shanghai"
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s3",
+      "title": "AutoGPT beta v0.11.3",
+      "url": "https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.11.3",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:17Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-15T08:59:39Z",
+        "basis": "GitHub release API published_at.",
+        "sourceUrls": [
+          "https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.11.3"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s4",
+      "title": "36氪：蔚建科技融资报道",
+      "url": "https://www.36kr.com/p/4070571639067782",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:17Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-15T05:19:51.076Z",
+        "basis": "Article embedded publishTime for matching item id 4070571639067782; visible time agrees. Generic page published_time metadata differs.",
+        "sourceUrls": [
+          "https://www.36kr.com/p/4070571639067782"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s5",
+      "title": "MEKAWIRE：蔚建科技轮次核对",
+      "url": "https://mekawire.com/zh/news/weibuild-weijian-plastering-robots-reported-over-rmb-100m-fifth-round-caitong-capital-20261115",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:18Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-15",
+        "basis": "Article date only; timezone not explicit.",
+        "sourceUrls": [
+          "https://mekawire.com/zh/news/weibuild-weijian-plastering-robots-reported-over-rmb-100m-fifth-round-caitong-capital-20261115"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s6",
+      "title": "Tether BotPsy",
+      "url": "https://tether.io/news/tethers-800m-ai-agent-beats-models-2-5x-its-size-on-everyday-phone-tasks/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:19Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Company release date; zone not stated.",
+        "sourceUrls": [
+          "https://tether.io/news/tethers-800m-ai-agent-beats-models-2-5x-its-size-on-everyday-phone-tasks/"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s7",
+      "title": "Nidus funding",
+      "url": "https://nidus.tech/news/seed-round",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:19Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Company announcement date.",
+        "sourceUrls": [
+          "https://nidus.tech/news/seed-round"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s8",
+      "title": "CAS SciMatrix",
+      "url": "https://www.cas.cn/yx/202611/t20261111_5124028.shtml",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:20Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "CAS page date; text states launch Nov 10.",
+        "sourceUrls": [
+          "https://www.cas.cn/yx/202611/t20261111_5124028.shtml"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s9",
+      "title": "ATRST AI call",
+      "url": "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-16T02:09:20Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-15",
+        "basis": "Page date; call opening and original publication must be distinguished.",
+        "sourceUrls": [
+          "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "s10",
+      "title": "Tenable vLLM CVE",
+      "url": "https://www.tenable.com/cve/CVE-2026-129356",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:09:21Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-15",
+        "basis": "CVE record date only; earlier public issue exists.",
+        "sourceUrls": [
+          "https://www.tenable.com/cve/CVE-2026-129356"
+        ]
+      },
+      "evidence": "See the saved read and its stated publication basis."
+    },
+    {
+      "id": "idx1",
+      "title": "Discovery index from search 1",
+      "url": "https://ai.zhuriver.com/ai-progress",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:50Z",
+      "evidence": "Search result discovery only; underlying stories require direct reads."
+    },
+    {
+      "id": "idx2",
+      "title": "Discovery index from search 2",
+      "url": "https://aisengtech.com/ai-research-open-source-issue-november-15-2026-agents-move-into-production/",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:51Z",
+      "evidence": "Search result discovery only; underlying stories require direct reads."
+    },
+    {
+      "id": "idx3",
+      "title": "Discovery index from search 3",
+      "url": "https://daily.rclabs.in/trackers/funding",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:52Z",
+      "evidence": "Search result discovery only; underlying stories require direct reads."
+    },
+    {
+      "id": "idx4",
+      "title": "Discovery index from search 4",
+      "url": "https://cisonews.ai/regulation",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:53Z",
+      "evidence": "Search result discovery only; underlying stories require direct reads."
+    },
+    {
+      "id": "idx5",
+      "title": "Discovery index from search 5",
+      "url": "https://fr.linkedin.com/posts/jean-yves-cointre-8158b471_lifeos-agentsia-intelligenceartificielle-activity-7526557537609949184-AwK1",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:54Z",
+      "evidence": "Search result discovery only; underlying stories require direct reads."
+    },
+    {
+      "id": "xs1",
+      "title": "Salesforce speech model",
+      "url": "https://huggingface.co/blog/salesforce-sovereign-intelligence/sov-transcribe-1",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:31Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs2",
+      "title": "Runway Praxis-1",
+      "url": "https://runway.com/news/company-news/praxis-1-is-now-available",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:31Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs3",
+      "title": "Confusing C++ paper",
+      "url": "https://arxiv.org/abs/2611.15575",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:32Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs4",
+      "title": "Tencent Hy Realtime",
+      "url": "https://news.qq.com/rain/a/20261113A0AEVS00",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-16T02:12:32Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs5",
+      "title": "World Labs post mirror",
+      "url": "https://teapaw.org/theworldlabs/status/2120942033401717108",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:33Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs6",
+      "title": "Agent research weekly",
+      "url": "https://nlp.elvissaravia.com/p/ai-agents-weekly-claude-fable-52",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:33Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs7",
+      "title": "Google Cloud release notes",
+      "url": "https://docs.cloud.google.com/organization-policy/release-notes",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:34Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs8",
+      "title": "RoboSpoof reporting",
+      "url": "https://roboticaguide.com/robospoof-blurry-camera-robot-ai-unsafe-tasks/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:34Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs9",
+      "title": "EABOT funding",
+      "url": "https://www.thecapital.com.cn/news/detail/125555",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:35Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "xs10",
+      "title": "Desible funding",
+      "url": "https://entrackr.com/snippets/desibleai-raises-rs-32-cr-led-by-prime-venture-partners-12805523",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:12:36Z",
+      "evidence": "Source directly revisited; dates are limited to evidence in page."
+    },
+    {
+      "id": "is1",
+      "title": "Read discovery roundup 1",
+      "url": "https://ai-daily.muserquantity.cn/d/2026-11-15",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:13:26Z",
+      "evidence": "Discovery roundup; not independent proof of individual claims."
+    },
+    {
+      "id": "is2",
+      "title": "Read discovery roundup 2",
+      "url": "https://creati.ai/fr/ai-news/2026-11-15/",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:13:27Z",
+      "evidence": "Discovery roundup; not independent proof of individual claims."
+    },
+    {
+      "id": "is3",
+      "title": "Read discovery roundup 3",
+      "url": "https://aisengtech.com/ai-research-open-source-issue-november-15-2026-agents-move-into-production/",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:13:27Z",
+      "evidence": "Discovery roundup; not independent proof of individual claims."
+    },
+    {
+      "id": "is4",
+      "title": "Read discovery roundup 4",
+      "url": "https://daily.rclabs.in/trackers/funding",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:13:28Z",
+      "evidence": "Discovery roundup; not independent proof of individual claims."
+    },
+    {
+      "id": "is5",
+      "title": "Read discovery roundup 5",
+      "url": "https://cisonews.ai/regulation",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:13:28Z",
+      "evidence": "Discovery roundup; not independent proof of individual claims."
+    },
+    {
+      "id": "atrst-direct",
+      "title": "ATRST AI call notice",
+      "url": "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:13:54Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-15T23:10:20Z",
+        "basis": "Official page time element and WordPress date_gmt identify this notice publication, distinct from the earlier call.",
+        "sourceUrls": [
+          "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/"
+        ]
+      },
+      "evidence": "Notice publication datetime; earlier call application page had date Nov 5."
+    },
+    {
+      "id": "index-ai6s",
+      "title": "Search result inventory index-ai6s",
+      "url": "https://ai6s.net/6af919bee5f4ca4eff9188f0.html",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:50Z",
+      "evidence": "Search result only; dates and claims require original evidence."
+    },
+    {
+      "id": "index-swil",
+      "title": "Search result inventory index-swil",
+      "url": "https://news.supwil.com/news/ai-tech/2026-11-15",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:50Z",
+      "evidence": "Search result only; dates and claims require original evidence."
+    },
+    {
+      "id": "index-releases",
+      "title": "Search result inventory index-releases",
+      "url": "https://superpowerdaily.com/signals/model-launches",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:51Z",
+      "evidence": "Search result only; dates and claims require original evidence."
+    },
+    {
+      "id": "index-citrus",
+      "title": "Search result inventory index-citrus",
+      "url": "https://www.citrusaiworks.com/ai-news.html",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:51Z",
+      "evidence": "Search result only; dates and claims require original evidence."
+    },
+    {
+      "id": "index-market",
+      "title": "Search result inventory index-market",
+      "url": "https://techjacksolutions.com/ai-news/markets/?tag=newsguild",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:52Z",
+      "evidence": "Search result only; dates and claims require original evidence."
+    },
+    {
+      "id": "index-policy",
+      "title": "Search result inventory index-policy",
+      "url": "https://cisonews.ai/regulation",
+      "publisherKind": "community",
+      "access": "search_only",
+      "retrievedAt": "2026-11-16T02:08:53Z",
+      "evidence": "Search result only; dates and claims require original evidence."
+    },
+    {
+      "id": "ras1",
+      "title": "https://huggingface.co/papers/2611.16748",
+      "url": "https://huggingface.co/papers/2611.16748",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:04Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "ras2",
+      "title": "https://ofia-docs.france-ioi.org/huggingface/papers/2611.16409",
+      "url": "https://ofia-docs.france-ioi.org/huggingface/papers/2611.16409",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:04Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "ras3",
+      "title": "https://github.com/OpenVisionBanana/OpenVisionBanana",
+      "url": "https://github.com/OpenVisionBanana/OpenVisionBanana",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:05Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "ras4",
+      "title": "https://arxiv.org/abs/2611.17267",
+      "url": "https://arxiv.org/abs/2611.17267",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:05Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "ras5",
+      "title": "https://scale.com/blog/scale-imda-legal-reasoning-benchmark",
+      "url": "https://scale.com/blog/scale-imda-legal-reasoning-benchmark",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-16T02:17:06Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "ras6",
+      "title": "https://matharena.ai/models",
+      "url": "https://matharena.ai/models",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:06Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas1",
+      "title": "https://openai.com/index/openai-to-acquire-orchestra-bio/",
+      "url": "https://openai.com/index/openai-to-acquire-orchestra-bio/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:20Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas2",
+      "title": "https://bloomberg.com/news/articles/2026-10-08/ai-model-evaluator-arena-valued-at-over-3-billion-in-round",
+      "url": "https://bloomberg.com/news/articles/2026-10-08/ai-model-evaluator-arena-valued-at-over-3-billion-in-round",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-16T02:17:20Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas3",
+      "title": "https://presse.bpifrance.fr/mistral-leve-3-mdeur-pour-placer-lia-souveraine-et-ouverte-a-la-pointe-de-la-technologie/?lang=fra",
+      "url": "https://presse.bpifrance.fr/mistral-leve-3-mdeur-pour-placer-lia-souveraine-et-ouverte-a-la-pointe-de-la-technologie/?lang=fra",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:21Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas4",
+      "title": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+      "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:22Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas5",
+      "title": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026066482/spaceexplorationtechnologi.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026066482/spaceexplorationtechnologi.htm",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:22Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas6",
+      "title": "https://www.nebuly.com/blog/nebuly-raises-21m-series-a",
+      "url": "https://www.nebuly.com/blog/nebuly-raises-21m-series-a",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:23Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas7",
+      "title": "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/",
+      "url": "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:23Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas8",
+      "title": "https://xilect.com/",
+      "url": "https://xilect.com/",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-16T02:17:24Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas9",
+      "title": "https://www.bjnews.com.cn/detail/1794118990129766.html",
+      "url": "https://www.bjnews.com.cn/detail/1794118990129766.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:25Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas10",
+      "title": "https://finance.sina.com.cn/jjxw/2026-11-10/doc-iniyfzhw2628282.shtml",
+      "url": "https://finance.sina.com.cn/jjxw/2026-11-10/doc-iniyfzhw2628282.shtml",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:25Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas11",
+      "title": "https://www.ithome.com/1/020/251.htm",
+      "url": "https://www.ithome.com/1/020/251.htm",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:26Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas12",
+      "title": "https://www.taiwannews.com.tw/news/6476115",
+      "url": "https://www.taiwannews.com.tw/news/6476115",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:27Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bas13",
+      "title": "https://www.cubic.dev/blog/cubic-joins-cohere",
+      "url": "https://www.cubic.dev/blog/cubic-joins-cohere",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:28Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bms1",
+      "title": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
+      "url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:47Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bms2",
+      "title": "https://www.wsj.com/tech/chinas-moonshot-ai-restructures-to-pave-way-for-ipo-49f09abb",
+      "url": "https://www.wsj.com/tech/chinas-moonshot-ai-restructures-to-pave-way-for-ipo-49f09abb",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:17:48Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "bms3",
+      "title": "https://ca.finance.yahoo.com/news/forescout-research-shows-ai-cut-130200181.html",
+      "url": "https://ca.finance.yahoo.com/news/forescout-research-shows-ai-cut-130200181.html",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-16T02:17:48Z",
+      "evidence": "Actual direct read; restricted access is not no-update evidence."
+    },
+    {
+      "id": "pas1",
+      "title": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:42Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas2",
+      "title": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:43Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas3",
+      "title": "https://nitter.rdrama.net/hark_labs",
+      "url": "https://nitter.rdrama.net/hark_labs",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-16T02:19:44Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas4",
+      "title": "https://ernie.baidu.com/zh/",
+      "url": "https://ernie.baidu.com/zh/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:45Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas5",
+      "title": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:45Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas6",
+      "title": "https://elevenlabs.io/docs/changelog/2026/11/9",
+      "url": "https://elevenlabs.io/docs/changelog/2026/11/9",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:46Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas7",
+      "title": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december/",
+      "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:46Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas8",
+      "title": "https://ai-bio.cn/moss-live/",
+      "url": "https://ai-bio.cn/moss-live/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:47Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas9",
+      "title": "https://github.com/SkyworkAI/Matrix-Game",
+      "url": "https://github.com/SkyworkAI/Matrix-Game",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:48Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas10",
+      "title": "https://www.ncsti.gov.cn/kjdt/kjrd/rgzn_kjrd/202611/t20261113_263210.html",
+      "url": "https://www.ncsti.gov.cn/kjdt/kjrd/rgzn_kjrd/202611/t20261113_263210.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:48Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas11",
+      "title": "https://www.ithome.com/1/024/556.htm",
+      "url": "https://www.ithome.com/1/024/556.htm",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:49Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "pas12",
+      "title": "https://openai.com/products/release-notes/?category=chatgpt",
+      "url": "https://openai.com/products/release-notes/?category=chatgpt",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:49Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "rbs1",
+      "title": "https://huggingface.co/papers/2611.12304",
+      "url": "https://huggingface.co/papers/2611.12304",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:27Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "rbs2",
+      "title": "https://arxiv.org/abs/2611.13412",
+      "url": "https://arxiv.org/abs/2611.13412",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:27Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "rbs3",
+      "title": "https://ofia-docs.france-ioi.org/huggingface/papers/2611.15844",
+      "url": "https://ofia-docs.france-ioi.org/huggingface/papers/2611.15844",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:28Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "rbs4",
+      "title": "https://developers.googleblog.com/en/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/",
+      "url": "https://developers.googleblog.com/en/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:29Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "rbs5",
+      "title": "https://www.euronews.com/2026/11/12/france-to-spearhead-new-ai-defence-resilience-centre-with-partner-nations",
+      "url": "https://www.euronews.com/2026/11/12/france-to-spearhead-new-ai-defence-resilience-centre-with-partner-nations",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:19:29Z",
+      "evidence": "Access result captured; dates cited on event records reflect source text."
+    },
+    {
+      "id": "fas1",
+      "title": "https://www.research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/",
+      "url": "https://www.research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:23:09Z",
+      "evidence": "Direct source read; chronology applies to the specific report or announcement."
+    },
+    {
+      "id": "fas2",
+      "title": "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance",
+      "url": "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:23:09Z",
+      "evidence": "Direct source read; chronology applies to the specific report or announcement."
+    },
+    {
+      "id": "fas3",
+      "title": "https://www.perplexity.ai/en-GB/hub/blog/perplexity-decider",
+      "url": "https://www.perplexity.ai/en-GB/hub/blog/perplexity-decider",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:23:10Z",
+      "evidence": "Direct source read; chronology applies to the specific report or announcement."
+    },
+    {
+      "id": "fas4",
+      "title": "https://huggingface.blog/blog/final-bench-which-weather-model-is-most-accurate-we-score-them/",
+      "url": "https://huggingface.blog/blog/final-bench-which-weather-model-is-most-accurate-we-score-them/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:23:11Z",
+      "evidence": "Direct source read; chronology applies to the specific report or announcement."
+    },
+    {
+      "id": "fas5",
+      "title": "https://www.protegrity.com/news/protegrity-releases-open-weights-pii-detection-model-on-hugging-face-backed-by-new-benchmark-research",
+      "url": "https://www.protegrity.com/news/protegrity-releases-open-weights-pii-detection-model-on-hugging-face-backed-by-new-benchmark-research",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:23:11Z",
+      "evidence": "Direct source read; chronology applies to the specific report or announcement."
+    },
+    {
+      "id": "fas6",
+      "title": "https://aws.amazon.com/blogs/machine-learning/migrate-to-amazon-bedrock-managed-knowledge-base-with-your-coding-agent/",
+      "url": "https://aws.amazon.com/blogs/machine-learning/migrate-to-amazon-bedrock-managed-knowledge-base-with-your-coding-agent/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:23:12Z",
+      "evidence": "Direct source read; chronology applies to the specific report or announcement."
+    },
+    {
+      "id": "fas7",
+      "title": "https://explainx.ai/blog/physloop-llm-physics-video-generation-byte-dance-pku-2026",
+      "url": "https://explainx.ai/blog/physloop-llm-physics-video-generation-byte-dance-pku-2026",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-16T02:23:12Z",
+      "evidence": "Direct source read; chronology applies to the specific report or announcement."
+    }
+  ],
+  "checks": [
+    {
+      "id": "check-products",
+      "target": "Topic evidence and discovery",
+      "category": "products",
+      "status": "candidate",
+      "checkedAt": "2026-11-16T02:09:15Z",
+      "queryIds": [
+        "q1",
+        "o1"
+      ],
+      "sourceIds": [
+        "s1"
+      ],
+      "candidateIds": [
+        "pangu",
+        "botpsy",
+        "longcat",
+        "hy-realtime",
+        "atlas-api",
+        "sov",
+        "moss-live",
+        "matrix-game",
+        "ernie-models",
+        "fable",
+        "hydrogen",
+        "hark",
+        "ernie-flash",
+        "gemini-decision",
+        "scribe",
+        "ai-edge-voice"
+      ],
+      "notes": "Source checked; topic remains partial, and search snippets are leads not no-update evidence."
+    },
+    {
+      "id": "check-business",
+      "target": "Topic evidence and discovery",
+      "category": "business",
+      "status": "candidate",
+      "checkedAt": "2026-11-16T02:09:17Z",
+      "queryIds": [
+        "q3",
+        "o4"
+      ],
+      "sourceIds": [
+        "s4"
+      ],
+      "candidateIds": [
+        "weibuild",
+        "nidus",
+        "openai-robotics",
+        "tsmc-fund",
+        "nebuly",
+        "cubic",
+        "eabot",
+        "desible",
+        "deepseek-financing",
+        "robosell",
+        "qiyuan",
+        "xilect",
+        "langchain",
+        "orchestra-bio",
+        "arena-finance",
+        "mistral-finance",
+        "nvidia-hf",
+        "moonshot-finance",
+        "cursor-spacex"
+      ],
+      "notes": "Source checked; topic remains partial, and search snippets are leads not no-update evidence."
+    },
+    {
+      "id": "check-research",
+      "target": "Topic evidence and discovery",
+      "category": "research",
+      "status": "candidate",
+      "checkedAt": "2026-11-16T02:12:32Z",
+      "queryIds": [
+        "q2",
+        "xo3"
+      ],
+      "sourceIds": [
+        "xs3"
+      ],
+      "candidateIds": [
+        "scimatrix",
+        "matharena",
+        "agent-adaptive",
+        "prefix-cache",
+        "singularity",
+        "xybench",
+        "google-teamwork",
+        "lingbot",
+        "research-index",
+        "praxis",
+        "cpp-confusing",
+        "robospoof",
+        "physloop",
+        "handoff",
+        "vision-banana",
+        "livegeo",
+        "sg-legal",
+        "final-bench"
+      ],
+      "notes": "arXiv source read; research discovery remains partial and individual candidates have separate dispositions."
+    },
+    {
+      "id": "check-governance",
+      "target": "Topic evidence and discovery",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-16T02:09:21Z",
+      "queryIds": [
+        "q4",
+        "o10"
+      ],
+      "sourceIds": [
+        "s10"
+      ],
+      "candidateIds": [
+        "atrst",
+        "vllm-cve",
+        "policy-eu",
+        "raise-act",
+        "protegrity",
+        "forescout",
+        "greatwall",
+        "philippines",
+        "eu-sandbox",
+        "eu-discussion"
+      ],
+      "notes": "Source checked; topic remains partial, and search snippets are leads not no-update evidence."
+    },
+    {
+      "id": "check-agents",
+      "target": "Topic evidence and discovery",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-16T02:09:17Z",
+      "queryIds": [
+        "q2",
+        "o3"
+      ],
+      "sourceIds": [
+        "s3"
+      ],
+      "candidateIds": [
+        "autogpt",
+        "lifeos",
+        "gcp-mcp",
+        "decider",
+        "wallet",
+        "aws-kb",
+        "copilot-retire"
+      ],
+      "notes": "Source checked; topic remains partial, and search snippets are leads not no-update evidence."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "weibuild",
+      "title": "36 氪报道蔚建科技融资",
+      "category": "business",
+      "entity": "蔚建科技",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q1",
+        "o4",
+        "o5"
+      ],
+      "sourceIds": [
+        "s4",
+        "s5"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "New report inside the window; financing completion date itself is not given. Round count is disputed and company has not confirmed.",
+      "importance": "Construction robotics funding and deployment economics.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-15T05:19:51.076Z",
+        "basis": "Article embedded publishTime for matching item id 4070571639067782; visible time agrees. Generic page published_time metadata differs.",
+        "sourceUrls": [
+          "https://www.36kr.com/p/4070571639067782"
+        ]
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s4"
+        ],
+        "attribution": "36氪 original reporting",
+        "limitations": "No company confirmation; round count conflicts with company history and generic page metadata differs."
+      }
+    },
+    {
+      "id": "autogpt",
+      "title": "AutoGPT Platform beta v0.11.3",
+      "category": "agents",
+      "entity": "AutoGPT",
+      "releaseStatus": "beta",
+      "queryIds": [
+        "q2",
+        "o3"
+      ],
+      "sourceIds": [
+        "s3"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "GitHub release published inside the window; security advisories will follow production rollout.",
+      "importance": "Agent platform security and operational changes.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-15T08:59:39Z",
+        "basis": "GitHub release API published_at.",
+        "sourceUrls": [
+          "https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.11.3"
+        ]
+      }
+    },
+    {
+      "id": "pangu",
+      "title": "openPangu-2.1-Pro 上线华为云",
+      "category": "products",
+      "entity": "华为云",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q1",
+        "o1",
+        "o2"
+      ],
+      "sourceIds": [
+        "s1",
+        "s2"
+      ],
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Official update date is 15 Nov China time; no evidenced launch hour. Media report says released, but timestamp timezone is not explicit.",
+      "importance": "Coding and tool-use model availability.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-15",
+        "basis": "Official MaaS page says updated 2026-11-15 GMT+08:00.",
+        "sourceUrls": [
+          "https://support.huaweicloud.com/bulletin-maas/bulletin-maas-0001.html"
+        ],
+        "timeZone": "Asia/Shanghai"
+      },
+      "reportedEvidence": {
+        "sourceIds": [
+          "s1"
+        ],
+        "attribution": "IT之家 reports Huawei Cloud announcement",
+        "limitations": "First launch hour unverified; advertised downstream integrations remain planned."
+      }
+    },
+    {
+      "id": "atrst",
+      "title": "阿尔及利亚 AI 研究征集",
+      "category": "governance",
+      "entity": "ATRST",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q5",
+        "atrst-direct"
+      ],
+      "sourceIds": [
+        "atrst-direct"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "New notice repeats an existing research call and does not change its terms; omit from headline issue rather than label it a research paper or new policy. Earlier initial web read failed; later direct fetch obtained the notice timestamp.",
+      "importance": "Regional collaborative research call.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-15T23:10:20Z",
+        "basis": "Official page time element and WordPress date_gmt identify this notice publication, distinct from the earlier call.",
+        "sourceUrls": [
+          "https://atrst.dz/appel-a-projets-thematique-intelligence-artificielle-ia/"
+        ]
+      }
+    },
+    {
+      "id": "botpsy",
+      "title": "BotPsy agent model",
+      "category": "products",
+      "entity": "BotPsy agent model",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q1",
+        "o6"
+      ],
+      "sourceIds": [
+        "s6"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Primary announcement predates window; aggregation date is not a new event.",
+      "importance": "Potentially important but not new in this window.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Company release date; zone not stated.",
+        "sourceUrls": [
+          "https://tether.io/news/tethers-800m-ai-agent-beats-models-2-5x-its-size-on-everyday-phone-tasks/"
+        ]
+      }
+    },
+    {
+      "id": "nidus",
+      "title": "Nidus robotics funding",
+      "category": "business",
+      "entity": "Nidus robotics funding",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q3",
+        "o7"
+      ],
+      "sourceIds": [
+        "s7"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Primary announcement predates window; aggregation date is not a new event.",
+      "importance": "Potentially important but not new in this window.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Company announcement date.",
+        "sourceUrls": [
+          "https://nidus.tech/news/seed-round"
+        ]
+      }
+    },
+    {
+      "id": "scimatrix",
+      "title": "SciMatrix 1.5",
+      "category": "research",
+      "entity": "SciMatrix 1.5",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "q2",
+        "o8"
+      ],
+      "sourceIds": [
+        "s8"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Primary announcement predates window; aggregation date is not a new event.",
+      "importance": "Potentially important but not new in this window.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "CAS page date; text states launch Nov 10.",
+        "sourceUrls": [
+          "https://www.cas.cn/yx/202611/t20261111_5124028.shtml"
+        ]
+      }
+    },
+    {
+      "id": "vllm-cve",
+      "title": "vLLM CVE-2026-129356 公告",
+      "category": "governance",
+      "entity": "vLLM",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "q4",
+        "o10"
+      ],
+      "sourceIds": [
+        "s10"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Nov 15 dated Tenable CVE record for previously public October issue; original issue and date-boundary of the new CVE record do not establish a significant new in-window vulnerability discovery.",
+      "importance": "Security record for deployed inference."
+    },
+    {
+      "id": "longcat",
+      "title": "LongCat-2.5 开放权重",
+      "category": "products",
+      "entity": "LongCat-2.5 开放权重",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "paq11"
+      ],
+      "sourceIds": [
+        "idx1",
+        "pas11"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Potential lead retained for source and timing follow-up.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://www.ithome.com/1/024/556.htm"
+        ]
+      }
+    },
+    {
+      "id": "matharena",
+      "title": "Gemini Carbon MathArena 排名",
+      "category": "research",
+      "entity": "Gemini Carbon MathArena 排名",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "zq7",
+        "raq6"
+      ],
+      "sourceIds": [
+        "idx1",
+        "ras6"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Official leaderboard contains model listing dates but no timestamp for a new leader change; dated aggregators alone cannot establish when ranking changed.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "openai-robotics",
+      "title": "OpenAI 机器人团队报道",
+      "category": "business",
+      "entity": "OpenAI 机器人团队报道",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "bmq1"
+      ],
+      "sourceIds": [
+        "idx1",
+        "bms1"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Follow-up source located; ascertain whether a genuinely new disclosure falls within this window; access and chronology limitations apply.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "agent-adaptive",
+      "title": "Agent-adaptive serving paper",
+      "category": "research",
+      "entity": "Agent-adaptive serving paper",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv3",
+        "rbq1"
+      ],
+      "sourceIds": [
+        "is3",
+        "rbs1"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "This public paper page or vendor announcement predates the current window; distinct new announcement not established.",
+      "importance": "Potential lead retained for source and timing follow-up.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source page dated public posting/announcement; not merely arXiv submission.",
+        "sourceUrls": [
+          "https://huggingface.co/papers/2611.12304"
+        ]
+      }
+    },
+    {
+      "id": "prefix-cache",
+      "title": "Prefix-cache burst degradation paper",
+      "category": "research",
+      "entity": "Prefix-cache burst degradation paper",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv3"
+      ],
+      "sourceIds": [
+        "is3"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Paper or report predates the window by submission/index date, but a distinct new public explanation or precise release time is not yet established; retained pending.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "tsmc-fund",
+      "title": "TSMC venture fund",
+      "category": "business",
+      "entity": "TSMC venture fund",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv4",
+        "baq12"
+      ],
+      "sourceIds": [
+        "is4",
+        "bas12"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Potential lead retained for source and timing follow-up.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://www.taiwannews.com.tw/news/6476115"
+        ]
+      }
+    },
+    {
+      "id": "nebuly",
+      "title": "Nebuly financing",
+      "category": "business",
+      "entity": "Nebuly financing",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv4",
+        "baq6"
+      ],
+      "sourceIds": [
+        "is4",
+        "bas6"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Potential lead retained for source and timing follow-up.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://www.nebuly.com/blog/nebuly-raises-21m-series-a"
+        ]
+      }
+    },
+    {
+      "id": "policy-eu",
+      "title": "EU Article 50 guidance",
+      "category": "governance",
+      "entity": "EU Article 50 guidance",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv5"
+      ],
+      "sourceIds": [
+        "is5"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Index dates Nov 12; no in-window new development established.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "raise-act",
+      "title": "New York RAISE registration",
+      "category": "governance",
+      "entity": "New York RAISE registration",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv5"
+      ],
+      "sourceIds": [
+        "is5"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Index dates Nov 10; no in-window new development established.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "lifeos",
+      "title": "LifeOS agent product",
+      "category": "agents",
+      "entity": "LifeOS agent product",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q5"
+      ],
+      "sourceIds": [
+        "idx5"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Discovery, old-event or prior-issue lead; original publication and material in-window development not fully established.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "singularity",
+      "title": "Singularity-Bench",
+      "category": "research",
+      "entity": "Singularity-Bench",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2"
+      ],
+      "sourceIds": [
+        "idx2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Weekly dated Nov 14 describes work; author must verify time precision and earlier issue handling.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "hy-realtime",
+      "title": "腾讯 Hy Realtime",
+      "category": "products",
+      "entity": "腾讯 Hy Realtime",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "idx1"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Prior report dates 11/13; primary source inaccessible in author read. Retain pending for previous issue correction.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "atlas-api",
+      "title": "World Labs Atlas API",
+      "category": "products",
+      "entity": "World Labs Atlas API",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2"
+      ],
+      "sourceIds": [
+        "idx2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Mirror dates Nov 12 18:09 UTC; original source not independently accessible. Prior issue follow-up remains pending.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "xybench",
+      "title": "Ai2 XYBench",
+      "category": "research",
+      "entity": "Ai2 XYBench",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2"
+      ],
+      "sourceIds": [
+        "idx2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Discovery, old-event or prior-issue lead; original publication and material in-window development not fully established.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "cubic",
+      "title": "Cohere 收购 cubic",
+      "category": "business",
+      "entity": "Cohere 收购 cubic",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q3",
+        "baq13"
+      ],
+      "sourceIds": [
+        "idx3",
+        "bas13"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Potential lead retained for source and timing follow-up.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://www.cubic.dev/blog/cubic-joins-cohere"
+        ]
+      }
+    },
+    {
+      "id": "google-teamwork",
+      "title": "Google Teamwork research",
+      "category": "research",
+      "entity": "Google Teamwork research",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "faq1"
+      ],
+      "sourceIds": [
+        "idx1",
+        "fas1"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Specific publication/report was publicly available before this issue window; a separate new in-window development is not established.",
+      "importance": "Potential lead retained for source and timing follow-up.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source publication date. Unknown timezone conservatively bounded.",
+        "sourceUrls": [
+          "https://www.research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/"
+        ]
+      }
+    },
+    {
+      "id": "lingbot",
+      "title": "LingBot-Touch",
+      "category": "research",
+      "entity": "LingBot-Touch",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "idx1"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Discovery, old-event or prior-issue lead; original publication and material in-window development not fully established.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "research-index",
+      "title": "其他研究索引与论文版本",
+      "category": "research",
+      "entity": "其他研究索引与论文版本",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2"
+      ],
+      "sourceIds": [
+        "idx2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Discovery, old-event or prior-issue lead; original publication and material in-window development not fully established.",
+      "importance": "Potential lead retained for source and timing follow-up."
+    },
+    {
+      "id": "sov",
+      "title": "Salesforce SOV-Transcribe-1",
+      "category": "products",
+      "entity": "Salesforce SOV-Transcribe-1",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "xo1"
+      ],
+      "sourceIds": [
+        "xs1"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source date; no timezone inferred.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/salesforce-sovereign-intelligence/sov-transcribe-1"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Source evidence predates current reporting window; aggregation date is not first publication.",
+      "importance": "Relevant lead from discovery and reviewer follow-up."
+    },
+    {
+      "id": "praxis",
+      "title": "Runway Praxis-1",
+      "category": "research",
+      "entity": "Runway Praxis-1",
+      "releaseStatus": "research",
+      "queryIds": [
+        "xo2"
+      ],
+      "sourceIds": [
+        "xs2"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Source date; no timezone inferred.",
+        "sourceUrls": [
+          "https://runway.com/news/company-news/praxis-1-is-now-available"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Source evidence predates current reporting window; aggregation date is not first publication.",
+      "importance": "Relevant lead from discovery and reviewer follow-up."
+    },
+    {
+      "id": "cpp-confusing",
+      "title": "C++ code confusion study",
+      "category": "research",
+      "entity": "C++ code confusion study",
+      "releaseStatus": "research",
+      "queryIds": [
+        "xo3"
+      ],
+      "sourceIds": [
+        "xs3"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Source date; no timezone inferred.",
+        "sourceUrls": [
+          "https://arxiv.org/abs/2611.15575"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Source evidence predates current reporting window; aggregation date is not first publication.",
+      "importance": "Relevant lead from discovery and reviewer follow-up."
+    },
+    {
+      "id": "gcp-mcp",
+      "title": "Google Organization Policy MCP GA",
+      "category": "agents",
+      "entity": "Google Organization Policy MCP GA",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "xo7"
+      ],
+      "sourceIds": [
+        "xs7"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-09-18",
+        "basis": "Source date; no timezone inferred.",
+        "sourceUrls": [
+          "https://docs.cloud.google.com/organization-policy/release-notes"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Source evidence predates current reporting window; aggregation date is not first publication.",
+      "importance": "Relevant lead from discovery and reviewer follow-up."
+    },
+    {
+      "id": "robospoof",
+      "title": "RoboSpoof robot safety",
+      "category": "research",
+      "entity": "RoboSpoof robot safety",
+      "releaseStatus": "research",
+      "queryIds": [
+        "xo8"
+      ],
+      "sourceIds": [
+        "xs8"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Source date; no timezone inferred.",
+        "sourceUrls": [
+          "https://roboticaguide.com/robospoof-blurry-camera-robot-ai-unsafe-tasks/"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Source evidence predates current reporting window; aggregation date is not first publication.",
+      "importance": "Relevant lead from discovery and reviewer follow-up."
+    },
+    {
+      "id": "eabot",
+      "title": "EABOT financing",
+      "category": "business",
+      "entity": "EABOT financing",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "xo9"
+      ],
+      "sourceIds": [
+        "xs9"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-05",
+        "basis": "Source date; no timezone inferred.",
+        "sourceUrls": [
+          "https://www.thecapital.com.cn/news/detail/125555"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Source evidence predates current reporting window; aggregation date is not first publication.",
+      "importance": "Relevant lead from discovery and reviewer follow-up."
+    },
+    {
+      "id": "desible",
+      "title": "Desible financing",
+      "category": "business",
+      "entity": "Desible financing",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "xo10"
+      ],
+      "sourceIds": [
+        "xs10"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source date; no timezone inferred.",
+        "sourceUrls": [
+          "https://entrackr.com/snippets/desibleai-raises-rs-32-cr-led-by-prime-venture-partners-12805523"
+        ]
+      },
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Source evidence predates current reporting window; aggregation date is not first publication.",
+      "importance": "Relevant lead from discovery and reviewer follow-up."
+    },
+    {
+      "id": "physloop",
+      "title": "PhysLoop physics video study",
+      "category": "research",
+      "entity": "PhysLoop physics video study",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv1",
+        "zq1",
+        "raq1",
+        "faq7"
+      ],
+      "sourceIds": [
+        "is1",
+        "ras1",
+        "fas7"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Specific publication/report was publicly available before this issue window; a separate new in-window development is not established.",
+      "importance": "Potentially relevant product, research or safety lead.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source publication date. Unknown timezone conservatively bounded.",
+        "sourceUrls": [
+          "https://explainx.ai/blog/physloop-llm-physics-video-generation-byte-dance-pku-2026"
+        ]
+      }
+    },
+    {
+      "id": "handoff",
+      "title": "Experience-Handoff RL study",
+      "category": "research",
+      "entity": "Experience-Handoff RL study",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv1",
+        "zq2",
+        "raq2"
+      ],
+      "sourceIds": [
+        "is1",
+        "ras2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Paper or report predates the window by submission/index date, but a distinct new public explanation or precise release time is not yet established; retained pending.",
+      "importance": "Potentially relevant product, research or safety lead."
+    },
+    {
+      "id": "vision-banana",
+      "title": "Open Vision Banana",
+      "category": "research",
+      "entity": "Open Vision Banana",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv1",
+        "zq3",
+        "raq3",
+        "rbq3"
+      ],
+      "sourceIds": [
+        "is1",
+        "ras3",
+        "rbs3"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "This public paper page or vendor announcement predates the current window; distinct new announcement not established.",
+      "importance": "Potentially relevant product, research or safety lead.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source page dated public posting/announcement; not merely arXiv submission.",
+        "sourceUrls": [
+          "https://ofia-docs.france-ioi.org/huggingface/papers/2611.15844"
+        ]
+      }
+    },
+    {
+      "id": "decider",
+      "title": "Perplexity Decider 1.3",
+      "category": "agents",
+      "entity": "Perplexity Decider 1.3",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv1",
+        "faq3"
+      ],
+      "sourceIds": [
+        "is1",
+        "fas3"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Specific publication/report was publicly available before this issue window; a separate new in-window development is not established.",
+      "importance": "Potentially relevant product, research or safety lead.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source publication date. Unknown timezone conservatively bounded.",
+        "sourceUrls": [
+          "https://www.perplexity.ai/en-GB/hub/blog/perplexity-decider"
+        ]
+      }
+    },
+    {
+      "id": "wallet",
+      "title": "ChatGPT Wallet",
+      "category": "agents",
+      "entity": "ChatGPT Wallet",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv1",
+        "paq12"
+      ],
+      "sourceIds": [
+        "is1",
+        "pas12"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Potentially relevant product, research or safety lead.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://openai.com/products/release-notes/?category=chatgpt"
+        ]
+      }
+    },
+    {
+      "id": "livegeo",
+      "title": "LiveGeo benchmark",
+      "category": "research",
+      "entity": "LiveGeo benchmark",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv2",
+        "zq4",
+        "raq4"
+      ],
+      "sourceIds": [
+        "is2",
+        "ras4"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Paper or report predates the window by submission/index date, but a distinct new public explanation or precise release time is not yet established; retained pending.",
+      "importance": "Potentially relevant product, research or safety lead."
+    },
+    {
+      "id": "sg-legal",
+      "title": "SG-LegalClarify benchmark",
+      "category": "research",
+      "entity": "SG-LegalClarify benchmark",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv2",
+        "zq5",
+        "raq5"
+      ],
+      "sourceIds": [
+        "is2",
+        "ras5"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Paper or report predates the window by submission/index date, but a distinct new public explanation or precise release time is not yet established; retained pending.",
+      "importance": "Potentially relevant product, research or safety lead."
+    },
+    {
+      "id": "aws-kb",
+      "title": "AWS managed knowledge-base migration",
+      "category": "agents",
+      "entity": "AWS managed knowledge-base migration",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv2",
+        "faq6"
+      ],
+      "sourceIds": [
+        "is2",
+        "fas6"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Specific publication/report was publicly available before this issue window; a separate new in-window development is not established.",
+      "importance": "Potentially relevant product, research or safety lead.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source publication date. Unknown timezone conservatively bounded.",
+        "sourceUrls": [
+          "https://aws.amazon.com/blogs/machine-learning/migrate-to-amazon-bedrock-managed-knowledge-base-with-your-coding-agent/"
+        ]
+      }
+    },
+    {
+      "id": "protegrity",
+      "title": "Protegrity sensitive-data model",
+      "category": "governance",
+      "entity": "Protegrity sensitive-data model",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "inv2",
+        "faq5"
+      ],
+      "sourceIds": [
+        "is2",
+        "fas5"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Specific publication/report was publicly available before this issue window; a separate new in-window development is not established.",
+      "importance": "Potentially relevant product, research or safety lead.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-05",
+        "basis": "Source publication date. Unknown timezone conservatively bounded.",
+        "sourceUrls": [
+          "https://www.protegrity.com/news/protegrity-releases-open-weights-pii-detection-model-on-hugging-face-backed-by-new-benchmark-research"
+        ]
+      }
+    },
+    {
+      "id": "forescout",
+      "title": "Forescout AI TCP/IP study",
+      "category": "governance",
+      "entity": "Forescout AI TCP/IP study",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "bmq3"
+      ],
+      "sourceIds": [
+        "idx2",
+        "bms3"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Follow-up source located; ascertain whether a genuinely new disclosure falls within this window; access and chronology limitations apply.",
+      "importance": "Potentially relevant product, research or safety lead."
+    },
+    {
+      "id": "deepseek-financing",
+      "title": "DeepSeek B轮和 IPO 报道",
+      "category": "business",
+      "entity": "DeepSeek B轮和 IPO 报道",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "baq11"
+      ],
+      "sourceIds": [
+        "index-ai6s",
+        "bas11"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-10-30",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://www.ithome.com/1/020/251.htm"
+        ]
+      }
+    },
+    {
+      "id": "copilot-retire",
+      "title": "Copilot 模型退役公告",
+      "category": "agents",
+      "entity": "Copilot 模型退役公告",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "paq7"
+      ],
+      "sourceIds": [
+        "index-ai6s",
+        "pas7"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december/"
+        ]
+      }
+    },
+    {
+      "id": "moss-live",
+      "title": "MOSS-Live 语音模型",
+      "category": "products",
+      "entity": "MOSS-Live 语音模型",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "paq8"
+      ],
+      "sourceIds": [
+        "index-ai6s",
+        "pas8"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-03",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://ai-bio.cn/moss-live/"
+        ]
+      }
+    },
+    {
+      "id": "robosell",
+      "title": "具身智能企业停摆报道",
+      "category": "business",
+      "entity": "具身智能企业停摆报道",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "baq10"
+      ],
+      "sourceIds": [
+        "index-ai6s",
+        "bas10"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://finance.sina.com.cn/jjxw/2026-11-10/doc-iniyfzhw2628282.shtml"
+        ]
+      }
+    },
+    {
+      "id": "qiyuan",
+      "title": "启元机器人产量报道",
+      "category": "business",
+      "entity": "启元机器人产量报道",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "baq9"
+      ],
+      "sourceIds": [
+        "index-ai6s",
+        "bas9"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-08",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://www.bjnews.com.cn/detail/1794118990129766.html"
+        ]
+      }
+    },
+    {
+      "id": "matrix-game",
+      "title": "Matrix-Game 4.0 生成模型",
+      "category": "products",
+      "entity": "Matrix-Game 4.0 生成模型",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "paq9"
+      ],
+      "sourceIds": [
+        "index-ai6s",
+        "pas9"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-10-15",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://github.com/SkyworkAI/Matrix-Game"
+        ]
+      }
+    },
+    {
+      "id": "ernie-models",
+      "title": "文心深度思考与一镜模型",
+      "category": "products",
+      "entity": "文心深度思考与一镜模型",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "paq10"
+      ],
+      "sourceIds": [
+        "index-swil",
+        "pas10"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://www.ncsti.gov.cn/kjdt/kjrd/rgzn_kjrd/202611/t20261113_263210.html"
+        ]
+      }
+    },
+    {
+      "id": "greatwall",
+      "title": "GreatWall 模型备案",
+      "category": "governance",
+      "entity": "GreatWall 模型备案",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "index-swil"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Search result or roundup discovery; primary event identity, original source and first-public timing not verified in this run.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date."
+    },
+    {
+      "id": "xilect",
+      "title": "Xilect 融资",
+      "category": "business",
+      "entity": "Xilect 融资",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "baq8"
+      ],
+      "sourceIds": [
+        "index-swil",
+        "bas8"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Company page timed out; earlier media coverage exists, but source and distinct in-window development not directly established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date."
+    },
+    {
+      "id": "langchain",
+      "title": "LangChain 融资",
+      "category": "business",
+      "entity": "LangChain 融资",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "baq7"
+      ],
+      "sourceIds": [
+        "index-swil",
+        "bas7"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/"
+        ]
+      }
+    },
+    {
+      "id": "philippines",
+      "title": "菲律宾 AI 委员会",
+      "category": "governance",
+      "entity": "菲律宾 AI 委员会",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1",
+        "faq2"
+      ],
+      "sourceIds": [
+        "index-swil",
+        "fas2"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Specific publication/report was publicly available before this issue window; a separate new in-window development is not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-14T08:39:00Z",
+        "latest": "2026-11-14T08:39:59Z",
+        "basis": "PNA publication shown as Nov 14, 4:39 PM GMT+8.",
+        "sourceUrls": [
+          "https://www.pna.gov.ph/article/pbbm-creates-national-council-to-oversee-ai-development-governance"
+        ]
+      }
+    },
+    {
+      "id": "eu-sandbox",
+      "title": "欧盟 AI 沙盒规则",
+      "category": "governance",
+      "entity": "欧盟 AI 沙盒规则",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q1"
+      ],
+      "sourceIds": [
+        "index-swil"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Search result or roundup discovery; primary event identity, original source and first-public timing not verified in this run.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date."
+    },
+    {
+      "id": "fable",
+      "title": "Claude Fable 5.2",
+      "category": "products",
+      "entity": "Claude Fable 5.2",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "paq1"
+      ],
+      "sourceIds": [
+        "index-releases",
+        "pas1"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+        ]
+      }
+    },
+    {
+      "id": "hydrogen",
+      "title": "Gemini 4 Hydrogen",
+      "category": "products",
+      "entity": "Gemini 4 Hydrogen",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "paq2"
+      ],
+      "sourceIds": [
+        "index-releases",
+        "pas2"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/"
+        ]
+      }
+    },
+    {
+      "id": "hark",
+      "title": "Hark Handoff 模型",
+      "category": "products",
+      "entity": "Hark Handoff 模型",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "paq3"
+      ],
+      "sourceIds": [
+        "index-releases",
+        "pas3"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Original social mirror inaccessible; model tracker suggests older availability. Current release identity remains unresolved.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date."
+    },
+    {
+      "id": "ernie-flash",
+      "title": "ERNIE 5.5 Flash Preview",
+      "category": "products",
+      "entity": "ERNIE 5.5 Flash Preview",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "paq4"
+      ],
+      "sourceIds": [
+        "index-releases",
+        "pas4"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://ernie.baidu.com/zh/"
+        ]
+      }
+    },
+    {
+      "id": "gemini-decision",
+      "title": "Gemini Decision 1",
+      "category": "products",
+      "entity": "Gemini Decision 1",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "paq5"
+      ],
+      "sourceIds": [
+        "index-releases",
+        "pas5"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-11",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/"
+        ]
+      }
+    },
+    {
+      "id": "scribe",
+      "title": "Scribe v3",
+      "category": "products",
+      "entity": "Scribe v3",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "paq6"
+      ],
+      "sourceIds": [
+        "index-releases",
+        "pas6"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The specific model release or announcement was publicly reported before the window. Separate later updates were not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-09",
+        "basis": "Source date or dated source description; no timezone inferred.",
+        "sourceUrls": [
+          "https://elevenlabs.io/docs/changelog/2026/11/9"
+        ]
+      }
+    },
+    {
+      "id": "ai-edge-voice",
+      "title": "Google AI Edge 语音模型",
+      "category": "products",
+      "entity": "Google AI Edge 语音模型",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "rbq4"
+      ],
+      "sourceIds": [
+        "index-citrus",
+        "rbs4"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "This public paper page or vendor announcement predates the current window; distinct new announcement not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-10",
+        "basis": "Source page dated public posting/announcement; not merely arXiv submission.",
+        "sourceUrls": [
+          "https://developers.googleblog.com/en/on-device-speech-recognition-and-text-to-speech-in-google-ai-edge-gallery/"
+        ]
+      }
+    },
+    {
+      "id": "final-bench",
+      "title": "天气预报 FINAL-Bench",
+      "category": "research",
+      "entity": "天气预报 FINAL-Bench",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2",
+        "faq4"
+      ],
+      "sourceIds": [
+        "index-citrus",
+        "fas4"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Specific publication/report was publicly available before this issue window; a separate new in-window development is not established.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-13",
+        "basis": "Source publication date. Unknown timezone conservatively bounded.",
+        "sourceUrls": [
+          "https://huggingface.blog/blog/final-bench-which-weather-model-is-most-accurate-we-score-them/"
+        ]
+      }
+    },
+    {
+      "id": "eu-discussion",
+      "title": "欧盟领导人 AI 讨论",
+      "category": "governance",
+      "entity": "欧盟领导人 AI 讨论",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q2"
+      ],
+      "sourceIds": [
+        "index-citrus"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Search result or roundup discovery; primary event identity, original source and first-public timing not verified in this run.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date."
+    },
+    {
+      "id": "orchestra-bio",
+      "title": "OpenAI 与 Orchestra Bio",
+      "category": "business",
+      "entity": "OpenAI 与 Orchestra Bio",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q3",
+        "baq1"
+      ],
+      "sourceIds": [
+        "index-market",
+        "bas1"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-10-20",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://openai.com/index/openai-to-acquire-orchestra-bio/"
+        ]
+      }
+    },
+    {
+      "id": "arena-finance",
+      "title": "Arena Intelligence 融资",
+      "category": "business",
+      "entity": "Arena Intelligence 融资",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q3",
+        "baq2"
+      ],
+      "sourceIds": [
+        "index-market",
+        "bas2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Original source access failed; earlier reporting suggested but not independently available. Retained pending, not no update.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date."
+    },
+    {
+      "id": "mistral-finance",
+      "title": "Mistral 融资",
+      "category": "business",
+      "entity": "Mistral 融资",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q3",
+        "baq3"
+      ],
+      "sourceIds": [
+        "index-market",
+        "bas3"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-09-08",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://presse.bpifrance.fr/mistral-leve-3-mdeur-pour-placer-lia-souveraine-et-ouverte-a-la-pointe-de-la-technologie/?lang=fra"
+        ]
+      }
+    },
+    {
+      "id": "nvidia-hf",
+      "title": "NVIDIA 与 Hugging Face 并购线索",
+      "category": "business",
+      "entity": "NVIDIA 与 Hugging Face 并购线索",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q3",
+        "baq4"
+      ],
+      "sourceIds": [
+        "index-market",
+        "bas4"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-09-03",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/"
+        ]
+      }
+    },
+    {
+      "id": "moonshot-finance",
+      "title": "Moonshot 融资",
+      "category": "business",
+      "entity": "Moonshot 融资",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q3",
+        "bmq2"
+      ],
+      "sourceIds": [
+        "index-market",
+        "bms2"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "The Oct financing report and later IPO restructuring are distinct. WSJ article access and timestamp are insufficient to establish a new in-window financing disclosure.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date."
+    },
+    {
+      "id": "cursor-spacex",
+      "title": "SpaceX 与 Cursor 并购线索",
+      "category": "business",
+      "entity": "SpaceX 与 Cursor 并购线索",
+      "releaseStatus": "unknown",
+      "queryIds": [
+        "q3",
+        "baq5"
+      ],
+      "sourceIds": [
+        "index-market",
+        "bas5"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Direct source establishes this specific announcement/report before the reporting window; subsequent distinct developments not ruled out.",
+      "importance": "Relevant to scope; retained as unresolved rather than inferred from aggregator date.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-08-14",
+        "basis": "Original announcement/report date; timezone is not inferred.",
+        "sourceUrls": [
+          "https://www.sec.gov/Archives/edgar/data/1181412/000162828026066482/spaceexplorationtechnologi.htm"
+        ]
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "category": "products",
+      "status": "partial",
+      "queryIds": [
+        "q1"
+      ],
+      "checkIds": [
+        "check-products"
+      ],
+      "assessment": "Partial open discovery; relevant unassessed leads and access limitations remain."
+    },
+    {
+      "category": "business",
+      "status": "partial",
+      "queryIds": [
+        "q3"
+      ],
+      "checkIds": [
+        "check-business"
+      ],
+      "assessment": "Partial open discovery; relevant unassessed leads and access limitations remain."
+    },
+    {
+      "category": "research",
+      "status": "partial",
+      "queryIds": [
+        "q2"
+      ],
+      "checkIds": [
+        "check-research"
+      ],
+      "assessment": "Partial open discovery; relevant unassessed leads and access limitations remain."
+    },
+    {
+      "category": "governance",
+      "status": "partial",
+      "queryIds": [
+        "q4"
+      ],
+      "checkIds": [
+        "check-governance"
+      ],
+      "assessment": "Partial open discovery; relevant unassessed leads and access limitations remain."
+    },
+    {
+      "category": "agents",
+      "status": "partial",
+      "queryIds": [
+        "q2"
+      ],
+      "checkIds": [
+        "check-agents"
+      ],
+      "assessment": "Partial open discovery; relevant unassessed leads and access limitations remain."
+    }
+  ],
+  "discovery": {
+    "queryIds": [
+      "q1",
+      "q2",
+      "q3",
+      "q4",
+      "q5",
+      "xq1",
+      "xq2",
+      "xq3",
+      "xq4",
+      "xq5",
+      "xq6"
+    ],
+    "assessment": "Open multilingual discovery; not complete."
+  },
+  "review": {
+    "reviewer": "reviewer",
+    "reviewedAt": "2026-11-16T02:25:03Z",
+    "candidateIds": [
+      "weibuild",
+      "autogpt",
+      "pangu",
+      "atrst",
+      "botpsy",
+      "nidus",
+      "scimatrix",
+      "vllm-cve",
+      "longcat",
+      "matharena",
+      "openai-robotics",
+      "agent-adaptive",
+      "prefix-cache",
+      "tsmc-fund",
+      "nebuly",
+      "policy-eu",
+      "raise-act",
+      "lifeos",
+      "singularity",
+      "hy-realtime",
+      "atlas-api",
+      "xybench",
+      "cubic",
+      "google-teamwork",
+      "lingbot",
+      "research-index",
+      "sov",
+      "praxis",
+      "cpp-confusing",
+      "gcp-mcp",
+      "robospoof",
+      "eabot",
+      "desible",
+      "physloop",
+      "handoff",
+      "vision-banana",
+      "decider",
+      "wallet",
+      "livegeo",
+      "sg-legal",
+      "aws-kb",
+      "protegrity",
+      "forescout",
+      "deepseek-financing",
+      "copilot-retire",
+      "moss-live",
+      "robosell",
+      "qiyuan",
+      "matrix-game",
+      "ernie-models",
+      "greatwall",
+      "xilect",
+      "langchain",
+      "philippines",
+      "eu-sandbox",
+      "fable",
+      "hydrogen",
+      "hark",
+      "ernie-flash",
+      "gemini-decision",
+      "scribe",
+      "ai-edge-voice",
+      "final-bench",
+      "eu-discussion",
+      "orchestra-bio",
+      "arena-finance",
+      "mistral-finance",
+      "nvidia-hf",
+      "moonshot-finance",
+      "cursor-spacex"
+    ],
+    "queryIds": [
+      "rq1",
+      "rq2",
+      "rq3",
+      "rq4"
+    ],
+    "verdict": "pass_with_limits",
+    "report": "docs/daily/reviews/2026-11-16.md",
+    "findings": [
+      {
+        "detail": "Initial inventory omitted material research and business leads.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Initial article mixed confirmed ATRST notice with pending section; removed as repeat of earlier call.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Twenty-four named pending leads, partial prior-issue revisit and language/access limitations.",
+        "severity": "note",
+        "resolution": "disclosed"
+      }
+    ]
+  },
+  "article": {
+    "slug": "2026-11-16-ai-daily",
+    "includedCandidateIds": [
+      "weibuild",
+      "autogpt"
+    ],
+    "watchCandidateIds": [
+      "pangu"
+    ],
+    "limitations": "Twenty-four named unresolved candidates; previous issue 209 candidates partially revisited; mainly Chinese and English, limited French; restricted paid, social and paper access; JEV, Laya, OSC unresolved.",
+    "sha256": "506b8e76b9ac708fff0433128316b366ff57a36ee950f8cac908bf3d042c2cc5"
+  }
+}
