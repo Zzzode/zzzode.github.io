@@ -1,0 +1,10 @@
+flowchart TB
+    subgraph Default[默认启动]
+      BriefOnly[任务说明]
+    end
+    subgraph SnapshotLaunch[快照启动]
+      BriefPlus[任务说明]
+      Snapshot[启动时的初始对话快照]
+    end
+    Later[后续用户消息] --> Supervisor[主管先收到新要求]
+    Supervisor -->|显式转交| Worker[后台任务收到更新]

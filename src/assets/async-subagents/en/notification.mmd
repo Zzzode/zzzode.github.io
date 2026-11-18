@@ -1,0 +1,7 @@
+stateDiagram-v2
+    state "Busy supervisor" as Busy
+    state "Idle supervisor" as Idle
+    state "Supervisor awaiting user approval" as Gate
+    Busy --> Busy: Completion or failure arrives before next model call
+    Idle --> Busy: Completion or failure meets wake conditions
+    Gate --> Gate: Completion or failure is deferred and approval remains

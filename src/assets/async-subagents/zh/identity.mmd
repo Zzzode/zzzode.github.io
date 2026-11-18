@@ -1,0 +1,5 @@
+erDiagram
+    TASK_RECORD ||--|| TASK_THREAD : 保留稳定身份
+    TASK_THREAD ||--|| RUN_1 : 包含原需求和已积累材料
+    TASK_THREAD ||--|| RUN_2 : 沿用历史并接收新要求
+    RUN_1 ||--|| RUN_2 : 更新要求后接续

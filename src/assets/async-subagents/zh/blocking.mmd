@@ -1,0 +1,40 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+sequenceDiagram
+  participant U as 用户
+  participant S as 主管
+  participant A as 任务 A
+  participant B as 任务 B
+  alt 并行运行，等待汇合
+    par 任务 A
+      S->>A: 派发任务
+      Note over A: 执行中
+    and 任务 B
+      S->>B: 派发任务
+      Note over B: 执行中
+    end
+    U->>S: 新要求
+    Note over S: 等待整批结果
+    A-->>S: 完成
+    B-->>S: 完成
+    S->>U: 响应
+  else 后台并行，对话继续
+    S->>A: 派发任务
+    S->>B: 派发任务
+    par 任务 A
+      Note over A: 执行中
+      A-->>S: 完成
+    and 任务 B
+      Note over B: 执行中
+      B-->>S: 完成
+    and 新要求
+      U->>S: 新要求
+      S->>U: 接收并处理
+    end
+  end

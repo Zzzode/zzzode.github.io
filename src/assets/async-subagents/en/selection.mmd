@@ -1,0 +1,19 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 18
+  fontFamily: '-apple-system, BlinkMacSystemFont, PingFang SC, Helvetica, Arial, sans-serif'
+  flowchart:
+    htmlLabels: false
+    nodeSpacing: 18
+    rankSpacing: 30
+    padding: 12
+    wrappingWidth: 128
+---
+flowchart LR
+  N("Choose for<br/>the interaction") --> S("Need the result now<br/>Sync is often simpler")
+  N --> A("Long work or steering<br/>Consider async")
+  N --> D("Work has dependencies<br/>Preserve its order")
+  N --> O("No useful split<br/>Keep one agent")

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="async-color-en-selection" width="480" height="410" viewBox="0 0 480 410" role="img" aria-labelledby="async-color-en-selection-title" font-family="var(--font-sans)">
+  <title id="async-color-en-selection-title">Choose collaboration according to the work</title>
+  <text x="130" y="30" fill="var(--color-muted)" font-size="21" font-weight="500" text-anchor="middle">
+    <tspan x="130" dy="0">Situation</tspan>
+  </text>
+  <text x="354" y="30" fill="var(--color-muted)" font-size="21" font-weight="500" text-anchor="middle">
+    <tspan x="354" dy="0">Arrangement</tspan>
+  </text>
+  <rect x="16" y="52" width="448" height="74" rx="12" fill="var(--color-white)" stroke="var(--color-line)" stroke-width="1.4" />
+  <rect x="16" y="52" width="7" height="74" rx="3" fill="var(--color-blue)" />
+  <path d="M242 64 V114" stroke="var(--color-line)" stroke-width="1" />
+  <rect x="253" y="60" width="199" height="58" rx="10" fill="color-mix(in srgb, var(--color-blue) 9%, var(--color-white))" />
+  <text x="132" y="81" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">
+    <tspan x="132" dy="0">Need the result</tspan>
+    <tspan x="132" dy="26.25">in this step</tspan>
+  </text>
+  <text x="352" y="81" fill="var(--color-blue)" font-size="21" font-weight="600" text-anchor="middle">
+    <tspan x="352" dy="0">Return</tspan>
+    <tspan x="352" dy="26.25">synchronously</tspan>
+  </text>
+  <rect x="16" y="138" width="448" height="74" rx="12" fill="var(--color-white)" stroke="var(--color-line)" stroke-width="1.4" />
+  <rect x="16" y="138" width="7" height="74" rx="3" fill="var(--color-diagram-teal)" />
+  <path d="M242 150 V200" stroke="var(--color-line)" stroke-width="1" />
+  <rect x="253" y="146" width="199" height="58" rx="10" fill="color-mix(in srgb, var(--color-diagram-teal) 9%, var(--color-white))" />
+  <text x="132" y="167" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">
+    <tspan x="132" dy="0">Long work</tspan>
+    <tspan x="132" dy="26.25">with steering</tspan>
+  </text>
+  <text x="352" y="167" fill="var(--color-diagram-teal)" font-size="21" font-weight="600" text-anchor="middle">
+    <tspan x="352" dy="0">Async</tspan>
+    <tspan x="352" dy="26.25">subagents</tspan>
+  </text>
+  <rect x="16" y="224" width="448" height="74" rx="12" fill="var(--color-white)" stroke="var(--color-line)" stroke-width="1.4" />
+  <rect x="16" y="224" width="7" height="74" rx="3" fill="var(--color-diagram-purple)" />
+  <path d="M242 236 V286" stroke="var(--color-line)" stroke-width="1" />
+  <rect x="253" y="232" width="199" height="58" rx="10" fill="color-mix(in srgb, var(--color-diagram-purple) 9%, var(--color-white))" />
+  <text x="132" y="253" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">
+    <tspan x="132" dy="0">Steps need</tspan>
+    <tspan x="132" dy="26.25">earlier inputs</tspan>
+  </text>
+  <text x="352" y="253" fill="var(--color-diagram-purple)" font-size="21" font-weight="600" text-anchor="middle">
+    <tspan x="352" dy="0">Respect</tspan>
+    <tspan x="352" dy="26.25">dependencies</tspan>
+  </text>
+  <rect x="16" y="310" width="448" height="74" rx="12" fill="var(--color-white)" stroke="var(--color-line)" stroke-width="1.4" />
+  <rect x="16" y="310" width="7" height="74" rx="3" fill="var(--color-blue)" />
+  <path d="M242 322 V372" stroke="var(--color-line)" stroke-width="1" />
+  <rect x="253" y="318" width="199" height="58" rx="10" fill="color-mix(in srgb, var(--color-blue) 9%, var(--color-white))" />
+  <text x="132" y="339" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">
+    <tspan x="132" dy="0">Simple</tspan>
+    <tspan x="132" dy="26.25">request</tspan>
+  </text>
+  <text x="352" y="339" fill="var(--color-blue)" font-size="21" font-weight="600" text-anchor="middle">
+    <tspan x="352" dy="0">One</tspan>
+    <tspan x="352" dy="26.25">agent</tspan>
+  </text>
+</svg>

@@ -1,0 +1,27 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+sequenceDiagram
+  participant U as User
+  participant S as Supervisor
+  participant R as Runtime
+  participant W as Worker
+  U->>S: Report
+  S->>R: Dispatch
+  par Background run
+    R->>W: Start
+    activate W
+  and Dispatch acknowledgment
+    R-->>S: Task ID
+    S-->>U: Assigned
+  end
+  U->>S: Update
+  W-->>R: Done
+  deactivate W
+  R-->>S: Result
+  S->>U: Deliver

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="async-visual-a-en-architecture" width="480" viewBox="0 0 480 560" role="img" aria-label="The supervisor maintains records for both tasks and the runtime schedules both subagents and returns events" font-family="var(--font-sans)">
+  <defs>
+    <marker id="async-visual-a-en-architecture-blue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-blue)" /></marker>
+    <marker id="async-visual-a-en-architecture-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-teal)" /></marker>
+    <marker id="async-visual-a-en-architecture-purple" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-purple)" /></marker>
+    <marker id="async-visual-a-en-architecture-orange" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-compare)" /></marker>
+    <marker id="async-visual-a-en-architecture-muted" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-muted)" /></marker>
+  </defs>
+  <rect x="24" y="8" width="180" height="52" rx="26" fill="color-mix(in srgb, var(--color-compare) 10%, var(--color-white))" stroke="var(--color-compare)" stroke-width="1.8" />
+  <circle cx="60" cy="34" r="13" fill="var(--color-compare)" />
+  <text x="96" y="42" fill="var(--color-ink)" font-size="25" font-weight="600" text-anchor="start">User</text>
+  <path d="M204 34 H246 V97" fill="none" stroke="var(--color-compare)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-orange)" />
+  <path d="M102 100 V64" fill="none" stroke="var(--color-blue)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-blue)" />
+  <rect x="24" y="100" width="270" height="118" rx="18" fill="color-mix(in srgb, var(--color-blue) 10%, var(--color-white))" stroke="var(--color-blue)" stroke-width="2" />
+  <rect x="24" y="100" width="8" height="118" rx="4" fill="var(--color-blue)" />
+  <text x="159" y="135" fill="var(--color-ink)" font-size="27" font-weight="600" text-anchor="middle">Supervisor</text>
+  <text x="159" y="168" fill="var(--color-ink-2)" font-size="21" font-weight="400" text-anchor="middle">Understands</text>
+  <text x="159" y="197" fill="var(--color-ink-2)" font-size="21" font-weight="400" text-anchor="middle">Synthesizes</text>
+  <path d="M294 160 H310" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="310" y="100" width="146" height="118" rx="16" fill="color-mix(in srgb, var(--color-diagram-purple) 10%, var(--color-white))" stroke="var(--color-diagram-purple)" stroke-width="1.8" />
+  <text x="383" y="129" fill="var(--color-ink)" font-size="20" font-weight="600" text-anchor="middle">Task records</text>
+  <path d="M324 141 H442" fill="none" stroke="var(--color-diagram-purple)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="383" y="171" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">A record</text>
+  <text x="383" y="201" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">B record</text>
+  <path d="M134 218 V295" fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-blue)" />
+  <path d="M246 296 V222" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-purple)" />
+  <text x="106" y="262" fill="var(--color-blue)" font-size="21" font-weight="400" text-anchor="end">Tasks</text>
+  <text x="270" y="262" fill="var(--color-diagram-purple)" font-size="21" font-weight="400" text-anchor="start">Events</text>
+  <rect x="24" y="298" width="432" height="74" rx="16" fill="color-mix(in srgb, var(--color-diagram-teal) 6%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="2" />
+  <text x="240" y="329" fill="var(--color-ink)" font-size="25" font-weight="600" text-anchor="middle">Runtime</text>
+  <text x="240" y="358" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">Schedules all subagents</text>
+  <circle cx="240" cy="372" r="5" fill="var(--color-diagram-teal)" />
+  <path d="M240 379 V410 H118 V457" fill="none" stroke="var(--color-diagram-teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-teal)" />
+  <path d="M240 410 H358 V457" fill="none" stroke="var(--color-diagram-teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-teal)" />
+  <path d="M94 458 V376" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-teal)" stroke-dasharray="4 5" />
+  <path d="M382 458 V376" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-architecture-teal)" stroke-dasharray="4 5" />
+  <path d="M24 460 H194 L212 478 V543 H24 Z" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M194 460 V478 H212" fill="none" stroke="var(--color-diagram-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="118" y="491" fill="var(--color-ink)" font-size="22" font-weight="500" text-anchor="middle">Subagent A</text>
+  <text x="118" y="519" fill="var(--color-ink)" font-size="22" font-weight="500" text-anchor="middle">Context &amp; tools</text>
+  <rect x="264" y="460" width="188" height="83" rx="26" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="2" />
+  <text x="358" y="491" fill="var(--color-ink)" font-size="22" font-weight="500" text-anchor="middle">Subagent B</text>
+  <text x="358" y="519" fill="var(--color-ink)" font-size="22" font-weight="500" text-anchor="middle">Context &amp; tools</text>
+</svg>

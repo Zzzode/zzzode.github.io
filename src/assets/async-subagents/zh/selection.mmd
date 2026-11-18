@@ -1,0 +1,19 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 18
+  fontFamily: '-apple-system, BlinkMacSystemFont, PingFang SC, Helvetica, Arial, sans-serif'
+  flowchart:
+    htmlLabels: false
+    nodeSpacing: 18
+    rankSpacing: 30
+    padding: 12
+    wrappingWidth: 128
+---
+flowchart LR
+  N("按交互需要选择") --> S("结果马上要用<br/>同步通常更直接")
+  N --> A("工作较长<br/>或需中途调整<br/>考虑异步")
+  N --> D("工作有先后依赖<br/>保留执行顺序")
+  N --> O("工作无需拆分<br/>保留单一智能体")

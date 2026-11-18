@@ -1,0 +1,27 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+sequenceDiagram
+  participant U as 用户
+  participant S as 主管
+  participant R as 运行服务
+  participant W as 子任务
+  U->>S: 准备报告
+  S->>R: 提交任务
+  par 后台运行
+    R->>W: 启动
+    activate W
+  and 派发确认
+    R-->>S: 任务标识
+    S-->>U: 已派出
+  end
+  U->>S: 补充要求
+  W-->>R: 完成事件
+  deactivate W
+  R-->>S: 带回结果
+  S->>U: 交付

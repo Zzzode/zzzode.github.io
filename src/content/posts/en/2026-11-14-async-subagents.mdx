@@ -1,0 +1,285 @@
+---
+title: "Async subagents: how the conversation and background work stay connected"
+date: 2026-11-05
+updated: 2026-11-18
+excerpt: "From a question that blocks the conversation to work that can keep accepting changes. Twelve diagrams explain LangChain's async subagent design and the conditions it depends on."
+tags: ["AI Agent", "LangChain", "System Architecture", "Multi-Agent"]
+kind: "distilled"
+sources:
+  - title: "LangChain · Agents Are Going Async · Sydney Runkle & Thushanth Bengre"
+    url: "https://www.langchain.com/blog/agents-are-going-async"
+  - title: "Deep Agents · Async subagents · Design and lifecycle documentation"
+    url: "https://docs.langchain.com/oss/python/deepagents/async-subagents"
+  - title: "Deep Agents · Async subagent middleware · Version 0.7.38"
+    url: "https://github.com/langchain-ai/deepagents/blob/c858b3641b13fb3f40fe3a12515517b81fb8a744/libs/deepagents/deepagents/middleware/async_subagents.py"
+  - title: "Anthropic · Building effective agents · 2024-12-19"
+    url: "https://www.anthropic.com/research/building-effective-agents"
+  - title: "ReAct · Original paper and project"
+    url: "https://react-lm.github.io/"
+  - title: "OpenAI · Async tool calling"
+    url: "https://developers.openai.com/api/docs/guides/async-tool-calling"
+  - title: "Reading entry point · 倔强青铜三 · 传统ReAct已死？Anthropic、OpenAI等大厂同时押注这个AI新架构"
+    url: "https://mp.weixin.qq.com/s/V0XTJmfxTA6WysF7mamhrQ"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, Summary } from '@/components/article';
+import CoverGraph from '@/assets/async-subagents/en/cover.svg';
+import BlockingGraph from '@/assets/async-subagents/en/blocking.svg';
+import ArchitectureGraph from '@/assets/async-subagents/en/architecture.svg';
+import LifecycleGraph from '@/assets/async-subagents/en/lifecycle.svg';
+import IdentityGraph from '@/assets/async-subagents/en/identity.svg';
+import ContextGraph from '@/assets/async-subagents/en/context.svg';
+import SteeringGraph from '@/assets/async-subagents/en/steering.svg';
+import NotificationGraph from '@/assets/async-subagents/en/notification.svg';
+import ApprovalGraph from '@/assets/async-subagents/en/approval.svg';
+import DependenciesGraph from '@/assets/async-subagents/en/dependencies.svg';
+import CapacityGraph from '@/assets/async-subagents/en/capacity.svg';
+import SelectionGraph from '@/assets/async-subagents/en/selection.svg';
+
+<CoverBanner
+  kicker="DESIGN · LANGCHAIN · 2026-11-05"
+  title="Async subagents: how the conversation and background work stay connected"
+  lead="You can keep talking to an agent while it works on a long request. Async subagents do the work in the background. The main agent can take new instructions, pass them to the right task, and bring the results back to the conversation."
+>
+  <CoverGraph slot="visual" class="block h-auto w-full" role="img" aria-label="The user keeps making requests, the supervisor stays in conversation, and background subagents advance the research and return results" />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="blocking-loop">
+<SectionHead index="01" kicker="The problem" title="Work can run in parallel while the conversation still waits" />
+<Prose tile>
+
+You ask an agent for a product research report. It starts checking features and gathering user feedback. A few moments later you send a follow-up. “Focus on small and midsize teams. Leave large enterprises out.” If the agent waits for both researchers to finish before reading your message, all that research may follow the old brief.
+
+Sydney Runkle and Thushanth Bengre proposed a way to take that follow-up while the research is still running. They published the design on November 5, 2026. [Agents Are Going Async](https://www.langchain.com/blog/agents-are-going-async)
+
+A report can take several rounds of research and verification. Each round may give you a reason to change the brief. In a one-question, one-answer interface, those changes wait for the original request to finish.
+
+In 2024, Anthropic described how a supervisor could divide work among agents and combine what they found. LangChain's design keeps that division of labor and gives the user a way back into the conversation while the workers are still busy. [Building effective agents](https://www.anthropic.com/research/building-effective-agents)
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <BlockingGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="A parallel but blocking design waits for every task before responding; an async design can accept a new user request before the tasks finish" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 01 · Above, the reply waits for tasks A and B. Below, the supervisor answers while both tasks run. The axis shows sequence.</figcaption>
+</figure>
+<Prose tile>
+
+In ReAct, a model alternates between reasoning and action, using each observation to choose its next step. A long tool call can hold the supervisor in that loop while it waits for an observation. With async dispatch, a subagent can run its own reasoning and tool calls after the supervisor has returned control to the user. [ReAct](https://react-lm.github.io/)
+
+</Prose>
+</Section>
+
+<Section canvas id="architecture">
+<SectionHead index="02" kicker="Responsibilities" title="Separate conversation from execution, then connect them through a service" />
+<Prose tile>
+
+The article calls the agent you talk to the orchestrator. The diagrams call it the supervisor. It decides what to delegate and stays available for follow-up requests. Each subagent, also called a worker, gets its own assignment. The supervisor brings their results together.
+
+Agent Server is LangChain's execution service. It schedules runs, manages task conversations, and delivers events. The supervisor keeps its own records of which tasks are in progress, so it can find them after the conversational turn ends. [Deep Agents runtime documentation](https://docs.langchain.com/oss/python/deepagents/async-subagents)
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <ArchitectureGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="The user talks to the supervisor while two subagents work independently; the execution service and supervisor task-state layer connect execution, records and result delivery" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 02 · The supervisor talks to the user and keeps records for both tasks. The runtime dispatches both subagents and sends their events back to the supervisor.</figcaption>
+</figure>
+<Prose tile>
+
+For the report, the supervisor can delegate feature verification and feedback gathering, then keep discussing scope with you. It needs to know who is doing what, without carrying every search step in its own conversation. Each worker needs the material required for its particular assignment.
+
+This lets the supervisor handle a follow-up while each subagent works with its own context. The supervisor still needs time for its model calls and any other messages it is handling.
+
+</Prose>
+</Section>
+
+<Section canvas id="task-lifecycle">
+<SectionHead index="03" kicker="Dispatch and delivery" title="The task ID comes back before the result" />
+<Prose tile>
+
+A synchronous call usually waits for the result before returning. With an async subagent, the service accepts the request and returns a task ID. The supervisor can acknowledge the assignment and finish its turn. The worker's result arrives separately.
+
+The task ID is a tracking reference. It confirms registration and lets the supervisor find the task to check progress, send changes or cancel it. The result still needs to be delivered and checked against the request.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <LifecycleGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="After submitting work, the supervisor gets a task identifier and responds to the user; background completion later produces an event, after which the supervisor prepares and delivers the result" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 03 · The task ID goes back to the supervisor at dispatch. A user update arrives while the worker is active. The worker's completion then reaches the supervisor through the runtime.</figcaption>
+</figure>
+<Prose tile>
+
+The source names five actions. A supervisor can start a task, list its tasks, check progress, update an assignment, or cancel it.
+
+After dispatch, control has to return to the user. A polling loop that lasts until completion still ties up the conversation. Checking on request gives the user a way to ask for progress between turns.
+
+</Prose>
+</Section>
+
+<Section canvas id="task-identity">
+<SectionHead index="04" kicker="Task identity" title="Keep a stable task ID as the work changes" />
+<Prose tile>
+
+You might ask to compare two products, narrow the audience later, then ask for more evidence. All three requests belong to the same task. The system needs a way to find that task each time.
+
+Deep Agents uses a thread to hold a task's conversation and history. A run is one execution on that thread. An update can end one run and start another on the same service-side record.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <IdentityGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="A task registry links to one conversation whose identity stays stable; the original and revised requirements produce different runs on that conversation" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 04 · Both runs belong to one task record. Run 2 uses the earlier history and the revised brief.</figcaption>
+</figure>
+<Prose tile>
+
+As the conversation grows, the system may summarize old messages. If the task ID appeared only in an earlier reply, the summary could omit it. Deep Agents keeps a separate task registry so the supervisor can retrieve that ID from its task list. [Deep Agents 0.7.38 implementation](https://github.com/langchain-ai/deepagents/blob/c858b3641b13fb3f40fe3a12515517b81fb8a744/libs/deepagents/deepagents/middleware/async_subagents.py)
+
+The article also describes putting unfinished tasks in the supervisor's system prompt, where the model can see them when it next decides what to do. The supervisor needs to know whether a task is queued, running, or waiting for the user. A failed or canceled task requires different handling.
+
+A task last seen running may now be complete or waiting for a decision. Before reporting progress, the supervisor should use its ID to check the latest state. Recovery after a process restart depends on where the deployment stores that state.
+
+</Prose>
+</Section>
+
+<Section canvas id="context-sharing">
+<SectionHead index="05" kicker="Context" title="What context does a subagent receive?" />
+<Prose tile>
+
+If the supervisor delegates only “research user feedback,” that brief is all the worker has to go on. To apply constraints such as “the budget is limited” or “focus on small and midsize teams,” the worker needs to receive them.
+
+By default, Deep Agents sends only the task description. That keeps the worker's context focused and puts more weight on the brief. The experimental mode adds a snapshot of the main conversation at launch. The snapshot can supply useful background and may also carry material the task never needs.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <ContextGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="A default launch sends only the task brief; a snapshot launch includes the conversation at that time. Later requests require explicit forwarding rather than automatic synchronization" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 05 · Both launch modes send the brief. The experimental mode adds the conversation as it stood at launch. After launch, the supervisor forwards changes to the tasks they affect.</figcaption>
+</figure>
+<Prose tile>
+
+Give a subagent enough information to work from its brief. Spell out the question, the material it can use and the constraints it must follow. Say what you expect it to return. When “focus on small and midsize teams” arrives later, the supervisor has to work out which assignments it affects and send the change to those workers.
+
+</Prose>
+</Section>
+
+<Section canvas id="steering">
+<SectionHead index="06" kicker="Changing course" title="How a new instruction changes a running task" />
+<Prose tile>
+
+The supervisor can hear “the scope has changed” while the research continues. It still has to send the new scope to the right subagent and decide what should happen to the run already under way.
+
+Switching the report to small and midsize teams changes the current assignment. The default interrupt strategy stops the active run. The next run gets the task history and the new instructions. For a request such as “add an English summary after the report is done,” the enqueue strategy lets the current run finish before the follow-up starts.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <SteeringGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="A correction interrupts the current run and restarts with history; an addition waits until the current run finishes, while other independent tasks can continue" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 06 · The upper track interrupts the run and carries its history into the revised assignment. On the lower track, the follow-up waits for the active run to finish. The tracks show order.</figcaption>
+</figure>
+<Prose tile>
+
+A change of audience may make the remaining searches irrelevant. Some of the notes gathered so far may still be useful. I'd have the supervisor tell the user which work will change and let the workers reuse anything that still applies.
+
+An update can also affect an approval already on screen. The documentation says that updating a task waiting for input drops the pending request and starts a follow-up run. A queued follow-up can do the same when an earlier run pauses for input. The interface should make it clear whether the user is revising the assignment or answering the pending request.
+
+</Prose>
+</Section>
+
+<Section canvas id="completion">
+<SectionHead index="07" kicker="Returning results" title="How the supervisor receives background results" />
+<Prose tile>
+
+The worker may finish well after the user has moved on to another message. Agent Server uses the supervisor's current state to decide when to hand over a completion or failure event.
+
+A busy supervisor can receive the event before its next model call. An eligible event can wake an idle supervisor for a new run. This requires a subagent that is itself a deep agent on the same deployment, with notifications to the parent enabled. If the supervisor is waiting for the user to approve an operation, it handles background results after that decision.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <NotificationGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="A completion or failure event enters a busy supervisor's next model call, conditionally wakes a new run when it is idle, and waits while preserving an approval already in progress" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 07 · A completion or failure event can reach the next model call, start a new run if eligible, or wait until the supervisor's pending approval is resolved.</figcaption>
+</figure>
+<Prose tile>
+
+When a researcher says the material is ready, the supervisor should check which task produced it and which version of the brief it followed. It can then use the output as research evidence for the report.
+
+The automatic handoff depends on support from the execution service. Where that support is unavailable, the application must query for results or arrange delivery itself.
+
+</Prose>
+</Section>
+
+<Section canvas id="approval">
+<SectionHead index="08" kicker="Human decisions" title="Approval pauses the task that needs a decision" />
+<Prose tile>
+
+One researcher might need the user's permission to access restricted material. That task pauses. The supervisor can show the request while the other researcher keeps working.
+
+Deep Agents marks that subtask as waiting for input or approval. If the supervisor is idle, it sees the request on its next run. The supervisor presents the request, and the user makes the decision. That decision goes back to the subagent's own conversation, where the task can resume.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <ApprovalGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="Task A waits for user authorization while the supervisor remains available and task B continues; the user's decision resumes A on its own conversation thread" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 08 · The supervisor shows task A's request to the user. The decision goes back to A's original thread. Task B keeps running while A waits.</figcaption>
+</figure>
+<Prose tile>
+
+The approval prompt should say which task is waiting, what the user is being asked to approve and what happens after the decision.
+
+Cancellation stops subsequent execution. Requests already sent and content already written remain in effect. The interface should show what happened before cancellation and which steps were stopped. A waiting task can still be resumed, and a completed task has already returned a result to the system.
+
+</Prose>
+</Section>
+
+<Section canvas id="limits">
+<SectionHead index="09" kicker="Practical limits" title="Dependencies and capacity determine how far background work can go" />
+<Prose tile>
+
+LangChain argues that background workers can take the work beyond what fits in a single agent loop. The tasks still need to be divided where their inputs allow it, and the runtime needs capacity to start them.
+
+Feature verification and feedback gathering can start together. The recommendations need both findings. The English summary needs the finished report, so starting it early would mean working from an incomplete draft.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <DependenciesGraph width={440} class="mx-auto block h-auto max-w-full" role="img" aria-label="Two independent research tasks proceed in parallel; the report waits for both inputs, and its English summary depends on the finished report" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 09 · The report draws on feature verification and user feedback. The English summary uses the finished report as its input.</figcaption>
+</figure>
+<Prose tile>
+
+A task can have an ID and still be in the queue. Execution services have run slots, model calls can hit rate limits, and external tools can queue requests. In a shared worker pool, the supervisor also needs a slot. If the background tasks take them all, a reply can be delayed.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <CapacityGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="Both supervisor and background tasks need finite execution capacity and face model and tool limits; work without capacity waits in a queue" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 10 · The scheduler starts a run when capacity is available. Otherwise the request waits and can retry once capacity frees up. The pool shows who shares capacity.</figcaption>
+</figure>
+<Prose tile>
+
+The clearest gain here is the ability to keep working while the conversation continues. Adding workers also adds handoffs and leaves the supervisor with more material to synthesize. Cost and accuracy gains would need measurements beyond those in the announcement.
+
+Separate conversations give each task its own history and context. Filesystem permissions and credential scopes come from the execution environment. Process recovery and duplicate-event handling also depend on the deployed system.
+
+</Prose>
+</Section>
+
+<Section canvas id="judgment">
+<SectionHead index="10" kicker="Design judgment" title="When async subagents earn their overhead" />
+<Prose tile>
+
+In my view, the most useful change is that you can revise work already under way. The supervisor needs a stable task ID to find the right assignment when you change it and to place the result in context when it returns.
+
+The benefit is clearest when independent assignments can take a while and the user is likely to steer them or see results in stages. One agent is often enough for a quick question. A synchronous subtask can be useful when the very next step needs its output.
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <SelectionGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="Choose direct execution, synchronous waiting or async subagents according to whether work needs splitting, has independent long tasks, and needs user steering along the way" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">Figure 11 · Long work that may need steering is a candidate for async subagents. A step that needs a result immediately can wait for it. Both conditions can apply within one project.</figcaption>
+</figure>
+<Prose tile>
+
+LangChain introduced async subagents in open-source and Managed Deep Agents. The announcement labels notifications beta and expects the same pattern to extend to ordinary tools. In OpenAI's async tool calling, the model can continue and the application supplies a result later. The application still has to run the tool, track its state and deliver its output. [OpenAI async tool calling](https://developers.openai.com/api/docs/guides/async-tool-calling)
+
+The product test is to try changing the brief mid-task. Can the supervisor get the change to the right worker and later tell which brief its result answers?
+
+</Prose>
+<Summary surface="white"
+  takeaways={[
+    { title: "Design benefit", conclusion: "Separate long-task execution from the main conversation so the user can keep participating while work is under way.", detail: "Parallelism allows work to overlap. Responsive async collaboration also needs task identity, a path for updates, and result delivery." },
+    { title: "When to adopt it", conclusion: "Add orchestration for long tasks that need continued steering, while keeping a direct path for simple questions.", detail: "Information dependencies and finite capacity remain. Notification, approval and recovery behavior depend on the actual implementation." }
+  ]}
+  note="This analysis draws on LangChain's announcement of 2026-11-05, official documentation checked on 2026-11-17, and the Deep Agents 0.7.38 implementation. The report scenario and diagrams illustrate the mechanisms. The article's judgments concern design, and its performance discussion is qualitative."
+/>
+</Section>
+</ArticleCanvas>

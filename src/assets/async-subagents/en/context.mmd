@@ -1,0 +1,10 @@
+flowchart TB
+    subgraph Default[Default launch]
+      BriefOnly[Task brief]
+    end
+    subgraph SnapshotLaunch[With snapshot]
+      BriefPlus[Task brief]
+      Snapshot[Initial conversation snapshot at launch]
+    end
+    Later[Later user message] --> Supervisor[Supervisor receives new request]
+    Supervisor -->|Explicit forwarding| Worker[Worker task gets update]

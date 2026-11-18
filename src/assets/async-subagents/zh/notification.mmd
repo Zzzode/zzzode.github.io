@@ -1,0 +1,7 @@
+stateDiagram-v2
+    state "主管忙碌" as Busy
+    state "主管空闲" as Idle
+    state "主管等待用户审批" as Gate
+    Busy --> Busy: 完成或失败事件在下次推理前送达
+    Idle --> Busy: 完成或失败事件符合唤醒条件
+    Gate --> Gate: 完成或失败事件暂存并保留审批

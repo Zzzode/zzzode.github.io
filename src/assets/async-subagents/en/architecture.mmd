@@ -1,0 +1,20 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+flowchart TB
+  U("User") --> S
+  S --> U
+  subgraph Supervisor["Supervisor and task records"]
+    S("Supervisor<br/>Understands · Synthesizes") --- T("Task records<br/>A record · B record")
+  end
+  S -->|Tasks| R("Runtime<br/>Schedules all subagents")
+  R -->|Events| S
+  R --> A("Subagent A<br/>Context & tools")
+  R --> B("Subagent B<br/>Context & tools")
+  A -.-> R
+  B -.-> R

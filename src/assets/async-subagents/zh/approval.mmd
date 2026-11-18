@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant S as 主管与应用
+    participant B as 任务 B
+    participant A as 任务 A
+    participant U as 用户
+    activate S
+    activate B
+    activate A
+    A->>S: 需要用户批准
+    deactivate A
+    Note over A: 等待
+    S->>U: 呈现具体请求
+    U->>A: 在原子任务会话中作出决定
+    activate A
+    Note over A: 原会话恢复执行
+    Note over S,B: 持续对话并继续独立工作
+    deactivate A
+    deactivate B
+    deactivate S

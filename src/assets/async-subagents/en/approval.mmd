@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant S as Supervisor and app
+    participant B as Task B
+    participant A as Task A
+    participant U as User
+    activate S
+    activate B
+    activate A
+    A->>S: User approval required
+    deactivate A
+    Note over A: Waiting
+    S->>U: Present specific request
+    U->>A: Decision on the original child thread
+    activate A
+    Note over A: Resume on the same thread
+    Note over S,B: Conversation and independent work continue
+    deactivate A
+    deactivate B
+    deactivate S

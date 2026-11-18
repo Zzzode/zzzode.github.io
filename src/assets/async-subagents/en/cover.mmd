@@ -1,0 +1,19 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+flowchart LR
+  U("One more request") --> S(("Supervisor
+Coordinates"))
+  S --> C("Keep talking")
+  C --> S
+  S --> A("Task A
+Research")
+  S --> B("Task B
+Feedback")
+  A -.-> S
+  B -.-> S

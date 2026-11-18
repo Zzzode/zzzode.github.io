@@ -24,6 +24,10 @@
   --color-blue-on-dark: #2997ff;
   --color-compare: #e8710a;
 
+  /* Semantic accents for article diagrams. */
+  --color-diagram-teal: #087f78;
+  --color-diagram-purple: #7551b8;
+
   /* system font stacks only — no webfonts */
   --font-sans:
     "SF Pro SC", "SF Pro Text", "SF Pro Display", "PingFang SC",

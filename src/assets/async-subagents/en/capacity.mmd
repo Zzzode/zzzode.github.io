@@ -1,0 +1,22 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  markdownAutoWrap: false
+  fontSize: 18
+  fontFamily: '-apple-system, BlinkMacSystemFont, PingFang SC, Helvetica, Arial, sans-serif'
+  flowchart:
+    htmlLabels: false
+    nodeSpacing: 18
+    rankSpacing: 30
+    padding: 12
+    wrappingWidth: 128
+---
+flowchart TB
+  S("Supervisor run request") --> D("Execution scheduler<br/>Checks free capacity")
+  B("Worker run request") --> D
+  D -->|Available| P("Start the requested run<br/>Supervisor or worker")
+  D -->|No capacity| Q("Wait in queue")
+  Q -->|Capacity frees| D
+  P --> M("Call models and tools<br/>Their own limits apply")

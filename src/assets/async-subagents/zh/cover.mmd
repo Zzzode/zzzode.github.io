@@ -1,0 +1,19 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+flowchart LR
+  U("再补一个要求") --> S(("主管
+协调工作"))
+  S --> C("持续对话")
+  C --> S
+  S --> A("任务 A
+核实资料")
+  S --> B("任务 B
+整理反馈")
+  A -.-> S
+  B -.-> S

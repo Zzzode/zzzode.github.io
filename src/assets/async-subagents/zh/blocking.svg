@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="async-visual-a-zh-blocking" width="480" viewBox="0 0 480 646" role="img" aria-label="并行任务在上方汇合后才能响应，下方任务并行时仍可交流" font-family="var(--font-sans)">
+  <defs>
+    <marker id="async-visual-a-zh-blocking-blue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-blue)" /></marker>
+    <marker id="async-visual-a-zh-blocking-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-teal)" /></marker>
+    <marker id="async-visual-a-zh-blocking-purple" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-purple)" /></marker>
+    <marker id="async-visual-a-zh-blocking-orange" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-compare)" /></marker>
+    <marker id="async-visual-a-zh-blocking-muted" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-muted)" /></marker>
+  </defs>
+  <rect x="5" y="12" width="470" height="300" rx="20" fill="var(--color-white)" stroke="var(--color-line-soft)" stroke-width="1.4" />
+  <text x="23" y="47" fill="var(--color-ink)" font-size="24" font-weight="600" text-anchor="start">并行运行，等待汇合</text>
+  <text x="22" y="116" fill="var(--color-muted)" font-size="20" font-weight="400" text-anchor="start">任务 A</text>
+  <path d="M104 108 H459" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="104" y="86" width="182" height="44" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 18%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" />
+  <text x="195.0" y="115" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">执行中</text>
+  <path d="M286 108 H366 V213" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 5" />
+  <text x="22" y="176" fill="var(--color-muted)" font-size="20" font-weight="400" text-anchor="start">任务 B</text>
+  <path d="M104 168 H459" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="104" y="146" width="246" height="44" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" />
+  <text x="227.0" y="175" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">执行中</text>
+  <path d="M350 168 H366 V213" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 5" />
+  <text x="22" y="267" fill="var(--color-muted)" font-size="22" font-weight="400" text-anchor="start">对话</text>
+  <path d="M104 260 H459" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="366" cy="213" r="5" fill="var(--color-diagram-teal)" />
+  <path d="M366 213 H414 V235" fill="none" stroke="var(--color-diagram-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-blocking-teal)" />
+  <rect x="104" y="238" width="256" height="44" rx="8" fill="var(--color-paper)" stroke="var(--color-line)" stroke-width="1.4" />
+  <text x="232" y="267" fill="var(--color-muted)" font-size="21" font-weight="400" text-anchor="middle">等待整批结果</text>
+  <rect x="370" y="238" width="88" height="44" rx="8" fill="color-mix(in srgb, var(--color-blue) 15%, var(--color-white))" stroke="var(--color-blue)" stroke-width="1.8" />
+  <text x="414" y="267" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">响应</text>
+  <rect x="104" y="205" width="132" height="28" rx="14" fill="color-mix(in srgb, var(--color-compare) 10%, var(--color-white))" stroke="var(--color-compare)" stroke-width="1.4" />
+  <text x="170" y="226" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">新要求</text>
+  <path d="M170 234 V247" fill="none" stroke="var(--color-compare)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-blocking-orange)" />
+  <path d="M338 298 H455" fill="none" stroke="var(--color-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-blocking-muted)" />
+  <text x="320" y="305" fill="var(--color-muted)" font-size="20" font-weight="400" text-anchor="end">先后</text>
+  <rect x="5" y="334" width="470" height="300" rx="20" fill="var(--color-white)" stroke="var(--color-line-soft)" stroke-width="1.4" />
+  <text x="23" y="369" fill="var(--color-ink)" font-size="24" font-weight="600" text-anchor="start">后台并行，对话继续</text>
+  <text x="22" y="438" fill="var(--color-muted)" font-size="20" font-weight="400" text-anchor="start">任务 A</text>
+  <path d="M104 430 H459" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="104" y="408" width="182" height="44" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 18%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" />
+  <text x="195.0" y="437" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">执行中</text>
+  <circle cx="286" cy="430" r="4" fill="var(--color-diagram-teal)" />
+  <text x="22" y="498" fill="var(--color-muted)" font-size="20" font-weight="400" text-anchor="start">任务 B</text>
+  <path d="M104 490 H459" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="104" y="468" width="246" height="44" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" />
+  <text x="227.0" y="497" fill="var(--color-ink)" font-size="21" font-weight="400" text-anchor="middle">执行中</text>
+  <circle cx="350" cy="490" r="4" fill="var(--color-diagram-teal)" />
+  <text x="22" y="589" fill="var(--color-muted)" font-size="22" font-weight="400" text-anchor="start">对话</text>
+  <path d="M104 582 H459" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="104" y="560" width="354" height="44" rx="8" fill="color-mix(in srgb, var(--color-blue) 13%, var(--color-white))" stroke="var(--color-blue)" stroke-width="1.8" />
+  <text x="281" y="589" fill="var(--color-ink)" font-size="22" font-weight="400" text-anchor="middle">接收并处理新要求</text>
+  <rect x="104" y="527" width="132" height="28" rx="14" fill="color-mix(in srgb, var(--color-compare) 10%, var(--color-white))" stroke="var(--color-compare)" stroke-width="1.4" />
+  <text x="170" y="548" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">新要求</text>
+  <path d="M170 556 V569" fill="none" stroke="var(--color-compare)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-blocking-orange)" />
+  <path d="M338 620 H455" fill="none" stroke="var(--color-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-blocking-muted)" />
+  <text x="320" y="627" fill="var(--color-muted)" font-size="20" font-weight="400" text-anchor="end">先后</text>
+</svg>

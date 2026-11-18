@@ -1,0 +1,287 @@
+---
+title: "异步子智能体：对话与后台工作如何协作"
+date: 2026-11-05
+updated: 2026-11-18
+excerpt: "后台调研还在跑，用户已经改了需求。用 12 张图讲清 LangChain 如何接住新要求、更新正在执行的任务，再把结果带回原来的对话。"
+tags: ["AI Agent", "LangChain", "系统架构", "多 Agent"]
+kind: "distilled"
+sources:
+  - title: "LangChain · Agents Are Going Async · Sydney Runkle & Thushanth Bengre"
+    url: "https://www.langchain.com/blog/agents-are-going-async"
+  - title: "Deep Agents · Async subagents · Design and lifecycle documentation"
+    url: "https://docs.langchain.com/oss/python/deepagents/async-subagents"
+  - title: "Deep Agents · Async subagent middleware · Version 0.7.38"
+    url: "https://github.com/langchain-ai/deepagents/blob/c858b3641b13fb3f40fe3a12515517b81fb8a744/libs/deepagents/deepagents/middleware/async_subagents.py"
+  - title: "Anthropic · Building effective agents · 2024-12-19"
+    url: "https://www.anthropic.com/research/building-effective-agents"
+  - title: "ReAct · Original paper and project"
+    url: "https://react-lm.github.io/"
+  - title: "OpenAI · Async tool calling"
+    url: "https://developers.openai.com/api/docs/guides/async-tool-calling"
+  - title: "阅读入口 · 倔强青铜三 · 传统ReAct已死？Anthropic、OpenAI等大厂同时押注这个AI新架构"
+    url: "https://mp.weixin.qq.com/s/V0XTJmfxTA6WysF7mamhrQ"
+---
+
+import { ArticleCanvas, CoverBanner, Section, SectionHead, Prose, Summary } from '@/components/article';
+import CoverGraph from '@/assets/async-subagents/zh/cover.svg';
+import BlockingGraph from '@/assets/async-subagents/zh/blocking.svg';
+import ArchitectureGraph from '@/assets/async-subagents/zh/architecture.svg';
+import LifecycleGraph from '@/assets/async-subagents/zh/lifecycle.svg';
+import IdentityGraph from '@/assets/async-subagents/zh/identity.svg';
+import ContextGraph from '@/assets/async-subagents/zh/context.svg';
+import SteeringGraph from '@/assets/async-subagents/zh/steering.svg';
+import NotificationGraph from '@/assets/async-subagents/zh/notification.svg';
+import ApprovalGraph from '@/assets/async-subagents/zh/approval.svg';
+import DependenciesGraph from '@/assets/async-subagents/zh/dependencies.svg';
+import CapacityGraph from '@/assets/async-subagents/zh/capacity.svg';
+import SelectionGraph from '@/assets/async-subagents/zh/selection.svg';
+
+<CoverBanner
+  kicker="DESIGN · LANGCHAIN · 2026-11-05"
+  title="异步子智能体：对话与后台工作如何协作"
+  lead="调研报告还没写完，你想改范围。子智能体继续在后台查资料，主管接着和你对话。它可以把新要求转给对应的子智能体，再把查到的材料带回对话。"
+>
+  <CoverGraph slot="visual" class="block h-auto w-full" role="img" aria-label="用户继续提出要求，主管保持对话，后台子智能体推进调研并交回结果" />
+</CoverBanner>
+
+<ArticleCanvas>
+<Section canvas id="blocking-loop">
+<SectionHead index="01" kicker="问题起点" title="工作可以并行，对话却仍然可能被占住" />
+<Prose tile>
+
+假设你让 Agent 准备一份产品调研报告。它一边核实功能，一边收集用户反馈。资料还没查完，你又补了一句：“只看中小团队的需求，别再讨论大企业。”如果系统要求这批调研全部结束后才处理新消息，后台即使开了多个智能体，你仍然只能等。
+
+LangChain 的 Sydney Runkle 和 Thushanth Bengre 在 2026 年 11 月 5 日提出了这个问题。Agent 能不能一边推进长任务，一边让用户继续参与？[《Agents Are Going Async》](https://www.langchain.com/blog/agents-are-going-async)
+
+简单问答很快就能结束。调研却要反复检索和核对，做着做着，用户也可能看到新材料，想改掉开头的一条要求。这时还能不能补一句，决定了用户是在参与调研，还是等报告写完再要求返工。
+
+早在 2024 年，Anthropic 就介绍过一种多智能体分工方式。主管拆开任务，交给多个执行者分别处理，再汇总结果。异步子智能体在这套分工上多走了一步。子任务还在运行，用户就能继续和主管对话。[Anthropic 的设计文章](https://www.anthropic.com/research/building-effective-agents)
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <BlockingGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="并行但阻塞的模式要等所有任务结束才能响应；异步模式在任务未结束时即可接收用户的新要求" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 01 · 两种安排都让 A、B 并行。上图等两项任务都完成才回复，下图在任务运行时就处理新要求。横轴示意先后顺序。</figcaption>
+</figure>
+<Prose tile>
+
+以 ReAct 为例，模型交替推理和行动，根据工具返回的结果决定下一步。如果主管当前这一轮要等一次很长的工具调用，用户也得跟着等。把执行派到后台后，子智能体仍可顺着同样的方式调用工具，主管则可以先结束本轮派发，接收下一条用户消息。[ReAct 论文与项目](https://react-lm.github.io/)
+
+判断异步是否改善了使用体验，可以看后台正忙时用户能做什么。新要求能否交给主管，又能否送到受影响的任务？
+
+</Prose>
+</Section>
+
+<Section canvas id="architecture">
+<SectionHead index="02" kicker="系统分工" title="分开对话与执行，再用运行服务连接" />
+<Prose tile>
+
+原文称面向用户的角色为 orchestrator，本文叫它主管。主管理解你的目标，决定怎么分工，最后把各方的结果整理成一份报告。它派去查资料或处理材料的执行者，就是子智能体（subagent）。
+
+LangChain 的 Agent Server 负责安排执行、管理任务会话和传递事件。主管一侧还保存着任务记录，能查到派出了哪些工作。即使一轮对话已经结束，服务也能继续运行任务。报告该怎么写，仍由主管根据用户要求判断。[Deep Agents 的运行文档](https://docs.langchain.com/oss/python/deepagents/async-subagents)
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <ArchitectureGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="用户与主管交流，两个子智能体各自执行；运行服务与主管的任务状态层共同连接执行、记录和结果递送" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 02 · 紫色侧栏是主管维护的任务记录。运行服务启动 A、B，并把执行事件交回主管。</figcaption>
+</figure>
+<Prose tile>
+
+在调研案例里，主管可以先把“核实功能”和“收集反馈”分别交出去，再继续回答你关于报告范围的问题。它需要知道谁在做什么，但不必把每一次检索过程都放进自己的对话。执行者则只需要拿到完成当前任务所需的材料。
+
+这种分工让对话和后台执行能各自往前走，检索细节留在对应的任务里。主管仍要调用模型，也可能正在处理别的消息。用户可以在调研完成前收到回复，具体要等多久仍取决于主管当时在做什么。
+
+</Prose>
+</Section>
+
+<Section canvas id="task-lifecycle">
+<SectionHead index="03" kicker="派发与交付" title="先确认任务已派出，再交付结果" />
+<Prose tile>
+
+同步调用时，主管往往要等执行者把结果交回来。异步派发只等服务接下任务并返回任务标识。主管这时就可以回复“已派发调研任务”，执行者在后台继续，完成后再交回材料。
+
+有了这个标识，主管以后就知道要查、改或取消哪项任务。它能确认的是工作已登记。完成情况和结果质量要等执行后再看。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <LifecycleGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="主管提交任务后先取得任务标识并回应用户，后台工作完成后发出事件，主管再整理和交付结果" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 03 · 运行服务先返回任务标识。主管确认派发后还能接收补充要求，等到完成事件送达，再把结果交给用户。</figcaption>
+</figure>
+<Prose tile>
+
+原文列了五种操作。派发之后，主管还能查进度、改要求或取消任务，也可以列出正在管理的任务。这些操作在调研做到一半时尤其重要，用户一句“改个范围”，主管得先找到该改哪项。
+
+派发后，主管应当结束这一轮，让用户可以继续发消息。反复查到任务结束才回应，前台依然被占着。用户主动问进度时，再查一次当前状态就够了。
+
+</Prose>
+</Section>
+
+<Section canvas id="task-identity">
+<SectionHead index="04" kicker="任务身份" title="需求变了，接着原来的任务做" />
+<Prose tile>
+
+长任务很少一次说清。你可能先要求比较两款产品，后来缩小受众，再要求补充证据。系统需要知道，这几次要求都属于同一项工作。
+
+Deep Agents 把保存任务历史的服务端会话称为 thread，在这条会话上执行一次叫 run。改需求时，可以结束当前运行，沿用那条会话开始下一轮。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <IdentityGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="任务登记表关联一条身份不变的任务会话；原需求与修改后需求分别在这条会话上形成两次运行" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 04 · 两次运行挂在同一条任务会话下。运行 2 沿用历史，接收修改后的要求。</figcaption>
+</figure>
+<Prose tile>
+
+如果任务只出现在一段旧回复里，聊天历史压缩成摘要时，任务标识可能随细节一起丢掉。Deep Agents 把任务记录和消息历史分开保存，主管仍能从列表里找到它。[Deep Agents 0.7.38 的实现](https://github.com/langchain-ai/deepagents/blob/c858b3641b13fb3f40fe3a12515517b81fb8a744/libs/deepagents/deepagents/middleware/async_subagents.py)
+
+登记表让任务可以查找。原文还提到，主管会把未完成的任务列入系统提示，让模型下一次作决定时看得见。回复进度时，应说清任务是在排队、运行还是等用户决定，已经失败或取消的也要单独交代。
+
+上一轮看到的“正在运行”，你再次问起时，可能已经结束或在等审批。稳定的标识能找到任务，回答最新进度还得刷新状态。进程重启后能否接着做，则取决于部署怎样保存这些状态。
+
+</Prose>
+</Section>
+
+<Section canvas id="context-sharing">
+<SectionHead index="05" kicker="上下文" title="子智能体启动时能看到什么" />
+<Prose tile>
+
+你对主管说过“预算有限”“主要看中小团队”。如果主管派任务时只写了“去查用户反馈”，后台执行者拿到的就只有这一句。
+
+默认启动时，子智能体只收到本次任务说明，主管得把相关背景写进去。文档另有一种实验方式，启动时附上主对话的快照。这样能带上前面聊过的背景，也可能把无关材料一并带过去。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <ContextGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="默认启动只发送任务说明；快照启动附带当时的对话。之后出现的新要求都需要主管显式转发，不会自动同步到后台" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 05 · 两种启动方式都带任务说明。快照多带一份启动时的对话，之后的补充要求仍由主管转交。</figcaption>
+</figure>
+<Prose tile>
+
+一份能独立执行的说明，要讲清问题、素材、限制和交付物。后来你把范围缩到中小团队，主管还得判断是核实功能、收集反馈，还是两项工作都要改，然后把要求发过去。
+
+把检索细节留在子任务里，主对话会更清爽。代价是每项工作都得收到足够的信息，尤其是这类中途变更。
+
+</Prose>
+</Section>
+
+<Section canvas id="steering">
+<SectionHead index="06" kicker="中途调整" title="能与主管说话，还要能改变正在做的工作" />
+<Prose tile>
+
+主管听见“范围改了”只是第一步。如果核实功能的子智能体还在按旧范围查，最后交回来的仍是你用不上的材料。
+
+调研做到一半改为面向中小团队，可以用默认的 interrupt 策略，打断当前运行，把历史和新要求带到下一轮。如果你说“报告完成后，再给我一份英文摘要”，则可以用 enqueue，让当前工作照常走完，再执行追加的要求。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <SteeringGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="纠正方向时打断当前执行并带历史重启；追加工作时等当前执行结束再开始新一轮，其他独立任务可以继续" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 06 · 纠正方向时沿同一任务重启，追加要求在当前运行结束后执行。两条轨道示意执行顺序。</figcaption>
+</figure>
+<Prose tile>
+
+发出更新之前，主管得理解你希望停下哪项工作、保留哪些已查到的材料。改完以后，最好告诉你受影响的是哪项任务。否则一句“已经更新”，仍然说不清后台究竟在做什么。
+
+如果任务正在等你决定，发出更新会丢掉挂起的请求，并开始下一轮运行。已经排队的后续运行也可能在旧运行停下来等输入时启动，从而丢掉旧请求。界面应明确区分补充要求和答复审批，并在更新替换了待处理请求时告诉用户。
+
+</Prose>
+</Section>
+
+<Section canvas id="completion">
+<SectionHead index="07" kicker="结果递送" title="任务完成后，结果怎样回到对话" />
+<Prose tile>
+
+后台查完了，用户还要一直追问“做完了吗”吗？LangChain 按主管当时在做什么，安排结果何时送回。
+
+主管正忙时，更新可以赶在下一次模型调用前送入。空闲时，符合条件的完成或失败事件能启动新一轮运行。如果主管正等用户审批，就先保留这次审批，稍后再处理后台结果。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <NotificationGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="完成或失败事件在主管忙时进入下一次模型调用，空闲时按条件唤醒新运行，等待审批时留住审批并延后递送" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 07 · 忙碌时赶在下次模型调用前收取，空闲时按条件唤醒，等待审批时延后处理。表内是完成或失败事件的三种递送方式。</figcaption>
+</figure>
+<Prose tile>
+
+收到“资料整理好了”只是交付的开始。主管得核对这份材料来自哪项任务、按哪版范围查的，再把结论写进报告。应用把这条消息标为任务结果，主管才能分辨它来自后台执行者还是用户。
+
+自动通知依赖 Agent Server。要唤醒空闲主管，子智能体本身须是 deep agent（以 Deep Agents 框架构建的智能体），和主管在同一个部署中运行，并开启父会话通知。如果子智能体停下来等用户输入，空闲的主管要到下一次运行才会看到这个请求。换到缺少通知能力的运行服务，应用需要主动查询或自行递送结果。
+
+</Prose>
+</Section>
+
+<Section canvas id="approval">
+<SectionHead index="08" kicker="人工审批" title="需要审批的任务暂停，其他任务继续" />
+<Prose tile>
+
+在调研中，某个执行者可能需要访问受限材料，也可能准备执行一项必须由用户确认的操作。此时应该暂停的是这项待授权的工作。其他独立任务可以继续，主管也应当能解释正在等待什么。
+
+Deep Agents 把这类子任务标为 waiting，表示等待用户输入或批准。主管把请求交给用户，由用户作决定。决定送回子智能体自己的会话，任务在那里继续。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <ApprovalGraph width={400} class="mx-auto block h-auto max-w-full" role="img" aria-label="子任务甲等待用户授权，主管仍可交流且子任务乙继续；用户决定后在甲自己的会话恢复执行" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 08 · 橙色箭头标出任务 A 怎样请求审批，以及决定怎样回到 A 的原会话。等待期间，主管和任务 B 可以继续工作。</figcaption>
+</figure>
+<Prose tile>
+
+审批界面至少要写明哪个任务在等、需要你决定什么，以及批准后会继续哪一步。
+
+取消能停掉后续执行，已经发出的请求和写入的文件需要另行处理。界面应把已经发生的操作和取消后停掉的步骤交代清楚。
+
+</Prose>
+</Section>
+
+<Section canvas id="limits">
+<SectionHead index="09" kicker="依赖与容量" title="有些步骤得等输入，有些任务得等资源" />
+<Prose tile>
+
+原文指出，多个后台执行者能把工作摊到不同的执行循环上。实际能同时开展多少工作，要看步骤需要什么输入，以及服务还有多少运行容量。
+
+功能核查与反馈整理可以同时推进，报告建议却要依赖两边的资料。英文摘要还要等报告形成。把所有步骤都提前启动，只会让后面的执行者缺少输入，或者根据尚未确认的材料先写一遍。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <DependenciesGraph width={440} class="mx-auto block h-auto max-w-full" role="img" aria-label="相互独立的两项调研并行推进，汇总报告等待两份输入，英文摘要又依赖最终报告" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 09 · 功能核查和用户反馈共同汇入报告。英文摘要根据最终稿撰写。</figcaption>
+</figure>
+<Prose tile>
+
+登记任务之后，还得等实际资源空出来。执行服务能同时跑的任务有限，模型调用和外部工具也有各自的限制。主管和子智能体如果共用一组执行资源，长任务占满这组资源时，主管回复也会变慢。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <CapacityGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="主管和后台任务都要取得有限执行容量，还受到模型与工具容量限制；尚未取得容量的工作会排队" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 10 · 主管和子智能体都向同一个运行服务申请容量。橙色支路表示容量不足时排队，虚线表示容量释放后重试。</figcaption>
+</figure>
+<Prose tile>
+
+从原文能判断的是交互和调度方式变了。多派子任务是否省钱、报告是否更准，还要测量。分工有交接成本，主管最后也要花时间核对、汇总。
+
+会话分开后，任务记录和上下文各自保存。文件访问和凭证权限由执行环境设定。进程故障后能否恢复、重复事件怎样处理，也要看部署和运行服务提供的机制。
+
+</Prose>
+</Section>
+
+<Section canvas id="judgment">
+<SectionHead index="10" kicker="设计判断" title="什么样的工作值得交给异步子智能体" />
+<Prose tile>
+
+如果一项工作耗时很长，而用户可能根据新信息改方向，我会优先考虑异步子智能体。主管得能查到任务派给了谁，执行者也要能收到更新。等材料查完，结果还得送回原来的对话。
+
+几个独立任务可以并行，结果也可以陆续回来。简单问题通常交给一个智能体就够了。如果当前一步必须拿到结果才能决定下一步，同步子任务也合适。
+
+</Prose>
+<figure class="not-prose rounded-[18px] bg-white p-5 sm:p-7">
+  <SelectionGraph width={480} class="mx-auto block h-auto max-w-full" role="img" aria-label="从工作是否需要拆分、是否有独立长任务和用户是否需要中途调整，判断采用直接执行、同步等待或异步子智能体" />
+  <figcaption class="mx-auto mt-4 max-w-[37rem] text-[13px] leading-relaxed text-ink-2">图 11 · 一项工作可以同时符合表中几行。比如两项调研可以异步推进，汇总要等两份资料都到齐。</figcaption>
+</figure>
+<Prose tile>
+
+LangChain 发布文章时，Deep Agents 的开源与托管产品都提供了异步子智能体，通知仍处于 beta。原文预期这种方式也会扩展到普通工具。另一处例子是 OpenAI 的异步工具调用，模型可以先继续，工具结果由应用稍后交回。后台执行、状态保存和结果递送由接入的应用负责。[OpenAI 的异步工具调用](https://developers.openai.com/api/docs/guides/async-tool-calling)
+
+</Prose>
+<Summary surface="white"
+  takeaways={[
+    { title: "设计收益", conclusion: "把长任务的执行与主会话的推进分开，让用户在工作途中继续参与。", detail: "用户中途改要求时，主管要找到对应的任务，送去更新，并在完成后把结果带回同一场对话。" },
+    { title: "采用条件", conclusion: "为需要持续调整的长任务增加调度能力，保留简单问题的直接路径。", detail: "信息依赖与真实容量仍然存在。通知、审批及恢复能力应以具体实现为准。" }
+  ]}
+  note="本文以 LangChain 2026-11-05 原文为主线，结合 2026-11-17 核对的官方文档及 Deep Agents 0.7.38 实现解释机制。图解使用虚构的调研案例。文中的设计判断基于这些资料，性能仍需实测。"
+/>
+</Section>
+</ArticleCanvas>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="async-visual-a-zh-lifecycle" width="480" viewBox="0 0 480 686" role="img" aria-label="泳道时序展示任务派发、继续对话、完成事件及交付" font-family="var(--font-sans)">
+  <defs>
+    <marker id="async-visual-a-zh-lifecycle-blue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-blue)" /></marker>
+    <marker id="async-visual-a-zh-lifecycle-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-teal)" /></marker>
+    <marker id="async-visual-a-zh-lifecycle-purple" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-purple)" /></marker>
+    <marker id="async-visual-a-zh-lifecycle-orange" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-compare)" /></marker>
+    <marker id="async-visual-a-zh-lifecycle-muted" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-muted)" /></marker>
+  </defs>
+  <rect x="0.0" y="9" width="110" height="46" rx="12" fill="color-mix(in srgb, var(--color-compare) 10%, var(--color-white))" />
+  <text x="55" y="39" fill="var(--color-ink)" font-size="20" font-weight="600" text-anchor="middle">用户</text>
+  <path d="M55 65 V660" fill="none" stroke="var(--color-compare)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 7" />
+  <rect x="125.0" y="9" width="110" height="46" rx="12" fill="color-mix(in srgb, var(--color-blue) 10%, var(--color-white))" />
+  <text x="180" y="39" fill="var(--color-ink)" font-size="20" font-weight="600" text-anchor="middle">主管</text>
+  <path d="M180 65 V660" fill="none" stroke="var(--color-blue)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 7" />
+  <rect x="255.0" y="9" width="110" height="46" rx="12" fill="color-mix(in srgb, var(--color-diagram-purple) 10%, var(--color-white))" />
+  <text x="310" y="39" fill="var(--color-ink)" font-size="20" font-weight="600" text-anchor="middle">运行服务</text>
+  <path d="M310 65 V660" fill="none" stroke="var(--color-diagram-purple)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 7" />
+  <rect x="380.0" y="9" width="100" height="46" rx="12" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" />
+  <text x="430" y="39" fill="var(--color-ink)" font-size="20" font-weight="600" text-anchor="middle">子任务</text>
+  <path d="M430 65 V660" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 7" />
+  <rect x="422" y="217" width="16" height="292" rx="5" fill="color-mix(in srgb, var(--color-diagram-teal) 35%, var(--color-white))" />
+  <rect x="172" y="84" width="16" height="38" rx="5" fill="color-mix(in srgb, var(--color-blue) 35%, var(--color-white))" />
+  <rect x="172" y="145" width="16" height="38" rx="5" fill="color-mix(in srgb, var(--color-blue) 35%, var(--color-white))" />
+  <rect x="172" y="355" width="16" height="95" rx="5" fill="color-mix(in srgb, var(--color-blue) 35%, var(--color-white))" />
+  <rect x="172" y="570" width="16" height="75" rx="5" fill="color-mix(in srgb, var(--color-blue) 35%, var(--color-white))" />
+  <rect x="302" y="142" width="16" height="178" rx="5" fill="color-mix(in srgb, var(--color-diagram-purple) 30%, var(--color-white))" />
+  <rect x="302" y="493" width="16" height="80" rx="5" fill="color-mix(in srgb, var(--color-diagram-purple) 30%, var(--color-white))" />
+  <path d="M55 105 H180" fill="none" stroke="var(--color-compare)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-orange)" />
+  <text x="117.5" y="92" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">准备报告</text>
+  <path d="M180 172 H310" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-blue)" />
+  <text x="245.0" y="159" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">提交任务</text>
+  <path d="M310 238 H430" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-purple)" />
+  <text x="370.0" y="225" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">启动</text>
+  <path d="M310 305 H180" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-purple)" stroke-dasharray="5 5" />
+  <text x="245.0" y="292" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">任务标识</text>
+  <path d="M180 380 H55" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-blue)" stroke-dasharray="5 5" />
+  <text x="117.5" y="367" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">已派出</text>
+  <path d="M55 438 H180" fill="none" stroke="var(--color-compare)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-orange)" />
+  <text x="117.5" y="425" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">补充要求</text>
+  <path d="M430 512 H310" fill="none" stroke="var(--color-diagram-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-teal)" stroke-dasharray="5 5" />
+  <text x="370.0" y="499" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">完成事件</text>
+  <path d="M310 578 H180" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-purple)" stroke-dasharray="5 5" />
+  <text x="245.0" y="565" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">带回结果</text>
+  <path d="M180 642 H55" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-zh-lifecycle-blue)" />
+  <text x="117.5" y="629" fill="var(--color-ink-2)" font-size="20" font-weight="400" text-anchor="middle">交付</text>
+</svg>

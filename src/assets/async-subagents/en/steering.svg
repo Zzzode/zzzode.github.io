@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="async-visual-a-en-steering" width="480" viewBox="0 0 480 514" role="img" aria-label="Paired task timelines show interruption and a queued follow-up" font-family="var(--font-sans)">
+  <defs>
+    <marker id="async-visual-a-en-steering-blue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-blue)" /></marker>
+    <marker id="async-visual-a-en-steering-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-teal)" /></marker>
+    <marker id="async-visual-a-en-steering-purple" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-diagram-purple)" /></marker>
+    <marker id="async-visual-a-en-steering-orange" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-compare)" /></marker>
+    <marker id="async-visual-a-en-steering-muted" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="var(--color-muted)" /></marker>
+  </defs>
+  <rect x="5" y="10" width="470" height="236" rx="20" fill="var(--color-white)" stroke="var(--color-line-soft)" stroke-width="1.4" />
+  <text x="24" y="45" fill="var(--color-ink)" font-size="25" font-weight="600" text-anchor="start">Correct the direction</text>
+  <text x="24" y="136" fill="var(--color-muted)" font-size="22" font-weight="400" text-anchor="start">Run</text>
+  <path d="M104 128 H457" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="104" y="102" width="148" height="52" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 18%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" />
+  <text x="178" y="135" fill="var(--color-ink)" font-size="22" font-weight="400" text-anchor="middle">Current</text>
+  <rect x="270" y="102" width="188" height="52" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 18%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" />
+  <text x="364" y="135" fill="var(--color-ink)" font-size="22" font-weight="400" text-anchor="middle">Updated</text>
+  <path d="M261 85 V164" fill="none" stroke="var(--color-compare)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M251 91 L271 71 M251 71 L271 91" fill="none" stroke="var(--color-compare)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="261" y="68" fill="var(--color-ink-2)" font-size="20" font-weight="600" text-anchor="middle">Interrupt</text>
+  <rect x="270" y="178" width="188" height="39" rx="18" fill="color-mix(in srgb, var(--color-diagram-purple) 10%, var(--color-white))" stroke="var(--color-diagram-purple)" stroke-width="1.4" />
+  <text x="364" y="205" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">Keep history</text>
+  <path d="M364 177 V157" fill="none" stroke="var(--color-diagram-purple)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-steering-purple)" />
+  <rect x="5" y="268" width="470" height="236" rx="20" fill="var(--color-white)" stroke="var(--color-line-soft)" stroke-width="1.4" />
+  <text x="24" y="303" fill="var(--color-ink)" font-size="25" font-weight="600" text-anchor="start">Add a follow-up</text>
+  <text x="24" y="394" fill="var(--color-muted)" font-size="22" font-weight="400" text-anchor="start">Run</text>
+  <path d="M104 386 H457" fill="none" stroke="var(--color-line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="104" y="360" width="202" height="52" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 18%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" />
+  <text x="205" y="393" fill="var(--color-ink)" font-size="22" font-weight="400" text-anchor="middle">Current run</text>
+  <rect x="326" y="360" width="132" height="52" rx="8" fill="color-mix(in srgb, var(--color-diagram-teal) 8%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.8" stroke-dasharray="5 4" />
+  <text x="392" y="393" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">Follow-up</text>
+  <path d="M307 386 H323" fill="none" stroke="var(--color-diagram-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-visual-a-en-steering-teal)" />
+  <circle cx="214" cy="339" r="6" fill="var(--color-compare)" />
+  <text x="214" y="327" fill="var(--color-ink-2)" font-size="20" font-weight="600" text-anchor="middle">Addition arrives</text>
+  <path d="M214 346 V358" fill="none" stroke="var(--color-compare)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="306" y="459" fill="var(--color-diagram-purple)" font-size="20" font-weight="400" text-anchor="middle">Continue after completion</text>
+</svg>

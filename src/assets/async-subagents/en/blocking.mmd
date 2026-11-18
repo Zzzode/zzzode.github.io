@@ -1,0 +1,40 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+sequenceDiagram
+  participant U as User
+  participant S as Supervisor
+  participant A as Task A
+  participant B as Task B
+  alt Parallel work, waiting chat
+    par Task A
+      S->>A: Dispatch
+      Note over A: Running
+    and Task B
+      S->>B: Dispatch
+      Note over B: Running
+    end
+    U->>S: New request
+    Note over S: Waiting for both
+    A-->>S: Done
+    B-->>S: Done
+    S->>U: Reply
+  else Parallel work, ongoing chat
+    S->>A: Dispatch
+    S->>B: Dispatch
+    par Task A
+      Note over A: Running
+      A-->>S: Done
+    and Task B
+      Note over B: Running
+      B-->>S: Done
+    and New request
+      U->>S: New request
+      S->>U: Receive and respond
+    end
+  end

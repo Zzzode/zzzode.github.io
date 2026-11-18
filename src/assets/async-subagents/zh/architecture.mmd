@@ -1,0 +1,20 @@
+---
+config:
+  theme: base
+  look: classic
+  htmlLabels: false
+  fontSize: 20
+  fontFamily: '-apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif'
+---
+flowchart TB
+  U("用户") --> S
+  S --> U
+  subgraph Supervisor["主管与任务记录"]
+    S("主管<br/>理解需求 · 汇总结果") --- T("任务记录<br/>A 记录 · B 记录")
+  end
+  S -->|委派| R("运行服务<br/>安排所有子任务")
+  R -->|回送| S
+  R --> A("子任务 A<br/>会话与工具")
+  R --> B("子任务 B<br/>会话与工具")
+  A -.-> R
+  B -.-> R

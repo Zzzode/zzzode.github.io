@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="async-color-en-capacity" width="480" height="460" viewBox="0 0 480 460" role="img" aria-labelledby="async-color-en-capacity-title" font-family="var(--font-sans)">
+  <title id="async-color-en-capacity-title">Shared execution capacity and its waiting queue</title>
+  <defs>
+    <marker id="async-color-en-capacity-arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="var(--color-blue)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="async-color-en-capacity-arrow-teal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="async-color-en-capacity-arrow-purple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="var(--color-diagram-purple)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="async-color-en-capacity-arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="var(--color-compare)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+  </defs>
+  <rect x="24" y="10" width="192" height="56" rx="16" fill="color-mix(in srgb, var(--color-blue) 9%, var(--color-white))" stroke="color-mix(in srgb, var(--color-blue) 48%, var(--color-white))" stroke-width="1.4" />
+  <rect x="240" y="10" width="192" height="56" rx="16" fill="color-mix(in srgb, var(--color-diagram-teal) 9%, var(--color-white))" stroke="color-mix(in srgb, var(--color-diagram-teal) 48%, var(--color-white))" stroke-width="1.4" />
+  <text x="120" y="31" fill="var(--color-blue)" font-size="20" font-weight="600" text-anchor="middle">
+    <tspan x="120" dy="0">Supervisor</tspan>
+    <tspan x="120" dy="24">request</tspan>
+  </text>
+  <text x="336" y="31" fill="var(--color-diagram-teal)" font-size="20" font-weight="600" text-anchor="middle">
+    <tspan x="336" dy="0">Worker</tspan>
+    <tspan x="336" dy="24">request</tspan>
+  </text>
+  <path d="M120 66 V87 Q120 102 138 102 H228" fill="none" stroke="var(--color-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-capacity-arrow-blue)" />
+  <path d="M336 66 V87 Q336 102 318 102 H244" fill="none" stroke="var(--color-diagram-teal)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-capacity-arrow-teal)" />
+  <circle cx="236" cy="102" r="8" fill="var(--color-diagram-purple)" />
+  <path d="M236 110 V128" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-capacity-arrow-purple)" />
+  <rect x="24" y="130" width="390" height="130" rx="16" fill="color-mix(in srgb, var(--color-diagram-purple) 9%, var(--color-white))" stroke="color-mix(in srgb, var(--color-diagram-purple) 48%, var(--color-white))" stroke-width="1.4" />
+  <text x="44" y="161" fill="var(--color-diagram-purple)" font-size="21" font-weight="600" text-anchor="start">
+    <tspan x="44" dy="0">Scheduler and run capacity</tspan>
+  </text>
+  <rect x="44" y="184" width="116" height="50" rx="10" fill="color-mix(in srgb, var(--color-blue) 9%, var(--color-white))" stroke="color-mix(in srgb, var(--color-blue) 48%, var(--color-white))" stroke-width="1.4" />
+  <text x="102" y="216" fill="var(--color-blue)" font-size="20" font-weight="500" text-anchor="middle">
+    <tspan x="102" dy="0">Supervisor</tspan>
+  </text>
+  <rect x="160" y="184" width="232" height="50" rx="10" fill="color-mix(in srgb, var(--color-diagram-teal) 9%, var(--color-white))" stroke="color-mix(in srgb, var(--color-diagram-teal) 48%, var(--color-white))" stroke-width="1.4" />
+  <text x="276" y="216" fill="var(--color-diagram-teal)" font-size="20" font-weight="500" text-anchor="middle">
+    <tspan x="276" dy="0">Worker runs</tspan>
+  </text>
+  <path d="M120 260 V330" fill="none" stroke="var(--color-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-capacity-arrow-blue)" />
+  <text x="120" y="303" stroke="var(--color-white)" stroke-width="6" paint-order="stroke fill" stroke-linejoin="round" fill="var(--color-blue)" font-size="20" font-weight="500" text-anchor="middle">
+    <tspan x="120" dy="0">Run</tspan>
+  </text>
+  <path d="M330 260 V330" fill="none" stroke="var(--color-compare)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-capacity-arrow-orange)" />
+  <text x="330" y="303" stroke="var(--color-white)" stroke-width="6" paint-order="stroke fill" stroke-linejoin="round" fill="color-mix(in srgb, var(--color-compare) 65%, var(--color-ink))" font-size="20" font-weight="500" text-anchor="middle">
+    <tspan x="330" dy="0">No capacity</tspan>
+  </text>
+  <rect x="24" y="332" width="192" height="70" rx="16" fill="var(--color-paper)" stroke="var(--color-line)" stroke-width="1.4" />
+  <text x="120" y="361" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">
+    <tspan x="120" dy="0">Models and tools</tspan>
+    <tspan x="120" dy="25">Their own limits</tspan>
+  </text>
+  <rect x="250" y="332" width="164" height="70" rx="16" fill="color-mix(in srgb, var(--color-compare) 9%, var(--color-white))" stroke="color-mix(in srgb, var(--color-compare) 48%, var(--color-white))" stroke-width="1.4" />
+  <text x="332" y="374" fill="color-mix(in srgb, var(--color-compare) 65%, var(--color-ink))" font-size="20" font-weight="500" text-anchor="middle">
+    <tspan x="332" dy="0">Wait in queue</tspan>
+  </text>
+  <path d="M332 402 V415 Q332 425 342 425 H434 Q444 425 444 415 V127 Q444 117 434 117 H239" fill="none" stroke="var(--color-compare)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-capacity-arrow-orange)" stroke-dasharray="5 5" />
+  <text x="332" y="451" fill="color-mix(in srgb, var(--color-compare) 65%, var(--color-ink))" font-size="20" font-weight="500" text-anchor="middle">Retry when capacity frees</text>
+</svg>

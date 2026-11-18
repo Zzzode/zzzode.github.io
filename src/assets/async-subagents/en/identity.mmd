@@ -1,0 +1,5 @@
+erDiagram
+    TASK_RECORD ||--|| TASK_THREAD : keeps_stable_identity
+    TASK_THREAD ||--|| RUN_1 : holds_original_brief_and_gathered_material
+    TASK_THREAD ||--|| RUN_2 : retains_history_and_receives_updated_brief
+    RUN_1 ||--|| RUN_2 : continues_after_update

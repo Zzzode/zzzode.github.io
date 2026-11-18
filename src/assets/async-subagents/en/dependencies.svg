@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="async-color-en-dependencies" width="440" height="442" viewBox="0 0 440 442" role="img" aria-labelledby="async-color-en-dependencies-title" font-family="var(--font-sans)">
+  <title id="async-color-en-dependencies-title">Research inputs join before the report and its summary</title>
+  <defs>
+    <marker id="async-color-en-dependencies-arrow-purple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="var(--color-diagram-purple)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+  </defs>
+  <text x="220" y="24" fill="var(--color-diagram-teal)" font-size="20" font-weight="600" text-anchor="middle">
+    <tspan x="220" dy="0">Independent research</tspan>
+  </text>
+  <path d="M28 44 H182 L206 68 V118 Q206 130 194 130 H28 Q16 130 16 118 V56 Q16 44 28 44 Z" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.6" />
+  <path d="M182 44 V68 H206" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.6" />
+  <path d="M246 44 H400 L424 68 V118 Q424 130 412 130 H246 Q234 130 234 118 V56 Q234 44 246 44 Z" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.6" />
+  <path d="M400 44 V68 H424" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.6" />
+  <text x="111" y="80" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">
+    <tspan x="111" dy="0">Verify product</tspan>
+    <tspan x="111" dy="25">features</tspan>
+  </text>
+  <text x="329" y="80" fill="var(--color-ink)" font-size="20" font-weight="400" text-anchor="middle">
+    <tspan x="329" dy="0">Gather user</tspan>
+    <tspan x="329" dy="25">feedback</tspan>
+  </text>
+  <path d="M111 130 V164 Q111 178 125 178 H205" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-dependencies-arrow-purple)" />
+  <path d="M329 130 V164 Q329 178 315 178 H235" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-dependencies-arrow-purple)" />
+  <path d="M220 163 L235 178 L220 193 L205 178 Z" fill="var(--color-diagram-purple)" />
+  <path d="M220 193 V224" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-dependencies-arrow-purple)" />
+  <path d="M132 226 H296 L320 250 V288 Q320 300 308 300 H132 Q120 300 120 288 V238 Q120 226 132 226 Z" fill="color-mix(in srgb, var(--color-blue) 10%, var(--color-white))" stroke="var(--color-blue)" stroke-width="1.6" />
+  <path d="M296 226 V250 H320" fill="none" stroke="var(--color-blue)" stroke-width="1.6" />
+  <text x="220" y="270" fill="var(--color-blue)" font-size="21" font-weight="600" text-anchor="middle">
+    <tspan x="220" dy="0">Synthesize report</tspan>
+  </text>
+  <path d="M220 300 V342" fill="none" stroke="var(--color-diagram-purple)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#async-color-en-dependencies-arrow-purple)" />
+  <path d="M132 344 H296 L320 368 V410 Q320 422 308 422 H132 Q120 422 120 410 V356 Q120 344 132 344 Z" fill="color-mix(in srgb, var(--color-diagram-teal) 10%, var(--color-white))" stroke="var(--color-diagram-teal)" stroke-width="1.6" />
+  <path d="M296 344 V368 H320" fill="none" stroke="var(--color-diagram-teal)" stroke-width="1.6" />
+  <text x="220" y="377" fill="var(--color-ink)" font-size="19" font-weight="400" text-anchor="middle">
+    <tspan x="220" dy="0">English summary</tspan>
+    <tspan x="220" dy="23.75">From final draft</tspan>
+  </text>
+</svg>
