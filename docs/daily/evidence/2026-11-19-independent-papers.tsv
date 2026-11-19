@@ -1,0 +1,245 @@
+id	classification	reason
+inventory-3-126	technical-low-priority	Dense retrieval adversarial strings; evaluated specific benchmarks and retrievers; public time unverified.
+inventory-3-199	technical-low-priority	Vision-language training scaling tradeoff; measured setting not generalized; public time unverified.
+inventory-3-62	technical-low-priority	Investment research agent evaluation framework; numerical claims need verification; public time unverified.
+inventory-3-60	technical-low-priority	Dual-agent multi-table QA method; task-specific reported baselines; public time unverified.
+inventory-3-76	technical-low-priority	Research-agent controller on named tasks; reported results need independent review; public time unverified.
+inventory-3-75	technical-low-priority	Skill evolution on math and code benchmarks; reported relative gains; public time unverified.
+inventory-3-180	priority-followup	Injection-defense harness results are on particular models and benchmarks; verify paper and public time.
+inventory-3-132	technical-low-priority	Network trace QA study of filtered traffic; scoped benchmark; public time unverified.
+inventory-3-201	priority-followup	Report/chart benchmark with numerical hallucination claims; check judge design and first public time.
+inventory-3-52	technical-low-priority	RAG agent memory baselines and limited adversarial probes; public time unverified.
+inventory-3-238	technical-low-priority	Offline-to-online RL policy pool; research specialization; public time unverified.
+inventory-3-48	technical-low-priority	Agent memory conflict routing with selected benchmarks; public time unverified.
+inventory-3-235	technical-low-priority	Cooperative multi-agent RL opponent-shift study; research specialization; public time unverified.
+inventory-3-234	technical-low-priority	Document editing RL with BART and BEA-2019; research specialization; public time unverified.
+inventory-3-216	priority-followup	Skilled-work ego video dataset 10124 hours; verify actual availability, consent/privacy and public time.
+inventory-3-173	priority-followup	Face-privacy evaluation protocol; verify cross-model findings and public time.
+inventory-3-32	technical-low-priority	Document exploration, only five tasks and 38 police records; public time unverified.
+inventory-3-31	technical-low-priority	Interactive text-to-SQL clarification; selected benchmarks; public time unverified.
+inventory-3-97	priority-followup	Claims causal effect of refusal from observational logs; inspect assumptions and public time.
+inventory-3-208	technical-low-priority	Multimodal ensembles under selected datasets and prompt conditions; public time unverified.
+inventory-3-137	priority-followup	Kernel attention benchmark against FlashAttention; verify conditions and public time.
+inventory-3-81	priority-followup	Agentic quantum chemistry performance comparison includes estimated runtimes; verify methods and public time.
+inventory-3-207	technical-low-priority	Multimodal scientific QA framework; benchmark improvements; public time unverified.
+inventory-3-225	technical-low-priority	Robot diffusion sampling optimization on five setups; public time unverified.
+inventory-3-47	technical-low-priority	Agent memory strategy study on ALFWorld, WebShop and LifelongAgentBench; time unknown.
+inventory-3-147	technical-low-priority	SFT temperature matching under reported evaluations; public time unknown.
+inventory-3-212	technical-low-priority	Streaming hybrid VLM state caching; expiration retains residual effects; public time unknown.
+inventory-3-146	priority-followup	Natural experiment on coding benchmark versus pull-request outcomes; assumptions and event framing require paper review; public time unknown.
+inventory-3-94	technical-low-priority	Agent identity enforcement evaluated in simulated federation with model judges; not an enacted standard; public time unknown.
+inventory-3-228	technical-low-priority	Robot world-model audit is one robot and simulated data without hardware; public time unknown.
+inventory-3-28	technical-low-priority	RTL bug synthesis tested on selected circuits, includes simulation estimates; public time unknown.
+inventory-3-247	technical-low-priority	RL transfer under state mapping; technical specialization; public time unknown.
+inventory-3-86	priority-followup	Forecast benchmark flags potential retrospective search leakage and uses 150 questions; source methods and public time unknown.
+inventory-3-157	technical-low-priority	Planner perception evaluated across three driving datasets; validity conditions approximate; public time unknown.
+inventory-3-27	priority-followup	AI ideation followed by lab tests in Caco-2 cell monolayers, not human clinical benefit; verify report and public time.
+inventory-3-250	technical-low-priority	AI-assisted optimization proof, author verification reported; inspect proof rather than equate AI suggestion with independent validation; time unknown.
+inventory-3-17	technical-low-priority	Solana bridge exploit detection in local synthetic variants, not operational exploit prevalence; time unknown.
+inventory-3-123	technical-low-priority	Hardware-specific speculative decoding configuration search; time unknown.
+inventory-3-53	priority-followup	Coding-agent context and prefix-caching cost study, 20k simulated benchmark runs; verify prices/conditions and time.
+inventory-3-105	technical-low-priority	Sparse attention head-selection experiment with benchmark-specific accuracy claims; time unknown.
+inventory-3-5	priority-followup	27B self-edit experiment over graded tasks and damaged copy; no generalized recursive self-improvement established; version and first-public time unclear.
+inventory-3-214	technical-low-priority	Autonomous driving world-action model on NAVSIM-v1; no real-road claim from abstract; time unknown.
+inventory-3-101	technical-low-priority	Psychological simulation evaluated with 30 professionals and trainees, not clinical outcome; time unknown.
+inventory-3-36	technical-low-priority	Coding agent generated and translated tests across three agents; conditions need full review; time unknown.
+inventory-3-251	technical-low-priority	Theoretical alignment margin analysis with selected empirical comparisons; time unknown.
+inventory-3-8	priority-followup	Xing4 technical report describes 285B run on 8192 Ascend 910C, not itself proof of new model launch or release date.
+inventory-3-114	technical-low-priority	Heterogeneous GPU-FPGA serving measured on V100 and U280 with limited links; public time unknown.
+inventory-3-149	technical-low-priority	Reward-guided diffusion post-training evaluated on SD3.5; reported speedups setting-specific; public time unknown.
+inventory-3-111	priority-followup	Quantization claims decoder built into AWS Trainium 4, verify against independent AWS sources and paper; public time unknown.
+inventory-3-252	technical-low-priority	LLM dynamical systems synthesis and small-model studies, explicitly conjectures distinguished; public time unknown.
+inventory-3-30	priority-followup	Continual ARC study claims harness memory struggles in chosen tests; verify task design and timing.
+inventory-3-230	technical-low-priority	Power-grid diagnosis research does not control actuators; measured benchmarks narrow; time unknown.
+inventory-3-34	technical-low-priority	LLM agent verifier study emphasizes measurement limits and small samples; time unknown.
+inventory-3-257	priority-followup	Limite 1B mathematical model claims released Apache weights and scores, verify model page and public time.
+inventory-3-144	technical-low-priority	Pretraining inductive bias on small GPT-2 derived setting; time unknown.
+inventory-3-211	technical-low-priority	VLM preference tuning measured hallucination and object coverage on LLaVA and COCO; public time unknown.
+inventory-3-143	technical-low-priority	Multilingual LoRA across 200 languages on one frozen base; translation and comprehension differ; public time unknown.
+inventory-3-248	technical-low-priority	Hint steering for GRPO evaluated on small models; public time unknown.
+inventory-3-187	technical-low-priority	Verifier benchmark includes synthetic data; not actual governance guarantees; public time unknown.
+inventory-3-87	technical-low-priority	Instruction values in self-improving coding tasks; experimental not generalized agent ethics; public time unknown.
+inventory-3-204	priority-followup	Vision small-object study across seven models, zoom mitigations; verify API settings and time.
+inventory-3-182	technical-low-priority	LLM answers to worldview surveys, not evidence models experience beliefs; public time unknown.
+inventory-3-162	technical-low-priority	Contract-dependent evaluation rankings and scoped certificates; restricted studies; public time unknown.
+inventory-3-181	priority-followup	Clinical agent trajectory safety across 300 cases with judge and physician calibration, no actual patient outcomes measured; verify time.
+inventory-3-24	technical-low-priority	Adaptive honeypot experiment on emulated Ubuntu and model attackers; public time unknown.
+inventory-3-72	technical-low-priority	Locally run editable CAD mesh reconstruction, comparative claims require benchmark verification; time unknown.
+inventory-3-70	technical-low-priority	Stale agent skills experiments over four settings and two models, no universal estimate; time unknown.
+inventory-3-69	technical-low-priority	Agent context attribution uses 71 gold sentences and 90 turns; attribution reliability bounded by sample; time unknown.
+inventory-3-130	priority-followup	Organizational forecasting uses simulated centers and 33 real changes, external validity uncertain; time unknown.
+inventory-3-128	technical-low-priority	LLM reranking schedule study; performance depends on tested model and retrieval conditions; time unknown.
+inventory-3-221	technical-low-priority	Robot failure generation, preliminary results in two task settings; time unknown.
+inventory-3-220	technical-low-priority	Robot demonstration retrieval evaluated in one frozen VLA setup; time unknown.
+inventory-3-177	technical-low-priority	Safety training method reports benchmark robustness; not proof of universal security; time unknown.
+inventory-3-55	priority-followup	Multi-agent conflict reporting tested on Harvey LAB document tasks, detection fell in this setting; inspect full paper and public time.
+inventory-3-20	priority-followup	AI-designed antivirals show cell and mouse outcomes, no human efficacy; inspect original publication and public time.
+inventory-3-135	technical-low-priority	Hessian-aware low-bit quantization technical method, benchmark scope unspecified in abstract; time unknown.
+inventory-3-139	priority-followup	Study of 2.5m papers finds limited detectable trend breaks, not proof of no effect on science; time unknown.
+inventory-3-186	priority-followup	SEAM 600 simulated tasks and up-to-92% failure conditional on setup, not actual deployment incident rate; source version and time unknown.
+inventory-3-164	technical-low-priority	Diffusion-guided black-box optimization technique; time unknown.
+inventory-3-156	technical-low-priority	Image generation hierarchy evaluated on stated benchmarks, not universal quality; time unknown.
+inventory-3-244	technical-low-priority	Recommendation RL list-recall tradeoff across five datasets; time unknown.
+inventory-3-243	technical-low-priority	Robust actor-critic bounds with assumptions; specialized control research; time unknown.
+inventory-3-205	technical-low-priority	Visual token compression measured on two looped VLMs, specific hardware; time unknown.
+inventory-3-21	technical-low-priority	LinkedIn hiring retrieval throughput on stated workloads; time unknown.
+inventory-3-223	technical-low-priority	Robot motion improvement in PushT and cube stacking, not general deployment; time unknown.
+inventory-3-93	priority-followup	Simulated nulls show selective analysis can inflate p-values, proposed correction has stability assumptions; time unknown.
+inventory-3-190	technical-low-priority	Black-box semantic watermark claim averaged over detection keys, not universal invariant output; time unknown.
+inventory-3-122	technical-low-priority	Sparse-attention cache offloading measured on emulated memory pool; time unknown.
+inventory-3-83	technical-low-priority	Agent video build reuse measured on EditLoop and selected frameworks; time unknown.
+inventory-3-226	technical-low-priority	VLA policy RL mostly simulated manipulation; time unknown.
+inventory-3-184	priority-followup	Reachy Mini configuration security tested on device and sampled public repositories; establish disclosure timeline and vendor response.
+inventory-3-258	technical-low-priority	Engineering judgment benchmark is single battery cold-plate simulation campaign; time unknown.
+inventory-3-170	technical-low-priority	Normative prompt circuit experiments in open models, not evidence of moral beliefs; time unknown.
+inventory-3-15	technical-low-priority	Coding productivity literature review highlights heterogeneous markers and confounders; time unknown.
+inventory-3-253	technical-low-priority	Mathematical online prediction coverage constraints; time unknown.
+inventory-3-73	technical-low-priority	Locally hosted machining planner evaluated by simulated material removal; time unknown.
+inventory-3-222	technical-low-priority	World-model correction measured simulation and real-robot sequences; no generalized robot capability established; time unknown.
+inventory-3-71	technical-low-priority	Repository QA fine-tuning tested two 8B models; time unknown.
+inventory-3-23	technical-low-priority	Retail world-model counterfactual forecast studies; test plans and generated-world limits; time unknown.
+inventory-3-68	priority-followup	Scientific workflow benchmark uses framework-specific grading; inspect tasks and public time.
+inventory-3-260	technical-low-priority	Reasoning overthinking studied model samples and math sets, estimated oracle bound; time unknown.
+inventory-3-259	technical-low-priority	Synthetic two-hop fact learning experiment; time unknown.
+inventory-3-159	technical-low-priority	Data-stream metric theory with selective labels and partial correction; time unknown.
+inventory-3-3	technical-low-priority	Asynchronous RL score centering evaluated in selected agent tasks; time unknown.
+inventory-3-18	priority-followup	Agent code survival highly dependent on statistical choices and controls; inspect data and public time.
+inventory-3-151	technical-low-priority	Latent image decoder fine-tuning evaluated on ImageNet and selected models; time unknown.
+inventory-3-161	technical-low-priority	Training-label error detection measured on CIFAR-10 variants and ViT-S; time unknown.
+inventory-3-200	technical-low-priority	Multimodal RL credit allocation on selected Qwen/InternVL models; time unknown.
+inventory-3-150	technical-low-priority	Diffusion skills evaluated under synthetic-data controlled rules; time unknown.
+inventory-3-124	priority-followup	Visa reports compact model fine-tuned on billions of proprietary rows; inspect independent reproducibility and time.
+inventory-3-10	priority-followup	Heave-Ho collaboration claims up to ten humanoids and real tests, verify exact physical vs simulation counts and time.
+inventory-3-142	priority-followup	Neuron communities on Llama 3.1 8B, ten million prompts; likely related Goodfire earlier watch, check identity and time.
+inventory-3-188	technical-low-priority	Model misalignment re-elicitation via hidden-state similarity, conditions and time unknown.
+inventory-3-88	priority-followup	Agent evolution selection study reports 10m calls, verify task design and date.
+inventory-3-14	technical-low-priority	Speech decision model benchmarks mixed private and public sets, some baselines stronger; time unknown.
+inventory-3-154	technical-low-priority	Looped diffusion pruning evaluated on four models; time unknown.
+inventory-3-119	technical-low-priority	MoE activation-compression results are benchmark and network dependent; time unknown.
+inventory-3-232	technical-low-priority	Theoretical RL memory for sparse model shifts; time unknown.
+inventory-3-197	technical-low-priority	Molecular spectra modeling tested on QM9S, not validated as clinical drug design; time unknown.
+inventory-3-46	priority-followup	Investment banking benchmark uses 100 tasks in simulated firms, claimed sub-11% pass; verify scoring and time.
+inventory-3-175	technical-low-priority	Medication guardrails assessed against benchmark scenarios, no clinical-outcome claims; time unknown.
+inventory-3-109	technical-low-priority	Qwen3 quantization on B200, final weights not retained and reproducibility unverified; time unknown.
+inventory-3-237	technical-low-priority	Nemotron adapters evaluated on specific tasks, some benchmarks vendor-authored; time unknown.
+inventory-3-217	priority-followup	RoboTeam 4–16 arms is simulated, not physical robot deployment; time unknown.
+inventory-3-178	technical-low-priority	Maintenance monitor evaluated on C-MAPSS test windows, acknowledged attack class missed; time unknown.
+inventory-3-38	technical-low-priority	Embedded firmware tasks on emulated hardware, compile success does not imply real hardware behavior; time unknown.
+inventory-3-165	priority-followup	Kumo Tabular 27m/61m/214m paper and weights, official modelcard lists pre-existing September weights; first new paper time unverified.
+inventory-3-141	technical-low-priority	Tree-gram synthetic approximator work; time unknown.
+inventory-3-65	technical-low-priority	JevRSI is harness framework on three datasets; don't infer Jev identity from title; time unknown.
+inventory-3-61	technical-low-priority	Perspective paper on trajectory QA, not an empirical proof of assurance; time unknown.
+inventory-3-67	technical-low-priority	Film blockout benchmark 50 shots and prospective 3k data release; time unknown.
+inventory-3-66	technical-low-priority	Multi-agent memory conflict design tested in 39 runs and selected data; time unknown.
+inventory-3-179	technical-low-priority	VLM distillation poisoning is experimental, not a real-world incident estimate; time unknown.
+inventory-3-129	technical-low-priority	Looped transformer latent injection, benchmark-specific performance; time unknown.
+inventory-3-125	technical-low-priority	Binary LoRA adapter saving refers to inference storage, training memory unchanged; time unknown.
+inventory-3-263	technical-low-priority	MCTS exploration counts tested on small models and selected math/search tasks; time unknown.
+inventory-3-57	technical-low-priority	Review of physical-world agent verification, not announcement of newly deployed system; time unknown.
+inventory-3-239	technical-low-priority	RL procedural platform game generation; specialized scope and time unknown.
+inventory-3-54	priority-followup	Clinical benchmark hindsight audit on MIMIC retrospective cases, upper-bound limitation; check source/date.
+inventory-3-218	priority-followup	Quadruped thermal locomotion research includes real Go2 5kg test, check paper and time.
+inventory-3-9	priority-followup	Leaderboard winner bias measured on 14 benchmarks and bootstrap assumptions; check source/date.
+inventory-3-183	priority-followup	Memory-injection omission experiment with 100 scenarios and 5 models; not observed real user incident, check date.
+inventory-3-203	technical-low-priority	Omni model hidden subspaces tested on three models and two tasks; time unknown.
+inventory-3-152	technical-low-priority	Pixel-sparse adversarial benchmark research; time unknown.
+inventory-3-74	technical-low-priority	GUI agent RL study on AndroidWorld and OSWorld, benchmark-specific; time unknown.
+inventory-3-133	technical-low-priority	Remasking policy tested on one 8B diffusion LM; time unknown.
+inventory-3-131	technical-low-priority	Entity resolution abstract has unresolved TeX macros in numerical claims; do not quote figures; time unknown.
+inventory-3-241	technical-low-priority	World-model planning memory evaluated on specified simulations; time unknown.
+inventory-3-12	priority-followup	Frozen-model gameplay text-context self-improvement, not rewritten weights; first-public time unverified.
+inventory-3-191	technical-low-priority	Bias-head attribution audit on two models; no general causal claim beyond setups; time unknown.
+inventory-3-92	technical-low-priority	Documentation system ran in shadow mode, 43 days; no fully autonomous production deployment claim; time unknown.
+inventory-3-11	priority-followup	RSI-Prime dataset of 350 trajectories and single model benchmark, not autonomous recursive improvement; time unknown.
+inventory-3-210	technical-low-priority	Vision-text consistency on four models and 2000 sample split; time unknown.
+inventory-3-246	technical-low-priority	RL heating controller deployed in one physical building; time unknown.
+inventory-3-140	technical-low-priority	Gemma KV prototype reduces memory while slowing equal-batch eager step; time unknown.
+inventory-3-85	technical-low-priority	Contract inference RAG debugging, experimental Jev-guided harness not proof of Jev identity; time unknown.
+inventory-3-155	technical-low-priority	Lookup-table neural network prototype on FPGA and image benchmarks; time unknown.
+inventory-3-138	technical-low-priority	Decision models in bounded contact-center tasks; abstention and position bias persist; time unknown.
+inventory-3-255	technical-low-priority	Transformer-inspired standalone preconditioner with bounded idealized theory; time unknown.
+inventory-3-80	priority-followup	ExploitBench long-horizon capability scores depend on evaluation budget and task setup, not incidents; verify source/time.
+inventory-3-185	technical-low-priority	Philosophical claim about AI agency and takeover is argument rather than empirical finding; time unknown.
+inventory-3-163	technical-low-priority	Open distillation toolkit evaluated on selected tasks; time unknown.
+inventory-3-265	technical-low-priority	Reasoning continuation value measured on selected math models, one gain inconclusive; time unknown.
+inventory-3-136	technical-low-priority	Diffusion text stitching for RAG on QA benchmarks; time unknown.
+inventory-3-153	technical-low-priority	Video evaluation framework judged on selected human correlation datasets; time unknown.
+inventory-3-35	technical-low-priority	Harness optimization measured on small number of video tasks and seeds; time unknown.
+inventory-3-16	technical-low-priority	Formal requirement checking with four hardware designs and ten code tasks, does not eliminate natural-language fidelity problem; time unknown.
+inventory-3-100	technical-low-priority	RTL review benchmark of 114 matched pairs; time unknown.
+inventory-3-99	technical-low-priority	Diffusion token commitment in selected LLaDA/Dream settings; time unknown.
+inventory-3-98	technical-low-priority	Steering two small models, study withdraws rule-based claims; time unknown.
+inventory-3-193	priority-followup	Multilingual visual QA benchmark 24 languages and 25 models, verify study and public time.
+inventory-3-261	technical-low-priority	PDE code model consistency examined in constructed corruption tasks; time unknown.
+inventory-3-108	priority-followup	253-weight tractor controller tested on actual tractor and simulations; inspect research and timing.
+inventory-3-40	priority-followup	Human-steered DiscoveryAgent case studies, audit claims and first publication time.
+inventory-3-196	technical-low-priority	Video citation counterfactual study on 2–3B models, cites do not ensure causal use; time unknown.
+inventory-3-107	technical-low-priority	Parallel speculative decoding design measured against DFlash-2; time unknown.
+inventory-3-103	technical-low-priority	Party-position ordering and scaling studied Japan and Korea manifesto data; time unknown.
+inventory-3-195	technical-low-priority	VLM speculative attention evaluated on Qwen3-VL-8B and workload; time unknown.
+inventory-3-172	priority-followup	Human proxy sabotage audit, AUROC .59 and 17% identification in study, not real AI sabotage prevalence; time unknown.
+inventory-3-51	technical-low-priority	Trading agent study tests 598 earnings and 409 drops; no financial recommendation; time unknown.
+inventory-3-50	technical-low-priority	Sandbox snapshot optimization tested on public and synthetic scripts; time unknown.
+inventory-3-49	technical-low-priority	Medical agent evidence filtering evaluated on selected tasks, not clinical outcomes; time unknown.
+inventory-3-118	technical-low-priority	Sampler findings in particular 29 model settings, especially high temperature; time unknown.
+inventory-3-19	technical-low-priority	Fruit-fly instrument 26-day pilot; tracking accuracy awaits expert validation, time unknown.
+inventory-3-7	technical-low-priority	Lean proof repair requires human answers and tests on 30 benchmarks; time unknown.
+inventory-3-112	technical-low-priority	Fact-checker matches best published benchmark within interval, not demonstrably superior; time unknown.
+inventory-3-110	technical-low-priority	Assistant KV long-term memory is proposed design with analytical sizing, no claimed production validation; time unknown.
+inventory-3-41	technical-low-priority	Signed agent-package scheme demonstrated on three workflows and 716 synthetic violation tests, not universal security; time unknown.
+inventory-3-79	technical-low-priority	Rubric grader tested on 24 banking tasks and productivity environment; time unknown.
+inventory-3-268	technical-low-priority	Corrected diffusion sampling research; time unknown.
+inventory-3-90	technical-low-priority	Multi-agent allocation evaluated in Overcooked simulation; time unknown.
+inventory-3-242	technical-low-priority	World-model gameplay research uses 28h and quality tradeoff, not universal real world model; time unknown.
+inventory-3-117	technical-low-priority	Quantized-model sampling temperature results conditional on models and tasks; time unknown.
+inventory-3-116	technical-low-priority	MoE routing intervention mainly studied Qwen3-30B; time unknown.
+inventory-3-224	technical-low-priority	Driving world-model synthetic interaction and visual-rendering evaluation; time unknown.
+inventory-3-134	technical-low-priority	Prompt optimizer control on two families, cost and performance task-dependent; time unknown.
+inventory-3-25	priority-followup	Calibration study claims live two-region A/B test, verify company, metrics and publication time.
+inventory-3-202	technical-low-priority	MentalGrid spatial benchmark and training study; time unknown.
+inventory-3-22	technical-low-priority	Smart-home fuzzing uses LLM to emulate human decisions, not observed human incidents; time unknown.
+inventory-3-64	technical-low-priority	Small-model multigranular retrieval on QA datasets; time unknown.
+inventory-3-59	technical-low-priority	IFC editing benchmark, 13 held-out projects and formal checks; time unknown.
+inventory-3-58	technical-low-priority	Self-improving harness framework validated on SWE-bench Lite; time unknown.
+inventory-3-240	technical-low-priority	World-model memory evaluated on maze and limited tactile tasks; time unknown.
+inventory-3-56	technical-low-priority	Chinese enterprise benchmark in synthetic organizations, not deployed enterprise outcomes; time unknown.
+inventory-3-121	technical-low-priority	Reasoning attribution and pruning tested on four small models, registered null finding retained; time unknown.
+inventory-3-189	technical-low-priority	Vision safety benchmark of 375 image-question pairs, tested attack scenarios not real-world frequency; time unknown.
+inventory-3-145	technical-low-priority	MATLAB fine-tuning on 66 examples and laptop iGPU, measured speed penalty; time unknown.
+inventory-3-266	technical-low-priority	Inference policy stratification on selected reasoning benchmarks; time unknown.
+inventory-3-89	priority-followup	Colombo autonomous math claims 50-plus settings and Lean verification; independently check paper and publication time.
+inventory-3-176	technical-low-priority	Quantization safety preregistration across three small models, effects differ by build; time unknown.
+inventory-3-198	technical-low-priority	3D relation study on selected rendered and photographic images; time unknown.
+inventory-3-236	technical-low-priority	HVAC RL compared with stronger controls in four simulations; not universal energy savings; time unknown.
+inventory-3-45	technical-low-priority	Reversibility registry and controlled tests, authors explicitly disavow registry-wide accuracy; time unknown.
+inventory-3-6	technical-low-priority	Weight-programmed sparse associative tables and constrained tasks, pretrained transformers remain more accurate; time unknown.
+inventory-3-160	technical-low-priority	Computational neuroscience working-memory inference theory and simulations, not deployed language-model feature; time unknown.
+inventory-3-43	technical-low-priority	Agent tool and skill bundle composition tested on executed configurations and benchmark; time unknown.
+inventory-3-42	technical-low-priority	SkillBuffBench protocol explicitly says evaluation in progress, do not invent results; time unknown.
+inventory-3-169	technical-low-priority	Watermark robustness under modifications evaluated on two 7B models; time unknown.
+inventory-3-194	technical-low-priority	EgoLink challenge summary of two tracks, cited scores from benchmark; time unknown.
+inventory-3-168	technical-low-priority	Financial sentiment inversion study tests FinBERT eligible cases, not trading losses; time unknown.
+inventory-3-167	technical-low-priority	Sycophancy framework tests 14 models and controlled personas, judge assumptions require scrutiny; time unknown.
+inventory-3-33	technical-low-priority	Simulated agent memory dream hypothesis tested ten days and 30 runs; no claim about biological dreaming; time unknown.
+inventory-3-174	priority-followup	Nevan system-prompt capture: 296 of 363 on artificial flags, not production breach; verify first-public time.
+inventory-3-106	technical-low-priority	User-profile KV caching benchmark uses selected model and synthetic workloads; time unknown.
+inventory-3-215	priority-followup	ALOHA Lightning physical bimanual robot claims >80% per selected task; verify demo/data and date.
+inventory-3-233	technical-low-priority	World model quantization evaluated on JEPA planning tasks; time unknown.
+inventory-3-102	technical-low-priority	MoE diffusion sampler speedup on GB10 with specific model; time unknown.
+inventory-3-39	technical-low-priority	Scientific-discovery agents evaluated on benchmarks and automated judges; novelty claims not independent discoveries; time unknown.
+inventory-3-37	technical-low-priority	Controlled bias injection across five agent topologies, not real deployment frequency; time unknown.
+inventory-3-4	priority-followup	CoT monitorability tested in model organisms with persona-control training, conditions and release time need verification.
+inventory-3-44	technical-low-priority	Shopping-agent reasoning effort across three datasets, no statistically meaningful gain in those setups; time unknown.
+inventory-3-82	technical-low-priority	Early stopping in coding agents saves compute but preregistered quality non-inferiority not established; time unknown.
+inventory-3-127	technical-low-priority	Document-splitting benchmark with planned public release; time unknown.
+inventory-3-245	technical-low-priority	RL reward discovery evaluated in selected simulated environments; time unknown.
+inventory-3-78	technical-low-priority	Coding evidence interpretation study on bounded tasks, no general superiority established; time unknown.
+inventory-3-26	technical-low-priority	Tabular feature engineering rank differences did not survive multiple testing correction; time unknown.
+inventory-3-254	technical-low-priority	Game-theoretic optimization algorithm with assumptions and simulated games; time unknown.
+inventory-3-206	technical-low-priority	Long-video benchmark 310 tasks from 108 videos, evidence reconstruction; time unknown.
+inventory-3-77	technical-low-priority	Synthetic cross-environment agent training evaluated on benchmarks; time unknown.
+inventory-3-264	technical-low-priority	Puzzle-solving looped refiners, results confined to stated tasks; time unknown.
+inventory-3-63	technical-low-priority	Misaligned-agent robustness simulated in Overcooked, not demonstrated real sabotage; time unknown.
+inventory-3-227	priority-followup	Industrial magnetic-levitation controller claims 4kHz real-hardware transfer, verify project and date.
+inventory-3-209	technical-low-priority	Multimodal physics harness evaluated on six VLMs and benchmarks; time unknown.
+inventory-3-84	technical-low-priority	Web research priorities examined in 36 runs on two companies, not broad model ranking; time unknown.

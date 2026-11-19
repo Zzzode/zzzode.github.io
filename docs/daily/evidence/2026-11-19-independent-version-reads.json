@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://arxiv.org/html/2611.22275v1",
+    "startedAt": "2026-11-19T03:39:06.807967+00:00",
+    "status": 200,
+    "segments": 337
+  },
+  {
+    "url": "https://arxiv.org/html/2611.22275v2",
+    "startedAt": "2026-11-19T03:39:07.182212+00:00",
+    "status": 200,
+    "segments": 335
+  },
+  {
+    "url": "https://arxiv.org/html/2611.21885v1",
+    "startedAt": "2026-11-19T03:39:07.467201+00:00",
+    "status": 200,
+    "segments": 756
+  },
+  {
+    "url": "https://arxiv.org/html/2611.21885v2",
+    "startedAt": "2026-11-19T03:39:07.763808+00:00",
+    "status": 200,
+    "segments": 760
+  },
+  {
+    "url": "https://arxiv.org/html/2611.22245v1",
+    "startedAt": "2026-11-19T03:39:08.113556+00:00",
+    "status": 200,
+    "segments": 309
+  },
+  {
+    "url": "https://arxiv.org/html/2611.22245v2",
+    "startedAt": "2026-11-19T03:39:08.258329+00:00",
+    "status": 200,
+    "segments": 311
+  },
+  {
+    "url": "https://arxiv.org/html/2611.22897v1",
+    "startedAt": "2026-11-19T03:39:08.451671+00:00",
+    "status": 200,
+    "segments": 385
+  },
+  {
+    "url": "https://arxiv.org/html/2611.22897v2",
+    "startedAt": "2026-11-19T03:39:08.569668+00:00",
+    "status": 200,
+    "segments": 369
+  }
+]

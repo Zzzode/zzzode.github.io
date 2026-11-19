@@ -1,0 +1,467 @@
+[
+  {
+    "id": "inventory-3-180",
+    "url": "https://arxiv.org/abs/2611.22583",
+    "startedAt": "2026-11-19T03:37:07.359435+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 11:07:31 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-201",
+    "url": "https://arxiv.org/abs/2611.22514",
+    "startedAt": "2026-11-19T03:37:07.360450+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 10:06:56 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-216",
+    "url": "https://arxiv.org/abs/2611.21938",
+    "startedAt": "2026-11-19T03:37:07.361043+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 21:56:17 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-173",
+    "url": "https://arxiv.org/abs/2611.21923",
+    "startedAt": "2026-11-19T03:37:07.361588+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 21:37:45 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-97",
+    "url": "https://arxiv.org/abs/2611.21641",
+    "startedAt": "2026-11-19T03:37:07.362155+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Fri, 25 Sep 2026 18:55:32 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-137",
+    "url": "https://arxiv.org/abs/2611.22947",
+    "startedAt": "2026-11-19T03:37:07.362993+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 15:38:48 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-81",
+    "url": "https://arxiv.org/abs/2611.22897",
+    "startedAt": "2026-11-19T03:37:07.364186+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 15:05:38 UTC",
+      "[v2] Wed, 18 Nov 2026 13:07:39 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-146",
+    "url": "https://arxiv.org/abs/2611.23216",
+    "startedAt": "2026-11-19T03:37:07.365190+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 18:56:42 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-86",
+    "url": "https://arxiv.org/abs/2611.23045",
+    "startedAt": "2026-11-19T03:37:07.694359+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 16:44:38 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-27",
+    "url": "https://arxiv.org/abs/2611.22988",
+    "startedAt": "2026-11-19T03:37:07.704034+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 16:05:22 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-53",
+    "url": "https://arxiv.org/abs/2611.22238",
+    "startedAt": "2026-11-19T03:37:07.704864+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 05:38:53 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-5",
+    "url": "https://arxiv.org/abs/2611.21885",
+    "startedAt": "2026-11-19T03:37:07.710934+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 20:55:08 UTC",
+      "[v2] Wed, 18 Nov 2026 08:57:59 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-8",
+    "url": "https://arxiv.org/abs/2611.22115",
+    "startedAt": "2026-11-19T03:37:07.712989+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 02:58:31 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-111",
+    "url": "https://arxiv.org/abs/2611.22019",
+    "startedAt": "2026-11-19T03:37:07.718848+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 00:17:01 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-30",
+    "url": "https://arxiv.org/abs/2611.14505",
+    "startedAt": "2026-11-19T03:37:07.726731+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 10 Nov 2026 18:55:01 UTC",
+      "[v2] Wed, 11 Nov 2026 05:12:57 UTC",
+      "[v3] Sun, 15 Nov 2026 00:35:07 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-257",
+    "url": "https://arxiv.org/abs/2611.21646",
+    "startedAt": "2026-11-19T03:37:07.730178+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Wed, 14 Oct 2026 13:49:22 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-204",
+    "url": "https://arxiv.org/abs/2611.22709",
+    "startedAt": "2026-11-19T03:37:07.869767+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 12:50:14 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-181",
+    "url": "https://arxiv.org/abs/2611.22612",
+    "startedAt": "2026-11-19T03:37:07.887148+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 11:26:37 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-130",
+    "url": "https://arxiv.org/abs/2611.22480",
+    "startedAt": "2026-11-19T03:37:07.899470+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 09:38:01 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-55",
+    "url": "https://arxiv.org/abs/2611.22245",
+    "startedAt": "2026-11-19T03:37:07.912714+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 05:47:01 UTC",
+      "[v2] Wed, 18 Nov 2026 06:42:29 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-20",
+    "url": "https://arxiv.org/abs/2611.22230",
+    "startedAt": "2026-11-19T03:37:07.920885+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 05:22:24 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-139",
+    "url": "https://arxiv.org/abs/2611.22975",
+    "startedAt": "2026-11-19T03:37:07.951487+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 15:57:22 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-186",
+    "url": "https://arxiv.org/abs/2611.22971",
+    "startedAt": "2026-11-19T03:37:07.982187+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 15:53:58 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-93",
+    "url": "https://arxiv.org/abs/2611.23174",
+    "startedAt": "2026-11-19T03:37:08.011167+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 18:22:01 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-184",
+    "url": "https://arxiv.org/abs/2611.22761",
+    "startedAt": "2026-11-19T03:37:08.068116+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 13:27:57 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-68",
+    "url": "https://arxiv.org/abs/2611.22490",
+    "startedAt": "2026-11-19T03:37:08.074551+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 09:46:16 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-18",
+    "url": "https://arxiv.org/abs/2611.21784",
+    "startedAt": "2026-11-19T03:37:08.096703+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 19:09:35 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-124",
+    "url": "https://arxiv.org/abs/2611.22308",
+    "startedAt": "2026-11-19T03:37:08.119880+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 07:06:25 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-10",
+    "url": "https://arxiv.org/abs/2611.22275",
+    "startedAt": "2026-11-19T03:37:08.151876+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 06:21:03 UTC",
+      "[v2] Wed, 18 Nov 2026 06:46:21 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-142",
+    "url": "https://arxiv.org/abs/2611.23112",
+    "startedAt": "2026-11-19T03:37:08.195066+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 17:33:20 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-88",
+    "url": "https://arxiv.org/abs/2611.23068",
+    "startedAt": "2026-11-19T03:37:08.214106+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 16:57:03 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-46",
+    "url": "https://arxiv.org/abs/2611.22085",
+    "startedAt": "2026-11-19T03:37:08.222959+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 02:12:40 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-217",
+    "url": "https://arxiv.org/abs/2611.22138",
+    "startedAt": "2026-11-19T03:37:08.270253+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 03:24:06 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-165",
+    "url": "https://arxiv.org/abs/2611.23001",
+    "startedAt": "2026-11-19T03:37:08.284264+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 16:16:21 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-54",
+    "url": "https://arxiv.org/abs/2611.22241",
+    "startedAt": "2026-11-19T03:37:08.349611+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 05:43:37 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-218",
+    "url": "https://arxiv.org/abs/2611.22231",
+    "startedAt": "2026-11-19T03:37:08.393246+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 05:28:15 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-9",
+    "url": "https://arxiv.org/abs/2611.22227",
+    "startedAt": "2026-11-19T03:37:08.398928+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 05:18:14 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-183",
+    "url": "https://arxiv.org/abs/2611.22697",
+    "startedAt": "2026-11-19T03:37:08.400365+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 12:40:42 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-12",
+    "url": "https://arxiv.org/abs/2611.23219",
+    "startedAt": "2026-11-19T03:37:08.412833+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 18:57:10 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-11",
+    "url": "https://arxiv.org/abs/2611.23138",
+    "startedAt": "2026-11-19T03:37:08.502864+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 17:55:30 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-80",
+    "url": "https://arxiv.org/abs/2611.22888",
+    "startedAt": "2026-11-19T03:37:08.509835+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 14:58:46 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-193",
+    "url": "https://arxiv.org/abs/2611.21644",
+    "startedAt": "2026-11-19T03:37:08.517352+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Wed, 14 Oct 2026 10:45:36 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-108",
+    "url": "https://arxiv.org/abs/2611.21958",
+    "startedAt": "2026-11-19T03:37:08.518603+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 22:39:25 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-40",
+    "url": "https://arxiv.org/abs/2611.21950",
+    "startedAt": "2026-11-19T03:37:08.550678+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 22:17:37 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-172",
+    "url": "https://arxiv.org/abs/2611.21832",
+    "startedAt": "2026-11-19T03:37:08.552703+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 19:52:38 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-25",
+    "url": "https://arxiv.org/abs/2611.22595",
+    "startedAt": "2026-11-19T03:37:08.584837+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 11:16:13 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-89",
+    "url": "https://arxiv.org/abs/2611.23080",
+    "startedAt": "2026-11-19T03:37:08.693049+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 17:06:23 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-174",
+    "url": "https://arxiv.org/abs/2611.21956",
+    "startedAt": "2026-11-19T03:37:08.696136+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 22:37:31 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-215",
+    "url": "https://arxiv.org/abs/2611.21919",
+    "startedAt": "2026-11-19T03:37:08.701821+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 21:31:18 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-4",
+    "url": "https://arxiv.org/abs/2611.21799",
+    "startedAt": "2026-11-19T03:37:08.711014+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Mon, 16 Nov 2026 19:17:47 UTC"
+    ]
+  },
+  {
+    "id": "inventory-3-227",
+    "url": "https://arxiv.org/abs/2611.23050",
+    "startedAt": "2026-11-19T03:37:08.718319+00:00",
+    "status": 200,
+    "history": [
+      "[v1] Tue, 17 Nov 2026 16:46:26 UTC"
+    ]
+  }
+]
