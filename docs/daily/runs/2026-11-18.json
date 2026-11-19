@@ -6,7 +6,7 @@
   "windowStart": "2026-11-17T02:00:00Z",
   "cutoff": "2026-11-18T02:00:00Z",
   "startedAt": "2026-11-16T02:08:50Z",
-  "completedAt": "2026-11-19T03:14:47Z",
+  "completedAt": "2026-11-19T03:51:21Z",
   "queries": [
     {
       "id": "author-search-0",
@@ -6245,7 +6245,7 @@
       "id": "read-sec-probe-recovered",
       "actor": "author",
       "query": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/",
-      "executedAt": "2026-11-19T02:58:40Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "governance"
@@ -6254,13 +6254,13 @@
       "resultUrls": [
         "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/"
       ],
-      "notes": "Recovered in supplementary review; normal access."
+      "notes": "Recovered in supplementary review; normal access. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-ny-asset-recovered",
       "actor": "author",
       "query": "https://ag.ny.gov/press-release/2026/attorney-general-james-announces-creation-ai-safety-standards-enforcement-and",
-      "executedAt": "2026-11-19T02:58:40Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "governance"
@@ -6269,13 +6269,13 @@
       "resultUrls": [
         "https://ag.ny.gov/press-release/2026/attorney-general-james-announces-creation-ai-safety-standards-enforcement-and"
       ],
-      "notes": "Recovered in supplementary review; normal access."
+      "notes": "Recovered in supplementary review; normal access. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-oregon-openai-recovered",
       "actor": "author",
       "query": "https://www.doj.state.or.us/media-home/news-media-releases/ag-rayfield-files-2b-lawsuit-against-open-ai-launches-keeping-kids-safe-initiative/",
-      "executedAt": "2026-11-19T02:58:40Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "governance"
@@ -6284,13 +6284,13 @@
       "resultUrls": [
         "https://www.doj.state.or.us/media-home/news-media-releases/ag-rayfield-files-2b-lawsuit-against-open-ai-launches-keeping-kids-safe-initiative/"
       ],
-      "notes": "Recovered in supplementary review; normal access."
+      "notes": "Recovered in supplementary review; normal access. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-daydream-tc-recovered",
       "actor": "author",
       "query": "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/",
-      "executedAt": "2026-11-19T02:58:40Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "agents"
@@ -6299,13 +6299,13 @@
       "resultUrls": [
         "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/"
       ],
-      "notes": "Recovered in supplementary review; normal access."
+      "notes": "Recovered in supplementary review; normal access. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-oregon-bloomberg",
       "actor": "author",
       "query": "https://news.bloomberglaw.com/privacy-and-data-security/oregon-slams-openai-with-new-chatbot-harm-kids-safety-suit",
-      "executedAt": "2026-11-19T02:59:49Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "governance"
@@ -6314,13 +6314,13 @@
       "resultUrls": [
         "https://news.bloomberglaw.com/privacy-and-data-security/oregon-slams-openai-with-new-chatbot-harm-kids-safety-suit"
       ],
-      "notes": "Normal access to title, timestamp and opening; remainder requires login."
+      "notes": "Normal access to title, timestamp and opening; remainder requires login. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-oregon-opb",
       "actor": "author",
       "query": "https://www.opb.org/article/2026/11/17/oregon-ag-sues-openai-claims-company-knowingly-endangers-teens/",
-      "executedAt": "2026-11-19T03:00:03Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "governance"
@@ -6329,13 +6329,13 @@
       "resultUrls": [
         "https://www.opb.org/article/2026/11/17/oregon-ag-sues-openai-claims-company-knowingly-endangers-teens/"
       ],
-      "notes": "Normal full read; visible and metadata clocks conflict, not used for window attribution."
+      "notes": "Normal full read; visible and metadata clocks conflict, not used for window attribution. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-grok-newcore",
       "actor": "author",
       "query": "https://newcore.com/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted",
-      "executedAt": "2026-11-19T03:06:47Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "agents",
@@ -6345,13 +6345,13 @@
       "resultUrls": [
         "https://newcore.com/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted"
       ],
-      "notes": "Normal source access; source and chronology limitations retained."
+      "notes": "Normal source access; source and chronology limitations retained. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-grok-ars",
       "actor": "author",
       "query": "https://arstechnica.com/security/2026/11/grok-bot-took-unapproved-actions-ignored-orders-to-stop-and-then-denied-it/",
-      "executedAt": "2026-11-19T03:06:47Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "agents",
@@ -6361,13 +6361,13 @@
       "resultUrls": [
         "https://arstechnica.com/security/2026/11/grok-bot-took-unapproved-actions-ignored-orders-to-stop-and-then-denied-it/"
       ],
-      "notes": "Normal source access; source and chronology limitations retained."
+      "notes": "Normal source access; source and chronology limitations retained. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "read-hopper-report",
       "actor": "author",
       "query": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
-      "executedAt": "2026-11-19T03:07:56Z",
+      "executedAt": "2026-11-19T03:46:31.958Z",
       "method": "open",
       "focus": [
         "business",
@@ -6377,7 +6377,7 @@
       "resultUrls": [
         "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/"
       ],
-      "notes": "Normal read of the cited reporting; management statement pertains to H200."
+      "notes": "Normal read of the cited reporting; management statement pertains to H200. Re-opened at this recorded time; earlier source-observation times were upper bounds."
     },
     {
       "id": "review-sec-daydream",
@@ -11292,7 +11292,7 @@
       "url": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/",
       "publisherKind": "secondary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T02:58:40Z",
+      "retrievedAt": "2026-11-19T03:46:34.036Z",
       "publication": {
         "precision": "interval",
         "earliest": "2026-11-17T21:48:00Z",
@@ -11302,7 +11302,7 @@
           "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/"
         ]
       },
-      "evidence": "TechCrunch reports SEC civil probe into NVIDIA"
+      "evidence": "TechCrunch reports SEC civil probe into NVIDIA Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "ny-asset-recovered",
@@ -11310,7 +11310,7 @@
       "url": "https://ag.ny.gov/press-release/2026/attorney-general-james-announces-creation-ai-safety-standards-enforcement-and",
       "publisherKind": "primary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T02:58:40Z",
+      "retrievedAt": "2026-11-19T03:46:32.677Z",
       "publication": {
         "precision": "date",
         "value": "2026-11-17",
@@ -11319,7 +11319,7 @@
           "https://ag.ny.gov/press-release/2026/attorney-general-james-announces-creation-ai-safety-standards-enforcement-and"
         ]
       },
-      "evidence": "New York AG announces AI ASSET unit"
+      "evidence": "New York AG announces AI ASSET unit Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "oregon-openai-recovered",
@@ -11327,7 +11327,7 @@
       "url": "https://www.doj.state.or.us/media-home/news-media-releases/ag-rayfield-files-2b-lawsuit-against-open-ai-launches-keeping-kids-safe-initiative/",
       "publisherKind": "primary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T02:58:40Z",
+      "retrievedAt": "2026-11-19T03:46:33.375Z",
       "publication": {
         "precision": "date",
         "value": "2026-11-17",
@@ -11336,7 +11336,7 @@
           "https://www.doj.state.or.us/media-home/news-media-releases/ag-rayfield-files-2b-lawsuit-against-open-ai-launches-keeping-kids-safe-initiative/"
         ]
       },
-      "evidence": "Oregon AG files lawsuit against OpenAI"
+      "evidence": "Oregon AG files lawsuit against OpenAI Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "daydream-tc-recovered",
@@ -11344,7 +11344,7 @@
       "url": "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/",
       "publisherKind": "secondary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T02:58:40Z",
+      "retrievedAt": "2026-11-19T03:46:33.015Z",
       "publication": {
         "precision": "interval",
         "earliest": "2026-11-17T16:32:00Z",
@@ -11354,7 +11354,7 @@
           "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/"
         ]
       },
-      "evidence": "TechCrunch reports Daydream Agent launch"
+      "evidence": "TechCrunch reports Daydream Agent launch Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "oregon-bloomberg",
@@ -11362,7 +11362,7 @@
       "url": "https://news.bloomberglaw.com/privacy-and-data-security/oregon-slams-openai-with-new-chatbot-harm-kids-safety-suit",
       "publisherKind": "secondary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T02:59:49Z",
+      "retrievedAt": "2026-11-19T03:46:32.880Z",
       "publication": {
         "precision": "interval",
         "earliest": "2026-11-17T18:20:00Z",
@@ -11372,7 +11372,7 @@
           "https://news.bloomberglaw.com/privacy-and-data-security/oregon-slams-openai-with-new-chatbot-harm-kids-safety-suit"
         ]
       },
-      "evidence": "Normal access to headline, time, and opening paragraphs only; remainder behind login. Oregon AG source supports complaint details."
+      "evidence": "Normal access to headline, time, and opening paragraphs only; remainder behind login. Oregon AG source supports complaint details. Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "oregon-opb",
@@ -11380,8 +11380,8 @@
       "url": "https://www.opb.org/article/2026/11/17/oregon-ag-sues-openai-claims-company-knowingly-endangers-teens/",
       "publisherKind": "secondary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T03:00:03Z",
-      "evidence": "OpenAI spokesperson describes working with experts and building safeguards; source display and metadata clocks conflict."
+      "retrievedAt": "2026-11-19T03:46:33.514Z",
+      "evidence": "OpenAI spokesperson describes working with experts and building safeguards; source display and metadata clocks conflict. Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "grok-newcore",
@@ -11389,7 +11389,7 @@
       "url": "https://newcore.com/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted",
       "publisherKind": "primary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T03:06:47Z",
+      "retrievedAt": "2026-11-19T03:46:32.795Z",
       "publication": {
         "precision": "date",
         "value": "2026-11-17",
@@ -11398,7 +11398,7 @@
           "https://newcore.com/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted"
         ]
       },
-      "evidence": "NewCore says two accounts made 31 unprompted requests; second-account unprompted requests were held and did not reach data. Company sells the gateway used."
+      "evidence": "NewCore says two accounts made 31 unprompted requests; second-account unprompted requests were held and did not reach data. Company sells the gateway used. Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "grok-ars",
@@ -11406,7 +11406,7 @@
       "url": "https://arstechnica.com/security/2026/11/grok-bot-took-unapproved-actions-ignored-orders-to-stop-and-then-denied-it/",
       "publisherKind": "secondary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T03:06:47Z",
+      "retrievedAt": "2026-11-19T03:46:32.579Z",
       "publication": {
         "precision": "interval",
         "earliest": "2026-11-17T13:04:46Z",
@@ -11416,7 +11416,7 @@
           "https://arstechnica.com/security/2026/11/grok-bot-took-unapproved-actions-ignored-orders-to-stop-and-then-denied-it/"
         ]
       },
-      "evidence": "Publication and modification stamps conflict; both within original reporting window. Report describes same NewCore testing, not independent experimental replication."
+      "evidence": "Publication and modification stamps conflict; both within original reporting window. Report describes same NewCore testing, not independent experimental replication. Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     },
     {
       "id": "hopper-report",
@@ -11424,7 +11424,7 @@
       "url": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
       "publisherKind": "secondary",
       "access": "fetched",
-      "retrievedAt": "2026-11-19T03:07:56Z",
+      "retrievedAt": "2026-11-19T03:46:33.729Z",
       "publication": {
         "precision": "interval",
         "earliest": "2026-11-17T23:37:00Z",
@@ -11434,7 +11434,7 @@
           "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/"
         ]
       },
-      "evidence": "Reporter attributes H200 China shipment halt to interim CEO earnings call; specific decision date and duration not established."
+      "evidence": "Reporter attributes H200 China shipment halt to interim CEO earnings call; specific decision date and duration not established. Re-opened at the recorded retrieval time; earlier observation was recorded after the original read."
     }
   ],
   "checks": [
@@ -20291,7 +20291,7 @@
   },
   "review": {
     "reviewer": "reviewer",
-    "reviewedAt": "2026-11-19T03:14:15Z",
+    "reviewedAt": "2026-11-19T03:50:55Z",
     "candidateIds": [
       "openai-62",
       "microsoft-ignite",
@@ -20674,6 +20674,16 @@
         "detail": "This is a correction review with 112 inherited pending candidates, 43 date-watch items, source restrictions, conflicting report metadata and historical source access limits; it is not review of November 19.",
         "severity": "note",
         "resolution": "disclosed"
+      },
+      {
+        "detail": "Nine previously recorded source access times were observation upper bounds; originals were re-opened and exact request/retrieval times corrected. Final metadata and affected rendering await independent re-review.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Nine access-time corrections and affected source/timestamp views were independently rechecked across desktop, tablet and mobile; original publication times are unchanged.",
+        "severity": "note",
+        "resolution": "disclosed"
       }
     ]
   },
@@ -20760,6 +20770,6 @@
     ],
     "limitations": "English and Chinese discovery was broader than French, Spanish, Japanese and Korean; other languages and specialist sources remain limited. Some media, social and research originals were inaccessible; dates without reliable hours, first-publication times and transaction/partnership start times remain uncertain. JEV, Laya and OSC identities are unresolved. Correction review independently read all dispositions and accessible new sources, but did not reread every historical source; 112 leads remain pending and 43 boundary-watch items remain uncertain. Bloomberg Law article remainder requires login; OPB displayed and metadata clocks conflict. SEC investigation is attributed to TechCrunch citing WSJ, whose original was not independently read. Grok research has two-account scope and timestamp metadata conflict; company sells the tested gateway.",
     "originalDate": "2026-11-18T04:56:31.823Z",
-    "sha256": "d015fd4aff510ac496f6ed3c1aac9c63ae04e396950657f4623ddc78e04a0c7b"
+    "sha256": "c52a7189f741cf7e171ad9e9613273409929ea07519c6b8def0062295ffe039c"
   }
 }
