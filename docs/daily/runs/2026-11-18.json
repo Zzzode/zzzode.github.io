@@ -6,7 +6,7 @@
   "windowStart": "2026-11-17T02:00:00Z",
   "cutoff": "2026-11-18T02:00:00Z",
   "startedAt": "2026-11-16T02:08:50Z",
-  "completedAt": "2026-11-18T04:59:00.611Z",
+  "completedAt": "2026-11-19T02:45:26.712Z",
   "queries": [
     {
       "id": "author-search-0",
@@ -6043,6 +6043,171 @@
         "https://blog.google/innovation-and-ai/products/gemini-notebook/interactive-sites/"
       ],
       "notes": "Independent reviewer search; selected results were followed up and assessed individually, and access or time limits are disclosed in the review."
+    },
+    {
+      "id": "correction-2026-11-19",
+      "actor": "author",
+      "query": "Read Wiz and General Atlantic original reporting and publication metadata for prior unresolved candidates",
+      "executedAt": "2026-11-19T02:13:24Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi",
+        "https://www.generalatlantic.com/media-article/model-ml-raises-250-million-at-1-5-billion-valuation-18-months-after-launching-from-stealth/"
+      ],
+      "notes": "Fresh read; source timestamps are announcement and first report, not the incident or closing time."
+    },
+    {
+      "id": "correction-nvidia-2026-11-19",
+      "actor": "author",
+      "query": "https://www.globenewswire.com/de/news-release/2026/11/17/3404362/0/en/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee.html",
+      "executedAt": "2026-11-19T02:14:41Z",
+      "method": "open",
+      "focus": [
+        "governance"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.globenewswire.com/de/news-release/2026/11/17/3404362/0/en/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee.html"
+      ],
+      "notes": "Fresh read of NVIDIA release and publication minute."
+    },
+    {
+      "id": "correction-vals-2026-11-19",
+      "actor": "author",
+      "query": "Vals AI civilians military target autonomous weapons November 17 original report and independent coverage",
+      "executedAt": "2026-11-19T02:16:29Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "governance"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://techcrunch.com/2026/11/17/ai-models-can-be-tricked-into-identifying-civilians-as-military-targets-by-telling-them-its-a-game/",
+        "https://www.vals.ai/blogs/autonomous-warfare"
+      ],
+      "notes": "Recovered November 19; original research read by direct HTTP, reporting time is separate from first publication."
+    },
+    {
+      "id": "correction-gemini-privacy-2026-11-19",
+      "actor": "author",
+      "query": "Read TechCrunch report on Gemini chat retention, recovered by reviewer",
+      "executedAt": "2026-11-19T02:26:20Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "products"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/"
+      ],
+      "notes": "Freshly recovered report; original and later modifications are distinct."
+    },
+    {
+      "id": "correction-gemini-tasks-2026-11-19",
+      "actor": "author",
+      "query": "Read 9to5Google report on free Gemini Tasks recovered by reviewer",
+      "executedAt": "2026-11-19T02:32:25Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://9to5google.com/2026/11/17/gemini-tasks-free/"
+      ],
+      "notes": "Freshly recovered prior-window reporting; compare product access with region-specific feature rollouts."
+    },
+    {
+      "id": "correction-lumo-2026-11-19",
+      "actor": "author",
+      "query": "Read TechCrunch report on Proton Lumo Desktop",
+      "executedAt": "2026-11-19T02:34:34Z",
+      "method": "open",
+      "focus": [
+        "products",
+        "agents"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/"
+      ],
+      "notes": "Fresh prior-window report discovered in November 19 review."
+    },
+    {
+      "id": "correction-bny-2026-11-19",
+      "actor": "author",
+      "query": "Read BNY announcement on agentic Treasury trade negotiation",
+      "executedAt": "2026-11-19T02:36:31Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-and-microsoft-complete-first-agentic-negotiation-of-a-us-treasury-trade.html",
+        "https://ca.finance.yahoo.com/news/ai-agents-bond-market-arrive-120007777.html"
+      ],
+      "notes": "Original announcement date only; Bloomberg syndicated report inaccessible with HTTP 429."
+    },
+    {
+      "id": "correction-review-lumo",
+      "actor": "reviewer",
+      "query": "Proton Lumo desktop agent apps November 17 2026 privacy sandbox local",
+      "executedAt": "2026-11-19T02:35:07Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://proton.me/blog/lumo-desktop-features",
+        "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/"
+      ],
+      "notes": "Independent supplementary search of original announcement and reporting."
+    },
+    {
+      "id": "correction-review-bny1",
+      "actor": "reviewer",
+      "query": "\"BNY\" \"Microsoft\" \"Treasury\" \"November 17, 2026\" AI trade  agent",
+      "executedAt": "2026-11-19T02:36:08Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-and-microsoft-complete-first-agentic-negotiation-of-a-us-treasury-trade.html",
+        "https://ca.finance.yahoo.com/news/ai-agents-bond-market-arrive-120007777.html"
+      ],
+      "notes": "Independent supplementary search; Yahoo direct open returned 429."
+    },
+    {
+      "id": "correction-review-bny2",
+      "actor": "reviewer",
+      "query": "\"BNY\" \"Microsoft\" \"agentic negotiation\" 2026 17 November pilot",
+      "executedAt": "2026-11-19T02:36:08Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-and-microsoft-complete-first-agentic-negotiation-of-a-us-treasury-trade.html",
+        "https://ca.finance.yahoo.com/news/ai-agents-bond-market-arrive-120007777.html"
+      ],
+      "notes": "Independent supplementary search; Yahoo direct open returned 429."
     }
   ],
   "sources": [
@@ -10718,6 +10883,173 @@
       "access": "fetched",
       "retrievedAt": "2026-11-18T04:56:22.660983+00:00",
       "evidence": "Reviewer read original paper metadata and title; first public availability and scope of empirical conclusions remain unverified."
+    },
+    {
+      "id": "wiz-prior-correction",
+      "title": "Wiz: Microsoft agent-framework compromise",
+      "url": "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:13:24Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-17T22:03:37Z",
+        "basis": "Wiz HTML article:published_time. Current article contains a separately dated November 18 update; initial disclosure is supported by the earlier Chainguard article as well.",
+        "sourceUrls": [
+          "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi"
+        ]
+      },
+      "evidence": "Wiz reports malicious 1.26.1 and 1.26.2, removed by about 21:30Z; article includes later update explicitly dated Nov 18 14:00Z."
+    },
+    {
+      "id": "model-ml-investor-revisited",
+      "title": "General Atlantic: Model ML Series B",
+      "url": "https://www.generalatlantic.com/media-article/model-ml-raises-250-million-at-1-5-billion-valuation-18-months-after-launching-from-stealth/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:13:24Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-17T12:00:38Z",
+        "basis": "Investor article:published_time metadata; announcement time, not financing close.",
+        "sourceUrls": [
+          "https://www.generalatlantic.com/media-article/model-ml-raises-250-million-at-1-5-billion-valuation-18-months-after-launching-from-stealth/"
+        ]
+      },
+      "evidence": "Investor says Model ML raised $250m Series B at $1.5bn valuation, co-led by General Atlantic and QED."
+    },
+    {
+      "id": "nvidia-board-revisited",
+      "title": "NVIDIA board security oversight committee",
+      "url": "https://www.globenewswire.com/de/news-release/2026/11/17/3404362/0/en/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:14:41Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-17T10:00:00Z",
+        "latest": "2026-11-17T10:00:59.999Z",
+        "basis": "NVIDIA press release dated November 17 05:00 ET; minute precision.",
+        "sourceUrls": [
+          "https://www.globenewswire.com/de/news-release/2026/11/17/3404362/0/en/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee.html"
+        ]
+      },
+      "evidence": "NVIDIA announced a standing board committee for security and export-control oversight."
+    },
+    {
+      "id": "vals-report-recovered",
+      "title": "Vals autonomous warfare research",
+      "url": "https://www.vals.ai/blogs/autonomous-warfare",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:16:36Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-17",
+        "basis": "Vals page metadata date without evidenced timezone or hour.",
+        "sourceUrls": [
+          "https://www.vals.ai/blogs/autonomous-warfare"
+        ]
+      },
+      "evidence": "Tests simulated situations and imagery, not real deployment or direct strike decisions."
+    },
+    {
+      "id": "vals-techcrunch-recovered",
+      "title": "TechCrunch reports Vals evaluation",
+      "url": "https://techcrunch.com/2026/11/17/ai-models-can-be-tricked-into-identifying-civilians-as-military-targets-by-telling-them-its-a-game/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:16:29Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-17T17:20:00Z",
+        "latest": "2026-11-17T17:20:59.999Z",
+        "basis": "TechCrunch published report Nov 17 09:20 PST, minute precision. Event is reporting on the Vals study, not exact initial study publication.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/17/ai-models-can-be-tricked-into-identifying-civilians-as-military-targets-by-telling-them-its-a-game/"
+        ]
+      },
+      "evidence": "Report presents researchers’ results and model developer responses; explicit limits on scenarios and strike decisions."
+    },
+    {
+      "id": "gemini-privacy-recovered",
+      "title": "TechCrunch reports Gemini retention change",
+      "url": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:26:20Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-17T18:48:00Z",
+        "latest": "2026-11-17T18:48:59.999Z",
+        "basis": "TechCrunch report published Nov 17 10:48 PST; reporting event rather than when changes take effect.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/"
+        ]
+      },
+      "evidence": "Reports temporary Gemini chats and history-off conversations retained about two months versus 72 hours; rollout over coming weeks."
+    },
+    {
+      "id": "gemini-tasks-recovered",
+      "title": "9to5Google reports Gemini Tasks access",
+      "url": "https://9to5google.com/2026/11/17/gemini-tasks-free/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:32:25Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-17T17:20:00Z",
+        "latest": "2026-11-17T17:20:59.999Z",
+        "basis": "9to5Google report Nov 17 09:20 PT; report time, not exact rollout or feature availability instant.",
+        "sourceUrls": [
+          "https://9to5google.com/2026/11/17/gemini-tasks-free/"
+        ]
+      },
+      "evidence": "Report says free Tasks are available in US, Japan, Korea, Canada, Australia, India; purchase requires user confirmation."
+    },
+    {
+      "id": "lumo-recovered",
+      "title": "TechCrunch reports Lumo Desktop",
+      "url": "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:34:34Z",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-17T17:32:00Z",
+        "latest": "2026-11-17T17:32:59.999Z",
+        "basis": "TechCrunch report Nov 17 09:32 PST; reporting time, not exact rollout instant.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/"
+        ]
+      },
+      "evidence": "Report describes Windows, macOS and Linux desktop app, connected apps, files, and user controls."
+    },
+    {
+      "id": "bny-recovered",
+      "title": "BNY and Microsoft Treasury trade negotiation pilot",
+      "url": "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-and-microsoft-complete-first-agentic-negotiation-of-a-us-treasury-trade.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-19T02:36:31Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-17",
+        "basis": "BNY official announcement shows November 17 without evidenced timezone or hour.",
+        "sourceUrls": [
+          "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-and-microsoft-complete-first-agentic-negotiation-of-a-us-treasury-trade.html"
+        ]
+      },
+      "evidence": "BNY says agents negotiated a pilot Treasury bill trade; human traders reviewed, approved and executed."
+    },
+    {
+      "id": "bny-bloomberg-access-failed",
+      "title": "Bloomberg BNY pilot syndicated on Yahoo",
+      "url": "https://ca.finance.yahoo.com/news/ai-agents-bond-market-arrive-120007777.html",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-19T02:36:31Z",
+      "evidence": "Direct web access returned HTTP 429. Search output alone is not a fetched report."
     }
   ],
   "checks": [
@@ -11341,26 +11673,27 @@
       "title": "TechCrunch 报道 Model ML 获 2.5 亿美元 B 轮",
       "category": "business",
       "entity": "TechCrunch 报道 Model ML 获 2.5 亿美元 B 轮",
-      "releaseStatus": "reported",
+      "releaseStatus": "announced",
       "queryIds": [
-        "author-search-2"
+        "author-search-2",
+        "correction-2026-11-19"
       ],
       "sourceIds": [
         "model-ml",
-        "model-ml-investor-blocked"
+        "model-ml-investor-blocked",
+        "model-ml-investor-revisited"
       ],
       "eventTime": {
-        "precision": "interval",
-        "earliest": "2026-11-17T19:32:00Z",
-        "latest": "2026-11-17T19:32:59.999Z",
-        "basis": "TechCrunch posted Nov 17 11:32 PST; reporting event rather than deal or original announcement instant.",
+        "precision": "instant",
+        "value": "2026-11-17T12:00:38Z",
+        "basis": "Investor article:published_time metadata; announcement time, not financing close.",
         "sourceUrls": [
-          "https://techcrunch.com/2026/11/17/model-ml-raises-250m-to-automate-investment-banking-grunt-work/"
+          "https://www.generalatlantic.com/media-article/model-ml-raises-250-million-at-1-5-billion-valuation-18-months-after-launching-from-stealth/"
         ]
       },
-      "decision": "pending",
-      "reasonCode": "time_uncertain",
-      "reason": "The investor announcement preceded or accompanied the TechCrunch report. The 19:32Z report alone does not establish a new disclosure; original announcement time remains unverified and investor page was inaccessible.",
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Freshly retrieved dated original resolves this event within the November 18 issue; assessment changed on November 19.",
       "importance": "Enterprise financial-workflow agent financing.",
       "reportedEvidence": {
         "sourceIds": [
@@ -11368,7 +11701,31 @@
         ],
         "attribution": "Identified reporting outlet and named sources in the article.",
         "limitations": "Reporting event rather than verified closing or first announcement; company claims are attributed."
-      }
+      },
+      "priorAssessments": [
+        {
+          "snapshotAt": "2026-11-19T02:13:55Z",
+          "decision": "pending",
+          "reasonCode": "time_uncertain",
+          "reason": "The investor announcement preceded or accompanied the TechCrunch report. The 19:32Z report alone does not establish a new disclosure; original announcement time remains unverified and investor page was inaccessible.",
+          "queryIds": [
+            "author-search-2"
+          ],
+          "sourceIds": [
+            "model-ml",
+            "model-ml-investor-blocked"
+          ],
+          "eventTime": {
+            "precision": "interval",
+            "earliest": "2026-11-17T19:32:00Z",
+            "latest": "2026-11-17T19:32:59.999Z",
+            "basis": "TechCrunch posted Nov 17 11:32 PST; reporting event rather than deal or original announcement instant.",
+            "sourceUrls": [
+              "https://techcrunch.com/2026/11/17/model-ml-raises-250m-to-automate-investment-banking-grunt-work/"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "promise",
@@ -11460,23 +11817,47 @@
       "entity": "安全公司披露 Agent Framework 恶意包",
       "releaseStatus": "reported",
       "queryIds": [
-        "author-search-3"
+        "author-search-3",
+        "correction-2026-11-19"
       ],
       "sourceIds": [
-        "agent-framework"
+        "agent-framework",
+        "wiz-prior-correction"
       ],
       "eventTime": {
-        "precision": "date",
-        "value": "2026-11-17",
-        "basis": "Disclosure article gives Nov 17 date only; upload times are distinct from publication time.",
+        "precision": "instant",
+        "value": "2026-11-17T22:03:37Z",
+        "basis": "Wiz HTML article:published_time. Current article contains a separately dated November 18 update; initial disclosure is supported by the earlier Chainguard article as well.",
         "sourceUrls": [
-          "https://www.chainguard.dev/unchained/microsoft-agent-framework-compromised-on-pypi-november-2026"
+          "https://www.wiz.io/blog/malicious-version-of-microsofts-agent-framework-published-to-pypi"
         ]
       },
-      "decision": "watch",
-      "reasonCode": "time_uncertain",
-      "reason": "Disclosure publication date crosses start; uploads reported at 20:35 and 21:08 UTC but do not prove publication before cutoff.",
-      "importance": "Consequential agent ecosystem supply-chain risk."
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Freshly retrieved dated original resolves this event within the November 18 issue; assessment changed on November 19.",
+      "importance": "Consequential agent ecosystem supply-chain risk.",
+      "priorAssessments": [
+        {
+          "snapshotAt": "2026-11-19T02:13:55Z",
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "Disclosure publication date crosses start; uploads reported at 20:35 and 21:08 UTC but do not prove publication before cutoff.",
+          "queryIds": [
+            "author-search-3"
+          ],
+          "sourceIds": [
+            "agent-framework"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-17",
+            "basis": "Disclosure article gives Nov 17 date only; upload times are distinct from publication time.",
+            "sourceUrls": [
+              "https://www.chainguard.dev/unchained/microsoft-agent-framework-compromised-on-pypi-november-2026"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "eu-calls",
@@ -12388,25 +12769,52 @@
       "entity": "英伟达设立董事会国家安全委员会，出口管制合规升至董事会层级",
       "releaseStatus": "announced",
       "queryIds": [
-        "roundup-open"
+        "roundup-open",
+        "correction-nvidia-2026-11-19"
       ],
       "sourceIds": [
         "roundup",
         "review-extra-34",
-        "nv-board"
+        "nv-board",
+        "nvidia-board-revisited"
       ],
-      "decision": "watch",
-      "reasonCode": "time_uncertain",
-      "reason": "Important announcement date crosses start of current window; precise release time remains unverified. Company creates board committee to oversee national security and export controls.",
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Fresh release time resolves the original November 18 window; decision revised November 19.",
       "importance": "Potentially relevant result retained before filtering.",
       "eventTime": {
-        "precision": "date",
-        "value": "2026-11-17",
-        "basis": "Primary page provides date but no evidenced timezone or time.",
+        "precision": "interval",
+        "earliest": "2026-11-17T10:00:00Z",
+        "latest": "2026-11-17T10:00:59.999Z",
+        "basis": "NVIDIA press release dated November 17 05:00 ET; minute precision.",
         "sourceUrls": [
-          "https://nvidianews.nvidia.com/news/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee"
+          "https://www.globenewswire.com/de/news-release/2026/11/17/3404362/0/en/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee.html"
         ]
-      }
+      },
+      "priorAssessments": [
+        {
+          "snapshotAt": "2026-11-19T02:14:47Z",
+          "decision": "watch",
+          "reasonCode": "time_uncertain",
+          "reason": "Important announcement date crosses start of current window; precise release time remains unverified. Company creates board committee to oversee national security and export controls.",
+          "queryIds": [
+            "roundup-open"
+          ],
+          "sourceIds": [
+            "roundup",
+            "review-extra-34",
+            "nv-board"
+          ],
+          "eventTime": {
+            "precision": "date",
+            "value": "2026-11-17",
+            "basis": "Primary page provides date but no evidenced timezone or time.",
+            "sourceUrls": [
+              "https://nvidianews.nvidia.com/news/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "roundup-35",
@@ -19056,6 +19464,165 @@
       "reasonCode": "time_uncertain",
       "reason": "Preprint from independently reviewed index; submission/citation metadata does not prove first public availability or an in-window disclosure.",
       "importance": "Specialized agent security, evaluation or software engineering research; retained for editorial assessment."
+    },
+    {
+      "id": "vals-autonomous-weapons-recovered",
+      "title": "报道：Vals 评测模型识别军事目标的防护",
+      "category": "research",
+      "entity": "Vals AI",
+      "releaseStatus": "research",
+      "queryIds": [
+        "correction-vals-2026-11-19"
+      ],
+      "sourceIds": [
+        "vals-report-recovered",
+        "vals-techcrunch-recovered"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-17T17:20:00Z",
+        "latest": "2026-11-17T17:20:59.999Z",
+        "basis": "TechCrunch published report Nov 17 09:20 PST, minute precision. Event is reporting on the Vals study, not exact initial study publication.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/17/ai-models-can-be-tricked-into-identifying-civilians-as-military-targets-by-telling-them-its-a-game/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered November 19; attributed reporting event in prior window. Do not claim original study was assessed in prior run.",
+      "importance": "Independent safety evaluation of models in simulated military-targeting contexts.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "vals-techcrunch-recovered"
+        ],
+        "attribution": "TechCrunch reports Vals research and developer responses.",
+        "limitations": "Simulation and imagery, not real-world deployment, strike decisions or field accuracy."
+      }
+    },
+    {
+      "id": "gemini-privacy-recovered",
+      "title": "报道：Gemini 延长临时聊天保留期",
+      "category": "governance",
+      "entity": "Google Gemini",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "correction-gemini-privacy-2026-11-19"
+      ],
+      "sourceIds": [
+        "gemini-privacy-recovered"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-17T18:48:00Z",
+        "latest": "2026-11-17T18:48:59.999Z",
+        "basis": "TechCrunch report published Nov 17 10:48 PST; reporting event rather than when changes take effect.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered during November 19 review; report was published in the prior issue window, not newly identified in the original run.",
+      "importance": "Change affects retention of user conversations even when chat history is off.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "gemini-privacy-recovered"
+        ],
+        "attribution": "TechCrunch report on Google policy and privacy documentation.",
+        "limitations": "Reporting date is not the implementation date; rollout was described as upcoming."
+      }
+    },
+    {
+      "id": "gemini-tasks-recovered",
+      "title": "报道：Gemini Tasks 在六国向免费用户开放",
+      "category": "agents",
+      "entity": "Google Gemini",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "correction-gemini-tasks-2026-11-19"
+      ],
+      "sourceIds": [
+        "gemini-tasks-recovered"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-17T17:20:00Z",
+        "latest": "2026-11-17T17:20:59.999Z",
+        "basis": "9to5Google report Nov 17 09:20 PT; report time, not exact rollout or feature availability instant.",
+        "sourceUrls": [
+          "https://9to5google.com/2026/11/17/gemini-tasks-free/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered November 19; report falls in prior issue window, not newly assessed during original run.",
+      "importance": "Expansion of consumer agent access across six countries.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "gemini-tasks-recovered"
+        ],
+        "attribution": "9to5Google reports Google product announcement.",
+        "limitations": "Report publication time is not exact rollout time; regional access and capabilities differ."
+      }
+    },
+    {
+      "id": "lumo-recovered",
+      "title": "报道：Proton Lumo 推出桌面版",
+      "category": "agents",
+      "entity": "Proton",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "correction-lumo-2026-11-19"
+      ],
+      "sourceIds": [
+        "lumo-recovered"
+      ],
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-17T17:32:00Z",
+        "latest": "2026-11-17T17:32:59.999Z",
+        "basis": "TechCrunch report Nov 17 09:32 PST; reporting time, not exact rollout instant.",
+        "sourceUrls": [
+          "https://techcrunch.com/2026/11/17/protons-lumo-a-privacy-focused-alternative-to-chatgpt-and-claude-arrives-on-desktop/"
+        ]
+      },
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "Recovered November 19; report falls in original November 18 issue window.",
+      "importance": "Independent provider launches desktop assistant with granular agent permissions.",
+      "reportedEvidence": {
+        "sourceIds": [
+          "lumo-recovered"
+        ],
+        "attribution": "TechCrunch report on Proton announcement.",
+        "limitations": "Report time is not exact product rollout; privacy and security claims are provider descriptions."
+      }
+    },
+    {
+      "id": "bny-recovered",
+      "title": "BNY 与微软公布智能体国债交易谈判试点",
+      "category": "agents",
+      "entity": "BNY and Microsoft",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "correction-bny-2026-11-19"
+      ],
+      "sourceIds": [
+        "bny-recovered",
+        "bny-bloomberg-access-failed"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-17",
+        "basis": "BNY official announcement shows November 17 without evidenced timezone or hour.",
+        "sourceUrls": [
+          "https://www.bny.com/corporate/global/en/about-us/newsroom/press-release/bny-and-microsoft-complete-first-agentic-negotiation-of-a-us-treasury-trade.html"
+        ]
+      },
+      "decision": "watch",
+      "reasonCode": "time_uncertain",
+      "reason": "Recovered November 19; BNY date only overlaps original issue start. Bloomberg syndication was inaccessible; timestamped search alone does not establish exact original release.",
+      "importance": "Financial agent negotiation pilot with human approval and execution."
     }
   ],
   "coverage": [
@@ -19134,7 +19701,7 @@
   },
   "review": {
     "reviewer": "reviewer",
-    "reviewedAt": "2026-11-18T04:57:44.018751+00:00",
+    "reviewedAt": "2026-11-19T02:43:17Z",
     "candidateIds": [
       "openai-62",
       "microsoft-ignite",
@@ -19406,7 +19973,12 @@
       "mindpaper-2611-21235",
       "mindpaper-2611-21407",
       "mindpaper-2611-21515",
-      "mindpaper-2611-21519"
+      "mindpaper-2611-21519",
+      "vals-autonomous-weapons-recovered",
+      "gemini-privacy-recovered",
+      "gemini-tasks-recovered",
+      "lumo-recovered",
+      "bny-recovered"
     ],
     "queryIds": [
       "review-search-6",
@@ -19450,7 +20022,10 @@
       "audit-kotoba",
       "audit-tensor",
       "audit-google",
-      "audit-notebook"
+      "audit-notebook",
+      "correction-review-lumo",
+      "correction-review-bny1",
+      "correction-review-bny2"
     ],
     "verdict": "pass_with_limits",
     "report": "docs/daily/reviews/2026-11-18.md",
@@ -19474,6 +20049,16 @@
         "detail": "JEV, Laya and OSC identities remain unconfirmed; sources with date-only publication and uncertain transaction, partnership or disclosure dates remain in pending or watch as appropriate.",
         "severity": "note",
         "resolution": "disclosed"
+      },
+      {
+        "detail": "Independent correction review covered all 276 candidate dispositions and revised facts; affected actual rendering passed with disclosed limits in review appendix.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "112 inherited candidates remain pending, 42 boundary-watch items remain separate; historical originals including ABC ARTEX could not all be reread in this correction, and multilingual discovery is bounded.",
+        "severity": "note",
+        "resolution": "disclosed"
       }
     ]
   },
@@ -19486,11 +20071,18 @@
       "sglang-hopper",
       "vllm-mla-fix",
       "perplexity-orchestrator",
+      "gemini-tasks-recovered",
+      "lumo-recovered",
+      "vals-autonomous-weapons-recovered",
+      "gemini-privacy-recovered",
       "nv-earnings",
+      "agent-framework",
       "edge-76",
+      "roundup-34",
       "roundup-26",
       "abc-artex-fbi",
       "isomorphic",
+      "model-ml",
       "aevius-funding",
       "genesis",
       "promise",
@@ -19503,7 +20095,6 @@
     ],
     "watchCandidateIds": [
       "google-robotics",
-      "agent-framework",
       "eu-calls",
       "bluepoint",
       "roundup-11",
@@ -19511,7 +20102,6 @@
       "roundup-30",
       "roundup-31",
       "roundup-32",
-      "roundup-34",
       "roundup-37",
       "reflection-laser",
       "remanence",
@@ -19544,9 +20134,11 @@
       "prior-itu-pledge",
       "ecb-ai-risk",
       "openai-control-taxonomy",
-      "together-compiler"
+      "together-compiler",
+      "bny-recovered"
     ],
-    "limitations": "English and Chinese discovery was broader than French, Spanish, Japanese and Korean; other languages and specialist sources remain limited. Some media, social and research originals were inaccessible; dates without reliable hours, first-publication times and transaction/partnership start times remain uncertain. JEV, Laya and OSC identities are unresolved.",
-    "sha256": "4edfdef753c9906e20c0f6074cb5c3d8322041c6ba4925dd8e7ddfa16aef4f23"
+    "limitations": "English and Chinese discovery was broader than French, Spanish, Japanese and Korean; other languages and specialist sources remain limited. Some media, social and research originals were inaccessible; dates without reliable hours, first-publication times and transaction/partnership start times remain uncertain. JEV, Laya and OSC identities are unresolved. Correction review independently read all dispositions and accessible new sources, but did not reread every historical source; 112 leads remain pending and 42 boundary-watch items remain uncertain.",
+    "originalDate": "2026-11-18T04:56:31.823Z",
+    "sha256": "9736f57537f028a1d7a5b55ef67ce77e8963036b6566bff202880d652657a392"
   }
 }
