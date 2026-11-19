@@ -156,7 +156,6 @@ const dict = {
     'tags.lead': '按标签浏览全部文章。',
     'tags.count': '篇',
     'tags.back': '所有标签',
-    'tags.empty': '这个标签下暂时没有文章。',
     'tags.none': '还没有标签。',
     'tags.browse': '按标签浏览',
 
@@ -368,7 +367,6 @@ const dict = {
     'tags.lead': 'Browse every post by tag.',
     'tags.count': 'posts',
     'tags.back': 'All tags',
-    'tags.empty': 'Nothing filed under this tag yet.',
     'tags.none': 'No tags yet.',
     'tags.browse': 'Browse by tag',
 

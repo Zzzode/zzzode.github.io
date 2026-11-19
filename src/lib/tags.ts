@@ -1,17 +1,11 @@
-import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
-import { getLocalized, slugOfId } from './content';
+import { getLocalized, getWritingPosts, slugOfId } from './content';
 import type { Entry } from './entries';
 import { formatDate } from './format';
 
-/** Published posts of one locale, newest first. */
-async function publishedPosts(lang: Lang): Promise<CollectionEntry<'posts'>[]> {
-  return getLocalized('posts', lang);
-}
-
-/** Tag usage counts for one locale, most-used first. */
-export async function getTags(lang: Lang): Promise<{ tag: string; count: number }[]> {
-  const posts = await publishedPosts(lang);
+/** Count writing tags by default. Include Daily tags when generating legacy tag routes. */
+export async function getTags(lang: Lang, { includeDaily = false } = {}): Promise<{ tag: string; count: number }[]> {
+  const posts = includeDaily ? await getLocalized('posts', lang) : await getWritingPosts(lang);
   const counts = new Map<string, number>();
   for (const post of posts) {
     for (const tag of post.data.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
@@ -24,13 +18,13 @@ export async function getTags(lang: Lang): Promise<{ tag: string; count: number 
 /** Entries carrying one tag in one locale, newest first. */
 export async function getEntriesByTag(lang: Lang, tag: string): Promise<Entry[]> {
   const prefix = lang === 'en' ? '/en' : '';
-  const posts = await publishedPosts(lang);
+  const posts = await getWritingPosts(lang);
   return posts
     .filter((post) => post.data.tags.includes(tag))
     .map((post) => ({
       title: post.data.title,
       dateValue: post.data.date,
-      meta: post.data.daily?.issueDate ?? formatDate(post.data.date, lang),
+      meta: formatDate(post.data.date, lang),
       excerpt: post.data.excerpt,
       tags: post.data.tags,
       href: `${prefix}/posts/${slugOfId(post.id)}/`,

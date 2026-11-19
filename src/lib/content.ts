@@ -3,7 +3,7 @@ import type { Lang } from '../i18n/ui';
 import { t } from '../i18n/ui';
 import type { Entry } from './entries';
 import { formatDate } from './format';
-import { isPublicPost, newestFirst, validateDailyIdentities } from './post-policy';
+import { isDaily, isPublicPost, newestFirst, validateDailyIdentities } from './post-policy';
 
 export type SectionName = 'publications' | 'talks' | 'teaching' | 'posts';
 
@@ -34,6 +34,11 @@ export async function getLocalized<C extends SectionName>(name: C, lang: Lang) {
       (b.data as { date: Date }).date.getTime() - (a.data as { date: Date }).date.getTime()
     );
   });
+}
+
+/** Public posts for the writing archive and its tag pages. */
+export async function getWritingPosts(lang: Lang) {
+  return (await getLocalized('posts', lang)).filter((post) => !isDaily(post));
 }
 
 /** Find a post's translation pair by shared slug (same filename under zh/ and en/). */
@@ -68,7 +73,7 @@ function talkMeta(data: CollectionEntry<'talks'>['data'], lang: Lang): string {
 
 /** Map a localized collection into the view model consumed by EntryList. */
 export async function getEntries(name: SectionName, lang: Lang): Promise<Entry[]> {
-  const items = await getLocalized(name, lang);
+  const items = name === 'posts' ? await getWritingPosts(lang) : await getLocalized(name, lang);
 
   return items.map((item) => {
     const prefix = lang === 'en' ? '/en' : '';
@@ -109,7 +114,7 @@ export async function getEntries(name: SectionName, lang: Lang): Promise<Entry[]
     const d = item.data as CollectionEntry<'posts'>['data'];
     return {
       title: d.title,
-      meta: d.daily?.issueDate ?? formatDate(d.date, lang),
+      meta: formatDate(d.date, lang),
       excerpt: d.excerpt,
       tags: d.tags,
       href: `${prefix}/posts/${slugOfId(item.id)}/`,

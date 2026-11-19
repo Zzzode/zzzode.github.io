@@ -1,13 +1,15 @@
 ---
 import TagsPage from '../../../components/pages/TagsPage.astro';
-import { getTags } from '../../../lib/tags';
+import { getEntriesByTag, getTags } from '../../../lib/tags';
 
 export async function getStaticPaths() {
-  const tags = await getTags('zh');
+  const tags = await getTags('zh', { includeDaily: true });
   return tags.map(({ tag }) => ({ params: { tag } }));
 }
 
 const { tag } = Astro.params;
+const entries = await getEntriesByTag('zh', tag);
+if (entries.length === 0) return Astro.redirect('/daily/');
 ---
 
-<TagsPage lang="zh" tag={tag} />
+<TagsPage lang="zh" tagged={{ tag, entries }} />

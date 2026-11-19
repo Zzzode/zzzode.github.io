@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import { parse } from 'parse5';
 import { dailyFixture, fixtureMdx } from '../tests/fixtures/daily.mjs';
 const source = fileURLToPath(new URL('../', import.meta.url));
 const root = await mkdtemp(path.join(tmpdir(), 'ai-daily-review-'));
@@ -28,6 +29,7 @@ for (let i = 1; i <= 16; i++) {
   const day = `2000-01-${String(i).padStart(2,'0')}`;
   const fixture = dailyFixture(day);
   if (i === 16) {
+    fixture.tags.push('fixture-shared');
     const eventEvidence = { precision: 'date', value: day, basis: 'TEST FIXTURE date only', sourceUrls: fixture.daily.items[0].sourceUrls };
     fixture.daily.pending = [{ ...fixture.daily.items[0], title: 'TEST FIXTURE date-only preview', eventEvidence, releaseStatus: 'preview', uncertainty: 'TEST FIXTURE boundary uncertainty' }];
     delete fixture.daily.pending[0].eventTime;
@@ -45,8 +47,44 @@ const draftDaily = {...dailyFixture('2000-01-17'), draft: true};
 await writeFile(path.join(zh, '2000-01-17-ai-daily.mdx'), fixtureMdx(draftDaily));
 // A private translation must not enable a public language toggle.
 await writeFile(path.join(en, '2000-01-16-ai-daily.mdx'), fixtureMdx({...dailyFixture(), draft: true}));
+const translatedDaily = dailyFixture('2000-01-15');
+translatedDaily.tags.push('fixture-shared');
+await writeFile(path.join(en, '2000-01-15-ai-daily.mdx'), fixtureMdx(translatedDaily));
+for (const folder of [zh, en]) {
+  await writeFile(path.join(folder, 'writing-fixture.md'), '---\ntitle: FIXTURE WRITING\ndate: 2000-01-01\ntags: [fixture-shared]\n---\nWriting archive fixture.');
+}
 execFileSync('npm', ['run','build'], {cwd:root, env:{...process.env,ASTRO_TELEMETRY_DISABLED:'1'},stdio:'pipe'});
 const read = route => readFile(path.join(root,'dist',route),'utf8');
+
+function* linkTargets(node) {
+  if (node.tagName === 'a') yield node.attrs.find(({ name }) => name === 'href')?.value;
+  for (const child of node.childNodes ?? []) yield* linkTargets(child);
+}
+const linksOn = async route => new Set(linkTargets(parse(await read(route))));
+
+for (const [prefix, issue] of [['', '2000-01-16'], ['en/', '2000-01-15']]) {
+  const writing = `/${prefix}posts/writing-fixture/`;
+  const daily = `/${prefix}posts/${issue}-ai-daily/`;
+  const archiveLinks = await linksOn(`${prefix}posts/index.html`);
+  assert.ok(archiveLinks.has(writing), `${prefix}posts lists writing`);
+  assert.ok(!archiveLinks.has(daily), `${prefix}posts excludes Daily`);
+
+  const tagBase = `${prefix}posts/tags`;
+  const tagLinks = await linksOn(`${tagBase}/index.html`);
+  assert.ok(tagLinks.has(`/${tagBase}/fixture-shared/`), `${prefix}tags list writing tags`);
+  assert.ok(!tagLinks.has(`/${tagBase}/fixture-only/`), `${prefix}tags exclude Daily-only tags`);
+  const sharedTagLinks = await linksOn(`${tagBase}/fixture-shared/index.html`);
+  assert.ok(sharedTagLinks.has(writing), `${prefix}shared tag lists writing`);
+  assert.ok(!sharedTagLinks.has(daily), `${prefix}shared tag excludes Daily`);
+
+  const legacyTagLinks = await linksOn(`${tagBase}/fixture-only/index.html`);
+  assert.deepEqual([...legacyTagLinks], [`/${prefix}daily/`], `${prefix}old Daily tag points to the Daily archive`);
+
+  const dailyArchiveLinks = await linksOn(`${prefix}daily/index.html`);
+  assert.ok(dailyArchiveLinks.has(daily), `${prefix}Daily archive lists its issues`);
+  assert.ok(!dailyArchiveLinks.has(writing), `${prefix}Daily archive excludes writing`);
+}
+
 const home = await read('index.html');
 const archive = await read('daily/index.html');
 const page2 = await read('daily/page/2/index.html');
