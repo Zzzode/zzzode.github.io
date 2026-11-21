@@ -1,0 +1,1060 @@
+---
+{
+  "title": "AI 日报：Anthropic 完成交割，推理工具与智能体更新",
+  "date": "2026-11-21T02:51:15Z",
+  "excerpt": "Anthropic 公布发行交割，TensorRT-LLM 发布新版本，智能体连接与隐私边界受到关注。",
+  "tags": [
+    "AI",
+    "AI 日报",
+    "智能体",
+    "模型"
+  ],
+  "kind": "distilled",
+  "channel": "daily",
+  "draft": false,
+  "sources": [
+    {
+      "title": "NVIDIA TensorRT-LLM release",
+      "url": "https://api.github.com/repos/NVIDIA/TensorRT-LLM/releases/tags/v1.3.0",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T02:45:00Z",
+        "basis": "GitHub published_at; release publication, not tag creation.",
+        "sourceUrls": [
+          "https://api.github.com/repos/NVIDIA/TensorRT-LLM/releases/tags/v1.3.0"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:03Z"
+    },
+    {
+      "title": "Bloomberg Cognition report via Yahoo",
+      "url": "https://ca.finance.yahoo.com/news/cognition-talks-75-billion-value-204755865.html",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T20:47:55Z",
+        "basis": "Yahoo article metadata; disclosure, not fundraising close.",
+        "sourceUrls": [
+          "https://ca.finance.yahoo.com/news/cognition-talks-75-billion-value-204755865.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:08Z"
+    },
+    {
+      "title": "Quartz reports Pragmatik financing",
+      "url": "https://qz.com/pragmatik-labs-funding-5-billion-valuation-alibaba-ai-112026",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T12:31:37.199Z",
+        "basis": "Article publication metadata; reporting, not closing.",
+        "sourceUrls": [
+          "https://qz.com/pragmatik-labs-funding-5-billion-valuation-alibaba-ai-112026"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:04:39Z"
+    },
+    {
+      "title": "Google Connected Apps",
+      "url": "https://blog.google/products-and-platforms/products/search/connected-apps-holiday-errands/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T18:00:00Z",
+        "basis": "Official JSON-LD publication timestamp.",
+        "sourceUrls": [
+          "https://blog.google/products-and-platforms/products/search/connected-apps-holiday-errands/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:07Z"
+    },
+    {
+      "title": "Signal privacy announcement",
+      "url": "https://signal.org/blog/protecting-your-privacy/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official date without timezone.",
+        "sourceUrls": [
+          "https://signal.org/blog/protecting-your-privacy/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:07Z"
+    },
+    {
+      "title": "9to5Mac Signal report",
+      "url": "https://9to5mac.com/2026/11/20/signal-now-blocks-screenshots-on-iphone-to-stop-siri-ai-from-seeing-chats/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T16:29:42Z",
+        "basis": "Article published metadata; reporting event.",
+        "sourceUrls": [
+          "https://9to5mac.com/2026/11/20/signal-now-blocks-screenshots-on-iphone-to-stop-siri-ai-from-seeing-chats/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:04:39Z"
+    },
+    {
+      "title": "WeMM public events",
+      "url": "https://api.github.com/repos/Tencent/WeMM-Video/events?per_page=100",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T05:08:46Z",
+        "basis": "GitHub public PushEvent for README update.",
+        "sourceUrls": [
+          "https://api.github.com/repos/Tencent/WeMM-Video/events?per_page=100"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:04:41Z"
+    },
+    {
+      "title": "Inkling 2 Mini",
+      "url": "https://thinkingmachines.ai/news/inkling-2-mini/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official page date, timezone not established.",
+        "sourceUrls": [
+          "https://thinkingmachines.ai/news/inkling-2-mini/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:06Z"
+    },
+    {
+      "title": "Australian review",
+      "url": "https://www.pmc.gov.au/domestic-policy/rapid-review-australian-government-arrangements-ai-driven-cyber-incident",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official page date without evidenced timezone.",
+        "sourceUrls": [
+          "https://www.pmc.gov.au/domestic-policy/rapid-review-australian-government-arrangements-ai-driven-cyber-incident"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:05:33Z"
+    },
+    {
+      "title": "Hong Kong AI working group",
+      "url": "https://www.news.gov.hk/chi/2026/11/20261120/20261120_132136_249.html",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official report date without evidenced timezone.",
+        "sourceUrls": [
+          "https://www.news.gov.hk/chi/2026/11/20261120/20261120_132136_249.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:05:44Z"
+    },
+    {
+      "title": "Nvdium Hy4 reporting",
+      "url": "https://nvdium.com/en/articles/419371552",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-20T03:47:07.670Z",
+        "latest": "2026-11-20T19:03:36.634Z",
+        "basis": "Nvdium article datePublished and dateModified metadata bound the displayed reporting version; not weight first-public time.",
+        "sourceUrls": [
+          "https://nvdium.com/en/articles/419371552"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:04:39Z"
+    },
+    {
+      "title": "OpenAI 公布 MedChemBench 药物化学基准",
+      "url": "https://openai.com/index/introducing-medchembench/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Page gives calendar date, timezone not established.",
+        "sourceUrls": [
+          "https://openai.com/index/introducing-medchembench/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:07:48Z"
+    },
+    {
+      "title": "OpenAI 介绍对抗性蒸馏防护",
+      "url": "https://openai.com/index/combatting-adversarial-distillation/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Page gives calendar date, timezone not established.",
+        "sourceUrls": [
+          "https://openai.com/index/combatting-adversarial-distillation/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:07:48Z"
+    },
+    {
+      "title": "Archer 招聘智能体融资报道",
+      "url": "https://www.startup.eu/investments/archer-10-m-11-2026",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Page gives calendar date, timezone not established.",
+        "sourceUrls": [
+          "https://www.startup.eu/investments/archer-10-m-11-2026"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:07:48Z"
+    },
+    {
+      "title": "Microsoft Aion and Edge",
+      "url": "https://blogs.windows.com/msedgedev/2026/11/19/hybrid-intelligence-on-the-web-introducing-aion-instruct-and-prompt-api-in-microsoft-edge/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-19T23:08:46Z",
+        "basis": "Article published_time metadata.",
+        "sourceUrls": [
+          "https://blogs.windows.com/msedgedev/2026/11/19/hybrid-intelligence-on-the-web-introducing-aion-instruct-and-prompt-api-in-microsoft-edge/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:09Z"
+    },
+    {
+      "title": "Codex 0.171",
+      "url": "https://api.github.com/repos/openai/codex/releases/tags/rust-v0.171.0",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T00:44:47Z",
+        "basis": "GitHub published_at",
+        "sourceUrls": [
+          "https://api.github.com/repos/openai/codex/releases/tags/rust-v0.171.0"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:05Z"
+    },
+    {
+      "title": "Hermes 0.23.3",
+      "url": "https://api.github.com/repos/NousResearch/hermes-agent/releases/tags/v0.23.3",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T00:34:38Z",
+        "basis": "GitHub published_at",
+        "sourceUrls": [
+          "https://api.github.com/repos/NousResearch/hermes-agent/releases/tags/v0.23.3"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:03:05Z"
+    },
+    {
+      "title": "21世纪经济报道 DeepSeek 登记",
+      "url": "https://cj.sina.com.cn/articles/view/1651428902/626ece2601901lvfs",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-19T12:19:01Z",
+        "basis": "Article metadata +08 publication, reporting event.",
+        "sourceUrls": [
+          "https://cj.sina.com.cn/articles/view/1651428902/626ece2601901lvfs"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:11:29Z"
+    },
+    {
+      "title": "Bloomberg Apple agent report",
+      "url": "https://finance.yahoo.com/technology/ai/articles/apple-working-ai-agent-device-214456605.html",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-19T21:44:56Z",
+        "basis": "Syndicated article metadata, reporting event.",
+        "sourceUrls": [
+          "https://finance.yahoo.com/technology/ai/articles/apple-working-ai-agent-device-214456605.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:11:28Z"
+    },
+    {
+      "title": "Google Suncatcher announcement",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/blue-origin-project-suncatcher-partnership/",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-19T13:00:00Z",
+        "basis": "Official JSON-LD publication time.",
+        "sourceUrls": [
+          "https://blog.google/innovation-and-ai/models-and-research/google-research/blue-origin-project-suncatcher-partnership/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:11:27Z"
+    },
+    {
+      "title": "HighLevel 智能体新增定时任务",
+      "url": "https://ideas.gohighlevel.com/changelog",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official page date only, timezone not established.",
+        "sourceUrls": [
+          "https://ideas.gohighlevel.com/changelog"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:13:51Z"
+    },
+    {
+      "title": "美国议员发布 SAFE AI 法案框架",
+      "url": "https://beyer.house.gov/news/documentsingle.aspx?DocumentID=9310",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-19",
+        "basis": "Official page date only, timezone not established.",
+        "sourceUrls": [
+          "https://beyer.house.gov/news/documentsingle.aspx?DocumentID=9310"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:13:51Z"
+    },
+    {
+      "title": "WeMM README 对比",
+      "url": "https://api.github.com/repos/Tencent/WeMM-Video/compare/52555cb9de7f04e8f5df50d39d369f2535bd548a...5cfe9d68998b3d7ce6b74cf79c413cf4217afca0",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T05:08:46Z",
+        "basis": "Public PushEvent establishes this README commit was pushed; compare diff persists beyond rolling events.",
+        "sourceUrls": [
+          "https://api.github.com/repos/Tencent/WeMM-Video/events?per_page=100"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:14:29Z"
+    },
+    {
+      "title": "Anthropic 公开发行交割公告",
+      "url": "https://www.anthropic.com/news/ipo-close",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Company date only; CMS midnight is not a demonstrated publication time.",
+        "sourceUrls": [
+          "https://www.anthropic.com/news/ipo-close"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:16:58Z"
+    },
+    {
+      "title": "Quartz 报道 Anthropic 交割",
+      "url": "https://qz.com/anthropic-ipo-closes-greenshoe-billion-proceeds-112026",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-20T13:44:00.499Z",
+        "latest": "2026-11-20T13:50:27.284Z",
+        "basis": "Quartz publication and last-modified metadata bound the displayed report; reporting event, not exact closing time.",
+        "sourceUrls": [
+          "https://qz.com/anthropic-ipo-closes-greenshoe-billion-proceeds-112026"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:16:59Z"
+    },
+    {
+      "title": "路透社报道超额配售行权",
+      "url": "https://www.streetinsider.com/Reuters/Anthropics%2BIPO%2Bbank%2Bclosed%2Bposition%2Bmeant%2Bto%2Bstabilize%2Bstock%2C%2Bremoving%2Bsource%2Bof%2Bsupport/27380587.html",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-20T17:10:00Z",
+        "latest": "2026-11-20T17:10:59.999Z",
+        "basis": "Reuters syndicated report explicitly states 12:10 EST; minute precision.",
+        "sourceUrls": [
+          "https://www.streetinsider.com/Reuters/Anthropics%2BIPO%2Bbank%2Bclosed%2Bposition%2Bmeant%2Bto%2Bstabilize%2Bstock%2C%2Bremoving%2Bsource%2Bof%2Bsupport/27380587.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:16:58Z"
+    },
+    {
+      "title": "美国众院外交委员会芯片许可信息",
+      "url": "https://foreignaffairs.house.gov/news/press-releases/chairman-brian-mast-exercises-legislative-authority-to-publicly-release-ai-chip-license-information-for-china",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-19",
+        "basis": "Committee release calendar date; exact publication time and timezone not established.",
+        "sourceUrls": [
+          "https://foreignaffairs.house.gov/news/press-releases/chairman-brian-mast-exercises-legislative-authority-to-publicly-release-ai-chip-license-information-for-china"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:17:49Z"
+    },
+    {
+      "title": "美联社报道美国财长芯片限制表态",
+      "url": "https://ca.finance.yahoo.com/news/treasury-secretary-says-no-further-223752835.html",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-20T22:37:52Z",
+        "basis": "AP syndicated article published metadata; statement/report event, not a new rule.",
+        "sourceUrls": [
+          "https://ca.finance.yahoo.com/news/treasury-secretary-says-no-further-223752835.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:26:05Z"
+    },
+    {
+      "title": "OpenAI 跨服务安全标准说明",
+      "url": "https://openai.com/index/broad-access-through-consistent-standards/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-21",
+        "basis": "Official announcement date, distinct from effective date.",
+        "sourceUrls": [
+          "https://openai.com/index/broad-access-through-consistent-standards/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:26:19Z"
+    },
+    {
+      "title": "The Information 关于 Inception 的报道摘录",
+      "url": "https://www.benzinga.com/content/63462195/nvidia-nears-acquisition-diffusion-ai-developer-more-500-million",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-19T22:43:00Z",
+        "latest": "2026-11-19T22:43:59.999Z",
+        "basis": "The Information syndication displays 17:43 ET, minute precision; reporting event.",
+        "sourceUrls": [
+          "https://www.benzinga.com/content/63462195/nvidia-nears-acquisition-diffusion-ai-developer-more-500-million"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:27:40Z"
+    },
+    {
+      "title": "36氪报道原力无限融资",
+      "url": "https://eu.36kr.com/zh/newsflashes/4076053842154371",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-19T02:16:23.139Z",
+        "basis": "36Kr page embedded publishTime Unix milliseconds, reporting event.",
+        "sourceUrls": [
+          "https://eu.36kr.com/zh/newsflashes/4076053842154371"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:27:40Z"
+    },
+    {
+      "title": "智通财经报道元示科技融资",
+      "url": "https://cn.investing.com/news/stock-market-news/article-3676329",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-19T08:44:13Z",
+        "latest": "2026-11-19T08:59:21Z",
+        "basis": "Article datePublished and dateModified metadata bound the displayed reporting version.",
+        "sourceUrls": [
+          "https://cn.investing.com/news/stock-market-news/article-3676329"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:27:53Z"
+    },
+    {
+      "title": "第一财经报道千问与平头哥",
+      "url": "https://www.yicai.com/news/103447042.html",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-19T12:12:29Z",
+        "basis": "First Finance actime/modified metadata 20:12:29 +08; reporting time not training start.",
+        "sourceUrls": [
+          "https://www.yicai.com/news/103447042.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:28:19Z"
+    },
+    {
+      "title": "千寻与华为云合作报道",
+      "url": "https://jinguxun.com/article/news/11110492",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-19T12:12:26Z",
+        "latest": "2026-11-19T12:17:21Z",
+        "basis": "Article published and modified metadata bound the displayed version; reporting not signing time.",
+        "sourceUrls": [
+          "https://jinguxun.com/article/news/11110492"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:26:10Z"
+    },
+    {
+      "title": "道琼斯报道 Deutsche Telekom 参投 Mistral",
+      "url": "https://uk.marketscreener.com/news/deutsche-telekom-s-tech-fund-invests-110-million-in-mistral-ai-ce785eddd080f421",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-19T09:15:00Z",
+        "latest": "2026-11-19T09:15:59.999Z",
+        "basis": "MarketScreener Dow Jones syndicated report 09:15 GMT, minute precision; report time not investment closing.",
+        "sourceUrls": [
+          "https://uk.marketscreener.com/news/deutsche-telekom-s-tech-fund-invests-110-million-in-mistral-ai-ce785eddd080f421"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:29:27Z"
+    },
+    {
+      "title": "路透报道澳洲数据中心公众反馈",
+      "url": "https://www.aol.com/articles/anthropics-australian-data-centre-overwhelmingly-023850000.html",
+      "publication": {
+        "precision": "interval",
+        "earliest": "2026-11-20T02:38:50Z",
+        "latest": "2026-11-20T06:51:33Z",
+        "basis": "AOL metadata bounds Reuters displayed report version; report not filing or opposition event time.",
+        "sourceUrls": [
+          "https://www.aol.com/articles/anthropics-australian-data-centre-overwhelmingly-023850000.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:31:31Z"
+    },
+    {
+      "title": "澳大利亚广播公司此前报道",
+      "url": "https://www.abc.net.au/news/2026-11-20/southern-queensland-local-news-briefing/107407282",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-19T22:15:26Z",
+        "basis": "ABC article datePublished metadata; earlier reporting.",
+        "sourceUrls": [
+          "https://www.abc.net.au/news/2026-11-20/southern-queensland-local-news-briefing/107407282"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:23:04Z"
+    },
+    {
+      "title": "Reflection 与 Andon 的 Mr. Beam 评估",
+      "url": "https://reflection.ai/blog/mr-beam-partnering-with-andon-labs",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official article shows calendar date without verified timezone or hour.",
+        "sourceUrls": [
+          "https://reflection.ai/blog/mr-beam-partnering-with-andon-labs"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:38:10Z"
+    },
+    {
+      "title": "Sakana AI 设立安全研究组",
+      "url": "https://sakana.ai/security-research-group/",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official article date only; timezone and first-public hour unverified.",
+        "sourceUrls": [
+          "https://sakana.ai/security-research-group/"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:40:19Z"
+    },
+    {
+      "title": "Hugging Face 分享智能体框架适配训练",
+      "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-20",
+        "basis": "Official article date only; timezone and first-public hour unverified.",
+        "sourceUrls": [
+          "https://huggingface.co/blog/harness-adapters-at-scale"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:40:19Z"
+    },
+    {
+      "title": "Alaska Attorney General: Character.AI privacy protections",
+      "url": "https://law.alaska.gov/press/releases/2026/111926-CharacterAI.html",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-19",
+        "basis": "Alaska official announcement shows calendar date without time or verified timezone; Minnesota page contradicts itself about date. Not the court order instant.",
+        "sourceUrls": [
+          "https://law.alaska.gov/press/releases/2026/111926-CharacterAI.html"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:49:10Z"
+    },
+    {
+      "title": "Minnesota Attorney General: Character.AI privacy",
+      "url": "https://www.ag.state.mn.us/Office/Communications/2026/11/20_CharacterAI.asp",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-19",
+        "basis": "Page heading says Nov 19 while body says Nov 20; exact announcement date and timezone unresolved.",
+        "sourceUrls": [
+          "https://www.ag.state.mn.us/Office/Communications/2026/11/20_CharacterAI.asp"
+        ]
+      },
+      "retrievedAt": "2026-11-21T02:49:10Z"
+    }
+  ],
+  "daily": {
+    "issueDate": "2026-11-21",
+    "timeZone": "Asia/Shanghai",
+    "windowStart": "2026-11-20T02:00:00Z",
+    "cutoff": "2026-11-21T02:00:00Z",
+    "evidenceRun": "docs/daily/runs/2026-11-21.json",
+    "items": [
+      {
+        "candidateId": "ipo-close",
+        "title": "Anthropic 完成公开发行与私募交割",
+        "summary": "公司称承销商全额行使 1.47 亿股超额配售权；公开发行总额约 935 亿美元，发行人所得约 916 亿美元，另有 260 亿美元同期私募。",
+        "category": "business",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-20T13:44:00.499Z",
+          "latest": "2026-11-20T13:50:27.284Z",
+          "basis": "Quartz publication and last-modified metadata bound the displayed report; reporting event, not exact closing time.",
+          "sourceUrls": [
+            "https://qz.com/anthropic-ipo-closes-greenshoe-billion-proceeds-112026"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.anthropic.com/news/ipo-close",
+          "https://qz.com/anthropic-ipo-closes-greenshoe-billion-proceeds-112026",
+          "https://www.streetinsider.com/Reuters/Anthropics%2BIPO%2Bbank%2Bclosed%2Bposition%2Bmeant%2Bto%2Bstabilize%2Bstock%2C%2Bremoving%2Bsource%2Bof%2Bsupport/27380587.html"
+        ]
+      },
+      {
+        "candidateId": "hy",
+        "title": "报道称腾讯 Hy4 旗舰权重已公开",
+        "summary": "Nvdium 报道腾讯旗舰 Hy4 指令版、FP8 与基座权重已公开；最早开放时刻仍未证实。",
+        "category": "products",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-20T03:47:07.670Z",
+          "latest": "2026-11-20T19:03:36.634Z",
+          "basis": "Nvdium article datePublished and dateModified metadata bound the displayed reporting version; not weight first-public time.",
+          "sourceUrls": [
+            "https://nvdium.com/en/articles/419371552"
+          ]
+        },
+        "sourceUrls": [
+          "https://nvdium.com/en/articles/419371552"
+        ]
+      },
+      {
+        "candidateId": "trt",
+        "title": "TensorRT-LLM 1.3.0 正式发布",
+        "summary": "NVIDIA 正式发布 1.3.0；Rubin 和部分模型支持仍标为预览。",
+        "category": "products",
+        "releaseStatus": "released",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-20T02:45:00Z",
+          "basis": "GitHub published_at; release publication, not tag creation.",
+          "sourceUrls": [
+            "https://api.github.com/repos/NVIDIA/TensorRT-LLM/releases/tags/v1.3.0"
+          ]
+        },
+        "sourceUrls": [
+          "https://api.github.com/repos/NVIDIA/TensorRT-LLM/releases/tags/v1.3.0"
+        ]
+      },
+      {
+        "candidateId": "cognition",
+        "title": "Bloomberg 报道 Cognition 新一轮融资谈判",
+        "summary": "彭博援引知情人士称，Devin 开发商正洽谈至少 20 亿美元融资，条件仍可能变化。",
+        "category": "business",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-20T20:47:55Z",
+          "basis": "Yahoo article metadata; disclosure, not fundraising close.",
+          "sourceUrls": [
+            "https://ca.finance.yahoo.com/news/cognition-talks-75-billion-value-204755865.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://ca.finance.yahoo.com/news/cognition-talks-75-billion-value-204755865.html"
+        ]
+      },
+      {
+        "candidateId": "treasury",
+        "title": "美国财长称无需进一步限制较旧 NVIDIA 芯片对华销售",
+        "summary": "美联社报道，财政部长称无需进一步限制较旧 NVIDIA 芯片对华销售；这是政策表态，非新的出口规定。",
+        "category": "governance",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-20T22:37:52Z",
+          "basis": "AP syndicated article published metadata; statement/report event, not a new rule.",
+          "sourceUrls": [
+            "https://ca.finance.yahoo.com/news/treasury-secretary-says-no-further-223752835.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://ca.finance.yahoo.com/news/treasury-secretary-says-no-further-223752835.html"
+        ]
+      },
+      {
+        "candidateId": "prag",
+        "title": "Quartz 转述 Pragmatik Labs 新融资",
+        "summary": "Quartz 转述彭博称，语用科技新融资对应 50 亿美元估值；公司和投资方未回应。",
+        "category": "business",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-20T12:31:37.199Z",
+          "basis": "Article publication metadata; reporting, not closing.",
+          "sourceUrls": [
+            "https://qz.com/pragmatik-labs-funding-5-billion-valuation-alibaba-ai-112026"
+          ]
+        },
+        "sourceUrls": [
+          "https://qz.com/pragmatik-labs-funding-5-billion-valuation-alibaba-ai-112026"
+        ]
+      },
+      {
+        "candidateId": "google",
+        "title": "Google 扩展 Connected Apps",
+        "summary": "Google 正在美国向搜索和 Gemini 应用推出新的 Connected Apps，覆盖购物等任务。",
+        "category": "agents",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-20T18:00:00Z",
+          "basis": "Official JSON-LD publication timestamp.",
+          "sourceUrls": [
+            "https://blog.google/products-and-platforms/products/search/connected-apps-holiday-errands/"
+          ]
+        },
+        "sourceUrls": [
+          "https://blog.google/products-and-platforms/products/search/connected-apps-holiday-errands/"
+        ]
+      },
+      {
+        "candidateId": "signal",
+        "title": "Signal 限制系统智能体截取聊天",
+        "summary": "9to5Mac 报道 Signal 在 iPhone 上默认限制截图，用户可在设置中关闭；系统和平台覆盖有边界。",
+        "category": "governance",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-20T16:29:42Z",
+          "basis": "Article published metadata; reporting event.",
+          "sourceUrls": [
+            "https://9to5mac.com/2026/11/20/signal-now-blocks-screenshots-on-iphone-to-stop-siri-ai-from-seeing-chats/"
+          ]
+        },
+        "sourceUrls": [
+          "https://signal.org/blog/protecting-your-privacy/",
+          "https://9to5mac.com/2026/11/20/signal-now-blocks-screenshots-on-iphone-to-stop-siri-ai-from-seeing-chats/"
+        ]
+      },
+      {
+        "candidateId": "wemm",
+        "title": "WeMM-Video 更新公开研究说明",
+        "summary": "腾讯项目的公开仓库更新研究说明和论文链接；这不等于模型在该时刻首次公开。",
+        "category": "research",
+        "releaseStatus": "released",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-20T05:08:46Z",
+          "basis": "GitHub public PushEvent for README update.",
+          "sourceUrls": [
+            "https://api.github.com/repos/Tencent/WeMM-Video/events?per_page=100"
+          ]
+        },
+        "sourceUrls": [
+          "https://api.github.com/repos/Tencent/WeMM-Video/events?per_page=100",
+          "https://api.github.com/repos/Tencent/WeMM-Video/compare/52555cb9de7f04e8f5df50d39d369f2535bd548a...5cfe9d68998b3d7ce6b74cf79c413cf4217afca0"
+        ]
+      },
+      {
+        "candidateId": "anthropic-dc",
+        "title": "路透披露澳大利亚 AI 数据中心公众反馈",
+        "summary": "路透援引项目文件报道大多数反馈反对或要求推迟，并取得开发商回应；公众反对此前已有报道。",
+        "category": "business",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "interval",
+          "earliest": "2026-11-20T02:38:50Z",
+          "latest": "2026-11-20T06:51:33Z",
+          "basis": "AOL metadata bounds Reuters displayed report version; report not filing or opposition event time.",
+          "sourceUrls": [
+            "https://www.aol.com/articles/anthropics-australian-data-centre-overwhelmingly-023850000.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.aol.com/articles/anthropics-australian-data-centre-overwhelmingly-023850000.html",
+          "https://www.abc.net.au/news/2026-11-20/southern-queensland-local-news-briefing/107407282"
+        ]
+      }
+    ],
+    "pending": [
+      {
+        "candidateId": "ink",
+        "title": "Inkling 2 Mini 开放权重",
+        "summary": "Thinking Machines 公布循环 Transformer 开放权重，页面只给出日期，是否属于本窗口仍待核实。",
+        "category": "research",
+        "releaseStatus": "released",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official page date, timezone not established.",
+          "sourceUrls": [
+            "https://thinkingmachines.ai/news/inkling-2-mini/"
+          ]
+        },
+        "sourceUrls": [
+          "https://thinkingmachines.ai/news/inkling-2-mini/"
+        ],
+        "uncertainty": "来源仅给出日期或首次公开时间尚未厘清，无法确定是否完全落入本期；继续核对最早公开记录。"
+      },
+      {
+        "candidateId": "australia",
+        "title": "澳大利亚公布 AI 网络事件复盘报告",
+        "summary": "澳大利亚公布 AI 网络事件快速审查报告；此前建议已在 11 月 10 日公布。",
+        "category": "governance",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official page date without evidenced timezone.",
+          "sourceUrls": [
+            "https://www.pmc.gov.au/domestic-policy/rapid-review-australian-government-arrangements-ai-driven-cyber-incident"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.pmc.gov.au/domestic-policy/rapid-review-australian-government-arrangements-ai-driven-cyber-incident"
+        ],
+        "uncertainty": "来源仅给出日期或首次公开时间尚未厘清，无法确定是否完全落入本期；继续核对最早公开记录。"
+      },
+      {
+        "candidateId": "hk",
+        "title": "香港 AI 风险治理工作组首次会议",
+        "summary": "香港 AI 风险治理工作组召开首次会议，智能体指引仍是工作计划。",
+        "category": "governance",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official report date without evidenced timezone.",
+          "sourceUrls": [
+            "https://www.news.gov.hk/chi/2026/11/20261120/20261120_132136_249.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.news.gov.hk/chi/2026/11/20261120/20261120_132136_249.html"
+        ],
+        "uncertainty": "来源仅给出日期或首次公开时间尚未厘清，无法确定是否完全落入本期；继续核对最早公开记录。"
+      },
+      {
+        "candidateId": "med",
+        "title": "OpenAI 公布 MedChemBench 药物化学基准",
+        "summary": "OpenAI 公布药物化学基准 MedChemBench；官方页面仅列日期。",
+        "category": "research",
+        "releaseStatus": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Page gives calendar date, timezone not established.",
+          "sourceUrls": [
+            "https://openai.com/index/introducing-medchembench/"
+          ]
+        },
+        "sourceUrls": [
+          "https://openai.com/index/introducing-medchembench/"
+        ],
+        "uncertainty": "来源仅给出日期或首次公开时间尚未厘清，无法确定是否完全落入本期；继续核对最早公开记录。"
+      },
+      {
+        "candidateId": "distillation",
+        "title": "OpenAI 介绍对抗性蒸馏防护",
+        "summary": "OpenAI 描述对抗性蒸馏防护和内部测试；首次公告时间待核。",
+        "category": "governance",
+        "releaseStatus": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Page gives calendar date, timezone not established.",
+          "sourceUrls": [
+            "https://openai.com/index/combatting-adversarial-distillation/"
+          ]
+        },
+        "sourceUrls": [
+          "https://openai.com/index/combatting-adversarial-distillation/"
+        ],
+        "uncertainty": "来源仅给出日期或首次公开时间尚未厘清，无法确定是否完全落入本期；继续核对最早公开记录。"
+      },
+      {
+        "candidateId": "archer",
+        "title": "Archer 招聘智能体融资报道",
+        "summary": "Startup.eu 报道 Archer 融资 1000 万美元，报道时间仅精确到日期。",
+        "category": "business",
+        "releaseStatus": "reported",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Page gives calendar date, timezone not established.",
+          "sourceUrls": [
+            "https://www.startup.eu/investments/archer-10-m-11-2026"
+          ]
+        },
+        "sourceUrls": [
+          "https://www.startup.eu/investments/archer-10-m-11-2026"
+        ],
+        "uncertainty": "来源仅给出日期或首次公开时间尚未厘清，无法确定是否完全落入本期；继续核对最早公开记录。"
+      },
+      {
+        "candidateId": "routines",
+        "title": "HighLevel 智能体新增定时任务",
+        "summary": "厂商更新日志列出自然语言定时任务、操作授权和计费；只显示日期。",
+        "category": "agents",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official page date only, timezone not established.",
+          "sourceUrls": [
+            "https://ideas.gohighlevel.com/changelog"
+          ]
+        },
+        "sourceUrls": [
+          "https://ideas.gohighlevel.com/changelog"
+        ],
+        "uncertainty": "官方页面仅显示日期，无法确定首次发布是否完全落入本期；继续核查更精确的公开记录。"
+      },
+      {
+        "candidateId": "safe-act",
+        "title": "美国议员发布 SAFE AI 法案框架",
+        "summary": "议员发布未来法案框架，尚非已生效法律。",
+        "category": "governance",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-19",
+          "basis": "Official page date only, timezone not established.",
+          "sourceUrls": [
+            "https://beyer.house.gov/news/documentsingle.aspx?DocumentID=9310"
+          ]
+        },
+        "sourceUrls": [
+          "https://beyer.house.gov/news/documentsingle.aspx?DocumentID=9310"
+        ],
+        "uncertainty": "官方页面仅显示日期，无法确定首次发布是否完全落入本期；继续核查更精确的公开记录。"
+      },
+      {
+        "candidateId": "us-chip",
+        "title": "美众院委员会公开 AI 芯片许可信息",
+        "summary": "委员会披露对华芯片许可申请和批准数量；批准不代表实际出货。",
+        "category": "governance",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-19",
+          "basis": "Committee release calendar date; exact publication time and timezone not established.",
+          "sourceUrls": [
+            "https://foreignaffairs.house.gov/news/press-releases/chairman-brian-mast-exercises-legislative-authority-to-publicly-release-ai-chip-license-information-for-china"
+          ]
+        },
+        "sourceUrls": [
+          "https://foreignaffairs.house.gov/news/press-releases/chairman-brian-mast-exercises-legislative-authority-to-publicly-release-ai-chip-license-information-for-china"
+        ],
+        "uncertainty": "官方公告仅有 11 月 19 日日期，无法确定首次披露是否跨越上期截止；需进一步核实。"
+      },
+      {
+        "candidateId": "openai-policy",
+        "title": "OpenAI 使用政策更新生效日期",
+        "summary": "OpenAI 此前表示修订政策于 11 月 20 日生效，模型路由和网关需取得审核批准；具体生效时刻未明。",
+        "category": "governance",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official page states effective calendar date; timezone and precise time unknown.",
+          "sourceUrls": [
+            "https://openai.com/index/broad-access-through-consistent-standards/"
+          ]
+        },
+        "sourceUrls": [
+          "https://openai.com/index/broad-access-through-consistent-standards/"
+        ],
+        "uncertainty": "官方说明只给出日历日期，无法确定生效时刻是否落在本期窗口。"
+      },
+      {
+        "candidateId": "mrbeam",
+        "title": "Reflection 与 Andon 披露实体运营智能体评估",
+        "summary": "团队披露让智能体运营办公室售货业务的初步安全评估，实验早于报告开始；第三阶段尚未启动。",
+        "category": "research",
+        "releaseStatus": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official article shows calendar date without verified timezone or hour.",
+          "sourceUrls": [
+            "https://reflection.ai/blog/mr-beam-partnering-with-andon-labs"
+          ]
+        },
+        "sourceUrls": [
+          "https://reflection.ai/blog/mr-beam-partnering-with-andon-labs"
+        ],
+        "uncertainty": "官方文章仅列 11 月 20 日，未提供可核的时区与发表时刻，不能确定是否完全落在本期。"
+      },
+      {
+        "candidateId": "sakana-security",
+        "title": "Sakana AI 设立安全研究组",
+        "summary": "Sakana 宣布组建安全研究团队，研究 AI 系统安全与协作防御；成绩和研究计划为公司口径。",
+        "category": "governance",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official article date only; timezone and first-public hour unverified.",
+          "sourceUrls": [
+            "https://sakana.ai/security-research-group/"
+          ]
+        },
+        "sourceUrls": [
+          "https://sakana.ai/security-research-group/"
+        ],
+        "uncertainty": "官方页面仅给出 11 月 20 日日历日期，发表时间与时区未证实。"
+      },
+      {
+        "candidateId": "hf-harness",
+        "title": "Hugging Face 分享智能体框架适配训练",
+        "summary": "团队发布适配器与训练流程；基准表现及工具调用变化来自作者实验。",
+        "category": "agents",
+        "releaseStatus": "research",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-20",
+          "basis": "Official article date only; timezone and first-public hour unverified.",
+          "sourceUrls": [
+            "https://huggingface.co/blog/harness-adapters-at-scale"
+          ]
+        },
+        "sourceUrls": [
+          "https://huggingface.co/blog/harness-adapters-at-scale"
+        ],
+        "uncertainty": "官方页面仅给出 11 月 20 日日历日期，发表时间与时区未证实。"
+      },
+      {
+        "candidateId": "character-privacy",
+        "title": "Character.AI 破产程序指定隐私监察员",
+        "summary": "法院要求设立独立隐私监察员，审查潜在出售用户私密对话与个人信息的风险并向法院提出保护建议。",
+        "category": "governance",
+        "releaseStatus": "announced",
+        "eventEvidence": {
+          "precision": "date",
+          "value": "2026-11-19",
+          "basis": "Alaska official announcement shows calendar date without time or verified timezone; Minnesota page contradicts itself about date. Not the court order instant.",
+          "sourceUrls": [
+            "https://law.alaska.gov/press/releases/2026/111926-CharacterAI.html"
+          ]
+        },
+        "sourceUrls": [
+          "https://law.alaska.gov/press/releases/2026/111926-CharacterAI.html",
+          "https://www.ag.state.mn.us/Office/Communications/2026/11/20_CharacterAI.asp"
+        ],
+        "uncertainty": "阿拉斯加公告仅有 11 月 19 日日历日期；明尼苏达州公告标题日期与正文日期不一致，公告和法院命令的具体时刻均待核。"
+      }
+    ]
+  }
+}
+---
+
+import { Section, SectionHead, Prose } from '@/components/article';
+
+<Section canvas id="ipo-close"><SectionHead index="03" kicker="发行交割" title="Anthropic 完成公开发行" /><Prose><p>Anthropic 公告称，承销商全额行使购买 1.47 亿股的超额配售权，发行价仍为每股 83 美元。公开发行总额约为 935 亿美元，其中约 916 亿美元归公司，均为扣除费用前的金额；公开发行还包含老股出售，公司不取得那部分所得。</p><p>公司另完成约 260 亿美元同期私募。公告所列约 1195 亿美元合计包含公开发行和私募，也包含老股出售，并非单独 IPO 的发行人净收入。上期记录的是首日交易；本条记录本期对交割及行权的报道，报道时间不等于实际交割时刻。</p></Prose></Section>
+
+<Section canvas id="hy4"><SectionHead index="04" kicker="模型权重" title="Hy4 旗舰权重开放报道" /><Prose><p>Nvdium 报道，腾讯 Hy4 旗舰的指令版、FP8 版及预训练基座权重已经公开。Hy4 此前已提供 API，不能把这次权重报道当成模型首次发布。模型卡将语言主干列为总计 770B 参数、每个 token 激活 49B，并支持文本、图像和视频输入。</p><p>权重采用 Tencent Hy License，而不是 Apache 2.0；具体使用条件应核对许可原文。报道当前版本的发表与修改时间都在本期，但官方社交原帖无法直接访问，权重最早对公众开放的时刻尚未独立确认。</p></Prose></Section>
+
+<Section canvas id="inference"><SectionHead index="05" kicker="推理工具" title="TensorRT-LLM 发布 1.3.0" /><Prose><p>NVIDIA 发布 TensorRT-LLM 1.3.0 正式版。发布说明列出对多种模型的支持、推测解码与分离式服务改进；其中 Rubin 硬件及部分模型支持标为预览，不能将整个支持矩阵视为正式可用。</p><p>GitHub 记录的发布时刻为 11 月 20 日 02:45 UTC。标签创建时间更早，二者不能互换。</p></Prose></Section>
+
+<Section canvas id="funding"><SectionHead index="06" kicker="融资报道" title="两家智能体公司受到资本关注" /><Prose><p>彭博援引知情人士报道，Devin 开发商 Cognition 正商谈以 750 亿美元估值融资至少 20 亿美元。谈判仍在进行，条件可能改变；公司未回应。报道时间不等于融资完成时间。</p><p>Quartz 转述彭博称，林俊旸创立的语用科技（Pragmatik Labs）新一轮融资对应 50 亿美元估值，金额为数千万美元。报道所列公司与投资方未回应。两篇报道的具体融资信息均依赖各自的彭博消息来源，语用科技的原始报道全文受限。</p></Prose></Section>
+
+<Section canvas id="chip-policy"><SectionHead index="07" kicker="芯片政策" title="美国财长重申出口限制立场" /><Prose><p>美联社报道，美国财政部长贝森特在采访中表示，无需进一步限制较旧 NVIDIA 芯片对华销售，并称远程访问已受限制。这是政府官员的政策表态，报道本身没有宣布新的出口规定。</p><p>众院委员会此前披露芯片许可申请和批准信息，批准不等于已完成出货。委员会公告的具体公开时刻仍待核对，列在待核区。</p></Prose></Section>
+
+<Section canvas id="permission"><SectionHead index="08" kicker="智能体权限" title="连接服务，也限制读取" /><Prose><p>Google 宣布在美国向 Search 和 Gemini 应用推出新的 Connected Apps，包括超市购物相关入口。用户可以连接服务并在支持的商家处继续购物；各项服务的地域与账户条件以实际页面为准。</p><p>另一端是敏感信息。9to5Mac 报道 Signal 在 iPhone 上默认阻止截图，以限制系统 AI 读取聊天画面；用户可关闭这一设置。Signal 自己也指出，截图限制不能防住所有数据访问方式，macOS 暂无法实施相同保护，Android 仅覆盖能够检测到助手读取的版本。</p><svg viewBox="0 0 340 220" role="img" aria-labelledby="access-title access-desc" class="mx-auto w-full max-w-[340px]"><title id="access-title">智能体访问的两个边界</title><desc id="access-desc">用户连接外部服务以完成任务，敏感聊天应用限制屏幕截取；保护并不覆盖所有读取途径。</desc><rect x="10" y="10" width="320" height="46" rx="12" fill="var(--color-paper)" stroke="var(--color-line)"/><text x="170" y="39" text-anchor="middle" font-size="16" fill="var(--color-ink)">用户发起任务</text><path d="M170 56v22M170 78H90v17M170 78h80v17" fill="none" stroke="var(--color-ink-2)" stroke-width="2"/><rect x="10" y="96" width="150" height="54" rx="12" fill="var(--color-paper)" stroke="var(--color-line)"/><text x="85" y="128" text-anchor="middle" font-size="16" fill="var(--color-ink)">连接外部服务</text><rect x="180" y="96" width="150" height="54" rx="12" fill="var(--color-paper)" stroke="var(--color-line)"/><text x="255" y="128" text-anchor="middle" font-size="16" fill="var(--color-ink)">限制聊天截屏</text><text x="170" y="190" text-anchor="middle" font-size="15" fill="var(--color-muted)">来源：Google、Signal</text></svg></Prose></Section>
+
+<Section canvas id="wemm"><SectionHead index="09" kicker="多模态研究" title="WeMM-Video 补充公开说明" /><Prose><p>腾讯微信视觉团队的 WeMM-Video 仓库在本窗口更新了中文说明、评测图和论文链接。模型系列处理文本、图像、音频与视频，视频输入可结合画面和原始音轨；最大版本采用 35B-A3B 混合专家结构。性能比较来自项目方评测，尚未在这里独立复现。</p><p>仓库早于本期存在，模型上传提交、论文提交与权重首次公开是不同事件。本条记录有公开推送证据的说明更新，不把推送时刻当成模型首发。</p></Prose></Section>
+
+<Section canvas id="data-centre"><SectionHead index="10" kicker="算力与社区" title="数据中心面对公众反馈" /><Prose><p>路透援引项目文件报道，Anthropic 为锚定租户的澳大利亚 Western Downs 数据中心项目收到的近 600 份意见中，595 份反对或要求推迟，两份支持、一份中立。开发商称正扩大社区沟通，并计划回应提出的修改要求。</p><p>争议此前已有报道：澳大利亚广播公司较早称 627 份提交中两份支持。两组数字来自不同报道口径，不宜直接相加，也不能推断意见在本期才开始出现。水、电、噪声和住房是报道列出的关注点。</p></Prose></Section>
+
+<Section canvas id="retrospective"><SectionHead index="11" kicker="上期遗漏" title="补记 Edge、Codex 与 Hermes" /><Prose><p>Microsoft 于上一窗口宣布 Aion Instruct 在 Edge 作为内置小模型正式可用，同时开放 Prompt API 的 origin trial，并预览 Decisions API。2.3B 参数和性能比较来自 Microsoft；Windows 接入是后续计划。</p><p>Codex 0.171.0 与 Hermes Agent 0.23.3 的 GitHub 正式版也在上一期截止前发布。这些是回顾，不计入本期新增数量。Codex 0.173.0-alpha.4 属于本窗口内的预发布，发布说明未列出具体功能，因此未将主干更改当作该版本已交付。</p><p>21 世纪经济报道在上一窗口披露 DeepSeek 新股东工商登记；融资规模引用的是此前媒体报道，登记变更不等于可以独立核实融资金额。彭博同样在上一窗口报道苹果正在组建智能体团队，产品仍处早期；Google 宣布与 Blue Origin 合作，目标在 2029 年第一季度发射试验卫星。这些遗漏一并补记，不计入本期新增动态。</p><p>The Information 在上一窗口报道 NVIDIA 正洽谈以至少 5 亿美元及附加业绩奖励收购扩散语言模型公司 Inception；可读转载援引三名知情人士，原报道全文受限。谈判不等于交易完成。36氪也在上一窗口报道原力无限获得数千万元人民币 Pre-B 融资；报道时刻不等于交割时间。智通财经有关元示科技近 3 亿元人民币 Pre-A 融资的报道也属上一窗口，领投方为君联资本；上期列为待核的时间现已通过页面元数据厘清。第一财经也在上一窗口报道阿里管理层称千问已使用平头哥芯片训练下一代模型；报道不证明训练从当时开始。另有两条上期报道：千寻智能与华为云签署战略合作，具体部署仍是计划；道琼斯报道 Deutsche Telekom 基金向 Mistral 九月的 D 轮投资 1 亿欧元，不是新一轮融资。</p></Prose></Section>
+
+<Section canvas id="outlook"><SectionHead index="12" kicker="今日观察" title="开放与访问控制一起推进" /><Prose><p>本期的工具更新与服务连接展示了部署端的变化：模型运行需要明确硬件和版本条件，智能体接入外部服务则需要确认它可以读取和操作什么。Signal 的限制说明，应用侧截图保护仍有平台边界，不能代替对全部数据通道的控制。</p><p>Inkling 2 Mini、Mr. Beam 评估、Sakana 安全研究组、Hugging Face 框架适配研究、两项 OpenAI 研究、澳大利亚报告、香港工作组、美国法案框架与芯片许可信息、Character.AI 隐私监察员、OpenAI 使用政策生效日期、HighLevel 更新和 Archer 融资列在待核区：来源可读，但日期精度或首次公开时刻仍跨越截止边界。公开提交不自动证明当时已对所有人开放。</p><p>搜索覆盖仍不完整，上一期若干研究、融资与政策线索尚未解决；论文修订主要比较摘要，部分索引尚未取得原文，受限来源及首次公开时间仍待核。中英文检索较广，法语、日语和专业数据库较窄。JEV、Laya、OSC 的指代仍未经确认。</p></Prose></Section>
