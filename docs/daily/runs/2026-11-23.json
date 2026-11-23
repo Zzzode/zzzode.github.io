@@ -6,7 +6,7 @@
   "runId": "ai-daily-2026-11-23",
   "author": "daily-editor",
   "startedAt": "2026-11-23T02:01:41Z",
-  "completedAt": "2026-11-23T02:25:54.041Z",
+  "completedAt": "2026-11-23T02:36:03.809Z",
   "queries": [
     {
       "id": "rootq1-1",
@@ -13344,6 +13344,1233 @@
         "https://api.github.com/repos/cline/cline/releases/tags/v4.1.27"
       ],
       "notes": "Direct independent verification of candidate or prior-issue exclusion; relevant URLs retained."
+    },
+    {
+      "id": "robin-correction-search",
+      "actor": "daily-editor",
+      "query": "\"arith-con-leche-master.log\" \"02:29:56\" Sutherland Robin Lagarias November 21 2026 Lean",
+      "executedAt": "2026-11-23T02:31:27Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh",
+        "https://math.mit.edu/~drew/grh/",
+        "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
+      ],
+      "notes": "Targeted exact-clock/log discovery. Lead and translated cache both point to one copied MIT snapshot."
+    },
+    {
+      "id": "robin-correction-web-read",
+      "actor": "daily-editor",
+      "query": "Open note.com dated account (lines 63 and 93) and MIT original verification page",
+      "executedAt": "2026-11-23T02:31:21Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+        "https://math.mit.edu/~drew/grh/"
+      ],
+      "notes": "Retrieved explicitly dated contemporary prose and original scope/links via browser extraction."
+    },
+    {
+      "id": "robin-correction-read-mit",
+      "actor": "daily-editor",
+      "query": "https://math.mit.edu/~drew/grh/",
+      "executedAt": "2026-11-23T02:32:06.623+00:00",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "robin-correction-read-master",
+      "actor": "daily-editor",
+      "query": "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+      "executedAt": "2026-11-23T02:32:06.623+00:00",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-leche-master.log"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "robin-correction-read-compare",
+      "actor": "daily-editor",
+      "query": "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+      "executedAt": "2026-11-23T02:32:06.624+00:00",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "robin-correction-read-nanoda",
+      "actor": "daily-editor",
+      "query": "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "executedAt": "2026-11-23T02:32:06.625+00:00",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-nanoda.log"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "robin-correction-read-sha",
+      "actor": "daily-editor",
+      "query": "https://math.mit.edu/~drew/grh/SHA256SUMS",
+      "executedAt": "2026-11-23T02:32:06.625+00:00",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/SHA256SUMS"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "robin-correction-read-note",
+      "actor": "daily-editor",
+      "query": "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "executedAt": "2026-11-23T02:32:06.626+00:00",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "robin-correction-read-archive",
+      "actor": "daily-editor",
+      "query": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "executedAt": "2026-11-23T02:32:06.639+00:00",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "robin-correction-read-explainx",
+      "actor": "daily-editor",
+      "query": "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+      "executedAt": "2026-11-23T02:32:06.640+00:00",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
+      ],
+      "notes": "Read source body; recorded HTTP response metadata and content digest at actual access time."
+    },
+    {
+      "id": "cov-corr-20261123-robin-search-1",
+      "actor": "independent-coverage-reviewer",
+      "query": "\"02:56:46\" nanoda \"Robin\" Lagarias November 2026 Andrew Sutherland",
+      "executedAt": "2026-11-23T02:31:17Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://www.nacionale.com/en/articles/what-is-lean-proof-assistant-riemann-hypothesis-alpoge-claude-explained",
+        "https://www.liuch.name/article/587366",
+        "https://aiprovedwhat.com/episodes/an07-riemann-hypothesis-lean-checked/"
+      ],
+      "notes": "Supplementary search for this specific correction. The four exact clock/identity queries returned one pooled result set, recorded without attributing a particular result to one query; compared the page revision, same result by log and export hash, and alternate research/context reports."
+    },
+    {
+      "id": "cov-corr-20261123-robin-search-2",
+      "actor": "independent-coverage-reviewer",
+      "query": "\"02:29:56\" \"con-leche\" \"November\" \"Robin\" Lagarias MIT",
+      "executedAt": "2026-11-23T02:31:17Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://www.nacionale.com/en/articles/what-is-lean-proof-assistant-riemann-hypothesis-alpoge-claude-explained",
+        "https://www.liuch.name/article/587366",
+        "https://aiprovedwhat.com/episodes/an07-riemann-hypothesis-lean-checked/"
+      ],
+      "notes": "Supplementary search for this specific correction. The four exact clock/identity queries returned one pooled result set, recorded without attributing a particular result to one query; compared the page revision, same result by log and export hash, and alternate research/context reports."
+    },
+    {
+      "id": "cov-corr-20261123-robin-search-3",
+      "actor": "independent-coverage-reviewer",
+      "query": "\"Andrew Sutherland\" \"Robin\" Lagarias nanoda \"November 21\" \"November 22\" MIT Lean",
+      "executedAt": "2026-11-23T02:31:17Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://www.nacionale.com/en/articles/what-is-lean-proof-assistant-riemann-hypothesis-alpoge-claude-explained",
+        "https://www.liuch.name/article/587366",
+        "https://aiprovedwhat.com/episodes/an07-riemann-hypothesis-lean-checked/"
+      ],
+      "notes": "Supplementary search for this specific correction. The four exact clock/identity queries returned one pooled result set, recorded without attributing a particular result to one query; compared the page revision, same result by log and export hash, and alternate research/context reports."
+    },
+    {
+      "id": "cov-corr-20261123-robin-search-4",
+      "actor": "independent-coverage-reviewer",
+      "query": "katobungen note.com n9c2bb939b9c7 con-leche nanoda November 21 22 MIT Sutherland revision time",
+      "executedAt": "2026-11-23T02:31:17Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://www.nacionale.com/en/articles/what-is-lean-proof-assistant-riemann-hypothesis-alpoge-claude-explained",
+        "https://www.liuch.name/article/587366",
+        "https://aiprovedwhat.com/episodes/an07-riemann-hypothesis-lean-checked/"
+      ],
+      "notes": "Supplementary search for this specific correction. The four exact clock/identity queries returned one pooled result set, recorded without attributing a particular result to one query; compared the page revision, same result by log and export hash, and alternate research/context reports."
+    },
+    {
+      "id": "cov-corr-20261123-robin-read-1",
+      "actor": "independent-coverage-reviewer",
+      "query": "MIT 02:56:46, Bittide 02:56:46/Robin1984, translated Kato November 21/arith\nhttps://math.mit.edu/~drew/grh/\nhttps://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08\nhttps://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "executedAt": "2026-11-23T02:31:35Z",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+      ],
+      "notes": "Located archived arithmetic table, exact certificate identity and explicitly dated external chronology."
+    },
+    {
+      "id": "cov-corr-20261123-robin-read-2",
+      "actor": "independent-coverage-reviewer",
+      "query": "MIT 12:55 UTC cached full version; original Japanese Kato §5; MIT linked arithmetic logs\nhttps://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08\nhttps://note.com/katobungen/n/n9c2bb939b9c7\nhttps://math.mit.edu/~drew/grh/arith-con-leche-master.log\nhttps://math.mit.edu/~drew/grh/arith-con-leche-compare.log\nhttps://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "executedAt": "2026-11-23T02:31:53Z",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+        "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+        "https://math.mit.edu/~drew/grh/arith-nanoda.log"
+      ],
+      "notes": "Verified full MIT table in archived version and corresponding three linked log files."
+    },
+    {
+      "id": "cov-corr-20261123-robin-read-3",
+      "actor": "independent-coverage-reviewer",
+      "query": "Original Japanese Kato dateline; MIT arithmetic log final result and exit code\nhttps://note.com/katobungen/n/n9c2bb939b9c7\nhttps://math.mit.edu/~drew/grh/arith-con-leche-master.log\nhttps://math.mit.edu/~drew/grh/arith-con-leche-compare.log\nhttps://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+        "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+        "https://math.mit.edu/~drew/grh/arith-nanoda.log"
+      ],
+      "notes": "Full original Japanese article dates the matched results early Nov21 UTC. Three MIT log bodies show successful outcomes with no calendar-date lines."
+    },
+    {
+      "id": "cov-corr-20261123-robin-http-meta",
+      "actor": "independent-coverage-reviewer",
+      "query": "Direct public HTTP metadata GET on three arithmetic logs plus note.com and Bittide\nhttps://math.mit.edu/~drew/grh/arith-con-leche-master.log\nhttps://math.mit.edu/~drew/grh/arith-con-leche-compare.log\nhttps://math.mit.edu/~drew/grh/arith-nanoda.log\nhttps://note.com/katobungen/n/n9c2bb939b9c7\nhttps://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "executedAt": "2026-11-23T02:32:13Z",
+      "method": "metadata",
+      "focus": [
+        "research"
+      ],
+      "language": "en/ja",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+        "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+        "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08"
+      ],
+      "notes": "Both con-leche logs Last-Modified Nov21 02:38:59Z, nanoda 02:58:35Z. Kato published Nov21 22:37:12 JST and modified Nov22 07:45:10 JST (Nov21 22:45:10Z). Last-Modified applied only as corroboration, no assumed public clock."
+    },
+    {
+      "id": "r23-fq-mit-raw",
+      "actor": "Independent factual reviewer",
+      "query": "GET MIT verification page, arith-con-leche-master.log, arith-con-leche-compare.log, arith-nanoda.log, and SHA256SUMS. Read exact body, HTTP Last-Modified and ETag, compute SHA-256 and compare MIT manifest.",
+      "executedAt": "2026-11-23T02:31:02.138549+00:00",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+        "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+        "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+        "https://math.mit.edu/~drew/grh/SHA256SUMS"
+      ],
+      "notes": "Raw exact bodies and headers archived outside the repository. Last-Modified is asset-mtime evidence, not publication time."
+    },
+    {
+      "id": "r23-fq-chronology-search",
+      "actor": "Independent factual reviewer",
+      "query": "\"arith-nanoda.log\" \"02:56:46\" \"November 21\" Robin Lean Sutherland\n\"Robin\" \"02:29:56\" \"02:56:46\" Lean Riemann November Sutherland 2026 date archive",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh"
+      ],
+      "notes": "Find early snapshot distinct from current page; relevant result URLs in shared search batch."
+    },
+    {
+      "id": "r23-fq-note-raw",
+      "actor": "Independent factual reviewer",
+      "query": "GET the MIT page’s exact arith-con-ron-compare.log link, the original Japanese Kato note, and the old snapshot aggregator. Inspect original language, datePublished/dateModified and raw log SHA-256.",
+      "executedAt": "2026-11-23T02:31:56.775493+00:00",
+      "method": "metadata",
+      "focus": [
+        "research"
+      ],
+      "language": "ja, en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-ron-compare.log",
+        "https://note.com/katobungen/n/n9c2bb939b9c7",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08"
+      ],
+      "notes": "Kato Japanese fetched; cache aggregator denied in shell. Con-ron raw log verified with checksum."
+    },
+    {
+      "id": "r23-fq-archive-open",
+      "actor": "Independent factual reviewer",
+      "query": "Open public BitTide saved HTML text rendered in web, search within prior snapshot for 02:56:46 and its own cache date, and open Kato Japanese note.",
+      "executedAt": "2026-11-23T02:32:28Z",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "ja, en",
+      "resultUrls": [
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://note.com/katobungen/n/n9c2bb939b9c7"
+      ],
+      "notes": "Comparative source chronology, current summary date deliberately unused for completion."
+    },
+    {
+      "id": "r23-fq-explainx-read",
+      "actor": "Independent factual reviewer",
+      "query": "GET ExplainX timeline raw HTML; compare body timestamp for Robin1984 arithmetic nanoda acceptance with contemporaneous snapshot and source metadata.",
+      "executedAt": "2026-11-23T02:31:02.144696+00:00",
+      "method": "open",
+      "focus": [
+        "research"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
+      ],
+      "notes": "Conflicting secondary account retained for traceability."
+    },
+    {
+      "id": "rt23-q-web0-0",
+      "actor": "science-timing-recheck",
+      "query": "\"02:56:46\" nanoda Robin Sutherland November 21 22",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh",
+        "https://xymon.3lan.si/xymon-cgi/history.sh?BARSUMS=15&ENDTIME=1701903599&ENTRIES=ALL&HISTFILE=srv-rds%2Comt.msgs&IP=90.157.155.90&PIXELS=11160"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web0-1",
+      "actor": "science-timing-recheck",
+      "query": "\"02:29:56\" \"02:29:06\" Robin MIT Nov 21 Nov 22",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh",
+        "https://xymon.3lan.si/xymon-cgi/history.sh?BARSUMS=15&ENDTIME=1701903599&ENTRIES=ALL&HISTFILE=srv-rds%2Comt.msgs&IP=90.157.155.90&PIXELS=11160"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web0-2",
+      "actor": "science-timing-recheck",
+      "query": "\"arith-nanoda.log\" \"November 21\" Sutherland Robin",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh",
+        "https://xymon.3lan.si/xymon-cgi/history.sh?BARSUMS=15&ENDTIME=1701903599&ENTRIES=ALL&HISTFILE=srv-rds%2Comt.msgs&IP=90.157.155.90&PIXELS=11160"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web0-3",
+      "actor": "science-timing-recheck",
+      "query": "\"math.mit.edu/~drew/grh\" \"02:56:46\" November 21 archive",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh",
+        "https://xymon.3lan.si/xymon-cgi/history.sh?BARSUMS=15&ENDTIME=1701903599&ENTRIES=ALL&HISTFILE=srv-rds%2Comt.msgs&IP=90.157.155.90&PIXELS=11160"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web1-0",
+      "actor": "science-timing-recheck",
+      "query": "Andrew Sutherland MIT Riemann hypothesis Robin Lagarias archiving Wayback November 21 2026 \"nanoda\"",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://math.mit.edu/~drew/grh/",
+        "https://github.com/yuxiaopeng/hacker-news-summarizer/blob/main/progress.json",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://yavchn.com/story/hn/50590441",
+        "https://scimonitors.com/en/riemann-lean-proof-clears-independent-checkers/",
+        "https://aitoolsreview.co.uk/insights/claude-riemann-hypothesis-proof-claim"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web1-1",
+      "actor": "science-timing-recheck",
+      "query": "\"Robin1984\" con-leche nanoda November 21 2026 timestamp",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://math.mit.edu/~drew/grh/",
+        "https://github.com/yuxiaopeng/hacker-news-summarizer/blob/main/progress.json",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://yavchn.com/story/hn/50590441",
+        "https://scimonitors.com/en/riemann-lean-proof-clears-independent-checkers/",
+        "https://aitoolsreview.co.uk/insights/claude-riemann-hypothesis-proof-claim"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web1-2",
+      "actor": "science-timing-recheck",
+      "query": "\"Robin1984\" con-leche nanoda November 22 2026 timestamp",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://math.mit.edu/~drew/grh/",
+        "https://github.com/yuxiaopeng/hacker-news-summarizer/blob/main/progress.json",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://yavchn.com/story/hn/50590441",
+        "https://scimonitors.com/en/riemann-lean-proof-clears-independent-checkers/",
+        "https://aitoolsreview.co.uk/insights/claude-riemann-hypothesis-proof-claim"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web1-3",
+      "actor": "science-timing-recheck",
+      "query": "\"Combined export\" \"61752134938\" nanoda Sutherland November 21",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+        "https://math.mit.edu/~drew/grh/",
+        "https://github.com/yuxiaopeng/hacker-news-summarizer/blob/main/progress.json",
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+        "https://yavchn.com/story/hn/50590441",
+        "https://scimonitors.com/en/riemann-lean-proof-clears-independent-checkers/",
+        "https://aitoolsreview.co.uk/insights/claude-riemann-hypothesis-proof-claim"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web2-0",
+      "actor": "science-timing-recheck",
+      "query": "https://web.archive.org/cdx/search/cdx?url=math.mit.edu%2F~drew%2Fgrh%2F&from=20261120&to=20261123&output=json",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://web.archive.org/cdx/search/cdx?url=math.mit.edu%2F~drew%2Fgrh%2F&from=20261120&to=20261123&output=json"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web2-1",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122015959",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122015959"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web2-2",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-nanoda.log"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web2-3",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+      "executedAt": "2026-11-23T02:31:03Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web3-0",
+      "actor": "science-timing-recheck",
+      "query": "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "ja",
+      "resultUrls": [
+        "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web3-1",
+      "actor": "science-timing-recheck",
+      "query": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web3-2",
+      "actor": "science-timing-recheck",
+      "query": "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://xnews.qiaomu.ai/a/alpoge-riemann-hypothesis"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web3-3",
+      "actor": "science-timing-recheck",
+      "query": "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
+      ],
+      "notes": "Opened public page through web. The matching local HTTPS record supplies status when available."
+    },
+    {
+      "id": "rt23-q-web4-0",
+      "actor": "science-timing-recheck",
+      "query": "\"02:56:46\" \"November 21\" Robin",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://mvyimby.com/transcripts/appointments/2022-11-21-granicus-4390/",
+        "https://www.pizzamaking.com/forum/index.php/topic%2C79822.0.html",
+        "https://forums.f13.net/index.php?action=printpage%3Btopic%3D7162.0",
+        "https://math.mit.edu/~drew/grh/",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://agiright.org/topics",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web4-1",
+      "actor": "science-timing-recheck",
+      "query": "\"arith-nanoda.log\" November 21 02:58:35 Lean Robin",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://mvyimby.com/transcripts/appointments/2022-11-21-granicus-4390/",
+        "https://www.pizzamaking.com/forum/index.php/topic%2C79822.0.html",
+        "https://forums.f13.net/index.php?action=printpage%3Btopic%3D7162.0",
+        "https://math.mit.edu/~drew/grh/",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://agiright.org/topics",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web4-2",
+      "actor": "science-timing-recheck",
+      "query": "\"2026-11-21\" \"arith-con-leche\" Robin \"02:29\"",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://mvyimby.com/transcripts/appointments/2022-11-21-granicus-4390/",
+        "https://www.pizzamaking.com/forum/index.php/topic%2C79822.0.html",
+        "https://forums.f13.net/index.php?action=printpage%3Btopic%3D7162.0",
+        "https://math.mit.edu/~drew/grh/",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://agiright.org/topics",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web4-3",
+      "actor": "science-timing-recheck",
+      "query": "MIT Sutherland math Lean Robin November 21 2026 katobungen third party earliest acknowledgment",
+      "executedAt": "2026-11-23T02:32:00Z",
+      "method": "search",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://mvyimby.com/transcripts/appointments/2022-11-21-granicus-4390/",
+        "https://www.pizzamaking.com/forum/index.php/topic%2C79822.0.html",
+        "https://forums.f13.net/index.php?action=printpage%3Btopic%3D7162.0",
+        "https://math.mit.edu/~drew/grh/",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+        "https://agiright.org/topics",
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08?locale=zh"
+      ],
+      "notes": "Pooled index results for this batch; screened exact times and potentially preserved source copies."
+    },
+    {
+      "id": "rt23-q-web5-0",
+      "actor": "science-timing-recheck",
+      "query": "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "executedAt": "2026-11-23T02:32:16Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "ja",
+      "resultUrls": [
+        "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+      ],
+      "notes": "Read the dated result rows and identifying earlier source versions."
+    },
+    {
+      "id": "rt23-q-web5-1",
+      "actor": "science-timing-recheck",
+      "query": "https://note.com/katobungen/n/n9c2bb939b9c7",
+      "executedAt": "2026-11-23T02:32:16Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "ja",
+      "resultUrls": [
+        "https://note.com/katobungen/n/n9c2bb939b9c7"
+      ],
+      "notes": "Read the dated result rows and identifying earlier source versions."
+    },
+    {
+      "id": "rt23-q-web5-2",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/",
+      "executedAt": "2026-11-23T02:32:16Z",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/"
+      ],
+      "notes": "Read the dated result rows and identifying earlier source versions."
+    },
+    {
+      "id": "rt23-q-primary",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-arith-nanoda",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-nanoda.log"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-arith-con-leche-master",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-leche-master.log"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-arith-con-leche-compare",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-arith-con-ron-compare",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-con-ron-compare.log",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-con-ron-compare.log"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-arith-build",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-build.log",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-build.log"
+      ],
+      "notes": "Public HTTPS HTTP Error 404: Not Found. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-robin-timeline",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/timeline.log",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/timeline.log"
+      ],
+      "notes": "Public HTTPS HTTP Error 404: Not Found. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-challenge",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/ArithChallenge.lean",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/ArithChallenge.lean"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-compare-config",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/arith-comparator.json",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/arith-comparator.json"
+      ],
+      "notes": "Public HTTPS HTTP Error 404: Not Found. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-cdx",
+      "actor": "science-timing-recheck",
+      "query": "https://web.archive.org/cdx/search/cdx?url=math.mit.edu%2F~drew%2Fgrh%2F&from=20261120&to=20261123&output=json",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://web.archive.org/cdx/search/cdx?url=math.mit.edu%2F~drew%2Fgrh%2F&from=20261120&to=20261123&output=json"
+      ],
+      "notes": "Public HTTPS HTTP Error 503: Service Unavailable. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-avail",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122015959",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122015959"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-archive-early",
+      "actor": "science-timing-recheck",
+      "query": "https://web.archive.org/web/20261122015959id_/https://math.mit.edu/~drew/grh/",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://web.archive.org/web/20261122015959id_/https://math.mit.edu/~drew/grh/"
+      ],
+      "notes": "Public HTTPS HTTP Error 503: Service Unavailable. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-archives-time",
+      "actor": "science-timing-recheck",
+      "query": "https://timetravel.mementoweb.org/api/json/20261122015959/https://math.mit.edu/~drew/grh/",
+      "executedAt": "2026-11-23T02:31:19Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://timetravel.mementoweb.org/api/json/20261122015959/https://math.mit.edu/~drew/grh/"
+      ],
+      "notes": "Public HTTPS <urlopen error Tunnel connection failed: 403 Forbidden>. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-20261121030000",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121030000",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121030000"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-20261121093000",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121093000",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121093000"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-20261121125500",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121125500",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121125500"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-20261121165000",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121165000",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121165000"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-20261121230000",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121230000",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121230000"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-20261122010000",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122010000",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122010000"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-20261122020000",
+      "actor": "science-timing-recheck",
+      "query": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122020000",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122020000"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-wayback-replay-known",
+      "actor": "science-timing-recheck",
+      "query": "https://web.archive.org/web/20261122030811/https://math.mit.edu/~drew/grh/",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://web.archive.org/web/20261122030811/https://math.mit.edu/~drew/grh/"
+      ],
+      "notes": "Public HTTPS HTTP Error 503: Service Unavailable. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-note",
+      "actor": "science-timing-recheck",
+      "query": "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-old-notes",
+      "actor": "science-timing-recheck",
+      "query": "https://math.mit.edu/~drew/grh/index.html",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://math.mit.edu/~drew/grh/index.html"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
+    },
+    {
+      "id": "rt23-q-bittide",
+      "actor": "science-timing-recheck",
+      "query": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "executedAt": "2026-11-23T02:32:01Z",
+      "method": "metadata",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08"
+      ],
+      "notes": "Public HTTPS 200. Checked original logs and timing headers, archive catalog or archived replay, as applicable."
     }
   ],
   "sources": [
@@ -20649,6 +21876,539 @@
           "https://api.github.com/repos/cline/cline/releases/tags/v4.1.27"
         ]
       }
+    },
+    {
+      "id": "robin-correction-s-mit",
+      "title": "MIT original, Verification files for the Lean proof",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.623+00:00",
+      "evidence": "Arithmetic consequences table: same combined-export SHA and identical log URLs/exit clocks. Current table omits the calendar day for the three relevant rows; the current page-update date does not date the jobs. Raw response SHA-256 020ef13ef25ccabe796b4ec7da9bb4242c3e71fb5a5e5d5019526ca3feb4dc78."
+    },
+    {
+      "id": "robin-correction-s-master",
+      "title": "MIT, arith con-leche master result log",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.623+00:00",
+      "evidence": "Body records success; no civil date in body. Header Last-Modified 2026-11-21 02:38:59 GMT. SHA-256 matches the MIT manifest. The MIT table and captured Nov21 snapshot match this log identity and give 02:29:56 UTC. Raw response SHA-256 15a0a0f55d1f6aff89f2ce91b0a2ce4ed1fd1a93e6e37d529a6b6bb7e214ec35."
+    },
+    {
+      "id": "robin-correction-s-compare",
+      "title": "MIT, arith con-leche compare result log",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.624+00:00",
+      "evidence": "Body reports both arithmetic theorem names justified and exit 0; no civil date in body. Header Last-Modified 2026-11-21 02:38:59 GMT. SHA-256 matches the MIT manifest. Exit clock 02:29:06 UTC comes from the table. Raw response SHA-256 bf9adf0a48fa4ee2d06de00ce7737fd9e32de539f3c852b8240ee65cdef55a76."
+    },
+    {
+      "id": "robin-correction-s-nanoda",
+      "title": "MIT, arith nanoda result log",
+      "url": "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.625+00:00",
+      "evidence": "Body records exit 0 and 33m46s with no civil date. Header Last-Modified 2026-11-21 02:58:35 GMT. SHA-256 matches the MIT manifest. The MIT table clock is 02:56:46 UTC. Raw response SHA-256 154e7bfc506b3c810fab6c9d00d2e88c9b76119facd89b5c98e154da3a72730e."
+    },
+    {
+      "id": "robin-correction-s-sha",
+      "title": "MIT, SHA256SUMS",
+      "url": "https://math.mit.edu/~drew/grh/SHA256SUMS",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.625+00:00",
+      "evidence": "All three downloaded arithmetic log SHA-256 digests match the public manifest. The manifest version itself is not a date for the runs. Raw response SHA-256 01bbf80af15751e4973cda7d19bd7368981150475b661a32b730550fd1b16795."
+    },
+    {
+      "id": "robin-correction-s-note",
+      "title": "加藤文元 · 黎曼猜想 Lean 核验同期记录",
+      "url": "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.626+00:00",
+      "evidence": "Dates combined arithmetic con-leche comparison and nanoda acceptance to November 21, 11:29:06 JST and 11:56:46 JST. Cites MIT records as of Nov21 12:55 UTC. JSON-LD first publication and last modification were both Nov21 UTC. Raw response SHA-256 cf3490bb4533bfb07b49bb285e11b23e65611a56e82a21a6e7aedcbd9561e617.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T22:37:12+09:00",
+        "basis": "Note HTML JSON-LD datePublished field. The dateModified field is 2026-11-22T07:45:10+09:00, also November 21 UTC.",
+        "sourceUrls": [
+          "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+        ]
+      }
+    },
+    {
+      "id": "robin-correction-s-archive",
+      "title": "Bittide archived full MIT verification text",
+      "url": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.639+00:00",
+      "evidence": "Cached body self-identifies as Nov21 12:55 UTC MIT version and contains the same three result rows, exit clocks, log URLs, and combined export SHA-256 44651dcc482a6e06e8d626994221aff638e422fded189bf856e0c31176926f0d. Cache-interface time has no displayed offset and is not used as an exact first-public time. Raw response SHA-256 14ca2ee0e14de3b307658f4dbf5bb220bc77043d4074026f92093b20b6aeaf72."
+    },
+    {
+      "id": "robin-correction-s-explainx",
+      "title": "ExplainX chronology, correction reread",
+      "url": "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:06.640+00:00",
+      "evidence": "November 22 retelling attributed the repeated exit clocks to Nov22, but its earlier Nov21 update already describes the same two combined-export checker successes. Dated MIT capture and contemporaneous note resolve the conflict. Raw response SHA-256 d27609d3c077f5a36774286c03ceedefd7da06ca7dd39adf32a849499a7fcd4a."
+    },
+    {
+      "id": "cov-corr-20261123-src-kato",
+      "title": "Fumihiro Kato's original Japanese analysis",
+      "url": "https://note.com/katobungen/n/n9c2bb939b9c7",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:13Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T22:37:12+09:00",
+        "basis": "Original Japanese page JSON-LD datePublished.",
+        "sourceUrls": [
+          "https://note.com/katobungen/n/n9c2bb939b9c7"
+        ]
+      },
+      "evidence": "Japanese article explicitly marks all unspecified times JST and cites the MIT 2026-11-21 12:55 UTC version. Section 5 dates the same combined proof con-leche --compare to Nov21 11:29:06 JST and nanoda to Nov21 11:56:46 JST. Publisher metadata datePublished Nov21 22:37:12 JST; last edit Nov22 07:45:10 JST, still Nov21 UTC."
+    },
+    {
+      "id": "cov-corr-20261123-src-archive",
+      "title": "Archived full MIT 2026-11-21 12:55 UTC verification page via Bittide",
+      "url": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:53Z",
+      "evidence": "Contemporaneously archived version labeled MIT last updated Nov21 12:55 UTC. Full Arithmetic consequences table already lists con-leche master 02:29:56, compare 02:29:06 and nanoda 02:56:46, same filenames and combined export hash 44651dcc482a6e06e8d626994221aff638e422fded189bf856e0c31176926f0d. Mirror cache's local clock is not the MIT execution date."
+    },
+    {
+      "id": "cov-corr-20261123-src-mit",
+      "title": "Andrew Sutherland's current MIT verification page",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:53Z",
+      "evidence": "Live MIT primary dated version 2026-11-22 16:20 UTC. Arithmetic table gives exact times without dates for the combined con-leche and nanoda runs. The same filenames and export SHA appear in the Nov21 snapshot. Separately and explicitly dates con-ron --compare on these arithmetic statements to Nov21 23:15:58 UTC."
+    },
+    {
+      "id": "cov-corr-20261123-src-master",
+      "title": "MIT combined-export con-leche master log",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:13Z",
+      "evidence": "Exit status 0 and verified acceptance of 1,472,825 declarations. No internal calendar timestamp; direct HTTP metadata Last-Modified 2026-11-21 02:38:59 GMT corroborates date without asserting public first access."
+    },
+    {
+      "id": "cov-corr-20261123-src-compare",
+      "title": "MIT combined-export con-leche --compare log",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:13Z",
+      "evidence": "Exit status 0, identifies both inequality statements as justified by the solution. No internal calendar timestamp; direct HTTP metadata Last-Modified 2026-11-21 02:38:59 GMT corroborates the dated contemporaneous analysis."
+    },
+    {
+      "id": "cov-corr-20261123-src-nanoda",
+      "title": "MIT combined-export nanoda log",
+      "url": "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:13Z",
+      "evidence": "Exit status 0, elapsed 33:45.78, no internal calendar timestamp. Direct HTTP Last-Modified 2026-11-21 02:58:35 GMT, corroborating the Nov21 result, not proving first public access."
+    },
+    {
+      "id": "cov-corr-20261123-src-explainx",
+      "title": "ExplainX time-stamped analyses of Alpöge Lean verification",
+      "url": "https://explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:17Z",
+      "evidence": "Nov21 10:05 UTC update already says both combined-export con-leche and nanoda accepted, whereas its Nov22 04:00 UTC update labels the same nanoda 02:56:46 run Nov22. Earlier dated primary snapshot and Kato disambiguate calendar date and outweigh later derivative label."
+    },
+    {
+      "id": "cov-corr-20261123-src-nacionale",
+      "title": "Nacionale on the Lean and MIT verification scopes",
+      "url": "https://www.nacionale.com/en/articles/what-is-lean-proof-assistant-riemann-hypothesis-alpoge-claude-explained",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:17Z",
+      "evidence": "Current article references MIT's later refreshed snapshot, distinguishes five headline theorems and two arithmetic derivations, and gives no separate in-window date for these arithmetic checker completions."
+    },
+    {
+      "id": "cov-corr-20261123-src-later",
+      "title": "Later copy of MIT verification page",
+      "url": "https://www.liuch.name/article/587366",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:17Z",
+      "evidence": "Labels current MIT page revision Nov22 04:35 UTC and repeats its status. Later snapshot does not identify any second run of the same arithmetic checks."
+    },
+    {
+      "id": "cov-corr-20261123-src-pod",
+      "title": "AI Proved What analysis of the Lean checks",
+      "url": "https://aiprovedwhat.com/episodes/an07-riemann-hypothesis-lean-checked/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:17Z",
+      "evidence": "Discusses main-export independent kernels and later independent comparator elsewhere; cites MIT Nov21 12:55 version and the arithmetic connection. Does not independently evidence a second MIT run on the combined arithmetic export."
+    },
+    {
+      "id": "r23-fs-mit",
+      "title": "MIT • Sutherland current verification page",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:02.138549+00:00",
+      "evidence": "The arithmetic-results table gives time of day for all four check results and gives Nov 21 only for con-ron. It gives no day for the separate con-leche and nanoda rows. The current 16:20 UTC Nov 22 snapshot line describes page version only.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-22T16:20:00Z",
+        "basis": "Version time declared on current MIT page, not the first availability of any log or result.",
+        "sourceUrls": [
+          "https://math.mit.edu/~drew/grh/"
+        ]
+      }
+    },
+    {
+      "id": "r23-fs-master",
+      "title": "MIT • arithmetic combined export con-leche kernel log",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:02.139597+00:00",
+      "evidence": "Exit 0, accepts 1,472,825 declarations. Current/older MIT summary clocks 02:29:56 UTC. No civil date appears in the log content. Returned HTTP Last-Modified: Sat, 21 Nov 2026 02:38:59 GMT. Exact artifact SHA-256 15a0a0f55d1f6aff89f2ce91b0a2ce4ed1fd1a93e6e37d529a6b6bb7e214ec35 matches the publisher's SHA256SUMS. File modification corroborates the day by comparison with the dated contemporaneous copy; it does not provide first public availability."
+    },
+    {
+      "id": "r23-fs-compare",
+      "title": "MIT • arithmetic combined export con-leche compare log",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:02.140156+00:00",
+      "evidence": "Exit 0; explicitly justifies both Robin/Lagarias target statements. Current/older MIT summary clocks 02:29:06 UTC. No civil date appears in the log content. Returned HTTP Last-Modified: Sat, 21 Nov 2026 02:38:59 GMT. Exact artifact SHA-256 bf9adf0a48fa4ee2d06de00ce7737fd9e32de539f3c852b8240ee65cdef55a76 matches the publisher's SHA256SUMS. File modification corroborates the day by comparison with the dated contemporaneous copy; it does not provide first public availability."
+    },
+    {
+      "id": "r23-fs-nanoda",
+      "title": "MIT • arithmetic combined export nanoda kernel log",
+      "url": "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:02.141293+00:00",
+      "evidence": "Exit 0; elapsed 33:45.78. Current/older MIT summary clocks 02:56:46 UTC. No civil date appears in the log content. Returned HTTP Last-Modified: Sat, 21 Nov 2026 02:58:35 GMT. Exact artifact SHA-256 154e7bfc506b3c810fab6c9d00d2e88c9b76119facd89b5c98e154da3a72730e matches the publisher's SHA256SUMS. File modification corroborates the day by comparison with the dated contemporaneous copy; it does not provide first public availability."
+    },
+    {
+      "id": "r23-fs-conron-actual",
+      "title": "MIT • arithmetic combined export con-ron compare log",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-ron-compare.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:56.775493+00:00",
+      "evidence": "Exit 0; explicitly justifies both statements. Current MIT summary explicitly dates the run to Nov 21 23:15:58Z. No civil date appears in the log content. Returned HTTP Last-Modified: Sat, 21 Nov 2026 23:18:33 GMT. Exact artifact SHA-256 6358eeac1787a88641458734c6d7867675e2aa8592cf50f1034af6ea99d7e60e matches the publisher's SHA256SUMS. File modification corroborates the day by comparison with the dated contemporaneous copy; it does not provide first public availability."
+    },
+    {
+      "id": "r23-fs-checksums",
+      "title": "MIT • artifact SHA-256 manifest",
+      "url": "https://math.mit.edu/~drew/grh/SHA256SUMS",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:02.143354+00:00",
+      "evidence": "All four linked arithmetic log byte digests matched this manifest. Manifest HTTP Last-Modified dates this manifest, not the log creation or first public availability."
+    },
+    {
+      "id": "r23-fs-note-jp",
+      "title": "Fumihiro Kato • contemporary Japanese verification chronology",
+      "url": "https://note.com/katobungen/n/n9c2bb939b9c7",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:56.776880+00:00",
+      "evidence": "Original Japanese text dates con-leche comparison to Nov21 11:29:06 JST and nanoda to Nov21 11:56:46 JST; explicitly says it reads the Nov21 12:55Z MIT version. Direct parsed HTML datePublished is Nov21 22:37:12 JST and dateModified is Nov22 07:45:10 JST = Nov21 22:45:10Z, both before the present lower bound. Article records already-public matching results, not separate checks.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T22:37:12+09:00",
+        "basis": "Direct JSON-LD datePublished and displayed time element; latest dateModified is separately recorded.",
+        "sourceUrls": [
+          "https://note.com/katobungen/n/n9c2bb939b9c7"
+        ]
+      }
+    },
+    {
+      "id": "r23-fs-bittide-web",
+      "title": "BitTide • old MIT page capture",
+      "url": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:28Z",
+      "evidence": "Web open displays dated MIT version Nov21 12:55 UTC and complete old arithmetic section. It already includes all three con-leche/nanoda success clocks and links to the same instrument logs, while not yet listing con-ron. The separate Cached at Nov21 18:17 PM display gives no timezone. Ordinary shell fetch returned HTTP 403 and yields no raw hash."
+    },
+    {
+      "id": "r23-fs-explainx",
+      "title": "ExplainX • later commentary assigns wrong date",
+      "url": "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:02.144696+00:00",
+      "evidence": "Observed 04:00 UTC Nov22 section calls nanoda success 02:56:46 UTC Nov22. It cites a new MIT page snapshot and is inconsistent with the earlier dated MIT copy, Kato chronology, and raw log data. Its generic midnight JSON-LD dateModified does not establish real update timing. Preserve as the superseded source that caused the date error."
+    },
+    {
+      "id": "r23-fs-bittide",
+      "title": "BitTide • normal direct HTTPS attempt",
+      "url": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:31:56.777535+00:00",
+      "evidence": "Direct managed shell HTTPS returned 403. Web open independently delivered the rendered prior snapshot; this is a separate access route."
+    },
+    {
+      "id": "rt23-s-primary",
+      "title": "MIT proof verification page (current snapshot)",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "Current table gives clock times for con-leche master, comparison and nanoda without dates. The summary and combined-proof table still mark Lean comparator completion as pending. The con-ron row is explicitly November 21; its position is not evidence of either neighboring date.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-22T16:20:00Z",
+        "sourceUrls": [
+          "https://math.mit.edu/~drew/grh/"
+        ],
+        "basis": "Current verification log displays a version update timestamp. It is not the computation time for the rows below."
+      }
+    },
+    {
+      "id": "rt23-s-arith-nanoda",
+      "title": "MIT original arith-nanoda result artifact",
+      "url": "https://math.mit.edu/~drew/grh/arith-nanoda.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "HTTP Last-Modified Sat, 21 Nov 2026 02:58:35 GMT. The fetched result log shows successful completion and exit status 0. Its contents have no wall-clock calendar date. Header supplies artifact modification time, not first public posting or an exact completion clock."
+    },
+    {
+      "id": "rt23-s-arith-con-leche-master",
+      "title": "MIT original arith-con-leche-master result artifact",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-master.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "HTTP Last-Modified Sat, 21 Nov 2026 02:38:59 GMT. The fetched result log shows successful completion and exit status 0. Its contents have no wall-clock calendar date. Header supplies artifact modification time, not first public posting or an exact completion clock."
+    },
+    {
+      "id": "rt23-s-arith-con-leche-compare",
+      "title": "MIT original arith-con-leche-compare result artifact",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-leche-compare.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "HTTP Last-Modified Sat, 21 Nov 2026 02:38:59 GMT. The fetched result log shows successful completion and exit status 0. Its contents have no wall-clock calendar date. Header supplies artifact modification time, not first public posting or an exact completion clock."
+    },
+    {
+      "id": "rt23-s-arith-con-ron-compare",
+      "title": "MIT original arith-con-ron-compare result artifact",
+      "url": "https://math.mit.edu/~drew/grh/arith-con-ron-compare.log",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "HTTP Last-Modified Sat, 21 Nov 2026 23:18:33 GMT. The fetched result log shows successful completion and exit status 0. Its contents have no wall-clock calendar date. Header supplies artifact modification time, not first public posting or an exact completion clock."
+    },
+    {
+      "id": "rt23-s-arith-build",
+      "title": "https://math.mit.edu/~drew/grh/arith-build.log",
+      "url": "https://math.mit.edu/~drew/grh/arith-build.log",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "HTTP Error 404: Not Found."
+    },
+    {
+      "id": "rt23-s-robin-timeline",
+      "title": "https://math.mit.edu/~drew/grh/timeline.log",
+      "url": "https://math.mit.edu/~drew/grh/timeline.log",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "HTTP Error 404: Not Found."
+    },
+    {
+      "id": "rt23-s-challenge",
+      "title": "https://math.mit.edu/~drew/grh/ArithChallenge.lean",
+      "url": "https://math.mit.edu/~drew/grh/ArithChallenge.lean",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "200."
+    },
+    {
+      "id": "rt23-s-compare-config",
+      "title": "https://math.mit.edu/~drew/grh/arith-comparator.json",
+      "url": "https://math.mit.edu/~drew/grh/arith-comparator.json",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "HTTP Error 404: Not Found."
+    },
+    {
+      "id": "rt23-s-cdx",
+      "title": "https://web.archive.org/cdx/search/cdx?url=math.mit.edu%2F~drew%2Fgrh%2F&from=20261120&to=20261123&output=json",
+      "url": "https://web.archive.org/cdx/search/cdx?url=math.mit.edu%2F~drew%2Fgrh%2F&from=20261120&to=20261123&output=json",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "Archive replay/index unavailable (HTTP Error 503: Service Unavailable); snapshot content was not inspected."
+    },
+    {
+      "id": "rt23-s-avail",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122015959",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122015959",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "Archive.org catalog lists a closest capture at 2026-11-22 03:08:11Z. The capture content was not retrievable."
+    },
+    {
+      "id": "rt23-s-archive-early",
+      "title": "https://web.archive.org/web/20261122015959id_/https://math.mit.edu/~drew/grh/",
+      "url": "https://web.archive.org/web/20261122015959id_/https://math.mit.edu/~drew/grh/",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "Archive replay/index unavailable (HTTP Error 503: Service Unavailable); snapshot content was not inspected."
+    },
+    {
+      "id": "rt23-s-archives-time",
+      "title": "https://timetravel.mementoweb.org/api/json/20261122015959/https://math.mit.edu/~drew/grh/",
+      "url": "https://timetravel.mementoweb.org/api/json/20261122015959/https://math.mit.edu/~drew/grh/",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:31:19Z",
+      "evidence": "<urlopen error Tunnel connection failed: 403 Forbidden>."
+    },
+    {
+      "id": "rt23-s-20261121030000",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121030000",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121030000",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive.org catalog API nearest capture timestamp: 20261120195727. Availability record alone does not establish the archived content."
+    },
+    {
+      "id": "rt23-s-20261121093000",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121093000",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121093000",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive.org catalog API nearest capture timestamp: 20261121102441. Availability record alone does not establish the archived content."
+    },
+    {
+      "id": "rt23-s-20261121125500",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121125500",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121125500",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive.org catalog API nearest capture timestamp: 20261121133306. Availability record alone does not establish the archived content."
+    },
+    {
+      "id": "rt23-s-20261121165000",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121165000",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121165000",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive.org catalog API nearest capture timestamp: 20261121133306. Availability record alone does not establish the archived content."
+    },
+    {
+      "id": "rt23-s-20261121230000",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121230000",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261121230000",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive.org catalog API nearest capture timestamp: 20261122030811. Availability record alone does not establish the archived content."
+    },
+    {
+      "id": "rt23-s-20261122010000",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122010000",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122010000",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive.org catalog API nearest capture timestamp: 20261122030811. Availability record alone does not establish the archived content."
+    },
+    {
+      "id": "rt23-s-20261122020000",
+      "title": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122020000",
+      "url": "https://archive.org/wayback/available?url=math.mit.edu%2F~drew%2Fgrh%2F&timestamp=20261122020000",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive.org catalog API nearest capture timestamp: 20261122030811. Availability record alone does not establish the archived content."
+    },
+    {
+      "id": "rt23-s-wayback-replay-known",
+      "title": "https://web.archive.org/web/20261122030811/https://math.mit.edu/~drew/grh/",
+      "url": "https://web.archive.org/web/20261122030811/https://math.mit.edu/~drew/grh/",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Archive replay/index unavailable (HTTP Error 503: Service Unavailable); snapshot content was not inspected."
+    },
+    {
+      "id": "rt23-s-note",
+      "title": "Fumiharu Kato’s account of MIT verification progress (translated view)",
+      "url": "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "Attributed to the MIT snapshot Nov 21 12:55 UTC. The text explicitly assigns November 21 JST 11:29:06 to con-leche comparison and 11:56:46 to nanoda for the combined inequalities.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T13:37:12Z",
+        "sourceUrls": [
+          "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+        ],
+        "basis": "Publisher datePublished 2026-11-21 22:37:12+09:00. Metadata dateModified Nov 22 07:45:10+09:00 equals Nov 21 22:45:10Z; both precede the current cutoff start."
+      }
+    },
+    {
+      "id": "rt23-s-old-notes",
+      "title": "https://math.mit.edu/~drew/grh/index.html",
+      "url": "https://math.mit.edu/~drew/grh/index.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "200."
+    },
+    {
+      "id": "rt23-s-bittide",
+      "title": "BitTide preserved MIT proof verification text",
+      "url": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:01Z",
+      "evidence": "The copied entry preserves displayed MIT snapshot time Nov 21 12:55 UTC and all three combined export successes (02:29:56 con-leche master, 02:29:06 con-leche matching, 02:56:46 nanoda with 33m46s). It lacks the later 23:15:58 con-ron row. No mirror capture/publication instant is asserted from the copied page timestamp."
+    },
+    {
+      "id": "rt23-s-note-original",
+      "title": "Fumiharu Kato, Japanese original",
+      "url": "https://note.com/katobungen/n/n9c2bb939b9c7",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-23T02:32:16Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T13:37:12Z",
+        "sourceUrls": [
+          "https://note.com/katobungen/n/n9c2bb939b9c7"
+        ],
+        "basis": "Metadata and displayed date of original article are on JST. The article says its verification baseline was MIT Nov 21 12:55 UTC."
+      },
+      "evidence": "Japanese §5 explicitly reports Nov 21 JST 11:29:06 and 11:56:46 for con-leche comparison and nanoda. Both clocks therefore convert to Nov 21 UTC 02:29:06 and 02:56:46. This does not date the standalone con-leche whole-export completion; its contemporaneous snapshot and result log provide separate evidence."
     }
   ],
   "candidates": [
@@ -22879,7 +24639,77 @@
         "sci-web-open-19-2",
         "sci-read-mit",
         "sci-read-explainx",
-        "f23-q-facts-grh-logs"
+        "f23-q-facts-grh-logs",
+        "robin-correction-search",
+        "robin-correction-web-read",
+        "robin-correction-read-mit",
+        "robin-correction-read-master",
+        "robin-correction-read-compare",
+        "robin-correction-read-nanoda",
+        "robin-correction-read-sha",
+        "robin-correction-read-note",
+        "robin-correction-read-archive",
+        "robin-correction-read-explainx",
+        "cov-corr-20261123-robin-search-1",
+        "cov-corr-20261123-robin-search-2",
+        "cov-corr-20261123-robin-search-3",
+        "cov-corr-20261123-robin-search-4",
+        "cov-corr-20261123-robin-read-1",
+        "cov-corr-20261123-robin-read-2",
+        "cov-corr-20261123-robin-read-3",
+        "cov-corr-20261123-robin-http-meta",
+        "r23-fq-mit-raw",
+        "r23-fq-chronology-search",
+        "r23-fq-note-raw",
+        "r23-fq-archive-open",
+        "r23-fq-explainx-read",
+        "rt23-q-web0-0",
+        "rt23-q-web0-1",
+        "rt23-q-web0-2",
+        "rt23-q-web0-3",
+        "rt23-q-web1-0",
+        "rt23-q-web1-1",
+        "rt23-q-web1-2",
+        "rt23-q-web1-3",
+        "rt23-q-web2-0",
+        "rt23-q-web2-1",
+        "rt23-q-web2-2",
+        "rt23-q-web2-3",
+        "rt23-q-web3-0",
+        "rt23-q-web3-1",
+        "rt23-q-web3-2",
+        "rt23-q-web3-3",
+        "rt23-q-web4-0",
+        "rt23-q-web4-1",
+        "rt23-q-web4-2",
+        "rt23-q-web4-3",
+        "rt23-q-web5-0",
+        "rt23-q-web5-1",
+        "rt23-q-web5-2",
+        "rt23-q-primary",
+        "rt23-q-arith-nanoda",
+        "rt23-q-arith-con-leche-master",
+        "rt23-q-arith-con-leche-compare",
+        "rt23-q-arith-con-ron-compare",
+        "rt23-q-arith-build",
+        "rt23-q-robin-timeline",
+        "rt23-q-challenge",
+        "rt23-q-compare-config",
+        "rt23-q-cdx",
+        "rt23-q-avail",
+        "rt23-q-archive-early",
+        "rt23-q-archives-time",
+        "rt23-q-20261121030000",
+        "rt23-q-20261121093000",
+        "rt23-q-20261121125500",
+        "rt23-q-20261121165000",
+        "rt23-q-20261121230000",
+        "rt23-q-20261122010000",
+        "rt23-q-20261122020000",
+        "rt23-q-wayback-replay-known",
+        "rt23-q-note",
+        "rt23-q-old-notes",
+        "rt23-q-bittide"
       ],
       "sourceIds": [
         "sci-s052",
@@ -22889,21 +24719,119 @@
         "f23-s-robin-con-leche-master",
         "f23-s-robin-con-leche-compare",
         "f23-s-robin-nanoda",
-        "f23-s-robin-explainx"
+        "f23-s-robin-explainx",
+        "robin-correction-s-mit",
+        "robin-correction-s-master",
+        "robin-correction-s-compare",
+        "robin-correction-s-nanoda",
+        "robin-correction-s-sha",
+        "robin-correction-s-note",
+        "robin-correction-s-archive",
+        "robin-correction-s-explainx",
+        "cov-corr-20261123-src-kato",
+        "cov-corr-20261123-src-archive",
+        "cov-corr-20261123-src-mit",
+        "cov-corr-20261123-src-master",
+        "cov-corr-20261123-src-compare",
+        "cov-corr-20261123-src-nanoda",
+        "cov-corr-20261123-src-explainx",
+        "cov-corr-20261123-src-nacionale",
+        "cov-corr-20261123-src-later",
+        "cov-corr-20261123-src-pod",
+        "r23-fs-mit",
+        "r23-fs-master",
+        "r23-fs-compare",
+        "r23-fs-nanoda",
+        "r23-fs-conron-actual",
+        "r23-fs-checksums",
+        "r23-fs-note-jp",
+        "r23-fs-bittide-web",
+        "r23-fs-explainx",
+        "r23-fs-bittide",
+        "rt23-s-primary",
+        "rt23-s-arith-nanoda",
+        "rt23-s-arith-con-leche-master",
+        "rt23-s-arith-con-leche-compare",
+        "rt23-s-arith-con-ron-compare",
+        "rt23-s-arith-build",
+        "rt23-s-robin-timeline",
+        "rt23-s-challenge",
+        "rt23-s-compare-config",
+        "rt23-s-cdx",
+        "rt23-s-avail",
+        "rt23-s-archive-early",
+        "rt23-s-archives-time",
+        "rt23-s-20261121030000",
+        "rt23-s-20261121093000",
+        "rt23-s-20261121125500",
+        "rt23-s-20261121165000",
+        "rt23-s-20261121230000",
+        "rt23-s-20261122010000",
+        "rt23-s-20261122020000",
+        "rt23-s-wayback-replay-known",
+        "rt23-s-note",
+        "rt23-s-old-notes",
+        "rt23-s-bittide",
+        "rt23-s-note-original"
       ],
-      "decision": "include",
-      "reasonCode": "selected",
-      "reason": "Independent additional checks actually completed inside the window. con-ron had already matched the two arithmetic statements on November 21, and the classic RH joint statement was included in the previous issue. No new GRH determination or main comparator completion.",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Correction of the original selection. The same three checks were already in a cached MIT version marked 2026-11-21 12:55 UTC. Kato supplies the Nov21 JST day for compare and nanoda, with source publication and last modification on Nov21 UTC. The matching original MIT log file headers substantiate prior-day generation, and the manifest confirms file identity. ExplainX’s later attribution and the MIT page refresh do not create a new event.",
       "importance": "Machine verification extended reproducibility of the two concrete divisor-sum consequences through additional independent checkers.",
       "eventTime": {
         "precision": "instant",
-        "value": "2026-11-22T02:56:46Z",
-        "basis": "MIT run record gives nanoda exit 0 clock; first post-window independent chronology explicitly confirms the day. The event is additional arithmetic checker acceptance, not a page refresh or a first proof.",
+        "value": "2026-11-21T02:56:46Z",
+        "basis": "Final successful nanoda check of the combined Robin and Lagarias arithmetic export. The original MIT table exit clock 02:56:46 UTC matches Kato’s explicitly dated Nov21 11:56:46 JST; the Nov21 12:55 UTC cached table and original log metadata independently corroborate prior-window completion.",
         "sourceUrls": [
           "https://math.mit.edu/~drew/grh/",
-          "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
+          "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+          "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+          "https://math.mit.edu/~drew/grh/arith-nanoda.log"
         ]
-      }
+      },
+      "priorAssessments": [
+        {
+          "decision": "include",
+          "reasonCode": "selected",
+          "reason": "Independent additional checks actually completed inside the window. con-ron had already matched the two arithmetic statements on November 21, and the classic RH joint statement was included in the previous issue. No new GRH determination or main comparator completion.",
+          "queryIds": [
+            "sci-web-02-0",
+            "sci-web-02-1",
+            "sci-web-02-2",
+            "sci-web-02-3",
+            "sci-web-open-06-2",
+            "sci-web-open-06-3",
+            "sci-web-17-0",
+            "sci-web-17-1",
+            "sci-web-17-2",
+            "sci-web-17-3",
+            "sci-web-open-19-2",
+            "sci-read-mit",
+            "sci-read-explainx",
+            "f23-q-facts-grh-logs"
+          ],
+          "sourceIds": [
+            "sci-s052",
+            "sci-s119",
+            "sci-s022",
+            "f23-s-robin-mit",
+            "f23-s-robin-con-leche-master",
+            "f23-s-robin-con-leche-compare",
+            "f23-s-robin-nanoda",
+            "f23-s-robin-explainx"
+          ],
+          "eventTime": {
+            "precision": "instant",
+            "value": "2026-11-22T02:56:46Z",
+            "basis": "MIT run record gives nanoda exit 0 clock; first post-window independent chronology explicitly confirms the day. The event is additional arithmetic checker acceptance, not a page refresh or a first proof.",
+            "sourceUrls": [
+              "https://math.mit.edu/~drew/grh/",
+              "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
+            ]
+          },
+          "snapshotAt": "2026-11-23T02:25:54.041Z"
+        }
+      ]
     },
     {
       "id": "sci-nielsen-v1",
@@ -30701,6 +32629,173 @@
         "asia-huasheng-robot-joint"
       ],
       "notes": "Checked press, company statements, partner historical record, capital specialist reporting and earlier republications. Timed-out direct original and aggregator discrepancy recorded."
+    },
+    {
+      "id": "robin-correction-check",
+      "target": "MIT original arithmetic log identity, prior snapshot and contemporary dated reference",
+      "category": "research",
+      "status": "candidate",
+      "checkedAt": "2026-11-23T02:32:06.640+00:00",
+      "queryIds": [
+        "robin-correction-search",
+        "robin-correction-web-read",
+        "robin-correction-read-mit",
+        "robin-correction-read-master",
+        "robin-correction-read-compare",
+        "robin-correction-read-nanoda",
+        "robin-correction-read-sha",
+        "robin-correction-read-note",
+        "robin-correction-read-archive",
+        "robin-correction-read-explainx",
+        "cov-corr-20261123-robin-search-1",
+        "cov-corr-20261123-robin-search-2",
+        "cov-corr-20261123-robin-search-3",
+        "cov-corr-20261123-robin-search-4",
+        "cov-corr-20261123-robin-read-1",
+        "cov-corr-20261123-robin-read-2",
+        "cov-corr-20261123-robin-read-3",
+        "cov-corr-20261123-robin-http-meta",
+        "r23-fq-mit-raw",
+        "r23-fq-chronology-search",
+        "r23-fq-note-raw",
+        "r23-fq-archive-open",
+        "r23-fq-explainx-read",
+        "rt23-q-web0-0",
+        "rt23-q-web0-1",
+        "rt23-q-web0-2",
+        "rt23-q-web0-3",
+        "rt23-q-web1-0",
+        "rt23-q-web1-1",
+        "rt23-q-web1-2",
+        "rt23-q-web1-3",
+        "rt23-q-web2-0",
+        "rt23-q-web2-1",
+        "rt23-q-web2-2",
+        "rt23-q-web2-3",
+        "rt23-q-web3-0",
+        "rt23-q-web3-1",
+        "rt23-q-web3-2",
+        "rt23-q-web3-3",
+        "rt23-q-web4-0",
+        "rt23-q-web4-1",
+        "rt23-q-web4-2",
+        "rt23-q-web4-3",
+        "rt23-q-web5-0",
+        "rt23-q-web5-1",
+        "rt23-q-web5-2",
+        "rt23-q-primary",
+        "rt23-q-arith-nanoda",
+        "rt23-q-arith-con-leche-master",
+        "rt23-q-arith-con-leche-compare",
+        "rt23-q-arith-con-ron-compare",
+        "rt23-q-arith-build",
+        "rt23-q-robin-timeline",
+        "rt23-q-challenge",
+        "rt23-q-compare-config",
+        "rt23-q-cdx",
+        "rt23-q-avail",
+        "rt23-q-archive-early",
+        "rt23-q-archives-time",
+        "rt23-q-20261121030000",
+        "rt23-q-20261121093000",
+        "rt23-q-20261121125500",
+        "rt23-q-20261121165000",
+        "rt23-q-20261121230000",
+        "rt23-q-20261122010000",
+        "rt23-q-20261122020000",
+        "rt23-q-wayback-replay-known",
+        "rt23-q-note",
+        "rt23-q-old-notes",
+        "rt23-q-bittide"
+      ],
+      "sourceIds": [
+        "robin-correction-s-mit",
+        "robin-correction-s-master",
+        "robin-correction-s-compare",
+        "robin-correction-s-nanoda",
+        "robin-correction-s-sha",
+        "robin-correction-s-note",
+        "robin-correction-s-archive",
+        "robin-correction-s-explainx",
+        "cov-corr-20261123-src-kato",
+        "cov-corr-20261123-src-archive",
+        "cov-corr-20261123-src-mit",
+        "cov-corr-20261123-src-master",
+        "cov-corr-20261123-src-compare",
+        "cov-corr-20261123-src-nanoda",
+        "cov-corr-20261123-src-explainx",
+        "cov-corr-20261123-src-nacionale",
+        "cov-corr-20261123-src-later",
+        "cov-corr-20261123-src-pod",
+        "r23-fs-mit",
+        "r23-fs-master",
+        "r23-fs-compare",
+        "r23-fs-nanoda",
+        "r23-fs-conron-actual",
+        "r23-fs-checksums",
+        "r23-fs-note-jp",
+        "r23-fs-bittide-web",
+        "r23-fs-explainx",
+        "r23-fs-bittide",
+        "rt23-s-primary",
+        "rt23-s-arith-nanoda",
+        "rt23-s-arith-con-leche-master",
+        "rt23-s-arith-con-leche-compare",
+        "rt23-s-arith-con-ron-compare",
+        "rt23-s-arith-build",
+        "rt23-s-robin-timeline",
+        "rt23-s-challenge",
+        "rt23-s-compare-config",
+        "rt23-s-cdx",
+        "rt23-s-avail",
+        "rt23-s-archive-early",
+        "rt23-s-archives-time",
+        "rt23-s-20261121030000",
+        "rt23-s-20261121093000",
+        "rt23-s-20261121125500",
+        "rt23-s-20261121165000",
+        "rt23-s-20261121230000",
+        "rt23-s-20261122010000",
+        "rt23-s-20261122020000",
+        "rt23-s-wayback-replay-known",
+        "rt23-s-note",
+        "rt23-s-old-notes",
+        "rt23-s-bittide",
+        "rt23-s-note-original"
+      ],
+      "candidateIds": [
+        "sci-robin-kernels"
+      ],
+      "notes": "Targeted retrospective correction. Tested original logs, SHA256SUMS, archived MIT results and explicitly dated contemporary corroboration against earlier selection. No first-public hour inferred from page/header modification."
+    },
+    {
+      "id": "robin-correction-archive-access",
+      "target": "Wayback index versus replay availability",
+      "category": "research",
+      "status": "access_failed",
+      "checkedAt": "2026-11-23T02:32:01Z",
+      "queryIds": [
+        "rt23-q-web2-0",
+        "rt23-q-web2-1",
+        "rt23-q-cdx",
+        "rt23-q-avail",
+        "rt23-q-archive-early",
+        "rt23-q-20261121030000",
+        "rt23-q-20261121093000",
+        "rt23-q-20261121125500",
+        "rt23-q-20261121165000",
+        "rt23-q-20261121230000",
+        "rt23-q-20261122010000",
+        "rt23-q-20261122020000",
+        "rt23-q-wayback-replay-known"
+      ],
+      "sourceIds": [
+        "rt23-s-cdx",
+        "rt23-s-archive-early",
+        "rt23-s-wayback-replay-known"
+      ],
+      "candidateIds": [],
+      "notes": "Availability metadata was readable and shows capture times, but requested Wayback replay or index paths returned access failures. No result text inferred from metadata. Bittide copy and dated contemporary Note provide separate usable evidence."
     }
   ],
   "coverage": [
@@ -31239,7 +33334,77 @@
         "sci-supp-q-distill",
         "sci-supp-q-baseten",
         "f23-q-facts-selected-1",
-        "f23-q-facts-grh-logs"
+        "f23-q-facts-grh-logs",
+        "robin-correction-search",
+        "robin-correction-web-read",
+        "robin-correction-read-mit",
+        "robin-correction-read-master",
+        "robin-correction-read-compare",
+        "robin-correction-read-nanoda",
+        "robin-correction-read-sha",
+        "robin-correction-read-note",
+        "robin-correction-read-archive",
+        "robin-correction-read-explainx",
+        "cov-corr-20261123-robin-search-1",
+        "cov-corr-20261123-robin-search-2",
+        "cov-corr-20261123-robin-search-3",
+        "cov-corr-20261123-robin-search-4",
+        "cov-corr-20261123-robin-read-1",
+        "cov-corr-20261123-robin-read-2",
+        "cov-corr-20261123-robin-read-3",
+        "cov-corr-20261123-robin-http-meta",
+        "r23-fq-mit-raw",
+        "r23-fq-chronology-search",
+        "r23-fq-note-raw",
+        "r23-fq-archive-open",
+        "r23-fq-explainx-read",
+        "rt23-q-web0-0",
+        "rt23-q-web0-1",
+        "rt23-q-web0-2",
+        "rt23-q-web0-3",
+        "rt23-q-web1-0",
+        "rt23-q-web1-1",
+        "rt23-q-web1-2",
+        "rt23-q-web1-3",
+        "rt23-q-web2-0",
+        "rt23-q-web2-1",
+        "rt23-q-web2-2",
+        "rt23-q-web2-3",
+        "rt23-q-web3-0",
+        "rt23-q-web3-1",
+        "rt23-q-web3-2",
+        "rt23-q-web3-3",
+        "rt23-q-web4-0",
+        "rt23-q-web4-1",
+        "rt23-q-web4-2",
+        "rt23-q-web4-3",
+        "rt23-q-web5-0",
+        "rt23-q-web5-1",
+        "rt23-q-web5-2",
+        "rt23-q-primary",
+        "rt23-q-arith-nanoda",
+        "rt23-q-arith-con-leche-master",
+        "rt23-q-arith-con-leche-compare",
+        "rt23-q-arith-con-ron-compare",
+        "rt23-q-arith-build",
+        "rt23-q-robin-timeline",
+        "rt23-q-challenge",
+        "rt23-q-compare-config",
+        "rt23-q-cdx",
+        "rt23-q-avail",
+        "rt23-q-archive-early",
+        "rt23-q-archives-time",
+        "rt23-q-20261121030000",
+        "rt23-q-20261121093000",
+        "rt23-q-20261121125500",
+        "rt23-q-20261121165000",
+        "rt23-q-20261121230000",
+        "rt23-q-20261122010000",
+        "rt23-q-20261122020000",
+        "rt23-q-wayback-replay-known",
+        "rt23-q-note",
+        "rt23-q-old-notes",
+        "rt23-q-bittide"
       ],
       "checkIds": [
         "asia-check-research",
@@ -31247,9 +33412,11 @@
         "sci-check-arxiv-query",
         "sci-check-hf-catalog",
         "sci-check-niel-pdfs",
-        "g-check-applied"
+        "g-check-applied",
+        "robin-correction-check",
+        "robin-correction-archive-access"
       ],
-      "assessment": "Checked open paper and version indexes, research labs, technical community routes and previously reported proof records. Weekend feeds, publication precision and unavailable paper/community index surfaces limit first-public coverage."
+      "assessment": "Checked open paper and version indexes, research labs, technical community routes and previously reported proof records. Weekend feeds, publication precision and unavailable paper/community index surfaces limit first-public coverage. A same-day correction rechecked the arithmetic logs and dated snapshot; it excluded an already-public previous-window result."
     },
     {
       "category": "governance",
@@ -32154,7 +34321,70 @@
       "f23-q-facts-final-extra-find",
       "f23-q-facts-final-extra",
       "f23-q-digest-direct",
-      "f23-q-cline-metadata"
+      "f23-q-cline-metadata",
+      "robin-correction-search",
+      "robin-correction-web-read",
+      "robin-correction-read-mit",
+      "robin-correction-read-master",
+      "robin-correction-read-compare",
+      "robin-correction-read-nanoda",
+      "robin-correction-read-sha",
+      "robin-correction-read-note",
+      "robin-correction-read-archive",
+      "robin-correction-read-explainx",
+      "cov-corr-20261123-robin-search-1",
+      "cov-corr-20261123-robin-search-2",
+      "cov-corr-20261123-robin-search-3",
+      "cov-corr-20261123-robin-search-4",
+      "r23-fq-mit-raw",
+      "r23-fq-chronology-search",
+      "rt23-q-web0-0",
+      "rt23-q-web0-1",
+      "rt23-q-web0-2",
+      "rt23-q-web0-3",
+      "rt23-q-web1-0",
+      "rt23-q-web1-1",
+      "rt23-q-web1-2",
+      "rt23-q-web1-3",
+      "rt23-q-web2-0",
+      "rt23-q-web2-1",
+      "rt23-q-web2-2",
+      "rt23-q-web2-3",
+      "rt23-q-web3-0",
+      "rt23-q-web3-1",
+      "rt23-q-web3-2",
+      "rt23-q-web3-3",
+      "rt23-q-web4-0",
+      "rt23-q-web4-1",
+      "rt23-q-web4-2",
+      "rt23-q-web4-3",
+      "rt23-q-web5-0",
+      "rt23-q-web5-1",
+      "rt23-q-web5-2",
+      "rt23-q-primary",
+      "rt23-q-arith-nanoda",
+      "rt23-q-arith-con-leche-master",
+      "rt23-q-arith-con-leche-compare",
+      "rt23-q-arith-con-ron-compare",
+      "rt23-q-arith-build",
+      "rt23-q-robin-timeline",
+      "rt23-q-challenge",
+      "rt23-q-compare-config",
+      "rt23-q-cdx",
+      "rt23-q-avail",
+      "rt23-q-archive-early",
+      "rt23-q-archives-time",
+      "rt23-q-20261121030000",
+      "rt23-q-20261121093000",
+      "rt23-q-20261121125500",
+      "rt23-q-20261121165000",
+      "rt23-q-20261121230000",
+      "rt23-q-20261122010000",
+      "rt23-q-20261122020000",
+      "rt23-q-wayback-replay-known",
+      "rt23-q-note",
+      "rt23-q-old-notes",
+      "rt23-q-bittide"
     ],
     "assessment": "Open discovery combined exact dated multilingual searches, specialist reporting and funding indexes, author and community routes, event-specific corporate and government publications, and independent reviewer follow-up. Pooled response inventories describe actually returned shared links without attributing them to a single query. The results leave bounded limitations on social post access and paid regional press, with uncertain events kept separate."
   },
@@ -32170,17 +34400,17 @@
       "reuters-anthropic-ipo-process",
       "cov-nyt-chip-supply-investigation",
       "cov-nga-ai-principles",
-      "sci-robin-kernels",
       "g-gall-010",
       "cov-wells-fargo-agent-terms"
     ],
     "watchCandidateIds": [],
     "limitations": "Original subscription and social access was restricted for some leads. Weekend indexing, some non-English specialist sources and first-public timing were incomplete. No qualifying unresolved boundary story is counted as confirmed. JEV, Laya, and OSC were not silently mapped to a namesake.",
-    "sha256": "65cb782054bc5755ad568bf48c852ee988a976013d2de6d97d47d89e5f81574a"
+    "sha256": "14e6619776ba3ac6f2f14b7da93fd53670dc200f353475facb8f55b75da7f994",
+    "originalDate": "2026-11-23T02:24:21.565Z"
   },
   "review": {
     "reviewer": "independent-coverage-reviewer",
-    "reviewedAt": "2026-11-23T02:25:18Z",
+    "reviewedAt": "2026-11-23T02:35:30Z",
     "candidateIds": [
       "reuters-anthropic-ipo-process",
       "root-together-qwen4",
@@ -32607,7 +34837,15 @@
       "cov-q-open-27",
       "cov-q-open-29",
       "cov-q-open-31",
-      "cov-q-open-34"
+      "cov-q-open-34",
+      "cov-corr-20261123-robin-search-1",
+      "cov-corr-20261123-robin-search-2",
+      "cov-corr-20261123-robin-search-3",
+      "cov-corr-20261123-robin-search-4",
+      "cov-corr-20261123-robin-read-1",
+      "cov-corr-20261123-robin-read-2",
+      "cov-corr-20261123-robin-read-3",
+      "cov-corr-20261123-robin-http-meta"
     ],
     "verdict": "pass_with_limits",
     "report": "docs/daily/reviews/2026-11-23.md",
@@ -32634,6 +34872,21 @@
       },
       {
         "detail": "Bounded limits remain: NYT direct access, individual FT coverage and some social originals unavailable, some Japanese/regional/industry feeds incompletely indexed, and part of public Sunday paper/slower specialist reporting has uncertain publication precision. JEV, Laya and OSC identities stay unresolved. Public open discovery sufficiently exercised all five topics, English, simplified/traditional Chinese, Japanese, Korean, French, Spanish and Arabic as well as public independent creator routes, with no category waived.",
+        "severity": "note",
+        "resolution": "disclosed"
+      },
+      {
+        "detail": "The original tenth story assigned an undated MIT clock to November 22. The cached MIT November 21 12:55 UTC version already records identical combined-export hash, log filenames and completed con-leche and nanoda rows. Kato dates compare and nanoda to November 21 JST, matching November 21 02:29:06 and 02:56:46 UTC. MIT log bodies record success, with HTTP Last-Modified timestamps on November 21. These headers are supporting metadata, distinct from public release times. The corrected result is fully outside this issue and does not qualify for the public watch count. An in-page correction identifies the removed story. The article now has 11 confirmed and zero watched.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Compared against published ad02de9 and the original independent coverage verdict. All 340 candidate IDs remain in the original order. Only sci-robin-kernels changed disposition. Its prior assessment at original ledger completion 2026-11-23T02:25:54.041Z preserves the original decision, reason, time and references. All previous query, source and check records including access times remain identical. New evidence carries actual correction times. The original date and unrelated article text remain unchanged.",
+        "severity": "note",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Original all-topic review and bounded publication-precision and access limits carry forward. Current findings address chronological provenance of the arithmetic-check runs. The evidence does not independently reproduce the calculations or reassess general RH/GRH status.",
         "severity": "note",
         "resolution": "disclosed"
       }

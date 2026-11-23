@@ -2,6 +2,7 @@
 {
   "title": "AI 资讯日报 · 2026 年 11 月 23 日",
   "date": "2026-11-23T02:24:21.565Z",
+  "updated": "2026-11-23T02:33:22.826Z",
   "excerpt": "OpenAI 首席科学家提出自愿的模型安全门槛，Sarvam 更新开放权重，推理服务商披露请求转发，中国启动具身智能数据专项国标研制。",
   "tags": [
     "AI 日报"
@@ -251,32 +252,6 @@
       "retrievedAt": "2026-11-23T02:08:57Z"
     },
     {
-      "title": "MIT · Sutherland 核验记录",
-      "url": "https://math.mit.edu/~drew/grh/",
-      "publication": {
-        "precision": "instant",
-        "value": "2026-11-22T16:20:00Z",
-        "basis": "The independently maintained public verification document identifies a snapshot at 16:20 UTC; this is its version, not the time individual tests ran.",
-        "sourceUrls": [
-          "https://math.mit.edu/~drew/grh/"
-        ]
-      },
-      "retrievedAt": "2026-11-23T02:03:32Z"
-    },
-    {
-      "title": "ExplainX · 同期核验记录",
-      "url": "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026",
-      "publication": {
-        "precision": "date",
-        "value": "2026-11-20",
-        "basis": "Displayed first-post calendar date; chronological body contains manually clocked updates.",
-        "sourceUrls": [
-          "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
-        ]
-      },
-      "retrievedAt": "2026-11-23T02:06:23Z"
-    },
-    {
       "title": "Gall · 发行说明",
       "url": "https://github.com/ltrgoddard/gall/releases/tag/v0.1.0",
       "publication": {
@@ -328,6 +303,29 @@
         ]
       },
       "retrievedAt": "2026-11-23T02:04:24Z"
+    },
+    {
+      "title": "更正依据 · MIT 核验记录",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "retrievedAt": "2026-11-23T02:32:06.623+00:00"
+    },
+    {
+      "title": "更正依据 · MIT 11 月 21 日版存档",
+      "url": "https://bittide.aicompass.dev/article/30eb7839-0da7-4986-86e9-c6de1fbd9c08",
+      "retrievedAt": "2026-11-23T02:32:06.639+00:00"
+    },
+    {
+      "title": "更正依据 · 加藤文元的同期时间记录",
+      "url": "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en",
+      "retrievedAt": "2026-11-23T02:32:06.626+00:00",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T22:37:12+09:00",
+        "basis": "Note HTML JSON-LD datePublished field. The dateModified field is 2026-11-22T07:45:10+09:00, also November 21 UTC.",
+        "sourceUrls": [
+          "https://note.com/katobungen/n/n9c2bb939b9c7?hl=en"
+        ]
+      }
     }
   ],
   "daily": {
@@ -512,26 +510,6 @@
         ]
       },
       {
-        "candidateId": "sci-robin-kernels",
-        "title": "两个额外检查器接受 Robin 与 Lagarias 不等式的 Lean 导出",
-        "summary": "MIT 的 Andrew Sutherland 记录了 con-leche 和 nanoda 对同一份 Lean 导出的核验结果。两个不等式的前一轮核验发生于上个窗口。",
-        "category": "research",
-        "eventEvidence": {
-          "precision": "instant",
-          "value": "2026-11-22T02:56:46Z",
-          "basis": "MIT run record gives nanoda exit 0 clock; first post-window independent chronology explicitly confirms the day. The event is additional arithmetic checker acceptance, not a page refresh or a first proof.",
-          "sourceUrls": [
-            "https://math.mit.edu/~drew/grh/",
-            "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
-          ]
-        },
-        "releaseStatus": "research",
-        "sourceUrls": [
-          "https://math.mit.edu/~drew/grh/",
-          "https://www.explainx.ai/blog/levent-alpoge-anthropic-riemann-hypothesis-claude-lean-proof-claimed-vs-verified-2026"
-        ]
-      },
-      {
         "candidateId": "g-gall-010",
         "title": "Gall 0.1.0 为 Apple Silicon 提供 Inkling 2 Mini 本地服务",
         "summary": "这个早期 macOS 工具可加载量化的 Inkling 2 Mini 权重，提供 OpenAI 兼容的本地接口。它可以在请求间卸载权重并保留符合条件的会话状态。",
@@ -572,7 +550,8 @@
       }
     ],
     "pending": [],
-    "evidenceRun": "docs/daily/runs/2026-11-23.json"
+    "evidenceRun": "docs/daily/runs/2026-11-23.json",
+    "correction": "原第 10 条误把 Robin 与 Lagarias 不等式的核验结果记在 11 月 22 日（UTC）。MIT 的 11 月 21 日页面存档已列出这些结果，现从本期确认动态和图表统计中移除。"
   }
 }
 ---
@@ -647,30 +626,22 @@ import { Section, SectionHead, Prose } from '@/components/article';
   </Prose>
 </Section>
 
-<Section canvas id="robin-checks">
-  <SectionHead index="12" kicker="形式化核验" title="两个额外检查器接受 Robin 与 Lagarias 不等式的 Lean 导出" />
-  <Prose>
-    <p>MIT 数学家 Andrew Sutherland 在公开记录中列出两个新完成的检查。按 UTC 计，11 月 22 日 02:29，<code>con-leche</code> 接受了 Robin 与 Lagarias 不等式的合并 Lean 导出。02:56，独立实现的检查器 <code>nanoda</code> 也接受了这份导出。另一个检查器 <code>con-ron</code> 已在前一采集窗口核对了这两个命题。<a href="https://math.mit.edu/~drew/grh/">核验日志</a></p>
-    <p>重复核验能降低对某一个检查器实现的依赖。这几次运行针对上述两个不等式，主证明完整导出和其他核验仍各有自己的进度。</p>
-  </Prose>
-</Section>
-
 <Section canvas id="gall-local">
-  <SectionHead index="13" kicker="本地推理工具" title="Gall 0.1.0 为 Apple Silicon 提供 Inkling 2 Mini 本地服务" />
+  <SectionHead index="12" kicker="本地推理工具" title="Gall 0.1.0 为 Apple Silicon 提供 Inkling 2 Mini 本地服务" />
   <Prose>
     <p>Gall 0.1.0 是一个 macOS 菜单栏服务，首次启动会下载 Inkling 2 Mini 的量化权重。它提供 OpenAI 兼容的本地接口，空闲时可卸载权重，并把符合条件的会话状态留给下一次请求。发行说明要求 Apple Silicon 至少有 24 GB 统一内存，列出的测试机是一台 M2 MacBook Air。应用目前未经 Apple 公证，性能和稳定性仍须看具体机器与工作负载。<a href="https://github.com/ltrgoddard/gall/releases/tag/v0.1.0">Gall 发行说明</a> · <a href="https://news.ycombinator.com/item?id=50604195">作者发布帖</a></p>
   </Prose>
 </Section>
 
 <Section canvas id="bank-agent-terms">
-  <SectionHead index="14" kicker="智能体权限" title="富国银行新版网银条款明确第三方 AI 智能体权限" />
+  <SectionHead index="13" kicker="智能体权限" title="富国银行新版网银条款明确第三方 AI 智能体权限" />
   <Prose>
     <p>WIRED 报道了富国银行将于 11 月 24 日生效的网银协议。第 15 节为银行保留了限制智能体访问、调整接入方式等权利。客户授权智能体或让其使用自己的登录权限后，除非法律法规另有规定，银行可将智能体发起的指令、操作与交易视为由客户直接授权。<a href="https://www.wired.com/story/banks-are-cracking-down-on-ai-agents/">WIRED 报道</a> · <a href="https://www.wellsfargo.com/online-banking/online-access-agreement/upcoming/">富国银行协议第 15 节</a></p>
   </Prose>
 </Section>
 
 <Section canvas id="outlook">
-  <SectionHead index="15" kicker="趋势观察" title="交付方式开始决定数据边界" />
+  <SectionHead index="14" kicker="趋势观察" title="交付方式开始决定数据边界" />
   <Prose>
     <p>Sarvam 发布可自行部署的权重，Gall 把模型做成可以在桌面调用的本地服务。云端则有另一笔账。只看模型名称，无法知道请求经历了哪些服务商。随着工具接入更多日常业务，部署方要能说清一条请求的去向、保留条件，以及谁可以代表用户发起操作。</p>
     <p>本期查了中英日韩及多种欧洲语言的公开资讯、论文与发行记录。部分订阅正文、社交原帖、区域索引和首发时刻仍无法核实。JEV、Laya 和 OSC 在关注清单中所指的项目仍待确认。</p>
