@@ -21,8 +21,13 @@ const server = createServer(async (req, res) => {
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const address = server.address();
 // Pagefind selects its query tokenizer from the page language.
-// Node has no document, so expose the same language as the Chinese search page.
-globalThis.document = { currentScript: null, querySelector: (selector) => selector === 'html' ? { getAttribute: () => 'zh-CN' } : null };
+// Node has no document, so expose the matching html[lang] attribute per pass.
+let htmlLang = 'zh-CN';
+globalThis.document = {
+  currentScript: null,
+  querySelector: (selector) =>
+    selector === 'html' ? { getAttribute: () => htmlLang } : null,
+};
 let pagefind;
 try {
   pagefind = await import(pathToFileURL(path.join(root, 'pagefind.js')).href);
@@ -36,6 +41,50 @@ try {
   }
   const english = await pagefind.search('软银', { filters: { locale: 'en' } });
   assert.equal(english.results.length, 0, 'Chinese daily must not leak into English results');
+
+  // Verify Chinese /projects/ indexing, sub-result anchors, and ignored chrome.
+  for (const [term, anchor, title] of [
+    ['Persona', '/projects/#persona', 'Persona'],
+    ['ZOM', '/projects/#zom', 'ZOM'],
+  ]) {
+    const response = await pagefind.search(term, { filters: { locale: 'zh' } });
+    const results = await Promise.all(response.results.map((result) => result.data()));
+    assert.ok(results.every((result) => !result.url.startsWith('/en/')), `${term} must respect the Chinese locale filter`);
+    const projects = results.find((result) => result.url === '/projects/');
+    assert.ok(projects, `${term} must find /projects/`);
+    assert.ok(
+      (projects.sub_results ?? []).some((sub) => sub.url === anchor && sub.title === title),
+      `${term} must expose sub-result anchor ${anchor}`
+    );
+    if (term === 'Persona') {
+      assert.ok(
+        !(projects.sub_results ?? []).some((sub) => sub.url === '/projects/#zom'),
+        'Persona query must not falsely attribute nwverse/persona metadata to ZOM'
+      );
+    }
+  }
+  const ignoredChrome = await pagefind.search('更多仓库在 GitHub', { filters: { locale: 'zh' } });
+  const ignoredResults = await Promise.all(ignoredChrome.results.map((result) => result.data()));
+  assert.ok(
+    ignoredResults.every((result) => result.url !== '/projects/'),
+    'Ignored projects chrome must not match /projects/'
+  );
+
+  // Switch tokenizer language to English and verify /en/projects/.
+  await pagefind.destroy();
+  htmlLang = 'en';
+  await pagefind.options({ basePath: `http://127.0.0.1:${address.port}/` });
+  await pagefind.init();
+  const enProjectsRes = await pagefind.search('Persona', { filters: { locale: 'en' } });
+  const enProjectsData = await Promise.all(enProjectsRes.results.map((result) => result.data()));
+  assert.ok(enProjectsData.every((result) => result.url.startsWith('/en/')), 'English search must stay under /en/');
+  const enProjects = enProjectsData.find((result) => result.url === '/en/projects/');
+  assert.ok(enProjects, 'Persona must find /en/projects/');
+  assert.ok(
+    (enProjects.sub_results ?? []).some((sub) => sub.url === '/en/projects/#persona' && sub.title === 'Persona'),
+    'English Persona search must expose sub-result anchor /en/projects/#persona'
+  );
+
   console.log('Pagefind search regression passed.');
 } finally {
   if (pagefind) await pagefind.destroy();

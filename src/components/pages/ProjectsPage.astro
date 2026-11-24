@@ -39,6 +39,32 @@ const resolved = groups
 
 type Project = NonNullable<ReturnType<typeof bySlug.get>>;
 const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
+const contributed = all.filter((p) => p.data.role === 'contributor');
+const featured = [flagship, ...contributed].filter(Boolean) as Project[];
+
+const paragraphsOf = (text: string): string[] =>
+  text
+    .split(/\n\s*\n/)
+    .map((para) => para.trim())
+    .filter(Boolean);
+
+const repoPathOf = (p: Project): string | undefined => {
+  if (p.data.repo) {
+    try {
+      const parsed = new URL(p.data.repo);
+      if (parsed.hostname === 'github.com') {
+        const clean = parsed.pathname.replace(/^\/+|\/+$/g, '');
+        if (clean) return clean;
+      }
+    } catch {
+      // fall back to owner when repo URL cannot be parsed
+    }
+  }
+  return p.data.owner;
+};
+
+const groupBaseDelay = featured.length > 0 ? 0.06 + featured.length * 0.06 : 0.12;
+const closingDelay = (groupBaseDelay + resolved.length * 0.06).toFixed(2);
 ---
 
 <BaseLayout lang={lang} title={t(lang, 'section.projects')}>
@@ -48,9 +74,9 @@ const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
     ) : (
       // iOS grouped-list field: gray ground, white inset cards.
       <div class="page-paper -my-10 sm:-my-14">
-        <div class="container-page py-12 sm:py-16">
-          <header data-stagger class="mb-10">
-            <p class="eyebrow">{t(lang, 'section.projects.eyebrow')}</p>
+        <div data-pagefind-body class="container-page py-12 sm:py-16">
+          <header data-stagger data-pagefind-meta="kind:projects" class="mb-10">
+            <p class="eyebrow" data-pagefind-ignore>{t(lang, 'section.projects.eyebrow')}</p>
             <h1
               class="mt-3 text-[clamp(30px,4vw,40px)] font-semibold tracking-[-0.025em] text-ink"
             >
@@ -61,63 +87,90 @@ const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
             </p>
           </header>
 
-          {/* Flagship: a white card; hovering lifts it as one glass tile. */}
+          {/* Featured stack: flagship + contributed work, distinguished by Owner / Contributor. */}
           {
-            flagship &&
-              (() => {
-                const link = hrefOf(flagship);
-                return (
-                  <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-enter
-                    style="--enter-d: 0.06s"
-                    class="project-flagship group block rounded-card px-6 py-9 sm:px-10 sm:py-11"
-                  >
-                    <div class="grid gap-6 lg:grid-cols-[150px_1fr] lg:gap-12">
-                      <aside class="lg:pt-1.5">
-                        <p class="font-mono text-[12.5px] tabular-nums text-muted-2">
-                          {flagship.data.date.getFullYear()}
-                          <span class="mx-1.5 text-line">·</span>
-                          {t(lang, `projects.status.${flagship.data.status}`)}
-                        </p>
-                        <p class="mt-2 text-[12px] text-muted-2">
-                          {t(lang, 'projects.selected')}
-                        </p>
-                      </aside>
-                      <div>
-                        <h2
-                          class="inline text-[clamp(26px,3.2vw,38px)] font-semibold leading-[1.12] tracking-[-0.03em] text-ink transition-colors duration-200 group-hover:text-blue"
-                        >
-                          {flagship.data.title}
-                        </h2>
-                        <span
-                          aria-hidden="true"
-                          class="ext ml-2 inline-block text-[18px] text-muted-2 transition-all duration-200 group-hover:text-blue"
-                        >↗</span>
-                        <p class="mt-4 max-w-[680px] text-[15px] leading-[1.75] text-muted">
-                          {flagship.data.description}
-                        </p>
-                        {
-                          flagship.data.highlights.length > 0 && (
-                            <p class="mt-4 font-mono text-[12px] leading-relaxed text-muted-2">
-                              {flagship.data.highlights.join('  ·  ')}
-                            </p>
-                          )
-                        }
-                        <div class="mt-5 flex flex-wrap items-center gap-1.5">
-                          {flagship.data.stack.map((item) => (
-                            <span class="rounded-full border border-line bg-paper px-2.5 py-0.5 font-mono text-[11.5px] text-ink-2">
-                              {item}
+            featured.length > 0 && (
+              <div class="space-y-5">
+                {featured.map((item, idx) => {
+                  const link = hrefOf(item);
+                  const repoPath = repoPathOf(item);
+                  const paragraphs = paragraphsOf(item.data.description);
+                  return (
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-enter
+                      style={`--enter-d: ${(0.06 + idx * 0.06).toFixed(2)}s`}
+                      class="project-flagship group block rounded-card px-6 py-9 sm:px-10 sm:py-11"
+                    >
+                      <div class="grid gap-6 lg:grid-cols-[150px_1fr] lg:gap-12">
+                        <div class="order-2 min-w-0">
+                          <div class="flex flex-col items-start">
+                            <div class="order-2">
+                              <h2
+                                id={slugOfId(item.id)}
+                                class="inline scroll-mt-28 text-[clamp(26px,3.2vw,38px)] font-semibold leading-[1.12] tracking-[-0.03em] text-ink transition-colors duration-200 group-hover:text-blue group-focus-visible:text-blue"
+                              >
+                                {item.data.title}
+                              </h2>
+                              <span
+                                aria-hidden="true"
+                                data-pagefind-ignore
+                                class="ext ml-2 inline-block text-[18px] text-muted-2 transition-all duration-200 group-hover:text-blue group-focus-visible:text-blue"
+                              >↗</span>
+                            </div>
+                            <span class="order-1 mb-3 inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-3 py-1 text-[12px] font-semibold leading-none tracking-[0.01em] text-ink">
+                              <span
+                                aria-hidden="true"
+                                class:list={[
+                                  'h-[7px] w-[7px] rounded-full',
+                                  item.data.role === 'contributor' ? 'bg-blue' : 'bg-ink',
+                                ]}
+                              />
+                              {t(lang, `projects.role.${item.data.role}`)}
                             </span>
-                          ))}
+                          </div>
+                          <div class="mt-4 max-w-[680px] space-y-3 text-[15px] leading-[1.75] text-muted">
+                            {paragraphs.map((para) => (
+                              <p>{para}</p>
+                            ))}
+                          </div>
+                          {
+                            item.data.highlights.length > 0 && (
+                              <p class="mt-4 font-mono text-[12px] leading-relaxed text-muted-2">
+                                {item.data.highlights.join('  ·  ')}
+                              </p>
+                            )
+                          }
+                          <div class="mt-5 flex flex-wrap items-center gap-1.5">
+                            {item.data.stack.map((tech) => (
+                              <span class="rounded-full border border-line bg-paper px-2.5 py-0.5 font-mono text-[11.5px] text-ink-2">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
                         </div>
+                        <aside class="order-1 lg:pt-1.5">
+                          <p class="font-mono text-[12.5px] tabular-nums text-muted-2">
+                            {item.data.date.getFullYear()}
+                            <span class="mx-1.5 text-line">·</span>
+                            {t(lang, `projects.status.${item.data.status}`)}
+                          </p>
+                          {
+                            repoPath && (
+                              <p class="mt-1.5 break-all font-mono text-[11.5px] text-muted-2">
+                                {repoPath}
+                              </p>
+                            )
+                          }
+                        </aside>
                       </div>
-                    </div>
-                  </a>
-                );
-              })()
+                    </a>
+                  );
+                })}
+              </div>
+            )
           }
 
           {/* Curated groups — classifications, not rankings. */}
@@ -125,7 +178,7 @@ const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
             resolved.map((group, gi) => (
               <section
                 data-enter
-                style={`--enter-d: ${(0.12 + gi * 0.06).toFixed(2)}s`}
+                style={`--enter-d: ${(groupBaseDelay + gi * 0.06).toFixed(2)}s`}
                 class="mt-10 sm:mt-12"
               >
                 <h2 class="px-5 text-[13.5px] font-semibold uppercase tracking-[0.12em] text-muted-2 sm:px-7">
@@ -143,24 +196,40 @@ const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
                         rel="noopener noreferrer"
                         class="project-row group relative flex flex-col gap-1.5 px-5 py-6 sm:px-7 lg:grid lg:grid-cols-[64px_1fr_auto] lg:gap-x-7 lg:gap-y-2"
                       >
-                        <span class="font-mono text-[12px] tabular-nums text-muted-2">
+                        <div class="order-2 min-w-0">
+                          <div class="flex flex-col items-start">
+                            <div class="order-2">
+                              <h3
+                                id={slugOfId(p.id)}
+                                class="inline scroll-mt-28 text-[18.5px] font-semibold tracking-[-0.018em] text-ink transition-colors duration-200 group-hover:text-blue group-focus-visible:text-blue"
+                              >
+                                {p.data.title}
+                              </h3>
+                              <span
+                                aria-hidden="true"
+                                data-pagefind-ignore
+                                class="ext ml-1.5 inline-block text-[13px] font-normal text-muted-2 transition-all duration-200 group-hover:text-blue group-focus-visible:text-blue"
+                              >↗</span>
+                            </div>
+                            <span class="order-1 mb-2 inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 text-[11.5px] font-semibold leading-none tracking-[0.01em] text-ink">
+                              <span
+                                aria-hidden="true"
+                                class:list={[
+                                  'h-[7px] w-[7px] rounded-full',
+                                  p.data.role === 'contributor' ? 'bg-blue' : 'bg-ink',
+                                ]}
+                              />
+                              {t(lang, `projects.role.${p.data.role}`)}
+                            </span>
+                          </div>
+                          <p class="mt-1.5 max-w-[620px] text-[13.5px] leading-relaxed text-muted">
+                            {p.data.description}
+                          </p>
+                        </div>
+                        <span class="order-1 font-mono text-[12px] tabular-nums text-muted-2 lg:pt-0.5">
                           {showYear ? year : ''}
                         </span>
-                        <span class="min-w-0">
-                          <span
-                            class="block text-[18.5px] font-semibold tracking-[-0.018em] text-ink transition-colors duration-200 group-hover:text-blue"
-                          >
-                            {p.data.title}
-                            <span
-                              aria-hidden="true"
-                              class="ext ml-1.5 inline-block text-[13px] font-normal text-muted-2 transition-all duration-200 group-hover:text-blue"
-                            >↗</span>
-                          </span>
-                          <span class="mt-1.5 block max-w-[620px] text-[13.5px] leading-relaxed text-muted">
-                            {p.data.description}
-                          </span>
-                        </span>
-                        <span class="hidden font-mono text-[11.5px] text-muted-2 lg:block">
+                        <span class="order-3 hidden font-mono text-[11.5px] text-muted-2 lg:block">
                           {p.data.status !== 'active' && (
                             <>
                               {t(lang, `projects.status.${p.data.status}`)}
@@ -178,7 +247,7 @@ const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
           }
 
           {/* Closing card: this site, then the rest of the work on GitHub. */}
-          <section data-enter style="--enter-d: 0.24s" class="mt-10 sm:mt-12">
+          <section data-enter style={`--enter-d: ${closingDelay}s`} class="mt-10 sm:mt-12">
             <div class="project-group rounded-card">
               {
                 website && (
@@ -188,23 +257,44 @@ const hrefOf = (p: Project) => p.data.url ?? p.data.repo;
                     rel="noopener noreferrer"
                     class="project-row group relative flex flex-col gap-1.5 px-5 py-6 sm:px-7 lg:grid lg:grid-cols-[64px_1fr_auto] lg:gap-x-7 lg:gap-y-2"
                   >
-                    <span class="font-mono text-[12px] tabular-nums text-muted-2">
-                      {website.data.date.getFullYear()}
-                    </span>
-                    <span class="min-w-0">
-                      <span class="block text-[15.5px] font-semibold tracking-[-0.015em] text-ink transition-colors group-hover:text-blue">
-                        {t(lang, 'projects.site')}
-                        <span aria-hidden="true" class="ext ml-1 inline-block text-[13px] font-normal text-muted-2 transition-all duration-200 group-hover:text-blue">↗</span>
-                      </span>
-                      <span class="mt-1 block font-mono text-[11.5px] text-muted-2">
+                    <div class="order-2 min-w-0">
+                      <div class="flex flex-col items-start">
+                        <div class="order-2">
+                          <h2
+                            id={slugOfId(website.id)}
+                            class="inline scroll-mt-28 text-[15.5px] font-semibold tracking-[-0.015em] text-ink transition-colors group-hover:text-blue group-focus-visible:text-blue"
+                          >
+                            {t(lang, 'projects.site')}
+                          </h2>
+                          <span
+                            aria-hidden="true"
+                            data-pagefind-ignore
+                            class="ext ml-1 inline-block text-[13px] font-normal text-muted-2 transition-all duration-200 group-hover:text-blue group-focus-visible:text-blue"
+                          >↗</span>
+                        </div>
+                        <span class="order-1 mb-2 inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1 text-[11.5px] font-semibold leading-none tracking-[0.01em] text-ink">
+                          <span
+                            aria-hidden="true"
+                            class:list={[
+                              'h-[7px] w-[7px] rounded-full',
+                              website.data.role === 'contributor' ? 'bg-blue' : 'bg-ink',
+                            ]}
+                          />
+                          {t(lang, `projects.role.${website.data.role}`)}
+                        </span>
+                      </div>
+                      <p class="mt-1 font-mono text-[11.5px] text-muted-2">
                         {t(lang, 'projects.site.stack')}
-                      </span>
+                      </p>
+                    </div>
+                    <span class="order-1 font-mono text-[12px] tabular-nums text-muted-2 lg:pt-0.5">
+                      {website.data.date.getFullYear()}
                     </span>
                   </a>
                 )
               }
             </div>
-            <div class="mt-5 flex flex-wrap items-center gap-x-8 gap-y-2">
+            <div data-pagefind-ignore class="mt-5 flex flex-wrap items-center gap-x-8 gap-y-2">
               <a
                 href="https://github.com/Zzzode"
                 target="_blank"

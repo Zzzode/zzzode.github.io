@@ -66,6 +66,10 @@ const projects = defineCollection({
     repo: z.url().optional(),
     url: z.url().optional(),
     status: z.enum(['active', 'archived', 'experiment']).default('active'),
+    // ownership distinction: defaults to 'owner' so existing entries need no edits
+    role: z.enum(['owner', 'contributor']).default('owner'),
+    // upstream org/owner for non-owned projects (e.g. 'nwverse')
+    owner: z.string().optional(),
   }),
 });
 

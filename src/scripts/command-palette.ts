@@ -16,6 +16,7 @@ export {};
 interface PaletteStrings {
   placeholder: string;
   commands: string;
+  recent: string;
   results: string;
   empty: string;
   loading: string;
@@ -23,7 +24,6 @@ interface PaletteStrings {
   hint: string;
   action: string;
   actionCopied: string;
-  toSearch: string;
 }
 
 type ActionKind = 'top' | 'copyLink' | 'switchLang';
@@ -52,17 +52,26 @@ interface PaletteItem {
   action?: ActionKind;
 }
 
+interface PagefindSubResult {
+  title: string;
+  url: string;
+  excerpt: string;
+}
+
 interface PagefindResult {
   data: () => Promise<{
     url: string;
     excerpt: string;
     plain_excerpt?: string;
     meta?: Record<string, string>;
+    sub_results?: PagefindSubResult[];
   }>;
 }
 
 interface Pagefind {
+  options?: (opts: { basePath?: string }) => Promise<void>;
   init: (opts?: { path?: string }) => Promise<void>;
+  destroy?: () => Promise<void>;
   search: (
     query: string,
     opts?: { filters?: Record<string, string> }
@@ -93,6 +102,26 @@ function stripHtml(html: string): string {
   return (template.content.textContent ?? '').replace(/\s+/g, ' ').trim();
 }
 
+function cleanExcerpt(rawHtml: string, title: string): string {
+  let excerpt = stripHtml(rawHtml);
+  // Pagefind bodies repeat the heading or meta title at the start of excerpts.
+  const titleAt = excerpt.indexOf(title);
+  if (titleAt >= 0 && titleAt < 40) {
+    excerpt = excerpt.slice(titleAt + title.length);
+  }
+  return excerpt.replace(/^[\s.·｜|]+/, '').slice(0, 110);
+}
+
+function formatHint(template: string): string {
+  const nav = navigator as Navigator & {
+    userAgentData?: { platform?: string };
+    platform?: string;
+  };
+  const platform = nav.userAgentData?.platform ?? nav.platform ?? navigator.userAgent;
+  const mod = /mac|iphone|ipad/i.test(platform) ? '⌘' : 'Ctrl';
+  return template.replace('{mod}', mod);
+}
+
 class CommandPalette {
   private cfg: PaletteConfig;
   private scrim: HTMLElement;
@@ -110,6 +139,7 @@ class CommandPalette {
   private searchSeq = 0;
   private pagefind: Pagefind | null = null;
   private pagefindLoading: Promise<Pagefind | null> | null = null;
+  private pagefindReset: Promise<void> | null = null;
   private reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   constructor(cfg: PaletteConfig) {
@@ -157,13 +187,7 @@ class CommandPalette {
     this.hint = document.createElement('p');
     this.hint.className = 'cmdk-hint';
     this.hint.setAttribute('aria-hidden', 'true');
-    const nav = navigator as Navigator & {
-      userAgentData?: { platform?: string };
-      platform?: string;
-    };
-    const platform = nav.userAgentData?.platform ?? nav.platform ?? navigator.userAgent;
-    const mod = /mac|iphone|ipad/i.test(platform) ? '⌘' : 'Ctrl';
-    this.hint.textContent = cfg.strings.hint.replace('{mod}', mod);
+    this.hint.textContent = formatHint(cfg.strings.hint);
 
     this.list = document.createElement('div');
     this.list.className = 'cmdk-list';
@@ -239,6 +263,9 @@ class CommandPalette {
   }
 
   private async loadPagefind(): Promise<Pagefind | null> {
+    if (this.pagefindReset) {
+      await this.pagefindReset;
+    }
     if (this.pagefind) return this.pagefind;
     if (!this.pagefindLoading) {
       this.pagefindLoading = new Promise<Pagefind | null>((resolve) => {
@@ -251,7 +278,10 @@ class CommandPalette {
             const candidate: Partial<Pagefind> | undefined = mod.default ?? mod;
             if (candidate && typeof candidate.search === 'function') {
               const pagefind = candidate as Pagefind;
-              await pagefind.init({ path: this.cfg.pagefindBase });
+              if (typeof pagefind.options === 'function') {
+                await pagefind.options({ basePath: this.cfg.pagefindBase });
+              }
+              await pagefind.init();
               this.pagefind = pagefind;
               resolve(pagefind);
             } else {
@@ -304,30 +334,39 @@ class CommandPalette {
     }
     if (seq !== this.searchSeq) return;
 
-    const posts: PaletteItem[] = [];
+    const entries: PaletteItem[] = [];
     for (const result of pagefindResults) {
       const data = await result.data();
       if (seq !== this.searchSeq) return;
-      const title = data.meta?.title ?? stripHtml(data.excerpt).slice(0, 40);
-      let excerpt = stripHtml(data.plain_excerpt ?? data.excerpt);
-      // Pagefind bodies repeat the title right after meta prefixes; drop
-      // its first occurrence when it sits inside the leading meta junk.
-      const titleAt = excerpt.indexOf(title);
-      if (titleAt >= 0 && titleAt < 40) {
-        excerpt = excerpt.slice(titleAt + title.length);
+      const anchoredSubs =
+        data.meta?.kind === 'projects'
+          ? (data.sub_results ?? []).filter(
+              (sub) => sub.url && sub.url !== data.url && sub.url.includes('#')
+            )
+          : [];
+      if (anchoredSubs.length > 0) {
+        for (const sub of anchoredSubs.slice(0, 3)) {
+          entries.push({
+            title: sub.title,
+            href: sub.url,
+            excerpt: cleanExcerpt(sub.excerpt, sub.title),
+            kind: 'result',
+          });
+        }
+        continue;
       }
-      excerpt = excerpt.replace(/^[\s.·｜|]+/, '');
-      posts.push({
+      const title = data.meta?.title ?? stripHtml(data.excerpt).slice(0, 40);
+      entries.push({
         title,
         href: data.url,
-        excerpt: excerpt.slice(0, 110),
+        excerpt: cleanExcerpt(data.plain_excerpt ?? data.excerpt, title),
         kind: 'result',
       });
     }
 
     const commands = this.matchingCommands(query).slice(0, 3);
-    const status = posts.length === 0 && commands.length === 0 ? this.cfg.strings.empty : '';
-    this.render([...commands, ...posts], status);
+    const status = entries.length === 0 && commands.length === 0 ? this.cfg.strings.empty : '';
+    this.render([...commands, ...entries], status);
   }
 
   /* ---------- rendering ---------- */
@@ -350,20 +389,14 @@ class CommandPalette {
 
     if (items.length > 0) {
       const groups: Array<{ kind: PaletteItem['kind']; label: string }> = [
-        { kind: 'recent', label: this.cfg.strings.results },
+        { kind: 'recent', label: this.cfg.strings.recent },
         { kind: 'result', label: this.cfg.strings.results },
         { kind: 'command', label: this.cfg.strings.commands },
         { kind: 'action', label: this.cfg.strings.action },
       ];
-      const seenLabels = new Set<string>();
       for (const group of groups) {
         const groupItems = items.filter((i) => i.kind === group.kind);
         if (groupItems.length === 0) continue;
-        // recent and result share the "Articles" heading; render it once.
-        if (group.kind === 'recent' || group.kind === 'result') {
-          if (seenLabels.has(group.label)) continue;
-          seenLabels.add(group.label);
-        }
         const heading = document.createElement('p');
         heading.className = 'cmdk-group';
         heading.textContent = group.label;
@@ -434,6 +467,12 @@ class CommandPalette {
         event.preventDefault();
         void this.runAction(item);
       });
+    } else {
+      row.addEventListener('click', (event) => {
+        if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) {
+          this.close();
+        }
+      });
     }
     return row;
   }
@@ -443,6 +482,7 @@ class CommandPalette {
       await this.runAction(item);
       return;
     }
+    this.close();
     window.location.assign(item.href);
   }
 
@@ -571,6 +611,25 @@ class CommandPalette {
    * moved back into the new body; a mid-navigation palette is dismissed.
    */
   reattach(): void {
+    const nextCfg = readConfig();
+    if (nextCfg) {
+      const localeChanged = nextCfg.locale !== this.cfg.locale;
+      this.cfg = nextCfg;
+      this.input.placeholder = nextCfg.strings.placeholder;
+      this.panel.setAttribute('aria-label', nextCfg.strings.placeholder);
+      this.hint.textContent = formatHint(nextCfg.strings.hint);
+      if (localeChanged) {
+        if (this.pagefind && typeof this.pagefind.destroy === 'function') {
+          this.pagefindReset = Promise.resolve(this.pagefind.destroy())
+            .catch(() => {})
+            .finally(() => {
+              this.pagefindReset = null;
+            });
+        }
+        this.pagefind = null;
+        this.pagefindLoading = null;
+      }
+    }
     if (!document.body.contains(this.panel)) {
       document.body.append(this.scrim, this.panel);
     }

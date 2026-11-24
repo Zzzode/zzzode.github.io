@@ -281,10 +281,6 @@
   .group .chevron {
     transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
-  .chevron-link:hover > .chevron,
-  .group:hover .chevron {
-    transform: translateX(3px);
-  }
   /* External arrows travel up-right while the row washes. */
   .group .ext {
     opacity: 0.55;
@@ -294,9 +290,23 @@
       transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
       color 0.2s ease;
   }
-  .group:hover .ext {
+  .chevron-link:focus-visible > .chevron,
+  .group:focus-visible .chevron {
+    transform: translateX(3px);
+  }
+  .group:focus-visible .ext {
     opacity: 1;
     transform: translate(2px, -2px);
+  }
+  @media (hover: hover) {
+    .chevron-link:hover > .chevron,
+    .group:hover .chevron {
+      transform: translateX(3px);
+    }
+    .group:hover .ext {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
   }
   .term-caret {
     animation: term-blink 1.15s steps(1) infinite;
@@ -326,10 +336,10 @@
 }
 
 /* ------------------------------------------------------------
-   /projects — a static iOS-style grouped list.
+   /projects — an iOS-style grouped list.
    Gray full-width ground, white inset cards with hairline row
-   separators and quiet shadows. Deliberately no pointer effects;
-   the only motion is the page-load entrance elsewhere.
+   separators, quiet shadows, accessible focus rings, fine-pointer
+   hover washes, and deep-link :target highlights.
    ------------------------------------------------------------ */
 .page-paper {
   position: relative;
@@ -347,17 +357,77 @@
     0 10px 28px rgba(30, 45, 70, 0.07);
 }
 
+.project-flagship {
+  transition:
+    box-shadow 0.24s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.2s ease,
+    transform 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
 .project-group {
   overflow: hidden;
+}
+
+.project-row {
+  transition: background-color 0.2s ease;
 }
 
 .project-group > .project-row + .project-row {
   border-top: 1px solid var(--color-line-soft);
 }
 
-.project-row:focus-visible,
 .project-flagship:focus-visible {
-  outline: none;
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 16px;
+}
+
+.project-row:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: -2px;
+  border-radius: 0;
+  background-color: color-mix(in srgb, var(--color-blue) 4%, white);
+}
+
+@media (hover: hover) {
+  .project-flagship:hover {
+    box-shadow:
+      0 0 0 1px var(--color-line),
+      0 2px 6px rgba(30, 45, 70, 0.05),
+      0 14px 34px rgba(30, 45, 70, 0.09);
+  }
+  .project-row:hover {
+    background-color: color-mix(in srgb, var(--color-paper) 65%, white);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .project-flagship:hover {
+    transform: translateY(-1px);
+  }
+  .project-flagship:active {
+    transform: translateY(0);
+  }
+}
+
+.project-flagship:active {
+  background-color: color-mix(in srgb, var(--color-paper) 55%, white);
+}
+
+.project-row:active {
+  background-color: var(--color-paper);
+}
+
+.project-flagship:has(:target) {
+  box-shadow:
+    0 0 0 2px var(--glass-focus-soft),
+    0 1px 2px rgba(30, 45, 70, 0.04),
+    0 10px 28px rgba(30, 45, 70, 0.07);
+}
+
+.project-row:has(:target) {
+  background-color: color-mix(in srgb, var(--color-blue) 5%, white);
+  box-shadow: inset 3px 0 0 var(--color-blue);
 }
 
 /* Markdown long-form (rendered with the typography plugin) */
@@ -1407,7 +1477,9 @@ html.js-filter [data-filter-list] li[data-state='hide'] {
   .cmdk-scrim,
   .cmdk-panel,
   .filter-indicator,
-  .hover-lift {
+  .hover-lift,
+  .project-flagship,
+  .project-row {
     transition: none !important;
   }
   html.js-filter [data-filter-list] li[data-state='show'] {

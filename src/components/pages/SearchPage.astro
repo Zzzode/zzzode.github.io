@@ -131,23 +131,93 @@ const { lang } = Astro.props;
 
 <script>
   // Pagefind's static index exists only in the built site (/pagefind/*),
-  // produced by `npm run postbuild`. Load it on demand; the search page
-  // is the only page that ships JavaScript.
-  const host = document.getElementById('pagefind');
+  // produced by `npm run postbuild`. Load it on demand and re-mount cleanly
+  // across Astro ClientRouter navigations and locale toggles.
+  interface PagefindInstance {
+    triggerFilters: (filters: Record<string, string[]>) => void;
+    destroy?: () => void;
+  }
 
-  function fallback() {
-    if (!host) return;
+  type PagefindUICtor = new (opts: Record<string, unknown>) => PagefindInstance;
+
+  interface SearchWindow extends Window {
+    PagefindUI?: PagefindUICtor;
+    __searchPageBound?: boolean;
+  }
+
+  const win = window as SearchWindow;
+  let uiLoading: Promise<boolean> | null = null;
+  let activeSearch: PagefindInstance | null = null;
+  let lastLocale: string | null = null;
+
+  function renderFallback(host: HTMLElement): void {
     const p = document.createElement('p');
     p.className = 'rounded-[18px] bg-paper px-6 py-5 text-[13.5px] text-muted';
     p.textContent = host.dataset.fallback ?? '';
     host.replaceWith(p);
   }
 
-  function init() {
-    if (!host || !(window as any).PagefindUI) return fallback();
+  function ensureStyles(): void {
+    if (document.querySelector('link[href="/pagefind/pagefind-ui.css"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/pagefind/pagefind-ui.css';
+    document.head.appendChild(link);
+  }
+
+  function loadPagefindUI(): Promise<boolean> {
+    if (typeof win.PagefindUI === 'function') return Promise.resolve(true);
+    if (!uiLoading) {
+      uiLoading = new Promise<boolean>((resolve) => {
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind-ui.js';
+        script.onload = () => resolve(typeof win.PagefindUI === 'function');
+        script.onerror = () => {
+          uiLoading = null;
+          resolve(false);
+        };
+        document.head.appendChild(script);
+      });
+    }
+    return uiLoading;
+  }
+
+  async function mountSearch(): Promise<void> {
+    const host = document.getElementById('pagefind');
+    if (!host || host.dataset.mounted === '1') return;
+    host.dataset.mounted = '1';
+
+    if (activeSearch) {
+      activeSearch.destroy?.();
+      activeSearch = null;
+    }
+
+    ensureStyles();
+    const ready = await loadPagefindUI();
+    if (!host.isConnected) return;
+    if (!ready || typeof win.PagefindUI !== 'function') {
+      renderFallback(host);
+      return;
+    }
+
     const d = host.dataset;
+    const nextLocale = d.locale ?? 'zh';
+    if (lastLocale !== nextLocale) {
+      try {
+        const pagefindModuleUrl = '/pagefind/pagefind.js';
+        const mod = (await import(/* @vite-ignore */ pagefindModuleUrl)) as {
+          destroy?: () => Promise<void>;
+        };
+        await mod.destroy?.();
+      } catch {
+        /* ignore if index module has not been loaded */
+      }
+      if (!host.isConnected) return;
+    }
+
+    lastLocale = nextLocale;
     host.innerHTML = '';
-    const search = new (window as any).PagefindUI({
+    const search = new win.PagefindUI({
       element: '#pagefind',
       showImages: false,
       showSubResults: true,
@@ -163,19 +233,22 @@ const { lang } = Astro.props;
         clear_search_label: d.clear,
       },
     });
-    // Default UI filters are selected through this API, not constructor options.
+    activeSearch = search;
     // Preserve the locale constraint even when that locale has no indexed pages.
-    search.triggerFilters({ locale: [d.locale ?? 'zh'] });
+    search.triggerFilters({ locale: [nextLocale] });
   }
 
-  const script = document.createElement('script');
-  script.src = '/pagefind/pagefind-ui.js';
-  script.onload = init;
-  script.onerror = fallback;
-  document.head.appendChild(script);
-
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = '/pagefind/pagefind-ui.css';
-  document.head.appendChild(link);
+  if (!win.__searchPageBound) {
+    win.__searchPageBound = true;
+    document.addEventListener('astro:before-swap', () => {
+      activeSearch?.destroy?.();
+      activeSearch = null;
+    });
+    document.addEventListener('astro:page-load', () => {
+      void mountSearch();
+    });
+  }
+  if (document.readyState !== 'loading') {
+    void mountSearch();
+  }
 </script>
