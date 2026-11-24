@@ -6,7 +6,7 @@
   "windowStart": "2026-11-23T02:00:00Z",
   "cutoff": "2026-11-24T02:00:00Z",
   "startedAt": "2026-11-24T02:07:16Z",
-  "completedAt": "2026-11-24T02:59:55.489Z",
+  "completedAt": "2026-11-24T03:06:31.168Z",
   "queries": [
     {
       "id": "ed-search-1",
@@ -13279,6 +13279,66 @@
         "https://www.federalregister.gov/api/v1/public-inspection-documents/2026-23999.json"
       ],
       "notes": "Web retrieval tool could not access this JSON endpoint. Separate authorized direct HTTP GET succeeded and is recorded independently."
+    },
+    {
+      "id": "ed-correction-marlowe-open-0",
+      "actor": "daily-editor",
+      "query": "https://marlowe.ai/introducing-marlowe.html",
+      "executedAt": "2026-11-24T03:04:40.140082Z",
+      "method": "open",
+      "focus": [
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://marlowe.ai/introducing-marlowe.html"
+      ],
+      "notes": "Contemporaneous reread for correction. Issuer says it raised $277M in seed funding during 2026 and proposes matching workloads with chips and systems. The source does not document a unified API."
+    },
+    {
+      "id": "ed-correction-marlowe-open-1",
+      "actor": "daily-editor",
+      "query": "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/",
+      "executedAt": "2026-11-24T03:04:40.491800Z",
+      "method": "open",
+      "focus": [
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/"
+      ],
+      "notes": "Contemporaneous reread for correction. GeekWire founder interview corroborates matching workload to hardware and attributes $1.15B valuation to the company. It dates the source disclosure and does not document a unified API."
+    },
+    {
+      "id": "rev-marlowe-correction-issuer",
+      "actor": "coverage-reviewer",
+      "query": "Open and inspect https://marlowe.ai/introducing-marlowe.html",
+      "executedAt": "2026-11-24T03:04:15Z",
+      "method": "open",
+      "focus": [
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://marlowe.ai/introducing-marlowe.html"
+      ],
+      "notes": "Issuer announcement coauthored by Lewis and Srinivasan describes full-stack hardware/software design by inference workload and aggregate $277 million raised in 2026. No customer-facing unified interface was described in the inspected announcement."
+    },
+    {
+      "id": "rev-marlowe-correction-geek",
+      "actor": "coverage-reviewer",
+      "query": "Open and inspect https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/",
+      "executedAt": "2026-11-24T03:04:33Z",
+      "method": "open",
+      "focus": [
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/"
+      ],
+      "notes": "GeekWire headline and fetched body confirm $277 million combined seed funding, company-attributed $1.15 billion valuation, latest Accel-led round, smaller initial Eclipse-led round, and AMD/Etched initial chip plans. No unified interface asserted."
     }
   ],
   "sources": [
@@ -25499,6 +25559,74 @@
       "access": "access_failed",
       "retrievedAt": "2026-11-24T02:56:43Z",
       "evidence": "Web retrieval tool could not access this JSON endpoint. Separate authorized direct HTTP GET succeeded and is recorded independently."
+    },
+    {
+      "id": "ed-correction-marlowe-source-0",
+      "title": "Marlowe founders’ launch post",
+      "url": "https://marlowe.ai/introducing-marlowe.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-24T03:04:40.140082Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-23",
+        "basis": "Source displays calendar date only.",
+        "sourceUrls": [
+          "https://marlowe.ai/introducing-marlowe.html"
+        ]
+      },
+      "evidence": "Contemporaneous reread for correction. Issuer says it raised $277M in seed funding during 2026 and proposes matching workloads with chips and systems. The source does not document a unified API."
+    },
+    {
+      "id": "ed-correction-marlowe-source-1",
+      "title": "GeekWire original reporting on Marlowe",
+      "url": "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-24T03:04:40.491800Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-23T12:30:00Z",
+        "basis": "GeekWire visible publication marker and matching article:published_time and JSON-LD fix its original reporting event.",
+        "sourceUrls": [
+          "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/"
+        ]
+      },
+      "evidence": "Contemporaneous reread for correction. GeekWire founder interview corroborates matching workload to hardware and attributes $1.15B valuation to the company. It dates the source disclosure and does not document a unified API."
+    },
+    {
+      "id": "rev-marlowe-correction-issuer-src",
+      "title": "Marlowe first-party launch statement, correction reread",
+      "url": "https://marlowe.ai/introducing-marlowe.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-24T03:04:15Z",
+      "evidence": "Issuer announcement coauthored by Lewis and Srinivasan describes full-stack hardware/software design by inference workload and aggregate $277 million raised in 2026. No customer-facing unified interface was described in the inspected announcement.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-23",
+        "basis": "Visible article date; does not state an exact hour.",
+        "sourceUrls": [
+          "https://marlowe.ai/introducing-marlowe.html"
+        ]
+      }
+    },
+    {
+      "id": "rev-marlowe-correction-geek-src",
+      "title": "GeekWire original Marlowe financing report, correction reread",
+      "url": "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-24T03:04:33Z",
+      "evidence": "GeekWire headline and fetched body confirm $277 million combined seed funding, company-attributed $1.15 billion valuation, latest Accel-led round, smaller initial Eclipse-led round, and AMD/Etched initial chip plans. No unified interface asserted.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-23",
+        "basis": "Known article date; prior timed citation remains separately recorded, correction review did not re-read timed metadata.",
+        "sourceUrls": [
+          "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/"
+        ]
+      }
     }
   ],
   "candidates": [
@@ -31377,17 +31505,25 @@
         "biz-q-pri1-search",
         "biz-q-more-search",
         "biz-q-marlowe-open",
-        "biz-q-meta-geek-marlowe"
+        "biz-q-meta-geek-marlowe",
+        "ed-correction-marlowe-open-0",
+        "ed-correction-marlowe-open-1",
+        "rev-marlowe-correction-issuer",
+        "rev-marlowe-correction-geek"
       ],
       "sourceIds": [
         "biz-s-geekwire-marlowe",
         "biz-s-marlowe",
         "biz-s-crosswalk",
-        "biz-s-agzul"
+        "biz-s-agzul",
+        "ed-correction-marlowe-source-0",
+        "ed-correction-marlowe-source-1",
+        "rev-marlowe-correction-issuer-src",
+        "rev-marlowe-correction-geek-src"
       ],
       "decision": "include",
       "reasonCode": "selected",
-      "reason": "Timed GeekWire report from founder interviews plus same-date issuer launch and financing disclosure. The amount was raised across 2026, not closed this day.",
+      "reason": "The timed reporting and original company disclosure support the cumulative financing and plan to match different chips and systems to inference workloads. Correction removes an interface claim that the sources did not substantiate.",
       "importance": "Contrasts an inference-focused multi-silicon approach with single-stack deployment; vendor efficiency claims remain unverified.",
       "eventTime": {
         "precision": "instant",
@@ -31403,7 +31539,35 @@
         ],
         "attribution": "GeekWire Todd Bishop reporting and founder interviews, corroborated by founders’ launch post.",
         "limitations": "Valuation and performance assertions are company-supplied. Disclosed seed amount accumulated across the year."
-      }
+      },
+      "priorAssessments": [
+        {
+          "snapshotAt": "2026-11-24T02:59:55.489Z",
+          "decision": "include",
+          "reasonCode": "selected",
+          "reason": "Timed GeekWire report from founder interviews plus same-date issuer launch and financing disclosure. The amount was raised across 2026, not closed this day.",
+          "eventTime": {
+            "precision": "instant",
+            "value": "2026-11-23T12:30:00Z",
+            "basis": "GeekWire visible publication marker and matching article:published_time and JSON-LD fix its original reporting event.",
+            "sourceUrls": [
+              "https://www.geekwire.com/2026/beyond-nvidia-convoy-co-founder-and-former-microsoft-leader-raise-277m-to-rethink-ai-infrastructure/"
+            ]
+          },
+          "queryIds": [
+            "biz-q-pri1-search",
+            "biz-q-more-search",
+            "biz-q-marlowe-open",
+            "biz-q-meta-geek-marlowe"
+          ],
+          "sourceIds": [
+            "biz-s-geekwire-marlowe",
+            "biz-s-marlowe",
+            "biz-s-crosswalk",
+            "biz-s-agzul"
+          ]
+        }
+      ]
     },
     {
       "id": "biz-applied-150mw-lease",
@@ -45764,6 +45928,25 @@
         "rev-walmart-muse"
       ],
       "notes": "Independent reviewer investigated high-priority clues surfaced by cross-reading author fragments."
+    },
+    {
+      "id": "ed-correction-marlowe-check",
+      "target": "Marlowe described inference delivery scope",
+      "category": "business",
+      "status": "candidate",
+      "checkedAt": "2026-11-24T03:04:40.491800Z",
+      "queryIds": [
+        "ed-correction-marlowe-open-0",
+        "ed-correction-marlowe-open-1"
+      ],
+      "sourceIds": [
+        "ed-correction-marlowe-source-0",
+        "ed-correction-marlowe-source-1"
+      ],
+      "candidateIds": [
+        "biz-marlowe-seed"
+      ],
+      "notes": "The timed reporting and original company disclosure support the cumulative financing and plan to match different chips and systems to inference workloads. Correction removes an interface claim that the sources did not substantiate."
     }
   ],
   "coverage": [
@@ -46020,7 +46203,11 @@
         "rev-dec-bloom",
         "rev-access-amazon-decart",
         "rev-access-reuters-decart",
-        "rev-access-bloomberg-decart"
+        "rev-access-bloomberg-decart",
+        "ed-correction-marlowe-open-0",
+        "ed-correction-marlowe-open-1",
+        "rev-marlowe-correction-issuer",
+        "rev-marlowe-correction-geek"
       ],
       "checkIds": [
         "biz-check-global",
@@ -46030,7 +46217,8 @@
         "biz-check-cogito-body",
         "biz-check-cogito-complete",
         "rev-check-business",
-        "rev-extra-check-business"
+        "rev-extra-check-business",
+        "ed-correction-marlowe-check"
       ],
       "assessment": "Issuer filings, financing press release feeds and original market reporting plus targeted mainland Chinese funding and embodied/industrial specialist channels. Attributed single-origin financing reports and inaccessible primary or subscription sources are marked."
     },
@@ -47254,7 +47442,7 @@
   },
   "review": {
     "reviewer": "coverage-reviewer",
-    "reviewedAt": "2026-11-24T02:59:55.489Z",
+    "reviewedAt": "2026-11-24T03:06:31.168Z",
     "candidateIds": [
       "ed-comparator",
       "ed-runner",
@@ -48079,7 +48267,9 @@
       "rev-kentucky-case",
       "rev-close-federal-direct",
       "rev-close-federal-pdf",
-      "rev-close-federal-web-api"
+      "rev-close-federal-web-api",
+      "rev-marlowe-correction-issuer",
+      "rev-marlowe-correction-geek"
     ],
     "verdict": "pass_with_limits",
     "report": "docs/daily/reviews/2026-11-24.md",
@@ -48108,6 +48298,11 @@
         "detail": "Quoted private financing terms, some subscription and regional reports/social material, and primary announcement times for several models or papers were unavailable or incomplete. Search and read access failures do not imply that no event took place. Unresolved JEV, Laya and OSC links were not resolved by string matching.",
         "severity": "note",
         "resolution": "disclosed"
+      },
+      {
+        "detail": "Same-day correction restricted to biz-marlowe-seed. Independent new reads of Marlowe and GeekWire support workload-specific chip and system design, and confirm the source limits on financing. Corrected card and body remove the unified-interface assertion. Previous assessment and all original evidence were preserved; timing, candidate order and category coverage remain applicable.",
+        "severity": "blocking",
+        "resolution": "fixed"
       }
     ]
   },
@@ -48148,6 +48343,7 @@
       "res-arxiv-2611.27973"
     ],
     "limitations": "Some original subscription and social bodies and original numbered-paper PDFs were unavailable. Exact first-public clocks are incomplete for date-only releases and some paper feeds. Open discovery covered Chinese, English, Japanese and additional localized lanes with uneven regional primary coverage. JEV, Laya and OSC watchlist identities remain unresolved.",
-    "sha256": "304e4b29342db08f9a3ab2cd5f63c8b49f908a6433be246cfa8cd23ca1bbfd35"
+    "sha256": "7c3fb8df137e88390eafb60a8d8e8c7269a45711618d0f98d4a4c8ba14a24eda",
+    "originalDate": "2026-11-24T02:57:29.412Z"
   }
 }
