@@ -1,0 +1,252 @@
+---
+title: "T3 Code 编程工作台"
+date: 2026-11-20
+updated: 2026-11-22
+excerpt: "Codex、Orca 和 T3 Code 都能并行开工作树。用同一个代码审查任务比较三款工作台，再看 T3 Code 怎样在一条线程里换智能体或派活。"
+tags: ["AI Agent", "Coding Agent", "系统架构"]
+kind: "distilled"
+sources:
+  - title: "T3 Code · v0.1.11 release"
+    url: "https://github.com/pingdotgg/t3code/releases/tag/v0.1.11"
+  - title: "T3 Code · v0.1.11 README"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/README.md"
+  - title: "T3 Code · Mobile approval screenshot"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/.github/readme/hero.webp"
+  - title: "T3 Code · Desktop delegation screenshot"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/apps/marketing/src/assets/app-desktop.webp"
+  - title: "T3 Code · Thread sidebar and starting several threads"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/thread-sidebar.md"
+  - title: "T3 Code · Codex provider setup"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/providers-codex.md"
+  - title: "T3 Code · Permission modes"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/permission-modes.md"
+  - title: "T3 Code · Source control and reviewing turn changes"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/source-control.md"
+  - title: "T3 Code · Remote access and browser previews"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/remote-access.md"
+  - title: "T3 Code · Development replay"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/operations/development.md#replay-provider"
+  - title: "T3 Code · v0.1.0 and cross-provider delegation"
+    url: "https://github.com/pingdotgg/t3code/releases/tag/v0.1.0"
+  - title: "T3 Code · Portable handoffs"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/portable-handoffs.md"
+  - title: "T3 Code · Execution and connection architecture"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/internals/overview.md"
+  - title: "T3 Code · Delegation tool and worktree isolation"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/orchestration-v2/orchestrator-mcp-server.md#delegate_task"
+  - title: "T3 Code · Provider adapters and declared capabilities"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/internals/adding-a-provider.md"
+  - title: "OpenAI · Introducing the Codex app"
+    url: "https://openai.com/index/introducing-the-codex-app/"
+  - title: "OpenAI · Codex subagents"
+    url: "https://learn.chatgpt.com/docs/agent-configuration/subagents"
+  - title: "OpenAI · Codex models and custom providers"
+    url: "https://learn.chatgpt.com/docs/models?surface=app"
+  - title: "OpenAI · Codex environments and cloud tasks"
+    url: "https://learn.chatgpt.com/docs/environments/modes"
+  - title: "OpenAI · Codex remote connections"
+    url: "https://learn.chatgpt.com/docs/remote-connections"
+  - title: "Orca · v1.4.269 README and product features"
+    url: "https://github.com/stablyai/orca/blob/v1.4.269/README.md"
+  - title: "Orca · Cross-agent handoff implementation at v1.4.269"
+    url: "https://github.com/stablyai/orca/blob/v1.4.269/src/renderer/src/components/agent-session-continuation/AgentSessionContinuationDialog.tsx#L206-L230"
+  - title: "Orca · Native chat, terminal and session continuation"
+    url: "https://github.com/stablyai/orca/blob/v1.4.269/docs/site/content/docs/agents/native-chat.mdx"
+  - title: "Orca · Experimental task orchestration"
+    url: "https://github.com/stablyai/orca/blob/v1.4.269/docs/site/content/docs/cli/orchestration.mdx"
+  - title: "Orca · Race agents on the same task"
+    url: "https://github.com/stablyai/orca/blob/v1.4.269/docs/site/content/docs/recipes/parallel-agents.mdx"
+  - title: "Conductor · Supported harnesses and workspace model"
+    url: "https://www.conductor.build/docs/reference/harnesses"
+  - title: "T3 Code · Early Codex-first README"
+    url: "https://github.com/pingdotgg/t3code/blob/v0.0.2/README.md"
+---
+
+import { ArticleCanvas, CardGrid, CoverBanner, InfoCard, Prose, Section, SectionHead } from '@/components/article';
+import DesktopWorkspace from '@/assets/t3-code/desktop-workspace.webp';
+import TaskControls from '@/assets/t3-code/task-controls.webp';
+import ParallelModels from '@/assets/t3-code/parallel-models.webp';
+import DelegateLineage from '@/assets/t3-code/delegate-lineage.webp';
+import WorktreeDiff from '@/assets/t3-code/worktree-diff.webp';
+import MobileApproval from '@/assets/t3-code/mobile-approval.webp';
+import PreviewEntry from '@/assets/t3-code/preview-entry.webp';
+import BrowserPreview from '@/assets/t3-code/browser-preview.webp';
+
+<CoverBanner
+  kicker="HANDS-ON · T3 CODE V0.1.11 · 2026-11-22"
+  title="T3 Code 编程工作台"
+  lead="Codex、Orca 和 T3 Code 都能并行跑任务、开工作树、在手机上批命令。T3 Code 把跨智能体的接力留在一条工作对话里。Claude Code 写完，可以在原处请 Codex 接手，也可以派它独立审查。"
+/>
+
+<ArticleCanvas>
+<Section canvas id="desktop">
+<SectionHead index="01" kicker="桌面界面" title="打开 T3 Code，先认这三块地方" />
+<figure class="not-prose rounded-card bg-white p-3 sm:p-5">
+  <a href={DesktopWorkspace.src} target="_blank" rel="noopener" class="block">
+    <img src={DesktopWorkspace.src} width={DesktopWorkspace.width} height={DesktopWorkspace.height} alt="T3 Code 网页端。左侧有两条 Calculator 线程，中间显示 src/math.ts 的文件编辑审批，右侧列出工作环境、分支和 Git 操作" class="block h-auto w-full rounded-card border border-line-soft" fetchpriority="high" />
+  </a>
+  <figcaption class="px-2 pt-3 text-[13px] leading-relaxed text-ink-2">本地实拍。左边有两个 Calculator 任务。中间正在等待你批准编辑，右边能确认这条任务用的是哪个环境和分支。本机名称已遮盖，点击图片可以放大。</figcaption>
+</figure>
+<Prose tile>
+
+一个线程就是一项工作的对话记录。你从左栏切换线程，在中间发任务、看执行步骤，也在这里回答智能体的请求。需要核对代码时，可以用右上角的按钮展开详情、终端或右侧面板。Git 分支能帮你确认当前看到的是哪一份代码。
+
+T3 Code 是 Theo Browne 团队做的开源工作台。它把 Codex、Claude Code 等编程智能体接到这个界面。像 Codex 这样的运行时负责读文件、运行命令、调用模型。T3 Code 负责把这些操作放进线程，再在桌面、网页和手机上呈现同一项工作的进展。[项目说明](https://github.com/pingdotgg/t3code/blob/v0.1.11/README.md)
+
+下面的桌面画面来自实际运行的 v0.1.11 网页端。两条任务使用上游的 Replay 测试智能体，回复和工具结果是演示回放。工作树、审批操作和 Git 面板实拍。手机画面采用同版本仓库的官方截图。[上游 Replay 演示](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/operations/development.md#replay-provider)
+
+</Prose>
+</Section>
+
+<Section canvas id="comparison">
+<SectionHead index="02" kicker="产品比较" title="Claude 写完代码，怎么交给 Codex 审？" />
+<Prose tile>
+
+假设 Claude Code 给计算器加了 `clamp`，改动已经提交。你想请 Codex 查一个边界条件。有人把下界填成 10、上界填成 0，这个函数应该怎么处理？三个工作台都能打开这份代码。区别在于交接从哪里发起，结果要到哪里找。
+
+</Prose>
+<CardGrid cols={3}>
+  <InfoCard title="T3 Code">
+    <p class="mt-3 text-[14px] leading-relaxed text-ink-2">在现有线程的模型菜单里选 Codex，接着问边界问题。也可以让 Claude 保留主线程，派一个 Codex 子线程审查。子线程结果回到主线程，审批也能从主对话处理。</p>
+  </InfoCard>
+  <InfoCard title="Codex 官方应用">
+    <p class="mt-3 text-[14px] leading-relaxed text-ink-2">在 Codex 里打开对应分支，按提交做审查。也能在 Codex 会话里派它自己的子智能体分别查实现和测试。只使用 Codex 时，还能直接选择 OpenAI 托管的云端工作区。</p>
+  </InfoCard>
+  <InfoCard title="Orca">
+    <p class="mt-3 text-[14px] leading-relaxed text-ink-2">从 Claude 会话选 Hand off to another agent，带着节选的上下文在工作树里开一个 Codex 会话。原会话继续保留，随后可以从同一工作树切到结构化聊天、终端或差异面板。</p>
+  </InfoCard>
+</CardGrid>
+<Prose tile>
+
+这里的 Codex 指 ChatGPT 桌面端里的 Codex 视图。三条路径按 2026 年 11 月 22 日的官方资料核对，T3 Code 为 v0.1.11，Orca 为 v1.4.269。接力审查是对照案例。计算器实拍验证的是后文 T3 Code 的并行发送和 Git 审查。[T3 Code 线程交接](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/portable-handoffs.md) · [Codex 子智能体](https://learn.chatgpt.com/docs/agent-configuration/subagents) · [Codex 执行环境](https://learn.chatgpt.com/docs/environments/modes) · [Orca 交接实现](https://github.com/stablyai/orca/blob/v1.4.269/src/renderer/src/components/agent-session-continuation/AgentSessionContinuationDialog.tsx#L206-L230)
+
+T3 Code 管的是用户看见的那条线程。Claude Code 和 Codex 各自用原生运行时，也就是负责调用模型、执行工具并维护会话的程序。T3 Code 的适配器把不同运行时报告的消息、审批和进度整理到工作台里。一句后续要求可以落到另一家运行时上，界面仍显示原来的线程。Codex 也允许配置兼容的模型端点，换端点之后，负责工具和会话的仍是 Codex。[T3 Code 适配器说明](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/internals/adding-a-provider.md) · [Codex 模型配置](https://learn.chatgpt.com/docs/models?surface=app)
+
+交接时，T3 Code 会带过去能放进上下文的对话和部分活动。先前工具的内部状态、推理和附件留在旧会话里。如果还需要 Claude 掌握的线索，派子线程更合适。给 Codex 的可以只是一句“审这个提交”。要让它在独立目录里审查，可指定工作树隔离，从主线程所在的提交签出一份代码。父线程里尚未提交的编辑不会一起复制。[上下文交接](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/portable-handoffs.md) · [子线程委派与隔离](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/orchestration-v2/orchestrator-mcp-server.md#delegate_task)
+
+Orca 同样能编排不同智能体。它的实验性命令行编排把工作登记成 `Task`，再用 `Dispatch` 记录一次分派或重试。协调者可以明确“先写实现，等它回报后再放行审查”，指定工作树，必要时换个执行者重跑。日常操作也能围着工作树安排自己的终端和聊天。受支持的对话可以带着历史在 Chat 或终端里接着做。对习惯用命令和依赖关系管活的人，这些控制比少开一条会话更重要。[Orca 编排文档](https://github.com/stablyai/orca/blob/v1.4.269/docs/site/content/docs/cli/orchestration.mdx) · [Orca Chat 与终端](https://github.com/stablyai/orca/blob/v1.4.269/docs/site/content/docs/agents/native-chat.mdx)
+
+</Prose>
+</Section>
+
+<Section canvas id="new-thread">
+<SectionHead index="03" kicker="创建任务" title="给计算器加一个函数，从哪儿点起？" />
+<Prose tile>
+
+示例项目 Calculator 有个 `src/math.ts`。现在要加一个 `clamp(value, min, max)`，把数值限制在给定范围内。比如范围是 0 到 10，输入 12 就返回 10。左栏点 **Add project → Local folder**，添加本机 Git 仓库。随后点 **New thread**，确认输入框上方选的是 Calculator。
+
+在输入框底部选智能体。你可以在 **Settings → Providers** 给执行机器准备 Codex，例如连接 ChatGPT 或沿用已有的 Codex CLI 登录。截图中的 **Showcase** 是 Replay 模型。想让任务就在现有目录里执行，可以保留 **Current checkout**。这里改选 **New worktree**，基准选 `main`。Git 工作树就是同一仓库的另一份签出目录。新任务从 `main` 开始，手头那份目录可以继续开着编辑。[Codex 接入说明](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/providers-codex.md) · [新线程说明](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/thread-sidebar.md)
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-3 sm:p-5">
+  <a href={TaskControls.src} target="_blank" rel="noopener" class="mx-auto block max-w-[760px]">
+    <img src={TaskControls.src} width={TaskControls.width} height={TaskControls.height} alt="任务输入框里填了增加 clamp 函数的要求。输入框下方选择 New worktree、From main 和 Supervised" class="block h-auto w-full rounded-card border border-line-soft" loading="lazy" />
+  </a>
+  <figcaption class="mx-auto max-w-[760px] px-2 pt-3 text-[13px] leading-relaxed text-ink-2">本地实拍。Showcase 是这次要用的模型。下排的 New worktree 和 From main 定义代码从哪里开始，Supervised 决定遇到需要审批的操作时怎么处理。</figcaption>
+</figure>
+</Section>
+
+<Section canvas id="parallel">
+<SectionHead index="04" kicker="并行与分工" title="同一道题交两份答卷，或者把一道题拆开做" />
+<Prose tile>
+
+想看看两个智能体会怎么写 `clamp`，可以在桌面或网页端的新线程草稿里打开模型菜单。先选好一个，再按住 Shift 点选第二个模型，发送同一条要求。实拍中从 Replay A 选了 Showcase，又从 Replay B 加选了 Showcase。发送后左栏多出两条任务，分支分别是 `t3/add-clamp-helper` 和 `t3/add-clamp-helper-1`。用 Git 查过，这两条分支各有自己的签出目录。真实使用时，可以把两份改动分开审，挑一份继续推进。[多模型发送与工作树](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/thread-sidebar.md#start-in-the-background)
+
+Orca 也有同题对照的用法。它的操作指南从创建几份工作树开始，再在各自的工作树选择智能体，贴入同样的要求。两边都会得到独立的改动。T3 Code 把建工作树和发同一条消息放在一次发送里，Orca 的流程先让你把各自的环境布置好。[Orca 并行实践](https://github.com/stablyai/orca/blob/v1.4.269/docs/site/content/docs/recipes/parallel-agents.mdx)
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-3 sm:p-5">
+  <a href={ParallelModels.src} target="_blank" rel="noopener" class="mx-auto block max-w-[760px]">
+    <img src={ParallelModels.src} width={ParallelModels.width} height={ParallelModels.height} alt="T3 Code 的模型菜单左侧有 RA 和 RB 图标，输入框下方显示两个已选择的 Showcase 模型" class="block h-auto w-full rounded-card border border-line-soft" loading="lazy" />
+  </a>
+  <figcaption class="mx-auto max-w-[760px] px-2 pt-3 text-[13px] leading-relaxed text-ink-2">本地实拍。用模型菜单左边的图标切换智能体。发送键旁出现两个 Showcase，表示这条消息会开两条线程。第一张图的左栏就是发送后的结果。</figcaption>
+</figure>
+<Prose tile>
+
+如果目标是让几个助手分工，可以从一条主线程发起。官方示例里，用户要给草稿做有有效期的分享链接，主智能体把按钮、接口、测试和文档分别交给子智能体。中间有子任务计数，**4 working** 表示四项都在做。右侧 **Lineage** 列出每一项，可以打开对应线程查看。结果交回主线程，由主智能体汇总。[子线程委派的发布说明](https://github.com/pingdotgg/t3code/releases/tag/v0.1.0)
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-3 sm:p-5">
+  <a href={DelegateLineage.src} target="_blank" rel="noopener" class="block">
+    <img src={DelegateLineage.src} width={DelegateLineage.width} height={DelegateLineage.height} alt="官方分享链接案例。会话显示四个子智能体正在工作，Lineage 一栏可见文档、测试、API 和页面按钮四条子任务" class="block h-auto w-full rounded-card border border-line-soft" loading="lazy" />
+  </a>
+  <figcaption class="px-2 pt-3 text-[13px] leading-relaxed text-ink-2">官方桌面截图，截取主对话和 Lineage。这里在合做一个功能，四条子任务有各自的职责。</figcaption>
+</figure>
+</Section>
+
+<Section canvas id="mobile-approval">
+<SectionHead index="05" kicker="手机审批" title="离开电脑以后，手机能接着处理哪一步？" />
+<div class="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(240px,32%)] md:items-start">
+  <Prose tile>
+
+发任务前把权限设为 **Supervised**。在第一张实拍里，回放已经走过读文件步骤，停在编辑 `src/math.ts` 的请求上。左栏会把待办标为 **Approval**，聊天里出现 **Waiting for approval**，旁边可以批准或拒绝。各智能体执行权限的方式有所差异，具体看所选工具支持的模式。[权限模式说明](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/permission-modes.md)
+
+手机要先加同一个执行环境。主机的 **Settings → Sharing & access** 可生成配对链接，手机从 **Settings → Environments** 加入。跨网络可以走 T3 Connect。回到手机的线程列表，找正在等审批的那条任务，打开对话里的卡片。[设备配对说明](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/remote-access.md)
+
+右图是官方的另一个任务。手机上卡片写着 **APPROVAL NEEDED**，等你确认的是命令 `pnpm db:migrate`。这里可以只批准这一次。选择会发回原来的机器，主机上的智能体继续执行。手机需要能连上那台机器正在运行的 T3 Code 服务。[官方手机审批截图](https://github.com/pingdotgg/t3code/blob/v0.1.11/.github/readme/hero.webp)
+
+  </Prose>
+  <figure class="not-prose mx-auto w-full max-w-[300px] rounded-card bg-white p-3 sm:p-4">
+    <a href={MobileApproval.src} target="_blank" rel="noopener" class="block">
+      <img src={MobileApproval.src} width={MobileApproval.width} height={MobileApproval.height} alt="官方 T3 Code 手机端审批画面，显示 pnpm db:migrate 命令和 Allow once、Allow session、Decline 三个选项" class="block h-auto w-full rounded-card" loading="lazy" />
+    </a>
+    <figcaption class="px-1 pt-3 text-[13px] leading-relaxed text-ink-2">官方原生手机界面。屏幕保留了请求内容和具体按钮。</figcaption>
+  </figure>
+</div>
+</Section>
+
+<Section canvas id="review">
+<SectionHead index="06" kicker="审查改动" title="它说改完了，打开 Changes 看哪几行" />
+<Prose tile>
+
+回到 Calculator 的第一条任务。为演示 Git 审查，我把 `clamp` 写进了它自己的工作树。点右边的 **Changes vs main**，再展开 `src/math.ts`，绿色部分就是 Git 读到的 4 行新增。原来的 `main` 目录保持干净。对话里显示的测试输出来自上游回放。
+
+你也可以从对话中的改动记录看某一轮的 diff（代码差异）。如果这一轮先合入别人的提交，再自己动手改一处，轮次 diff 只关注这一轮的工作。准备交付整个分支时，用与基准分支的比较核对完整内容。仓库连到支持的代码托管服务后，线程里也有提交、推送和创建 PR 的入口。[差异范围和代码托管](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/source-control.md#review-turn-changes)
+
+</Prose>
+<figure class="not-prose rounded-card bg-white p-3 sm:p-5">
+  <a href={WorktreeDiff.src} target="_blank" rel="noopener" class="mx-auto block max-w-[680px]">
+    <img src={WorktreeDiff.src} width={WorktreeDiff.width} height={WorktreeDiff.height} alt="T3 Code 的 Git 差异面板正在对照 main，显示工作树中 src/math.ts 新增的 clamp 函数和 4 行新增" class="block h-auto w-full rounded-card border border-line-soft" loading="lazy" />
+  </a>
+  <figcaption class="mx-auto max-w-[680px] px-2 pt-3 text-[13px] leading-relaxed text-ink-2">本地实拍。上方可以更换比较基准，右边的 Files 列出这一份工作树的改动文件。</figcaption>
+</figure>
+</Section>
+
+<Section canvas id="preview">
+<SectionHead index="07" kicker="应用预览" title="改的是网页，就在任务旁边打开它" />
+<div class="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(240px,32%)] md:items-start">
+  <Prose tile>
+
+代码差异能看出写了什么，网页用起来怎样还要打开看。我在任务的终端启动了一个最小的计算器页面，让它加载刚才写进工作树的 `clamp`。右侧详情出现 **Servers**，下面多了一项 `localhost:4395`。点它就会在任务旁边打开内置浏览器。把 Value 改成 -3，范围仍是 0 到 10，页面会显示 0。
+
+如果服务跑在另一台机器上，v0.1.11 也能沿已有连接打开预览。桌面端可把远端端口转发到本机，再用自己的浏览器打开。手机对远端本地地址还提供 **Open on this device**。是否能做这两种操作取决于主机有没有启用 **Preview tunnel**。[v0.1.11 发布记录](https://github.com/pingdotgg/t3code/releases/tag/v0.1.11) · [浏览器与端口转发说明](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/remote-access.md#browser-on-a-remote-environment)
+
+  </Prose>
+  <figure class="not-prose mx-auto w-full max-w-[320px] rounded-card bg-white p-3 sm:p-4">
+    <a href={PreviewEntry.src} target="_blank" rel="noopener" class="block">
+      <img src={PreviewEntry.src} width={PreviewEntry.width} height={PreviewEntry.height} alt="T3 Code 的线程详情。Servers 下出现由任务终端启动的 localhost:4395" class="block h-auto w-full rounded-card border border-line-soft" loading="lazy" />
+    </a>
+    <figcaption class="px-1 pt-3 text-[13px] leading-relaxed text-ink-2">本地实拍。Servers 是打开预览的入口。</figcaption>
+  </figure>
+</div>
+<figure class="not-prose rounded-card bg-white p-3 sm:p-5">
+  <a href={BrowserPreview.src} target="_blank" rel="noopener" class="block">
+    <img src={BrowserPreview.src} width={BrowserPreview.width} height={BrowserPreview.height} alt="T3 Code 当前线程旁边并排打开内置浏览器，显示 Calculator 的开发页面" class="block h-auto w-full rounded-card border border-line-soft" loading="lazy" />
+  </a>
+  <figcaption class="px-2 pt-3 text-[13px] leading-relaxed text-ink-2">本地实拍。左边是原任务，右边是演示站点。把 Value 输成 -3 之后，浏览器里的读数变成了 0。</figcaption>
+</figure>
+</Section>
+
+<Section canvas id="why">
+<SectionHead index="08" kicker="选择代价" title="什么情况下，值得换到 T3 Code？" />
+<Prose tile>
+
+如果平时只用 Codex，官方应用已经能开工作树、看差异、在手机上接续任务。它在 2026 年 2 月就已支持并行工作树。早期 T3 Code 同样从 Codex 做起，后来才形成现在的多智能体工作方式。Orca 也有远程主机和手机客户端，Conductor 也同时接入 Claude Code、Codex、Cursor 和 OpenCode。只数工作台接了几个智能体，很难看出用起来有什么差别。[Codex 应用发布公告](https://openai.com/index/introducing-the-codex-app/) · [Codex 远程连接](https://learn.chatgpt.com/docs/remote-connections) · [T3 Code 早期 README](https://github.com/pingdotgg/t3code/blob/v0.0.2/README.md) · [Orca 功能](https://github.com/stablyai/orca/blob/v1.4.269/README.md) · [Conductor 接入说明](https://www.conductor.build/docs/reference/harnesses)
+
+T3 Code 的优势在经常发生的交接里。比如平时用 Claude Code 改代码，碰到关键变更就让 Codex 独立审一下，最后还想回到原对话追问。模型选项和回报在同一处，可以少做几次手工复制，也少记一个任务标签页。若已经用 Orca 把工作树、终端和分派流程安排顺了，继续用 Orca 同样能完成这件事。若任务始终由 Codex 做，官方应用里的原生会话和托管工作区更直接。这些是工作方式的取舍，本文没有做同口径的速度或产出质量测试。
+
+多个原生运行时会带来维护成本。哪些审批方式能用、能否完整恢复旧会话，都取决于适配器和上游版本。比如 v0.1.11 的 **Connect with ChatGPT** 接入方式没有 Fast 和 Ultrafast。如果账号支持这两档速度，可以沿用已登录的 Codex CLI。T3 Code 实际要做好的是让用户看懂这些差异，并把失败或等待审批的状态准确送回原线程。[Provider 能力要求](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/internals/adding-a-provider.md) · [Codex 两种接入方式](https://github.com/pingdotgg/t3code/blob/v0.1.11/docs/user/providers-codex.md#connect-with-chatgpt)
+
+</Prose>
+</Section>
+</ArticleCanvas>
