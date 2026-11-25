@@ -164,7 +164,7 @@ for (const entry of await getLocalized('posts', lang)) {
         <CoverBanner kicker={`${t(lang, 'daily.eyebrow')} · ${daily.issueDate} · UTC+8`} title={post.data.title} lead={post.data.excerpt}>
           <DailyCoverVisual slot="visual" lang={lang} daily={daily} />
         </CoverBanner>
-        {daily.correction && <p class="mb-8 max-w-[760px] text-[14px] leading-relaxed text-muted">{post.data.updated && <><span>{t(lang, 'post.updated')} {formatDailyTime(post.data.updated.toISOString(), lang)}</span><br /></>}{daily.correction}</p>}
+        {daily.correction && <p class="mt-6 mb-8 max-w-[760px] text-[14px] leading-relaxed text-muted">{post.data.updated && <><span>{t(lang, 'post.updated')} {formatDailyTime(post.data.updated.toISOString(), lang)}</span><br /></>}{daily.correction}</p>}
         <ArticleCanvas>
           <DailyBriefing lang={lang} daily={daily} sources={post.data.sources ?? []} />
           <Content />
