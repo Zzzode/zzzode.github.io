@@ -6,7 +6,7 @@
   "windowStart": "2026-11-25T02:00:00Z",
   "cutoff": "2026-11-26T02:00:00Z",
   "startedAt": "2026-11-26T02:02:03Z",
-  "completedAt": "2026-11-26T02:25:16.980Z",
+  "completedAt": "2026-11-26T06:31:35.918Z",
   "queries": [
     {
       "id": "ad-open-identity0",
@@ -9303,6 +9303,1624 @@
         "https://www.macrumors.com/2026/11/19/apple-ai-agent-development/"
       ],
       "notes": "MacRumors at this date relayed original hiring report; not a new product release."
+    },
+    {
+      "id": "corr-editor-q-clip",
+      "actor": "daily-editor",
+      "query": "GET https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+      "executedAt": "2026-11-26T06:23:26.975+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298550"
+      ],
+      "notes": "HTTP 200. Official transcript gives two RFIs for each company and says both answered each. The spokesperson says the replies were received the preceding day, the next step is assessment, and no substantive answer or incident count is disclosed. Q&A archive I-298550 is 04:14."
+    },
+    {
+      "id": "corr-editor-q-full",
+      "actor": "daily-editor",
+      "query": "GET https://audiovisual.ec.europa.eu/en/media/video/I-298575",
+      "executedAt": "2026-11-26T06:23:26.976+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298575"
+      ],
+      "notes": "HTTP 200. Complete EC Midday press briefing archive I-298575, Brussels Berlaymont, 25 November 2026, duration 42:50. Agenda lists both the afternoon press-point announcement and the OpenAI/Anthropic Q&A."
+    },
+    {
+      "id": "corr-editor-q-intro",
+      "actor": "daily-editor",
+      "query": "GET https://audiovisual.ec.europa.eu/en/media/video/I-298547",
+      "executedAt": "2026-11-26T06:23:26.976+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298547"
+      ],
+      "notes": "HTTP 200. Clip I-298547 announces the same day’s 15h00 Brussels press point with Teresa Ribera and then moves on to the midday briefing questions."
+    },
+    {
+      "id": "corr-editor-q-grid",
+      "actor": "daily-editor",
+      "query": "GET https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes",
+      "executedAt": "2026-11-26T06:23:26.977+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes"
+      ],
+      "notes": "HTTP 200. Bare HTTP 200 returns a client-rendered document without schedule rows. The rendered public page is a separate observation."
+    },
+    {
+      "id": "corr-editor-q-panel",
+      "actor": "daily-editor",
+      "query": "GET https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting",
+      "executedAt": "2026-11-26T06:23:26.977+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting"
+      ],
+      "notes": "HTTP 200. The 23 November science-panel meeting summary gives context on questions and shows only date-level precision for the 25 November text. It does not report receipt of both replies in the later press exchange."
+    },
+    {
+      "id": "corr-editor-q-poly",
+      "actor": "daily-editor",
+      "query": "GET https://www.polyfact.com/videos/I-298550-vod",
+      "executedAt": "2026-11-26T06:23:26.986+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.polyfact.com/videos/I-298550-vod"
+      ],
+      "notes": "HTTP 200. Replay of I-298550 is based on official footage and does not add independent originating confirmation. Derived clip timestamps are cross-checks, not the official announcement instant."
+    },
+    {
+      "id": "corr-editor-q-fourmba",
+      "actor": "daily-editor",
+      "query": "GET https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+      "executedAt": "2026-11-26T06:23:26.986+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/"
+      ],
+      "notes": "HTTP 403. Direct request returned HTTP 403. A search-index excerpt credits a transcript shared on X. No content or exact date inferred from the unavailable origin."
+    },
+    {
+      "id": "corr-editor-q-arxiv",
+      "actor": "daily-editor",
+      "query": "GET https://arxiv.org/abs/2611.32736",
+      "executedAt": "2026-11-26T06:23:26.987+00:00",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://arxiv.org/abs/2611.32736"
+      ],
+      "notes": "HTTP 200. Reopened v1 metadata confirms the prior submission clock of 24 November at 14:52:10 UTC."
+    },
+    {
+      "id": "corr-editor-q-arxiv-rss",
+      "actor": "daily-editor",
+      "query": "GET https://rss.arxiv.org/rss/cs.CV",
+      "executedAt": "2026-11-26T06:23:26.989+00:00",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://rss.arxiv.org/rss/cs.CV"
+      ],
+      "notes": "HTTP 200. Public RSS snapshot revisited for the separately maintained Qwen article. A nominal feed entry timestamp does not prove item first public time."
+    },
+    {
+      "id": "corr-editor-q-arxiv-rules",
+      "actor": "daily-editor",
+      "query": "GET https://info.arxiv.org/help/availability.html",
+      "executedAt": "2026-11-26T06:23:26.989+00:00",
+      "method": "open",
+      "focus": [
+        "research",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://info.arxiv.org/help/availability.html"
+      ],
+      "notes": "HTTP 200. Public arXiv help explains normal announcements and possible quality assurance or publication delays. A normal slot does not timestamp this specific item."
+    },
+    {
+      "id": "corr-editor-q-poly-prog",
+      "actor": "daily-editor",
+      "query": "GET https://www.polyfact.com/en/european-union/committees",
+      "executedAt": "2026-11-26T06:24:27.654+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.polyfact.com/en/european-union/committees"
+      ],
+      "notes": "HTTP 200. Contemporary replay archive orders the midday briefing at displayed 12:09 CET and the separate Ribera press point at 15:04 CET. Derived playback minutes support relative sequence only."
+    },
+    {
+      "id": "corr-editor-q-state-aid",
+      "actor": "daily-editor",
+      "query": "GET https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2574",
+      "executedAt": "2026-11-26T06:24:27.655+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2574"
+      ],
+      "notes": "HTTP 200. HTTP route returned a client-rendered press-release shell. The actual antitrust event was verified from official audiovisual archives, with no publication instant inferred here."
+    },
+    {
+      "id": "corr-editor-q-euronews",
+      "actor": "daily-editor",
+      "query": "GET https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents",
+      "executedAt": "2026-11-26T06:24:27.656+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents"
+      ],
+      "notes": "HTTP 200. Original October report concerns earlier AI Act information requests and test-environment incidents. It predates the November 25 official reply confirmation."
+    },
+    {
+      "id": "corr-editor-q-tnw",
+      "actor": "daily-editor",
+      "query": "GET https://thenextweb.com/news/eu-ai-act-openai-anthropic-ai-office-investigation",
+      "executedAt": "2026-11-26T06:24:27.657+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://thenextweb.com/news/eu-ai-act-openai-anthropic-ai-office-investigation"
+      ],
+      "notes": "HTTP 200. October report traces the OpenAI and Anthropic request details to Euronews and links the Commission’s earlier general RFI disclosure."
+    },
+    {
+      "id": "corr-editor-q-panel-fr",
+      "actor": "daily-editor",
+      "query": "GET https://digital-strategy.ec.europa.eu/fr/news/ai-act-scientific-panel-holds-second-regular-meeting",
+      "executedAt": "2026-11-26T06:24:27.658+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "fr",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/fr/news/ai-act-scientific-panel-holds-second-regular-meeting"
+      ],
+      "notes": "HTTP 200. French rendering of the same panel summary about the 23 November meeting. No separate time basis for replies."
+    },
+    {
+      "id": "corr-editor-q-axo-amodei",
+      "actor": "daily-editor",
+      "query": "GET https://www.axios.com/2026/11/25/anthropic-dario-amodei-ai-free-will-contro-axios",
+      "executedAt": "2026-11-26T06:24:27.659+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.axios.com/2026/11/25/anthropic-dario-amodei-ai-free-will-contro-axios"
+      ],
+      "notes": "HTTP 200. Axios reports Amodei’s response to its separate coverage of safety and autonomy. It does not report a first-party announcement about the EU replies."
+    },
+    {
+      "id": "corr-editor-q-axo-dem",
+      "actor": "daily-editor",
+      "query": "GET https://www.axios.com/2026/11/25/democrats-ai-safety-restrictions-openai-anthropic-axios",
+      "executedAt": "2026-11-26T06:24:27.662+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.axios.com/2026/11/25/democrats-ai-safety-restrictions-openai-anthropic-axios"
+      ],
+      "notes": "HTTP 200. Axios reaction article reports US legislators’ calls for restrictions in response to the separate Axios investigation. It is not a release or EU legal measure."
+    },
+    {
+      "id": "corr-editor-q-ro-incident",
+      "actor": "daily-editor",
+      "query": "GET https://informat.ro/en/eu/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874",
+      "executedAt": "2026-11-26T06:24:27.663+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://informat.ro/en/eu/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874"
+      ],
+      "notes": "HTTP 200. September 8 syndicated report describes a separate earlier OpenAI response about an incident. It does not cover the current two companies each answering two requests."
+    },
+    {
+      "id": "corr-editor-q-ribera",
+      "actor": "daily-editor",
+      "query": "GET https://audiovisual.ec.europa.eu/en/media/video/I-298597",
+      "executedAt": "2026-11-26T06:25:07.030+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298597"
+      ],
+      "notes": "HTTP 200. Complete afternoon Ribera press point I-298597, November 25. Location label gives 15h00 Brussels, as announced in I-298547. Separate archive lists the same antitrust and State aid subjects."
+    },
+    {
+      "id": "corr-editor-q-ribera-full",
+      "actor": "daily-editor",
+      "query": "GET https://audiovisual.ec.europa.eu/en/media/video/I-298585",
+      "executedAt": "2026-11-26T06:25:07.031+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298585"
+      ],
+      "notes": "HTTP 200. Clip I-298585 is question-and-answer at the afternoon press point. It corresponds to the event introduced in I-298597."
+    },
+    {
+      "id": "corr-editor-q-poly-ribera",
+      "actor": "daily-editor",
+      "query": "GET https://www.polyfact.com/videos/I-298597-vod",
+      "executedAt": "2026-11-26T06:25:07.032+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.polyfact.com/videos/I-298597-vod"
+      ],
+      "notes": "HTTP 200. Public replay mirrors the separate afternoon event. Clock labels are archive cross-checks rather than the time of the earlier AI Q&A."
+    },
+    {
+      "id": "corr-editor-q-guidelines",
+      "actor": "daily-editor",
+      "query": "GET https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+      "executedAt": "2026-11-26T06:25:07.033+00:00",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations"
+      ],
+      "notes": "HTTP 200. Article 50 policy page contains a date marker, but that value alone does not date the guidelines. The official publication trail was assessed independently."
+    },
+    {
+      "id": "corr-editor-q-grid-browser",
+      "actor": "daily-editor",
+      "query": "Open https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes in Firefox and read the rendered EbS listings",
+      "executedAt": "2026-11-26T06:25:35.697Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes"
+      ],
+      "notes": "Verified TLS browser reached HTTP 200. Rendered rows show CET explicitly, 12:09 LIVE for the midday briefing, 15:04 LIVE for the separate Ribera press point, and 15h00 for its venue label. Retained only the conservative midday interval."
+    },
+    {
+      "id": "corr-editor-q-search-press",
+      "actor": "daily-editor",
+      "query": "25 November 2026 Brussels European Commission Teresa Ribera VIP press point Commission prolongs State aid framework fines Firmenich Givaudan IFF audiovisual 15:00\n\"Opening remarks\" \"Ribera\" \"25 Nov 2026\" antitrust decision consumer fragrances prolongation state aid European Commission audiovisual\nsite:audiovisual.ec.europa.eu Teresa Ribera 25/11/2026 471.9 million press point",
+      "executedAt": "2026-11-26T06:23:44Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.reuters.com/world/eu-antitrust-regulators-fine-3-global-fragrance-makers-5165-million-taking-part-2026-11-25/",
+        "https://www.ft.com/content/472d6327-a693-4023-a2ab-9672ad0e71b8",
+        "https://ec.europa.eu/commission/presscorner/detail/da/ip_26_2574"
+      ],
+      "notes": "Grouped targeted searches for original reply disclosures, earlier related events and the later timed press point. Result URLs are the relevant set for each grouped search and not attributed to a specific input query."
+    },
+    {
+      "id": "corr-editor-q-search-reply",
+      "actor": "daily-editor",
+      "query": "November 25 2026 European Commission \"OpenAI\" \"Anthropic\" \"responded\" \"AI Office\" replies Regnier rapporteur Euractiv AFP\nNovember 25 2026 OpenAI Anthropic replies AI Act loss-of-control AI Office question Thomas Regnier November 24 interview Reuters MLex",
+      "executedAt": "2026-11-26T06:23:44Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.axios.com/2026/11/25/anthropic-dario-amodei-ai-free-will-contro-axios",
+        "https://www.financialexpress.com/world-news/are-humans-surrendering-control-to-ai-what-anthropic-ceo-dario-amodei-said/4394198/",
+        "https://www.reuters.com/sustainability/boards-policy-regulation/eu-commission-talks-with-openai-anthropic-over-ai-models-2026-05-11/",
+        "https://www.reuters.com/legal/litigation/eu-commission-looking-practical-consequences-anthropic-decision-spokesperson-2026-06-14/",
+        "https://www.courthousenews.com/eu-in-talks-with-anthropic-over-risks-of-ai-model-mythos/",
+        "https://informat.ro/en/eu/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874",
+        "https://www.reuters.com/business/media-telecom/anthropic-talks-eu-including-its-cyber-security-models-commission-says-2026-04-17/",
+        "https://digital.nemko.com/news/eu-ai-act-enforcement-starts-with-ai-lab-security-requests",
+        "https://uk.fashionnetwork.com/news/Eu-investigates-latest-loss-of-control-over-openai-s-ai-agents-involving-a-german-website%2C1864071.html"
+      ],
+      "notes": "Grouped targeted searches for original reply disclosures, earlier related events and the later timed press point. Result URLs are the relevant set for each grouped search and not attributed to a specific input query."
+    },
+    {
+      "id": "corr-editor-q-search-reply-de-fr",
+      "actor": "daily-editor",
+      "query": "25 novembre 2026 OpenAI Anthropic Commission européenne ont répondu demandes de renseignements Thomas Regnier AFP bureau IA\n25 November 2026 EU-Kommission OpenAI Anthropic Antworten Auskunftsersuchen AI Act Thomas Regnier Pressekonferenz",
+      "executedAt": "2026-11-26T06:23:44Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "de,fr",
+      "resultUrls": [
+        "https://www.investing.com/news/economy-news/eu-commission-in-talks-with-openai-and-anthropic-on-ai-model-access-93CH-4675649",
+        "https://news.az/news/eu-holds-ai-model-talks-with-openai-and-anthropic",
+        "https://www.lemonde.fr/economie/article/2026/11/10/une-commission-preconise-de-mieux-encadrer-les-assistants-ia-de-chatgpt-a-gemini-ou-grok_6808789_3234.html",
+        "https://www.lemonde.fr/economie/article/2026/11/09/securite-de-l-ia-l-elysee-fait-signer-un-appel-de-paris-a-huit-pays-ainsi-qu-a-sam-altman-dario-amodei-et-arthur-mensch_6808706_3234.html",
+        "https://informat.ro/en/eu/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874"
+      ],
+      "notes": "Grouped targeted searches for original reply disclosures, earlier related events and the later timed press point. Result URLs are the relevant set for each grouped search and not attributed to a specific input query."
+    },
+    {
+      "id": "corr-editor-q-search-prior",
+      "actor": "daily-editor",
+      "query": "October November 2026 Henna Virkkunen OpenAI Anthropic second requests for information AI Act containment November 23 earliest Reuters Euronews official\n\"OpenAI\" \"Anthropic\" \"received the replies\" \"Commission\" before:2026-11-25 after:2026-10-01 Virkkunen AI Office",
+      "executedAt": "2026-11-26T06:23:44Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.reuters.com/legal/litigation/eu-commission-targeted-cyberattack-politico-reports-2026-11-19/",
+        "https://aiweekly.co/alerts/eu-ai-office-opens-first-ai-act-probes-into-openai-anthropic",
+        "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+        "https://thenextweb.com/news/eu-ai-act-openai-anthropic-ai-office-investigation",
+        "https://www.reuters.com/technology/openai-is-working-with-anthropic-google-ai-safety-bloomberg-news-reports-2026-09-15/",
+        "https://www.linkedin.com/posts/europeantechonheels_eu-ai-office-questions-openai-and-anthropic-activity-7525819646000668673-13cZ"
+      ],
+      "notes": "Grouped targeted searches for original reply disclosures, earlier related events and the later timed press point. Result URLs are the relevant set for each grouped search and not attributed to a specific input query."
+    },
+    {
+      "id": "cor-r-q-rfi-en",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "European Commission AI Office requests information risk safeguards frontier AI OpenAI Anthropic Google xAI November 25 2026 spokesperson Brussels midday briefing\nsite:audiovisual.ec.europa.eu November 25 2026 midday briefing AI requests for information European Commission November 25 EBS 12:00\nsite:digital-strategy.ec.europa.eu OR site:ec.europa.eu \"25 November 2026\" \"requests for information\" GPAI AI Office European Commission frontier models\nNovember 25 2026 Anthropic Google OpenAI responses replies European Commission AI office requests systemic risks regulators written November 25",
+      "executedAt": "2026-11-26T06:22:55Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://apnews.com/article/79705095e8141cd650196dbff1cf3c70",
+        "https://www.reuters.com/legal/litigation/eu-commission-targeted-cyberattack-politico-reports-2026-11-19/",
+        "https://apnews.com/article/02e1f69e46ad9f82484b66b2f86df53b",
+        "https://www.ft.com/content/c96c40c5-6b07-4433-b65f-19105e9ccb44",
+        "https://www.theguardian.com/business/live/2026/nov/19/anthropic-float-stock-market-nasdaq-raises-81bn-record-ipo-latest-news-updates",
+        "https://www.theguardian.com/australia-news/live/2026/nov/24/labor-penny-wong-us-china-anthony-albanese-final-sitting-week-ntwnfb",
+        "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+        "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+        "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai",
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+        "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence",
+        "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting",
+        "https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers",
+        "https://www.polyfact.com/videos/I-298550-vod?t=60",
+        "https://www.polyfact.com/videos/I-298550-vod?t=0",
+        "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+        "https://www.ft.com/content/f2ea4f22-32ba-4795-971d-2a4bbb0143fb",
+        "https://www.infinitelaws.eu/en/news/ai-office-first-rfis-2026-09",
+        "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-rfi-de",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "25. November 2026 EU-Kommission AI Office Aufforderung Auskunft KI Modelle OpenAI Anthropic Google Mitteilung\n25 novembre 2026 Commission européenne bureau IA demandes d'informations modèles risque systémique OpenAI Anthropic Google\n25 noviembre 2026 Comisión Europea Oficina IA solicitudes información modelos riesgo sistémico OpenAI Anthropic Google\n2026年11月25日 欧盟委员会 人工智能办公室 信息请求 系统性风险 OpenAI Anthropic 谷歌 欧盟 AI 法",
+      "executedAt": "2026-11-26T06:22:55Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "de,fr,es,zh",
+      "resultUrls": [
+        "https://artificialintelligenceact.substack.com/p/the-eu-ai-act-newsletter-107-enforcement",
+        "https://www.junhe.com/legal-updates/3071?locale=zh",
+        "https://www.facebook.com/OReilly/videos/the-eu-commission-is-gathering-information-from-openai-and-anthropic-about-ai-ag/2207745263288217/",
+        "https://www.twobirds.com/-/media/new-website-content/pdfs/capabilities/artificial-intelligence/eu-ai-act-guide-chinese-version.pdf",
+        "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+        "https://www.protiviti.com/sites/default/files/2025-04/interpretation-of-eu-ai-act_cn.pdf",
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+        "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2026-70067",
+        "https://qz.com/eu-ai-act-enforcement-fines-openai-anthropic-google-080326",
+        "https://cloud.google.com/security/compliance/eu-ai-act?hl=zh-CN",
+        "https://openai.com/zh-Hans-CN/index/advancing-responsible-ai-across-europe/",
+        "https://www.welt.de/newsticker/dpa_nt/infoline_nt/netzwelt/article6ac8e80d61b3d4c01d3e1434/ki-angriffe-bruessel-fordert-infos-von-openai-und-anthropic.html",
+        "https://www.lemonde.fr/economie/article/2026/06/01/cybersecurite-anthropic-est-en-discussion-avec-l-union-europeenne-pour-lui-donner-acces-a-son-modele-mythos_6696021_3234.html",
+        "https://www.lemonde.fr/idees/article/2026/10/10/sur-l-ia-l-europe-ne-peut-pas-attendre-que-les-risques-deviennent-plus-evidents_6790999_3232.html",
+        "https://www.reuters.com/world/eu-says-necessary-monitor-high-risk-ai-systems-after-openai-anthropic-ai-hacking-2026-07-31/",
+        "https://elpais.com/tecnologia/2026-09-21/europa-se-plantea-garantizar-a-las-grandes-companias-de-ia-el-acceso-total-a-los-datos-de-los-ciudadanos.html",
+        "https://apnews.com/article/f4fcee1f9750e2b32cdf26ad73ee5ec2"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-answer",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "\"EU Says OpenAI, Anthropic Answered\" \"November 25\" 2026 responses AI Office\n\"OpenAI\" \"Anthropic\" \"25 November 2026\" \"responded\" Commission loss of control AI Euractiv Politico MLex Reuters\nNovember 25 2026 European Commission OpenAI Anthropic replied requests loss of control risk spokeswoman answers both\n\"I-298550\" \"25/11/2026\" Anthropic OpenAI commission recording transcript time",
+      "executedAt": "2026-11-26T06:23:20Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+        "https://www.polyfact.com/videos/I-298550-vod?t=0",
+        "https://www.polyfact.com/en/european-union/committees/eu-commission/european-commission",
+        "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+        "https://2eu.brussels/en/news/european-commission-assesses-openais-response-to-an-incident-involving-loss-of-control-over-ai-agents",
+        "https://apnews.com/article/9a057de94eb8f30a2fdb5b938918627e",
+        "https://audiovisual.ec.europa.eu/de/media/video/I-293797",
+        "https://www.marketscreener.com/news/eu-commission-in-talks-with-openai-and-anthropic-over-ai-models-ce7f5bd8d18af626",
+        "https://ailookout.news/blog/eu-commission-information-requests-frontier-ai-labs-loss-of-control-incidents",
+        "https://apnews.com/article/53fb21bd250b936d93c5c8885af8d393",
+        "https://2eu.brussels/en/news/commission-starts-ai-act-enforcement-involving-more-than-30-companies-and-discusses-cyber-risks-with-openai-and-anthropic",
+        "https://2eu.brussels/index.php/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models",
+        "https://audiovisual.ec.europa.eu/en/media/video/I-294322",
+        "https://aitamer.news/posts/eu-ai-office-information-requests-openai-anthropic/",
+        "https://agiright.org/crs/topics",
+        "https://framesignal.com/global-impact/eu-commission-ai-panel-loss-of-control-incidents",
+        "https://assets.hl.uk/c9w2qaf2zbyd/2wXtdJwpqx4ZtqxEzJat6W/88ffc10c16d9d7fe35f0267a43b3802e/Anthropic_PBC_-_Amended_UK_Disclosure_Summary.pdf",
+        "https://www.reuters.com/world/eu-tech-chief-says-bloc-well-equipped-fend-off-rogue-ai-risk-2026-10-09/",
+        "https://www.washingtonpost.com/technology/2026/10/29/anthropic-other-ai-firms-agreed-slow-down-ai-it-didnt-happen/",
+        "https://www.theguardian.com/business/live/2026/nov/19/anthropic-float-stock-market-nasdaq-raises-81bn-record-ipo-latest-news-updates",
+        "https://ec.europa.eu/commission/presscorner/api/files/document/print/en/speech_26_2150/SPEECH_26_2150_EN.pdf?trk=article-ssr-frontend-pulse_x-social-details_comments-action_comment-text",
+        "https://hansard.parliament.uk/pdf/commons%E2%80%8F/2026-11-19",
+        "https://aiedgebriefing.com/topics/openai/",
+        "https://cdn.etrade.net/1/20261110.0/aempros/content/dam/etrade/new-issues-center/en_US/document/pdf/initial/2026/November/ant-ipo-ered.pdf",
+        "https://www.businessinsider.com/anthropic-the-company-trump-cant-ignore-2026-9",
+        "https://aiedgebriefing.com/topics/anthropic/",
+        "https://data.consilium.europa.eu/doc/document/ST-9247-2026-INIT/en/pdf",
+        "https://www.newyorker.com/magazine/2026/11/30/after-a-record-loss-leopold-aschenbrenner-is-still-betting-everything-on-ai",
+        "https://www.ibtimes.co.uk/anthropic-openai-staff-warn-unreleased-ai-models-dangerous-1834715",
+        "https://sled.lighthouseadvisory.consulting/streams/openai",
+        "https://topten-media.com/en/a/anthropic-openai-staff-unreleased-ai-models-axios",
+        "https://cdn.openai.com/pdf/openai-letter-to-governor-newsom-20261020.pdf?trk=article-ssr-frontend-pulse_little-text-block",
+        "https://www.donvitocodes.com/ai-news",
+        "https://www.theguardian.com/news/2026/sep/01/if-you-build-something-vastly-smarter-than-you-it-better-be-on-your-side-can-we-stop-ai-from-deceiving-us",
+        "https://curratedbrief.com/openai-and-anthropic-staff-doubt-unreleased-frontier-models-are-safe-to-ship"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-mlex",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "site:mlex.com \"November 25, 2026\" OpenAI Anthropic requests for information European Commission AI replied\nsite:politico.eu \"November 25\" Anthropic OpenAI Commission reply EU systemic risk frontline AI European Commission\n\"November 25, 2026\" AI Act European Commission AI office new enforcement deadline notice Article 50 official 25 November draft 2026\n2026年11月25日 欧盟 OpenAI Anthropic 回应 失控 询问 AI 人工智能 委员会 调查 11月25日",
+      "executedAt": "2026-11-26T06:23:20Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en,zh",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+        "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+        "https://bbs.fcgvisa.com/t/openai-anthropic-2/71238",
+        "https://liangss.me/article/154437",
+        "https://swil-news.vercel.app/news/ai-tech/2026-11-25",
+        "https://www.tmtpost.com/8216877.html",
+        "https://www.ai-club.cn/news-article/67339",
+        "https://newruntime.com/regulatory-calendar/",
+        "https://aiproducthub.cn/newsflash/eu-ai-office-second-round-questions-openai-anthropic-agent-incidents/",
+        "https://openai.com/zh-Hans-CN/hugging-face-incident-and-misalignment/",
+        "https://www.aiacto.eu/en/echeancier-ai-act",
+        "https://aisafetyhot.com/zh/daily/2026-11-25",
+        "https://www.un.org/independent-international-scientific-panel-ai/sites/default/files/2026-09/Thematic%20Brief_AI%20Agents%2C%20Misalignment%20and%20the%20Risk%20of%20Losing%20Human%20Control_Evidence%20from%20the%20OpenAI-Hugging%20Face%20Incident_Independent%20International%20Scientific%20Panel%20on%20AI_Advance%20Unedited%20Version%201_21%20Sept%202026.pdf?trk=article-ssr-frontend-pulse_little-text-block",
+        "https://pasqualepillitteri.it/zh/news/23973/ou-meng-yao-qiu-openai-anthropic-jiao-dai-zhi-neng-ti-ru-qin-zhen-shi-qi-ye",
+        "https://informat.ro/zh/eu-zh/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874-zh",
+        "https://committees.parliament.uk/oralevidence/18302/pdf",
+        "https://www.infinitelaws.eu/en/ai-act/timeline",
+        "https://agora-intelligence.com/en/blog/eu-ai-act-article-50-guidelines-marking-deadline-december-2026/",
+        "https://www.responsibleaiguide.com/world-ai-laws/dates-and-penalties/index.html",
+        "https://hansard.parliament.uk/pdf/commons%E2%80%8F/2026-11-19",
+        "https://responsibleaiguide.com/world-ai-laws/dates-and-penalties/index.html",
+        "https://www.ipa.go.jp/digital/ai/security/rcu1hd0000007gji-att/2026-5_1113.pdf",
+        "https://www.responsibleaiguide.com/world-ai-laws/dates-and-penalties/",
+        "https://www.llms.blog/posts/brussels-sends-letters-not-fines-what-the-eu-ai-acts-first-enforcement-quarter-actually-demands",
+        "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng/pdf",
+        "https://www.aipolicydesk.com/regulations",
+        "https://digitalcompliance.snellman.com/news/",
+        "https://www.aipolicydesk.com/blog/ai-regulation-deadline-calendar-2026",
+        "https://www.burhandogusayparlar.com/insights/enforcing-the-ai-act-against-general-purpose-ai-model-providers",
+        "https://www.mlex.com/mlex/technology/articles/2559638/enforce-eu-nudifier-ban-promptly-and-explore-meta-s-ad-role-lawmakers-urge",
+        "https://www.mlex.com/mlex/trade?article_sidebar=1",
+        "https://www.mlex.com/mlex/technology/articles/2559848/eu-governments-seek-end-to-deadlock-over-privacy-watchdog",
+        "https://www.mlex.com/mlex/trade",
+        "https://www.mlex.com/mlex/technology/articles/2559590/eu-proposes-quantum-act-to-bring-research-to-market-strengthen-supply-chains"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-la-reponse",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "25 novembre 2026 OpenAI Anthropic ont répondu demandes informations Commission européenne perte contrôle IA\n25 November 2026 OpenAI Anthropic Auskunft beantwortet Europäische Kommission Kontrollverlust spätestens\n25 noviembre 2026 OpenAI Anthropic respondieron Comisión petición información pérdida de control IA\nEU Commission OpenAI Anthropic loss of control requests information November 2026 earliest October request transparency joint company responses Reuters",
+      "executedAt": "2026-11-26T06:23:20Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "fr,de,es,en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+        "https://digital-strategy.ec.europa.eu/de/news/ai-act-scientific-panel-holds-second-regular-meeting",
+        "https://audiovisual.ec.europa.eu/fr/media/video/I-293797",
+        "https://www.polyfact.com/videos/I-298550-vod?t=183",
+        "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+        "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting",
+        "https://www.investing.com/news/stock-market-news/exclusivebehind-ai-industrys-call-for-independent-reviews-a-fight-over-what-gets-made-public-4945991",
+        "https://www.reuters.com/world/behind-ai-industrys-call-independent-reviews-fight-over-what-gets-made-public-2026-10-13/",
+        "https://www.marketscreener.com/news/eu-commission-in-talks-with-openai-and-anthropic-over-ai-models-ce7f5bd8d18af626",
+        "https://www.strategie-plan.gouv.fr/files/files/Publications/2026/2026-11-19%20-%20NA%20163%20-%20D%C3%A9pendances%20num%C3%A9riques/HCSP-2026-NA163-Dependances-numeriques-20novembre14h.pdf",
+        "https://2eu.brussels/en/news/european-commission-assesses-openais-response-to-an-incident-involving-loss-of-control-over-ai-agents",
+        "https://audiovisual.ec.europa.eu/de/media/video/I-294322",
+        "https://2eu.brussels/en/news/commission-starts-ai-act-enforcement-involving-more-than-30-companies-and-discusses-cyber-risks-with-openai-and-anthropic",
+        "https://www.marketscreener.com/news/eu-says-openai-offers-to-open-access-to-cybersecurity-model-anthropic-not-there-yet-ce7f5bd9da8ff525",
+        "https://hum.vibes.dev/s/eu-ai-office-formal-probes-openai-anthropic-agent-hacks/",
+        "https://selectra.info/telecom/actualites/marche/ia-trop-puissantes-2026-openai-anthropic",
+        "https://www.reuters.com/legal/litigation/eu-commission-targeted-cyberattack-politico-reports-2026-11-19/",
+        "https://www.thefrontier.dev/articles/brussels-ai-act-openai-anthropic",
+        "https://openai.com/es-ES/hugging-face-incident-and-misalignment/?trk=article-ssr-frontend-pulse_little-text-block",
+        "https://tsnmedia.org/eu-tech-chief-virkkunen-says-ai-models-not-tested-enough-requests-for-information-openai-anthropic-chinese-firms-interview/",
+        "https://www.onabout.ai/p/the-questions-have-arrived",
+        "https://readwise-assets.s3.amazonaws.com/media/wisereads/articles/detecting-and-countering-misus/Anthropic-Detecting-and-countering-091026_1.pdf",
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?qid=1790822129312&uri=CELEX%3A02024R1689-20260727",
+        "https://www.govinfo.gov/content/pkg/USCOURTS-caDC-26-01162/pdf/USCOURTS-caDC-26-01162-0.pdf",
+        "https://neurone21.com/p/commission-ai-office-questions-openai-anthropic-incidents-agents",
+        "https://tech-insider.org/fr/ai-act-ue-sonde-openai-anthropic-2026/",
+        "https://www.boursorama.com/actualite-economique/actualites/ia-apres-une-serie-d-incidents-l-ue-reclame-des-informations-a-des-dizaines-d-entreprises-en-vertu-de-l-ia-act-212383cf0ffb8fa4004ddf8c670cceae",
+        "https://www.economistjurist.es/articulos-juridicos-destacados/bruselas-pide-informacion-sobre-los-grandes-modelos-de-ia-el-reglamento-europeo-entra-en-fase-de-control/"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-a50time",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "\"25 November 2026\" \"Guidelines on transparency obligations\" Article 50 European Commission publishes adoption time C(2026)\nNovember 25 2026 EC guidelines Article 50 EU transparency published time labels synthetic content Commission press release\n\"25. November 2026\" KI Verordnung Leitlinien Transparenzverpflichtungen veröffentlicht Artikel 50 Uhr Europäische Kommission\n\"25 de noviembre de 2026\" artículo 50 directrices transparencia inteligencia artificial publicó Comisión noviembre 25",
+      "executedAt": "2026-11-26T06:24:58Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en,de,es",
+      "resultUrls": [
+        "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2026-70067",
+        "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2026-70067&lang=es",
+        "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en?trk=public_post_comment-text",
+        "https://publications.europa.eu/resource/cellar/caabe0cd-de39-11f1-ba80-01aa75ed71a1.0006.01/DOC_1",
+        "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+        "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?qid=1786197440162&uri=CELEX%3A02024R1689-20260727",
+        "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act",
+        "https://regelex.com/legislation/52026XC06005",
+        "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems",
+        "https://digital-strategy.ec.europa.eu/de/news/ai-act-scientific-panel-holds-second-regular-meeting",
+        "https://digital-strategy.ec.europa.eu/en/faqs/code-practice-transparency-ai-generated-content",
+        "https://www.infinitelaws.eu/it/news/transparency-guidelines-article-50-oj-2026-11",
+        "https://www.boe.es/buscar/doc.php?id=DOUE-L-2024-81079",
+        "https://interoperable-europe.ec.europa.eu/collection/egovernment/news/guidelines-published-labelling-synthetic-media",
+        "https://www.ancom.ro/en/ai-en/transparency-obligations-article-50/",
+        "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content",
+        "https://digital-strategy.ec.europa.eu/en/faqs/signing-code-practice-transparency-ai-generated-content",
+        "https://eur-lex.europa.eu/legal-content/ES/TXT/HTML/?qid=1790822129312&uri=CELEX%3A02024R1689-20260727",
+        "https://digital-strategy.ec.europa.eu/de/taxonomy/term/119",
+        "https://noticias.juridicas.com/base_datos/Laboral/928500-reglamento-ue-2024-1689-del-parlamento-europeo-y-del-consejo-de-13-de-junio.html",
+        "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/spa",
+        "https://www.perezllorca.com/es/actualidad/nota-juridica/the-code-q3-2026/",
+        "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2025-70071",
+        "https://commission.europa.eu/priorities-2024-2029/competitiveness/implementation-tracker_en",
+        "https://regelex.com/legislation/32024R1689?lang=SPA",
+        "https://siegfriedbolz.github.io/ai-governance-watch/reference_eu_ai_act/",
+        "https://reference.myneogroup.com/es/knowledge/ai/",
+        "https://digitalregulation.osborneclarke.com/",
+        "https://www.simeonatanasov.com/ai-act-digest.html",
+        "https://gemini.nicfab.eu/en/newsletteren/2026/2026-11-17-issue-47_en.gmi",
+        "https://amoledo.com/de-at/news/92863-2526-eu-schlagt-einen-50-milliarden-euro-fonds-fur-ki-und-quantentechnologie-vor",
+        "https://digital-strategy.ec.europa.eu/de/policies/ai-pact",
+        "https://heimatkurier.at/politik-aktuell/bundesrat-kritik-eu-verordnung-wohnen/",
+        "https://dco.org/dco-policy-tracker/",
+        "https://www.parlament.gv.at/gegenstand/XXVIII/EU/102045"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-ebssched",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "\"25/11/2026\" \"12:00\" European Commission Midday press briefing EBS Europe by Satellite\n\"25 November 2026\" \"received the replies yesterday\" OpenAI Anthropic Thomas Regnier Rapporteur AFP European Commission\n2026-11-25 EU AI Office Whistleblower Tool complaints tool publication 25 November\nNovember 25 2026 AI literacy repository 40 practices makeover European Commission AI literacy practices revised",
+      "executedAt": "2026-11-26T06:24:58Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=no",
+        "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes",
+        "https://interoperable-europe.ec.europa.eu/collection/employment-and-working-conditions/news/revamped-repository-artificial-intelligence-literacy-practices",
+        "https://digital-strategy.ec.europa.eu/en/policies/repository-ai-literacy-practices",
+        "https://ai-act-service-desk.ec.europa.eu/en/resources?trk=article-ssr-frontend-pulse_little-text-block",
+        "https://digital-strategy.ec.europa.eu/en/policies/ai-talent-skills-and-literacy",
+        "https://digital-skills-jobs.europa.eu/en/latest/news/revamped-repository-ai-literacy-practices",
+        "https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers",
+        "https://www.consilium.europa.eu/en/press/press-releases/2026/11/19/equipping-europeans-for-the-age-of-ai-council-approves-conclusions/",
+        "https://futurium.ec.europa.eu/en/apply-ai-alliance/news/revamped-repository-ai-literacy-practices",
+        "https://digital-strategy.ec.europa.eu/en/policies/ai-act-whistleblower-tool",
+        "https://search.coe.int/cm?i=09125948802cde8e",
+        "https://futurium.ec.europa.eu/en/comment/5412",
+        "https://interoperable-europe.ec.europa.eu/collection/employment-and-working-conditions/news/european-union-artificial-intelligence-literacy-initiatives",
+        "https://digital-strategy.ec.europa.eu/en/news/commission-launches-whistleblower-tool-ai-act",
+        "https://digital-strategy.ec.europa.eu/en/policies/enforcement-ai-act",
+        "https://www.consilium.europa.eu/el/press/press-releases/2026/11/25/media-advisory-special-european-council-meeting-of-26-27-november-2026/pdf/",
+        "https://digital-strategy.ec.europa.eu/pt/node/17176",
+        "https://www.consilium.europa.eu/en/registrations/2026-11-30-fac-briefing/",
+        "https://education.ec.europa.eu/sites/default/files/2026-11/reversing-declineCOM%282026%29785_main_1_EN.pdf",
+        "https://ai-act-service-desk.ec.europa.eu/en/ai-act/faq/what-are-entry-channels-complaints",
+        "https://data.consilium.europa.eu/doc/document/WK-251-2026-INIT/en/pdf",
+        "https://digital-strategy.ec.europa.eu/en/miscellaneous/complaints-channel-downstream-providers-using-general-purpose-ai-models",
+        "https://data.consilium.europa.eu/doc/document/ST-15439-2026-ADD-1/en/pdf",
+        "https://ai-act-service-desk.ec.europa.eu/en/faq?combine=&page=0",
+        "https://www.consilium.europa.eu/ga/registrations/2026-11-23-gac-briefing-1/",
+        "https://www.consilium.europa.eu/bg/registrations/2026-11-23-gac-briefing-1/",
+        "https://agenceurope.eu/en/bulletin/article/13758/23/european-commission-encourages-whistleblowers-to-report-potential-abuses-of-ai-systems",
+        "https://ai-act-service-desk.ec.europa.eu/en/faq?combine=&page=1",
+        "https://www.consilium.europa.eu/fr/registrations/2026-11-23-gac-briefing-1/",
+        "https://www.bank.lv/en/operational-areas/supervision/ict-security-and-cyber-risks/whistleblower-tool-and-complaints-tool-for-ai-act",
+        "https://op.europa.eu/o/opportal-service/download-handler?format=pdf&identifier=f692aa0b-17a7-11f1-8870-01aa75ed71a1&language=en&productionSystem=cellar",
+        "https://policy.trade.ec.europa.eu/events/civil-society-dialogue-eu-china-trade-relations-developments-and-perspectives-2026-11-25_en?prefLang=lt",
+        "https://www.lawsociety.ie/gazette/top-stories/2025/november/eu-sets-up-whistleblower-tool-for-ai-act/",
+        "https://eur-lex.europa.eu/eli/C/2026/2826/oj/eng/pdf",
+        "https://rora.trade/settimana/",
+        "https://data-en-maatschappij.ai/en/publications/ai-act-whistleblowertool",
+        "https://www.youtube.com/watch?v=55OLG4WipP4",
+        "https://policy.trade.ec.europa.eu/events/civil-society-dialogue-eu-china-trade-relations-developments-and-perspectives-2026-11-25_en",
+        "https://www.pressclub.be/events/",
+        "https://apnews.com/article/f4fcee1f9750e2b32cdf26ad73ee5ec2"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-afp",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "\"received the replies\" \"OpenAI\" \"Anthropic\" \"November 25\" AFP EU requests 2026\n\"OpenAI and Anthropic\" \"November 25\" 2026 \"Rapporteur\" Maximilian Henning RFI replies\n\"two RFIs\" \"OpenAI\" \"Anthropic\" \"November\" 2026 European Commission responses\nEU guidelines Article 50 published official journal C/2026/6005 25 November initial October publication digital strategy calendar",
+      "executedAt": "2026-11-26T06:25:27Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en",
+        "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+        "https://artificialintelligenceact.substack.com/p/how-journalists-uncover-whats-really",
+        "https://www.linkedin.com/in/robbmiller4",
+        "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en?trk=public_post_comment-text",
+        "https://agiright.org/crs/topics",
+        "https://www.rapporteur.com/news/eu-presses-openai-anthropic-for-more-details-on-ai-safety-incidents/",
+        "https://www.linkedin.com/posts/karinataveras_google-cloud-introduces-ai-agent-ecosystem-activity-7397530842996084737-eWbJ",
+        "https://www.praxikon.com/en/posts/article-50-guidelines-adopted-c-2026-7702-which-reference",
+        "https://aiedgebriefing.com/2026-11-03/trace/",
+        "https://artificialintelligenceact.substack.com/p/the-eu-ai-act-newsletter-115-global",
+        "https://www.praxikon.com/en/richtsnoeren/richtsnoeren-over-de-transparantieverplichtingen-van-artikel-50",
+        "https://artificialintelligenceact.substack.com/p/the-eu-ai-act-newsletter-107-enforcement",
+        "https://alhukuk.com/en/news/3109",
+        "https://www.infinitelaws.eu/it/news/transparency-guidelines-article-50-oj-2026-11"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-deepfake",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "\"Enforce EU 'nudifier' ban\" \"November 25\" 2026 lawmakers Meta source European Parliament\n\"EU governments seek end to deadlock over privacy watchdog\" \"November 25\" 2026 EU AI Act EDPS\n\"November 25\" \"European Quantum Act\" AI €50 billion Commission Brussels new proposal timeline 2026\nEuropean Commission November 25 2026 news artificial intelligence guardrails general purpose privacy standards timeline research program public disclosure 25 November",
+      "executedAt": "2026-11-26T06:25:27Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.financialexpress.com/world-news/us-china-have-a-new-tech-challenger-europes-50-billion-plan-explained/4393832/",
+        "https://www.ctinsider.com/connecticut/article/connecticut-police-ai-rules-22537807.php",
+        "https://www.mlex.com/mlex/technology/articles/2559848/eu-governments-seek-end-to-deadlock-over-privacy-watchdog",
+        "https://research-and-innovation.ec.europa.eu/news/all-research-and-innovation-news/ai-requires-rigorous-safeguards-and-rules-keep-pace-technological-advances-experts-tell-european-2026-11-16_en?prefLang=fr",
+        "https://www.mlex.com/mlex/artificial-intelligence/articles/2559638/enforce-eu-nudifier-ban-promptly-and-explore-meta-s-ad-role-lawmakers-urge",
+        "https://www.sec.gov/Archives/edgar/data/1951222/000110465926037706/laes-20251231x20f.htm",
+        "https://www.law360.com/mlex",
+        "https://commission.europa.eu/topics/artificial-intelligence_en",
+        "https://www.mlex.com/mlex/amp/articles/2559638",
+        "https://www.mlex.com/mlex",
+        "https://www.consilium.europa.eu/en/policies/artificial-intelligence-act/timeline-artificial-intelligence/"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-quantumprimary",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "site:ec.europa.eu Quantum Act Sovereign Tech Equity Fund \"25 November 2026\" European Commission COM Quantum Act 50 billion press\nEuropean Quantum Act \"November 25\" 2026 European Commission sovereign tech equity finance proposal site:digital-strategy.ec.europa.eu OR site:ec.europa.eu/commission/presscorner\n25/11/2026 Quantum Act midday press conference Virkkunen 25 November European Commission EUR 50 billion EBS audio archive\n25 novembre 2026 \"Quantum Act\" Commission Soyuveraineté 50 milliards fonds intelligence artificielle nouvel acte",
+      "executedAt": "2026-11-26T06:26:42Z",
+      "method": "search",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "en,fr",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial",
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298539",
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298080",
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298538",
+        "https://audiovisual.ec.europa.eu/en/media/video",
+        "https://audiovisual.ec.europa.eu/en/media/photo/P-071085/00-09",
+        "https://audiovisual.ec.europa.eu/en/media/photo/P-071085/00-06",
+        "https://audiovisual.ec.europa.eu/en/media/photo/P-071085",
+        "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=no",
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298575",
+        "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes",
+        "https://france.representation.ec.europa.eu/informations-et-evenements/informations/quantum-act-la-commission-propose-de-renforcer-la-capacite-industrielle-et-la-securite-de-leurope-2026-11-25_fr?prefLang=lv",
+        "https://commission.europa.eu/news-and-media/news/europes-quantum-leap-strengthening-industrial-capacity-and-security-new-quantum-technologies-2026-11-25_en?prefLang=pl",
+        "https://digital-strategy.ec.europa.eu/fr/library/proposal-quantum-act",
+        "https://www.reuters.com/world/china/europe-plans-50-billion-sovereign-tech-equity-fund-boost-quantum-technology-2026-11-25/",
+        "https://cna.org.cy/en/press_releases/article/11253082/press-release-european-commission",
+        "https://ec.europa.eu/commission/presscorner/api/files/attachment/883213/Factsheet%20Quantum%20Act.pdf",
+        "https://commission.europa.eu/news-and-media/news/europes-quantum-leap-strengthening-industrial-capacity-and-security-new-quantum-technologies-2026-11-25_en?prefLang=bg",
+        "https://denmark.representation.ec.europa.eu/news/kvanteteknologi-2026-11-25_da?prefLang=cs",
+        "https://digital-strategy.ec.europa.eu/en",
+        "https://fr.euronews.com/2026/11/25/ue-un-plan-pour-lere-quantique-avec-50-milliards-dinvestissements-technologiques",
+        "https://www.wsj.com/world/europe/eu-lays-out-plan-to-boost-quantum-technology-6555b429",
+        "https://digital-strategy.ec.europa.eu/en/policies/quantum",
+        "https://ec.europa.eu/digital-single-market/?project_ref=297363",
+        "https://digital-strategy.ec.europa.eu/de/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial",
+        "https://digital-strategy.ec.europa.eu/da/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial",
+        "https://digital-strategy.ec.europa.eu/sv/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial",
+        "https://denmark.representation.ec.europa.eu/news/kvanteteknologi-2026-11-25_da?prefLang=en",
+        "https://digital-strategy.ec.europa.eu/et/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial",
+        "https://esdac.jrc.ec.europa.eu/calendar-node-field-event-date/day",
+        "https://www.financialexpress.com/world-news/us-china-have-a-new-tech-challenger-europes-50-billion-plan-explained/4393832/",
+        "https://digital-strategy.ec.europa.eu/de/library/proposal-quantum-act",
+        "https://defence-industry-space.ec.europa.eu/endr-conference-lab-field-deep-tech-dual-use-innovation-defence-eindhoven-netherlands-25-26-november-2026-11-25_en",
+        "https://digital-strategy.ec.europa.eu/de",
+        "https://evidimensional.com/The_State_of_Quantum_2026_EU_and_EEA.pdf",
+        "https://www.europarl.europa.eu/legislative-train/carriage/quantum-act/report?sid=10201",
+        "https://data.consilium.europa.eu/doc/document/ST-10105-2026-REV-1/en/pdf",
+        "https://eunewsletter.eu/europes-quantum-leap-strengthening-industrial-capacity-and-security-with-new-quantum-technologies/?pdf=44149",
+        "https://www.europarl.europa.eu/pdfs/news/expert/2025/11/press_release/20251120IPR31486/20251120IPR31486_en.pdf"
+      ],
+      "notes": "Independent grouped search. URLs reflect relevant returned result headers at group level, separate from readable direct evidence."
+    },
+    {
+      "id": "cor-r-q-read-ebs",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298550"
+      ],
+      "notes": "Commission archive lists the date and exact transcript for I-298550. The spokesperson confirms two RFIs to each of two providers, both answered, and both replies received the previous day. Assessment remains pending; questions about dispatch dates and incident count do not get numeric answers."
+    },
+    {
+      "id": "cor-r-q-read-poly0",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.polyfact.com/videos/I-298550-vod?t=0",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.polyfact.com/videos/I-298550-vod?t=0"
+      ],
+      "notes": "Secondary archive matches EU clip I-298550, presents Q&A timings and public productionDatetime 11:29:40Z, not reply filing or first publication time. It is the same public exchange, not another independent witness."
+    },
+    {
+      "id": "cor-r-q-read-poly183",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.polyfact.com/videos/I-298550-vod?t=183",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.polyfact.com/videos/I-298550-vod?t=183"
+      ],
+      "notes": "Same source clip at the follow-up question; duplicate evidence for source and scope."
+    },
+    {
+      "id": "cor-r-q-read-four",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-panel",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting"
+      ],
+      "notes": "European Commission summary says meeting occurred Nov23 and panel helped develop questions about containment events, EU effects and provider risk/safety changes. It does not say that answers had been received. Date displays no clock."
+    },
+    {
+      "id": "cor-r-q-read-brussel",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://2eu.brussels/en/news/european-commission-assesses-openais-response-to-an-incident-involving-loss-of-control-over-ai-agents",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://2eu.brussels/en/news/european-commission-assesses-openais-response-to-an-incident-involving-loss-of-control-over-ai-agents"
+      ],
+      "notes": "Visible original Sept8 date and full account of a specific previously submitted OpenAI incident report. November timestamps in global page banners belong to unrelated sidebar headlines."
+    },
+    {
+      "id": "cor-r-q-read-prior2eu",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://2eu.brussels/index.php/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://2eu.brussels/index.php/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models"
+      ],
+      "notes": "Visible October 13 article reports EU staff had earlier generic reports and requests. It does not publicly identify both companies or establish receipt of both later RFI replies."
+    },
+    {
+      "id": "cor-r-q-read-prevbrief",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://audiovisual.ec.europa.eu/en/media/video/I-294322",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-294322"
+      ],
+      "notes": "Different Commission briefing, earlier than Nov25."
+    },
+    {
+      "id": "cor-r-q-read-oldsep",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://audiovisual.ec.europa.eu/en/media/video/I-293797",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-293797"
+      ],
+      "notes": "Earlier episode of EU information gathering from more than 30 companies; no proof of the later answers."
+    },
+    {
+      "id": "cor-r-q-read-boe",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2026-70067",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "es",
+      "resultUrls": [
+        "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2026-70067"
+      ],
+      "notes": "Official Spanish gazette carries the linked EU numbered communication and Official Journal date Nov12."
+    },
+    {
+      "id": "cor-r-q-read-mlnud",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.mlex.com/mlex/technology/articles/2559638/enforce-eu-nudifier-ban-promptly-and-explore-meta-s-ad-role-lawmakers-urge",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-mldpa",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.mlex.com/mlex/technology/articles/2559848/eu-governments-seek-end-to-deadlock-over-privacy-watchdog",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-mlquant",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.mlex.com/mlex/technology/articles/2559590/eu-proposes-quantum-act-to-bring-research-to-market-strengthen-supply-chains",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-transtext",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations"
+      ],
+      "notes": "Official summary of Article 50 guidance. A separate Nov25 related-news entry is not the issue date of the guidance."
+    },
+    {
+      "id": "cor-r-q-read-forum",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://bbs.fcgvisa.com/t/openai-anthropic-2/71238",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://bbs.fcgvisa.com/t/openai-anthropic-2/71238"
+      ],
+      "notes": "Chinese forum recap directly links and summarizes the same Commission Nov25 midday Q&A. No separate official confirmation or earlier receipt."
+    },
+    {
+      "id": "cor-r-q-read-aiproduct",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://aiproducthub.cn/newsflash/eu-ai-office-second-round-questions-openai-anthropic-agent-incidents/",
+      "executedAt": "2026-11-26T06:23:38Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://aiproducthub.cn/newsflash/eu-ai-office-second-round-questions-openai-anthropic-agent-incidents/"
+      ],
+      "notes": "Chinese digest discussing prior requests, not current receipt; cites dated approach paper and October news."
+    },
+    {
+      "id": "cor-r-q-read-aishot",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://aisafetyhot.com/zh/daily/2026-11-25",
+      "executedAt": "2026-11-26T06:23:39Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://aisafetyhot.com/zh/daily/2026-11-25"
+      ],
+      "notes": "Opened date-specific Chinese safety discovery index. Its label, aggregation timestamps and underlying original disclosure clocks differ."
+    },
+    {
+      "id": "cor-r-q-read-welt",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.welt.de/newsticker/dpa_nt/infoline_nt/netzwelt/article6ac8e80d61b3d4c01d3e1434/ki-angriffe-bruessel-fordert-infos-von-openai-und-anthropic.html",
+      "executedAt": "2026-11-26T06:23:39Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "de",
+      "resultUrls": [
+        "https://www.welt.de/newsticker/dpa_nt/infoline_nt/netzwelt/article6ac8e80d61b3d4c01d3e1434/ki-angriffe-bruessel-fordert-infos-von-openai-und-anthropic.html"
+      ],
+      "notes": "Accessible dpa interview article says named firms were asked for information, quoting Commissioner Virkkunen. It does not establish companies had already returned the November replies. Differing global app build stamp and source metadata were not used to assign an event clock."
+    },
+    {
+      "id": "cor-r-q-read-apcyb",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://apnews.com/article/02e1f69e46ad9f82484b66b2f86df53b",
+      "executedAt": "2026-11-26T06:23:39Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://apnews.com/article/02e1f69e46ad9f82484b66b2f86df53b"
+      ],
+      "notes": "Dates EU Academy notice/reporting to Nov23 and describes the Commission as victim in a separate case."
+    },
+    {
+      "id": "cor-r-q-read-apdeep",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://apnews.com/article/f4fcee1f9750e2b32cdf26ad73ee5ec2",
+      "executedAt": "2026-11-26T06:23:39Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://apnews.com/article/f4fcee1f9750e2b32cdf26ad73ee5ec2"
+      ],
+      "notes": "Reports proposed Brussels capacity as of July, not the response confirmation in November."
+    },
+    {
+      "id": "cor-r-q-read-schedule",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=no",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=no"
+      ],
+      "notes": "Official European Broadcasting Service day-grid URL. Direct HTML returned the visual application shell; the root author separately rendered the published schedule. This reviewer does not infer clock values from the shell."
+    },
+    {
+      "id": "cor-r-q-read-full",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://audiovisual.ec.europa.eu/en/media/video/I-298575",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298575"
+      ],
+      "notes": "Official full European Commission midday video I-298575, identifies the same Q&A chapter."
+    },
+    {
+      "id": "cor-r-q-read-article50official",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems"
+      ],
+      "notes": "Commission first announced administrative guidelines on July 20. Policy hub current-date adjacent stories did not timestamp these guidelines."
+    },
+    {
+      "id": "cor-r-q-read-article50library",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems"
+      ],
+      "notes": "Library visibly updated Nov5 and links back to original July20 notice; separate dates for versions."
+    },
+    {
+      "id": "cor-r-q-read-article50faq",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act"
+      ],
+      "notes": "July 24 update. Distinguishes Aug2 applicability and Dec2 limited grace period on paragraph 50(2) for earlier-placed systems."
+    },
+    {
+      "id": "cor-r-q-read-article50oj",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://eur-lex.europa.eu/eli/C/2026/6005/oj/eng",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 202. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-article50op",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en"
+      ],
+      "notes": "Official EU Publication Office catalog explicitly dates Communication C/2026/6005 to Nov12. Page-visit or incidental current dynamic timestamps are unrelated."
+    },
+    {
+      "id": "cor-r-q-read-article50interop",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://interoperable-europe.ec.europa.eu/collection/egovernment/news/guidelines-published-labelling-synthetic-media",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://interoperable-europe.ec.europa.eu/collection/egovernment/news/guidelines-published-labelling-synthetic-media"
+      ],
+      "notes": "September date certified by publisher article metadata."
+    },
+    {
+      "id": "cor-r-q-read-codelabel",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content"
+      ],
+      "notes": "Commission earlier final voluntary marking and labelling Code notice, June 2026."
+    },
+    {
+      "id": "cor-r-q-read-whistlenews",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/news/commission-launches-whistleblower-tool-ai-act",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/commission-launches-whistleblower-tool-ai-act"
+      ],
+      "notes": "Official original launch publication explicitly November 24, 2025. Read alongside forum’s Nov2026 contextual mention."
+    },
+    {
+      "id": "cor-r-q-read-whistlep",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/policies/ai-act-whistleblower-tool",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/policies/ai-act-whistleblower-tool"
+      ],
+      "notes": "Read currently maintained tool description; it is not fresh evidence of its launch."
+    },
+    {
+      "id": "cor-r-q-read-literacyn",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://interoperable-europe.ec.europa.eu/collection/employment-and-working-conditions/news/revamped-repository-artificial-intelligence-literacy-practices",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 429. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-literacyf",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://futurium.ec.europa.eu/en/apply-ai-alliance/news/revamped-repository-ai-literacy-practices",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://futurium.ec.europa.eu/en/apply-ai-alliance/news/revamped-repository-ai-literacy-practices"
+      ],
+      "notes": "Futurium explicitly dates expanded repository notice November 19, 2025."
+    },
+    {
+      "id": "cor-r-q-read-committee",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.consilium.europa.eu/en/press/press-releases/2026/11/19/equipping-europeans-for-the-age-of-ai-council-approves-conclusions/",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.consilium.europa.eu/en/press/press-releases/2026/11/19/equipping-europeans-for-the-age-of-ai-council-approves-conclusions/"
+      ],
+      "notes": "EU Council conclusion about literacy is dated November 19, 2026, distinct from older resource refresh."
+    },
+    {
+      "id": "cor-r-q-read-euron",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents"
+      ],
+      "notes": "Euronews report on original enforcement inquiries, published before November 25."
+    },
+    {
+      "id": "cor-r-q-read-hum",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://hum.vibes.dev/s/eu-ai-office-formal-probes-openai-anthropic-agent-hacks/",
+      "executedAt": "2026-11-26T06:25:15Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://hum.vibes.dev/s/eu-ai-office-formal-probes-openai-anthropic-agent-hacks/"
+      ],
+      "notes": "October derivative newsletter; summarizes the initial requests."
+    },
+    {
+      "id": "cor-r-q-read-rapporteur",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.rapporteur.com/news/eu-presses-openai-anthropic-for-more-details-on-ai-safety-incidents/",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-quantumoff",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial"
+      ],
+      "notes": "Commission announced a draft Quantum Act and intention to develop a Sovereign Tech Equity Fund with EIB Group, members and other stakeholders. The accompanying quantum legislation is the main subject, and the fund is a future financing instrument."
+    },
+    {
+      "id": "cor-r-q-read-quantumebs",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://audiovisual.ec.europa.eu/en/media/video/I-298539",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://audiovisual.ec.europa.eu/en/media/video/I-298539"
+      ],
+      "notes": "Official recording of Commissioner Virkkunen’s separate Quantum Act press conference."
+    },
+    {
+      "id": "cor-r-q-read-quantumwire",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.boursorama.com/bourse/actualites/l-europe-prevoit-de-creer-un-fonds-souverain-de-50-milliards-d-euros-dedie-aux-technologies-quantiques-afin-de-stimuler-ce-secteur-3937f5a45714499318d06e2191783152",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "fr",
+      "resultUrls": [
+        "https://www.boursorama.com/bourse/actualites/l-europe-prevoit-de-creer-un-fonds-souverain-de-50-milliards-d-euros-dedie-aux-technologies-quantiques-afin-de-stimuler-ce-secteur-3937f5a45714499318d06e2191783152"
+      ],
+      "notes": "Fully readable Reuters wire on finance site. Describes €50B proposed equity facility as target, spanning strategic tech including AI; confirmation is of proposal."
+    },
+    {
+      "id": "cor-r-q-read-quantumlm",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.lemonde.fr/economie/article/2026/11/25/l-union-europeenne-veut-se-doter-d-une-strategie-industrielle-sur-l-informatique-quantique_6815075_3234.html",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "fr",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 402. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-quantumfr",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://france.representation.ec.europa.eu/informations-et-evenements/informations/quantum-act-la-commission-propose-de-renforcer-la-capacite-industrielle-et-la-securite-de-leurope-2026-11-25_fr",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "fr",
+      "resultUrls": [],
+      "notes": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-q-read-quantumfacts",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://ec.europa.eu/commission/presscorner/api/files/attachment/883213/Factsheet%20Quantum%20Act.pdf",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ec.europa.eu/commission/presscorner/api/files/attachment/883213/Factsheet%20Quantum%20Act.pdf"
+      ],
+      "notes": "Official factsheet. File creation/modification date is not proof of announcement or publication time."
+    },
+    {
+      "id": "cor-r-q-read-quantumeur",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://fr.euronews.com/2026/11/25/lue-devoile-un-plan-a-50-milliards-deuros-pour-preparer-leurope-a-lere-quantique",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "fr",
+      "resultUrls": [
+        "https://fr.euronews.com/2026/11/25/lue-devoile-un-plan-a-50-milliards-deuros-pour-preparer-leurope-a-lere-quantique"
+      ],
+      "notes": "French Euronews report clocks supported by date.available field. Labels itself translated from its own English version. Report is about draft and hoped-for leverage, not committed funds."
+    },
+    {
+      "id": "cor-r-q-read-finex",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://www.financialexpress.com/world-news/us-china-have-a-new-tech-challenger-europes-50-billion-plan-explained/4393832/",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery",
+        "business"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://www.financialexpress.com/world-news/us-china-have-a-new-tech-challenger-europes-50-billion-plan-explained/4393832/"
+      ],
+      "notes": "Current article about Quantum Act and proposed target for strategic technology financing. Earlier pending candidate in original ledger was screening this same source."
+    },
+    {
+      "id": "cor-r-q-read-ecpriorpanel",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-act-scientific-panel",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "Soft not-found page from visible previous-panel link. Content access failed even though transport status was 200."
+    },
+    {
+      "id": "cor-r-q-read-actreg",
+      "actor": "independent-coverage-correction-nov26",
+      "query": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-91",
+      "executedAt": "2026-11-26T06:27:08Z",
+      "method": "open",
+      "focus": [
+        "governance",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-91"
+      ],
+      "notes": "Article 91 service-desk text explains information request authority. Standing legal text, not a new enforcement event."
     }
   ],
   "sources": [
@@ -16457,6 +18075,993 @@
           "https://www.macrumors.com/2026/11/19/apple-ai-agent-development/"
         ]
       }
+    },
+    {
+      "id": "corr-editor-s-clip",
+      "title": "欧委会 · OpenAI 与 Anthropic 问答及逐字稿",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:28.599+00:00",
+      "evidence": "Official transcript gives two RFIs for each company and says both answered each. The spokesperson says the replies were received the preceding day, the next step is assessment, and no substantive answer or incident count is disclosed. Q&A archive I-298550 is 04:14.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "timeZone": "Europe/Brussels",
+        "basis": "发布日期字段为官方档案中的发布会日期。问答在布鲁塞尔进行，逐字稿没有给发言的绝对时刻。",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298550"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-full",
+      "title": "欧委会 · 11 月 25 日午间发布会全程",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298575",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:28.987+00:00",
+      "evidence": "Complete EC Midday press briefing archive I-298575, Brussels Berlaymont, 25 November 2026, duration 42:50. Agenda lists both the afternoon press-point announcement and the OpenAI/Anthropic Q&A.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "timeZone": "Europe/Brussels",
+        "basis": "官方全程档案日期，节目包含上述 AI Act 问答。档案未给问答发言的绝对时刻。",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298575"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-intro",
+      "title": "欧委会 · 午间发布会预告 15 时场次",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298547",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:28.980+00:00",
+      "evidence": "Clip I-298547 announces the same day’s 15h00 Brussels press point with Teresa Ribera and then moves on to the midday briefing questions.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "timeZone": "Europe/Brussels",
+        "basis": "官方视频日期，同一场午间发布会中预告当天下午 15 时的 Ribera 发布会。",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298547"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-grid",
+      "title": "欧委会 EbS · 当日直播节目表",
+      "url": "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:23:27.557+00:00",
+      "evidence": "Bare HTTP 200 returns a client-rendered document without schedule rows. The rendered public page is a separate observation."
+    },
+    {
+      "id": "corr-editor-s-panel",
+      "title": "panel",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:27.544+00:00",
+      "evidence": "The 23 November science-panel meeting summary gives context on questions and shows only date-level precision for the 25 November text. It does not report receipt of both replies in the later press exchange.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Visible Commission publication/date level and last update date.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-poly",
+      "title": "poly",
+      "url": "https://www.polyfact.com/videos/I-298550-vod",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:28.641+00:00",
+      "evidence": "Replay of I-298550 is based on official footage and does not add independent originating confirmation. Derived clip timestamps are cross-checks, not the official announcement instant."
+    },
+    {
+      "id": "corr-editor-s-fourmba",
+      "title": "fourmba",
+      "url": "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:23:27.270+00:00",
+      "evidence": "Direct request returned HTTP 403. A search-index excerpt credits a transcript shared on X. No content or exact date inferred from the unavailable origin."
+    },
+    {
+      "id": "corr-editor-s-arxiv",
+      "title": "arxiv",
+      "url": "https://arxiv.org/abs/2611.32736",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:27.309+00:00",
+      "evidence": "Reopened v1 metadata confirms the prior submission clock of 24 November at 14:52:10 UTC.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-24T14:52:10Z",
+        "basis": "v1 submission only, from arXiv version history.",
+        "sourceUrls": [
+          "https://arxiv.org/abs/2611.32736"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-arxiv-rss",
+      "title": "arxiv-rss",
+      "url": "https://rss.arxiv.org/rss/cs.CV",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:27.459+00:00",
+      "evidence": "Public RSS snapshot revisited for the separately maintained Qwen article. A nominal feed entry timestamp does not prove item first public time."
+    },
+    {
+      "id": "corr-editor-s-arxiv-rules",
+      "title": "arxiv-rules",
+      "url": "https://info.arxiv.org/help/availability.html",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:27.462+00:00",
+      "evidence": "Public arXiv help explains normal announcements and possible quality assurance or publication delays. A normal slot does not timestamp this specific item."
+    },
+    {
+      "id": "corr-editor-s-poly-prog",
+      "title": "poly-prog",
+      "url": "https://www.polyfact.com/en/european-union/committees",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:24:29.194+00:00",
+      "evidence": "Contemporary replay archive orders the midday briefing at displayed 12:09 CET and the separate Ribera press point at 15:04 CET. Derived playback minutes support relative sequence only."
+    },
+    {
+      "id": "corr-editor-s-state-aid",
+      "title": "state-aid",
+      "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2574",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:24:28.616+00:00",
+      "evidence": "HTTP route returned a client-rendered press-release shell. The actual antitrust event was verified from official audiovisual archives, with no publication instant inferred here."
+    },
+    {
+      "id": "corr-editor-s-euronews",
+      "title": "euronews",
+      "url": "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:24:28.134+00:00",
+      "evidence": "Original October report concerns earlier AI Act information requests and test-environment incidents. It predates the November 25 official reply confirmation.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-14T10:35:07+02:00",
+        "basis": "Original publication meta field with matched visible October 14 date.",
+        "sourceUrls": [
+          "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-tnw",
+      "title": "tnw",
+      "url": "https://thenextweb.com/news/eu-ai-act-openai-anthropic-ai-office-investigation",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:24:28.436+00:00",
+      "evidence": "October report traces the OpenAI and Anthropic request details to Euronews and links the Commission’s earlier general RFI disclosure.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-17T13:24:28Z",
+        "basis": "article:published_time gives the dated re-reporting.",
+        "sourceUrls": [
+          "https://thenextweb.com/news/eu-ai-act-openai-anthropic-ai-office-investigation"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-panel-fr",
+      "title": "panel-fr",
+      "url": "https://digital-strategy.ec.europa.eu/fr/news/ai-act-scientific-panel-holds-second-regular-meeting",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:24:28.660+00:00",
+      "evidence": "French rendering of the same panel summary about the 23 November meeting. No separate time basis for replies.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "French publication page date has day precision.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/fr/news/ai-act-scientific-panel-holds-second-regular-meeting"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-axo-amodei",
+      "title": "axo-amodei",
+      "url": "https://www.axios.com/2026/11/25/anthropic-dario-amodei-ai-free-will-contro-axios",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:24:28.222+00:00",
+      "evidence": "Axios reports Amodei’s response to its separate coverage of safety and autonomy. It does not report a first-party announcement about the EU replies.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Visible article date and publication CMS fields agree at day precision and differ in hours.",
+        "sourceUrls": [
+          "https://www.axios.com/2026/11/25/anthropic-dario-amodei-ai-free-will-contro-axios"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-axo-dem",
+      "title": "axo-dem",
+      "url": "https://www.axios.com/2026/11/25/democrats-ai-safety-restrictions-openai-anthropic-axios",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:24:28.056+00:00",
+      "evidence": "Axios reaction article reports US legislators’ calls for restrictions in response to the separate Axios investigation. It is not a release or EU legal measure.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-25T20:19:21Z",
+        "basis": "article:published_time and datePublished agree to second.",
+        "sourceUrls": [
+          "https://www.axios.com/2026/11/25/democrats-ai-safety-restrictions-openai-anthropic-axios"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-ro-incident",
+      "title": "ro-incident",
+      "url": "https://informat.ro/en/eu/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:24:28.330+00:00",
+      "evidence": "September 8 syndicated report describes a separate earlier OpenAI response about an incident. It does not cover the current two companies each answering two requests.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-09-08T09:22:02+01:00",
+        "basis": "Page metadata and visible September 8 article date.",
+        "sourceUrls": [
+          "https://informat.ro/en/eu/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-ribera",
+      "title": "欧委会 · Ribera 当日下午发布会档案",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298597",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:09.298+00:00",
+      "evidence": "Complete afternoon Ribera press point I-298597, November 25. Location label gives 15h00 Brussels, as announced in I-298547. Separate archive lists the same antitrust and State aid subjects.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "timeZone": "Europe/Brussels",
+        "basis": "官方记录日期，地点标注为布鲁塞尔 Berlaymont VIP 区（15 时），另有直播记录。",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298597"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-s-ribera-full",
+      "title": "ribera-full",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298585",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:08.974+00:00",
+      "evidence": "Clip I-298585 is question-and-answer at the afternoon press point. It corresponds to the event introduced in I-298597."
+    },
+    {
+      "id": "corr-editor-s-poly-ribera",
+      "title": "poly-ribera",
+      "url": "https://www.polyfact.com/videos/I-298597-vod",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:07.845+00:00",
+      "evidence": "Public replay mirrors the separate afternoon event. Clock labels are archive cross-checks rather than the time of the earlier AI Q&A."
+    },
+    {
+      "id": "corr-editor-s-guidelines",
+      "title": "guidelines",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:07.725+00:00",
+      "evidence": "Article 50 policy page contains a date marker, but that value alone does not date the guidelines. The official publication trail was assessed independently."
+    },
+    {
+      "id": "corr-editor-s-grid-browser",
+      "title": "欧委会 EbS · 当日直播节目表",
+      "url": "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:42.780Z",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "timeZone": "Europe/Brussels",
+        "basis": "官方当日节目表以 CET 显示午间发布会与随后 Ribera 场次，直播档案时刻用于验证顺序，网页首次上线时间未核实。",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes"
+        ]
+      },
+      "evidence": "Official rendered archive labels both broadcasts in CET. Its listings show 12:09 and 15:04, and the latter event retains a 15h00 venue label. These are broadcast/agenda indicators, not the Q&A instant."
+    },
+    {
+      "id": "cor-r-s-ebs",
+      "title": "Audiovisual Service - EC Midday press briefing of 25/11/2026",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Commission archive lists the date and exact transcript for I-298550. The spokesperson confirms two RFIs to each of two providers, both answered, and both replies received the previous day. Assessment remains pending; questions about dispatch dates and incident count do not get numeric answers.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Commission archive lists the date and exact transcript for I-298550. The spokesperson confirms two RFIs to each of two providers, both answered, and both replies received the previous day. Assessment remains pending; questions about dispatch dates and incident count do not get numeric answers.",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298550"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-poly0",
+      "title": "EC Midday press briefing of 25/11/2026 · Polyfact",
+      "url": "https://www.polyfact.com/videos/I-298550-vod?t=0",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Secondary archive matches EU clip I-298550, presents Q&A timings and public productionDatetime 11:29:40Z, not reply filing or first publication time. It is the same public exchange, not another independent witness.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Secondary archive matches EU clip I-298550, presents Q&A timings and public productionDatetime 11:29:40Z, not reply filing or first publication time. It is the same public exchange, not another independent witness.",
+        "sourceUrls": [
+          "https://www.polyfact.com/videos/I-298550-vod?t=0"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-poly183",
+      "title": "EC Midday press briefing of 25/11/2026 · Polyfact",
+      "url": "https://www.polyfact.com/videos/I-298550-vod?t=183",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Same source clip at the follow-up question; duplicate evidence for source and scope.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Same source clip at the follow-up question; duplicate evidence for source and scope.",
+        "sourceUrls": [
+          "https://www.polyfact.com/videos/I-298550-vod?t=183"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-four",
+      "title": "four",
+      "url": "https://fourweekmba.com/ai-eu-says-openai-anthropic-answered-its-loss-of-control-probe/",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-panel",
+      "title": "AI Act scientific panel holds second regular meeting | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "European Commission summary says meeting occurred Nov23 and panel helped develop questions about containment events, EU effects and provider risk/safety changes. It does not say that answers had been received. Date displays no clock.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "European Commission summary says meeting occurred Nov23 and panel helped develop questions about containment events, EU effects and provider risk/safety changes. It does not say that answers had been received. Date displays no clock.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/news/ai-act-scientific-panel-holds-second-regular-meeting"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-brussel",
+      "title": "European Commission assesses OpenAI’s response to an incident involving loss of control over AI agents",
+      "url": "https://2eu.brussels/en/news/european-commission-assesses-openais-response-to-an-incident-involving-loss-of-control-over-ai-agents",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Visible original Sept8 date and full account of a specific previously submitted OpenAI incident report. November timestamps in global page banners belong to unrelated sidebar headlines.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-09-08",
+        "basis": "Visible original Sept8 date and full account of a specific previously submitted OpenAI incident report. November timestamps in global page banners belong to unrelated sidebar headlines.",
+        "sourceUrls": [
+          "https://2eu.brussels/en/news/european-commission-assesses-openais-response-to-an-incident-involving-loss-of-control-over-ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-prior2eu",
+      "title": "AI Office seeks information from developers after loss-of-control incidents involving advanced models",
+      "url": "https://2eu.brussels/index.php/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Visible October 13 article reports EU staff had earlier generic reports and requests. It does not publicly identify both companies or establish receipt of both later RFI replies.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-10-13",
+        "basis": "Visible October 13 article reports EU staff had earlier generic reports and requests. It does not publicly identify both companies or establish receipt of both later RFI replies.",
+        "sourceUrls": [
+          "https://2eu.brussels/index.php/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-prevbrief",
+      "title": "Audiovisual Service - Midday press briefing from 11/09/2026",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-294322",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Different Commission briefing, earlier than Nov25.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-09-11",
+        "basis": "Different Commission briefing, earlier than Nov25.",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-294322"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-oldsep",
+      "title": "Audiovisual Service - Midday press briefing from 01/09/2026",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-293797",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Earlier episode of EU information gathering from more than 30 companies; no proof of the later answers.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-09-01",
+        "basis": "Earlier episode of EU information gathering from more than 30 companies; no proof of the later answers.",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-293797"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-boe",
+      "title": "BOE.es - DOUE-Z-2026-70067 Comunicación de la Comisión - Directrices sobre la aplicación de las obligaciones de transparencia para determinados sistemas de IA en virtud del artículo 50 del Reglamento (UE) 2024/1689 (Reglamento de Inteligencia Artificial).",
+      "url": "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2026-70067",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Official Spanish gazette carries the linked EU numbered communication and Official Journal date Nov12.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Official Spanish gazette carries the linked EU numbered communication and Official Journal date Nov12.",
+        "sourceUrls": [
+          "https://www.boe.es/buscar/doc.php?id=DOUE-Z-2026-70067"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-mlnud",
+      "title": "mlnud",
+      "url": "https://www.mlex.com/mlex/technology/articles/2559638/enforce-eu-nudifier-ban-promptly-and-explore-meta-s-ad-role-lawmakers-urge",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-mldpa",
+      "title": "mldpa",
+      "url": "https://www.mlex.com/mlex/technology/articles/2559848/eu-governments-seek-end-to-deadlock-over-privacy-watchdog",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-mlquant",
+      "title": "mlquant",
+      "url": "https://www.mlex.com/mlex/technology/articles/2559590/eu-proposes-quantum-act-to-bring-research-to-market-strengthen-supply-chains",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-transtext",
+      "title": "Guidelines on transparency obligations for providers and deployers of certain AI systems | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Official summary of Article 50 guidance. A separate Nov25 related-news entry is not the issue date of the guidance."
+    },
+    {
+      "id": "cor-r-s-forum",
+      "title": "OpenAI、Anthropic各收到2份欧盟问询：安全事件数量仍未公开 - 📰 AI 观察 - 飞出国论坛",
+      "url": "https://bbs.fcgvisa.com/t/openai-anthropic-2/71238",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Chinese forum recap directly links and summarizes the same Commission Nov25 midday Q&A. No separate official confirmation or earlier receipt.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-25T23:26:42Z",
+        "basis": "Chinese forum recap directly links and summarizes the same Commission Nov25 midday Q&A. No separate official confirmation or earlier receipt.",
+        "sourceUrls": [
+          "https://bbs.fcgvisa.com/t/openai-anthropic-2/71238"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-aiproduct",
+      "title": "欧盟AI办公室追问OpenAI等两家智能体安全事故 | AI产品库",
+      "url": "https://aiproducthub.cn/newsflash/eu-ai-office-second-round-questions-openai-anthropic-agent-incidents/",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:38Z",
+      "evidence": "Chinese digest discussing prior requests, not current receipt; cites dated approach paper and October news.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-11T15:58:35+08:00",
+        "basis": "Chinese digest discussing prior requests, not current receipt; cites dated approach paper and October news.",
+        "sourceUrls": [
+          "https://aiproducthub.cn/newsflash/eu-ai-office-second-round-questions-openai-anthropic-agent-incidents/"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-aishot",
+      "title": "AI 安全日报 2026-11-25 · AI Safety HOT",
+      "url": "https://aisafetyhot.com/zh/daily/2026-11-25",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:39Z",
+      "evidence": "Opened date-specific Chinese safety discovery index. Its label, aggregation timestamps and underlying original disclosure clocks differ."
+    },
+    {
+      "id": "cor-r-s-welt",
+      "title": "KI-Angriffe: Brüssel fordert Infos von OpenAI und Anthropic - WELT",
+      "url": "https://www.welt.de/newsticker/dpa_nt/infoline_nt/netzwelt/article6ac8e80d61b3d4c01d3e1434/ki-angriffe-bruessel-fordert-infos-von-openai-und-anthropic.html",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:39Z",
+      "evidence": "Accessible dpa interview article says named firms were asked for information, quoting Commissioner Virkkunen. It does not establish companies had already returned the November replies. Differing global app build stamp and source metadata were not used to assign an event clock."
+    },
+    {
+      "id": "cor-r-s-apcyb",
+      "title": "EU Academy users warned of potential data leak after AI-driven cyberattack | AP News",
+      "url": "https://apnews.com/article/02e1f69e46ad9f82484b66b2f86df53b",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:39Z",
+      "evidence": "Dates EU Academy notice/reporting to Nov23 and describes the Commission as victim in a separate case.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-23",
+        "basis": "Dates EU Academy notice/reporting to Nov23 and describes the Commission as victim in a separate case.",
+        "sourceUrls": [
+          "https://apnews.com/article/02e1f69e46ad9f82484b66b2f86df53b"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-apdeep",
+      "title": "EU begins crackdown on AI risks | AP News",
+      "url": "https://apnews.com/article/f4fcee1f9750e2b32cdf26ad73ee5ec2",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:23:39Z",
+      "evidence": "Reports proposed Brussels capacity as of July, not the response confirmation in November.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-07-31",
+        "basis": "Reports proposed Brussels capacity as of July, not the response confirmation in November.",
+        "sourceUrls": [
+          "https://apnews.com/article/f4fcee1f9750e2b32cdf26ad73ee5ec2"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-schedule",
+      "title": "Audiovisual Service",
+      "url": "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=no",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Official European Broadcasting Service day-grid URL. Direct HTML returned the visual application shell; the root author separately rendered the published schedule. This reviewer does not infer clock values from the shell.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Official European Broadcasting Service day-grid URL. Direct HTML returned the visual application shell; the root author separately rendered the published schedule. This reviewer does not infer clock values from the shell.",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=no"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-full",
+      "title": "Audiovisual Service - EC Midday press briefing of 25/11/2026",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298575",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Official full European Commission midday video I-298575, identifies the same Q&A chapter.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Official full European Commission midday video I-298575, identifies the same Q&A chapter.",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298575"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-article50official",
+      "title": "Commission publishes guidelines on transparency obligations for providers and deployers of certain AI systems | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Commission first announced administrative guidelines on July 20. Policy hub current-date adjacent stories did not timestamp these guidelines.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-07-20",
+        "basis": "Commission first announced administrative guidelines on July 20. Policy hub current-date adjacent stories did not timestamp these guidelines.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-guidelines-transparency-obligations-providers-and-deployers-certain-ai-systems"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-article50library",
+      "title": "Guidelines on transparency obligations for providers and deployers of AI systems | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Library visibly updated Nov5 and links back to original July20 notice; separate dates for versions.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-05",
+        "basis": "Library visibly updated Nov5 and links back to original July20 notice; separate dates for versions.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-article50faq",
+      "title": "Transparency obligations under Article 50 of the AI Act | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "July 24 update. Distinguishes Aug2 applicability and Dec2 limited grace period on paragraph 50(2) for earlier-placed systems.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-07-24",
+        "basis": "July 24 update. Distinguishes Aug2 applicability and Dec2 limited grace period on paragraph 50(2) for earlier-placed systems.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-article50oj",
+      "title": "article50oj",
+      "url": "https://eur-lex.europa.eu/eli/C/2026/6005/oj/eng",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 202. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-article50op",
+      "title": "Communication from the Commission – Guidelines on the implementation of the transparency obligations for certain AI systems under Article 50 of Regulation (EU) 2024/1689 (the AI Act) - Publications Office of the EU",
+      "url": "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Official EU Publication Office catalog explicitly dates Communication C/2026/6005 to Nov12. Page-visit or incidental current dynamic timestamps are unrelated.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Official EU Publication Office catalog explicitly dates Communication C/2026/6005 to Nov12. Page-visit or incidental current dynamic timestamps are unrelated.",
+        "sourceUrls": [
+          "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-article50interop",
+      "title": "Guidelines published for labelling synthetic media | Interoperable Europe Portal",
+      "url": "https://interoperable-europe.ec.europa.eu/collection/egovernment/news/guidelines-published-labelling-synthetic-media",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "September date certified by publisher article metadata.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-09-02T09:48:15+02:00",
+        "basis": "September date certified by publisher article metadata.",
+        "sourceUrls": [
+          "https://interoperable-europe.ec.europa.eu/collection/egovernment/news/guidelines-published-labelling-synthetic-media"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-codelabel",
+      "title": "Commission publishes Code of Practice on marking and labelling AI-generated content | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Commission earlier final voluntary marking and labelling Code notice, June 2026.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-06-12",
+        "basis": "Commission earlier final voluntary marking and labelling Code notice, June 2026.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-code-practice-marking-and-labelling-ai-generated-content"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-whistlenews",
+      "title": "Commission launches whistleblower tool for AI Act | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/commission-launches-whistleblower-tool-ai-act",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Official original launch publication explicitly November 24, 2025. Read alongside forum’s Nov2026 contextual mention.",
+      "publication": {
+        "precision": "date",
+        "value": "2025-11-24",
+        "basis": "Official original launch publication explicitly November 24, 2025. Read alongside forum’s Nov2026 contextual mention.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/news/commission-launches-whistleblower-tool-ai-act"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-whistlep",
+      "title": "AI Act Whistleblower Tool | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/ai-act-whistleblower-tool",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Read currently maintained tool description; it is not fresh evidence of its launch."
+    },
+    {
+      "id": "cor-r-s-literacyn",
+      "title": "Interoperable Europe – AI literacy repository",
+      "url": "https://interoperable-europe.ec.europa.eu/collection/employment-and-working-conditions/news/revamped-repository-artificial-intelligence-literacy-practices",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 429. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-literacyf",
+      "title": "Revamped repository of AI literacy practices | Futurium",
+      "url": "https://futurium.ec.europa.eu/en/apply-ai-alliance/news/revamped-repository-ai-literacy-practices",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Futurium explicitly dates expanded repository notice November 19, 2025.",
+      "publication": {
+        "precision": "date",
+        "value": "2025-11-19",
+        "basis": "Futurium explicitly dates expanded repository notice November 19, 2025.",
+        "sourceUrls": [
+          "https://futurium.ec.europa.eu/en/apply-ai-alliance/news/revamped-repository-ai-literacy-practices"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-committee",
+      "title": "Equipping Europeans for the age of AI: Council approves conclusions - Consilium",
+      "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/11/19/equipping-europeans-for-the-age-of-ai-council-approves-conclusions/",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "EU Council conclusion about literacy is dated November 19, 2026, distinct from older resource refresh.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-19",
+        "basis": "EU Council conclusion about literacy is dated November 19, 2026, distinct from older resource refresh.",
+        "sourceUrls": [
+          "https://www.consilium.europa.eu/en/press/press-releases/2026/11/19/equipping-europeans-for-the-age-of-ai-council-approves-conclusions/"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-euron",
+      "title": "EU’s AI rules face first enforcement test over lab incidents | Euronews",
+      "url": "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "Euronews report on original enforcement inquiries, published before November 25.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-14T10:35:07+02:00",
+        "basis": "Euronews report on original enforcement inquiries, published before November 25.",
+        "sourceUrls": [
+          "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-hum",
+      "title": "Commission Says Its AI Office Has Sent Requests for Information After the Summer's Agent Hacks — The Hum",
+      "url": "https://hum.vibes.dev/s/eu-ai-office-formal-probes-openai-anthropic-agent-hacks/",
+      "publisherKind": "community",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:25:15Z",
+      "evidence": "October derivative newsletter; summarizes the initial requests.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-10-14T13:31:00Z",
+        "basis": "October derivative newsletter; summarizes the initial requests.",
+        "sourceUrls": [
+          "https://hum.vibes.dev/s/eu-ai-office-formal-probes-openai-anthropic-agent-hacks/"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-rapporteur",
+      "title": "Rapporteur – EU information requests",
+      "url": "https://www.rapporteur.com/news/eu-presses-openai-anthropic-for-more-details-on-ai-safety-incidents/",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-quantumoff",
+      "title": "Commission proposes Quantum Act and new Sovereign Tech Equity Fund to strengthen Europe's industrial capacity and security | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Commission announced a draft Quantum Act and intention to develop a Sovereign Tech Equity Fund with EIB Group, members and other stakeholders. The accompanying quantum legislation is the main subject, and the fund is a future financing instrument.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Commission announced a draft Quantum Act and intention to develop a Sovereign Tech Equity Fund with EIB Group, members and other stakeholders. The accompanying quantum legislation is the main subject, and the fund is a future financing instrument.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/news/commission-proposes-quantum-act-and-new-sovereign-tech-equity-fund-strengthen-europes-industrial"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-quantumebs",
+      "title": "Audiovisual Service - EC Press conference by European Commission Executive Vice-President Henna VIRKKUNEN on the Quantum Act",
+      "url": "https://audiovisual.ec.europa.eu/en/media/video/I-298539",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Official recording of Commissioner Virkkunen’s separate Quantum Act press conference.",
+      "publication": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Official recording of Commissioner Virkkunen’s separate Quantum Act press conference.",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298539"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-quantumwire",
+      "title": "L'Europe prévoit de créer un fonds souverain de 50 milliards d'euros dédié aux technologies quantiques afin de stimuler ce secteur - 25/11/2026 à 13:19 - Boursorama",
+      "url": "https://www.boursorama.com/bourse/actualites/l-europe-prevoit-de-creer-un-fonds-souverain-de-50-milliards-d-euros-dedie-aux-technologies-quantiques-afin-de-stimuler-ce-secteur-3937f5a45714499318d06e2191783152",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Fully readable Reuters wire on finance site. Describes €50B proposed equity facility as target, spanning strategic tech including AI; confirmation is of proposal.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-25T13:19:42+01:00",
+        "basis": "Fully readable Reuters wire on finance site. Describes €50B proposed equity facility as target, spanning strategic tech including AI; confirmation is of proposal.",
+        "sourceUrls": [
+          "https://www.boursorama.com/bourse/actualites/l-europe-prevoit-de-creer-un-fonds-souverain-de-50-milliards-d-euros-dedie-aux-technologies-quantiques-afin-de-stimuler-ce-secteur-3937f5a45714499318d06e2191783152"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-quantumlm",
+      "title": "quantumlm",
+      "url": "https://www.lemonde.fr/economie/article/2026/11/25/l-union-europeenne-veut-se-doter-d-une-strategie-industrielle-sur-l-informatique-quantique_6815075_3234.html",
+      "publisherKind": "secondary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 402. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-quantumfr",
+      "title": "quantumfr",
+      "url": "https://france.representation.ec.europa.eu/informations-et-evenements/informations/quantum-act-la-commission-propose-de-renforcer-la-capacite-industrielle-et-la-securite-de-leurope-2026-11-25_fr",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Public direct access output at this URL yielded HTTP 403. A result heading alone supplies no publishable evidence."
+    },
+    {
+      "id": "cor-r-s-quantumfacts",
+      "title": "European Commission Quantum Act factsheet",
+      "url": "https://ec.europa.eu/commission/presscorner/api/files/attachment/883213/Factsheet%20Quantum%20Act.pdf",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Official factsheet. File creation/modification date is not proof of announcement or publication time."
+    },
+    {
+      "id": "cor-r-s-quantumeur",
+      "title": "UE : un plan pour l’ère quantique avec 50 milliards d’investissements technologiques | Euronews",
+      "url": "https://fr.euronews.com/2026/11/25/lue-devoile-un-plan-a-50-milliards-deuros-pour-preparer-leurope-a-lere-quantique",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "French Euronews report clocks supported by date.available field. Labels itself translated from its own English version. Report is about draft and hoped-for leverage, not committed funds.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-25T13:28:27+01:00",
+        "basis": "French Euronews report clocks supported by date.available field. Labels itself translated from its own English version. Report is about draft and hoped-for leverage, not committed funds.",
+        "sourceUrls": [
+          "https://fr.euronews.com/2026/11/25/lue-devoile-un-plan-a-50-milliards-deuros-pour-preparer-leurope-a-lere-quantique"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-finex",
+      "title": "US, China have a new tech challenger: Europe's €50 billion plan explained - World News | The Financial Express",
+      "url": "https://www.financialexpress.com/world-news/us-china-have-a-new-tech-challenger-europes-50-billion-plan-explained/4393832/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Current article about Quantum Act and proposed target for strategic technology financing. Earlier pending candidate in original ledger was screening this same source.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-25T21:25:26+05:30",
+        "basis": "Current article about Quantum Act and proposed target for strategic technology financing. Earlier pending candidate in original ledger was screening this same source.",
+        "sourceUrls": [
+          "https://www.financialexpress.com/world-news/us-china-have-a-new-tech-challenger-europes-50-billion-plan-explained/4393832/"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-s-ecpriorpanel",
+      "title": "Page not found | Shaping Europe’s digital future",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-act-scientific-panel",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Soft not-found page from visible previous-panel link. Content access failed even though transport status was 200."
+    },
+    {
+      "id": "cor-r-s-actreg",
+      "title": "Article 91: Power to request documentation and information | AI Act Service Desk",
+      "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-91",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-26T06:27:08Z",
+      "evidence": "Article 91 service-desk text explains information request authority. Standing legal text, not a new enforcement event."
     }
   ],
   "checks": [
@@ -17791,6 +20396,506 @@
         "qwen-image-hd-preprint"
       ],
       "notes": "Both public requests for the model ID returned 401; no existence, public weights, or release time conclusion derived from unavailable files. Paper and official RSS separately fetched."
+    },
+    {
+      "id": "corr-editor-check-official-rfi",
+      "target": "EC Brussels midday and follow-on press-point archives",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:29:05.399Z",
+      "queryIds": [
+        "corr-editor-q-clip",
+        "corr-editor-q-full",
+        "corr-editor-q-intro",
+        "corr-editor-q-ribera",
+        "corr-editor-q-grid-browser",
+        "corr-editor-q-poly",
+        "corr-editor-q-poly-prog",
+        "corr-editor-q-ribera-full"
+      ],
+      "sourceIds": [
+        "corr-editor-s-clip",
+        "corr-editor-s-full",
+        "corr-editor-s-intro",
+        "corr-editor-s-ribera",
+        "corr-editor-s-grid-browser",
+        "corr-editor-s-poly",
+        "corr-editor-s-poly-prog",
+        "corr-editor-s-ribera-full"
+      ],
+      "candidateIds": [
+        "eu-ai-office-rfi-replies-confirmed"
+      ],
+      "notes": "Transcript wording, complete briefing, active browser programme and afternoon archive support the new event and a conservative time interval."
+    },
+    {
+      "id": "corr-editor-check-direct-limits",
+      "target": "Client-shell grid and inaccessible contemporary re-reporting",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:29:05.399Z",
+      "queryIds": [
+        "corr-editor-q-grid",
+        "corr-editor-q-fourmba"
+      ],
+      "sourceIds": [
+        "corr-editor-s-grid",
+        "corr-editor-s-fourmba"
+      ],
+      "candidateIds": [
+        "corr-editor-fourweekmba-rfi-repeat"
+      ],
+      "notes": "Raw HTTP document for the rendered grid lacks the programme. Browser verification is separately recorded. An independent reporting site blocked direct public retrieval."
+    },
+    {
+      "id": "corr-editor-check-qwen-reread",
+      "target": "Qwen-Image-HD release clocks",
+      "category": "research",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:29:05.399Z",
+      "queryIds": [
+        "corr-editor-q-arxiv",
+        "corr-editor-q-arxiv-rss",
+        "corr-editor-q-arxiv-rules"
+      ],
+      "sourceIds": [
+        "corr-editor-s-arxiv",
+        "corr-editor-s-arxiv-rss",
+        "corr-editor-s-arxiv-rules"
+      ],
+      "candidateIds": [
+        "qwen-image-hd-preprint"
+      ],
+      "notes": "The prior submission and observed item remain distinct from any exact public release. Usual arXiv processing schedule cannot resolve that boundary. The watch record is retained verbatim."
+    },
+    {
+      "id": "cor-r-check-rfi-disclosure",
+      "target": "European Commission / EU AI Office",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:27:08Z",
+      "notes": "匹配本次修订单独主候选。独立阅读官方问答确认各两份且均已答，两家答复此前一日收到。用户请求的 12:00–15:00 CET 公开披露钟由作者直接 EBS 程序表另行证实；此审查证据归并保留，不推断送达或提交精确时刻。",
+      "queryIds": [
+        "cor-r-q-rfi-en",
+        "cor-r-q-answer",
+        "cor-r-q-afp",
+        "cor-r-q-ebssched",
+        "cor-r-q-read-ebs",
+        "cor-r-q-read-full",
+        "cor-r-q-read-schedule",
+        "cor-r-q-read-poly0",
+        "cor-r-q-read-poly183",
+        "cor-r-q-read-forum",
+        "cor-r-q-read-four",
+        "cor-r-q-read-rapporteur"
+      ],
+      "sourceIds": [
+        "cor-r-s-ebs",
+        "cor-r-s-full",
+        "cor-r-s-schedule",
+        "cor-r-s-poly0",
+        "cor-r-s-poly183",
+        "cor-r-s-forum",
+        "cor-r-s-four",
+        "cor-r-s-rapporteur"
+      ],
+      "candidateIds": [
+        "cor-r-c-rfi-disclosure"
+      ]
+    },
+    {
+      "id": "cor-r-check-earlier-sept",
+      "target": "European Commission",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:23:38Z",
+      "notes": "2EU 原创 9 月 8 日采访覆盖不同事故和报告，当时没有确认此次两家答复。",
+      "queryIds": [
+        "cor-r-q-la-reponse",
+        "cor-r-q-answer",
+        "cor-r-q-read-brussel",
+        "cor-r-q-read-oldsep"
+      ],
+      "sourceIds": [
+        "cor-r-s-brussel",
+        "cor-r-s-oldsep"
+      ],
+      "candidateIds": [
+        "cor-r-c-earlier-sept"
+      ]
+    },
+    {
+      "id": "cor-r-check-earlier-oct",
+      "target": "European Commission",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:27:08Z",
+      "notes": "10 月已公开收集泛指公司风险信息和早期报告，后续旧报道及 11 月 11 日中文转述不能代替本次双边确认。",
+      "queryIds": [
+        "cor-r-q-la-reponse",
+        "cor-r-q-rfi-de",
+        "cor-r-q-mlex",
+        "cor-r-q-read-prior2eu",
+        "cor-r-q-read-euron",
+        "cor-r-q-read-hum",
+        "cor-r-q-read-aiproduct",
+        "cor-r-q-read-prevbrief",
+        "cor-r-q-read-ecpriorpanel"
+      ],
+      "sourceIds": [
+        "cor-r-s-prior2eu",
+        "cor-r-s-euron",
+        "cor-r-s-hum",
+        "cor-r-s-aiproduct",
+        "cor-r-s-prevbrief",
+        "cor-r-s-ecpriorpanel"
+      ],
+      "candidateIds": [
+        "cor-r-c-earlier-oct"
+      ]
+    },
+    {
+      "id": "cor-r-check-dpa-naming",
+      "target": "dpa / Henna Virkkunen",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:23:39Z",
+      "notes": "已读原内容不提供两家公司已回复的事实。查询结果和网页的动态时间不当作采访发布时间。",
+      "queryIds": [
+        "cor-r-q-rfi-de",
+        "cor-r-q-la-reponse",
+        "cor-r-q-read-welt"
+      ],
+      "sourceIds": [
+        "cor-r-s-welt"
+      ],
+      "candidateIds": [
+        "cor-r-c-dpa-naming"
+      ]
+    },
+    {
+      "id": "cor-r-check-art50",
+      "target": "European Commission",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:25:15Z",
+      "notes": "正式新闻为 7 月 20 日，欧盟正式公报为 11 月 12 日。后续生效日、过渡期或政策主页上的当日相关新闻不表示 11 月 25 日新指南。",
+      "queryIds": [
+        "cor-r-q-a50time",
+        "cor-r-q-afp",
+        "cor-r-q-mlex",
+        "cor-r-q-read-article50official",
+        "cor-r-q-read-article50library",
+        "cor-r-q-read-article50op",
+        "cor-r-q-read-article50oj",
+        "cor-r-q-read-boe",
+        "cor-r-q-read-transtext",
+        "cor-r-q-read-article50faq",
+        "cor-r-q-read-article50interop",
+        "cor-r-q-read-codelabel"
+      ],
+      "sourceIds": [
+        "cor-r-s-article50official",
+        "cor-r-s-article50library",
+        "cor-r-s-article50op",
+        "cor-r-s-article50oj",
+        "cor-r-s-boe",
+        "cor-r-s-transtext",
+        "cor-r-s-article50faq",
+        "cor-r-s-article50interop",
+        "cor-r-s-codelabel"
+      ],
+      "candidateIds": [
+        "cor-r-c-art50"
+      ]
+    },
+    {
+      "id": "cor-r-check-whistle",
+      "target": "European Commission",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:25:15Z",
+      "notes": "原发布稿标明 2025 年 11 月 24 日，11/25 2026 中文回顾是引用。",
+      "queryIds": [
+        "cor-r-q-ebssched",
+        "cor-r-q-read-whistlenews",
+        "cor-r-q-read-whistlep",
+        "cor-r-q-read-forum"
+      ],
+      "sourceIds": [
+        "cor-r-s-whistlenews",
+        "cor-r-s-whistlep",
+        "cor-r-s-forum"
+      ],
+      "candidateIds": [
+        "cor-r-c-whistle"
+      ]
+    },
+    {
+      "id": "cor-r-check-literacy",
+      "target": "European Commission / Council",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:25:15Z",
+      "notes": "Futurium 原改版 2025年11月19日；独立理事会结论为2026年11月19日。本次论坛回顾两者未见新发布。",
+      "queryIds": [
+        "cor-r-q-ebssched",
+        "cor-r-q-read-literacyf",
+        "cor-r-q-read-literacyn",
+        "cor-r-q-read-committee",
+        "cor-r-q-read-forum"
+      ],
+      "sourceIds": [
+        "cor-r-s-literacyf",
+        "cor-r-s-literacyn",
+        "cor-r-s-committee",
+        "cor-r-s-forum"
+      ],
+      "candidateIds": [
+        "cor-r-c-literacy"
+      ]
+    },
+    {
+      "id": "cor-r-check-academy",
+      "target": "European Commission",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:23:39Z",
+      "notes": "AP 原文为 11 月 23 日且涉及攻击欧委会，不是确认两家通用 AI 提供商答复。",
+      "queryIds": [
+        "cor-r-q-rfi-en",
+        "cor-r-q-deepfake",
+        "cor-r-q-read-apcyb"
+      ],
+      "sourceIds": [
+        "cor-r-s-apcyb"
+      ],
+      "candidateIds": [
+        "cor-r-c-academy"
+      ]
+    },
+    {
+      "id": "cor-r-check-brussels-team",
+      "target": "European Commission",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:23:39Z",
+      "notes": "AP 7 月 31 日原文；属早期监管建设，并未陈述后来答复。",
+      "queryIds": [
+        "cor-r-q-rfi-de",
+        "cor-r-q-deepfake",
+        "cor-r-q-read-apdeep"
+      ],
+      "sourceIds": [
+        "cor-r-s-apdeep"
+      ],
+      "candidateIds": [
+        "cor-r-c-brussels-team"
+      ]
+    },
+    {
+      "id": "cor-r-check-quantum-proposal",
+      "target": "European Commission",
+      "category": "business",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:27:08Z",
+      "notes": "确为 11/25 公布的官方同日独立提案；AI 属预期覆盖战略领域之一，量子立法是核心。€50B 是目标而非已获批资金。保留在此次同链接 RFI 专项修订的范围以外，与原 ad-discovered-139 和 166 对照，不变更原行。",
+      "queryIds": [
+        "cor-r-q-deepfake",
+        "cor-r-q-quantumprimary",
+        "cor-r-q-read-quantumoff",
+        "cor-r-q-read-quantumebs",
+        "cor-r-q-read-quantumwire",
+        "cor-r-q-read-quantumlm",
+        "cor-r-q-read-quantumfr",
+        "cor-r-q-read-quantumfacts",
+        "cor-r-q-read-quantumeur",
+        "cor-r-q-read-finex"
+      ],
+      "sourceIds": [
+        "cor-r-s-quantumoff",
+        "cor-r-s-quantumebs",
+        "cor-r-s-quantumwire",
+        "cor-r-s-quantumlm",
+        "cor-r-s-quantumfr",
+        "cor-r-s-quantumfacts",
+        "cor-r-s-quantumeur",
+        "cor-r-s-finex"
+      ],
+      "candidateIds": [
+        "cor-r-c-quantum-proposal"
+      ]
+    },
+    {
+      "id": "cor-r-check-deepfake-parliament",
+      "target": "European Parliament",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:23:38Z",
+      "notes": "MLex 原文访问受限。搜索标题不能确定具体政策动作、时间，或区分议会意见和措施；不同于 RFI。",
+      "queryIds": [
+        "cor-r-q-deepfake",
+        "cor-r-q-read-mlnud"
+      ],
+      "sourceIds": [
+        "cor-r-s-mlnud"
+      ],
+      "candidateIds": [
+        "cor-r-c-deepfake-parliament"
+      ]
+    },
+    {
+      "id": "cor-r-check-privacy-institution",
+      "target": "European Union",
+      "category": "governance",
+      "status": "candidate",
+      "checkedAt": "2026-11-26T06:23:38Z",
+      "notes": "MLex 原文受限。没有足够证据确认同日发生与 AI 明确相关的独立政策动作。",
+      "queryIds": [
+        "cor-r-q-deepfake",
+        "cor-r-q-read-mldpa"
+      ],
+      "sourceIds": [
+        "cor-r-s-mldpa"
+      ],
+      "candidateIds": [
+        "cor-r-c-privacy-institution"
+      ]
+    },
+    {
+      "id": "cor-r-check-access-four",
+      "target": "four",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:23:38Z",
+      "queryIds": [
+        "cor-r-q-read-four"
+      ],
+      "sourceIds": [
+        "cor-r-s-four"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-rapporteur",
+      "target": "rapporteur",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:27:08Z",
+      "queryIds": [
+        "cor-r-q-read-rapporteur"
+      ],
+      "sourceIds": [
+        "cor-r-s-rapporteur"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-mlnud",
+      "target": "mlnud",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:23:38Z",
+      "queryIds": [
+        "cor-r-q-read-mlnud"
+      ],
+      "sourceIds": [
+        "cor-r-s-mlnud"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-mldpa",
+      "target": "mldpa",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:23:38Z",
+      "queryIds": [
+        "cor-r-q-read-mldpa"
+      ],
+      "sourceIds": [
+        "cor-r-s-mldpa"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-mlquant",
+      "target": "mlquant",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:23:38Z",
+      "queryIds": [
+        "cor-r-q-read-mlquant"
+      ],
+      "sourceIds": [
+        "cor-r-s-mlquant"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-article50oj",
+      "target": "article50oj",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:25:15Z",
+      "queryIds": [
+        "cor-r-q-read-article50oj"
+      ],
+      "sourceIds": [
+        "cor-r-s-article50oj"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-literacyn",
+      "target": "literacyn",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:25:15Z",
+      "queryIds": [
+        "cor-r-q-read-literacyn"
+      ],
+      "sourceIds": [
+        "cor-r-s-literacyn"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-quantumlm",
+      "target": "quantumlm",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:27:08Z",
+      "queryIds": [
+        "cor-r-q-read-quantumlm"
+      ],
+      "sourceIds": [
+        "cor-r-s-quantumlm"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
+    },
+    {
+      "id": "cor-r-check-access-ecpriorpanel",
+      "target": "ecpriorpanel",
+      "category": "governance",
+      "status": "access_failed",
+      "checkedAt": "2026-11-26T06:27:08Z",
+      "queryIds": [
+        "cor-r-q-read-ecpriorpanel"
+      ],
+      "sourceIds": [
+        "cor-r-s-ecpriorpanel"
+      ],
+      "candidateIds": [],
+      "notes": "Unavailable at this normal cloud public-access route; no absence inference."
     }
   ],
   "candidates": [
@@ -24674,6 +27779,572 @@
       "reasonCode": "unresolved_identity",
       "reason": "The saved watchlist and prior Daily did not establish an intended organization or expansion. Current Agent and governance searches did not supply a verified identity. No alternate technology substituted.",
       "importance": "Retains the user’s open discovery seed without guessing the intended entity."
+    },
+    {
+      "id": "eu-ai-office-rfi-replies-confirmed",
+      "title": "欧委会确认 OpenAI 和 Anthropic 已答复两轮 AI Act 问询",
+      "category": "governance",
+      "entity": "European Commission / EU AI Office / OpenAI / Anthropic",
+      "releaseStatus": "announced",
+      "queryIds": [
+        "corr-editor-q-clip",
+        "corr-editor-q-full",
+        "corr-editor-q-intro",
+        "corr-editor-q-ribera",
+        "corr-editor-q-grid-browser",
+        "corr-editor-q-poly",
+        "corr-editor-q-poly-prog",
+        "corr-editor-q-ribera-full",
+        "corr-editor-q-search-reply",
+        "corr-editor-q-search-prior",
+        "corr-editor-q-search-reply-de-fr",
+        "corr-editor-q-search-press",
+        "cor-r-q-rfi-en",
+        "cor-r-q-answer",
+        "cor-r-q-afp",
+        "cor-r-q-ebssched",
+        "cor-r-q-read-ebs",
+        "cor-r-q-read-full",
+        "cor-r-q-read-schedule",
+        "cor-r-q-read-poly0",
+        "cor-r-q-read-poly183",
+        "cor-r-q-read-forum",
+        "cor-r-q-read-four",
+        "cor-r-q-read-rapporteur"
+      ],
+      "sourceIds": [
+        "corr-editor-s-clip",
+        "corr-editor-s-full",
+        "corr-editor-s-intro",
+        "corr-editor-s-ribera",
+        "corr-editor-s-grid-browser",
+        "corr-editor-s-poly",
+        "corr-editor-s-poly-prog",
+        "corr-editor-s-ribera-full",
+        "cor-r-s-ebs",
+        "cor-r-s-full",
+        "cor-r-s-schedule",
+        "cor-r-s-poly0",
+        "cor-r-s-poly183",
+        "cor-r-s-forum",
+        "cor-r-s-four",
+        "cor-r-s-rapporteur"
+      ],
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "The earliest located accessible public official confirmation identifies two RFIs per provider, both answered. The replies were received before the briefing, and assessment is the next step. The press appearance is distinct from the earlier panel meeting and its date-only written account. The Brussels broadcast and afternoon archive are bound to the same date.",
+      "importance": "A verified enforcement-process milestone for two major model providers. Receipt and assessment affect the status of the inquiries without establishing any legal finding.",
+      "eventTime": {
+        "precision": "interval",
+        "earliest": "2026-11-25T11:00:00Z",
+        "latest": "2026-11-25T14:00:00Z",
+        "basis": "11 月 25 日布鲁塞尔午间发布会的问答。官方 EbS 当日档案把午间直播和后续场次分开，午间场开场预告布鲁塞尔时间 15 时的 Ribera 场次，后续场次有独立官方录像。采用 12 至 15 时 CET（11 至 14 时 UTC）的保守区间，区间端点并非问答发言时刻。",
+        "sourceUrls": [
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298550",
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298575",
+          "https://audiovisual.ec.europa.eu/en/ebs/grid?date=20261125&ebs=yes&ebsplus=yes",
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298547",
+          "https://audiovisual.ec.europa.eu/en/media/video/I-298597"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-october-rfi-report",
+      "title": "Euronews · October AI Office information requests",
+      "category": "governance",
+      "entity": "Euronews",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "corr-editor-q-euronews",
+        "corr-editor-q-tnw"
+      ],
+      "sourceIds": [
+        "corr-editor-s-euronews",
+        "corr-editor-s-tnw"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The dated original report is about questions sent in October and earlier events. It predates the November reply confirmation.",
+      "importance": "Screens related governance evidence and prevents separate milestones from being combined.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-10-14T10:35:07+02:00",
+        "basis": "Original publication meta field with matched visible October 14 date.",
+        "sourceUrls": [
+          "https://www.euronews.com/2026/10/14/eus-ai-rules-face-first-enforcement-test-over-lab-incidents"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-september-openai-response",
+      "title": "European Commission · September OpenAI incident response",
+      "category": "governance",
+      "entity": "European Commission",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "corr-editor-q-ro-incident"
+      ],
+      "sourceIds": [
+        "corr-editor-s-ro-incident"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "The dated September report concerns one company and a separate submitted incident report. It does not show both firms answering the two November inquiry rounds.",
+      "importance": "Screens related governance evidence and prevents separate milestones from being combined.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-09-08T09:22:02+01:00",
+        "basis": "Page metadata and visible September 8 article date.",
+        "sourceUrls": [
+          "https://informat.ro/en/eu/european-commission-examines-openai-response-after-incident-involving-loss-of-control-over-ai-agents-137874"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-polyfact-rfi-replay",
+      "title": "Polyfact · replay of EC midday RFI replies Q&A",
+      "category": "governance",
+      "entity": "Polyfact",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "corr-editor-q-poly",
+        "corr-editor-q-poly-prog"
+      ],
+      "sourceIds": [
+        "corr-editor-s-poly",
+        "corr-editor-s-poly-prog"
+      ],
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "Replay reproduces the same public disclosure, with no separate originating account.",
+      "importance": "Screens related governance evidence and prevents separate milestones from being combined.",
+      "duplicateOf": "eu-ai-office-rfi-replies-confirmed"
+    },
+    {
+      "id": "corr-editor-fourweekmba-rfi-repeat",
+      "title": "FourWeekMBA · November 25 reports of EU replies",
+      "category": "governance",
+      "entity": "FourWeekMBA",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "corr-editor-q-fourmba"
+      ],
+      "sourceIds": [
+        "corr-editor-s-fourmba"
+      ],
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "Direct retrieval failed. Indexed text attributes the account to a shared excerpt of the same briefing. Keep the lead without using it for content or timing.",
+      "importance": "Screens related governance evidence and prevents separate milestones from being combined."
+    },
+    {
+      "id": "corr-editor-amodei-axios-discussion",
+      "title": "Anthropic CEO · response to a separate Axios story",
+      "category": "governance",
+      "entity": "Anthropic CEO",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "corr-editor-q-axo-amodei"
+      ],
+      "sourceIds": [
+        "corr-editor-s-axo-amodei"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "The cited public reaction concerns the distinct Axios autonomy and safety debate and supplies no new bilateral response or EU regulatory decision. Screened as an adjacent development in this narrowly scoped correction.",
+      "importance": "Screens related governance evidence and prevents separate milestones from being combined.",
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-25",
+        "basis": "Visible article date and publication CMS fields agree at day precision and differ in hours.",
+        "sourceUrls": [
+          "https://www.axios.com/2026/11/25/anthropic-dario-amodei-ai-free-will-contro-axios"
+        ]
+      }
+    },
+    {
+      "id": "corr-editor-axios-us-safety-discussion",
+      "title": "Axios · US legislators discuss policy after Axios reporting",
+      "category": "governance",
+      "entity": "Axios",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "corr-editor-q-axo-dem"
+      ],
+      "sourceIds": [
+        "corr-editor-s-axo-dem"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "This later same-day report documents proposed US policy reactions to separate reporting. No material fact about the EU inquiries or new enacted rule.",
+      "importance": "Screens related governance evidence and prevents separate milestones from being combined.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-25T20:19:21Z",
+        "basis": "article:published_time and datePublished agree to second.",
+        "sourceUrls": [
+          "https://www.axios.com/2026/11/25/democrats-ai-safety-restrictions-openai-anthropic-axios"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-rfi-disclosure",
+      "title": "欧盟委员会 11 月 25 日公开确认已收到 OpenAI 与 Anthropic 的答复",
+      "category": "governance",
+      "entity": "European Commission / EU AI Office",
+      "releaseStatus": "announced",
+      "decision": "exclude",
+      "reasonCode": "duplicate",
+      "reason": "Independent rediscovery of the same public briefing. The corroborating operations are preserved under this row and the canonical article item. 匹配本次修订单独主候选。独立阅读官方问答确认各两份且均已答，两家答复此前一日收到。用户请求的 12:00–15:00 CET 公开披露钟由作者直接 EBS 程序表另行证实；此审查证据归并保留，不推断送达或提交精确时刻。",
+      "importance": "实际监管程序更新，两家明确回复且待评估。",
+      "queryIds": [
+        "cor-r-q-rfi-en",
+        "cor-r-q-answer",
+        "cor-r-q-afp",
+        "cor-r-q-ebssched",
+        "cor-r-q-read-ebs",
+        "cor-r-q-read-full",
+        "cor-r-q-read-schedule",
+        "cor-r-q-read-poly0",
+        "cor-r-q-read-poly183",
+        "cor-r-q-read-forum",
+        "cor-r-q-read-four",
+        "cor-r-q-read-rapporteur"
+      ],
+      "sourceIds": [
+        "cor-r-s-ebs",
+        "cor-r-s-full",
+        "cor-r-s-schedule",
+        "cor-r-s-poly0",
+        "cor-r-s-poly183",
+        "cor-r-s-forum",
+        "cor-r-s-four",
+        "cor-r-s-rapporteur"
+      ],
+      "duplicateOf": "eu-ai-office-rfi-replies-confirmed"
+    },
+    {
+      "id": "cor-r-c-earlier-sept",
+      "title": "欧委会确认已收到单一较早的 OpenAI 事故报告",
+      "category": "governance",
+      "entity": "European Commission",
+      "releaseStatus": "reported",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "2EU 原创 9 月 8 日采访覆盖不同事故和报告，当时没有确认此次两家答复。",
+      "importance": "旧案用于排除重复和误把申报等同于两家回复。",
+      "queryIds": [
+        "cor-r-q-la-reponse",
+        "cor-r-q-answer",
+        "cor-r-q-read-brussel",
+        "cor-r-q-read-oldsep"
+      ],
+      "sourceIds": [
+        "cor-r-s-brussel",
+        "cor-r-s-oldsep"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-09-08",
+        "basis": "Visible original Sept8 date and full account of a specific previously submitted OpenAI incident report. November timestamps in global page banners belong to unrelated sidebar headlines.",
+        "sourceUrls": [
+          "https://2eu.brussels/en/news/european-commission-assesses-openais-response-to-an-incident-involving-loss-of-control-over-ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-earlier-oct",
+      "title": "10 月 AI Office 旧信息请求及报告",
+      "category": "governance",
+      "entity": "European Commission",
+      "releaseStatus": "reported",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "10 月已公开收集泛指公司风险信息和早期报告，后续旧报道及 11 月 11 日中文转述不能代替本次双边确认。",
+      "importance": "区别连续监管过程中的多个消息。",
+      "queryIds": [
+        "cor-r-q-la-reponse",
+        "cor-r-q-rfi-de",
+        "cor-r-q-mlex",
+        "cor-r-q-read-prior2eu",
+        "cor-r-q-read-euron",
+        "cor-r-q-read-hum",
+        "cor-r-q-read-aiproduct",
+        "cor-r-q-read-prevbrief",
+        "cor-r-q-read-ecpriorpanel"
+      ],
+      "sourceIds": [
+        "cor-r-s-prior2eu",
+        "cor-r-s-euron",
+        "cor-r-s-hum",
+        "cor-r-s-aiproduct",
+        "cor-r-s-prevbrief",
+        "cor-r-s-ecpriorpanel"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-10-13",
+        "basis": "Visible October 13 article reports EU staff had earlier generic reports and requests. It does not publicly identify both companies or establish receipt of both later RFI replies.",
+        "sourceUrls": [
+          "https://2eu.brussels/index.php/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-dpa-naming",
+      "title": "dpa 通过采访报道被要求说明的公司",
+      "category": "governance",
+      "entity": "dpa / Henna Virkkunen",
+      "releaseStatus": "reported",
+      "decision": "pending",
+      "reasonCode": "time_uncertain",
+      "reason": "已读原内容不提供两家公司已回复的事实。查询结果和网页的动态时间不当作采访发布时间。",
+      "importance": "同期或较早的索资描述可能为背景，不能刷新回复节点。",
+      "queryIds": [
+        "cor-r-q-rfi-de",
+        "cor-r-q-la-reponse",
+        "cor-r-q-read-welt"
+      ],
+      "sourceIds": [
+        "cor-r-s-welt"
+      ]
+    },
+    {
+      "id": "cor-r-c-art50",
+      "title": "欧盟 AI Act 第 50 条透明度行政指南和公报登载",
+      "category": "governance",
+      "entity": "European Commission",
+      "releaseStatus": "announced",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "正式新闻为 7 月 20 日，欧盟正式公报为 11 月 12 日。后续生效日、过渡期或政策主页上的当日相关新闻不表示 11 月 25 日新指南。",
+      "importance": "相关但独立的规则范围，避免混进 RFI。",
+      "queryIds": [
+        "cor-r-q-a50time",
+        "cor-r-q-afp",
+        "cor-r-q-mlex",
+        "cor-r-q-read-article50official",
+        "cor-r-q-read-article50library",
+        "cor-r-q-read-article50op",
+        "cor-r-q-read-article50oj",
+        "cor-r-q-read-boe",
+        "cor-r-q-read-transtext",
+        "cor-r-q-read-article50faq",
+        "cor-r-q-read-article50interop",
+        "cor-r-q-read-codelabel"
+      ],
+      "sourceIds": [
+        "cor-r-s-article50official",
+        "cor-r-s-article50library",
+        "cor-r-s-article50op",
+        "cor-r-s-article50oj",
+        "cor-r-s-boe",
+        "cor-r-s-transtext",
+        "cor-r-s-article50faq",
+        "cor-r-s-article50interop",
+        "cor-r-s-codelabel"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-12",
+        "basis": "Official EU Publication Office catalog explicitly dates Communication C/2026/6005 to Nov12. Page-visit or incidental current dynamic timestamps are unrelated.",
+        "sourceUrls": [
+          "https://op.europa.eu/en/publication-detail/-/publication/caabe0cd-de39-11f1-ba80-01aa75ed71a1/language-en"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-whistle",
+      "title": "委员会上线 AI Act 举报工具",
+      "category": "governance",
+      "entity": "European Commission",
+      "releaseStatus": "released",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "原发布稿标明 2025 年 11 月 24 日，11/25 2026 中文回顾是引用。",
+      "importance": "辅助举报和接洽的独立工具。",
+      "queryIds": [
+        "cor-r-q-ebssched",
+        "cor-r-q-read-whistlenews",
+        "cor-r-q-read-whistlep",
+        "cor-r-q-read-forum"
+      ],
+      "sourceIds": [
+        "cor-r-s-whistlenews",
+        "cor-r-s-whistlep",
+        "cor-r-s-forum"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2025-11-24",
+        "basis": "Official original launch publication explicitly November 24, 2025. Read alongside forum’s Nov2026 contextual mention.",
+        "sourceUrls": [
+          "https://digital-strategy.ec.europa.eu/en/news/commission-launches-whistleblower-tool-ai-act"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-literacy",
+      "title": "欧盟 AI 素养实践库改版与后续理事会结论",
+      "category": "governance",
+      "entity": "European Commission / Council",
+      "releaseStatus": "announced",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Futurium 原改版 2025年11月19日；独立理事会结论为2026年11月19日。本次论坛回顾两者未见新发布。",
+      "importance": "独立教育资源，不属于公司答复。",
+      "queryIds": [
+        "cor-r-q-ebssched",
+        "cor-r-q-read-literacyf",
+        "cor-r-q-read-literacyn",
+        "cor-r-q-read-committee",
+        "cor-r-q-read-forum"
+      ],
+      "sourceIds": [
+        "cor-r-s-literacyf",
+        "cor-r-s-literacyn",
+        "cor-r-s-committee",
+        "cor-r-s-forum"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-19",
+        "basis": "EU Council conclusion about literacy is dated November 19, 2026, distinct from older resource refresh.",
+        "sourceUrls": [
+          "https://www.consilium.europa.eu/en/press/press-releases/2026/11/19/equipping-europeans-for-the-age-of-ai-council-approves-conclusions/"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-academy",
+      "title": "AP 复查欧盟学院用户被通知数据泄露风险",
+      "category": "governance",
+      "entity": "European Commission",
+      "releaseStatus": "reported",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "AP 原文为 11 月 23 日且涉及攻击欧委会，不是确认两家通用 AI 提供商答复。",
+      "importance": "另一独立的数据安全事件。",
+      "queryIds": [
+        "cor-r-q-rfi-en",
+        "cor-r-q-deepfake",
+        "cor-r-q-read-apcyb"
+      ],
+      "sourceIds": [
+        "cor-r-s-apcyb"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-11-23",
+        "basis": "Dates EU Academy notice/reporting to Nov23 and describes the Commission as victim in a separate case.",
+        "sourceUrls": [
+          "https://apnews.com/article/02e1f69e46ad9f82484b66b2f86df53b"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-brussels-team",
+      "title": "AP 关于布鲁塞尔扩大 AI 监管行动能力的较早报道",
+      "category": "governance",
+      "entity": "European Commission",
+      "releaseStatus": "reported",
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "AP 7 月 31 日原文；属早期监管建设，并未陈述后来答复。",
+      "importance": "区分机构与后续个案。",
+      "queryIds": [
+        "cor-r-q-rfi-de",
+        "cor-r-q-deepfake",
+        "cor-r-q-read-apdeep"
+      ],
+      "sourceIds": [
+        "cor-r-s-apdeep"
+      ],
+      "eventTime": {
+        "precision": "date",
+        "value": "2026-07-31",
+        "basis": "Reports proposed Brussels capacity as of July, not the response confirmation in November.",
+        "sourceUrls": [
+          "https://apnews.com/article/f4fcee1f9750e2b32cdf26ad73ee5ec2"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-quantum-proposal",
+      "title": "欧委会公布 Quantum Act 草案并提出未来主权科技股权基金",
+      "category": "business",
+      "entity": "European Commission",
+      "releaseStatus": "announced",
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "确为 11/25 公布的官方同日独立提案；AI 属预期覆盖战略领域之一，量子立法是核心。€50B 是目标而非已获批资金。保留在此次同链接 RFI 专项修订的范围以外，与原 ad-discovered-139 和 166 对照，不变更原行。",
+      "importance": "独立可追踪的跨领域政策融资候选，未见专用于 AI 的拨款或决定。",
+      "queryIds": [
+        "cor-r-q-deepfake",
+        "cor-r-q-quantumprimary",
+        "cor-r-q-read-quantumoff",
+        "cor-r-q-read-quantumebs",
+        "cor-r-q-read-quantumwire",
+        "cor-r-q-read-quantumlm",
+        "cor-r-q-read-quantumfr",
+        "cor-r-q-read-quantumfacts",
+        "cor-r-q-read-quantumeur",
+        "cor-r-q-read-finex"
+      ],
+      "sourceIds": [
+        "cor-r-s-quantumoff",
+        "cor-r-s-quantumebs",
+        "cor-r-s-quantumwire",
+        "cor-r-s-quantumlm",
+        "cor-r-s-quantumfr",
+        "cor-r-s-quantumfacts",
+        "cor-r-s-quantumeur",
+        "cor-r-s-finex"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-25T13:19:42+01:00",
+        "basis": "Fully readable Reuters wire on finance site. Describes €50B proposed equity facility as target, spanning strategic tech including AI; confirmation is of proposal.",
+        "sourceUrls": [
+          "https://www.boursorama.com/bourse/actualites/l-europe-prevoit-de-creer-un-fonds-souverain-de-50-milliards-d-euros-dedie-aux-technologies-quantiques-afin-de-stimuler-ce-secteur-3937f5a45714499318d06e2191783152"
+        ]
+      }
+    },
+    {
+      "id": "cor-r-c-deepfake-parliament",
+      "title": "欧洲议员呼吁执行深度伪造工具禁令的报道线索",
+      "category": "governance",
+      "entity": "European Parliament",
+      "releaseStatus": "reported",
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "MLex 原文访问受限。搜索标题不能确定具体政策动作、时间，或区分议会意见和措施；不同于 RFI。",
+      "importance": "相邻 AI 治理线索。",
+      "queryIds": [
+        "cor-r-q-deepfake",
+        "cor-r-q-read-mlnud"
+      ],
+      "sourceIds": [
+        "cor-r-s-mlnud"
+      ]
+    },
+    {
+      "id": "cor-r-c-privacy-institution",
+      "title": "欧盟隐私监督机构选任或协调的报道线索",
+      "category": "governance",
+      "entity": "European Union",
+      "releaseStatus": "reported",
+      "decision": "pending",
+      "reasonCode": "insufficient_evidence",
+      "reason": "MLex 原文受限。没有足够证据确认同日发生与 AI 明确相关的独立政策动作。",
+      "importance": "与修订主题相邻的行业证据线索。",
+      "queryIds": [
+        "cor-r-q-deepfake",
+        "cor-r-q-read-mldpa"
+      ],
+      "sourceIds": [
+        "cor-r-s-mldpa"
+      ]
     }
   ],
   "coverage": [
@@ -24850,7 +28521,8 @@
         "rv-late-check-qwen-image-hd",
         "rv-late-check-icl-world",
         "ad-check-research",
-        "ad-check-qwen-artifact"
+        "ad-check-qwen-artifact",
+        "corr-editor-check-qwen-reread"
       ],
       "assessment": "Checked first-party research sites, author timelines, paper feeds, project pages and roundups. Prior submission, newly published technical explanation and issuer release are separate events. Public indexes surface a subset of research."
     },
@@ -24892,7 +28564,21 @@
         "rv-q-freshgov",
         "rv-q-fcc1",
         "rv-late-q-qwenhd",
-        "rv-late-q-bound"
+        "rv-late-q-bound",
+        "corr-editor-q-search-press",
+        "corr-editor-q-search-reply",
+        "corr-editor-q-search-reply-de-fr",
+        "corr-editor-q-search-prior",
+        "cor-r-q-rfi-en",
+        "cor-r-q-rfi-de",
+        "cor-r-q-answer",
+        "cor-r-q-mlex",
+        "cor-r-q-la-reponse",
+        "cor-r-q-a50time",
+        "cor-r-q-ebssched",
+        "cor-r-q-afp",
+        "cor-r-q-deepfake",
+        "cor-r-q-quantumprimary"
       ],
       "checkIds": [
         "rv-check-character-cal",
@@ -24904,9 +28590,31 @@
         "rv-late-check-siren",
         "ad-check-governance",
         "ad-check-social-access",
-        "ad-check-china-registry-observed"
+        "ad-check-china-registry-observed",
+        "corr-editor-check-official-rfi",
+        "corr-editor-check-direct-limits",
+        "cor-r-check-rfi-disclosure",
+        "cor-r-check-earlier-sept",
+        "cor-r-check-earlier-oct",
+        "cor-r-check-dpa-naming",
+        "cor-r-check-art50",
+        "cor-r-check-whistle",
+        "cor-r-check-literacy",
+        "cor-r-check-academy",
+        "cor-r-check-brussels-team",
+        "cor-r-check-deepfake-parliament",
+        "cor-r-check-privacy-institution",
+        "cor-r-check-access-four",
+        "cor-r-check-access-rapporteur",
+        "cor-r-check-access-mlnud",
+        "cor-r-check-access-mldpa",
+        "cor-r-check-access-mlquant",
+        "cor-r-check-access-article50oj",
+        "cor-r-check-access-literacyn",
+        "cor-r-check-access-quantumlm",
+        "cor-r-check-access-ecpriorpanel"
       ],
-      "assessment": "Regulator, legal reporting, national standards and provider access briefs were searched. A new FCC public announcement is confirmed and the EU minutes have only defensible date precision. Prior state, national and CAISSI items remain in their prior window or unresolved."
+      "assessment": "Regulator, legal reporting, national standards and provider access briefs were searched. A new FCC public announcement is confirmed and the EU minutes have only defensible date precision. Prior state, national and CAISSI items remain in their prior window or unresolved. Correction independently recovered a first-party in-window RFI reply confirmation, using the contemporaneous official proceedings and a scoped comparison with prior and later reports."
     },
     {
       "category": "agents",
@@ -25033,13 +28741,27 @@
       "rv-q-fcc1",
       "rv-late-q-qwenhd",
       "rv-late-q-bound",
-      "rv-late-q-lute"
+      "rv-late-q-lute",
+      "corr-editor-q-search-press",
+      "corr-editor-q-search-reply",
+      "corr-editor-q-search-reply-de-fr",
+      "corr-editor-q-search-prior",
+      "cor-r-q-rfi-en",
+      "cor-r-q-rfi-de",
+      "cor-r-q-answer",
+      "cor-r-q-mlex",
+      "cor-r-q-la-reponse",
+      "cor-r-q-a50time",
+      "cor-r-q-ebssched",
+      "cor-r-q-afp",
+      "cor-r-q-deepfake",
+      "cor-r-q-quantumprimary"
     ],
-    "assessment": "Grouped and focused searches, direct original pages, live changelogs, institutional records, paper indexes, regional trade media and public official social embeds. Screened same-subject historical and current artifacts, plus independent supplement. The source coverage is public and bounded."
+    "assessment": "Grouped and focused searches, direct original pages, live changelogs, institutional records, paper indexes, regional trade media and public official social embeds. Screened same-subject historical and current artifacts, plus independent supplement. The source coverage is public and bounded. This same-link correction supplement searched English, Chinese, French and German sources and compared the full original issue inventory against the adjacent timeline. The original broader discovery records are preserved."
   },
   "review": {
-    "reviewer": "independent-reviewer",
-    "reviewedAt": "2026-11-26T02:25:16.980Z",
+    "reviewer": "independent-coverage-correction-nov26",
+    "reviewedAt": "2026-11-26T06:31:35.918Z",
     "candidateIds": [
       "openai-private-inference",
       "anthropic-messages-rust",
@@ -25349,7 +29071,26 @@
       "rv-late-c-whereable",
       "identity-jev",
       "identity-laya",
-      "identity-osc"
+      "identity-osc",
+      "eu-ai-office-rfi-replies-confirmed",
+      "corr-editor-october-rfi-report",
+      "corr-editor-september-openai-response",
+      "corr-editor-polyfact-rfi-replay",
+      "corr-editor-fourweekmba-rfi-repeat",
+      "corr-editor-amodei-axios-discussion",
+      "corr-editor-axios-us-safety-discussion",
+      "cor-r-c-rfi-disclosure",
+      "cor-r-c-earlier-sept",
+      "cor-r-c-earlier-oct",
+      "cor-r-c-dpa-naming",
+      "cor-r-c-art50",
+      "cor-r-c-whistle",
+      "cor-r-c-literacy",
+      "cor-r-c-academy",
+      "cor-r-c-brussels-team",
+      "cor-r-c-quantum-proposal",
+      "cor-r-c-deepfake-parliament",
+      "cor-r-c-privacy-institution"
     ],
     "queryIds": [
       "rv-q-zh-fin",
@@ -25558,7 +29299,64 @@
       "rv-final-q-frostvendor",
       "rv-final-q-omniact",
       "rv-final-q-omniarxiv",
-      "rv-final-q-appleagent"
+      "rv-final-q-appleagent",
+      "cor-r-q-rfi-en",
+      "cor-r-q-rfi-de",
+      "cor-r-q-answer",
+      "cor-r-q-mlex",
+      "cor-r-q-la-reponse",
+      "cor-r-q-a50time",
+      "cor-r-q-ebssched",
+      "cor-r-q-afp",
+      "cor-r-q-deepfake",
+      "cor-r-q-quantumprimary",
+      "cor-r-q-read-ebs",
+      "cor-r-q-read-poly0",
+      "cor-r-q-read-poly183",
+      "cor-r-q-read-four",
+      "cor-r-q-read-panel",
+      "cor-r-q-read-brussel",
+      "cor-r-q-read-prior2eu",
+      "cor-r-q-read-prevbrief",
+      "cor-r-q-read-oldsep",
+      "cor-r-q-read-boe",
+      "cor-r-q-read-mlnud",
+      "cor-r-q-read-mldpa",
+      "cor-r-q-read-mlquant",
+      "cor-r-q-read-transtext",
+      "cor-r-q-read-forum",
+      "cor-r-q-read-aiproduct",
+      "cor-r-q-read-aishot",
+      "cor-r-q-read-welt",
+      "cor-r-q-read-apcyb",
+      "cor-r-q-read-apdeep",
+      "cor-r-q-read-schedule",
+      "cor-r-q-read-full",
+      "cor-r-q-read-article50official",
+      "cor-r-q-read-article50library",
+      "cor-r-q-read-article50faq",
+      "cor-r-q-read-article50oj",
+      "cor-r-q-read-article50op",
+      "cor-r-q-read-article50interop",
+      "cor-r-q-read-codelabel",
+      "cor-r-q-read-whistlenews",
+      "cor-r-q-read-whistlep",
+      "cor-r-q-read-literacyn",
+      "cor-r-q-read-literacyf",
+      "cor-r-q-read-committee",
+      "cor-r-q-read-euron",
+      "cor-r-q-read-hum",
+      "cor-r-q-read-rapporteur",
+      "cor-r-q-read-quantumoff",
+      "cor-r-q-read-quantumebs",
+      "cor-r-q-read-quantumwire",
+      "cor-r-q-read-quantumlm",
+      "cor-r-q-read-quantumfr",
+      "cor-r-q-read-quantumfacts",
+      "cor-r-q-read-quantumeur",
+      "cor-r-q-read-finex",
+      "cor-r-q-read-ecpriorpanel",
+      "cor-r-q-read-actreg"
     ],
     "verdict": "pass_with_limits",
     "report": "docs/daily/reviews/2026-11-26.md",
@@ -25602,12 +29400,33 @@
         "detail": "Several previous-window observations remain unconfirmed on exact event instants or release states, and public aggregation does not fully cover private transactions or announced access.",
         "severity": "note",
         "resolution": "disclosed"
+      },
+      {
+        "severity": "blocking",
+        "resolution": "fixed",
+        "detail": "Recovered 25 November public confirmation in the official midday clip and independently corroborated clip identity and within-window time bounds. Separated the previous-day receipt, the 23 November scientific panel and its date-only web summary, and the earlier September/October investigations."
+      },
+      {
+        "severity": "note",
+        "resolution": "fixed",
+        "detail": "Preserved all 309 earlier candidates, 515 earlier operations, 616 earlier source observations and 51 earlier checks with exact contents and order, and retained the previous issue cutoff. Reviewed 19 added candidate dispositions and separate earlier or adjacent EU policy events."
+      },
+      {
+        "severity": "note",
+        "resolution": "disclosed",
+        "detail": "Two directly relevant original reporting leads were access-restricted. No earlier accessible public confirmation of both current replies was located, the exact spoken minute remains unverified, and the Commission gave no substantive assessment."
+      },
+      {
+        "severity": "note",
+        "resolution": "disclosed",
+        "detail": "Coverage of the earlier issue carries its original public-retrieval and regional limits. The later independent search was scoped to the requested RFI correction and adjacent EU governance disclosures."
       }
     ]
   },
   "article": {
     "slug": "2026-11-26-ai-daily",
     "includedCandidateIds": [
+      "eu-ai-office-rfi-replies-confirmed",
       "openai-private-inference",
       "anthropic-messages-rust",
       "xpeng-turing-ai-day",
@@ -25633,7 +29452,8 @@
       "eu-ai-act-scientific-panel",
       "qwen-image-hd-preprint"
     ],
-    "limitations": "Public discovery covered English, Chinese, Japanese, French and German, with separate cross-topic review. Original X pages and selected publisher, institutional and social pages returned access restrictions. Official embeds, issuer releases and accessible reporting supply usable alternatives within their scope. Lead coverage is bounded by public retrieval, and some release or rollout clocks are unknown. JEV, Laya and OSC remain unconfirmed identities.",
-    "sha256": "76a10b912355f5eba1b919543aa496c1d93fa9e40e4c2b4f74fe0ac5e3ca931e"
+    "limitations": "Public discovery covered English, Chinese, Japanese, French and German, with separate cross-topic review. Original X pages and selected publisher, institutional and social pages returned access restrictions. Official embeds, issuer releases and accessible reporting supply usable alternatives within their scope. Lead coverage is bounded by public retrieval, and some release or rollout clocks are unknown. JEV, Laya and OSC remain unconfirmed identities. The correction concerns the press disclosure only. Direct industry originals and precise archive-page publication clocks are bounded. The Commission did not disclose its substantive reply assessment.",
+    "sha256": "642e6e27150ea9eb5a5a0178c02e6a9ef9f70ebc33d0d4c71eec6aa911cdbe47",
+    "originalDate": "2026-11-26T02:21:12.832Z"
   }
 }
