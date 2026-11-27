@@ -314,6 +314,58 @@
       }
     },
     {
+      "title": "Qwen Code · v0.28.7 发行说明",
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+      "retrievedAt": "2026-11-27T05:22:10.270Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:04:26Z",
+        "basis": "GitHub 发行页的 relative-time，与 REST published_at 一致。",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7"
+        ]
+      }
+    },
+    {
+      "title": "GitHub · Qwen Code v0.28.7 发行元数据",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+      "retrievedAt": "2026-11-27T05:22:10.145Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:04:26Z",
+        "basis": "GitHub REST published_at；draft 和 prerelease 均为 false。",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7"
+        ]
+      }
+    },
+    {
+      "title": "Qwen Code · 移除启发式循环判断（#18418）",
+      "url": "https://github.com/QwenLM/qwen-code/pull/18418",
+      "retrievedAt": "2026-11-27T05:22:11.654Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T07:28:18Z",
+        "basis": "GitHub 公开 PR 开立时间。更改于 12:01:03 UTC 合并，稳定版发行时间另计。",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/pull/18418"
+        ]
+      }
+    },
+    {
+      "title": "Qwen Code · 按工作区保留与恢复工作树（#18009）",
+      "url": "https://github.com/QwenLM/qwen-code/pull/18009",
+      "retrievedAt": "2026-11-27T05:22:12.413Z",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T06:25:33Z",
+        "basis": "GitHub 公开 PR 开立时间。更改于 11 月 26 日 11:40:49 UTC 合并，稳定版发行时间另计。",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/pull/18009"
+        ]
+      }
+    },
+    {
       "title": "inclusionAI · Ming-Image-0.2 模型卡提交记录",
       "url": "https://huggingface.co/api/models/inclusionAI/Ming-Image-0.2-Design/commits/main",
       "retrievedAt": "2026-11-27T02:06:59.797+00:00",
@@ -830,6 +882,28 @@
         ]
       },
       {
+        "title": "Qwen Code v0.28.7 调整工具调用限制并支持快照恢复",
+        "summary": "各入口移除启发式循环判断和默认自适应工具调用上限。显式设为正整数的每轮硬上限仍有效，客户端也保留了对已回答调用 ID 的重放保护。新版也支持按工作区保留工作树和恢复快照。",
+        "category": "agents",
+        "candidateId": "qwen-code-0287",
+        "releaseStatus": "released",
+        "eventEvidence": {
+          "precision": "instant",
+          "value": "2026-11-26T18:04:26Z",
+          "basis": "GitHub 正式发行页和 REST published_at 一致。此时间对应稳定版发布，与 PR 合并及 npm 包上传分别记录。",
+          "sourceUrls": [
+            "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+            "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7"
+          ]
+        },
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+          "https://github.com/QwenLM/qwen-code/pull/18418",
+          "https://github.com/QwenLM/qwen-code/pull/18009"
+        ]
+      },
+      {
         "title": "蚂蚁更新 Ming-Image-0.2-Design 的公开样例和评测",
         "summary": "基础版权重前一天已上传。蚂蚁随后补充模型卡、样例和榜单，能把成图拆为可独立编辑图层的 0.2 版本仍是预告。",
         "category": "products",
@@ -928,8 +1002,10 @@
         "uncertainty": "首稿提交与 RSS 批次生成分属截点两侧。GitHub 更早的上传历史也无法证明 arXiv 正文首次可见的时刻，尚待对外分发记录。"
       }
     ],
-    "evidenceRun": "docs/daily/runs/2026-11-27.json"
-  }
+    "evidenceRun": "docs/daily/runs/2026-11-27.json",
+    "correction": "更正说明：补录本期窗口内发布的 Qwen Code v0.28.7，说明工具调用限制的调整，以及工作树保留和快照恢复。"
+  },
+  "updated": "2026-11-27T05:27:09.553Z"
 }
 ---
 
@@ -1014,6 +1090,10 @@ NVIDIA 同日为早已发布的 Nemotron 3.5 Parse 公开训练做法和三套�
 腾讯为 Hy4 flash 发布 DFly2 草稿模型的权重。它先建议一批接下来的词元，再让 Hy4 flash 批量核验。腾讯在单路 MATH-500 测试中报告端到端 3.69 倍，长上下文和并发量会影响实际值。llama.cpp 1.1.0 解决的是另一部分部署工作。这个版本带来按体积或每权重位数选量化方案、具名工具选择以及服务器调度更新。 [腾讯 DFly2 权重](https://huggingface.co/AngelSlim/Hy4-flash-DFly2-B6) · [llama.cpp 1.1.0 发行说明](https://github.com/ggml-org/llama.cpp/releases/tag/v1.1.0)
 
 Qwen Code 0.28.6 让托管会话在等待批准、用户回答或后台任务时挂起，并在运行程序重启后恢复支持的会话。对于要停下来等人审批的任务，这可以减少重跑。已经发生的外部写入仍要由应用自身核对。 [Qwen Code 发行说明](https://github.com/QwenLM/qwen-code/releases/tag/v0.28.6)
+
+Qwen Code 随后发布 v0.28.7。终端、无界面运行、ACP 会话和子智能体移除了启发式循环判断，也取消了默认的自适应工具调用上限。把 `model.maxToolCallsPerTurn` 显式设为正整数，仍会启用每轮硬上限。如果模型服务商重放已回答的调用 ID，且工具与参数相同，客户端会拦下这次重放，反复重放时可结束该轮。如果 DashScope 因会话历史里的重复工具调用拒绝请求，客户端仍会提示可尝试 `/compress`。 [v0.28.7 发行说明](https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7) · [工具调用改动](https://github.com/QwenLM/qwen-code/pull/18418)
+
+新版也支持按工作区保留 Git 工作树。受信且能核实管理根目录归属的工作区，会各自限制符合清理条件的托管工作树保留数量。活跃或固定的会话会保留，也不占额度。将 `worktree.maxRetained` 设为 0 会关闭自动清扫。这项额度按工作树数量计算，磁盘用量另计。在连接本地守护进程的 Web Shell 中，符合条件的会话可以在会话总览里从已有快照恢复工作树。 [保留与恢复说明](https://github.com/QwenLM/qwen-code/pull/18009)
 
 日本的 Sakana Marlin 增加 Twilight 2.0 和 Midnight 2.0，每次调查各用 300 积分，原有的 Sunlight 模式仍为 100 积分。两个新模式会根据中途查到的材料调整问题，再回头核验假设。已有的 PowerPoint 导出也重新设计，三个模式都能用。Sakana 给出的来源数量和报告长度来自自己的比较。 [Sakana AI 发布说明](https://sakana.ai/marlin-update-2/)
 

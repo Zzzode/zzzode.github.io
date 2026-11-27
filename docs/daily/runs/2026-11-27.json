@@ -6,7 +6,7 @@
   "windowStart": "2026-11-26T02:00:00Z",
   "cutoff": "2026-11-27T02:00:00Z",
   "startedAt": "2026-11-27T02:01:57Z",
-  "completedAt": "2026-11-27T02:23:59Z",
+  "completedAt": "2026-11-27T05:28:25.909Z",
   "queries": [
     {
       "id": "editor-search-ag0",
@@ -7258,6 +7258,1130 @@
         "https://www.vestbee.com/insights/articles/audun-raises-2-6m"
       ],
       "notes": "AI-native debt collection, source quotes Venture investor list and international expansion. No precise source time checked."
+    },
+    {
+      "id": "qwen-1127-correction-read-release",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.485Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7"
+      ],
+      "notes": "Official stable release includes the selected loop/cap and worktree changes. The general highlight is broader than the exceptions established by merged PR and tagged code. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-release-api",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.486Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7"
+      ],
+      "notes": "GitHub REST published_at is 18:04:26Z; draft and prerelease are false. A release object and assets are listed separately from earlier merge or workflow clock. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-before-api",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.487Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6"
+      ],
+      "notes": "v0.28.6 was stable at 05:51:04Z. Its changelog describes session parking and resume and does not list #18418 or #18009. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-loop-pr",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/pull/18418",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.488Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/pull/18418"
+      ],
+      "notes": "PR opened at 07:28:18Z and merged at 12:01:03Z. It removed the heuristic/adaptive stops across Qwen Code surfaces. The explicit positive hard cap and guard against identical replay of an answered provider call id remain. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-release-list",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=40",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.488Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=40"
+      ],
+      "notes": "The project-level release listing includes both stable releases, a TypeScript SDK repack of 0.28.6, and a subsequent nightly that explicitly lists both patches. No earlier stable publication of this pair is established by this listing. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-loop-api",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18418",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.490Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/pulls/18418"
+      ],
+      "notes": "REST distinguishes PR creation from merge. Current body confirms explicit positive-hard-cap and duplicate-ID exceptions to the release headline. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tree-pr",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/pull/18009",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.492Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/pull/18009"
+      ],
+      "notes": "PR opened November 21 and merged November 26 at 11:40:49Z. Eligible workspace roots manage retained checkout counts independently. Active and pinned sessions are preserved, zero disables automatic sweeping and the owner-verified snapshots can be restored in supported UI. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tree-api",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18009",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.496Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/pulls/18009"
+      ],
+      "notes": "REST metadata confirms earlier open and later merge; the body documents primary/secondary retained snapshots and named capability limits. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-compare",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/compare/v0.28.6...v0.28.7",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:09.960Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/compare/v0.28.6...v0.28.7"
+      ],
+      "notes": "Official release comparison is supporting context for the distinct stable milestones, not an earlier availability clock. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-portable",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/docs/users/configuration/settings.md",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:10.039Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/blob/v0.28.7/docs/users/configuration/settings.md"
+      ],
+      "notes": "Tagged settings reference describes the positive hard cap without the old default. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-npm",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://registry.npmjs.org/@qwen-code/qwen-code",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:10.145Z",
+      "resultUrls": [
+        "https://registry.npmjs.org/@qwen-code/qwen-code"
+      ],
+      "notes": "Registry records 0.28.7 published at 18:58:13.495Z as a separate distribution clock; gitHead equals release tag commit 3a9baf531a8e54793de635dc3ab0e21a51c3542f. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-clitag",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/git/ref/tags/v0.28.7",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.021Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/git/ref/tags/v0.28.7"
+      ],
+      "notes": "The release tag directly resolves to commit 3a9baf531a8e54793de635dc3ab0e21a51c3542f. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-cli-error",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/core/src/utils/errorParsing.ts#L31-L53",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.023Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/core/src/utils/errorParsing.ts#L31-L53"
+      ],
+      "notes": "Browser display URL for tagged diagnostic source returned an error; raw public tag source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-read-cli-turn",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/core/src/core/turn.ts#L360-L445",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.023Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/core/src/core/turn.ts#L360-L445"
+      ],
+      "notes": "Browser display URL for tagged turn code returned an error; raw public tag source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-read-cli-settings",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/cli/src/config/settingsSchema.ts#L4948-L4962",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.025Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/cli/src/config/settingsSchema.ts#L4948-L4962"
+      ],
+      "notes": "Browser display URL for tagged settings returned an error; raw public tag source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-read-cli-restore",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/web-shell/client/components/SessionOverviewPanel.tsx#L1095-L1181",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.026Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/web-shell/client/components/SessionOverviewPanel.tsx#L1095-L1181"
+      ],
+      "notes": "Browser display URL for the tag-pinned restore code returned an error; the raw public repository source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-read-loop-design",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/docs/design/2026-11-25-remove-loop-detection.md",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.027Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/blob/v0.28.7/docs/design/2026-11-25-remove-loop-detection.md"
+      ],
+      "notes": "Direct public source access during historical correction. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-failed-workflow",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/issues/18451",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.028Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/issues/18451"
+      ],
+      "notes": "Public issue created at 12:46:05Z reports an earlier failed release workflow. It does not invalidate the separately timed successful stable release and npm package. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-sdk-release",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.030Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36"
+      ],
+      "notes": "This distinct SDK publication at 06:46:04Z bundles the earlier CLI 0.28.6; no additional material for this issue. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-nightly-release",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.342Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b"
+      ],
+      "notes": "The later nightly at 22:47:52Z is marked prerelease and repeats the two selected changes after the stable release. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-sf-mirror",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://sourceforge.net/projects/qwen-code.mirror/files/v0.28.7/",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.487Z",
+      "resultUrls": [
+        "https://sourceforge.net/projects/qwen-code.mirror/files/v0.28.7/"
+      ],
+      "notes": "Read the SourceForge project mirror route returned by search. It mirrors the same Qwen Code version and is not a separate engineering release. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-desktop-action",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.532Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml"
+      ],
+      "notes": "Read the Desktop Release workflow index returned by search. This pipeline is distinct from the tagged CLI release. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-deskreleases",
+      "actor": "editor",
+      "method": "metadata",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=25&page=1",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:16.571Z",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=25&page=1"
+      ],
+      "notes": "Checked nearby release tags via public REST to avoid treating the general Desktop workflow as evidence that this CLI release shipped across every desktop channel. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-turn",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/core/turn.ts",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.658Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/core/turn.ts"
+      ],
+      "notes": "Tag-pinned turn implementation checks an already-answered ID for an identical call and handles repeated replay as a distinct stop path. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-error",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/utils/errorParsing.ts",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.667Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/utils/errorParsing.ts"
+      ],
+      "notes": "Tag-pinned error parsing maintains a provider-specific rejection diagnostic and /compress hint independently of prior heuristic detection. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-settings",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/cli/src/config/settingsSchema.ts",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.676Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/cli/src/config/settingsSchema.ts"
+      ],
+      "notes": "Tag-pinned settings keep positive configured per-turn limit and per-workspace count defaults. Worktree zero disables the automatic sweep. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-restore",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/web-shell/client/components/SessionOverviewPanel.tsx",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.677Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/web-shell/client/components/SessionOverviewPanel.tsx"
+      ],
+      "notes": "Tag-pinned snapshot restore in the Web Shell Session Overview runs for eligible retained sessions that can restore. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-cap",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/core/cap.ts",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.680Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/core/cap.ts"
+      ],
+      "notes": "This provisional path returned 404; the tagged settings/turn sources and merged PR were usable. HTTP 404."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-docs",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/docs/users/configuration/settings.md",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.681Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/docs/users/configuration/settings.md"
+      ],
+      "notes": "Tag-pinned settings documentation distinguishes the explicit cap with no default and describes worktree retention as a count. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-design",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/docs/design/2026-11-25-remove-loop-detection.md",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.708Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/docs/design/2026-11-25-remove-loop-detection.md"
+      ],
+      "notes": "Tag-pinned design explains named Qwen Code entry points, removed adaptive backstops and the independent cap/replay outcomes. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-read-tag-parity",
+      "actor": "editor",
+      "method": "open",
+      "query": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/cli/src/serve/capability-parity.ts",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:24:59.711Z",
+      "resultUrls": [
+        "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/cli/src/serve/capability-parity.ts"
+      ],
+      "notes": "Tag-pinned capability parity states that retained-chat worktree snapshot restore has no Managed equivalent; local daemon Web Shell is the supported surface. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-search-0",
+      "actor": "editor",
+      "method": "search",
+      "query": "\"Qwen Code\" \"0.28.7\" \"November 26\" stable release loop detection worktree 2026",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:31Z",
+      "resultUrls": [],
+      "notes": "Search returned no matching results. This does not establish public absence."
+    },
+    {
+      "id": "qwen-1127-correction-search-1",
+      "actor": "editor",
+      "method": "search",
+      "query": "\"Qwen Code\" \"v0.28.7\" 2026-11-26 工具调用上限 循环检测 工作树 发布",
+      "language": "zh",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:31Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+        "https://sourceforge.net/projects/qwen-code.mirror/files/v0.28.7/"
+      ],
+      "notes": "Scoped search for the release, prior disclosure and adjacent distribution surfaces."
+    },
+    {
+      "id": "qwen-1127-correction-search-2",
+      "actor": "editor",
+      "method": "search",
+      "query": "\"Qwen Code\" \"0.28.7\" after:2026-11-25 before:2026-11-28 \"18418\" OR \"18009\"",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:31Z",
+      "resultUrls": [],
+      "notes": "Search returned no matching results. This does not establish public absence."
+    },
+    {
+      "id": "qwen-1127-correction-search-3",
+      "actor": "editor",
+      "method": "search",
+      "query": "Qwen Code 0.28.7 November 26 2026 published release prior prerelease NPM GitHub changelog",
+      "language": "en",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "executedAt": "2026-11-27T05:22:31Z",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases"
+      ],
+      "notes": "Scoped search for the release, prior disclosure and adjacent distribution surfaces."
+    },
+    {
+      "id": "cor-review-q-en",
+      "actor": "coverage-reviewer",
+      "query": "\"Qwen Code\" \"v0.28.7\" November 26 2026 release QwenLM qwen-code changelog latest",
+      "executedAt": "2026-11-27T05:22:20Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases",
+        "https://github.com/QwenLM/qwen-code/issues"
+      ],
+      "notes": "Official release and project issue indexes returned; exact CLI page and package clock were checked independently. SDK/failed workflow hits are followed separately."
+    },
+    {
+      "id": "cor-review-q-zh",
+      "actor": "coverage-reviewer",
+      "query": "Qwen Code 0.28.7 2026年11月26日 27日 发布 发行 更新 阿里",
+      "executedAt": "2026-11-27T05:22:20Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "zh",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+        "https://aiticker.site/tools/qwen-code/releases/",
+        "https://github.com/QwenLM/qwen-code/releases"
+      ],
+      "notes": "Chinese-language query returned project desktop workflow, release index and release tracker. Tracker is discovery evidence only."
+    },
+    {
+      "id": "cor-review-q-open",
+      "actor": "coverage-reviewer",
+      "query": "Qwen Code 0.28.7 0.28.6 changelog 2026-11-26 2026-11-27 Qwen Agent workflow after:2026-11-25 before:2026-11-28",
+      "executedAt": "2026-11-27T05:22:20Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://en.wikipedia.org/wiki/Qwen"
+      ],
+      "notes": "Date-bounded open query returned only generic Qwen background, which contained no new CLI milestone."
+    },
+    {
+      "id": "cor-review-q-js",
+      "actor": "coverage-reviewer",
+      "query": "\"@qwen-code/qwen-code\" \"0.28.7\" November 26 npm version tracker",
+      "executedAt": "2026-11-27T05:22:20Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://security.snyk.io/package/npm/%40qwen-code%2Fqwen-code",
+        "https://automater.ai/resources/ai-tool-versions/",
+        "https://www.npmjs.com/package/%40qwen-code/qwen-code?activeTab=readme"
+      ],
+      "notes": "Registry/package searches returned npm, Snyk and a tracker; the npm registry time field was verified directly."
+    },
+    {
+      "id": "cor-review-q-ja",
+      "actor": "coverage-reviewer",
+      "query": "Qwen Code v0.28.7 2026年11月26日 リリース 修正 Qwen CLI",
+      "executedAt": "2026-11-27T05:22:20Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "ja",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+        "https://github.com/QwenLM/qwen-code/releases"
+      ],
+      "notes": "Japanese-language query returned official release and desktop workflow indexes; no additional independent Japan-specific report surfaced in these results."
+    },
+    {
+      "id": "cor-review-q-batch",
+      "actor": "coverage-reviewer",
+      "query": "\"Qwen Code\" \"v0.28.7\" November 26 2026 release QwenLM qwen-code changelog latest | Qwen Code 0.28.7 2026年11月26日 27日 发布 发行 更新 阿里 | Qwen Code 0.28.7 0.28.6 changelog 2026-11-26 2026-11-27 Qwen Agent workflow after:2026-11-25 before:2026-11-28",
+      "executedAt": "2026-11-27T05:21:49Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "multilingual",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases",
+        "https://github.com/QwenLM/qwen-code/issues",
+        "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+        "https://aiticker.site/tools/qwen-code/releases/"
+      ],
+      "notes": "Three independently issued search terms in one web call. Search results included the project release, issues, and desktop indexes plus a community tracker."
+    },
+    {
+      "id": "cor-review-web-1",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+      "executedAt": "2026-11-27T05:21:49Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7"
+      ],
+      "notes": "Exact release page fetched through the web tool."
+    },
+    {
+      "id": "cor-review-web-2",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+      "executedAt": "2026-11-27T05:21:49Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "The web tool returned unsupported for this REST URL. The independent normal HTTP read succeeded, recorded separately."
+    },
+    {
+      "id": "cor-review-web-3",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.6",
+      "executedAt": "2026-11-27T05:21:49Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.6"
+      ],
+      "notes": "Exact release page fetched through the web tool."
+    },
+    {
+      "id": "cor-review-q-issue",
+      "actor": "coverage-reviewer",
+      "query": "site:github.com/QwenLM/qwen-code \"Release Failed for v0.28.7 on 2026-11-26\"",
+      "executedAt": "2026-11-27T05:24:00Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/issues"
+      ],
+      "notes": "Exact search found release-workflow issue #18451 in project issue index."
+    },
+    {
+      "id": "cor-review-web-adj-1",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+      "executedAt": "2026-11-27T05:24:00Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml"
+      ],
+      "notes": "Opened official neighboring release or desktop workflow page; precise clocks taken from separate REST metadata reads."
+    },
+    {
+      "id": "cor-review-web-adj-2",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.36",
+      "executedAt": "2026-11-27T05:24:00Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.36"
+      ],
+      "notes": "Opened official neighboring release or desktop workflow page; precise clocks taken from separate REST metadata reads."
+    },
+    {
+      "id": "cor-review-web-adj-3",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.6-nightly.20261126.6b0cd79b",
+      "executedAt": "2026-11-27T05:24:00Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.6-nightly.20261126.6b0cd79b"
+      ],
+      "notes": "Opened official neighboring release or desktop workflow page; precise clocks taken from separate REST metadata reads."
+    },
+    {
+      "id": "cor-review-q-worktree",
+      "actor": "coverage-reviewer",
+      "query": "Qwen Code v0.28.7 worktree maxRetained 18009 QwenLM Qwen November 26 2026 CLI release",
+      "executedAt": "2026-11-27T05:24:46Z",
+      "method": "search",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://sourceforge.net/projects/qwen-code.mirror/files/v0.28.7/",
+        "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+        "https://github.com/QwenLM/qwen-code/releases"
+      ],
+      "notes": "Unofficial SourceForge mirror surfaced but was not used as release evidence; official checks follow separately."
+    },
+    {
+      "id": "cor-review-web-claim-1",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/pull/18009",
+      "executedAt": "2026-11-27T05:24:46Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/pull/18009"
+      ],
+      "notes": "Read official worktree PR, desktop action or failed-attempt issue directly."
+    },
+    {
+      "id": "cor-review-web-claim-2",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/actions/runs/45872967841",
+      "executedAt": "2026-11-27T05:24:46Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/actions/runs/45872967841"
+      ],
+      "notes": "Read official worktree PR, desktop action or failed-attempt issue directly."
+    },
+    {
+      "id": "cor-review-web-claim-3",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/issues/18451",
+      "executedAt": "2026-11-27T05:24:46Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/issues/18451"
+      ],
+      "notes": "Read official worktree PR, desktop action or failed-attempt issue directly."
+    },
+    {
+      "id": "cor-review-read-release7",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+      "executedAt": "2026-11-27T05:22:11.770Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7"
+      ],
+      "notes": "HTTP 200. published_at = 2026-11-26T18:04:26Z, draft=false, prerelease=false, release ID 459753067. Notes identify removal of heuristic looping/default adaptive tool-call caps, worktree retention/restore, source-level Harness product addition and Hosted Harness recovery. Stable CLI archives, OpenTUI previews and checksums are attached."
+    },
+    {
+      "id": "cor-review-read-release6",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6",
+      "executedAt": "2026-11-27T05:22:11.771Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6"
+      ],
+      "notes": "HTTP 200. Stable release published 05:51:04Z. Notes already document supported managed-session suspension/recovery and headless/Ink default event-bus kernel."
+    },
+    {
+      "id": "cor-review-read-release-list",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=18",
+      "executedAt": "2026-11-27T05:22:11.774Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=18"
+      ],
+      "notes": "HTTP 200. Observed .7, .6, TypeScript SDK v0.1.36, same-date .6 nightly and prior-day 1.0-preview.2 in the first response page. GitHub ordering is not equivalent to chronology."
+    },
+    {
+      "id": "cor-review-read-npm",
+      "actor": "coverage-reviewer",
+      "query": "https://registry.npmjs.org/@qwen-code%2fqwen-code",
+      "executedAt": "2026-11-27T05:22:11.774Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://registry.npmjs.org/@qwen-code%2fqwen-code"
+      ],
+      "notes": "HTTP 200. time[\"0.28.7\"] records package publication at 18:58:13.495Z. The registry lists the normal stable package and its qwen executable, not distribution of the distinct next workspace."
+    },
+    {
+      "id": "cor-review-read-page7",
+      "actor": "coverage-reviewer",
+      "query": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+      "executedAt": "2026-11-27T05:22:11.776Z",
+      "method": "open",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7"
+      ],
+      "notes": "HTTP 200. Fetched versioned GitHub public release notes and CLI assets. Scope and exact clock were corroborated by REST metadata."
+    },
+    {
+      "id": "cor-review-read-cmp",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/compare/v0.28.6...v0.28.7",
+      "executedAt": "2026-11-27T05:22:11.777Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/compare/v0.28.6...v0.28.7"
+      ],
+      "notes": "HTTP 200. GitHub reports divergent tag histories, so compare is not used as an exact chronological/public release clock or count of shipped changes."
+    },
+    {
+      "id": "cor-review-read-tags",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/git/ref/tags/v0.28.7",
+      "executedAt": "2026-11-27T05:22:11.778Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/git/ref/tags/v0.28.7"
+      ],
+      "notes": "HTTP 200. The tag points to 3a9baf531a8e54793de635dc3ab0e21a51c3542f. Tag/reference metadata is not public release time."
+    },
+    {
+      "id": "cor-review-read-pr-cli",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18351",
+      "executedAt": "2026-11-27T05:24:23.889Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/pulls/18351"
+      ],
+      "notes": "HTTP 200. Public PR was created Nov 25 11:36:40Z and merged Nov 26 02:23:21Z. It adds the @qwen-code/qwen-code-next workspace alongside the active package and explicitly says the PR itself publishes nothing. Usage statistics opt-in applies to this new product layer."
+    },
+    {
+      "id": "cor-review-read-pr-loop",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18418",
+      "executedAt": "2026-11-27T05:24:23.890Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/pulls/18418"
+      ],
+      "notes": "HTTP 200. Public PR created 07:28:18Z, merged 12:01:03Z. Explicit user-set integer per-turn hard caps and provider answered-call ID duplicate protection remain. PR and merge do not substitute for the stable release event."
+    },
+    {
+      "id": "cor-review-read-pr-handoff",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18443",
+      "executedAt": "2026-11-27T05:24:23.891Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/pulls/18443"
+      ],
+      "notes": "HTTP 200. Created at 11:18:31Z, merged 11:26:58Z. A takeover based on a durable release receipt ends the prior writer lease in the same transaction, within its documented conditions. No general exactly-once promise."
+    },
+    {
+      "id": "cor-review-read-failed-cli",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/issues/18451",
+      "executedAt": "2026-11-27T05:24:23.892Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/issues/18451"
+      ],
+      "notes": "HTTP 200. Workflow-generated issue created 12:46:05Z for failed attempt 45819801374, before 18:04:26Z stable release. This issue cannot negate later confirmed CLI availability."
+    },
+    {
+      "id": "cor-review-read-failed-sdk",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/issues/18471",
+      "executedAt": "2026-11-27T05:24:23.893Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/issues/18471"
+      ],
+      "notes": "HTTP 200. Workflow-generated issue records failed SDK build 45872967347, not a published SDK."
+    },
+    {
+      "id": "cor-review-read-desktop",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/actions/workflows/desktop-release.yml/runs?per_page=15",
+      "executedAt": "2026-11-27T05:24:23.893Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/actions/workflows/desktop-release.yml/runs?per_page=15"
+      ],
+      "notes": "HTTP 200. Desktop release v0.28.7 run #143 (45872967841) concluded failure. Separate workflow from stable CLI assets and npm. v0.28.6 desktop run #142 failed too; the .6 nightly desktop run was skipped."
+    },
+    {
+      "id": "cor-review-read-sdk",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36",
+      "executedAt": "2026-11-27T05:24:23.894Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36"
+      ],
+      "notes": "HTTP 200. First entry in SDK release notes names bundled v0.28.6 CLI, while older version numbers repeat below from history. No distinct high-significance platform shift documented."
+    },
+    {
+      "id": "cor-review-read-nightly",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b",
+      "executedAt": "2026-11-27T05:24:23.894Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b"
+      ],
+      "notes": "HTTP 200. The later GitHub release is explicitly marked prerelease. Repeats the stable .7 feature PRs covered here and includes additional follow-up code; does not supersede stable .7."
+    },
+    {
+      "id": "cor-review-read-preview",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v1.0.0-preview.2",
+      "executedAt": "2026-11-27T05:24:23.895Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v1.0.0-preview.2"
+      ],
+      "notes": "HTTP 200. Preview with Qwen4-Max subscription catalog and quota UI was published before the current reporting window. It neither dates nor substitutes for .7 stable distribution."
+    },
+    {
+      "id": "cor-review-read-npm-sdk",
+      "actor": "coverage-reviewer",
+      "query": "https://registry.npmjs.org/@qwen-code%2fqwen-code-sdk",
+      "executedAt": "2026-11-27T05:24:23.897Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [],
+      "notes": "HTTP 404. HTTP 404 for this guessed npm package name. The official GitHub SDK release is available; no claim about npm SDK distribution is inferred."
+    },
+    {
+      "id": "cor-review-read-pr-worktree",
+      "actor": "coverage-reviewer",
+      "query": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18009",
+      "executedAt": "2026-11-27T05:25:01.643Z",
+      "method": "metadata",
+      "focus": [
+        "agents",
+        "open-discovery"
+      ],
+      "language": "en",
+      "resultUrls": [
+        "https://api.github.com/repos/QwenLM/qwen-code/pulls/18009"
+      ],
+      "notes": "HTTP 200. PR created on Nov 21 and merged Nov 26 11:40:49Z. Trusted active non-internal workspaces use count-based per-owner retention; live and pinned chats are separate. Zero disables automatic sweeping, and existing retained worktree snapshots can still be restored if ownership, scope and bytes validate."
     }
   ],
   "sources": [
@@ -14117,6 +15241,632 @@
       "access": "search_only",
       "retrievedAt": "2026-11-27T02:04:08.131+00:00",
       "evidence": "Visible discovery title and link. The linked publisher was not verified by this inventory entry, and it is not used to prove a fact or publication time."
+    },
+    {
+      "id": "qwen-1127-correction-source-release",
+      "title": "Qwen Code · v0.28.7 发行说明",
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:10.270Z",
+      "evidence": "Official stable release includes the selected loop/cap and worktree changes. The general highlight is broader than the exceptions established by merged PR and tagged code. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:04:26Z",
+        "basis": "GitHub 发行页的 relative-time，与 REST published_at 一致。",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-release-api",
+      "title": "GitHub · Qwen Code v0.28.7 发行元数据",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:10.145Z",
+      "evidence": "GitHub REST published_at is 18:04:26Z; draft and prerelease are false. A release object and assets are listed separately from earlier merge or workflow clock. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:04:26Z",
+        "basis": "GitHub REST published_at；draft 和 prerelease 均为 false。",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-before-api",
+      "title": "before-api",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:10.038Z",
+      "evidence": "v0.28.6 was stable at 05:51:04Z. Its changelog describes session parking and resume and does not list #18418 or #18009. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T05:51:04Z",
+        "basis": "GitHub REST published_at for v0.28.6.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-loop-pr",
+      "title": "Qwen Code · 移除启发式循环判断（#18418）",
+      "url": "https://github.com/QwenLM/qwen-code/pull/18418",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.654Z",
+      "evidence": "PR opened at 07:28:18Z and merged at 12:01:03Z. It removed the heuristic/adaptive stops across Qwen Code surfaces. The explicit positive hard cap and guard against identical replay of an answered provider call id remain. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T07:28:18Z",
+        "basis": "GitHub 公开 PR 开立时间。更改于 12:01:03 UTC 合并，稳定版发行时间另计。",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/pull/18418"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-release-list",
+      "title": "release-list",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=40",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:10.710Z",
+      "evidence": "The project-level release listing includes both stable releases, a TypeScript SDK repack of 0.28.6, and a subsequent nightly that explicitly lists both patches. No earlier stable publication of this pair is established by this listing. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-loop-api",
+      "title": "loop-api",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18418",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:10.223Z",
+      "evidence": "REST distinguishes PR creation from merge. Current body confirms explicit positive-hard-cap and duplicate-ID exceptions to the release headline. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tree-pr",
+      "title": "Qwen Code · 按工作区保留与恢复工作树（#18009）",
+      "url": "https://github.com/QwenLM/qwen-code/pull/18009",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:12.413Z",
+      "evidence": "PR opened November 21 and merged November 26 at 11:40:49Z. Eligible workspace roots manage retained checkout counts independently. Active and pinned sessions are preserved, zero disables automatic sweeping and the owner-verified snapshots can be restored in supported UI. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T06:25:33Z",
+        "basis": "GitHub 公开 PR 开立时间。更改于 11 月 26 日 11:40:49 UTC 合并，稳定版发行时间另计。",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/pull/18009"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-tree-api",
+      "title": "tree-api",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18009",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:09.960Z",
+      "evidence": "REST metadata confirms earlier open and later merge; the body documents primary/secondary retained snapshots and named capability limits. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-compare",
+      "title": "compare",
+      "url": "https://github.com/QwenLM/qwen-code/compare/v0.28.6...v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:10.658Z",
+      "evidence": "Official release comparison is supporting context for the distinct stable milestones, not an earlier availability clock. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-portable",
+      "title": "portable",
+      "url": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/docs/users/configuration/settings.md",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.250Z",
+      "evidence": "Tagged settings reference describes the positive hard cap without the old default. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-npm",
+      "title": "npm",
+      "url": "https://registry.npmjs.org/@qwen-code/qwen-code",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:10.395Z",
+      "evidence": "Registry records 0.28.7 published at 18:58:13.495Z as a separate distribution clock; gitHead equals release tag commit 3a9baf531a8e54793de635dc3ab0e21a51c3542f. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:58:13.495Z",
+        "basis": "Registry packument time[\"0.28.7\"]; distinguishes package distribution from the earlier GitHub stable release.",
+        "sourceUrls": [
+          "https://registry.npmjs.org/@qwen-code/qwen-code"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-clitag",
+      "title": "clitag",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/git/ref/tags/v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:16.604Z",
+      "evidence": "The release tag directly resolves to commit 3a9baf531a8e54793de635dc3ab0e21a51c3542f. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-cli-error",
+      "title": "cli-error",
+      "url": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/core/src/utils/errorParsing.ts#L31-L53",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-27T05:24:16.571Z",
+      "evidence": "Browser display URL for tagged diagnostic source returned an error; raw public tag source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-source-cli-turn",
+      "title": "cli-turn",
+      "url": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/core/src/core/turn.ts#L360-L445",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-27T05:24:16.531Z",
+      "evidence": "Browser display URL for tagged turn code returned an error; raw public tag source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-source-cli-settings",
+      "title": "cli-settings",
+      "url": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/cli/src/config/settingsSchema.ts#L4948-L4962",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-27T05:24:16.487Z",
+      "evidence": "Browser display URL for tagged settings returned an error; raw public tag source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-source-cli-restore",
+      "title": "cli-restore",
+      "url": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/packages/web-shell/client/components/SessionOverviewPanel.tsx#L1095-L1181",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-27T05:24:16.341Z",
+      "evidence": "Browser display URL for the tag-pinned restore code returned an error; the raw public repository source was readable separately. HTTP 503."
+    },
+    {
+      "id": "qwen-1127-correction-source-loop-design",
+      "title": "loop-design",
+      "url": "https://github.com/QwenLM/qwen-code/blob/v0.28.7/docs/design/2026-11-25-remove-loop-detection.md",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:17.302Z",
+      "evidence": "Direct public source access during historical correction. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-failed-workflow",
+      "title": "failed-workflow",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/issues/18451",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:16.594Z",
+      "evidence": "Public issue created at 12:46:05Z reports an earlier failed release workflow. It does not invalidate the separately timed successful stable release and npm package. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T12:46:05Z",
+        "basis": "GitHub issue created_at for the public earlier-attempt failure report.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/issues/18451"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-sdk-release",
+      "title": "sdk-release",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:16.657Z",
+      "evidence": "This distinct SDK publication at 06:46:04Z bundles the earlier CLI 0.28.6; no additional material for this issue. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T06:46:04Z",
+        "basis": "GitHub REST published_at for the separately packaged TypeScript SDK.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-nightly-release",
+      "title": "nightly-release",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:16.836Z",
+      "evidence": "The later nightly at 22:47:52Z is marked prerelease and repeats the two selected changes after the stable release. HTTP 200.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T22:47:52Z",
+        "basis": "GitHub REST published_at; nightly is explicitly a prerelease.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b"
+        ]
+      }
+    },
+    {
+      "id": "qwen-1127-correction-source-sf-mirror",
+      "title": "sf-mirror",
+      "url": "https://sourceforge.net/projects/qwen-code.mirror/files/v0.28.7/",
+      "publisherKind": "secondary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:16.925Z",
+      "evidence": "Read the SourceForge project mirror route returned by search. It mirrors the same Qwen Code version and is not a separate engineering release. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-desktop-action",
+      "title": "desktop-action",
+      "url": "https://github.com/QwenLM/qwen-code/actions/workflows/desktop-release.yml",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:17.641Z",
+      "evidence": "Read the Desktop Release workflow index returned by search. This pipeline is distinct from the tagged CLI release. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-deskreleases",
+      "title": "deskreleases",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=25&page=1",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:17.502Z",
+      "evidence": "Checked nearby release tags via public REST to avoid treating the general Desktop workflow as evidence that this CLI release shipped across every desktop channel. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-turn",
+      "title": "tag-turn",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/core/turn.ts",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:00.204Z",
+      "evidence": "Tag-pinned turn implementation checks an already-answered ID for an identical call and handles repeated replay as a distinct stop path. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-error",
+      "title": "tag-error",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/utils/errorParsing.ts",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:00.191Z",
+      "evidence": "Tag-pinned error parsing maintains a provider-specific rejection diagnostic and /compress hint independently of prior heuristic detection. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-settings",
+      "title": "tag-settings",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/cli/src/config/settingsSchema.ts",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:00.292Z",
+      "evidence": "Tag-pinned settings keep positive configured per-turn limit and per-workspace count defaults. Worktree zero disables the automatic sweep. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-restore",
+      "title": "tag-restore",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/web-shell/client/components/SessionOverviewPanel.tsx",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:00.298Z",
+      "evidence": "Tag-pinned snapshot restore in the Web Shell Session Overview runs for eligible retained sessions that can restore. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-cap",
+      "title": "tag-cap",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/core/src/core/cap.ts",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-27T05:25:00.139Z",
+      "evidence": "This provisional path returned 404; the tagged settings/turn sources and merged PR were usable. HTTP 404."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-docs",
+      "title": "tag-docs",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/docs/users/configuration/settings.md",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:00.340Z",
+      "evidence": "Tag-pinned settings documentation distinguishes the explicit cap with no default and describes worktree retention as a count. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-design",
+      "title": "tag-design",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/docs/design/2026-11-25-remove-loop-detection.md",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:00.297Z",
+      "evidence": "Tag-pinned design explains named Qwen Code entry points, removed adaptive backstops and the independent cap/replay outcomes. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-source-tag-parity",
+      "title": "tag-parity",
+      "url": "https://raw.githubusercontent.com/QwenLM/qwen-code/v0.28.7/packages/cli/src/serve/capability-parity.ts",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:00.245Z",
+      "evidence": "Tag-pinned capability parity states that retained-chat worktree snapshot restore has no Managed equivalent; local daemon Web Shell is the supported surface. HTTP 200."
+    },
+    {
+      "id": "cor-review-src-api-web-failed",
+      "title": "Qwen Code v0.28.7 REST via web tool",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-27T05:21:49Z",
+      "evidence": "The web tool returned unsupported. A separate normal HTTP request fetched the same public REST resource successfully."
+    },
+    {
+      "id": "cor-review-src-release7",
+      "title": "v0.28.7 stable release REST",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.770Z",
+      "evidence": "published_at = 2026-11-26T18:04:26Z, draft=false, prerelease=false, release ID 459753067. Notes identify removal of heuristic looping/default adaptive tool-call caps, worktree retention/restore, source-level Harness product addition and Hosted Harness recovery. Stable CLI archives, OpenTUI previews and checksums are attached.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:04:26Z",
+        "basis": "GitHub REST release published_at.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-release6",
+      "title": "v0.28.6 stable release REST",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.771Z",
+      "evidence": "Stable release published 05:51:04Z. Notes already document supported managed-session suspension/recovery and headless/Ink default event-bus kernel.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T05:51:04Z",
+        "basis": "GitHub REST release published_at.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-release-list",
+      "title": "Qwen Code official GitHub REST releases list",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases?per_page=18",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.774Z",
+      "evidence": "Observed .7, .6, TypeScript SDK v0.1.36, same-date .6 nightly and prior-day 1.0-preview.2 in the first response page. GitHub ordering is not equivalent to chronology."
+    },
+    {
+      "id": "cor-review-src-npm",
+      "title": "npm registry for @qwen-code/qwen-code",
+      "url": "https://registry.npmjs.org/@qwen-code%2fqwen-code",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.774Z",
+      "evidence": "time[\"0.28.7\"] records package publication at 18:58:13.495Z. The registry lists the normal stable package and its qwen executable, not distribution of the distinct next workspace.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:58:13.495Z",
+        "basis": "npm registry time[\"0.28.7\"], separate from GitHub release published_at.",
+        "sourceUrls": [
+          "https://registry.npmjs.org/@qwen-code%2fqwen-code"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-page7",
+      "title": "v0.28.7 public release notes and assets",
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.776Z",
+      "evidence": "Fetched versioned GitHub public release notes and CLI assets. Scope and exact clock were corroborated by REST metadata.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:04:26Z",
+        "basis": "GitHub release page relative-time agrees with GitHub REST.",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-cmp",
+      "title": "GitHub REST tag comparison v0.28.6 to v0.28.7",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/compare/v0.28.6...v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.777Z",
+      "evidence": "GitHub reports divergent tag histories, so compare is not used as an exact chronological/public release clock or count of shipped changes."
+    },
+    {
+      "id": "cor-review-src-tags",
+      "title": "GitHub v0.28.7 git ref",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/git/ref/tags/v0.28.7",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:22:11.778Z",
+      "evidence": "The tag points to 3a9baf531a8e54793de635dc3ab0e21a51c3542f. Tag/reference metadata is not public release time."
+    },
+    {
+      "id": "cor-review-src-pr-cli",
+      "title": "PR #18351 Harness CLI product layer",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18351",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.889Z",
+      "evidence": "Public PR was created Nov 25 11:36:40Z and merged Nov 26 02:23:21Z. It adds the @qwen-code/qwen-code-next workspace alongside the active package and explicitly says the PR itself publishes nothing. Usage statistics opt-in applies to this new product layer.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-25T11:36:40Z",
+        "basis": "GitHub pull-request created_at, distinct from merge and stable release.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/pulls/18351"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-pr-loop",
+      "title": "PR #18418 loop detection/default cap removal",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18418",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.890Z",
+      "evidence": "Public PR created 07:28:18Z, merged 12:01:03Z. Explicit user-set integer per-turn hard caps and provider answered-call ID duplicate protection remain. PR and merge do not substitute for the stable release event.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T07:28:18Z",
+        "basis": "GitHub pull-request created_at, with merged_at independently available.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/pulls/18418"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-pr-handoff",
+      "title": "PR #18443 Hosted Harness lease handoff",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18443",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.891Z",
+      "evidence": "Created at 11:18:31Z, merged 11:26:58Z. A takeover based on a durable release receipt ends the prior writer lease in the same transaction, within its documented conditions. No general exactly-once promise.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T11:18:31Z",
+        "basis": "GitHub pull-request created_at, with merged_at independently available.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/pulls/18443"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-failed-cli",
+      "title": "Qwen Code issue #18451 earlier attempted v0.28.7 workflow",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/issues/18451",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.892Z",
+      "evidence": "Workflow-generated issue created 12:46:05Z for failed attempt 45819801374, before 18:04:26Z stable release. This issue cannot negate later confirmed CLI availability.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T12:46:05Z",
+        "basis": "GitHub issue created_at from REST.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/issues/18451"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-failed-sdk",
+      "title": "Qwen Code issue #18471 SDK v0.1.37 failed workflow",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/issues/18471",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.893Z",
+      "evidence": "Workflow-generated issue records failed SDK build 45872967347, not a published SDK.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T18:54:18Z",
+        "basis": "GitHub issue created_at from REST.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/issues/18471"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-desktop",
+      "title": "Desktop Release GitHub workflow runs",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/actions/workflows/desktop-release.yml/runs?per_page=15",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.893Z",
+      "evidence": "Desktop release v0.28.7 run #143 (45872967841) concluded failure. Separate workflow from stable CLI assets and npm. v0.28.6 desktop run #142 failed too; the .6 nightly desktop run was skipped."
+    },
+    {
+      "id": "cor-review-src-sdk",
+      "title": "Qwen Code TypeScript SDK v0.1.36",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.894Z",
+      "evidence": "First entry in SDK release notes names bundled v0.28.6 CLI, while older version numbers repeat below from history. No distinct high-significance platform shift documented.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T06:46:04Z",
+        "basis": "GitHub REST release published_at.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-nightly",
+      "title": "Qwen Code .6-branch nightly v0.28.6-nightly.20261126.6b0cd79b",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.894Z",
+      "evidence": "The later GitHub release is explicitly marked prerelease. Repeats the stable .7 feature PRs covered here and includes additional follow-up code; does not supersede stable .7.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-26T22:47:52Z",
+        "basis": "GitHub REST release published_at.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-preview",
+      "title": "Qwen Code v1.0.0-preview.2",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v1.0.0-preview.2",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:24:23.895Z",
+      "evidence": "Preview with Qwen4-Max subscription catalog and quota UI was published before the current reporting window. It neither dates nor substitutes for .7 stable distribution.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-25T06:37:49Z",
+        "basis": "GitHub REST release published_at.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v1.0.0-preview.2"
+        ]
+      }
+    },
+    {
+      "id": "cor-review-src-npm-sdk",
+      "title": "Speculative SDK npm registry package lookup",
+      "url": "https://registry.npmjs.org/@qwen-code%2fqwen-code-sdk",
+      "publisherKind": "primary",
+      "access": "access_failed",
+      "retrievedAt": "2026-11-27T05:24:23.897Z",
+      "evidence": "HTTP 404 for this guessed npm package name. The official GitHub SDK release is available; no claim about npm SDK distribution is inferred."
+    },
+    {
+      "id": "cor-review-src-pr-worktree",
+      "title": "PR #18009 worktree snapshot retention and restoration",
+      "url": "https://api.github.com/repos/QwenLM/qwen-code/pulls/18009",
+      "publisherKind": "primary",
+      "access": "fetched",
+      "retrievedAt": "2026-11-27T05:25:01.643Z",
+      "evidence": "PR created on Nov 21 and merged Nov 26 11:40:49Z. Trusted active non-internal workspaces use count-based per-owner retention; live and pinned chats are separate. Zero disables automatic sweeping, and existing retained worktree snapshots can still be restored if ownership, scope and bytes validate.",
+      "publication": {
+        "precision": "instant",
+        "value": "2026-11-21T06:25:33Z",
+        "basis": "GitHub pull-request created_at, with merged_at independently available.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/pulls/18009"
+        ]
+      }
     }
   ],
   "checks": [
@@ -17200,6 +18950,340 @@
         "sakana-marlin-upgrade"
       ],
       "notes": "Opened the public source and retained the access result; if dated event evidence was found it is recorded with the corresponding candidate. HTTP 200."
+    },
+    {
+      "id": "qwen-1127-correction-check-qwen-code-0287",
+      "target": "Qwen Code v0.28.7 调整工具调用限制并支持快照恢复",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:25:00.340Z",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-release",
+        "qwen-1127-correction-read-release-api",
+        "qwen-1127-correction-read-before-api",
+        "qwen-1127-correction-read-loop-pr",
+        "qwen-1127-correction-read-release-list",
+        "qwen-1127-correction-read-loop-api",
+        "qwen-1127-correction-read-tree-pr",
+        "qwen-1127-correction-read-tree-api",
+        "qwen-1127-correction-read-compare",
+        "qwen-1127-correction-read-portable",
+        "qwen-1127-correction-read-npm",
+        "qwen-1127-correction-read-clitag",
+        "qwen-1127-correction-read-cli-error",
+        "qwen-1127-correction-read-cli-turn",
+        "qwen-1127-correction-read-cli-settings",
+        "qwen-1127-correction-read-cli-restore",
+        "qwen-1127-correction-read-loop-design",
+        "qwen-1127-correction-read-failed-workflow",
+        "qwen-1127-correction-read-sdk-release",
+        "qwen-1127-correction-read-nightly-release",
+        "qwen-1127-correction-read-sf-mirror",
+        "qwen-1127-correction-read-desktop-action",
+        "qwen-1127-correction-read-deskreleases",
+        "qwen-1127-correction-read-tag-turn",
+        "qwen-1127-correction-read-tag-error",
+        "qwen-1127-correction-read-tag-settings",
+        "qwen-1127-correction-read-tag-restore",
+        "qwen-1127-correction-read-tag-cap",
+        "qwen-1127-correction-read-tag-docs",
+        "qwen-1127-correction-read-tag-design",
+        "qwen-1127-correction-read-tag-parity"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-release",
+        "qwen-1127-correction-source-release-api",
+        "qwen-1127-correction-source-before-api",
+        "qwen-1127-correction-source-loop-pr",
+        "qwen-1127-correction-source-release-list",
+        "qwen-1127-correction-source-loop-api",
+        "qwen-1127-correction-source-tree-pr",
+        "qwen-1127-correction-source-tree-api",
+        "qwen-1127-correction-source-compare",
+        "qwen-1127-correction-source-portable",
+        "qwen-1127-correction-source-npm",
+        "qwen-1127-correction-source-clitag",
+        "qwen-1127-correction-source-cli-error",
+        "qwen-1127-correction-source-cli-turn",
+        "qwen-1127-correction-source-cli-settings",
+        "qwen-1127-correction-source-cli-restore",
+        "qwen-1127-correction-source-loop-design",
+        "qwen-1127-correction-source-failed-workflow",
+        "qwen-1127-correction-source-sdk-release",
+        "qwen-1127-correction-source-nightly-release",
+        "qwen-1127-correction-source-sf-mirror",
+        "qwen-1127-correction-source-desktop-action",
+        "qwen-1127-correction-source-deskreleases",
+        "qwen-1127-correction-source-tag-turn",
+        "qwen-1127-correction-source-tag-error",
+        "qwen-1127-correction-source-tag-settings",
+        "qwen-1127-correction-source-tag-restore",
+        "qwen-1127-correction-source-tag-cap",
+        "qwen-1127-correction-source-tag-docs",
+        "qwen-1127-correction-source-tag-design",
+        "qwen-1127-correction-source-tag-parity"
+      ],
+      "candidateIds": [
+        "qwen-code-0287"
+      ],
+      "notes": "A newly recovered historical omission. Original issue and ledger mention the separate 05:51:04Z v0.28.6 only. Earlier public PRs disclose work in progress or merge rather than stable delivery. The 18:04:26Z stable release and later same-tag npm publication fell in the original window. The tagged implementation and PR text narrow the generalized release headline."
+    },
+    {
+      "id": "qwen-1127-correction-check-qwen-code-0287-failed-attempt",
+      "target": "Qwen Code v0.28.7 早期发布流程失败记录",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:16.594Z",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-failed-workflow",
+        "qwen-1127-correction-read-release-list"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-failed-workflow",
+        "qwen-1127-correction-source-release-list"
+      ],
+      "candidateIds": [
+        "qwen-code-0287-failed-attempt"
+      ],
+      "notes": "Internal CI attempt was publicly reported before the successful stable milestone. It changes neither current stable availability nor the selected technical changes."
+    },
+    {
+      "id": "qwen-1127-correction-check-qwen-code-sdk-0136",
+      "target": "Qwen Code TypeScript SDK 0.1.36",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:16.657Z",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-sdk-release",
+        "qwen-1127-correction-read-release-list"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-sdk-release",
+        "qwen-1127-correction-source-release-list"
+      ],
+      "candidateIds": [
+        "qwen-code-sdk-0136"
+      ],
+      "notes": "Verified separate SDK release bundles existing CLI v0.28.6 and contains no additional feature of comparable importance in the evidenced release notes."
+    },
+    {
+      "id": "qwen-1127-correction-check-qwen-code-nightly-20261126",
+      "target": "Qwen Code 11 月 26 日夜间构建",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:16.836Z",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-nightly-release",
+        "qwen-1127-correction-read-release-list"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-nightly-release",
+        "qwen-1127-correction-source-release-list"
+      ],
+      "candidateIds": [
+        "qwen-code-nightly-20261126"
+      ],
+      "notes": "Later explicit prerelease independently includes both selected changes. This later channel adds no comparatively material update beyond the already included stable release."
+    },
+    {
+      "id": "cor-review-check-qwen-code-0287",
+      "target": "Qwen Code v0.28.7 调整工具调用限制并支持快照恢复",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:25:01.643Z",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-q-zh",
+        "cor-review-q-ja",
+        "cor-review-q-worktree",
+        "cor-review-read-page7",
+        "cor-review-read-npm",
+        "cor-review-read-pr-loop",
+        "cor-review-read-pr-worktree",
+        "cor-review-read-release7"
+      ],
+      "sourceIds": [
+        "cor-review-src-release7",
+        "cor-review-src-page7",
+        "cor-review-src-npm",
+        "cor-review-src-pr-loop",
+        "cor-review-src-pr-worktree",
+        "cor-review-src-pr-cli",
+        "cor-review-src-pr-handoff"
+      ],
+      "candidateIds": [
+        "qwen-code-0287"
+      ],
+      "notes": "Separate stable GitHub release after v0.28.6, whose changes do not already account for heuristic loop/default cap removal and per-workspace retention and recovery. Default/adaptive client cap changes retain explicit limits and duplicate-ID protection. Stable CLI GitHub publication was 18:04:26Z and npm package publication was later. Relevant public PRs, initial failed CI attempt and separate failed Desktop workflow do not replace that event clock."
+    },
+    {
+      "id": "cor-review-check-qwen-code-sdk-ts-0136",
+      "target": "Qwen Code TypeScript SDK v0.1.36 随附 CLI v0.28.6",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:23.894Z",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-web-adj-2",
+        "cor-review-read-sdk"
+      ],
+      "sourceIds": [
+        "cor-review-src-sdk",
+        "cor-review-src-release6",
+        "cor-review-src-release-list"
+      ],
+      "candidateIds": [
+        "qwen-code-sdk-0136"
+      ],
+      "notes": "The already-reported v0.28.6 CLI was bundled into the separately tagged SDK. The official notes do not establish another material functionality change."
+    },
+    {
+      "id": "cor-review-check-qwen-code-0286-nightly-20261126",
+      "target": "Qwen Code v0.28.6 分支 11 月 26 日 nightly",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:23.894Z",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-web-adj-3",
+        "cor-review-read-nightly"
+      ],
+      "sourceIds": [
+        "cor-review-src-nightly",
+        "cor-review-src-release-list",
+        "cor-review-src-release7"
+      ],
+      "candidateIds": [
+        "qwen-code-nightly-20261126"
+      ],
+      "notes": "Marked prerelease; repeats the .7 features under review and includes follow-ups without a new major stable event. Do not interpret its later publication as newer stable version."
+    },
+    {
+      "id": "cor-review-check-qwen-code-0287-release-failed-attempt",
+      "target": "Qwen Code v0.28.7 较早的工作流失败记录",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:46Z",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-q-issue",
+        "cor-review-web-claim-3",
+        "cor-review-read-failed-cli"
+      ],
+      "sourceIds": [
+        "cor-review-src-failed-cli",
+        "cor-review-src-release7"
+      ],
+      "candidateIds": [
+        "qwen-code-0287-failed-attempt"
+      ],
+      "notes": "This 12:46:05Z automated issue predates the later actual v0.28.7 stable release; it is not evidence of continuing core-release failure."
+    },
+    {
+      "id": "cor-review-check-qwen-code-0287-desktop-workflow",
+      "target": "Qwen Code v0.28.7 Desktop 发布工作流失败",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:46Z",
+      "queryIds": [
+        "cor-review-q-zh",
+        "cor-review-q-ja",
+        "cor-review-web-claim-2",
+        "cor-review-read-desktop"
+      ],
+      "sourceIds": [
+        "cor-review-src-desktop",
+        "cor-review-src-release7",
+        "cor-review-src-npm"
+      ],
+      "candidateIds": [
+        "qwen-code-0287-desktop-workflow"
+      ],
+      "notes": "Independent Desktop workflow run #143 failed. Stable CLI release/archive and npm evidence establish CLI distribution; the editor makes no desktop availability claim."
+    },
+    {
+      "id": "cor-review-check-qwen-code-sdk-ts-0137-workflow",
+      "target": "Qwen Code TypeScript SDK v0.1.37 发布工作流失败",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:23.893Z",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-read-failed-sdk"
+      ],
+      "sourceIds": [
+        "cor-review-src-failed-sdk",
+        "cor-review-src-release-list"
+      ],
+      "candidateIds": [
+        "qwen-code-sdk-ts-0137-workflow"
+      ],
+      "notes": "Automated SDK failure issue without verified published SDK version in the official adjacent release listing. Operational noise for this correction."
+    },
+    {
+      "id": "cor-review-check-qwen-code-100-preview2",
+      "target": "Qwen Code v1.0.0-preview.2",
+      "category": "agents",
+      "status": "candidate",
+      "checkedAt": "2026-11-27T05:24:23.895Z",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-read-preview"
+      ],
+      "sourceIds": [
+        "cor-review-src-preview",
+        "cor-review-src-release-list"
+      ],
+      "candidateIds": [
+        "qwen-code-100-preview2"
+      ],
+      "notes": "Official release date is November 25 06:37:49Z, before the 11-27 issue window opened."
+    },
+    {
+      "id": "cor-review-check-open-api",
+      "target": "GitHub REST through web runtime",
+      "category": "agents",
+      "status": "access_failed",
+      "queryIds": [
+        "cor-review-web-2"
+      ],
+      "sourceIds": [
+        "cor-review-src-api-web-failed"
+      ],
+      "candidateIds": [],
+      "notes": "Web tool reports unsupported. Standard fetch of direct official public JSON is separately recorded as successful.",
+      "checkedAt": "2026-11-27T05:21:49Z"
+    },
+    {
+      "id": "cor-review-check-sdk-registry",
+      "target": "Speculative SDK package identifier",
+      "category": "agents",
+      "status": "access_failed",
+      "queryIds": [
+        "cor-review-read-npm-sdk"
+      ],
+      "sourceIds": [
+        "cor-review-src-npm-sdk"
+      ],
+      "candidateIds": [],
+      "notes": "The guessed name returned HTTP 404. Separate successful SDK GitHub metadata is sufficient for the release-note claim.",
+      "checkedAt": "2026-11-27T05:24:23.897Z"
     }
   ],
   "candidates": [
@@ -26749,6 +28833,299 @@
       "reasonCode": "insufficient_evidence",
       "reason": "A potentially relevant search result was returned; no original in-window event and sufficiently consequential update could be established from the reviewed information. Search-only evidence was not promoted.",
       "importance": "Retained from the relevant-result inventory so the separate reviewer can audit potential omissions."
+    },
+    {
+      "id": "qwen-code-0287",
+      "title": "Qwen Code v0.28.7 调整工具调用限制并支持快照恢复",
+      "category": "agents",
+      "entity": "Qwen Code",
+      "releaseStatus": "released",
+      "decision": "include",
+      "reasonCode": "selected",
+      "reason": "A newly recovered historical omission. Original issue and ledger mention the separate 05:51:04Z v0.28.6 only. Earlier public PRs disclose work in progress or merge rather than stable delivery. The 18:04:26Z stable release and later same-tag npm publication fell in the original window. The tagged implementation and PR text narrow the generalized release headline.",
+      "importance": "The stable release changes default termination behavior across the product and adds per-workspace checkout retention and an owner-checked restoration path. This has direct significance for unattended workflows and worktree recovery.",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-release",
+        "qwen-1127-correction-read-release-api",
+        "qwen-1127-correction-read-before-api",
+        "qwen-1127-correction-read-loop-pr",
+        "qwen-1127-correction-read-release-list",
+        "qwen-1127-correction-read-loop-api",
+        "qwen-1127-correction-read-tree-pr",
+        "qwen-1127-correction-read-tree-api",
+        "qwen-1127-correction-read-compare",
+        "qwen-1127-correction-read-portable",
+        "qwen-1127-correction-read-npm",
+        "qwen-1127-correction-read-clitag",
+        "qwen-1127-correction-read-cli-error",
+        "qwen-1127-correction-read-cli-turn",
+        "qwen-1127-correction-read-cli-settings",
+        "qwen-1127-correction-read-cli-restore",
+        "qwen-1127-correction-read-loop-design",
+        "qwen-1127-correction-read-failed-workflow",
+        "qwen-1127-correction-read-sdk-release",
+        "qwen-1127-correction-read-nightly-release",
+        "qwen-1127-correction-read-sf-mirror",
+        "qwen-1127-correction-read-desktop-action",
+        "qwen-1127-correction-read-deskreleases",
+        "qwen-1127-correction-read-tag-turn",
+        "qwen-1127-correction-read-tag-error",
+        "qwen-1127-correction-read-tag-settings",
+        "qwen-1127-correction-read-tag-restore",
+        "qwen-1127-correction-read-tag-cap",
+        "qwen-1127-correction-read-tag-docs",
+        "qwen-1127-correction-read-tag-design",
+        "qwen-1127-correction-read-tag-parity",
+        "cor-review-q-en",
+        "cor-review-q-zh",
+        "cor-review-q-ja",
+        "cor-review-q-worktree",
+        "cor-review-read-page7",
+        "cor-review-read-npm",
+        "cor-review-read-pr-loop",
+        "cor-review-read-pr-worktree",
+        "cor-review-read-release7"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-release",
+        "qwen-1127-correction-source-release-api",
+        "qwen-1127-correction-source-before-api",
+        "qwen-1127-correction-source-loop-pr",
+        "qwen-1127-correction-source-release-list",
+        "qwen-1127-correction-source-loop-api",
+        "qwen-1127-correction-source-tree-pr",
+        "qwen-1127-correction-source-tree-api",
+        "qwen-1127-correction-source-compare",
+        "qwen-1127-correction-source-portable",
+        "qwen-1127-correction-source-npm",
+        "qwen-1127-correction-source-clitag",
+        "qwen-1127-correction-source-cli-error",
+        "qwen-1127-correction-source-cli-turn",
+        "qwen-1127-correction-source-cli-settings",
+        "qwen-1127-correction-source-cli-restore",
+        "qwen-1127-correction-source-loop-design",
+        "qwen-1127-correction-source-failed-workflow",
+        "qwen-1127-correction-source-sdk-release",
+        "qwen-1127-correction-source-nightly-release",
+        "qwen-1127-correction-source-sf-mirror",
+        "qwen-1127-correction-source-desktop-action",
+        "qwen-1127-correction-source-deskreleases",
+        "qwen-1127-correction-source-tag-turn",
+        "qwen-1127-correction-source-tag-error",
+        "qwen-1127-correction-source-tag-settings",
+        "qwen-1127-correction-source-tag-restore",
+        "qwen-1127-correction-source-tag-cap",
+        "qwen-1127-correction-source-tag-docs",
+        "qwen-1127-correction-source-tag-design",
+        "qwen-1127-correction-source-tag-parity",
+        "cor-review-src-release7",
+        "cor-review-src-page7",
+        "cor-review-src-npm",
+        "cor-review-src-pr-loop",
+        "cor-review-src-pr-worktree",
+        "cor-review-src-pr-cli",
+        "cor-review-src-pr-handoff"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-26T18:04:26Z",
+        "basis": "GitHub 正式发行页和 REST published_at 一致。此时间对应稳定版发布，与 PR 合并及 npm 包上传分别记录。",
+        "sourceUrls": [
+          "https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7",
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.7"
+        ]
+      }
+    },
+    {
+      "id": "qwen-code-0287-failed-attempt",
+      "title": "Qwen Code v0.28.7 早期发布流程失败记录",
+      "category": "agents",
+      "entity": "Qwen Code",
+      "releaseStatus": "reported",
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Internal CI attempt was publicly reported before the successful stable milestone. It changes neither current stable availability nor the selected technical changes.",
+      "importance": "A distinct release-related lead was considered to test chronology and duplicate availability.",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-failed-workflow",
+        "qwen-1127-correction-read-release-list",
+        "cor-review-q-en",
+        "cor-review-q-issue",
+        "cor-review-web-claim-3",
+        "cor-review-read-failed-cli"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-failed-workflow",
+        "qwen-1127-correction-source-release-list",
+        "cor-review-src-failed-cli",
+        "cor-review-src-release7"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-26T12:46:05Z",
+        "basis": "GitHub issue created_at for the public earlier-attempt failure report.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/issues/18451"
+        ]
+      }
+    },
+    {
+      "id": "qwen-code-sdk-0136",
+      "title": "Qwen Code TypeScript SDK 0.1.36",
+      "category": "agents",
+      "entity": "Qwen Code",
+      "releaseStatus": "released",
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Verified separate SDK release bundles existing CLI v0.28.6 and contains no additional feature of comparable importance in the evidenced release notes.",
+      "importance": "A distinct release-related lead was considered to test chronology and duplicate availability.",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-sdk-release",
+        "qwen-1127-correction-read-release-list",
+        "cor-review-q-en",
+        "cor-review-web-adj-2",
+        "cor-review-read-sdk"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-sdk-release",
+        "qwen-1127-correction-source-release-list",
+        "cor-review-src-sdk",
+        "cor-review-src-release6",
+        "cor-review-src-release-list"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-26T06:46:04Z",
+        "basis": "GitHub REST published_at for the separately packaged TypeScript SDK.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/sdk-typescript-v0.1.36"
+        ]
+      }
+    },
+    {
+      "id": "qwen-code-nightly-20261126",
+      "title": "Qwen Code 11 月 26 日夜间构建",
+      "category": "agents",
+      "entity": "Qwen Code",
+      "releaseStatus": "preview",
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Later explicit prerelease independently includes both selected changes. This later channel adds no comparatively material update beyond the already included stable release.",
+      "importance": "A distinct release-related lead was considered to test chronology and duplicate availability.",
+      "queryIds": [
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "qwen-1127-correction-read-nightly-release",
+        "qwen-1127-correction-read-release-list",
+        "cor-review-q-en",
+        "cor-review-web-adj-3",
+        "cor-review-read-nightly"
+      ],
+      "sourceIds": [
+        "qwen-1127-correction-source-nightly-release",
+        "qwen-1127-correction-source-release-list",
+        "cor-review-src-nightly",
+        "cor-review-src-release-list",
+        "cor-review-src-release7"
+      ],
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-26T22:47:52Z",
+        "basis": "GitHub REST published_at; nightly is explicitly a prerelease.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v0.28.6-nightly.20261126.6b0cd79b"
+        ]
+      }
+    },
+    {
+      "id": "qwen-code-0287-desktop-workflow",
+      "title": "Qwen Code v0.28.7 Desktop 发布工作流失败",
+      "category": "agents",
+      "entity": "Qwen Code",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "cor-review-q-zh",
+        "cor-review-q-ja",
+        "cor-review-web-claim-2",
+        "cor-review-read-desktop"
+      ],
+      "sourceIds": [
+        "cor-review-src-desktop",
+        "cor-review-src-release7",
+        "cor-review-src-npm"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Independent Desktop workflow run #143 failed. Stable CLI release/archive and npm evidence establish CLI distribution; the editor makes no desktop availability claim.",
+      "importance": "Limits which distribution channel can be claimed."
+    },
+    {
+      "id": "qwen-code-sdk-ts-0137-workflow",
+      "title": "Qwen Code TypeScript SDK v0.1.37 发布工作流失败",
+      "category": "agents",
+      "entity": "Qwen Code",
+      "releaseStatus": "reported",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-read-failed-sdk"
+      ],
+      "sourceIds": [
+        "cor-review-src-failed-sdk",
+        "cor-review-src-release-list"
+      ],
+      "decision": "exclude",
+      "reasonCode": "low_significance",
+      "reason": "Automated SDK failure issue without verified published SDK version in the official adjacent release listing. Operational noise for this correction.",
+      "importance": "Avoids confusing a proposed packaging attempt with a public SDK release.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-26T18:54:18Z",
+        "basis": "GitHub issue created_at from REST.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/issues/18471"
+        ]
+      }
+    },
+    {
+      "id": "qwen-code-100-preview2",
+      "title": "Qwen Code v1.0.0-preview.2",
+      "category": "agents",
+      "entity": "Qwen Code",
+      "releaseStatus": "preview",
+      "queryIds": [
+        "cor-review-q-en",
+        "cor-review-read-preview"
+      ],
+      "sourceIds": [
+        "cor-review-src-preview",
+        "cor-review-src-release-list"
+      ],
+      "decision": "exclude",
+      "reasonCode": "outside_window",
+      "reason": "Official release date is November 25 06:37:49Z, before the 11-27 issue window opened.",
+      "importance": "Predecessor preview for scope and chronology only.",
+      "eventTime": {
+        "precision": "instant",
+        "value": "2026-11-25T06:37:49Z",
+        "basis": "GitHub REST release published_at.",
+        "sourceUrls": [
+          "https://api.github.com/repos/QwenLM/qwen-code/releases/tags/v1.0.0-preview.2"
+        ]
+      }
     }
   ],
   "coverage": [
@@ -27385,7 +29762,77 @@
         "cov-xo-digest-aima-0",
         "cov-xo-digest-aima-1",
         "cov-xo-digest-workspace-0",
-        "cov-xo-digest-workspace-1"
+        "cov-xo-digest-workspace-1",
+        "qwen-1127-correction-read-release",
+        "qwen-1127-correction-read-release-api",
+        "qwen-1127-correction-read-before-api",
+        "qwen-1127-correction-read-loop-pr",
+        "qwen-1127-correction-read-release-list",
+        "qwen-1127-correction-read-loop-api",
+        "qwen-1127-correction-read-tree-pr",
+        "qwen-1127-correction-read-tree-api",
+        "qwen-1127-correction-read-compare",
+        "qwen-1127-correction-read-portable",
+        "qwen-1127-correction-read-npm",
+        "qwen-1127-correction-read-clitag",
+        "qwen-1127-correction-read-cli-error",
+        "qwen-1127-correction-read-cli-turn",
+        "qwen-1127-correction-read-cli-settings",
+        "qwen-1127-correction-read-cli-restore",
+        "qwen-1127-correction-read-loop-design",
+        "qwen-1127-correction-read-failed-workflow",
+        "qwen-1127-correction-read-sdk-release",
+        "qwen-1127-correction-read-nightly-release",
+        "qwen-1127-correction-read-sf-mirror",
+        "qwen-1127-correction-read-desktop-action",
+        "qwen-1127-correction-read-deskreleases",
+        "qwen-1127-correction-read-tag-turn",
+        "qwen-1127-correction-read-tag-error",
+        "qwen-1127-correction-read-tag-settings",
+        "qwen-1127-correction-read-tag-restore",
+        "qwen-1127-correction-read-tag-cap",
+        "qwen-1127-correction-read-tag-docs",
+        "qwen-1127-correction-read-tag-design",
+        "qwen-1127-correction-read-tag-parity",
+        "qwen-1127-correction-search-0",
+        "qwen-1127-correction-search-1",
+        "qwen-1127-correction-search-2",
+        "qwen-1127-correction-search-3",
+        "cor-review-q-en",
+        "cor-review-q-zh",
+        "cor-review-q-open",
+        "cor-review-q-js",
+        "cor-review-q-ja",
+        "cor-review-q-batch",
+        "cor-review-web-1",
+        "cor-review-web-2",
+        "cor-review-web-3",
+        "cor-review-q-issue",
+        "cor-review-web-adj-1",
+        "cor-review-web-adj-2",
+        "cor-review-web-adj-3",
+        "cor-review-q-worktree",
+        "cor-review-web-claim-1",
+        "cor-review-web-claim-2",
+        "cor-review-web-claim-3",
+        "cor-review-read-release7",
+        "cor-review-read-release6",
+        "cor-review-read-release-list",
+        "cor-review-read-npm",
+        "cor-review-read-page7",
+        "cor-review-read-cmp",
+        "cor-review-read-tags",
+        "cor-review-read-pr-cli",
+        "cor-review-read-pr-loop",
+        "cor-review-read-pr-handoff",
+        "cor-review-read-failed-cli",
+        "cor-review-read-failed-sdk",
+        "cor-review-read-desktop",
+        "cor-review-read-sdk",
+        "cor-review-read-nightly",
+        "cor-review-read-preview",
+        "cor-review-read-npm-sdk",
+        "cor-review-read-pr-worktree"
       ],
       "checkIds": [
         "cov-check-sakana-marlin",
@@ -27432,9 +29879,22 @@
         "editor-scope-openai-changelog",
         "editor-scope-hn-app",
         "editor-scope-workspace-mcp",
-        "editor-scope-sakana-index"
+        "editor-scope-sakana-index",
+        "qwen-1127-correction-check-qwen-code-0287",
+        "qwen-1127-correction-check-qwen-code-0287-failed-attempt",
+        "qwen-1127-correction-check-qwen-code-sdk-0136",
+        "qwen-1127-correction-check-qwen-code-nightly-20261126",
+        "cor-review-check-qwen-code-0287",
+        "cor-review-check-qwen-code-sdk-ts-0136",
+        "cor-review-check-qwen-code-0286-nightly-20261126",
+        "cor-review-check-qwen-code-0287-release-failed-attempt",
+        "cor-review-check-qwen-code-0287-desktop-workflow",
+        "cor-review-check-qwen-code-sdk-ts-0137-workflow",
+        "cor-review-check-qwen-code-100-preview2",
+        "cor-review-check-open-api",
+        "cor-review-check-sdk-registry"
       ],
-      "assessment": "Reviewed vendor changelogs, official repository metadata, foundation releases, Japanese agent products and independent Show HN leads. Some account-specific announcements and projects could not be confirmed outside social and community sources."
+      "assessment": "Reviewed vendor changelogs, official repository metadata, foundation releases, Japanese agent products and independent Show HN leads. Some account-specific announcements and projects could not be confirmed outside social and community sources. The same-link correction revisited the project-wide release chronology after finding a record limited to one exact tag. New repository, registry and independent searches support the stable CLI update and bound related workflow failures and distribution variants. The other issue topics retain their original review and limitations."
     }
   ],
   "discovery": {
@@ -27567,13 +30027,25 @@
       "cov-x-aima-one",
       "cov-x-guange-one",
       "cov-x-sap-one",
-      "cov-x-workspace-one"
+      "cov-x-workspace-one",
+      "qwen-1127-correction-search-0",
+      "qwen-1127-correction-search-1",
+      "qwen-1127-correction-search-2",
+      "qwen-1127-correction-search-3",
+      "cor-review-q-en",
+      "cor-review-q-zh",
+      "cor-review-q-open",
+      "cor-review-q-js",
+      "cor-review-q-ja",
+      "cor-review-q-batch",
+      "cor-review-q-issue",
+      "cor-review-q-worktree"
     ],
-    "assessment": "Discovery included multilingual general/sector sources, direct research and standards routes, funding bylines, launch databases, HN Show and cross-checks by the independent reviewer. Search results, direct links and relevant nested leads were preserved. Publisher subscriptions and holiday delays limit the evaluated sample."
+    "assessment": "Discovery included multilingual general/sector sources, direct research and standards routes, funding bylines, launch databases, HN Show and cross-checks by the independent reviewer. Search results, direct links and relevant nested leads were preserved. Publisher subscriptions and holiday delays limit the evaluated sample. The scoped release correction adds independent bilingual and first-party distribution discovery. It does not retrospectively treat the new work as original collection."
   },
   "review": {
     "reviewer": "coverage-reviewer",
-    "reviewedAt": "2026-11-27T02:23:59Z",
+    "reviewedAt": "2026-11-27T05:28:25.909Z",
     "candidateIds": [
       "reuters-china-models",
       "bharatgen-patram-15",
@@ -28033,7 +30505,14 @@
       "editor-lead-335",
       "editor-lead-336",
       "editor-lead-337",
-      "editor-lead-338"
+      "editor-lead-338",
+      "qwen-code-0287",
+      "qwen-code-0287-failed-attempt",
+      "qwen-code-sdk-0136",
+      "qwen-code-nightly-20261126",
+      "qwen-code-0287-desktop-workflow",
+      "qwen-code-sdk-ts-0137-workflow",
+      "qwen-code-100-preview2"
     ],
     "queryIds": [
       "cov-cn-product",
@@ -28214,7 +30693,42 @@
       "cov-xo-digest-sap-1",
       "cov-xo-digest-sap-2",
       "cov-xo-digest-sap-planqc-0",
-      "cov-xo-digest-audun-0"
+      "cov-xo-digest-audun-0",
+      "cor-review-q-en",
+      "cor-review-q-zh",
+      "cor-review-q-open",
+      "cor-review-q-js",
+      "cor-review-q-ja",
+      "cor-review-q-batch",
+      "cor-review-web-1",
+      "cor-review-web-2",
+      "cor-review-web-3",
+      "cor-review-q-issue",
+      "cor-review-web-adj-1",
+      "cor-review-web-adj-2",
+      "cor-review-web-adj-3",
+      "cor-review-q-worktree",
+      "cor-review-web-claim-1",
+      "cor-review-web-claim-2",
+      "cor-review-web-claim-3",
+      "cor-review-read-release7",
+      "cor-review-read-release6",
+      "cor-review-read-release-list",
+      "cor-review-read-npm",
+      "cor-review-read-page7",
+      "cor-review-read-cmp",
+      "cor-review-read-tags",
+      "cor-review-read-pr-cli",
+      "cor-review-read-pr-loop",
+      "cor-review-read-pr-handoff",
+      "cor-review-read-failed-cli",
+      "cor-review-read-failed-sdk",
+      "cor-review-read-desktop",
+      "cor-review-read-sdk",
+      "cor-review-read-nightly",
+      "cor-review-read-preview",
+      "cor-review-read-npm-sdk",
+      "cor-review-read-pr-worktree"
     ],
     "verdict": "pass_with_limits",
     "report": "docs/daily/reviews/2026-11-27.md",
@@ -28231,6 +30745,21 @@
       },
       {
         "detail": "Search, public source and publisher access remain sampled. Direct X, archive, paywalled and regional funding access were bounded. JEV, Laya and OSC remain unresolved, as does Microsoft CogACT2 checkpoint availability.",
+        "severity": "note",
+        "resolution": "disclosed"
+      },
+      {
+        "detail": "Reopened the full 466-candidate ledger and checked original scope and immutable provenance against the 459 signed records. No original candidate, query, source, or check was changed or removed. Candidate/article membership is 20 confirmed, one time-boundary item, 82 excluded and 363 pending.",
+        "severity": "note",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "The original window omitted stable Qwen Code v0.28.7 (2026-11-26T18:04:26Z). Independent multilingual discovery and direct GitHub release/REST, npm and PR checks separated the stable CLI release, precursor PRs, npm upload, earlier failed CI attempt and separate Desktop failure. The same-link correction adds the supported tool-limit and worktree changes, scopes the preserved per-turn cap, and uses chronology without the ambiguous same-calendar-day claim. The v0.28.6 entry remains independently supported.",
+        "severity": "blocking",
+        "resolution": "fixed"
+      },
+      {
+        "detail": "Reviewed and dispositioned all six new adjacent leads: the earlier stable-workflow failure, a subsequent nightly, two SDK leads, the separate Desktop workflow failure, and a prior-day preview. A tool-specific REST open and a speculative SDK registry URL failed; a direct public GitHub REST response and official SDK release were available for the actual claims. The review is targeted to this correction. The original global search and publisher-access limits still apply.",
         "severity": "note",
         "resolution": "disclosed"
       }
@@ -28254,6 +30783,7 @@
       "thomson-11-interview",
       "llamacpp-110",
       "qwen-code-0286",
+      "qwen-code-0287",
       "ming-image-02",
       "xebo-series-a",
       "hearwell-financing",
@@ -28263,6 +30793,7 @@
       "molt-paper-window"
     ],
     "limitations": "Public discovery in Chinese, English, Japanese, French, Spanish, Korean and German. Search results, direct checks and independent review sample public channels rather than exhaust them. Holiday indexing, X 403, paywalls, inaccessible PR and paper publication hour uncertainty remain. JEV, Laya and OSC unconfirmed.",
-    "sha256": "82520311108699273466e1e855431d23836a52225ecfa401c7cdf41fde8c539a"
+    "sha256": "965653491094e7b63202292025a718554704b613e2c611ddf53d70c1f26df19f",
+    "originalDate": "2026-11-27T02:16:54.170+00:00"
   }
 }
